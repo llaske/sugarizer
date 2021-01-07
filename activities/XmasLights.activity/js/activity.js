@@ -45,7 +45,7 @@ var app = new Vue({
 		draggedItem: null,
 		size: initSize,
 		blinkTime: initBlinkTime,
-		message: initMessageContent,
+		message: "",
 		messageStyle: {
 			color: initMessageColor,
 			fontWeight: 'normal',
@@ -77,34 +77,6 @@ var app = new Vue({
 
 	created() {
 		let vm = this;
-		let content = [];
-
-		// Load activities list
-		_loadActivities().then(function(activities) {
-			// Load an convert to pure SVG each icon
-			activities.push({directory:"activities/XmasLights.activity",icon:"icons/color.svg",id:"color"});
-			let len = activities.length;
-			for (let i = 0 ; i < len ; i++) {
-				let activity = activities[i];
-				_loadIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
-					content[activity.id] = svg;
-					if (Object.keys(content).length == len) {
-						let keys = [...Object.keys(content)];
-						keys.sort();
-						keys.forEach(function(id) {
-							vm.activitiesIcons[id] = content[id];
-							if (Object.keys(vm.activitiesIcons).length == len) {
-								vm.generateGrid();
-								vm.blink();
-							}
-						});
-					}
-				});
-			}
-		});
-		_loadIcon("../../activities/XmasLights.activity/icons/random.svg").then(function(svg) {
-			vm.randomIcon = svg;
-		});
 
 		// Resize dynamically grid
 		let message = document.getElementById("message");
@@ -125,6 +97,40 @@ var app = new Vue({
 	},
 
 	methods: {
+		// initialize
+		initialize: function() {
+			let vm = this;
+			return new Promise(function(resolve, reject) {
+				let content = [];
+
+				// Load activities list
+				_loadActivities().then(function(activities) {
+					// Load an convert to pure SVG each icon
+					activities.push({directory:"activities/XmasLights.activity",icon:"icons/color.svg",id:"color"});
+					let len = activities.length;
+					for (let i = 0 ; i < len ; i++) {
+						let activity = activities[i];
+						_loadIcon("../../"+activity.directory+"/"+activity.icon).then(function(svg) {
+							content[activity.id] = svg;
+							if (Object.keys(content).length == len) {
+								let keys = [...Object.keys(content)];
+								keys.sort();
+								keys.forEach(function(id) {
+									vm.activitiesIcons[id] = content[id];
+									if (Object.keys(vm.activitiesIcons).length == len) {
+										resolve();
+									}
+								});
+							}
+						});
+					}
+				});
+				_loadIcon("../../activities/XmasLights.activity/icons/random.svg").then(function(svg) {
+					vm.randomIcon = svg;
+				});
+			});
+		},
+
 		// Localize strings
 		localized: function() {
 			let vm = this;
@@ -447,8 +453,19 @@ var app = new Vue({
 			vm.blinkTime = data.blinkTime;
 			vm.message = data.message;
 			vm.messageStyle = data.messageStyle;
-			vm.generateGrid();
-			vm.blink();
+			vm.initialize().then(function() {
+				vm.generateGrid();
+				vm.blink();
+			});
+		},
+
+		onJournalNewInstance: function() {
+			let vm = this;
+			vm.message = initMessageContent;
+			vm.initialize().then(function() {
+				vm.generateGrid();
+				vm.blink();
+			});
 		}
 	}
 });

@@ -119,7 +119,7 @@
 
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-activity ref="SugarActivity"></sugar-activity>
-		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded"></sugar-journal>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
