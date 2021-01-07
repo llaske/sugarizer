@@ -95,7 +95,6 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			img_url = data;
 			document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
 			document.getElementById("cy").style.backgroundRepeat = "no-repeat";
-			document.getElementById("cy").style.backgroundSize = "cover";
 			var new_x = background_img_x + prev_background_img_shift_x;
 			var new_y = background_img_y + prev_background_img_shift_y;
 			document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
