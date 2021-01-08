@@ -92,6 +92,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var img_url = '';
 
 		function set_background_img(data) {
+			document.getElementById("cy").style.backgroundColor = "#ffffff";
 			img_url = data;
 			document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
 			document.getElementById("cy").style.backgroundRepeat = "no-repeat";
@@ -338,7 +339,14 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				background_img_y = data.background_img_y;
 				prev_background_img_shift_x = data.prev_background_img_shift_x;
 				prev_background_img_shift_y = data.prev_background_img_shift_y;
-				set_background_img(data.background_image);
+				if(data.background_image != '') {
+					set_background_img(data.background_image);
+				}
+				else {
+					if(data.background_color != '') {
+						document.getElementById("cy").style.backgroundColor = data.background_color;
+					}
+				}
 			});
 		}
 
@@ -353,12 +361,15 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				});
 			}
 
+			img_url = document.getElementById("cy").style.backgroundImage;
+			img_url = img_url.replace(/(url\(|\)|")/g, '');
 			var data = {
 				background_image: img_url,
 				background_img_x: background_img_x,
 				background_img_y: background_img_y,
 				prev_background_img_shift_x: prev_background_img_shift_x,
 				prev_background_img_shift_y: prev_background_img_shift_y,
+				background_color: document.getElementById("cy").style.backgroundColor,
 				commands: commands
 			}
 
