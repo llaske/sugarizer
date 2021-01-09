@@ -20,12 +20,13 @@ define(['sugar-web/graphics/palette'], function(palette) {
 
 		invoker.addEventListener('click', function(e) {
 			document.getElementById("speedlabel").innerHTML = (document.getElementById("speed-button").title) + ":";
+			document.getElementById("speedvalue").value = 100-((app.blinkTime-500)/10);
 		});
 
 		var that = this;
 		this.speedScale = document.querySelector('#speedvalue');
 		this.speedScale.oninput = function() {
-			that.speedEvent.detail.speed = this.value;
+			that.speedEvent.detail.speed = 100-this.value;
 			that.getPalette().dispatchEvent(that.speedEvent);
 		}
 	};
