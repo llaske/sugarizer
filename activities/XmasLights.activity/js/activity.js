@@ -58,6 +58,7 @@ var app = new Vue({
 		interval: null,
 		paused: false,
 		SugarL10n: null,
+		SugarPresence: null,
 		l10n: {
 			stringUnfullscreen: "",
 			stringFullscreen: "",
@@ -77,6 +78,7 @@ var app = new Vue({
 
 	mounted() {
 		this.SugarL10n = this.$refs.SugarL10n;
+		this.SugarPresence = this.$refs.SugarPresence;
 	},
 
 	created() {
@@ -278,6 +280,7 @@ var app = new Vue({
 					vm.colors.push(item.name == "random" ? -1 : item.color);
 				}
 				vm.generateGrid();
+				vm.sendUpdateToNetwork();
 			}
 		},
 
@@ -403,6 +406,7 @@ var app = new Vue({
 			if (newSize != oldSize) {
 				vm.size = newSize;
 				vm.generateGrid();
+				vm.sendUpdateToNetwork();
 			}
 		},
 
@@ -414,6 +418,7 @@ var app = new Vue({
 			vm.messageStyle.fontWeight = event.detail.fontWeight;
 			vm.messageStyle.fontStyle = event.detail.fontStyle;
 			vm.messageStyle.size = event.detail.size;
+			vm.sendUpdateToNetwork();
 		},
 
 		// Handle speed change
@@ -421,6 +426,7 @@ var app = new Vue({
 			let vm = this;
 			vm.blinkTime = 500+(event.detail.speed*10);
 			vm.blink();
+			vm.sendUpdateToNetwork();
 		},
 
 		//  Handle fullscreen/unfullscreen
@@ -463,6 +469,7 @@ var app = new Vue({
 			vm.messageStyle.size = template.message.size;
 			vm.generateGrid();
 			vm.blink();
+			vm.sendUpdateToNetwork();
 		},
 
 		// Load activity context
@@ -489,6 +496,46 @@ var app = new Vue({
 				vm.generateGrid();
 				vm.blink();
 			});
+		},
+
+		onJournalSharedInstance: function() {
+			let vm = this;
+			vm.initialize().then(function() {
+				document.getElementById("spinner").style.visibility = "hidden";
+			});
+		},
+
+		// Handle network events
+		onNetworkDataReceived: function(msg) {
+			let vm = this;
+			vm.pattern = msg.pattern;
+			vm.colors = msg.colors;
+			vm.size = msg.size;
+			vm.blinkTime = msg.blinkTime;
+			vm.messageStyle = msg.messageStyle;
+			vm.message = msg.message;
+			vm.generateGrid();
+			vm.blink();
+		},
+
+		onNetworkUserChanged: function(msg) {
+			if (this.SugarPresence.isHost) {
+				this.sendUpdateToNetwork();
+			}
+		},
+
+		sendUpdateToNetwork: function() {
+			let vm = this;
+			let message = {
+				user: vm.SugarPresence.getUserInfo(),
+				pattern: vm.pattern,
+				colors: vm.colors,
+				size: vm.size,
+				blinkTime: vm.blinkTime,
+				message: vm.message,
+				messageStyle: vm.messageStyle
+			};
+			this.SugarPresence.sendMessage(message);
 		}
 	}
 });
