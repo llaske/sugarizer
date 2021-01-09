@@ -113,6 +113,10 @@ var app = new Vue({
 				_loadActivities().then(function(activities) {
 					// Load an convert to pure SVG each icon
 					activities.push({directory:"activities/XmasLights.activity",icon:"icons/color.svg",id:"color"});
+					activities.push({directory:"icons",icon:"/activity-journal.svg",id:"journal"});
+					activities.push({directory:"icons",icon:"/emblem-favorite.svg",id:"favorite"});
+					activities.push({directory:"icons",icon:"/network-wireless-connected-100.svg",id:"server"});
+					activities.push({directory:"icons",icon:"/cloud-settings.svg",id:"cloud"});
 					let len = activities.length;
 					for (let i = 0 ; i < len ; i++) {
 						let activity = activities[i];
