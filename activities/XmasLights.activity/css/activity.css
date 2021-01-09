@@ -47,6 +47,10 @@ p {
 	background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #list-button {
+	background-image: url(../icons/lights-list.svg);
+}
+
 #main-toolbar #playpause-button {
 	background-image: url(../icons/pause.svg);
 }

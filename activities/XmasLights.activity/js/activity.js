@@ -6,22 +6,25 @@ requirejs.config({
 	}
 });
 
-// Initial sequence
-// -- [] to iterate on existing icons
-// -- ["id1", "id2"]
-const initIconsSequences = [[], ["org.sugarlabs.Falabracman"], ["com.homegrownapps.reflection", "org.sugarlabs.FractionBounce"]]
-const initIcons = initIconsSequences[1];
-// -- [] to iterate on all colors
-// -- [color1, color2] use -1 for random color
-const initColorsSequences = [[], [-1], [22, 47, 65], [256, 100], [256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47, 256, 256, 256, 47], [65]];
-const initColors = initColorsSequences[2];
-const initSize = 60;
+// Initial templates
+const templates = [
+	{name: "Colors", image:"colors.png", icons: [], colors: [-1], size: 80, blink: 1500,  message: {content: "", color: "#ff0000", size: 60, weight: "bold", style: "normal"}},
+	{name: "Blue Moon", image:"bluemoon.png", icons: ["org.sugarlabs.Falabracman", "org.sugarlabs.moon"], colors: [124, 120, 122, 123, 121], size: 60, blink: 1000,  message: {content: "Blue Moon", color: "#00008b", size: 100, weight: "normal", style: "italic"}},
+	{name: "Merry Christmas", image:"merrychristmas.png", icons: ["org.olpcfrance.XmasLights"], colors: [83, 82, 256, 23, 22, 256], size: 60, blink: 1000,  message: {content: "Merry\nChristmas", color: "#ff0000", size: 80, weight: "bold", style: "normal"}},
+	{name: "Happy New Year", image:"happynewyear.png", icons: ["com.homegrownapps.xoeditor"], colors: [], size: 60, blink: 1000,  message: {content: "Happy\nNew Year!", color: "#000000", size: 80, weight: "normal", style: "normal"}}
+];
+const initTemplate = 0;
+const initIcons = templates[initTemplate].icons;
+const initColors = templates[initTemplate].colors;
+const initSize = templates[initTemplate].size;
+const initBlinkTime = templates[initTemplate].blink;
+const initMessageContent = templates[initTemplate].message.content;
+const initMessageColor = templates[initTemplate].message.color;
+const initMessageSize = templates[initTemplate].message.size;
+const initMessageWeight = templates[initTemplate].message.weight;
+const initMessageStyle = templates[initTemplate].message.style;
 const minSize = 30;
 const maxSize = 90;
-const initBlinkTime = 1000;
-const initMessageContent = "Merry\nChristmas!";
-const initMessageColor = "#000000";
-const initMessageSize = 80;
 const viewGrid = 1;
 const viewDetail = 2;
 const displayDebug = false;
@@ -48,8 +51,8 @@ var app = new Vue({
 		message: "",
 		messageStyle: {
 			color: initMessageColor,
-			fontWeight: 'normal',
-			fontStyle: 'normal',
+			fontWeight: initMessageWeight,
+			fontStyle: initMessageStyle,
 			size: initMessageSize
 		},
 		interval: null,
@@ -61,6 +64,7 @@ var app = new Vue({
 			stringSettings: "",
 			stringSpeed: "",
 			stringZoom: "",
+			stringTemplates: "",
 			stringText: "",
 			stringPlay: "",
 			stringPause: "",
@@ -442,6 +446,23 @@ var app = new Vue({
 				messageStyle: vm.messageStyle
 			};
 			vm.$refs.SugarJournal.saveData(context);
+		},
+
+		// Template selected in the popup menu
+		onTemplateSelected: function(event) {
+			let vm = this;
+			let template = event.detail.value;
+			vm.pattern = template.icons;
+			vm.colors = template.colors;
+			vm.size = template.size;
+			vm.blinkTime = template.blink;
+			vm.message = template.message.content;
+			vm.messageStyle.color = template.message.color;
+			vm.messageStyle.fontWeight = template.message.weight;
+			vm.messageStyle.fontStyle = template.message.style;
+			vm.messageStyle.size = template.message.size;
+			vm.generateGrid();
+			vm.blink();
 		},
 
 		// Load activity context
