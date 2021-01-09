@@ -394,6 +394,14 @@ var app = new Vue({
 			vm.$refs.detail.className = "grab";
 		},
 
+		// Delete all patterns
+		onDeleteIconClicked: function() {
+			this.detailContent.dropIcons = [];
+		},
+		onDeleteColorClicked: function() {
+			this.detailContent.dropColors = [];
+		},
+
 		// Handle zoom change
 		onZoomChanged: function(event) {
 			let vm = this;
@@ -530,6 +538,9 @@ var app = new Vue({
 
 		sendUpdateToNetwork: function() {
 			let vm = this;
+			if (!vm.SugarPresence.isShared()) {
+				return;
+			}
 			let message = {
 				user: vm.SugarPresence.getUserInfo(),
 				pattern: vm.pattern,

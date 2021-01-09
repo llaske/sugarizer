@@ -120,6 +120,18 @@ p {
 	border-radius: 5.5px;
 }
 
+.delete-button {
+	background-image: url(../icons/delete.svg);
+	background-size: 28px;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 5px;
+	left: 44%;
+}
+
 .tutorial-icon-button {
 	border-radius: 22px;
 	margin-top: 5px;
@@ -274,6 +286,7 @@ p {
 
 .label-drag {
 	margin-left: 10px;
+	height: 24px;
 }
 
 #drag-icons-zone {

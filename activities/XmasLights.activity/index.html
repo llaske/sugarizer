@@ -88,6 +88,7 @@
 		<div v-else id="detail" ref="detail" class="grab" v-on:mousedown="onMouseDown" v-on:mouseup="onMouseUp" v-on:mousemove="onMouseMove" v-on:touchstart="onMouseDown" v-on:touchend="onMouseUp" v-on:touchmove="onMouseMove">
 			<div class="column1">
 				<p class="label-drag">{{l10n.stringDragIcons}}</p>
+				<button type="button" id="delete-icons-button" class="delete-button" @click="onDeleteIconClicked"></button>
 				<div id="drop-icons-zone" ref="dropicons">
 					<activity-icon v-for="(icon) in detailContent.dropIcons" class="padded-icon"
 						v-bind:id="icon.id"
@@ -111,6 +112,7 @@
 			</div>
 			<div class="column2">
 				<p class="label-drag">{{l10n.stringDragColors}}</p>
+				<button type="button" id="delete-colors-button" class="delete-button" @click="onDeleteColorClicked"></button>
 				<div id="drop-colors-zone" ref="dropcolors">
 					<activity-icon v-for="(icon) in detailContent.dropColors" class="padded-icon"
 						v-bind:id="icon.id"
