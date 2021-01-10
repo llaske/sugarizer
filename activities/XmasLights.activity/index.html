@@ -13,8 +13,13 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<link href="css/xocolor.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/axios.min.js"></script>
+	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
@@ -74,6 +79,7 @@
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<div v-if="currentView == viewGrid" id="grid" :class="{fullscreen:($refs.SugarToolbar?$refs.SugarToolbar.isHidden():false),grid:true}">
@@ -142,6 +148,7 @@
 		<sugar-activity ref="SugarActivity"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstance" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
@@ -149,6 +156,7 @@
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
 	<script src="js/activity-icon.js"></script>
 	<script src="js/activity.js"></script>
 </body>

@@ -72,7 +72,41 @@ var app = new Vue({
 			stringEmptyIcon: "",
 			stringEmptyColor: "",
 			stringDragIcons: "",
-			stringDragColors: ""
+			stringDragColors: "",
+			stringTutoGridWelcomeTitle: "",
+			stringTutoGridWelcomeContent: "",
+			stringTutoGridBoardTitle: "",
+			stringTutoGridBoardContent: "",
+			stringTutoGridTemplateButtonTitle: "",
+			stringTutoGridTemplateButtonContent: "",
+			stringTutoGridPlayButtonTitle: "",
+			stringTutoGridPlayButtonContent: "",
+			stringTutoGridSettingsButtonTitle: "",
+			stringTutoGridSettingsButtonContent: "",
+			stringTutoGridSpeedButtonTitle: "",
+			stringTutoGridSpeedButtonContent: "",
+			stringTutoGridTextButtonTitle: "",
+			stringTutoGridTextButtonContent: "",
+			stringTutoGridZoomButtonTitle: "",
+			stringTutoGridZoomButtonContent: "",
+			stringTutoGridNetworkButtonTitle: "",
+			stringTutoGridNetworkButtonContent: "",
+			stringTutoDetailWelcomeTitle: "",
+			stringTutoDetailWelcomeContent: "",
+			stringTutoDetailDropIconTitle: "",
+			stringTutoDetailDropIconContent: "",
+			stringTutoDetailDragIconTitle: "",
+			stringTutoDetailDragIconContent: "",
+			stringTutoDetailDeleteIconTitle: "",
+			stringTutoDetailDeleteIconContent: "",
+			stringTutoDetailDropColorTitle: "",
+			stringTutoDetailDropColorContent: "",
+			stringTutoDetailDragColorTitle: "",
+			stringTutoDetailDragColorContent: "",
+			stringTutoDetailDeleteColorTitle: "",
+			stringTutoDetailDeleteColorContent: "",
+			stringTutoDetailGridButtonTitle: "",
+			stringTutoDetailGridButtonContent: ""
 		}
 	},
 
@@ -551,6 +585,125 @@ var app = new Vue({
 				messageStyle: vm.messageStyle
 			};
 			this.SugarPresence.sendMessage(message);
+		},
+
+		// Tutorial
+		onHelp: function() {
+			let vm = this;
+			let steps = [];
+			if (vm.currentView == viewGrid) {
+				steps = steps.concat([
+					{
+						element: "",
+						orphan: true,
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridWelcomeTitle,
+						content: vm.l10n.stringTutoGridWelcomeContent
+					},
+					{
+						element: "#grid",
+						placement: "top",
+						title: vm.l10n.stringTutoGridBoardTitle,
+						content: vm.l10n.stringTutoGridBoardContent
+					},
+					{
+						element: "#list-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridTemplateButtonTitle,
+						content: vm.l10n.stringTutoGridTemplateButtonContent
+					},
+					{
+						element: "#playpause-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridPlayButtonTitle,
+						content: vm.l10n.stringTutoGridPlayButtonContent
+					},
+					{
+						element: "#settings-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridSettingsButtonTitle,
+						content: vm.l10n.stringTutoGridSettingsButtonContent
+					},
+					{
+						element: "#speed-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridSpeedButtonTitle,
+						content: vm.l10n.stringTutoGridSpeedButtonContent
+					},
+					{
+						element: "#text-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridTextButtonTitle,
+						content: vm.l10n.stringTutoGridTextButtonContent
+					},
+					{
+						element: "#zoom-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridZoomButtonTitle,
+						content: vm.l10n.stringTutoGridZoomButtonContent
+					},
+					{
+						element: "#network-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoGridNetworkButtonTitle,
+						content: vm.l10n.stringTutoGridNetworkButtonContent
+					}
+				]);
+			} else {
+				steps = steps.concat([
+					{
+						element: "",
+						orphan: true,
+						placement: "bottom",
+						title: vm.l10n.stringTutoDetailWelcomeTitle,
+						content: vm.l10n.stringTutoDetailWelcomeContent
+					},
+					{
+						element: "#drop-icons-zone",
+						placement: "right",
+						title: vm.l10n.stringTutoDetailDropIconTitle,
+						content: vm.l10n.stringTutoDetailDropIconContent
+					},
+					{
+						element: "#drag-icons-zone",
+						placement: "top",
+						title: vm.l10n.stringTutoDetailDragIconTitle,
+						content: vm.l10n.stringTutoDetailDragIconContent
+					},
+					{
+						element: "#delete-icons-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoDetailDeleteIconTitle,
+						content: vm.l10n.stringTutoDetailDeleteIconContent
+					},
+					{
+						element: "#drop-colors-zone",
+						placement: "left",
+						title: vm.l10n.stringTutoDetailDropColorTitle,
+						content: vm.l10n.stringTutoDetailDropColorContent
+					},
+					{
+						element: "#drag-colors-zone",
+						placement: "top",
+						title: vm.l10n.stringTutoDetailDragColorTitle,
+						content: vm.l10n.stringTutoDetailDragColorContent
+					},
+					{
+						element: "#delete-colors-button",
+						placement: "left",
+						title: vm.l10n.stringTutoDetailDeleteColorTitle,
+						content: vm.l10n.stringTutoDetailDeleteColorContent
+					},
+					{
+						element: "#settings-button",
+						placement: "bottom",
+						title: vm.l10n.stringTutoDetailGridButtonTitle,
+						content: vm.l10n.stringTutoDetailGridButtonContent
+					}
+				]);
+			}
+
+			this.$refs.SugarTutorial.show(steps);
 		}
 	}
 });
