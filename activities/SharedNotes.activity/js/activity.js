@@ -335,10 +335,6 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			var datastoreObject = activity.getDatastoreObject();
 			datastoreObject.loadAsText(function (error, metadata, data) {
 				initGraph(data.commands);
-				background_img_x = data.background_img_x;
-				background_img_y = data.background_img_y;
-				prev_background_img_shift_x = data.prev_background_img_shift_x;
-				prev_background_img_shift_y = data.prev_background_img_shift_y;
 				if(data.background_image != '') {
 					set_background_img(data.background_image);
 				}
@@ -365,10 +361,6 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			img_url = img_url.replace(/(url\(|\)|")/g, '');
 			var data = {
 				background_image: img_url,
-				background_img_x: background_img_x,
-				background_img_y: background_img_y,
-				prev_background_img_shift_x: prev_background_img_shift_x,
-				prev_background_img_shift_y: prev_background_img_shift_y,
 				background_color: document.getElementById("cy").style.backgroundColor,
 				commands: commands
 			}
