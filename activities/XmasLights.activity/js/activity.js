@@ -341,6 +341,9 @@ var app = new Vue({
 			vm.$refs.detail.className = "grabbing";
 		},
 		onMouseMove: function(event) {
+			if (!event.target.classList.contains('scrollable')) {
+				event.preventDefault();
+			}
 		},
 		onMouseUp: function(event) {
 			let vm = this;
