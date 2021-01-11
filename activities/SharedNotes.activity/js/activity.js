@@ -90,17 +90,26 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var prev_background_img_shift_y = 0;
 		var zoom_background = 1;
 		var img_url = '';
+		var img_height = 0;
+		var img_width = 0;
 
 		function set_background_img(data) {
 			document.getElementById("cy").style.backgroundColor = "#ffffff";
 			img_url = data;
 			document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
 			document.getElementById("cy").style.backgroundRepeat = "no-repeat";
-			var new_x = background_img_x + prev_background_img_shift_x;
-			var new_y = background_img_y + prev_background_img_shift_y;
-			document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
-			document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
-			document.getElementById("cy").style.backgroundSize = "" + zoom_background*100 + "%";
+			var img = new Image();
+			img.src = data;
+			img.onload = function() {
+				img_height = this.height;
+				img_width = this.width;
+				var new_x = background_img_x + prev_background_img_shift_x;
+				var new_y = background_img_y + prev_background_img_shift_y;
+				document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
+				document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
+				document.getElementById("cy").style.backgroundSize = (zoom_background*img_width) + 'px ' 
+															+ (zoom_background*img_height) + 'px';
+			}
 		}
 
 		document.getElementById("background-image-button").addEventListener('click', function (e) {
@@ -762,8 +771,9 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 
 		// Event: zoom
 		cy.on('zoom', function(e) {
-			document.getElementById("cy").style.backgroundSize = "" + e.cy._private.zoom*100 + "%";
 			zoom_background = e.cy._private.zoom;
+			document.getElementById("cy").style.backgroundSize = (zoom_background*img_width) + 'px ' 
+														+ (zoom_background*img_height) + 'px';
 			saveAndFinishEdit();
 		});
 
