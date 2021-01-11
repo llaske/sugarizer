@@ -270,6 +270,7 @@ p {
 #detail {
 	background-color: #C0C0C0;
 	user-select: none;
+	-webkit-user-select: none;
 }
 
 .column1 {
