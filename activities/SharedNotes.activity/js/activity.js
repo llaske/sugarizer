@@ -84,14 +84,14 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var networkButton = document.getElementById("network-button");
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
 
-		var background_img_x = 0;
-		var background_img_y = 0;
 		var prev_background_img_shift_x = 0;
 		var prev_background_img_shift_y = 0;
 		var zoom_background = 1;
 		var img_url = '';
 		var img_height = 0;
 		var img_width = 0;
+		var pan_before_img_x = 0;
+		var pan_before_img_y = 0;
 
 		function set_background_img(data) {
 			document.getElementById("cy").style.backgroundColor = "#ffffff";
@@ -103,12 +103,12 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			img.onload = function() {
 				img_height = this.height;
 				img_width = this.width;
-				var new_x = background_img_x + prev_background_img_shift_x;
-				var new_y = background_img_y + prev_background_img_shift_y;
-				document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
-				document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
+				document.getElementById("cy").style.backgroundPositionX = '0px';
+				document.getElementById("cy").style.backgroundPositionY = '0px';
 				document.getElementById("cy").style.backgroundSize = (zoom_background*img_width) + 'px ' 
 															+ (zoom_background*img_height) + 'px';
+				pan_before_img_x = prev_background_img_shift_x;
+				pan_before_img_y = prev_background_img_shift_y;
 			}
 		}
 
@@ -780,8 +780,8 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		// Event: move
 		cy.on('pan', function(e) {
 			if(document.getElementById("cy").style.backgroundImage != '') {
-				var new_x = background_img_x + e.cy._private.pan.x;
-				var new_y = background_img_y + e.cy._private.pan.y;
+				var new_x = e.cy._private.pan.x - pan_before_img_x;
+				var new_y = e.cy._private.pan.y - pan_before_img_y;
 				document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
 				document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
 			}
