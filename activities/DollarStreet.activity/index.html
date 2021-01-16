@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
 
-<body>
+<body id="body">
 	<div id="app">
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
@@ -34,7 +34,18 @@
 
 		<img id="spinner" src="images/spinner-light.gif"/>
 		<img id="cloudwarning" src="images/cloud-warning.svg"/>
-	
+
+		<div id="content">
+			<div v-for="(place) in places" class="place">
+				<img v-bind:src="place.images.cropped360" class="place-image"/>
+				<div class="place-label">
+					<span>${{Math.floor(place.place.income)}}</span>
+					<br>
+					<span class="place-country">{{place.country.name}}</span>
+				</div>
+			</div>
+		</div>
+
 		<sugar-activity ref="SugarActivity"></sugar-activity>
 		<dollarstreet-api ref="api" v-on:initialized="dollarStreetConnected" v-on:error="dollarStreetError"></dollarstreet-api>
 	</div>

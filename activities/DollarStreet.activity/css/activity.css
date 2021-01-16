@@ -6,6 +6,7 @@ body {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	overflow: hidden;
 }
 
 p {
@@ -150,4 +151,44 @@ p {
 
 .tutorial-icon-text {
 	padding-left: 4px;
+}
+
+.place {
+	position: relative;
+	display: inline-block;
+	width: 360px;
+	height: 360px;
+	border-radius: 0 0 5px 5px;
+	padding: .25rem;
+}
+
+.place-image {
+	position: absolute;
+}
+
+.place-label {
+	width: 350px;
+	height: 60px;
+	padding-left: 10px;
+	padding-top: 10px;
+	bottom: 5px;
+	text-align: left;
+	vertical-align: bottom;
+	font-size: 16pt;
+	position: absolute;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	background-color: rgba(0,0,0,.2);
+	color: #fff;
+	text-shadow: #495057 1px 1px 0;
+	z-index: 3;
+}
+
+.place-country {
+	font-weight: bold;
+}
+
+#content {
+	overflow-y: auto;
 }

@@ -2,11 +2,14 @@
 
 // API urls and routes
 const dsUrl = "https://ds-dev.dollarstreet.org/dollar-street/v1/";
+const dsApi = "https://api.dollarstreet.org/v1/";
 const dsLanguages = "languagesList";
 const dsLanguage = "language?lang=";
 const dsStreetSettings = "street-settings";
 const dsRegions = "countries-filter?thing=Families&countries=World&regions=World&lang=";
 const dsThings = "things-filter?thing=Families&countries=World&regions=World&lang=";
+const dsItems = "things?countries=World&regions=World&lang=";
+const dsFamilies = "search/families?show=places&pageSize=1000&topic=families&lng=";
 
 // Main component
 Vue.component("dollarstreet-api", {
@@ -50,7 +53,7 @@ Vue.component("dollarstreet-api", {
 						vm.streetSettings = results[1];
 						vm.regions = results[2];
 						vm.things = results[3].otherThings;
-						vm.thing = results[3].thing;
+						vm.familyThing = results[3].thing;
 						vm.$emit("initialized");
  					}).catch(function(error) {
 						vm.$emit("error");
@@ -93,6 +96,11 @@ Vue.component("dollarstreet-api", {
 		// Get family thing
 		getFamily: function() {
 			return this.familyThing;
+		},
+
+		// Get street places
+		getStreetPlaces: function() {
+			return _dsAPISearch(dsFamilies+this.language);
 		}
 	}
 });
@@ -102,6 +110,17 @@ function _dsAPIGet(route) {
 	return new Promise(function(resolve, reject) {
 		axios.get(dsUrl+route).then(function(response) {
 			resolve(response.data.data);
+		}).catch(function(error) {
+			reject(error);
+		});
+	});
+}
+
+// Do a GET call to a search route
+function _dsAPISearch(route) {
+	return new Promise(function(resolve, reject) {
+		axios.get(dsApi+route).then(function(response) {
+			resolve(response.data.hits["4"]);
 		}).catch(function(error) {
 			reject(error);
 		});
