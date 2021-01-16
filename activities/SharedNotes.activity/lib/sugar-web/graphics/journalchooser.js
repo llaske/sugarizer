@@ -205,6 +205,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		document.getElementById('journal-container').innerHTML = render;
 
 		// Handle click
+		let event = new Event("updateBackgroundListener", {bubbles: true});
 		var len = Math.min(count, content.length);
 		for (var i = 0 ; i < len; i++) {
 			var entry = document.getElementById('color_'+content[i].code);
@@ -215,6 +216,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 				document.getElementById("cy").style.backgroundImage = "";
 				document.getElementById("cy").style.backgroundColor = code;
 				line.style.backgroundColor = "#808080";
+				entry.dispatchEvent(event);
 				modal.close();
 			});
 			

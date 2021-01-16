@@ -112,6 +112,15 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			}
 		}
 
+		document.addEventListener('updateBackgroundListener', function(e) {
+			if(isShared) {
+				sendMessage({
+					action: 'updateBackgroundColor',
+					data: document.getElementById("cy").style.backgroundColor
+				});
+			}
+		})
+
 		document.getElementById("background-image-button").addEventListener('click', function (e) {
 			journalchooser.show(function (entry) {
 				// No selection
@@ -122,6 +131,12 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				var dataentry = new datastore.DatastoreObject(entry.objectId);
 				dataentry.loadAsText(function (err, metadata, data) {
 					set_background_img(data);
+					if(isShared) {
+						sendMessage({
+							action: 'updateBackgroundImage',
+							data: data
+						});
+					}
 				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
 		});
@@ -537,7 +552,8 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			switch (msg.content.action) {
 				case 'initialBoard':
 					// Receive initial board from the host
-					initGraph(msg.content.data);
+					initGraph(msg.content.data.commands);
+					set_background_img(msg.content.data.background_image)
 					break;
 
 				case 'updateBoard':
@@ -554,6 +570,16 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				case 'redoBoard':
 					// Redo board
 					redoState(true);
+					break;
+				case 'updateBackgroundColor': {
+					// update background color
+					document.getElementById("cy").style.backgroundImage = "";
+					document.getElementById("cy").style.backgroundColor = msg.content.data;
+					break;
+				}
+				case 'updateBackgroundImage':
+					// update background Image
+					set_background_img(msg.content.data);
 					break;
 			}
 		}
