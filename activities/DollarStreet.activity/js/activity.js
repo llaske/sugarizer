@@ -9,6 +9,9 @@ requirejs.config({
 // Vue main app
 var app = new Vue({
 	el: '#app',
+	components: {
+		'street-place': StreetPlace
+	},
 	data: {
 		places: []
 	},

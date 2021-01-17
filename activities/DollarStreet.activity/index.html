@@ -36,14 +36,7 @@
 		<img id="cloudwarning" src="images/cloud-warning.svg"/>
 
 		<div id="content">
-			<div v-for="(place) in places" class="place">
-				<img v-bind:src="place.images.cropped360" class="place-image"/>
-				<div class="place-label">
-					<span>${{Math.floor(place.place.income)}}</span>
-					<br>
-					<span class="place-country">{{place.country.name}}</span>
-				</div>
-			</div>
+			<street-place v-for="(place) in places" :place="place"></street-place>
 		</div>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
@@ -51,6 +44,7 @@
 	</div>
 
 	<script src="js/DollarStreetAPI.js"></script>
+	<script src="js/place.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/activity.js"></script>
