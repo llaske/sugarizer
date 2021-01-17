@@ -28,10 +28,14 @@ var app = new Vue({
 		dollarStreetConnected: function() {
 			let vm = this;
 			console.log("Dollar Street API connected");
-			document.getElementById("spinner").style.visibility = "hidden";
 			vm.$refs.api.getStreetPlaces().then(function(response) {
-				vm.places = response;
-				console.log(response[0])
+				document.getElementById("spinner").style.visibility = "hidden";
+				for (let i = 0 ; i < response.length ; i++) {
+					let place = response[i];
+					if (!place.media_type || place.media_type != "video") {
+						vm.places.push(place);
+					}
+				}
 			});
 		},
 
