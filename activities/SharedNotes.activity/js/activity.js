@@ -84,6 +84,12 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var networkButton = document.getElementById("network-button");
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
 
+		var from_datastore = false;
+		var from_network = false;
+		var datastore_img_x = 0;
+		var datastore_img_y = 0;
+		var img_x_shift = 0;
+		var img_y_shift = 0;
 		var prev_background_img_shift_x = 0;
 		var prev_background_img_shift_y = 0;
 		var zoom_background = 1;
@@ -98,17 +104,31 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			img_url = data;
 			document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
 			document.getElementById("cy").style.backgroundRepeat = "no-repeat";
+			if (!(isShared && from_network)) {
+				img_x_shift = 0;
+				img_y_shift = 0;
+			}
 			var img = new Image();
 			img.src = data;
 			img.onload = function() {
 				img_height = this.height;
 				img_width = this.width;
-				document.getElementById("cy").style.backgroundPositionX = '0px';
-				document.getElementById("cy").style.backgroundPositionY = '0px';
+				if (from_datastore) {
+					document.getElementById("cy").style.backgroundPositionX = datastore_img_x + 'px';
+					document.getElementById("cy").style.backgroundPositionY = datastore_img_y + 'px';
+					from_datastore = false;
+					pan_before_img_x = -1*datastore_img_x;
+					pan_before_img_y = -1*datastore_img_y;
+				}
+				else {
+					document.getElementById("cy").style.backgroundPositionX = img_x_shift + 'px';
+					document.getElementById("cy").style.backgroundPositionY = img_y_shift + 'px';
+					pan_before_img_x = prev_background_img_shift_x;
+					pan_before_img_y = prev_background_img_shift_y;
+				}
 				document.getElementById("cy").style.backgroundSize = (zoom_background*img_width) + 'px ' 
 															+ (zoom_background*img_height) + 'px';
-				pan_before_img_x = prev_background_img_shift_x;
-				pan_before_img_y = prev_background_img_shift_y;
+				from_network = false;
 			}
 		}
 
@@ -134,7 +154,9 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 					if(isShared) {
 						sendMessage({
 							action: 'updateBackgroundImage',
-							data: data
+							data: data,
+							x_shift: prev_background_img_shift_x,
+							y_shift: prev_background_img_shift_y
 						});
 					}
 				});
@@ -360,6 +382,11 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			datastoreObject.loadAsText(function (error, metadata, data) {
 				initGraph(data.commands);
 				if(data.background_image != '') {
+					from_datastore = true;
+					datastore_img_x = data.img_x;
+					datastore_img_y = data.img_y;
+					prev_background_img_shift_x = -1*datastore_img_x;
+					prev_background_img_shift_y = -1*datastore_img_y;
 					set_background_img(data.background_image);
 				}
 				else {
@@ -386,7 +413,9 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			var data = {
 				background_image: img_url,
 				background_color: document.getElementById("cy").style.backgroundColor,
-				commands: commands
+				commands: commands,
+				img_x: -1*pan_before_img_x,
+				img_y: -1*pan_before_img_y
 			}
 
 			return data;
@@ -552,8 +581,16 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			switch (msg.content.action) {
 				case 'initialBoard':
 					// Receive initial board from the host
+					from_network = true;
 					initGraph(msg.content.data.commands);
-					set_background_img(msg.content.data.background_image)
+					img_x_shift = prev_background_img_shift_x - msg.content.x_shift;
+					img_y_shift = prev_background_img_shift_y - msg.content.y_shift;
+					if (msg.content.data.background_image == '') {
+						from_network = false;
+					}
+					else {
+						set_background_img(msg.content.data.background_image);
+					}
 					break;
 
 				case 'updateBoard':
@@ -577,10 +614,19 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 					document.getElementById("cy").style.backgroundColor = msg.content.data;
 					break;
 				}
-				case 'updateBackgroundImage':
+				case 'updateBackgroundImage': {
 					// update background Image
-					set_background_img(msg.content.data);
+					from_network = true;
+					img_x_shift = prev_background_img_shift_x - msg.content.x_shift;
+					img_y_shift = prev_background_img_shift_y - msg.content.y_shift;
+					if (msg.content.data.background_image == '') {
+						from_network = false;
+					}
+					else {
+						set_background_img(msg.content.data);
+					}
 					break;
+				}
 			}
 		}
 		var onNetworkUserChanged = function(msg) {
@@ -591,7 +637,9 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				if (isHost) {
 					sendMessage({
 						action: 'initialBoard',
-						data: getGraph()
+						data: getGraph(),
+						x_shift: prev_background_img_shift_x,
+						y_shift: prev_background_img_shift_y
 					});
 				}
 			} else if (msg.move === -1) {
@@ -806,8 +854,8 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		// Event: move
 		cy.on('pan', function(e) {
 			if(document.getElementById("cy").style.backgroundImage != '') {
-				var new_x = e.cy._private.pan.x - pan_before_img_x;
-				var new_y = e.cy._private.pan.y - pan_before_img_y;
+				var new_x = img_x_shift + (e.cy._private.pan.x - pan_before_img_x);
+				var new_y = img_y_shift + (e.cy._private.pan.y - pan_before_img_y);
 				document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
 				document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
 			}
