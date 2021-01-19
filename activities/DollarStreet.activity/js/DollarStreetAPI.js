@@ -9,7 +9,7 @@ const dsStreetSettings = "street-settings";
 const dsRegions = "countries-filter?thing=Families&countries=World&regions=World&lang=";
 const dsThings = "things-filter?thing=Families&countries=World&regions=World&lang=";
 const dsItems = "things?countries=World&regions=World&lang=";
-const dsFamilies = "search/families?show=places&pageSize=1000&topic=families&lng=";
+const dsFamilies = "search/families?show=places&pageSize=1000&lng=";
 
 // Main component
 Vue.component("dollarstreet-api", {
@@ -21,6 +21,7 @@ Vue.component("dollarstreet-api", {
 			streetSettings: {},
 			regions: [],
 			things: [],
+			popularThings: [],
 			familyThing: {}
 		}
 	},
@@ -54,6 +55,7 @@ Vue.component("dollarstreet-api", {
 						vm.regions = results[2];
 						vm.things = results[3].otherThings;
 						vm.familyThing = results[3].thing;
+						vm.popularThings = results[3].popularThings;
 						vm.$emit("initialized");
  					}).catch(function(error) {
 						vm.$emit("error");
@@ -81,6 +83,11 @@ Vue.component("dollarstreet-api", {
 			return this.things;
 		},
 
+		// Get popular things
+		getPopularThings: function() {
+			return this.popularThings;
+		},
+
 		// Find a thing by id
 		getThingById: function(id) {
 			let vm = this;
@@ -99,8 +106,23 @@ Vue.component("dollarstreet-api", {
 		},
 
 		// Get street places
-		getStreetPlaces: function() {
-			return _dsAPISearch(dsFamilies+this.language);
+		getStreetPlaces: function(topic="families") {
+			let vm = this;
+			return new Promise(function(resolve, reject) {
+				axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic).then(function(response) {
+					let initialStreets = response.data.hits["4"];
+					let streets = [];
+					for (let i = 0 ; i < initialStreets.length ; i++) {
+						let place = initialStreets[i];
+						if (!place.media_type || place.media_type != "video") {
+							streets.push(place);
+						}
+					}
+					resolve(streets);
+				}).catch(function(error) {
+					reject(error);
+				});
+			});
 		}
 	}
 });
@@ -110,17 +132,6 @@ function _dsAPIGet(route) {
 	return new Promise(function(resolve, reject) {
 		axios.get(dsUrl+route).then(function(response) {
 			resolve(response.data.data);
-		}).catch(function(error) {
-			reject(error);
-		});
-	});
-}
-
-// Do a GET call to a search route
-function _dsAPISearch(route) {
-	return new Promise(function(resolve, reject) {
-		axios.get(dsApi+route).then(function(response) {
-			resolve(response.data.hits["4"]);
 		}).catch(function(error) {
 			reject(error);
 		});

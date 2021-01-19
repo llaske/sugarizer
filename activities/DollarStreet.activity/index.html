@@ -23,8 +23,8 @@
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
-			<sugar-toolitem id="family-button" active="true"></sugar-toolitem>
-			<sugar-toolitem id="things-button"></sugar-toolitem>
+			<sugar-toolitem id="family-button" active="true" @click="familyClicked"></sugar-toolitem>
+			<sugar-toolitem id="things-button" @click="thingsClicked"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="world-button"></sugar-toolitem>
 

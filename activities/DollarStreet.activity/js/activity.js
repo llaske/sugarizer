@@ -28,24 +28,63 @@ var app = new Vue({
 		window.addEventListener("resize", computeHeight);
 	},
 	methods: {
+		// Dollar Street API events
 		dollarStreetConnected: function() {
 			let vm = this;
 			console.log("Dollar Street API connected");
-			vm.$refs.api.getStreetPlaces().then(function(response) {
-				document.getElementById("spinner").style.visibility = "hidden";
-				for (let i = 0 ; i < response.length ; i++) {
-					let place = response[i];
-					if (!place.media_type || place.media_type != "video") {
-						vm.places.push(place);
-					}
-				}
-			});
+			vm.displayFamily();
 		},
 
 		dollarStreetError: function() {
 			console.log("Dollar Street API Error !");
 			document.getElementById("spinner").style.visibility = "hidden";
 			document.getElementById("cloudwarning").style.visibility = "visible";
+		},
+
+		// Display families
+		displayFamily: function() {
+			let vm = this;
+			vm.places = [];
+			document.getElementById("spinner").style.visibility = "visible"
+			vm.$refs.api.getStreetPlaces().then(function(response) {
+				document.getElementById("spinner").style.visibility = "hidden";
+				vm.places = response;
+			});
+		},
+
+		// Display a category of things
+		displayThings: function(thing) {
+			let vm = this;
+			vm.places = [];
+			document.getElementById("spinner").style.visibility = "visible"
+			vm.$refs.api.getStreetPlaces(thing).then(function(response) {
+				document.getElementById("spinner").style.visibility = "hidden";
+				vm.places = response;
+			});
+		},
+
+		// Button family clicked
+		familyClicked: function() {
+			let vm = this;
+			if (document.getElementById("family-button").classList.contains("active")) {
+				return;
+			}
+			document.getElementById("family-button").classList.add("active");
+			document.getElementById("things-button").classList.remove("active");
+			vm.displayFamily();
+		},
+
+		// Button things clicked
+		thingsClicked: function() {
+			let vm = this;
+			if (document.getElementById("things-button").classList.contains("active")) {
+				return;
+			}
+			document.getElementById("family-button").classList.remove("active");
+			document.getElementById("things-button").classList.add("active");
+			let thing = vm.$refs.api.getPopularThings()[0];
+			let thingName = thing.originPlural.toLowerCase().replace(" ","-");
+			vm.displayThings(thingName);
 		}
 	}
 });
