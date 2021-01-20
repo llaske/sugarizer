@@ -27,6 +27,12 @@ var app = new Vue({
 		computeHeight();
 		window.addEventListener("resize", computeHeight);
 	},
+	mounted: function() {
+		this.updateVisibility();
+	},
+	updated: function() {
+		this.updateVisibility();
+	},
 	methods: {
 		// Dollar Street API events
 		dollarStreetConnected: function() {
@@ -85,6 +91,23 @@ var app = new Vue({
 			let thing = vm.$refs.api.getPopularThings()[0];
 			let thingName = thing.originPlural.toLowerCase().replace(" ","-");
 			vm.displayThings(thingName);
+		},
+
+		// Recompute visibility when scrolled
+		onScrolled: function() {
+			this.updateVisibility();
+		},
+
+		// Update screen visibility
+		updateVisibility: function() {
+			let vm = this;
+			for (let i = 0 ; i < vm.places.length ; i++) {
+				let place = vm.$refs.places[i];
+				if (place.isVisible()) {
+					console.log("visible");
+					place.visible = true;
+				}
+			}
 		}
 	}
 });

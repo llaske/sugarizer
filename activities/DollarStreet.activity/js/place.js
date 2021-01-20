@@ -2,13 +2,14 @@
 var StreetPlace = {
 	template: `
 		<div class="place">
-			<img v-bind:src="image" @load="loaded" @error="error" class="place-image"/>
+			<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
+			<img src="images/notloaded.png" class="place-image" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
 			<div class="place-label">
 				<span>{{formattedIncome}}</span>
 				<br>
 				<span class="place-country">{{place.country.name}}</span>
 			</div>
-			<img src="images/spinner-light.gif" v-bind:style="{visibility:(isLoad||hasError)?'hidden':'visible'}" class="place-spinner"/>
+			<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 		</div>
 	`,
 	props: ['place'],
@@ -16,11 +17,9 @@ var StreetPlace = {
 		return {
 			image: null,
 			isLoad: false,
-			hasError: false
+			hasError: false,
+			visible: false
 		};
-	},
-	created: function() {
-		this.image = this.place.images.cropped360;
 	},
 	computed: {
 		formattedIncome: function() {
@@ -32,13 +31,29 @@ var StreetPlace = {
 		loaded: function() {
 			this.isLoad = true;
 			this.hasError = false;
+			this.visible = true;
 		},
 
 		// Error on loading image for street place
 		error: function() {
 			this.isLoad = false;
 			this.hasError = true;
-			this.image = "images/notloaded.png";
+			this.visible = false;
+		},
+
+		// Test if the item is visible
+		isVisible: function() {
+			let rect = this.$el.getBoundingClientRect();
+			return rect.top < window.innerHeight && rect.bottom >= 0;
+		}
+	},
+	watch: {
+		// Load image only when component is visible
+		visible: function(val) {
+			this.visible = val;
+			if (this.visible) {
+				this.image = this.place.images.cropped360;
+			}
 		}
 	}
 };

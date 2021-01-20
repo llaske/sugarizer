@@ -35,8 +35,8 @@
 		<img id="spinner" src="images/spinner-light.gif"/>
 		<img id="cloudwarning" src="images/cloud-warning.svg"/>
 
-		<div id="content">
-			<street-place v-for="(place) in places" :place="place"></street-place>
+		<div id="content" @scroll="onScrolled">
+			<street-place ref="places" v-for="(place) in places" :place="place"></street-place>
 		</div>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
