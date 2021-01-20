@@ -157,99 +157,6 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		}, data);
 	}
 
-	function backgroundColorFill() {
-		featureBackgroundColor.database = [
-			{code: "#ffffff", text: l10n["white"][userSettings.language], i: 0},
-			{code: "#919496", text: l10n["silver"][userSettings.language], i: 1},
-			{code: "#000000", text: l10n["black"][userSettings.language], i: 2},
-			{code: "#5E008C", text: l10n["purple"][userSettings.language], i: 3},
-			{code: "#A700FF", text: l10n["violet"][userSettings.language], i: 4},
-			{code: "#FFFA00", text: l10n["yellow"][userSettings.language], i: 5},
-			{code: "#00A0FF", text: l10n["lightBlue"][userSettings.language], i: 6},
-			{code: "#008009", text: l10n["darkGreen"][userSettings.language], i: 7},
-			{code: "#FF8F00", text: l10n["orange"][userSettings.language], i: 8},
-			{code: "#005FE4", text: l10n["darkBlue"][userSettings.language], i: 9},
-			{code: "#00EA11", text: l10n["lightGreen"][userSettings.language], i: 10},
-			{code: "#FF2B34", text: l10n["red"][userSettings.language], i: 11}
-		]
-		// Find entries matching search field
-		var content = featureBackgroundColor.database;
-		var title = document.getElementById('search-text').value.toLowerCase();
-		if (title.length) {
-			content = [];
-			for (var i = 0 ; i < featureBackgroundColor.database.length ; i++) {
-				if (featureBackgroundColor.database[i].text.toLowerCase().indexOf(title) != -1) {
-					content.push(featureBackgroundColor.database[i]);
-				}
-			}
-		}
-		// Display result
-		featureBackgroundColor.results = content;
-		featureBackgroundColor.resultCount = 30;
-		BackgroundColorDisplay(content, featureBackgroundColor.resultCount);
-	}
-
-	function BackgroundColorDisplay(content, count) {
-		// Display entries
-		var template = "\
-			{{#items}}\
-			<div id='color_{{code}}' style='height:60px'>\
-				<div id='colorIcon_{{code}}' class='toolbutton' style='border-style:solid;border-width:thin;background-color:{{code}};background-size:40px 40px;width:40px;height:40px;display:inline-block;margin-left:20px;margin-top:5px;'></div>\
-				<div id='colorText_{{code}}' style='color:black;display:inline-block;vertical-align:middle;margin-left:30px;height:60px;margin-top:10px;font-weight:bold;font-size:14px;'>{{text}}</div>\
-			</div>\
-			{{/items}}\
-		";
-		var items = {items: content.slice(0, count)};
-		var render = mustache.render(template, items);
-		document.getElementById('journal-empty').style.visibility = (content.length != 0 ? 'hidden' : 'visible');
-		document.getElementById('journal-container').innerHTML = render;
-
-		// Handle click
-		let event = new Event("updateBackgroundListener", {bubbles: true});
-		var len = Math.min(count, content.length);
-		for (var i = 0 ; i < len; i++) {
-			var entry = document.getElementById('color_'+content[i].code);
-			entry.addEventListener('click', function(e) {
-				var code = e.target.id;
-				code = code.substr(code.indexOf("_")+1);
-				var line = document.getElementById('color_'+code);
-				document.getElementById("cy").style.backgroundImage = "";
-				document.getElementById("cy").style.backgroundColor = code;
-				line.style.backgroundColor = "#808080";
-				entry.dispatchEvent(event);
-				modal.close();
-			});
-			
-		}
-	}
-	var featureBackgroundColor = {};
-	featureBackgroundColor.id = "background-color-button";
-	featureBackgroundColor.title = "$titleBackgroundColor";
-	featureBackgroundColor.placeholder = "$holderSearchBackgroundColor";
-	featureBackgroundColor.icon = "lib/sugar-web/graphics/icons/actions/tool-bucket.svg";
-	featureBackgroundColor.beforeActivate = function() {
-		document.getElementById('favorite-button').style.visibility = "hidden";
-		backgroundColorFill();
-	};
-	featureBackgroundColor.beforeUnactivate = function() {
-		document.getElementById('favorite-button').style.visibility = "visible";
-	};
-	featureBackgroundColor.onFavorite = function() {};
-	featureBackgroundColor.onScroll = function() {
-		var container = document.getElementById('journal-container');
-		var scrollValue = (container.scrollTop) / (container.scrollHeight - container.clientHeight);
-		if (scrollValue > 0.90) {
-			featureBackgroundColor.resultCount += 30;
-			BackgroundColorDisplay(featureBackgroundColor.results, featureBackgroundColor.resultCount);
-		}
-	};
-	featureBackgroundColor.onSearch = function() {
-		backgroundColorFill();
-	};
-	featureBackgroundColor.onCancelSearch = function() {
-		backgroundColorFill();
-	};
-
 	// Init feature list: overload it if you want to change the feature list at init
 	chooser.features = [];
 	chooser.currentFeature = -1;
@@ -280,7 +187,6 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 					featureAbecedarium.fileformat = ".png";
 					featureAbecedarium.mimetype = imageType;
 					featureAbecedarium.filelocation = "images/database/";
-					chooser.features.push(featureBackgroundColor);
 					chooser.features.push(featureAbecedarium);
 					chooser.features.push(featurePhoto);
 					break;
@@ -669,14 +575,12 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	var l10n = {
 		titleJournal: {en: 'Journal', fr: 'Journal', es: 'Diario', pt: 'Diário'},
 		titleAbecedarium: {en: 'Abecedarium', fr: 'Abecedarium', es: 'Abecedarium', pt: 'Abecedarium'},
-		titleBackgroundColor: {en: 'Background Color', fr: 'Couleur de l`arrière plan', es: 'Fona Koloro', pt: 'Cor de fundo'},
 		titlePhoto: {en: 'Photo', fr: 'Photo', es: 'Photo', pt: 'Photo'},
 		titleClose: {en: 'Cancel', fr: 'Annuler', es: 'Cancelar', pt: 'Cancelar'},
 		titleChoose: {en: 'Choose an object', fr: 'Choisir un objet', es: 'Elige un objeto', pt: 'Escolher um objeto'},
 		photoName: {en: 'Photo by {{name}}', fr: 'Photo par {{name}}', es: 'Photo por {{name}}', pt: 'Photo por {{name}}'},
 		holderSearchJournal: {en: 'Search in Journal', fr: 'Recherche dans le journal', es: 'Buscar en el diario', pt: 'Pesquisar no diário'},
 		holderSearchAbecedarium: {en: 'Search in Abecedarium', fr: 'Recherche dans Abecedarium', es: 'Buscar en Abecedarium', pt: 'Pesquisar no Abecedarium'},
-		holderSearchBackgroundColor: {en: 'Search color name', fr: 'Rechercher le nom de la couleur', es: 'Serĉu koloran nomon', pt: 'Nome da cor da pesquisa'},
 		noMatchingEntries: {en: 'No matching entries', fr: 'Aucune entrée correspondante', es: 'No hay actividades coincidentes', pt: 'Sem atividades correspondentes'},
 		SecondsAgo: {en: 'Seconds ago', fr: "A l'instant", es: 'Segundos atrás', pt: 'Segundos atrás'},
 		Ago: {en: '{{time}} ago', fr: 'il y a {{time}}', es: '{{time}} atrás', pt: '{{time}} atrás'},
@@ -692,18 +596,6 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 		Months_other: {en: 'months', fr: 'mois', es: 'meses', pt: 'meses'},
 		Years_one: {en: 'year', fr: 'année', es: 'año', pt: 'ano'},
 		Years_other: {en: 'years', fr: 'années', es: 'años', pt: 'anos'},
-		white: {en: 'white', fr: 'blanche', es: 'blanka', pt: 'branca'},
-		silver: {en: 'silver', fr: 'argent', es: 'arĝento', pt: 'prata'},
-		black: {en: 'black', fr: 'noire', es: 'nigra', pt: 'preta'},
-		purple: {en: 'purple', fr: 'violet', es: 'purpura', pt: 'roxa'},
-		violet: {en: 'violet', fr: 'violette', es: 'viola', pt: 'tolet'},
-		yellow: {en: 'yellow', fr: 'Jaune', es: 'flava', pt: 'amarela'},
-		lightBlue: {en: 'light blue', fr: 'bleu clair', es: 'helblua', pt: 'azul claro'},
-		darkGreen: {en: 'dark green', fr: 'vert foncé', es: 'malhela verdo', pt: 'verde escuro'},
-		orange: {en: 'orange', fr: 'orange', es: 'oranĝa', pt: 'laranja'},
-		darkBlue: {en: 'dark blue', fr: 'bleu foncé', es: 'malhelblua', pt: 'azul escuro'},
-		lightGreen: {en: 'light green', fr: 'vert clair', es: 'helverda', pt: 'luz verde'},
-		red: {en: 'red', fr: 'rouge', es: 'ruĝa', pt: 'vermelha'},
 	};
 	function doLocalize(str, params) {
 		var lang = (["en","fr","es", "pt"].indexOf(userSettings.language)!=-1)?userSettings.language:"en";

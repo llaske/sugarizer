@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n", "sugar-web/graphics/journalchooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser) {
+define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n", "sugar-web/graphics/journalchooser", "activity/backgroundColorChooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser, backgroundColorChooser) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -140,6 +140,14 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				});
 			}
 		})
+
+		journalchooser.init = function() {
+			journalchooser.features = [journalchooser.featureLocalJournal];
+			backgroundColorChooser.title = l10n.get("titleBackgroundColor");
+			backgroundColorChooser.placeholder = l10n.get("holderSearchBackgroundColor");
+			journalchooser.features.push(backgroundColorChooser);
+			journalchooser.currentFeature = 0;
+		}
 
 		document.getElementById("background-image-button").addEventListener('click', function (e) {
 			journalchooser.show(function (entry) {
