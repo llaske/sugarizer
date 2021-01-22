@@ -388,6 +388,16 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var loadGraph = function() {
 			var datastoreObject = activity.getDatastoreObject();
 			datastoreObject.loadAsText(function (error, metadata, data) {
+				if (Array.isArray(data)) {
+					var newObj = {
+						background_image: '',
+						background_color: '#ffffff',
+						commands: data,
+						img_x: 0,
+						img_y: 0
+					};
+					data = newObj;
+				}
 				initGraph(data.commands);
 				if(data.background_image != '') {
 					from_datastore = true;
