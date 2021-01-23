@@ -194,6 +194,15 @@ p {
 	font-weight: bold;
 }
 
+.place-icon {
+	position: absolute;
+	width: 35px;
+	height: 35px;
+	bottom: 10px;
+	right: 12px;
+	z-index: 4;
+}
+
 .place-spinner {
 	position: absolute;
 	transform: translate(-50%, -50%);

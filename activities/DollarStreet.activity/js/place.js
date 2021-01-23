@@ -9,10 +9,11 @@ var StreetPlace = {
 				<br>
 				<span class="place-country">{{flag}}&nbsp;{{place.country.name}}</span>
 			</div>
+			<div v-html="thingIcon" class="place-icon"></div>
 			<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 		</div>
 	`,
-	props: ['place'],
+	props: ['place','topic'],
 	data: function() {
 		return {
 			image: null,
@@ -27,6 +28,10 @@ var StreetPlace = {
 		},
 		flag: function() {
 			return this.place.country.id.toUpperCase().replace(/./g, function(char) { return String.fromCodePoint(char.charCodeAt(0)+127397); });
+		},
+		thingIcon: function() {
+			let thing = app.$refs.api.getThingByTopic(this.topic);
+			return thing ? thing.svg : "";
 		}
 	},
 	methods: {

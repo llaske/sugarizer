@@ -50,13 +50,26 @@ Vue.component("dollarstreet-api", {
 						_dsAPIGet(dsRegions+vm.language),
 						_dsAPIGet(dsThings+vm.language),
 					]).then(function (results) {
+						// Retrieve all data sets
 						vm.l10n = results[0];
 						vm.streetSettings = results[1];
 						vm.regions = results[2];
 						vm.things = results[3].otherThings;
 						vm.familyThing = results[3].thing;
 						vm.popularThings = results[3].popularThings;
-						vm.$emit("initialized");
+
+						// Load icons for things
+						let iconsLoad = [];
+						for (let i = 0 ; i < vm.things.length ; i++) {
+							let thing = vm.things[i];
+							iconsLoad.push(_loadIcon(thing.icon));
+						}
+						Promise.all(iconsLoad).then(function (results) {
+							for (let i = 0 ; i < vm.things.length ; i++) {
+								vm.things[i].svg = results[i];
+							}
+							vm.$emit("initialized");
+						});
  					}).catch(function(error) {
 						vm.$emit("error");
 					});
@@ -99,6 +112,16 @@ Vue.component("dollarstreet-api", {
 			}
 			return null;
 		},
+		getThingByTopic: function(topic) {
+			let vm = this;
+			for (let i = 0 ; i < vm.things.length ; i++) {
+				let current = vm.things[i];
+				if (current.originPlural.toLowerCase().replace(" ","-") == topic) {
+					return current;
+				}
+			}
+			return null;
+		},
 
 		// Get family thing
 		getFamily: function() {
@@ -136,5 +159,16 @@ function _dsAPIGet(route) {
 		}).catch(function(error) {
 			reject(error);
 		});
+	});
+}
+
+// Load thing SVG and change default color
+function _loadIcon(url) {
+	return new Promise(function(resolve, reject) {
+		axios.get("https:"+url).then(function(response) {
+			resolve(response.data.replace(/#2C4351/g, "#FFFFFF"));
+		}).catch(function(error) {
+			reject(error);
+ 		});
 	});
 }
