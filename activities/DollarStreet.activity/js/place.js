@@ -7,7 +7,7 @@ var StreetPlace = {
 			<div class="place-label">
 				<span>{{formattedIncome}}</span>
 				<br>
-				<span class="place-country">{{place.country.name}}</span>
+				<span class="place-country">{{flag}}&nbsp;{{place.country.name}}</span>
 			</div>
 			<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 		</div>
@@ -24,6 +24,9 @@ var StreetPlace = {
 	computed: {
 		formattedIncome: function() {
 			return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD'}).format(Math.floor(this.place.place.income)).replace("$US","$");
+		},
+		flag: function() {
+			return this.place.country.id.toUpperCase().replace(/./g, function(char) { return String.fromCodePoint(char.charCodeAt(0)+127397); });
 		}
 	},
 	methods: {
