@@ -471,8 +471,15 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var lineWidthBackground = this.lineWidthBase * 4;
             ctx.lineCap = 'round';
             ctx.lineWidth = lineWidthBackground;
-            ctx.strokeStyle = this.colors.black;
-            ctx.fillStyle = this.colors.white;
+            var date = new Date();
+            var hours = date.getHours();
+            if (hours<=12){
+              ctx.strokeStyle = this.colors.black;
+              ctx.fillStyle = this.colors.white;
+            } else {
+              ctx.strokeStyle = this.colors.white;
+              ctx.fillStyle = this.colors.black;
+            }
             ctx.beginPath();
             ctx.arc(this.centerX, this.centerY,
                     this.radius - lineWidthBackground - x, 0, 2 * Math.PI);
