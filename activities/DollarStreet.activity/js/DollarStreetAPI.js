@@ -112,8 +112,9 @@ Vue.component("dollarstreet-api", {
 			}
 			return null;
 		},
-		getThingByTopic: function(topic) {
+		getThingByTopic: function(rawtopic) {
 			let vm = this;
+			let topic = rawtopic.toLowerCase().replace(" ","-");
 			for (let i = 0 ; i < vm.things.length ; i++) {
 				let current = vm.things[i];
 				if (current.originPlural.toLowerCase().replace(" ","-") == topic) {

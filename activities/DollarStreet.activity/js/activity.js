@@ -67,10 +67,10 @@ var app = new Vue({
 			vm.displayThings();
 		},
 
-		// Button things clicked
-		thingsClicked: function() {
+		// Thing selected
+		onThingSelected: function(event) {
 			let vm = this;
-			let thing = vm.$refs.api.getPopularThings()[0];
+			let thing = event.detail.value;
 			let thingName = thing.originPlural.toLowerCase().replace(" ","-");
 			vm.currentThing = thingName;
 			vm.displayThings();
