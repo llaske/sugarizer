@@ -23,7 +23,7 @@ var StreetPlace = {
 	},
 	computed: {
 		formattedIncome: function() {
-			return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD'}).format(Math.floor(this.place.place.income)).replace("$US","$");
+			return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0}).format(Math.floor(this.place.place.income)).replace("$US","$");
 		},
 		flag: function() {
 			return this.place.country.id.toUpperCase().replace(/./g, function(char) { return String.fromCodePoint(char.charCodeAt(0)+127397); });
