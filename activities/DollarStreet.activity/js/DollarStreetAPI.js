@@ -106,10 +106,11 @@ Vue.component("dollarstreet-api", {
 		},
 
 		// Get street places
-		getStreetPlaces: function(topic="families") {
+		getStreetPlaces: function(topic="families", regions=null) {
 			let vm = this;
 			return new Promise(function(resolve, reject) {
-				axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic).then(function(response) {
+				let region = regions ? "&regions=" + regions : "";
+				axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic+region).then(function(response) {
 					let initialStreets = response.data.hits["4"];
 					let streets = [];
 					for (let i = 0 ; i < initialStreets.length ; i++) {

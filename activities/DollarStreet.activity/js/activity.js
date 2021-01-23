@@ -13,7 +13,9 @@ var app = new Vue({
 		'street-place': StreetPlace
 	},
 	data: {
-		places: []
+		places: [],
+		currentThing: "families",
+		currentRegion: null
 	},
 	created() {
 		let vm = this;
@@ -38,7 +40,7 @@ var app = new Vue({
 		dollarStreetConnected: function() {
 			let vm = this;
 			console.log("Dollar Street API connected");
-			vm.displayFamily();
+			vm.displayThings();
 		},
 
 		dollarStreetError: function() {
@@ -47,23 +49,12 @@ var app = new Vue({
 			document.getElementById("cloudwarning").style.visibility = "visible";
 		},
 
-		// Display families
-		displayFamily: function() {
-			let vm = this;
-			vm.places = [];
-			document.getElementById("spinner").style.visibility = "visible"
-			vm.$refs.api.getStreetPlaces().then(function(response) {
-				document.getElementById("spinner").style.visibility = "hidden";
-				vm.places = response;
-			});
-		},
-
 		// Display a category of things
-		displayThings: function(thing) {
+		displayThings: function() {
 			let vm = this;
 			vm.places = [];
 			document.getElementById("spinner").style.visibility = "visible"
-			vm.$refs.api.getStreetPlaces(thing).then(function(response) {
+			vm.$refs.api.getStreetPlaces(vm.currentThing, vm.currentRegion).then(function(response) {
 				document.getElementById("spinner").style.visibility = "hidden";
 				vm.places = response;
 			});
@@ -72,30 +63,29 @@ var app = new Vue({
 		// Button family clicked
 		familyClicked: function() {
 			let vm = this;
-			if (document.getElementById("family-button").classList.contains("active")) {
-				return;
-			}
-			document.getElementById("family-button").classList.add("active");
-			document.getElementById("things-button").classList.remove("active");
-			vm.displayFamily();
+			vm.currentThing = "families";
+			vm.displayThings();
 		},
 
 		// Button things clicked
 		thingsClicked: function() {
 			let vm = this;
-			if (document.getElementById("things-button").classList.contains("active")) {
-				return;
-			}
-			document.getElementById("family-button").classList.remove("active");
-			document.getElementById("things-button").classList.add("active");
 			let thing = vm.$refs.api.getPopularThings()[0];
 			let thingName = thing.originPlural.toLowerCase().replace(" ","-");
-			vm.displayThings(thingName);
+			vm.currentThing = thingName;
+			vm.displayThings();
 		},
 
 		// Recompute visibility when scrolled
 		onScrolled: function() {
 			this.updateVisibility();
+		},
+
+		// Region changed
+		onRegionSelected: function(event) {
+			let vm = this;
+			vm.currentRegion = event.detail.value;
+			vm.displayThings();
 		},
 
 		// Update screen visibility
@@ -104,7 +94,6 @@ var app = new Vue({
 			for (let i = 0 ; i < vm.places.length ; i++) {
 				let place = vm.$refs.places[i];
 				if (place.isVisible()) {
-					console.log("visible");
 					place.visible = true;
 				}
 			}

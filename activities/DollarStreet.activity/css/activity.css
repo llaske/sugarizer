@@ -13,6 +13,11 @@ p {
 	margin: 0.6em 0;
 }
 
+
+.palette {
+	z-index: 5;
+}
+
 #app {
 	background: white;
 	min-height: 100%;
