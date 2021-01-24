@@ -15,7 +15,9 @@ var app = new Vue({
 	data: {
 		places: [],
 		currentThing: "families",
-		currentRegion: null
+		currentRegion: null,
+		currentMinIncome: 0,
+		currentMaxIncome: 0
 	},
 	created() {
 		let vm = this;
@@ -40,6 +42,9 @@ var app = new Vue({
 		dollarStreetConnected: function() {
 			let vm = this;
 			console.log("Dollar Street API connected");
+			let settings = vm.$refs.api.getStreetSettings();
+			vm.currentMinIncome = settings.poor;
+			vm.currentMaxIncome = settings.rich;
 			vm.displayThings();
 		},
 
@@ -54,7 +59,7 @@ var app = new Vue({
 			let vm = this;
 			vm.places = [];
 			document.getElementById("spinner").style.visibility = "visible"
-			vm.$refs.api.getStreetPlaces(vm.currentThing, vm.currentRegion).then(function(response) {
+			vm.$refs.api.getStreetPlaces(vm.currentThing, vm.currentRegion, vm.currentMinIncome, vm.currentMaxIncome).then(function(response) {
 				document.getElementById("spinner").style.visibility = "hidden";
 				vm.places = response;
 			});

@@ -101,6 +101,11 @@ Vue.component("dollarstreet-api", {
 			return this.popularThings;
 		},
 
+		// Get street settings
+		getStreetSettings: function() {
+			return this.streetSettings;
+		},
+
 		// Find a thing by id
 		getThingById: function(id) {
 			let vm = this;
@@ -130,11 +135,13 @@ Vue.component("dollarstreet-api", {
 		},
 
 		// Get street places
-		getStreetPlaces: function(topic="families", regions=null) {
+		getStreetPlaces: function(topic="families", regions=null, imin=0, imax=0) {
 			let vm = this;
 			return new Promise(function(resolve, reject) {
 				let region = regions ? "&regions=" + regions : "";
-				axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic+region).then(function(response) {
+				let min = imin ? "&min=" + imin : "";
+				let max = imax ? "&max=" + imax : "";
+				axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic+region+min+max).then(function(response) {
 					let initialStreets = response.data.hits["4"];
 					let streets = [];
 					for (let i = 0 ; i < initialStreets.length ; i++) {
