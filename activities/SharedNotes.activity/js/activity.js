@@ -65,21 +65,23 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		});
 		var pngButton = document.getElementById("png-button");
 		pngButton.addEventListener('click', function(e) {
-			var inputData = cy.png();
-			var mimetype = inputData.split(";")[0].split(":")[1];
-			var type = mimetype.split("/")[0];
-			var metadata = {
-				mimetype: mimetype,
-				title: type.charAt(0).toUpperCase() + type.slice(1) + " Shared Notes",
-				activity: "org.olpcfrance.MediaViewerActivity",
-				timestamp: new Date().getTime(),
-				creation_time: new Date().getTime(),
-				file_size: 0
-			};
-			datastore.create(metadata, function() {
-				humane.log(l10n.get('NotesSaved'));
-				console.log("export done.")
-			}, inputData);
+			html2canvas(document.querySelector("#cy")).then(canvas => {
+				var inputData = canvas.toDataURL();
+				var mimetype = inputData.split(";")[0].split(":")[1];
+				var type = mimetype.split("/")[0];
+				var metadata = {
+					mimetype: mimetype,
+					title: type.charAt(0).toUpperCase() + type.slice(1) + " Shared Notes",
+					activity: "org.olpcfrance.MediaViewerActivity",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				datastore.create(metadata, function() {
+					humane.log(l10n.get('NotesSaved'));
+					console.log("export done.")
+				}, inputData);
+			});
 		});
 		var networkButton = document.getElementById("network-button");
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
