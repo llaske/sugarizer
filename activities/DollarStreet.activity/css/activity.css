@@ -45,6 +45,10 @@ p {
 	background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #street-button {
+	background-image: url(../icons/houses.svg);
+}
+
 #main-toolbar #family-button {
 	background-image: url(../icons/family.svg);
 }
@@ -213,4 +217,138 @@ p {
 
 #content {
 	overflow-y: auto;
+}
+
+[slider] {
+	position: relative;
+	height: 14px;
+	border-radius: 10px;
+	text-align: left;
+	margin: 45px 0 10px 0;
+}
+
+[slider] > div {
+	position: absolute;
+	left: 13px;
+	right: 15px;
+	height: 14px;
+}
+
+[slider] > div > [inverse-left] {
+	position: absolute;
+	left: 0;
+	height: 14px;
+	border-radius: 10px;
+	background-color: #CCC;
+	margin: 0 7px;
+}
+
+[slider] > div > [inverse-right] {
+	position: absolute;
+	right: 0;
+	height: 14px;
+	border-radius: 10px;
+	background-color: #CCC;
+	margin: 0 7px;
+}
+
+[slider] > div > [range] {
+	position: absolute;
+	left: 0;
+	height: 14px;
+	border-radius: 14px;
+	background-color: #0000FF;
+}
+
+[slider] > div > [thumb] {
+	position: absolute;
+	top: -7px;
+	z-index: 2;
+	height: 28px;
+	width: 28px;
+	text-align: left;
+	margin-left: -11px;
+	cursor: pointer;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+	background-color: #FFF;
+	border-radius: 50%;
+	outline: none;
+}
+
+[slider] > input[type=range] {
+	position: absolute;
+	pointer-events: none;
+	-webkit-appearance: none;
+	z-index: 3;
+	height: 14px;
+	top: -2px;
+	width: 100%;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity=0);
+	-moz-opacity: 0;
+	-khtml-opacity: 0;
+	opacity: 0;
+}
+
+div[slider] > input[type=range]::-ms-track {
+	-webkit-appearance: none;
+	background: transparent;
+	color: transparent;
+}
+
+div[slider] > input[type=range]::-moz-range-track {
+	-moz-appearance: none;
+	background: transparent;
+	color: transparent;
+}
+
+div[slider] > input[type=range]:focus::-webkit-slider-runnable-track {
+	background: transparent;
+	border: transparent;
+}
+
+div[slider] > input[type=range]:focus {
+	outline: none;
+}
+
+div[slider] > input[type=range]::-ms-thumb {
+	pointer-events: all;
+	width: 28px;
+	height: 28px;
+	border-radius: 0px;
+	border: 0 none;
+	background: red;
+}
+
+div[slider] > input[type=range]::-moz-range-thumb {
+	pointer-events: all;
+	width: 28px;
+	height: 28px;
+	border-radius: 0px;
+	border: 0 none;
+	background: red;
+}
+
+div[slider] > input[type=range]::-webkit-slider-thumb {
+	pointer-events: all;
+	width: 28px;
+	height: 28px;
+	border-radius: 0px;
+	border: 0 none;
+	background: red;
+	-webkit-appearance: none;
+}
+
+div[slider] > input[type=range]::-ms-fill-lower {
+	background: transparent;
+	border: 0 none;
+}
+
+div[slider] > input[type=range]::-ms-fill-upper {
+	background: transparent;
+	border: 0 none;
+}
+
+div[slider] > input[type=range]::-ms-tooltip {
+	display: none;
 }

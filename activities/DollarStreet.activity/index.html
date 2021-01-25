@@ -23,6 +23,13 @@
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="street-button"
+				palette-file="js/palettes/incomes.js"
+				palette-event="income"
+				@income="onIncomeChanged"
+				palette-class="IncomePalette"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="family-button" @click="familyClicked"></sugar-toolitem>
 			<sugar-toolitem id="things-button"
 				palette-file="js/palettes/things.js"

@@ -93,6 +93,11 @@ var app = new Vue({
 			vm.displayThings();
 		},
 
+		// Income range selected
+		onIncomeChanged: function(event) {
+			console.log(event.detail);
+		},
+
 		// Update screen visibility
 		updateVisibility: function() {
 			let vm = this;
