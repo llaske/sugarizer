@@ -17,7 +17,9 @@ var app = new Vue({
 		currentThing: "families",
 		currentRegion: null,
 		currentMinIncome: 0,
-		currentMaxIncome: 0
+		currentMaxIncome: 0,
+		timerId: null,
+		timerData: null
 	},
 	created() {
 		let vm = this;
@@ -95,7 +97,16 @@ var app = new Vue({
 
 		// Income range selected
 		onIncomeChanged: function(event) {
-			console.log(event.detail);
+			let vm = this;
+			if (vm.timerId) {
+				clearTimeout(vm.timerId);
+			}
+			vm.timerId = setTimeout(function() {
+				vm.currentMinIncome = event.detail.min;
+				vm.currentMaxIncome = event.detail.max;
+				vm.displayThings();
+				vm.timerId = null;
+			}, 1000);
 		},
 
 		// Update screen visibility

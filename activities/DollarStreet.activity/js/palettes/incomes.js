@@ -7,32 +7,44 @@ define(['sugar-web/graphics/palette',"text!activity/palettes/incomes.html"], fun
 		palette.Palette.call(this, invoker, primaryText);
 		this.getPalette().id = "incomepalette";
 		this.incomeEvent = document.createEvent('CustomEvent');
-		this.incomeEvent.initCustomEvent('income', true, true, {'max': 100, 'min': 0});
+		this.incomeEvent.initCustomEvent('income', true, true, {'min': 0, 'max': 11000});
 
 		var incomeElem = document.createElement('div');
 		incomeElem.innerHTML = template;
 		this.setContent([incomeElem]);
 
-		var that = this;
+		var that = this;;
 		let children = document.getElementById("slider-incomes").childNodes;
 		let minrange = children[3];
 		let maxrange = children[5];
 		minrange.addEventListener('input', function(e) {
+			let settings = app.$refs.api.getStreetSettings();
+			let rangeincome = (settings.rich - settings.poor)/100.0;
 			_computeMinRange(minrange);
-			that.incomeEvent.detail.min = minrange.value;
-			that.incomeEvent.detail.max = maxrange.value;
+			that.incomeEvent.detail.min = (minrange.value == 0 ? settings.poor : settings.poor+minrange.value*rangeincome);
+			that.incomeEvent.detail.max = (maxrange.value == 100 ? settings.rich : maxrange.value*rangeincome);
 			that.getPalette().dispatchEvent(that.incomeEvent);
 		});
 		maxrange.addEventListener('input', function(e) {
+			let settings = app.$refs.api.getStreetSettings();
+			let rangeincome = (settings.rich - settings.poor)/100.0;
 			_computeMaxRange(maxrange);
-			that.incomeEvent.detail.min = minrange.value;
-			that.incomeEvent.detail.max = maxrange.value;
+			that.incomeEvent.detail.min = (minrange.value == 0 ? settings.poor : settings.poor+minrange.value*rangeincome);
+			that.incomeEvent.detail.max = (maxrange.value == 100 ? settings.rich : maxrange.value*rangeincome);
 			that.getPalette().dispatchEvent(that.incomeEvent);
 		});
 
-		this.getPalette().childNodes[1].style.width = "500px";
+		let wrapper = this.getPalette().childNodes[1];
+		wrapper.style.width = "450px";
+		wrapper.style.maxWidth = "400px";
+		wrapper.style.height = "110px";
+
 		invoker.addEventListener('click', function(e) {
-			_initSlider(25, 65, "#0000ff");
+			let settings = app.$refs.api.getStreetSettings();
+			let rangeincome = (settings.rich - settings.poor)/100.0;
+			let currentmin = (app.currentMinIncome-settings.poor)/rangeincome;
+			let currentmax = app.currentMaxIncome/rangeincome;
+			_initSlider(currentmin, currentmax, "#0000ff");
 		});
 	};
 
@@ -59,6 +71,10 @@ function _computeMinRange(minrange) {
 	children[1].style.width=value+'%';
 	children[5].style.left=value+'%';
 	children[7].style.left=value+'%';
+	let settings = app.$refs.api.getStreetSettings();
+	let rangeincome = (settings.rich - settings.poor)/100.0;
+	let newvalue = (minrange.value == 0 ? settings.poor : settings.poor+minrange.value*rangeincome);
+	document.getElementById("slider-min").innerHTML = _formatIncome(newvalue);
 }
 
 function _computeMaxRange(maxrange) {
@@ -68,6 +84,10 @@ function _computeMaxRange(maxrange) {
 	children[3].style.width=(100-value)+'%';
 	children[5].style.right=(100-value)+'%';
 	children[9].style.left=value+'%';
+	let settings = app.$refs.api.getStreetSettings();
+	let rangeincome = (settings.rich - settings.poor)/100.0;
+	let newvalue = (maxrange.value == 100 ? settings.rich : maxrange.value*rangeincome);
+	document.getElementById("slider-max").innerHTML = _formatIncome(newvalue);
 }
 
 function _initSlider(mymin, mymax, color) {
@@ -79,4 +99,8 @@ function _initSlider(mymin, mymax, color) {
 	children[1].childNodes[5].style.backgroundColor = color;
 	_computeMinRange(children[3]);
 	_computeMaxRange(children[5]);
+}
+
+function _formatIncome(income) {
+	return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0}).format(Math.floor(income)).replace("$US","$")
 }
