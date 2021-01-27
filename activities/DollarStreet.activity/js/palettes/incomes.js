@@ -44,7 +44,7 @@ define(['sugar-web/graphics/palette',"text!activity/palettes/incomes.html"], fun
 			let rangeincome = (settings.rich - settings.poor)/100.0;
 			let currentmin = (app.currentMinIncome-settings.poor)/rangeincome;
 			let currentmax = app.currentMaxIncome/rangeincome;
-			_initSlider(currentmin, currentmax, "#0000ff");
+			_initSlider(currentmin, currentmax, app.$refs.SugarActivity.getEnvironment().user.colorvalue.stroke);
 		});
 	};
 
