@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n) {
+define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n", "sugar-web/graphics/journalchooser", "activity/backgroundColorChooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser, backgroundColorChooser) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -65,24 +65,113 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		});
 		var pngButton = document.getElementById("png-button");
 		pngButton.addEventListener('click', function(e) {
-			var inputData = cy.png();
-			var mimetype = inputData.split(";")[0].split(":")[1];
-			var type = mimetype.split("/")[0];
-			var metadata = {
-				mimetype: mimetype,
-				title: type.charAt(0).toUpperCase() + type.slice(1) + " Shared Notes",
-				activity: "org.olpcfrance.MediaViewerActivity",
-				timestamp: new Date().getTime(),
-				creation_time: new Date().getTime(),
-				file_size: 0
-			};
-			datastore.create(metadata, function() {
-				humane.log(l10n.get('NotesSaved'));
-				console.log("export done.")
-			}, inputData);
+			html2canvas(document.querySelector("#cy")).then(canvas => {
+				var inputData = canvas.toDataURL();
+				var mimetype = inputData.split(";")[0].split(":")[1];
+				var type = mimetype.split("/")[0];
+				var metadata = {
+					mimetype: mimetype,
+					title: type.charAt(0).toUpperCase() + type.slice(1) + " Shared Notes",
+					activity: "org.olpcfrance.MediaViewerActivity",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				datastore.create(metadata, function() {
+					humane.log(l10n.get('NotesSaved'));
+					console.log("export done.")
+				}, inputData);
+			});
 		});
 		var networkButton = document.getElementById("network-button");
 		var presence = new presencepalette.PresencePalette(networkButton, undefined);
+
+		var from_datastore = false;
+		var from_network = false;
+		var datastore_img_x = 0;
+		var datastore_img_y = 0;
+		var img_x_shift = 0;
+		var img_y_shift = 0;
+		var prev_background_img_shift_x = 0;
+		var prev_background_img_shift_y = 0;
+		var zoom_background = 1;
+		var img_url = '';
+		var img_height = 0;
+		var img_width = 0;
+		var pan_before_img_x = 0;
+		var pan_before_img_y = 0;
+
+		function set_background_img(data) {
+			document.getElementById("cy").style.backgroundColor = "#ffffff";
+			img_url = data;
+			document.getElementById("cy").style.backgroundImage = "url('"+data+"')";
+			document.getElementById("cy").style.backgroundRepeat = "no-repeat";
+			if (!(isShared && from_network)) {
+				img_x_shift = 0;
+				img_y_shift = 0;
+			}
+			var img = new Image();
+			img.src = data;
+			img.onload = function() {
+				img_height = this.height;
+				img_width = this.width;
+				if (from_datastore) {
+					document.getElementById("cy").style.backgroundPositionX = datastore_img_x + 'px';
+					document.getElementById("cy").style.backgroundPositionY = datastore_img_y + 'px';
+					from_datastore = false;
+					pan_before_img_x = -1*datastore_img_x;
+					pan_before_img_y = -1*datastore_img_y;
+				}
+				else {
+					document.getElementById("cy").style.backgroundPositionX = img_x_shift + 'px';
+					document.getElementById("cy").style.backgroundPositionY = img_y_shift + 'px';
+					pan_before_img_x = prev_background_img_shift_x;
+					pan_before_img_y = prev_background_img_shift_y;
+				}
+				document.getElementById("cy").style.backgroundSize = (zoom_background*img_width) + 'px ' 
+															+ (zoom_background*img_height) + 'px';
+				from_network = false;
+			}
+		}
+
+		document.addEventListener('updateBackgroundListener', function(e) {
+			if(isShared) {
+				sendMessage({
+					action: 'updateBackgroundColor',
+					data: document.getElementById("cy").style.backgroundColor
+				});
+			}
+		})
+
+		journalchooser.init = function() {
+			journalchooser.features = [journalchooser.featureLocalJournal];
+			backgroundColorChooser.title = l10n.get("titleBackgroundColor");
+			backgroundColorChooser.placeholder = l10n.get("holderSearchBackgroundColor");
+			journalchooser.features.push(backgroundColorChooser);
+			journalchooser.currentFeature = 0;
+		}
+
+		document.getElementById("background-image-button").addEventListener('click', function (e) {
+			journalchooser.show(function (entry) {
+				// No selection
+				if (!entry) {
+					return;
+				}
+				// Get object content
+				var dataentry = new datastore.DatastoreObject(entry.objectId);
+				dataentry.loadAsText(function (err, metadata, data) {
+					set_background_img(data);
+					if(isShared) {
+						sendMessage({
+							action: 'updateBackgroundImage',
+							data: data,
+							x_shift: prev_background_img_shift_x,
+							y_shift: prev_background_img_shift_y
+						});
+					}
+				});
+			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
+		});
 
 		// Handle graph save/world
 		var stopButton = document.getElementById("stop-button");
@@ -301,7 +390,30 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var loadGraph = function() {
 			var datastoreObject = activity.getDatastoreObject();
 			datastoreObject.loadAsText(function (error, metadata, data) {
-				initGraph(data);
+				if (Array.isArray(data)) {
+					var newObj = {
+						background_image: '',
+						background_color: '#ffffff',
+						commands: data,
+						img_x: 0,
+						img_y: 0
+					};
+					data = newObj;
+				}
+				initGraph(data.commands);
+				if(data.background_image != '') {
+					from_datastore = true;
+					datastore_img_x = data.img_x;
+					datastore_img_y = data.img_y;
+					prev_background_img_shift_x = -1*datastore_img_x;
+					prev_background_img_shift_y = -1*datastore_img_y;
+					set_background_img(data.background_image);
+				}
+				else {
+					if(data.background_color != '') {
+						document.getElementById("cy").style.backgroundColor = data.background_color;
+					}
+				}
 			});
 		}
 
@@ -315,7 +427,18 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 					action:"create", id:node.id(), text: node.data("content"), position: {x: node.position().x, y: node.position().y}, color: node.data("background-color")
 				});
 			}
-			return commands;
+
+			img_url = document.getElementById("cy").style.backgroundImage;
+			img_url = img_url.replace(/(url\(|\)|")/g, '');
+			var data = {
+				background_image: img_url,
+				background_color: document.getElementById("cy").style.backgroundColor,
+				commands: commands,
+				img_x: -1*pan_before_img_x,
+				img_y: -1*pan_before_img_y
+			}
+
+			return data;
 		}
 		var saveGraph = function(callback) {
 			var datastoreObject = activity.getDatastoreObject();
@@ -478,7 +601,16 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 			switch (msg.content.action) {
 				case 'initialBoard':
 					// Receive initial board from the host
-					initGraph(msg.content.data);
+					from_network = true;
+					initGraph(msg.content.data.commands);
+					img_x_shift = prev_background_img_shift_x - msg.content.x_shift;
+					img_y_shift = prev_background_img_shift_y - msg.content.y_shift;
+					if (msg.content.data.background_image == '') {
+						from_network = false;
+					}
+					else {
+						set_background_img(msg.content.data.background_image);
+					}
 					break;
 
 				case 'updateBoard':
@@ -496,6 +628,25 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 					// Redo board
 					redoState(true);
 					break;
+				case 'updateBackgroundColor': {
+					// update background color
+					document.getElementById("cy").style.backgroundImage = "";
+					document.getElementById("cy").style.backgroundColor = msg.content.data;
+					break;
+				}
+				case 'updateBackgroundImage': {
+					// update background Image
+					from_network = true;
+					img_x_shift = prev_background_img_shift_x - msg.content.x_shift;
+					img_y_shift = prev_background_img_shift_y - msg.content.y_shift;
+					if (msg.content.data.background_image == '') {
+						from_network = false;
+					}
+					else {
+						set_background_img(msg.content.data);
+					}
+					break;
+				}
 			}
 		}
 		var onNetworkUserChanged = function(msg) {
@@ -506,7 +657,9 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				if (isHost) {
 					sendMessage({
 						action: 'initialBoard',
-						data: getGraph()
+						data: getGraph(),
+						x_shift: prev_background_img_shift_x,
+						y_shift: prev_background_img_shift_y
 					});
 				}
 			} else if (msg.move === -1) {
@@ -577,6 +730,8 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 				pngButton.title = l10n_s.get("pngButtonTitle");
 				networkButton.title = l10n_s.get("networkButtonTitle");
 				helpButton.title = l10n_s.get("helpButtonTitle");
+				document.getElementById("background-image-button").title = l10n_s.get("BackgroundChangeTitle");
+
 				if (cy) {
 					var nodes = cy.elements("node");
 					for(var i = 0; i < nodes.length ; i++) {
@@ -709,12 +864,23 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		});
 
 		// Event: zoom
-		cy.on('zoom', function() {
+		cy.on('zoom', function(e) {
+			zoom_background = e.cy._private.zoom;
+			document.getElementById("cy").style.backgroundSize = (zoom_background*img_width) + 'px ' 
+														+ (zoom_background*img_height) + 'px';
 			saveAndFinishEdit();
 		});
 
 		// Event: move
-		cy.on('pan', function() {
+		cy.on('pan', function(e) {
+			if(document.getElementById("cy").style.backgroundImage != '') {
+				var new_x = img_x_shift + (e.cy._private.pan.x - pan_before_img_x);
+				var new_y = img_y_shift + (e.cy._private.pan.y - pan_before_img_y);
+				document.getElementById("cy").style.backgroundPositionX = new_x.toString() + 'px';
+				document.getElementById("cy").style.backgroundPositionY = new_y.toString() + 'px';
+			}
+			prev_background_img_shift_x = e.cy._private.pan.x;
+			prev_background_img_shift_y = e.cy._private.pan.y;
 			saveAndFinishEdit();
 		});
 	});
