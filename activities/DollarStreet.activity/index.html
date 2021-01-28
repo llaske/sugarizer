@@ -28,14 +28,16 @@
 				palette-event="income"
 				@income="onIncomeChanged"
 				palette-class="IncomePalette"
+				v-bind:title="l10n.stringIncomePalette"
 			></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
-			<sugar-toolitem id="family-button" @click="familyClicked"></sugar-toolitem>
+			<sugar-toolitem id="family-button" @click="familyClicked" v-bind:title="l10n.stringFamilyButton"></sugar-toolitem>
 			<sugar-toolitem id="things-button"
 				palette-file="js/palettes/things.js"
 				palette-event="thing"
 				@thing="onThingSelected"
 				palette-class="ThingPalette"
+				v-bind:title="l10n.stringThingsButton"
 			></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="world-button"
@@ -43,6 +45,7 @@
 				palette-event="region"
 				@region="onRegionSelected"
 				palette-class="RegionPalette"
+				v-bind:title="l10n.stringWorldButton"
 			></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
@@ -57,6 +60,7 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<dollarstreet-api ref="api" v-on:initialized="dollarStreetConnected" v-on:error="dollarStreetError"></dollarstreet-api>
 	</div>
 
@@ -64,6 +68,7 @@
 	<script src="js/place.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

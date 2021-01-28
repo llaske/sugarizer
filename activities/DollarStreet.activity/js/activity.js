@@ -19,7 +19,14 @@ var app = new Vue({
 		currentMinIncome: 0,
 		currentMaxIncome: 0,
 		timerId: null,
-		timerData: null
+		timerData: null,
+		SugarL10n: null,
+		l10n: {
+			stringIncomePalette: '',
+			stringWorldButton: '',
+			stringFamilyButton: '',
+			stringThingsButton: ''
+		}
 	},
 	created() {
 		let vm = this;
@@ -34,12 +41,18 @@ var app = new Vue({
 		window.addEventListener("resize", computeHeight);
 	},
 	mounted: function() {
+		this.SugarL10n = this.$refs.SugarL10n;
 		this.updateVisibility();
 	},
 	updated: function() {
 		this.updateVisibility();
 	},
 	methods: {
+		// Handles localized event
+		localized: function () {
+			this.SugarL10n.localize(this.l10n);
+		},
+
 		// Dollar Street API events
 		dollarStreetConnected: function() {
 			let vm = this;
