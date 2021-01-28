@@ -61,6 +61,23 @@ p {
 	background-image: url(../icons/world.svg);
 }
 
+#main-toolbar #fullscreen-button {
+	background-image: url(../icons/fullscreen.svg);
+}
+
+#main-toolbar #unfullscreen-button {
+	background-image: url(../icons/unfullscreen.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 6%;
+	position: absolute;
+	z-index: 5;
+}
+
 #main-toolbar #network-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
