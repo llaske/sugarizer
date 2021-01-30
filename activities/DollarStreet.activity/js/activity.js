@@ -77,7 +77,7 @@ var app = new Vue({
 		displayThings: function() {
 			let vm = this;
 			vm.places = [];
-			document.getElementById("spinner").style.visibility = "visible"
+			document.getElementById("spinner").style.visibility = "visible";
 			vm.$refs.api.getStreetPlaces(vm.currentThing, vm.currentRegion, vm.currentMinIncome, vm.currentMaxIncome).then(function(response) {
 				document.getElementById("spinner").style.visibility = "hidden";
 				vm.places = response;
@@ -95,7 +95,7 @@ var app = new Vue({
 		onThingSelected: function(event) {
 			let vm = this;
 			let thing = event.detail.value;
-			let thingName = thing.originPlural.toLowerCase().replace(" ","-");
+			let thingName = vm.$refs.api.encodeTopic(thing.originPlural);
 			vm.currentThing = thingName;
 			vm.displayThings();
 		},
@@ -124,6 +124,14 @@ var app = new Vue({
 				vm.displayThings();
 				vm.timerId = null;
 			}, 1000);
+		},
+
+		// Place clicked
+		onPlaceClicked(place) {
+			let vm = this;
+			vm.$refs.api.getThingsForPlace(place).then(function(things) {
+				console.log(things);
+			});
 		},
 
 		// Update screen visibility

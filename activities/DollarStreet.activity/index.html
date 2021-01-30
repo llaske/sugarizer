@@ -58,7 +58,7 @@
 		<img id="cloudwarning" src="images/cloud-warning.svg"/>
 
 		<div id="content" @scroll="onScrolled">
-			<street-place ref="places" v-for="(place) in places" :place="place" :topic="currentThing"></street-place>
+			<street-place ref="places" v-for="(place) in places" :place="place" :topic="currentThing" @place-clicked="onPlaceClicked"></street-place>
 		</div>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>

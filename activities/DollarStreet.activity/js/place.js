@@ -1,7 +1,7 @@
 // Component to display a place
 var StreetPlace = {
 	template: `
-		<div class="place">
+		<div class="place" @click="onPlaceClicked">
 			<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
 			<img src="images/notloaded.png" class="place-image" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
 			<div class="place-label">
@@ -53,6 +53,11 @@ var StreetPlace = {
 		isVisible: function() {
 			let rect = this.$el.getBoundingClientRect();
 			return rect.top < window.innerHeight && rect.bottom >= 0;
+		},
+
+		// Place clicked
+		onPlaceClicked: function() {
+			this.$emit('place-clicked', this.place);
 		}
 	},
 	watch: {

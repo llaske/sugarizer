@@ -9,7 +9,8 @@ const dsStreetSettings = "street-settings";
 const dsRegions = "countries-filter?thing=Families&countries=World&regions=World&lang=";
 const dsThings = "things-filter?thing=Families&countries=World&regions=World&lang=";
 const dsItems = "things?countries=World&regions=World&lang=";
-const dsFamilies = "search/families?show=places&pageSize=1000&lng=";
+const dsFamilies = "search/families?pageSize=1000&lng=";
+const dsHome = "families/";
 
 // Main component
 Vue.component("dollarstreet-api", {
@@ -81,6 +82,11 @@ Vue.component("dollarstreet-api", {
 	},
 
 	methods: {
+		// Encode topic value
+		encodeTopic: function(rawtopic) {
+			return rawtopic.toLowerCase().replace(/ /g,"-").replace(/,/g,"");
+		},
+
 		// Get a localized string by id
 		getL10n: function(id) {
 			return this.l10n[id];
@@ -119,10 +125,10 @@ Vue.component("dollarstreet-api", {
 		},
 		getThingByTopic: function(rawtopic) {
 			let vm = this;
-			let topic = rawtopic.toLowerCase().replace(" ","-");
+			let topic = vm.encodeTopic(rawtopic);
 			for (let i = 0 ; i < vm.things.length ; i++) {
 				let current = vm.things[i];
-				if (current.originPlural.toLowerCase().replace(" ","-") == topic) {
+				if (vm.encodeTopic(current.originPlural) == topic) {
 					return current;
 				}
 			}
@@ -154,6 +160,55 @@ Vue.component("dollarstreet-api", {
 				}).catch(function(error) {
 					reject(error);
 				});
+			});
+		},
+
+		// Get things for a place
+		getThingsForPlace: function(place) {
+			let vm = this;
+
+			// HACK: Retrieve each things for this place because direct route don't work due to CORS
+			let placeId = place.place.id;
+			let placeIncome = Math.floor(place.place.income);
+			let region = "&regions=" + place.region.id;
+			let min = "&min=" + (placeIncome-1);
+			let max = "&max=" + (placeIncome+1);
+			let promises = [];
+			for (let j = 0 ; j < vm.things.length ; j++) {
+				let topic = vm.encodeTopic(vm.things[j].originPlural);
+				promises.push(new Promise(function(resolve, reject) {
+					axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic+region+min+max).then(function(response) {
+						let initialStreets = response.data.hits["4"];
+						let streets = [];
+						for (let i = 0 ; i < initialStreets.length ; i++) {
+							let street = initialStreets[i];
+							if (street.place.id == placeId && (!street.media_type || street.media_type != "video")) {
+								streets.push(street);
+							}
+						}
+						resolve(streets);
+					}).catch(function(error) {
+						reject(error);
+					});
+				}));
+			}
+
+			// Return all results
+			return new Promise(function(resolve, reject) {
+					Promise.all(promises).then(function(results) {
+						let things = [];
+						for (let i = 0 ; i < results.length ; i++) {
+							let result = results[i];
+							for (let j = 0 ; j < result.length ; j++) {
+								things.push(result[j]);
+							}
+						}
+						resolve(things);
+					}).catch(function(error) {
+						reject(error);
+					});
+			}).catch(function(error) {
+				reject(error);
 			});
 		}
 	}
