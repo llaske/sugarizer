@@ -129,8 +129,15 @@ var app = new Vue({
 		// Place clicked
 		onPlaceClicked(place) {
 			let vm = this;
+			vm.places = [];
+			document.getElementById("spinner").style.visibility = "visible";
 			vm.$refs.api.getThingsForPlace(place).then(function(things) {
-				console.log(things);
+				let places = [];
+				for (let i = 0 ; i < things.length ; i++) {
+					places.push(things[i]);
+				}
+				document.getElementById("spinner").style.visibility = "hidden";
+				vm.places = places;
 			});
 		},
 

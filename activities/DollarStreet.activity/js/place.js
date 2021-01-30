@@ -13,7 +13,7 @@ var StreetPlace = {
 			<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 		</div>
 	`,
-	props: ['place','topic'],
+	props: ['place'],
 	data: function() {
 		return {
 			image: null,
@@ -30,7 +30,7 @@ var StreetPlace = {
 			return this.place.country.id.toUpperCase().replace(/./g, function(char) { return String.fromCodePoint(char.charCodeAt(0)+127397); });
 		},
 		thingIcon: function() {
-			let thing = app.$refs.api.getThingByTopic(this.topic);
+			let thing = app.$refs.api.getThingByTopic(this.place.topics[0]);
 			return thing ? thing.svg : "";
 		}
 	},
