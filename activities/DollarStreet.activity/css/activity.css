@@ -182,25 +182,33 @@ p {
 .place {
 	position: relative;
 	display: inline-block;
-	width: 360px;
-	height: 360px;
 	border-radius: 0 0 5px 5px;
 	padding: .25rem;
+}
+.place1 {
+	width: 180px;
+	height: 180px;
+}
+.place2 {
+	width: 360px;
+	height: 360px;
+}
+.place3 {
+	width: 640px;
+	height: 640px;
 }
 
 .place-image {
 	position: absolute;
 }
 
-.place-label {
-	width: 350px;
+.placelabel {
 	height: 60px;
 	padding-left: 10px;
 	padding-top: 10px;
 	bottom: 5px;
 	text-align: left;
 	vertical-align: bottom;
-	font-size: 16pt;
 	position: absolute;
 	overflow: hidden;
 	white-space: nowrap;
@@ -209,6 +217,18 @@ p {
 	color: #fff;
 	text-shadow: #495057 1px 1px 0;
 	z-index: 3;
+}
+.placelabel1 {
+	width: 170px;
+	font-size: 11pt;
+}
+.placelabel2 {
+	width: 350px;
+	font-size: 16pt;
+}
+.placelabel3 {
+	width: 630px;
+	font-size: 18pt;
 }
 
 .place-country {

@@ -1,10 +1,13 @@
 // Component to display a place
+
+const imageSize = [80, 180, 360, 640];
+
 var StreetPlace = {
 	template: `
-		<div class="place" @click="onPlaceClicked">
+		<div v-bind:class="{place: true, place1: (size==1), place2: (size==2), place3: (size==3)}" @click="onPlaceClicked">
 			<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
-			<img src="images/notloaded.png" class="place-image" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
-			<div class="place-label">
+			<img src="images/notloaded.png" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
+			<div v-bind:class="{placelabel: true, placelabel1: (size==1), placelabel2: (size==2), placelabel3: (size==3)}">
 				<span>{{formattedIncome}}</span>
 				<br>
 				<span class="place-country">{{flag}}&nbsp;{{place.country.name}}</span>
@@ -13,7 +16,7 @@ var StreetPlace = {
 			<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 		</div>
 	`,
-	props: ['place'],
+	props: ['place','size'],
 	data: function() {
 		return {
 			image: null,
@@ -65,7 +68,7 @@ var StreetPlace = {
 		visible: function(val) {
 			this.visible = val;
 			if (this.visible) {
-				this.image = this.place.images.cropped360;
+				this.image = this.place.images["cropped"+imageSize[this.size]];
 			}
 		}
 	}
