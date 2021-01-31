@@ -4,19 +4,23 @@ const imageSize = [80, 180, 360, 640];
 
 var StreetPlace = {
 	template: `
-		<div v-bind:class="{place: true, place1: (size==1), place2: (size==2), place3: (size==3)}" @click="onPlaceClicked">
+		<div v-bind:class="{place: true, place0: (size==0), place1: (size==1), place2: (size==2), place3: (size==3)}" @click="onPlaceClicked">
 			<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
 			<img src="images/notloaded.png" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
-			<div v-bind:class="{placelabel: true, placelabel1: (size==1), placelabel2: (size==2), placelabel3: (size==3)}">
+			<div v-if="size>0" v-bind:class="{placelabel: true, placelabel0: (size==0), placelabel1: (size==1), placelabel2: (size==2), placelabel3: (size==3)}">
 				<span>{{formattedIncome}}</span>
 				<br>
-				<span class="place-country">{{flag}}&nbsp;{{place.country.name}}</span>
+				<span v-if="!topicMode" class="place-country">{{flag}}&nbsp;{{place.country.name}}</span>
 			</div>
-			<div v-html="thingIcon" class="place-icon"></div>
+			<div v-if="size>0" v-html="thingIcon" class="place-icon"></div>
 			<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 		</div>
 	`,
-	props: ['place','size'],
+	props: {
+		place: { type: Object },
+		size: { type: Number, default: 2 },
+		topicMode: { type: Boolean, default: false }
+	},
 	data: function() {
 		return {
 			image: null,
@@ -27,7 +31,12 @@ var StreetPlace = {
 	},
 	computed: {
 		formattedIncome: function() {
-			return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0}).format(Math.floor(this.place.place.income)).replace("$US","$");
+			if (this.topicMode) {
+				let thing = app.$refs.api.getThingByTopic(this.place.topics[0]);
+				return thing && thing.thingName ? thing.thingName : "";
+			} else {
+				return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0}).format(Math.floor(this.place.place.income)).replace("$US","$");
+			}
 		},
 		flag: function() {
 			return this.place.country.id.toUpperCase().replace(/./g, function(char) { return String.fromCodePoint(char.charCodeAt(0)+127397); });

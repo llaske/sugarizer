@@ -185,6 +185,10 @@ p {
 	border-radius: 0 0 5px 5px;
 	padding: .25rem;
 }
+.place0 {
+	width: 80px;
+	height: 80px;
+}
 .place1 {
 	width: 180px;
 	height: 180px;
@@ -217,6 +221,10 @@ p {
 	color: #fff;
 	text-shadow: #495057 1px 1px 0;
 	z-index: 3;
+}
+.placelabel0 {
+	width: 70px;
+	font-size: 11pt;
 }
 .placelabel1 {
 	width: 170px;
