@@ -24,6 +24,7 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="street-button"
+				:disabled="currentView!=viewList"
 				palette-file="js/palettes/incomes.js"
 				palette-event="income"
 				@income="onIncomeChanged"
@@ -31,8 +32,9 @@
 				v-bind:title="l10n.stringIncomePalette"
 			></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
-			<sugar-toolitem id="family-button" @click="familyClicked" v-bind:title="l10n.stringFamilyButton"></sugar-toolitem>
+			<sugar-toolitem id="family-button" @click="familyClicked" v-bind:title="l10n.stringFamilyButton" :disabled="currentView!=viewList"></sugar-toolitem>
 			<sugar-toolitem id="things-button"
+				:disabled="currentView!=viewList"
 				palette-file="js/palettes/things.js"
 				palette-event="thing"
 				@thing="onThingSelected"
@@ -41,6 +43,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
 			<sugar-toolitem id="world-button"
+				:disabled="currentView!=viewList"
 				palette-file="js/palettes/regions.js"
 				palette-event="region"
 				@region="onRegionSelected"
@@ -58,7 +61,8 @@
 		<img id="cloudwarning" src="images/cloud-warning.svg"/>
 
 		<div id="content" @scroll="onScrolled">
-			<street-place ref="places" v-for="(place) in places" :place="place" @place-clicked="onPlaceClicked"></street-place>
+			<street-place v-if="currentView==viewList" ref="places" v-for="(place) in places" :place="place" @place-clicked="onPlaceClicked"></street-place>
+			<family-detail v-if="currentView==viewDetail" ref="family" :place="currentPlace" @back-clicked="onBackClicked"></family-detail>
 		</div>
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
@@ -68,6 +72,7 @@
 
 	<script src="js/DollarStreetAPI.js"></script>
 	<script src="js/place.js"></script>
+	<script src="js/family.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarL10n.js"></script>

@@ -6,7 +6,7 @@ var StreetPlace = {
 	template: `
 		<div v-bind:class="{place: true, place0: (size==0), place1: (size==1), place2: (size==2), place3: (size==3)}" @click="onPlaceClicked">
 			<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
-			<img src="images/notloaded.png" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
+			<img v-bind:src="'images/notloaded'+size+'.png'" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
 			<div v-if="size>0" v-bind:class="{placelabel: true, placelabel0: (size==0), placelabel1: (size==1), placelabel2: (size==2), placelabel3: (size==3)}">
 				<span>{{formattedIncome}}</span>
 				<br>

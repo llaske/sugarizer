@@ -432,3 +432,80 @@ div[slider] > input[type=range]::-ms-tooltip {
 	right: 10px;
 	font-size: 18pt;
 }
+
+.family-detail {
+	overflow: hidden;
+}
+
+.family-goback {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	height: 50px;
+	top: 10px;
+	left: 20px;
+	width: 50px;
+	background-color: white;
+	background-image: url(../icons/go-back-sel.svg);
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.family-goback:hover  {
+	background-image: url(../icons/go-back.svg);
+}
+
+.family-image {
+	display: inline-block;
+	margin-left: 30px;
+	margin-top: 10px;
+	width: 512px;
+	height: 341px;
+}
+
+.family-description {
+	display: inline-block;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-right: 10px;
+	vertical-align: top;
+	margin-top: 10px;
+	height: 341px;
+	width: 400px;
+	overflow: auto;
+}
+
+.family-income {
+	display: inline-block;
+	font-size: 18pt;
+}
+
+.family-bymonth {
+	display: inline-block;
+	font-size: 14pt;
+}
+
+.family-name {
+	font-size: 18pt;
+}
+
+.family-content {
+	margin-top: 5px;
+	margin-right: 5px;
+	font-size: 12pt;
+}
+
+.family-things {
+	margin-top: 5px;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#family-spinner {
+	position: relative;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 8%;
+}

@@ -6,20 +6,28 @@ requirejs.config({
 	}
 });
 
+// Constants
+const viewList = 1;
+const viewDetail = 2;
+
 // Vue main app
 var app = new Vue({
 	el: '#app',
 	components: {
-		'street-place': StreetPlace
+		'street-place': StreetPlace,
+		'family-detail': Family
 	},
 	data: {
 		places: [],
+		currentView: viewList,
+		currentPlace: null,
 		currentThing: "families",
 		currentRegion: null,
 		currentMinIncome: 0,
 		currentMaxIncome: 0,
 		timerId: null,
 		timerData: null,
+		scroll: {top: 0, left: 0},
 		SugarL10n: null,
 		l10n: {
 			stringIncomePalette: '',
@@ -127,23 +135,32 @@ var app = new Vue({
 		},
 
 		// Place clicked
-		onPlaceClicked(place) {
+		onPlaceClicked: function(place) {
 			let vm = this;
-			vm.places = [];
-			document.getElementById("spinner").style.visibility = "visible";
-			vm.$refs.api.getThingsForPlace(place).then(function(things) {
-				let places = [];
-				for (let i = 0 ; i < things.length ; i++) {
-					places.push(things[i]);
-				}
-				document.getElementById("spinner").style.visibility = "hidden";
-				vm.places = places;
-			});
+			vm.currentView = viewDetail;
+			vm.currentPlace = place;
+			let scroll = document.getElementById("content");
+			vm.scroll = {left: scroll.scrollLeft, top: scroll.scrollTop};
+		},
+
+		// Back button on family clicked, go back to list
+		onBackClicked: function(place) {
+			let vm = this;
+			vm.currentView = viewList;
+			vm.currentPlace = null;
+			setTimeout(function() {
+				let scroll = document.getElementById("content");
+				scroll.scrollLeft = vm.scroll.left;
+				scroll.scrollTop = vm.scroll.top;
+			}, 500);
 		},
 
 		// Update screen visibility
 		updateVisibility: function() {
 			let vm = this;
+			if (vm.currentView == viewDetail) {
+				return;
+			}
 			for (let i = 0 ; i < vm.places.length ; i++) {
 				let place = vm.$refs.places[i];
 				if (place.isVisible()) {
