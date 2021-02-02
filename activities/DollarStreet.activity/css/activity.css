@@ -455,12 +455,20 @@ div[slider] > input[type=range]::-ms-tooltip {
 	background-image: url(../icons/go-back.svg);
 }
 
-.family-image {
+.family-image-container {
+	position: relative;
 	display: inline-block;
+	background-color: #F0F0F0;
 	margin-left: 30px;
 	margin-top: 10px;
 	width: 512px;
 	height: 341px;
+	text-align: center;
+}
+
+.family-image {
+	width: auto;
+	height: 100%;
 }
 
 .family-description {

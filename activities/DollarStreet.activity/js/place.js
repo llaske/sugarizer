@@ -35,7 +35,7 @@ var StreetPlace = {
 				let thing = app.$refs.api.getThingByTopic(this.place.topics[0]);
 				return thing && thing.thingName ? thing.thingName : "";
 			} else {
-				return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0}).format(Math.floor(this.place.place.income)).replace("$US","$");
+				return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0, minimumFractionDigits: 0}).format(Math.floor(this.place.place.income)).replace("$US","$");
 			}
 		},
 		flag: function() {

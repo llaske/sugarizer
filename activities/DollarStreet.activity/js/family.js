@@ -7,7 +7,9 @@ var Family = {
 		<div class="family-detail">
 			<div>
 				<div class="family-goback" v-on:click="goBack()"></div>
-				<img :src="place.images.full512" class="family-image"/>
+				<div class="family-image-container">
+					<img :src="place.images.full512" class="family-image"/>
+				</div>
 				<div id="family-description" class="family-description">
 					<div class="family-income">{{formattedIncome}}</div><div class="family-bymonth">/month</div>
 					<div class="family-name">{{capitalizeName}}, {{place.country.name}}</div>
@@ -53,7 +55,7 @@ var Family = {
 	},
 	computed: {
 		formattedIncome: function() {
-			return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0}).format(Math.floor(this.place.place.income)).replace("$US","$");
+			return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(Math.floor(this.place.place.income)).replace("$US","$");
 		},
 		capitalizeName: function() {
 			return this.place.place.slug.replace(/-/g, " ").replace(/\b\w/g, function(c) { return c.toUpperCase()});
