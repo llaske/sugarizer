@@ -141,11 +141,17 @@ Vue.component("dollarstreet-api", {
 		// Get street places
 		getStreetPlaces: function(topic="families", regions=null, imin=0, imax=0) {
 			let vm = this;
+
+			// HACK: Need to force en description to be returned by the API
+			let language = vm.language;
+			if (language == "en") {
+				language = "cs";
+			}
 			return new Promise(function(resolve, reject) {
 				let region = regions ? "&regions=" + regions : "";
 				let min = imin ? "&min=" + imin : "";
 				let max = imax ? "&max=" + imax : "";
-				axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic+region+min+max).then(function(response) {
+				axios.get(dsApi+dsFamilies+language+"&topic="+topic+region+min+max).then(function(response) {
 					let initialStreets = response.data.hits["4"];
 					let streets = [];
 					for (let i = 0 ; i < initialStreets.length ; i++) {
@@ -165,6 +171,12 @@ Vue.component("dollarstreet-api", {
 		getThingsForPlace: function(place) {
 			let vm = this;
 
+			// HACK: Need to force en description to be returned by the API
+			let language = vm.language;
+			if (language == "en") {
+				language = "cs";
+			}
+
 			// HACK: Retrieve each things for this place because direct route don't work due to CORS
 			let placeId = place.place.id;
 			let placeIncome = Math.floor(place.place.income);
@@ -175,7 +187,7 @@ Vue.component("dollarstreet-api", {
 			for (let j = 0 ; j < vm.things.length ; j++) {
 				let topic = vm.encodeTopic(vm.things[j].originPlural);
 				promises.push(new Promise(function(resolve, reject) {
-					axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic+region+min+max).then(function(response) {
+					axios.get(dsApi+dsFamilies+language+"&topic="+topic+region+min+max).then(function(response) {
 						let initialStreets = response.data.hits["4"];
 						let streets = [];
 						for (let i = 0 ; i < initialStreets.length ; i++) {
