@@ -33,7 +33,8 @@ var app = new Vue({
 			stringIncomePalette: '',
 			stringWorldButton: '',
 			stringFamilyButton: '',
-			stringThingsButton: ''
+			stringThingsButton: '',
+			stringClose: ''
 		}
 	},
 	created() {

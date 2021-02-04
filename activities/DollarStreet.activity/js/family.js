@@ -7,7 +7,7 @@ var Family = {
 		<div class="family-detail">
 			<div>
 				<div class="family-goback" v-on:click="goBack()"></div>
-				<div class="family-image-container">
+				<div class="family-image-container" v-on:click="showImage(place.images.full2048)">
 					<img :src="place.images.full512" class="family-image"/>
 				</div>
 				<div id="family-description" class="family-description">
@@ -17,13 +17,15 @@ var Family = {
 				</div>
 			</div>
 			<div id="family-things" class="family-things">
-				<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true"></street-place>
+				<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place.images.full2048)"></street-place>
 				<img id="family-spinner" src="images/spinner-light.gif"/>
 			</div>
+			<popup ref="imageDialog"></popup>
 		</div>
 	`,
 	components: {
-		'street-place': StreetPlace
+		'street-place': StreetPlace,
+		'popup': Popup
 	},
 	props: {
 		place: { type: Object },
@@ -64,6 +66,36 @@ var Family = {
 	methods: {
 		goBack: function() {
 			this.$emit('back-clicked', this.place);
+		},
+
+		showImage: function(image) {
+			let titleClose = app.$refs.SugarL10n.get("Close");
+			this.$refs.imageDialog.show({
+				content: `
+					<div id='popup-container'>
+						<div id="popup-image" class="popup-image" style="background-image:url(`+image+`)"/>
+						</div>
+						<div class="popup-credit">Photo DollarStreet - licensed under CC BY 4.0</div>
+					</div>`,
+				closeHtml: "",
+				closeStyles: {
+					outline: "none",
+					backgroundImage: "url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)",
+					backgroundSize: "contain",
+					width: "40px",
+					height: "40px",
+					position: "absolute",
+					top: "5px",
+					right: "5px"
+				},
+				modalStyles: {
+					backgroundColor: "white",
+					maxHeight: "90%",
+					height: "90%",
+					width: "90%",
+					maxWidth: "90%"
+				}
+			});
 		}
 	}
 };
