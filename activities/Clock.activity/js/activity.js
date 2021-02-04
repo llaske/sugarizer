@@ -136,7 +136,6 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.isDrag = false;
             this.isSmiley = false;
             this.initiateAngles = false;
-            this.toggleAMPM = false;
             this.firstQuad = false;
             this.fourthQuad = false;
 
@@ -215,6 +214,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 }
                 show_am_pm = document.getElementById("show-am-pm").classList.contains("active");
                 that.drawBackground();
+                that.writeTimeInSetTime();
             });
 
             document.getElementById("show-mins").addEventListener('click', function(e) {
@@ -233,7 +233,16 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 show_mins = document.getElementById("show-mins").classList.contains("active");
                 that.drawBackground();
             });
-
+            
+            var date = new Date();
+            var hours = date.getHours();
+            if (hours<12){
+              this.setTimeAMPM = " AM";
+              this.toggleAMPM = true;
+            } else {
+              this.setTimeAMPM = " PM";
+              this.toggleAMPM = false;
+            }
         }
 
         function setTranslatedStrings() {
@@ -391,7 +400,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
-            if (show_am_pm){
+            if (!show_am_pm){
                this.displayTime(hours, minutes, seconds);
             } else {
                if (hours==0) {
@@ -408,12 +417,20 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                   this.displayTime(hours-12, minutes, seconds, txt);
                }
             }
+            if (hours<12){
+              this.setTimeAMPM = " AM";
+              this.toggleAMPM = true;
+            } else {
+              this.setTimeAMPM = " PM";
+              this.toggleAMPM = false;
+            }
             this.displayDate(date);
 
             this.handAngles.hours = Math.PI / 6 * (hours % 12) + Math.PI / 360 * minutes;
 
             this.handAngles.minutes = Math.PI / 30 * minutes + Math.PI / 1800 * seconds;
             this.handAngles.seconds = Math.PI / 30 * seconds;
+            this.drawBackground();
         }
 
         Clock.prototype.displayTime = function (hours, minutes, seconds, txt) {
@@ -491,14 +508,24 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             ctx.lineWidth = lineWidthBackground;
             var date = new Date();
             var hours = date.getHours();
-            if (!show_am_pm){
-               if (hours<12){
+            if (show_am_pm){
+              if (this.setTime){
+                if (this.setTimeAMPM === " AM"){
                   ctx.strokeStyle = this.colors.black;
                   ctx.fillStyle = this.colors.white;
                 } else {
                   ctx.strokeStyle = this.colors.white;
                   ctx.fillStyle = this.colors.black;
                 }
+              } else {
+                if (hours<12){
+                   ctx.strokeStyle = this.colors.black;
+                   ctx.fillStyle = this.colors.white;
+                 } else {
+                   ctx.strokeStyle = this.colors.white;
+                   ctx.fillStyle = this.colors.black;
+                 }
+              }
             } else {
                   ctx.strokeStyle = this.colors.black;
                   ctx.fillStyle = this.colors.white;
@@ -836,14 +863,18 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
          this.timeToBeDisplayed['minutes'] = Math.floor(Number.parseFloat((this.handAngles['minutes'] % (2*Math.PI)) * 30 / Math.PI).toFixed(5))%60;
          tmp = Math.floor(Number.parseFloat((this.handAngles['hours'] % (2*Math.PI)) * 6 / Math.PI).toFixed(5));
          this.timeToBeDisplayed['hours'] = tmp != 0 ? tmp : 12;
-         var txt;
-         if (this.toggleAMPM){
-            txt = " AM";
-         } else {
-            txt = " PM";
-         }
 
-          this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds'], txt);
+         if (show_am_pm){
+            if (this.toggleAMPM){
+              this.setTimeAMPM = " AM";
+            } else {
+              this.setTimeAMPM = " PM";
+            }
+          } else {
+            this.setTimeAMPM = "";
+          }
+
+          this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds'], this.setTimeAMPM);
 
           this.updateSizes();
           this.drawBackground();
