@@ -37,8 +37,7 @@ var Family = {
 	},
 	mounted: function() {
 		let vm = this;
-		document.getElementById("family-description").style.width = (document.getElementById("body").offsetWidth - 512 - 100 - 10)+"px";
-		document.getElementById("family-things").style.height = (document.getElementById("body").offsetHeight - 341 - 20 - (app.$refs.SugarToolbar&&app.$refs.SugarToolbar.isHidden()?0:55))+"px";
+		vm.computeSize();
 		document.getElementById("family-spinner").style.visibility = "visible";
 		app.$refs.api.getThingsForPlace(vm.place).then(function(things) {
 			let places = [];
@@ -64,6 +63,11 @@ var Family = {
 		}
 	},
 	methods: {
+		computeSize: function() {
+			document.getElementById("family-description").style.width = (document.getElementById("body").offsetWidth - 512 - 100 - 19)+"px";
+			document.getElementById("family-things").style.height = (document.getElementById("body").offsetHeight - 341 - 20 - (app.$refs.SugarToolbar&&app.$refs.SugarToolbar.isHidden()?0:55))+"px";
+		},
+
 		goBack: function() {
 			this.$emit('back-clicked', this.place);
 		},

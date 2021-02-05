@@ -59,11 +59,17 @@ var app = new Vue({
 		fullscreen: function() {
 			this.$refs.SugarToolbar.hide();
 			this.computeHeight();
+			if (this.currentView==viewDetail) {
+				this.$refs.family.computeSize();
+			}
 		},
 
 		unfullscreen: function() {
 			this.$refs.SugarToolbar.show();
 			this.computeHeight();
+			if (this.currentView==viewDetail) {
+				this.$refs.family.computeSize();
+			}
 		},
 
 		// Dollar Street API events
