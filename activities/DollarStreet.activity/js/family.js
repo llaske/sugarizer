@@ -64,8 +64,10 @@ var Family = {
 	},
 	methods: {
 		computeSize: function() {
-			document.getElementById("family-description").style.width = (document.getElementById("body").offsetWidth - 512 - 100 - 19)+"px";
-			document.getElementById("family-things").style.height = (document.getElementById("body").offsetHeight - 341 - 20 - (app.$refs.SugarToolbar&&app.$refs.SugarToolbar.isHidden()?0:55))+"px";
+			let body = document.getElementById("body");
+			let small = (body.offsetWidth<750);
+			document.getElementById("family-description").style.width = (body.offsetWidth - (small?256:512) - 100 - 19)+"px";
+			document.getElementById("family-things").style.height = (body.offsetHeight - (small?170:341) - 20 - (app.$refs.SugarToolbar&&app.$refs.SugarToolbar.isHidden()?0:55))+"px";
 		},
 
 		goBack: function() {

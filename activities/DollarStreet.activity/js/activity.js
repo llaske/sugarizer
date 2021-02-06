@@ -25,6 +25,7 @@ var app = new Vue({
 		currentRegion: null,
 		currentMinIncome: 0,
 		currentMaxIncome: 0,
+		placeSize: 2,
 		timerId: null,
 		timerData: null,
 		scroll: {top: 0, left: 0},
@@ -39,8 +40,8 @@ var app = new Vue({
 	},
 	created() {
 		let vm = this;
-		vm.computeHeight();
-		window.addEventListener("resize", vm.computeHeight);
+		vm.computeSize();
+		window.addEventListener("resize", vm.computeSize);
 	},
 	mounted: function() {
 		this.SugarL10n = this.$refs.SugarL10n;
@@ -58,18 +59,12 @@ var app = new Vue({
 		//  Handle fullscreen/unfullscreen
 		fullscreen: function() {
 			this.$refs.SugarToolbar.hide();
-			this.computeHeight();
-			if (this.currentView==viewDetail) {
-				this.$refs.family.computeSize();
-			}
+			this.computeSize();
 		},
 
 		unfullscreen: function() {
 			this.$refs.SugarToolbar.show();
-			this.computeHeight();
-			if (this.currentView==viewDetail) {
-				this.$refs.family.computeSize();
-			}
+			this.computeSize();
 		},
 
 		// Dollar Street API events
@@ -177,11 +172,24 @@ var app = new Vue({
 		},
 
 		// Resize dynamically content
-		computeHeight: function() {
+		computeSize: function() {
 			let vm = this;
-			let available = (document.getElementById("body").offsetHeight-(vm.$refs.SugarToolbar&&vm.$refs.SugarToolbar.isHidden()?0:55));
+			let body = document.getElementById("body");
+			let available = (body.offsetHeight-(vm.$refs.SugarToolbar&&vm.$refs.SugarToolbar.isHidden()?0:55));
 			let content = document.getElementById("content");
 			content.style.height = available+"px";
+			if (vm.currentView==viewList) {
+				vm.placeSize = (body.offsetWidth < 700 || body.offsetHeight < 700) ? 1 : 2;
+				for (let i = 0 ; i < vm.places.length ; i++) {
+					let place = vm.$refs.places[i];
+					place.size = vm.placeSize;
+					if (place.isVisible()) {
+						place.visible = true;
+					}
+				}
+			} else {
+				this.$refs.family.computeSize();
+			}
 		}
 	}
 });

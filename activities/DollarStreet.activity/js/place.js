@@ -4,10 +4,10 @@ const imageSize = [80, 180, 360, 640];
 
 var StreetPlace = {
 	template: `
-		<div v-bind:class="{place: true, place0: (size==0), place1: (size==1), place2: (size==2), place3: (size==3)}" @click="onPlaceClicked">
+		<div v-bind:class="containerClass" @click="onPlaceClicked">
 			<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
-			<img v-bind:src="'images/notloaded'+size+'.png'" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
-			<div v-if="size>0" v-bind:class="{placelabel: true, placelabel0: (size==0), placelabel1: (size==1), placelabel2: (size==2), placelabel3: (size==3)}">
+			<img v-bind:src="rightNotLoadedImage" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
+			<div v-if="size>0" v-bind:class="descriptionClass">
 				<span>{{formattedIncome}}</span>
 				<br>
 				<span v-if="!topicMode" class="place-country">{{flag}}&nbsp;{{place.country.name}}</span>
@@ -44,6 +44,15 @@ var StreetPlace = {
 		thingIcon: function() {
 			let thing = app.$refs.api.getThingByTopic(this.place.topics[0]);
 			return thing ? thing.svg : "";
+		},
+		containerClass: function() {
+			return {place: true, place0: (this.size==0), place1: (this.size==1), place2: (this.size==2), place3: (this.size==3)};
+		},
+		descriptionClass: function() {
+			return {placelabel: true, placelabel0: (this.size==0), placelabel1: (this.size==1), placelabel2: (this.size==2), placelabel3: (this.size==3)};
+		},
+		rightNotLoadedImage: function() {
+			return 'images/notloaded'+this.size+'.png';
 		}
 	},
 	methods: {
@@ -76,6 +85,12 @@ var StreetPlace = {
 		// Load image only when component is visible
 		visible: function(val) {
 			this.visible = val;
+			if (this.visible) {
+				this.image = this.place.images["cropped"+imageSize[this.size]];
+			}
+		},
+		size: function(val) {
+			this.size = val;
 			if (this.visible) {
 				this.image = this.place.images["cropped"+imageSize[this.size]];
 			}
