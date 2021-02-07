@@ -478,6 +478,12 @@ div[slider] > input[type=range]::-ms-tooltip {
 	overflow: auto;
 }
 
+.family-image {
+	width: auto;
+	height: 100%;
+	max-width: 512px;
+}
+
 @media screen and (max-width: 750px) {
 	.family-image-container {
 		width: 256px;
@@ -487,11 +493,10 @@ div[slider] > input[type=range]::-ms-tooltip {
 	.family-description {
 		height: 170px;
 	}
-}
 
-.family-image {
-	width: auto;
-	height: 100%;
+	.family-image {
+		max-width: 256px;
+	}
 }
 
 .family-income {
