@@ -40,14 +40,17 @@ var Family = {
 		vm.computeSize();
 		document.getElementById("family-spinner").style.visibility = "visible";
 		app.$refs.api.getThingsForPlace(vm.place).then(function(things) {
+			let spinner = document.getElementById("family-spinner");
+			if (!spinner) { return; }
 			let places = [];
 			for (let i = 0 ; i < things.length ; i++) {
 				places.push(things[i]);
 			}
-			document.getElementById("family-spinner").style.visibility = "hidden";
+			spinner.style.visibility = "hidden";
 			vm.things = places;
 			setTimeout(function() {
 				let things = vm.$refs.things;
+				if (!things) { return; }
 				for (let i = 0 ; i < things.length ; i++) {
 					things[i].visible = true;
 				}
