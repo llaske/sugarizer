@@ -179,11 +179,20 @@ p {
 	padding-left: 4px;
 }
 
+.flex-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.place-padding {
+	position: relative;
+	padding: .25rem;
+}
+
 .place {
 	position: relative;
-	display: inline-block;
 	border-radius: 0 0 5px 5px;
-	padding: .25rem;
 }
 .place0 {
 	width: 80px;
@@ -208,9 +217,7 @@ p {
 
 .placelabel {
 	height: 60px;
-	padding-left: 10px;
-	padding-top: 10px;
-	bottom: 5px;
+	bottom: 0px;
 	text-align: left;
 	vertical-align: bottom;
 	position: absolute;
@@ -220,22 +227,19 @@ p {
 	background-color: rgba(0,0,0,.2);
 	color: #fff;
 	text-shadow: #495057 1px 1px 0;
+	width: 100%;
 	z-index: 3;
 }
 .placelabel0 {
-	width: 70px;
 	font-size: 11pt;
 }
 .placelabel1 {
-	width: 170px;
 	font-size: 11pt;
 }
 .placelabel2 {
-	width: 350px;
 	font-size: 16pt;
 }
 .placelabel3 {
-	width: 630px;
 	font-size: 18pt;
 }
 

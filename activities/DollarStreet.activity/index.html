@@ -61,7 +61,9 @@
 		<img id="cloudwarning" src="images/cloud-warning.svg"/>
 
 		<div id="content" @scroll="onScrolled">
-			<street-place v-if="currentView==viewList" ref="places" v-for="(place) in places" :place="place" :size="placeSize" @place-clicked="onPlaceClicked"></street-place>
+			<div class="flex-container" v-if="currentView==viewList">
+				<street-place ref="places" v-for="(place) in places" :place="place" :size="placeSize" @place-clicked="onPlaceClicked"></street-place>
+			</div>
 			<family-detail v-if="currentView==viewDetail" ref="family" :place="currentPlace" @back-clicked="onBackClicked"></family-detail>
 		</div>
 

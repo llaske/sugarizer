@@ -17,7 +17,9 @@ var Family = {
 				</div>
 			</div>
 			<div id="family-things" class="family-things">
-				<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place.images.full2048)"></street-place>
+				<div class="flex-container">
+					<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place.images.full2048)"></street-place>
+				</div>
 				<img id="family-spinner" src="images/spinner-light.gif"/>
 			</div>
 			<popup ref="imageDialog"></popup>

@@ -4,16 +4,18 @@ const imageSize = [80, 180, 360, 640];
 
 var StreetPlace = {
 	template: `
-		<div v-bind:class="containerClass" @click="onPlaceClicked">
-			<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
-			<img v-bind:src="rightNotLoadedImage" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
-			<div v-if="size>0" v-bind:class="descriptionClass">
-				<span>{{formattedIncome}}</span>
-				<br>
-				<span v-if="!topicMode" class="place-country">{{flag}}&nbsp;{{place.country.name}}</span>
+		<div class="place-padding">
+			<div v-bind:class="containerClass" @click="onPlaceClicked">
+				<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
+				<img v-bind:src="rightNotLoadedImage" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
+				<div v-if="size>0" v-bind:class="descriptionClass">
+					<span>{{"&nbsp;"+formattedIncome}}</span>
+					<br>
+					<span v-if="!topicMode" class="place-country">&nbsp;{{flag}}&nbsp;{{place.country.name}}</span>
+				</div>
+				<div v-if="size>0" v-html="thingIcon" class="place-icon"></div>
+				<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 			</div>
-			<div v-if="size>0" v-html="thingIcon" class="place-icon"></div>
-			<img src="images/spinner-light.gif" v-bind:style="{visibility:(visible&&!isLoad&&!hasError)?'visible':'hidden'}" class="place-spinner"/>
 		</div>
 	`,
 	props: {
