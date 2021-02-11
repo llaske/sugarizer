@@ -25,61 +25,64 @@ Vue.component("dollarstreet-api", {
 		}
 	},
 
-	mounted() {
-		let vm = this;
+	methods: {
+		// Initialize
+		initialize: function() {
+			let vm = this;
 
-		// Find matching language
-		_dsAPIGet(dsLanguages).then(function(result) {
-			requirejs(["sugar-web/env"], function(env) {
-				env.getEnvironment(function(err, environment) {
-					// Set language
-					var defaultLanguage = navigator.language;
-					var language = environment.user ? environment.user.language : defaultLanguage;
-					for (let i = 0 ; i < result.length ; i++) {
-						if (result[i].code.indexOf(language) == 0) {
-							vm.language = result[i].code;
-							break;
-						}
-					}
-
-					// Initialize data set
-					Promise.all([
-						_dsAPIGet(dsLanguage+vm.language),
-						_dsAPIGet(dsStreetSettings),
-						_dsAPIGet(dsRegions+vm.language),
-						_dsAPIGet(dsThings+vm.language),
-					]).then(function (results) {
-						// Retrieve all data sets
-						vm.l10n = results[0];
-						vm.streetSettings = results[1];
-						vm.regions = results[2];
-						vm.things = results[3].otherThings;
-						vm.familyThing = results[3].thing;
-						vm.popularThings = results[3].popularThings;
-
-						// Load icons for things
-						let iconsLoad = [];
-						for (let i = 0 ; i < vm.things.length ; i++) {
-							let thing = vm.things[i];
-							iconsLoad.push(_loadIcon(thing.icon));
-						}
-						Promise.all(iconsLoad).then(function (results) {
-							for (let i = 0 ; i < vm.things.length ; i++) {
-								vm.things[i].svg = results[i];
+			return new Promise(function(resolve, reject) {
+				// Find matching language
+				_dsAPIGet(dsLanguages).then(function(result) {
+					requirejs(["sugar-web/env"], function(env) {
+						env.getEnvironment(function(err, environment) {
+							// Set language
+							var defaultLanguage = navigator.language;
+							var language = environment.user ? environment.user.language : defaultLanguage;
+							for (let i = 0 ; i < result.length ; i++) {
+								if (result[i].code.indexOf(language) == 0) {
+									vm.language = result[i].code;
+									break;
+								}
 							}
-							vm.$emit("initialized");
+
+							// Initialize data set
+							Promise.all([
+								_dsAPIGet(dsLanguage+vm.language),
+								_dsAPIGet(dsStreetSettings),
+								_dsAPIGet(dsRegions+vm.language),
+								_dsAPIGet(dsThings+vm.language),
+							]).then(function (results) {
+								// Retrieve all data sets
+								vm.l10n = results[0];
+								vm.streetSettings = results[1];
+								vm.regions = results[2];
+								vm.things = results[3].otherThings;
+								vm.familyThing = results[3].thing;
+								vm.popularThings = results[3].popularThings;
+
+								// Load icons for things
+								let iconsLoad = [];
+								for (let i = 0 ; i < vm.things.length ; i++) {
+									let thing = vm.things[i];
+									iconsLoad.push(_loadIcon(thing.icon));
+								}
+								Promise.all(iconsLoad).then(function (results) {
+									for (let i = 0 ; i < vm.things.length ; i++) {
+										vm.things[i].svg = results[i];
+									}
+									resolve();
+								});
+							}).catch(function(error) {
+								reject();
+							});
 						});
- 					}).catch(function(error) {
-						vm.$emit("error");
 					});
+				}).catch(function(error) {
+					reject();
 				});
 			});
-		}).catch(function(error) {
-			vm.$emit("error");
-		})
-	},
+		},
 
-	methods: {
 		// Encode topic value
 		encodeTopic: function(rawtopic) {
 			return rawtopic.toLowerCase().replace(/ /g,"-").replace(/,/g,"");

@@ -52,7 +52,7 @@
 			></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
 			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
 			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
@@ -69,7 +69,8 @@
 
 		<sugar-activity ref="SugarActivity"></sugar-activity>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
-		<dollarstreet-api ref="api" v-on:initialized="dollarStreetConnected" v-on:error="dollarStreetError"></dollarstreet-api>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<dollarstreet-api ref="api"></dollarstreet-api>
 	</div>
 
 	<script src="js/DollarStreetAPI.js"></script>
@@ -77,6 +78,7 @@
 	<script src="js/place.js"></script>
 	<script src="js/family.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity.js"></script>

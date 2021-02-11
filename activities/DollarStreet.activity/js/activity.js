@@ -45,7 +45,6 @@ var app = new Vue({
 	},
 	mounted: function() {
 		this.SugarL10n = this.$refs.SugarL10n;
-		this.updateVisibility();
 	},
 	updated: function() {
 		this.updateVisibility();
@@ -65,22 +64,6 @@ var app = new Vue({
 		unfullscreen: function() {
 			this.$refs.SugarToolbar.show();
 			this.computeSize();
-		},
-
-		// Dollar Street API events
-		dollarStreetConnected: function() {
-			let vm = this;
-			console.log("Dollar Street API connected");
-			let settings = vm.$refs.api.getStreetSettings();
-			vm.currentMinIncome = settings.poor;
-			vm.currentMaxIncome = settings.rich;
-			vm.displayThings();
-		},
-
-		dollarStreetError: function() {
-			console.log("Dollar Street API Error !");
-			document.getElementById("spinner").style.visibility = "hidden";
-			document.getElementById("cloudwarning").style.visibility = "visible";
 		},
 
 		// Display a category of things
@@ -155,6 +138,53 @@ var app = new Vue({
 				scroll.scrollLeft = vm.scroll.left;
 				scroll.scrollTop = vm.scroll.top;
 			}, 500);
+		},
+
+		// Stop the activity
+		onStop: function () {
+			let vm = this;
+			let context = {
+				currentMinIncome: vm.currentMinIncome,
+				currentMaxIncome: vm.currentMaxIncome,
+				currentThing: vm.currentThing,
+				currentRegion: vm.currentRegion
+			};
+			vm.$refs.SugarJournal.saveData(context);
+		},
+
+		// Load activity context
+		onJournalDataLoaded: function(data, metadata) {
+			let vm = this;
+			this.$refs.api.initialize().then(function() {
+				console.log("Dollar Street API connected");
+				let settings = vm.$refs.api.getStreetSettings();
+				vm.currentMinIncome = data.currentMinIncome;
+				vm.currentMaxIncome = data.currentMaxIncome;
+				vm.currentThing = data.currentThing;
+				vm.currentRegion = data.currentRegion;
+				vm.displayThings();
+				vm.updateVisibility();
+			}).catch(function() {
+				console.log("Dollar Street API Error !");
+				document.getElementById("spinner").style.visibility = "hidden";
+				document.getElementById("cloudwarning").style.visibility = "visible";
+			});
+		},
+
+		onJournalNewInstance: function() {
+			let vm = this;
+			this.$refs.api.initialize().then(function() {
+				console.log("Dollar Street API connected");
+				let settings = vm.$refs.api.getStreetSettings();
+				vm.currentMinIncome = settings.poor;
+				vm.currentMaxIncome = settings.rich;
+				vm.displayThings();
+				vm.updateVisibility();
+			}).catch(function() {
+				console.log("Dollar Street API Error !");
+				document.getElementById("spinner").style.visibility = "hidden";
+				document.getElementById("cloudwarning").style.visibility = "visible";
+			});
 		},
 
 		// Update screen visibility
