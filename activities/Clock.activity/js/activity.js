@@ -138,6 +138,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.initiateAngles = false;
             this.firstQuad = false;
             this.fourthQuad = false;
+            this.setTimeGameAMHour = false;
 
 
             // These are calculated on each resize to fill the available space.
@@ -237,10 +238,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var date = new Date();
             var hours = date.getHours();
             if (hours<12){
-              this.setTimeAMPM = " AM";
               this.toggleAMPM = true;
             } else {
-              this.setTimeAMPM = " PM";
               this.toggleAMPM = false;
             }
         }
@@ -400,29 +399,16 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
-            if (!show_am_pm){
-               this.displayTime(hours, minutes, seconds);
+            if (show_am_pm){
+              this.displayTime(hours, minutes, seconds);
             } else {
-               if (hours==0) {
-                  var txt = " AM"
-                  this.displayTime(hours+12, minutes, seconds, txt);
-               } else if (hours < 12) {
-                  var txt = " AM"
-                  this.displayTime(hours, minutes, seconds, txt);
-               } else if (hours==12) {
-                 var txt = " PM"
-                 this.displayTime(hours, minutes, seconds, txt);
-               } else {
-                  var txt = " PM";
-                  this.displayTime(hours-12, minutes, seconds, txt);
-               }
-            }
-            if (hours<12){
-              this.setTimeAMPM = " AM";
-              this.toggleAMPM = true;
-            } else {
-              this.setTimeAMPM = " PM";
-              this.toggleAMPM = false;
+              if (hours==0) {
+                this.displayTime(hours+12, minutes, seconds);
+              } else if (hours <= 12) {
+                this.displayTime(hours, minutes, seconds);
+              } else {
+                this.displayTime(hours-12, minutes, seconds);
+              }
             }
             this.displayDate(date);
 
@@ -510,7 +496,15 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var hours = date.getHours();
             if (show_am_pm){
               if (this.setTime){
-                if (this.setTimeAMPM === " AM"){
+                if (this.toggleAMPM){
+                  ctx.strokeStyle = this.colors.black;
+                  ctx.fillStyle = this.colors.white;
+                } else {
+                  ctx.strokeStyle = this.colors.white;
+                  ctx.fillStyle = this.colors.black;
+                }
+              } else if (this.setTimeGame) {
+                if (this.setTimeGameAMHour) {
                   ctx.strokeStyle = this.colors.black;
                   ctx.fillStyle = this.colors.white;
                 } else {
@@ -519,16 +513,16 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 }
               } else {
                 if (hours<12){
-                   ctx.strokeStyle = this.colors.black;
-                   ctx.fillStyle = this.colors.white;
-                 } else {
-                   ctx.strokeStyle = this.colors.white;
-                   ctx.fillStyle = this.colors.black;
-                 }
-              }
-            } else {
                   ctx.strokeStyle = this.colors.black;
                   ctx.fillStyle = this.colors.white;
+                } else {
+                  ctx.strokeStyle = this.colors.white;
+                  ctx.fillStyle = this.colors.black;
+                }
+              }
+            } else {
+              ctx.strokeStyle = this.colors.black;
+              ctx.fillStyle = this.colors.white;
             }
             
             ctx.beginPath();
@@ -728,16 +722,16 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 newAngle = Math.PI / 2 - theta;
                 this.firstQuad = true;
                 if (this.fourthQuad == true){
-                   if (this.selectedHand == 'hours'){
-                      this.toggleAMPM = !this.toggleAMPM;
-                      this.fourthQuad = false;
-                   } else if (this.selectedHand == 'minutes'&& this.timeToBeDisplayed['hours']==11 && this.timeToBeDisplayed['minutes']>55){
-                      this.toggleAMPM = !this.toggleAMPM;
-                      this.fourthQuad = false;
-                   } else if (this.selectedHand == 'seconds' && this.timeToBeDisplayed['hours']==11 && this.timeToBeDisplayed['minutes']>=59 && this.timeToBeDisplayed['seconds']>55){
-                      this.toggleAMPM = !this.toggleAMPM;
-                      this.fourthQuad = false;                     
-                   }
+                  if (this.selectedHand == 'hours'){
+                    this.toggleAMPM = !this.toggleAMPM;
+                    this.fourthQuad = false;
+                  } else if ((this.selectedHand == 'minutes'&& this.timeToBeDisplayed['hours']==11 && this.timeToBeDisplayed['minutes']>55)||(this.selectedHand == 'minutes'&& this.timeToBeDisplayed['hours']==23 && this.timeToBeDisplayed['minutes']>55) ){
+                    this.toggleAMPM = !this.toggleAMPM;
+                    this.fourthQuad = false;
+                  } else if ((this.selectedHand == 'seconds' && this.timeToBeDisplayed['hours']==11 && this.timeToBeDisplayed['minutes']>=59 && this.timeToBeDisplayed['seconds']>55)||(this.selectedHand == 'seconds' && this.timeToBeDisplayed['hours']==23 && this.timeToBeDisplayed['minutes']>=59 && this.timeToBeDisplayed['seconds']>55)){
+                    this.toggleAMPM = !this.toggleAMPM;                   
+                    this.fourthQuad = false;                     
+                  }
                 }
               }
               else{
@@ -745,17 +739,17 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 this.fourthQuad = true;
                 if (this.firstQuad == true){
                   if (this.selectedHand == 'hours'){
-                     this.toggleAMPM = !this.toggleAMPM;
-                     this.firstQuad = false;
-                  } else if (this.selectedHand == 'minutes'&& this.timeToBeDisplayed['hours']==12 && this.timeToBeDisplayed['minutes']<5){
-                     this.toggleAMPM = !this.toggleAMPM;
-                     this.firstQuad = false;
-                  } else if (this.selectedHand == 'seconds' && this.timeToBeDisplayed['hours']==12 && this.timeToBeDisplayed['minutes']<1 && this.timeToBeDisplayed['seconds']<5){
-                     this.toggleAMPM = !this.toggleAMPM;
-                     this.firstQuad = false;
+                    this.toggleAMPM = !this.toggleAMPM;
+                    this.firstQuad = false;
+                  } else if ((this.selectedHand == 'minutes'&& this.timeToBeDisplayed['hours']==12 && this.timeToBeDisplayed['minutes']<5)||(this.selectedHand == 'minutes'&& this.timeToBeDisplayed['hours']==0 && this.timeToBeDisplayed['minutes']<5)){
+                    this.toggleAMPM = !this.toggleAMPM;
+                    this.firstQuad = false;
+                  } else if ((this.selectedHand == 'seconds' && this.timeToBeDisplayed['hours']==12 && this.timeToBeDisplayed['minutes']<1 && this.timeToBeDisplayed['seconds']<5)||(this.selectedHand == 'seconds' && this.timeToBeDisplayed['hours']==0 && this.timeToBeDisplayed['minutes']<1 && this.timeToBeDisplayed['seconds']<5)){
+                    this.toggleAMPM = !this.toggleAMPM;
+                    this.firstQuad = false;
                   }
                
-             } 
+              }
               }
             }
             else{
@@ -862,19 +856,18 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
          this.timeToBeDisplayed['seconds'] = Math.floor(Number.parseFloat(this.handAngles['seconds'] * 30 / Math.PI).toFixed(5)) ;
          this.timeToBeDisplayed['minutes'] = Math.floor(Number.parseFloat((this.handAngles['minutes'] % (2*Math.PI)) * 30 / Math.PI).toFixed(5))%60;
          tmp = Math.floor(Number.parseFloat((this.handAngles['hours'] % (2*Math.PI)) * 6 / Math.PI).toFixed(5));
-         this.timeToBeDisplayed['hours'] = tmp != 0 ? tmp : 12;
-
-         if (show_am_pm){
-            if (this.toggleAMPM){
-              this.setTimeAMPM = " AM";
+          if (show_am_pm){
+             this.timeToBeDisplayed['hours'] = tmp != 0 ? tmp : 0;
             } else {
-              this.setTimeAMPM = " PM";
+            this.timeToBeDisplayed['hours'] = tmp != 0 ? tmp : 12;
+          }
+          if (show_am_pm && !this.toggleAMPM){
+            if (this.timeToBeDisplayed['hours']!=12){
+              this.timeToBeDisplayed['hours']+=12;
             }
-          } else {
-            this.setTimeAMPM = "";
           }
 
-          this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds'], this.setTimeAMPM);
+          this.displayTime(this.timeToBeDisplayed['hours'], this.timeToBeDisplayed['minutes'], this.timeToBeDisplayed['seconds']);
 
           this.updateSizes();
           this.drawBackground();
@@ -889,6 +882,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
           if(this.timeToBeDisplayed['hours']==undefined){
              if (show_am_pm){
                this.timeToBeDisplayed['hours'] = Math.floor(Math.random() * 24);
+               if (this.timeToBeDisplayed['hours']<12){
+                  this.setTimeGameAMHour = true;
+               } else {
+                  this.setTimeGameAMHour = false;
+               }
              } else {
                this.timeToBeDisplayed['hours'] = Math.floor(Math.random() * 12) + 1;
              }
