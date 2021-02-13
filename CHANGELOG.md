@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add option in Paint to export the current drawing to the journal as an image #911
 - Add country flag in Color My World activity #920
 - Add a feature to change background in Shared Notes activity #799
+- Add a full 24h mode in Clock activity #921
 
 ### Changed
 - Update noServerMode: add a Quit button in the buddy menu
