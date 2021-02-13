@@ -12,6 +12,7 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/libnotify.css">
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/axios.min.js"></script>
 	<script src="lib/require.js"></script>
@@ -70,6 +71,7 @@
 		<sugar-activity ref="SugarActivity"></sugar-activity>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<sugar-popup ref="popup"></sugar-popup>
 		<dollarstreet-api ref="api"></dollarstreet-api>
 	</div>
 
@@ -80,6 +82,7 @@
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/activity.js"></script>
 </body>

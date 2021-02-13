@@ -555,6 +555,22 @@ div[slider] > input[type=range]::-ms-tooltip {
 	font-size: 8pt;
 }
 
+#export-image {
+	width: 0px;
+	height: 0px;
+}
+
+#popup-export {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	background-image: url(../icons/save-image.svg);
+	background-size: contain;
+	top: 5px;
+	left: 5px;
+	visibility: hidden;
+}
+
 #popup-container {
 	width: 100%;
 	height: 100%;

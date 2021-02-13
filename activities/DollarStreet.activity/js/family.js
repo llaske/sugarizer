@@ -7,7 +7,7 @@ var Family = {
 		<div class="family-detail">
 			<div>
 				<div class="family-goback" v-on:click="goBack()"></div>
-				<div class="family-image-container" v-on:click="showImage(place.images.full2048)">
+				<div class="family-image-container" v-on:click="showImage(place)">
 					<img :src="place.images.full512" class="family-image"/>
 				</div>
 				<div id="family-description" class="family-description">
@@ -18,7 +18,7 @@ var Family = {
 			</div>
 			<div id="family-things" class="family-things">
 				<div class="flex-container">
-					<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place.images.full2048)"></street-place>
+					<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place)"></street-place>
 				</div>
 				<img id="family-spinner" src="images/spinner-light.gif"/>
 			</div>
@@ -64,7 +64,7 @@ var Family = {
 			return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 }).format(Math.floor(this.place.place.income)).replace("$US","$");
 		},
 		capitalizeName: function() {
-			return this.place.place.slug.replace(/-/g, " ").replace(/\b\w/g, function(c) { return c.toUpperCase()});
+			return _capitalize(this.place.place.slug);
 		}
 	},
 	methods: {
@@ -79,13 +79,17 @@ var Family = {
 			this.$emit('back-clicked', this.place);
 		},
 
-		showImage: function(image) {
+		showImage: function(place) {
+			let image = place.images.full2048;
+			_place_to_export = place;
 			let titleClose = app.$refs.SugarL10n.get("Close");
 			this.$refs.imageDialog.show({
 				content: `
 					<div id='popup-container'>
 						<div id="popup-image" class="popup-image" style="background-image:url(`+image+`)"/>
 						</div>
+						<img id="export-image" class="popup-hidden-image" src="`+image+`"/>
+						<div id="popup-export" onclick="_image_export()"></div>
 						<div class="popup-credit">Photo DollarStreet - licensed under CC BY 4.0</div>
 					</div>`,
 				closeHtml: "",
@@ -110,3 +114,40 @@ var Family = {
 		}
 	}
 };
+
+// Capitalize name
+function _capitalize(name) {
+	return name.replace(/-/g, " ").replace(/\b\w/g, function(c) { return c.toUpperCase()});
+}
+
+// Export popup
+// HACK: Should be global
+var _place_to_export = null;
+function _image_export() {
+	// Get name
+	let place = _place_to_export;
+	let thing = app.$refs.api.getThingByTopic(place.topics[0]);
+	let name = _capitalize(place.place.slug) + " - " + thing.thingName;
+
+	// Get image into a canvas
+	var image = document.getElementById("export-image");
+	var imgCanvas = document.createElement("canvas");
+	var imgContext = imgCanvas.getContext("2d");
+	imgCanvas.width = 2048; imgCanvas.height = 1365;
+	imgContext.drawImage(image, 0, 0, imgCanvas.width, imgCanvas.height);
+	var imgAsDataURL = imgCanvas.toDataURL("image/jpg");
+
+	// Save in datastore
+	var metadata = {
+		mimetype: "image/jpg",
+		title: name,
+		activity: "org.olpcfrance.MediaViewerActivity",
+		timestamp: new Date().getTime(),
+		creation_time: new Date().getTime(),
+		file_size: 0
+	};
+	app.$refs.SugarJournal.createEntry(imgAsDataURL, metadata).then(function() {
+		let place = _place_to_export;
+		app.$refs.popup.log(app.$refs.SugarL10n.get("ImageExported"));
+	});
+}
