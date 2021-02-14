@@ -38,6 +38,7 @@ var app = new Vue({
 			stringClose: '',
 			stringImageExported: '',
 			stringNoDescription: '',
+			stringNoMatchingPlace: '',
 			stringTutoListWelcomeTitle: '',
 			stringTutoListWelcomeContent: '',
 			stringTutoListIncomeTitle: '',
@@ -98,6 +99,8 @@ var app = new Vue({
 			vm.$refs.api.getStreetPlaces(vm.currentThing, vm.currentRegion, vm.currentMinIncome, vm.currentMaxIncome).then(function(response) {
 				document.getElementById("spinner").style.visibility = "hidden";
 				vm.places = response;
+				document.getElementById("nomatchingplace").style.visibility = (vm.places.length ? "hidden" : "visible");
+				document.getElementById("nomatchingtext").style.visibility = (vm.places.length ? "hidden" : "visible");
 			});
 		},
 
