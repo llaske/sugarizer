@@ -78,6 +78,10 @@ p {
 	z-index: 5;
 }
 
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+}
+
 #main-toolbar #network-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
