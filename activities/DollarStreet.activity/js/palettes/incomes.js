@@ -102,5 +102,5 @@ function _initSlider(mymin, mymax, color) {
 }
 
 function _formatIncome(income) {
-	return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0}).format(Math.floor(income)).replace("$US","$")
+	return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0, minimumFractionDigits: 0}).format(Math.floor(income)).replace("$US","$")
 }
