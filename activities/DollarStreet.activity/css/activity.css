@@ -554,7 +554,7 @@ div[slider] > input[type=range]::-ms-tooltip {
 
 #family-spinner {
 	position: relative;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%, 75%);
 	top: 50%;
 	left: 50%;
 	width: 8%;
