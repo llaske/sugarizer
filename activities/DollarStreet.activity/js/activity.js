@@ -36,7 +36,8 @@ var app = new Vue({
 			stringFamilyButton: '',
 			stringThingsButton: '',
 			stringClose: '',
-			stringImageExported: ''
+			stringImageExported: '',
+			stringNoDescription: ''
 		}
 	},
 	created() {

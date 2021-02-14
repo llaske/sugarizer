@@ -6,14 +6,14 @@ var Family = {
 	template: `
 		<div class="family-detail">
 			<div>
-				<div class="family-goback" v-on:click="goBack()"></div>
+				<div class="family-goback" id="family-goback" v-on:click="goBack()"></div>
 				<div class="family-image-container" v-on:click="showImage(place)">
 					<img :src="place.images.full512" class="family-image"/>
 				</div>
 				<div id="family-description" class="family-description">
 					<div class="family-income">{{formattedIncome}}</div><div class="family-bymonth">/month</div>
 					<div class="family-name">{{capitalizeName}}, {{place.country.name}}</div>
-					<div class="family-content">{{place.place.description}}</div>
+					<div class="family-content">{{place.place.description||app.$refs.SugarL10n.get("NoDescription")}}</div>
 				</div>
 			</div>
 			<div id="family-things" class="family-things">
@@ -76,7 +76,11 @@ var Family = {
 		},
 
 		goBack: function() {
-			this.$emit('back-clicked', this.place);
+			let vm = this;
+			document.getElementById("family-goback").style.visibility = "hidden";
+			setTimeout(function() {
+				vm.$emit('back-clicked', vm.place);
+			}, 0);
 		},
 
 		showImage: function(place) {
