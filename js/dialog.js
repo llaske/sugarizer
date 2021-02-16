@@ -675,7 +675,7 @@ enyo.kind({
 			{name: "reinittext", showing: false, content: "xxx", classes: "computer-reinit"},
 			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
-			{content: "© 2013-2020 Lionel Laské, Sugar Labs Inc and&nbsp;", allowHtml: true, classes: "computer-contributor"},
+			{content: "© 2013-2021 Lionel Laské, Sugar Labs Inc and&nbsp;", allowHtml: true, classes: "computer-contributor"},
 			{content: "contributors", classes: "computer-contributor-link", allowHtml: true, ontap: "viewContributors"},
 			{name: "license", content: "xxx", classes: "computer-licence"},
 			{name: "licenseplus", content: "xxx", classes: "computer-licence"},
