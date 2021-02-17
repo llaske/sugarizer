@@ -7,7 +7,7 @@ var StreetPlace = {
 		<div class="place-padding">
 			<div v-bind:class="containerClass" @click="onPlaceClicked">
 				<img v-bind:src="image" @load="loaded" @error="error" class="place-image" v-bind:style="{visibility:visible?'visible':'hidden'}"/>
-				<img v-bind:src="rightNotLoadedImage" class="place-image place-image2" v-bind:style="{visibility:!visible?'visible':'hidden'}"/>
+				<img v-bind:src="rightNotLoadedImage" class="place-image place-image2" v-bind:style="{visibility:!visible||hasError?'visible':'hidden'}"/>
 				<div v-if="size>0" v-bind:class="descriptionClass">
 					<span>{{"&nbsp;"+formattedIncome}}</span>
 					<br>
