@@ -8,7 +8,7 @@ Lionel Laské have encapsulated this work to develop an engine that mimics Sugar
 
 Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abecedarium, Tank Operation) and Manuel Quiñones (Clock, Gears, Maze, Get Things Done, StopWatch). TurtleJS was added shortly after wrote by Walter Bender. Each new Sugarizer version added new activities. Here's a non exhaustive list with original authors:
 
-* Paint, Memorize, Record, Calculate and Media Viewer activities by Michaël Ohayon
+* Paint, Memorize, Record, Calculate and Media Viewer by Michaël Ohayon
 * Gridpaint by Brian Silverman
 * Speak by Vishal Batchu
 * Chat, Markdown by Suraj Gillespie
@@ -28,7 +28,7 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Falabracman, Chess, MindMath, Tangram by Prakash Ujjwal
 * Fraction, Curriculum, Vote by Dhruv Misra
 * Implode by Sarthak Gupta
-* TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra, Xmas Lights by Lionel Laské
+* TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra, Xmas Lights, Dollar Street by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
 
