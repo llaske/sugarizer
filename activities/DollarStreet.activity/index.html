@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Dollar Street Activity</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/libnotify.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/axios.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
+	<script src="lib/require.js"></script>
+	<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body id="body">
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="street-button"
+				:disabled="currentView!=viewList"
+				palette-file="js/palettes/incomes.js"
+				palette-event="income"
+				@income="onIncomeChanged"
+				palette-class="IncomePalette"
+				v-bind:title="l10n.stringIncomePalette"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="family-button" @click="familyClicked" v-bind:title="l10n.stringFamilyButton" :disabled="currentView!=viewList"></sugar-toolitem>
+			<sugar-toolitem id="things-button"
+				:disabled="currentView!=viewList"
+				palette-file="js/palettes/things.js"
+				palette-event="thing"
+				@thing="onThingSelected"
+				palette-class="ThingPalette"
+				v-bind:title="l10n.stringThingsButton"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="world-button"
+				:disabled="currentView!=viewList"
+				palette-file="js/palettes/regions.js"
+				palette-event="region"
+				@region="onRegionSelected"
+				palette-class="RegionPalette"
+				v-bind:title="l10n.stringWorldButton"
+			></sugar-toolitem>
+
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+		</sugar-toolbar>
+
+		<img id="spinner" src="images/spinner-light.gif"/>
+		<img id="cloudwarning" src="images/cloud-warning.svg"/>
+		<img id="nomatchingplace" src="icons/gray-house.svg"/>
+		<div id="nomatchingtext">{{l10n.stringNoMatchingPlace}}</div>
+
+		<div id="content" @scroll="onScrolled">
+			<div class="flex-container" v-if="currentView==viewList">
+				<street-place ref="places" v-for="(place) in places" :place="place" :size="placeSize" @place-clicked="onPlaceClicked"></street-place>
+			</div>
+			<family-detail v-if="currentView==viewDetail" ref="family" :place="currentPlace" @back-clicked="onBackClicked"></family-detail>
+		</div>
+
+		<sugar-activity ref="SugarActivity"></sugar-activity>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<sugar-popup ref="popup"></sugar-popup>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+		<dollarstreet-api ref="api"></dollarstreet-api>
+	</div>
+
+	<script src="js/DollarStreetAPI.js"></script>
+	<script src="js/popup.js"></script>
+	<script src="js/place.js"></script>
+	<script src="js/family.js"></script>
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>
