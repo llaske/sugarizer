@@ -1,5 +1,5 @@
 var currentview = "ListView";
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "webL10n", "tutorial"], function (activity, env, datastore, l10n, tutorial) {
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "webL10n", "tutorial", "humane"], function (activity, env, datastore, l10n, tutorial, humane) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -342,6 +342,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 					if (save){
 						datastore.create(metadata, function() {
+							humane.log(l10n.get("PlanetImageSaved", {planet: name}));
 							console.log("export done.");
 							save = false;
 						}, inputData);
