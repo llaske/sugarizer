@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a feature to change background in Shared Notes activity #799
 - Add a full 24h mode in Clock activity #921
 - Add an option to change default server at login
+- Add a popup when image is exported in Planets Activity #927
 
 ### Changed
 - Update noServerMode: add a Quit button in the buddy menu
