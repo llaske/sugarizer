@@ -523,6 +523,14 @@ div[slider] > input[type=range]::-ms-tooltip {
 	.family-image {
 		max-width: 256px;
 	}
+	
+	#regionpalette div img{
+		height: 50px;
+	}
+
+	#thingpalette .container div div{
+		margin-top: 0px !important;
+	}
 }
 
 .family-income {
