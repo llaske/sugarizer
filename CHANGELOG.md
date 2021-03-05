@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improved Responsiveness in Game of life Activity #793
 - Wrong values for inverse trigonometric function in Calculate Activity #895
 - Palettes not responsive in Dollar Street Activity #929
+- Video not responsive in Video Viewer Activity #933 
 
 
 ## [1.4.0] - 2020-09-23
