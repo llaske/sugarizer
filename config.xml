@@ -77,6 +77,7 @@
 		<splash src="res/splash/android/drawable-port-xxxhdpi.png" density="port-xxxhdpi" />
 	</platform>
 	<platform name="ios">
+		<plugin name="cordova-plugin-wkwebview-file-xhr" version="3.0.0" />
 		<icon src="res/icon/ios/icon-60@3x.png" width="180" height="180" />
 		<icon src="res/icon/ios/icon-60.png" width="60" height="60" />
 		<icon src="res/icon/ios/icon-60@2x.png" width="120" height="120" />
