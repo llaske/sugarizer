@@ -26,7 +26,9 @@ We will use **Chrome** in this tutorial but any other browser will work as well.
 
 To run Sugarizer locally in Chrome, close any running instances of Chrome and re-launch it using the command line:
 
-    chrome --allow-file-access-from-files index.html
+    chrome --allow-file-access-from-files file:\\\Directory:\sugarizer\index.html
+
+Directory in the path above is where you have stored/cloned your sugarizer repo into. Notice the path in the image below to get the gist of it.
 
 * On this line `chrome` is the name of the Chrome executable file. Depending of your system it could be `google-chrome` or `"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"` or `open -n /Applications/Google\ Chrome.app --args` instead.
 
