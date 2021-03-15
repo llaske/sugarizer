@@ -42,13 +42,31 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env","acti
 
     /* Fetch and store UI elements */
     initGui();
-
+    var currentenv;
     env.getEnvironment(function(err, environment) {
       currentenv = environment;
       // Set current language to Sugarizer
       var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
       var language = environment.user ? environment.user.language : defaultLanguage;
       webL10n.language.code = language;
+    });
+
+    // Export as PNG image
+    document.getElementById("save-image-button").addEventListener('click', function () {
+      var mimetype = 'image/png';
+      var inputData = document.getElementById("paint-canvas").toDataURL(mimetype, 1);
+      var metadata = {
+        mimetype: mimetype,
+        title: webL10n.get("PaintBy", { name: currentenv.user.name }),
+        activity: "org.olpcfrance.MediaViewerActivity",
+        timestamp: new Date().getTime(),
+        creation_time: new Date().getTime(),
+        file_size: 0
+      };
+      datastore.create(metadata, function () {
+        humane.log(webL10n.get('PaintImageSaved'))
+        console.log("export done.")
+      }, inputData);
     });
 
     document.getElementById("stop-button").addEventListener('click', function(event) {
@@ -63,7 +81,7 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env","acti
       activity.getDatastoreObject().setDataAsText(jsonData);
       activity.getDatastoreObject().save(function(error) {});
     });
-    
+
     document.getElementById("help-button").addEventListener('click', function(e) {
       tutorial.start();
     });

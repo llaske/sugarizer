@@ -6,12 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- DollarStreet activity
 - Add Photo mode in Journal popup
 - Add a noLoginMode to hide login button on first screen
 - Add more fun at end of Calligra #894
 - Add an option to remove seconds hand in Clock activity #885
 - Check if login exist before asking password #893
 - Add presence simulator
+- Add option for clock to show or hide minutes, AM hours, PM hours #903
+- Add option in Paint to export the current drawing to the journal as an image #911
+- Add country flag in Color My World activity #920
+- Add a feature to change background in Shared Notes activity #799
+- Add a full 24h mode in Clock activity #921
+- Add an option to change default server at login
+- Add a popup when image is exported in Planets Activity #927
 
 ### Changed
 - Update noServerMode: add a Quit button in the buddy menu
@@ -39,6 +47,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improve responsiveness of TankOp activity #566
 - Improved Responsiveness in Game of life Activity #793
 - Wrong values for inverse trigonometric function in Calculate Activity #895
+- Palettes not responsive in Dollar Street Activity #929
+- Video not responsive in Video Viewer Activity #933 
 
 
 ## [1.4.0] - 2020-09-23

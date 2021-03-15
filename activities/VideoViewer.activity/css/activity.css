@@ -668,6 +668,9 @@
 	.libraryTitle {
 		font-size: 14pt;
 	}
+	.video-item {
+		max-height: 82%;
+	}
 }
 
 @media screen and (max-width: 880px) {

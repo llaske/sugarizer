@@ -67,7 +67,8 @@ enyo.kind({
 		util.updateFavicon();
 
 		// Get server information
-		this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+		var defaultServer = util.getOptions()["defaultServer"] || constant.defaultServer;
+		this.$.server.setValue((util.getClientType() == constant.appType) ? defaultServer : util.getCurrentServerUrl());
 		if (util.getClientType() == constant.webAppType) {
 			var that = this;
 			myserver.getServerInformation(myserver.getServerUrl(), function(inSender, inResponse) {
@@ -140,6 +141,7 @@ enyo.kind({
 			vhistory = false;
 		var currentserver;
 		var serverurl;
+		var defaultServer;
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
@@ -147,7 +149,8 @@ enyo.kind({
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
 			vstop = enyo.platform.electron;
 			vhistory = true;
-			this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+			defaultServer = util.getOptions()["defaultServer"] || constant.defaultServer;
+			this.$.server.setValue((util.getClientType() == constant.appType) ? defaultServer : util.getCurrentServerUrl());
 			this.$.server.setDisabled(true);
 			break;
 
@@ -232,12 +235,23 @@ enyo.kind({
 			return;
 		}
 		if (this.step == 1 && this.$.server.getValue()) {
+			// Change default options
+			var name = this.$.server.getValue();
+			if (name.indexOf("!default") == name.length-8) {
+				var options = util.getOptions();
+				name = name.substr(0, name.length-8);
+				options.defaultServer = name;
+				this.$.server.setValue(name);
+				util.setOptions(options);
+				humane.log("Default server now "+name);
+			}
+
 			// Retrieve server information
 			this.$.spinner.setShowing(true);
 			var that = this;
-			myserver.getServerInformation(this.$.server.getValue(), function(inSender, inResponse) {
+			myserver.getServerInformation(name, function(inSender, inResponse) {
 				var server = inResponse;
-				server.url = that.$.server.getValue();
+				server.url = name;
 				if (server.secure) {
 					server.url = server.url.replace(constant.http, constant.https);
 				} else {

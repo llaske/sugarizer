@@ -1,4 +1,4 @@
-define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
+define(["activity/ol","util","print","l10n/l10n","flag"],function(ol,util,print,l10n,flag){
 	var me={};
 	me.popup=document.createElement("div");
 	me.popup.id="popup";
@@ -536,7 +536,7 @@ define(["activity/ol","util","print","l10n/l10n",],function(ol,util,print,l10n){
 
 		var xhtml="<center><h3>Next:</h3><h1>"+document.webL10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' ')+"</h1><h3>"+target_layer_name+"</h3></center>";
 		if(me.mode==TOUR){
-			xhtml="<center><h3>"+util.descore(document.webL10n.get(util.enscore('Next')))+":</h3><h1>"+util.descore(document.webL10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
+			xhtml="<center><h3>"+util.descore(document.webL10n.get(util.enscore('Next')))+":</h3><h1>"+util.descore(flag[`${target_name.replace(/ /g,'_')}`]+" "+document.webL10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
 		} else if (me.mode==INTERACTIVE) {
 			xhtml="<center><h3>"+util.descore(document.webL10n.get(util.enscore('Find')))+":</h3><h1>"+util.descore(document.webL10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
 		}

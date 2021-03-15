@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>My Vue Activity</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<link href="css/xocolor.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/axios.min.js"></script>
+	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
+	<script src="lib/require.js"></script>
+	<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body id="body">
+	<div id="app" :class="{gridBg:(currentView==viewGrid),detailBg:(currentView==viewDetail)}">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+
+			<sugar-toolitem id="network-button"
+				title="Network"
+				palette-file="sugar-web/graphics/presencepalette"
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="SugarPresence.onShared"
+				v-if="SugarPresence"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="list-button"
+				:disabled="currentView!=viewGrid"
+				palette-file="js/palettes/templatepalette.js"
+				palette-event="template"
+				@template="onTemplateSelected"
+				palette-class="TemplatePalette"
+				v-bind:title="l10n.stringTemplates"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="playpause-button" @click="onPlayPause" v-bind:title="l10n.stringPause" :disabled="currentView!=viewGrid"></sugar-toolitem>
+			<sugar-toolitem id="settings-button" @click="onSettingsClicked" v-bind:title="l10n.stringSettings"></sugar-toolitem>
+			<sugar-toolitem id="speed-button"
+				:disabled="currentView!=viewGrid"
+				palette-file="js/palettes/speedpalette.js"
+				palette-class="SpeedPalette"
+				palette-event="speed"
+				@speed="onSpeedChanged"
+				v-bind:title="l10n.stringSpeed"
+			></sugar-toolitem>
+			<sugar-toolitem id="text-button"
+				:disabled="currentView!=viewGrid"
+				palette-file="js/palettes/textpalette.js"
+				palette-class="TextPalette"
+				palette-event="text"
+				@text="onTextChanged"
+				v-bind:title="l10n.stringText"
+			></sugar-toolitem>
+			<sugar-toolitem splitbar></sugar-toolitem>
+			<sugar-toolitem id="zoom-button"
+				:disabled="currentView!=viewGrid"
+				palette-file="js/palettes/zoompalette.js"
+				palette-class="ZoomPalette"
+				palette-event="zoom"
+				@zoom="onZoomChanged"
+				v-bind:title="l10n.stringZoom"
+			></sugar-toolitem>
+
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+			<sugar-toolitem v-if="$refs.SugarToolbar ? !$refs.SugarToolbar.isHidden() : true" v-on:click="fullscreen" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem v-else v-on:click="unfullscreen" id="unfullscreen-button" v-bind:title="l10n.stringUnfullscreen" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+		</sugar-toolbar>
+
+		<div v-if="currentView == viewGrid" id="grid" :class="{fullscreen:($refs.SugarToolbar?$refs.SugarToolbar.isHidden():false),grid:true}">
+			<div id="message" class="message" v-bind:style="{color:messageStyle.color,fontWeight:messageStyle.fontWeight,fontStyle:messageStyle.fontStyle,fontSize:messageStyle.size+'pt'}">{{message}}</div>
+			<activity-icon v-for="(icon) in gridContent" :key="icon.id"
+				v-bind:name="icon.name"
+				v-bind:svg="icon.svg"
+				v-bind:color="icon.color"
+				v-bind:size="icon.size">
+			</activity-icon>
+		</div>
+		<div v-else id="detail" ref="detail" class="grab" v-on:mousedown="onMouseDown" v-on:mouseup="onMouseUp" v-on:mousemove="onMouseMove" v-on:touchstart="onMouseDown" v-on:touchend="onMouseUp" v-on:touchmove="onMouseMove">
+			<div class="column1">
+				<p class="label-drag">{{l10n.stringDragIcons}}</p>
+				<button type="button" id="delete-icons-button" class="delete-button" @click="onDeleteIconClicked"></button>
+				<div id="drop-icons-zone" ref="dropicons">
+					<activity-icon v-for="(icon) in detailContent.dropIcons" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+					<img v-if="detailContent.dropIcons.length==0" id="empty-icon" src="icons/allicons.svg" class="empty-background-icon"/>
+					<p v-if="detailContent.dropIcons.length==0" id="empty-text-icon">{{l10n.stringEmptyIcon}}</p>
+				</div>
+				<div id="drag-icons-zone" ref="dragicons">
+					<activity-icon v-for="(icon) in detailContent.dragIcons" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+				</div>
+			</div>
+			<div class="column2">
+				<p class="label-drag">{{l10n.stringDragColors}}</p>
+				<button type="button" id="delete-colors-button" class="delete-button" @click="onDeleteColorClicked"></button>
+				<div id="drop-colors-zone" ref="dropcolors">
+					<activity-icon v-for="(icon) in detailContent.dropColors" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+					<img v-if="detailContent.dropColors.length==0"  id="empty-color" src="icons/rainbow.svg" class="empty-background-color"/>
+					<p v-if="detailContent.dropColors.length==0" id="empty-text-color">{{l10n.stringEmptyColor}}</p>
+				</div>
+				<div id="drag-colors-zone" ref="dragcolors">
+					<activity-icon v-for="(icon) in detailContent.dragColors" class="padded-icon"
+						v-bind:id="icon.id"
+						v-bind:name="icon.name"
+						v-bind:svg="icon.svg"
+						v-bind:color="icon.color"
+						v-bind:size="icon.size">
+					</activity-icon>
+				</div>
+			</div>
+		</div>
+
+		<img id="spinner" src="images/spinner-light.gif"/>
+
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-activity ref="SugarActivity"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-new-instance="onJournalNewInstance" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial
+	</div>
+
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
+	<script src="js/activity-icon.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>

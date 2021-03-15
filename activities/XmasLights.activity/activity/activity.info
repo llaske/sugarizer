@@ -1,0 +1,6 @@
+[Activity]
+name = Xmas Lights
+activity_version = 1
+bundle_id = org.olpcfrance.XmasLights
+exec = sugar-activity-web
+icon = activity-icon

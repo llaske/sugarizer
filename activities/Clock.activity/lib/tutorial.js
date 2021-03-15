@@ -46,6 +46,18 @@ define(["webL10n"], function (l10n) {
 				content: l10n.get("TutoSecondsContent")
 			},
 			{
+				element: "#show-am-pm",
+				placement: "bottom",
+				title: l10n.get("ShowAmPmTitle"),
+				content: l10n.get("TutoShowAmPmContent")
+			},
+			{
+				element: "#show-mins",
+				placement: "bottom",
+				title: l10n.get("ShowMinsTitle"),
+				content: l10n.get("TutoShowMinsContent")
+			},
+			{
 				element: "#set-time-button",
 				placement: "bottom",
 				title: l10n.get("TutoSetTimeTitle"),

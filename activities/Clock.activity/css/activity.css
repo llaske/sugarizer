@@ -68,6 +68,14 @@ canvas {
   background-image: url(../icons/set-time-game.svg);
 }
 
+#main-toolbar #show-am-pm {
+  background-image: url(../icons/time.svg);
+}
+
+#main-toolbar #show-mins {
+  background-image: url(../icons/clock-with-minutes.svg);
+}
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }
@@ -227,5 +235,17 @@ canvas {
   #unfullscreen-button
   {
     right: 15%;
+  }
+}
+
+@media only screen and (max-width: 735px) {
+  #show-mins {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 678px) {
+  #show-am-pm {
+    display: none;
   }
 }
