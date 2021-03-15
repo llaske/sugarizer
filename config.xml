@@ -33,6 +33,7 @@
 	<engine name="android" spec="6.3.0" />
 	<plugin name="cordova-plugin-inappbrowser" spec="1.0.1" />
 	<plugin name="cordova-plugin-camera" spec="2.4.0" />
+	<plugin name="cordova-plugin-media-capture" spec="3.0.3" />
 	<plugin name="cordova-plugin-file" spec="4.3.1" />
 	<plugin name="cordova-plugin-device" spec="1.1.0" />
 	<plugin name="cordova-plugin-device-motion" spec="1.2.0" />
