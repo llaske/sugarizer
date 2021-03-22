@@ -85,7 +85,12 @@ Vue.component("dollarstreet-api", {
 
 		// Encode topic value
 		encodeTopic: function(rawtopic) {
-			return rawtopic.toLowerCase().replace(/ /g,"-").replace(/,/g,"");
+			if (typeof (rawtopic) === "object") {
+				return rawtopic.name.toLowerCase().replace(/ /g, "-").replace(/,/g, "");
+			}
+			else {
+				return rawtopic.toLowerCase().replace(/ /g, "-").replace(/,/g, "");
+			}
 		},
 
 		// Get a localized string by id
