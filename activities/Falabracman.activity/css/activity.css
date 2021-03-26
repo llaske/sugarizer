@@ -1,3 +1,6 @@
+body {
+  height: 100vh;
+}
 
 @font-face {
     font-family: 'VeraBd';

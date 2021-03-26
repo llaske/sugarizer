@@ -195,20 +195,26 @@ var app = new Vue({
 				vm.currentBook = book;
 				Vue.set(book, 'spinner', true);
 				vm.currentEpub = new ePub.Book();
-				vm.currentEpub.open(vm.currentLibrary.information.fileprefix+vm.currentBook.file).then(function() {
-					vm.currentEpub.loaded.navigation.then(function(sections) {
-						sections.forEach(function(section) {
-							if(section.label.toUpperCase().trim() == "CONTENTS") {
-								vm.currentEpub.contents = section.href;
-							}
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", vm.currentLibrary.information.fileprefix+vm.currentBook.file, true);
+				xhr.responseType = "arraybuffer";
+				xhr.onload = function() {
+					vm.currentEpub.open(this.response).then(function() {
+						vm.currentEpub.loaded.navigation.then(function(sections) {
+							sections.forEach(function(section) {
+								if(section.label.toUpperCase().trim() == "CONTENTS") {
+									vm.currentEpub.contents = section.href;
+								}
+							});
 						});
+						vm.currentView = EbookReader;
+						book.spinner = false;
+					}, function() {
+						console.log("Error loading "+vm.currentLibrary.information.fileprefix+vm.currentBook.file);
+						book.spinner = false;
 					});
-					vm.currentView = EbookReader;
-					book.spinner = false;
-				}, function() {
-					console.log("Error loading "+vm.currentLibrary.information.fileprefix+vm.currentBook.file);
-					book.spinner = false;
-				});
+				};
+				xhr.send();
 			}
 		},
 

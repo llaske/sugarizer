@@ -10,8 +10,12 @@ enyo.kind({
 	},
 
 	load: function(file, callback) {
-		// HACK: Use XHR Blob because Tone.Buffer can't load file from file:///
 		var that = this;
+		if (/iPad/i.test(navigator.userAgent) || /iPhone/i.test(navigator.userAgent)) {
+			that.player.load(file+"?time="+(new Date().getTime()), callback);
+			return;
+		}
+		// HACK: Use XHR Blob because Tone.Buffer can't load file from file:///
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', file+"?time="+(new Date().getTime()), true);
 		xhr.responseType = 'blob';
