@@ -197,12 +197,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			if (type === "Terrestrial"){
 				toload.bumpUrl = "images/" + name.toLowerCase() + "bump.png";
 			}
-			
-			// HACK: preload all images as data URI: need for iOS wkwebview support 
+
+			// HACK: preload all images as data URI: need for iOS wkwebview support
 			preloadDataURI(toload, function(data) {
-				
+
 			var url = data.url;
-			
+
 			//Variable action detectors
 			var showInfo = true;
 			var isRotating = true;
@@ -522,14 +522,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				toload.bumpUrl = "images/" + name.toLowerCase() + "bump.png";
 			}
 
-			// HACK: preload all images as data URI: need for iOS wkwebview support 
+			// HACK: preload all images as data URI: need for iOS wkwebview support
 			preloadDataURI(toload, function(data) {
-				
+
 			var url = data.url;
-			
+
 			var planetSize;
 			var requestAnim;
-			
+
 			if (name === "Sun"){
 				planetSize = 45;
 			}
@@ -601,58 +601,41 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 			var absoluteDistance;
 			var absoluteText = 0;
-			
+
 			if (name === "Sun"){
-				distance +=-27;
-				absoluteDistance = -96-27; 
+				absoluteDistance = -123;
 			}
 			else if (name === "Mercury"){
-				distance +=52;
-				absoluteDistance = -96-27+52;
-				textDistance += 7.7;
+				absoluteDistance = -71;
 				absoluteText = 11.5;
 			}
 			else if (name === "Venus"){
-				distance +=15;
-				absoluteDistance = -96-27+52+15;
-				textDistance += 8.3;
-				absoluteText = 11.5+7.7;
+				absoluteDistance = -56;
+				absoluteText = 19.2;
 			}
 			else if (name === "Earth"){
-				distance +=15;
-				absoluteDistance = -96-27+52+30;
-				textDistance += 8.3;
-				absoluteText = 11.5+7.7+8.3;
+				absoluteDistance = -41;
+				absoluteText = 27.5;
 			}
 			else if (name === "Mars"){
-				distance +=15;
-				absoluteDistance = -96-27+52+45;
-				textDistance += 8.3;
-				absoluteText = 11.5+7.7+8.3+8.3;
+				absoluteDistance = -26;
+				absoluteText = 35.8;
 			}
 			else if (name === "Uranus"){
-				distance += 35;
-				absoluteDistance = -96-27+52+45+17+36+35;
-				textDistance += 11;
-				absoluteText = 11.5+7.7+8.3+8.3+8.3+18.5+18;
+				absoluteDistance = 62;
+				absoluteText = 80.6;
 			}
 			else if (name === "Neptune"){
-				distance += 20;
-				absoluteDistance = -96-27+52+45+17+36+35+20;
-				textDistance += 15;
-				absoluteText = 11.5+7.7+8.3+8.3+8.3+18.5+18+11;
+				absoluteDistance = 82;
+				absoluteText = 91.6;
 			}
 			else if (name === "Jupiter"){
-				distance += 17;
-				absoluteDistance = -96-27+52+45+17;
-				textDistance += 18.5;
-				absoluteText = 11.5+7.7+8.3+8.3+8.3;
+				absoluteDistance = -9;
+				absoluteText = 44.1;
 			}
 			else{
-				distance += 36;
-				absoluteDistance = -96-27+52+45+17+36;
-				textDistance += 18;
-				absoluteText = 11.5+7.7+8.3+8.3+8.3+18.5;
+				absoluteDistance = 27;
+				absoluteText = 62.6;
 			}
 			//For planets with terrain, add bumps
 			if (type === "Terrestrial"){
