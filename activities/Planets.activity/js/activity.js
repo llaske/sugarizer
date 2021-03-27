@@ -184,14 +184,30 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 		//Show planet function
 		function initPlanet(name, type, year, mass, temperature, moons, radius, sunDistance){
 
+			//Url of planet files
+			var toload = {};
+			toload.url = "images/" + name.toLowerCase() + "map.jpg";
+			if(name === "Earth"){
+				toload.specUrl = "images/" + name.toLowerCase() + "spec.png";
+				toload.cloudUrl = "images/" + name.toLowerCase() + "cloudmap.jpg";
+			}
+			if(name === "Saturn" || name === "Uranus"){
+				toload.ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
+			}
+			if (type === "Terrestrial"){
+				toload.bumpUrl = "images/" + name.toLowerCase() + "bump.png";
+			}
+
+			// HACK: preload all images as data URI: need for iOS wkwebview support
+			preloadDataURI(toload, function(data) {
+
+			var url = data.url;
+
 			//Variable action detectors
 			var showInfo = true;
 			var isRotating = true;
 			var requestAnim;
 			var save;
-
-			//Url of planet map files
-			var url = "images/" + name.toLowerCase() + "map.jpg";
 
 			//Create Planet
 			var loadTexture = new THREE.TextureLoader().load(url);
@@ -206,8 +222,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 			//Create clouds for Earth
 			if(name === "Earth"){
-				var specUrl = "images/" + name.toLowerCase() + "spec.png";
-				var cloudUrl = "images/" + name.toLowerCase() + "cloudmap.jpg";
+				var specUrl = data.specUrl;
+				var cloudUrl = data.cloudUrl;
 				var loadCloudTexture = new THREE.TextureLoader().load(cloudUrl);
 				var cloudGeometry = new THREE.SphereGeometry(2.03, 32, 32);
 				var cloudMaterial = new THREE.MeshPhongMaterial({
@@ -225,7 +241,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 			//Create Rings
 			if(name === "Saturn" || name === "Uranus"){
-				var ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
+				var ringUrl = data.ringUrl;
 				var loadRingTexture = new THREE.TextureLoader().load(ringUrl);
 				if (name === "Saturn"){
 					var ringGeometry = new THREE.RingBufferGeometry(2.5, 5, 40);
@@ -251,7 +267,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 			//For planets with terrain, add bumps
 			if (type === "Terrestrial"){
-				var bumpUrl = "images/" + name.toLowerCase() + "bump.png";
+				var bumpUrl = data.bumpUrl;
 				material.bumpMap = new THREE.TextureLoader().load(bumpUrl);
 				material.bumpScale = 0.1;
 			}
@@ -486,15 +502,34 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				}
 
 			});
+		}); // End of preload
+
 		}
 
 		function initPosition(name, type, year, mass, temperature, moons, radius, sunDistance){
 
+			//Url of planet map files
+			var toload = {};
+			toload.url = "images/" + name.toLowerCase() + "map.jpg";
+			if(name === "Earth"){
+				toload.specUrl = "images/" + name.toLowerCase() + "spec.png";
+				toload.cloudUrl = "images/" + name.toLowerCase() + "cloudmap.jpg";
+			}
+			if(name === "Saturn" || name === "Uranus"){
+				toload.ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
+			}
+			if (type === "Terrestrial"){
+				toload.bumpUrl = "images/" + name.toLowerCase() + "bump.png";
+			}
+
+			// HACK: preload all images as data URI: need for iOS wkwebview support
+			preloadDataURI(toload, function(data) {
+
+			var url = data.url;
+
 			var planetSize;
 			var requestAnim;
 
-			//Url of planet map files
-			var url = "images/" + name.toLowerCase() + "map.jpg";
 			if (name === "Sun"){
 				planetSize = 45;
 			}
@@ -525,9 +560,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 			//Create clouds for Earth
 			if(name === "Earth"){
-				var specUrl = "images/" + name.toLowerCase() + "spec.png";
-				var cloudUrl = "images/" + name.toLowerCase() + "cloudmap.jpg";
-				var loadCloudTexture = new THREE.TextureLoader().load(cloudUrl);
+				var loadCloudTexture = new THREE.TextureLoader().load(data.cloudUrl);
 				var cloudGeometry = new THREE.SphereGeometry(planetSize, 32, 32);
 				var cloudMaterial = new THREE.MeshPhongMaterial({
 					map: loadCloudTexture,
@@ -537,15 +570,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					depthWrite: false
 				});
 				var cloudMesh = new THREE.Mesh(cloudGeometry, cloudMaterial);
-				material.specularMap = new THREE.TextureLoader().load(specUrl);
+				material.specularMap = new THREE.TextureLoader().load(data.specUrl);
 				material.specular  = new THREE.Color('grey');
 				planetMesh.add(cloudMesh);
 			};
 
 			//Create Rings
 			if(name === "Saturn" || name === "Uranus"){
-				var ringUrl = "images/" + name.toLowerCase() + "ringcolor.jpg";
-				var loadRingTexture = new THREE.TextureLoader().load(ringUrl);
+				var loadRingTexture = new THREE.TextureLoader().load(data.ringUrl);
 				if (name === "Saturn"){
 					var ringGeometry = new THREE.RingBufferGeometry(12, 23, 64);
 					var position = ringGeometry.attributes.position;
@@ -567,11 +599,47 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				var ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
 			}
 
+			var absoluteDistance;
+			var absoluteText = 0;
 
+			if (name === "Sun"){
+				absoluteDistance = -123;
+			}
+			else if (name === "Mercury"){
+				absoluteDistance = -71;
+				absoluteText = 11.5;
+			}
+			else if (name === "Venus"){
+				absoluteDistance = -56;
+				absoluteText = 19.2;
+			}
+			else if (name === "Earth"){
+				absoluteDistance = -41;
+				absoluteText = 27.5;
+			}
+			else if (name === "Mars"){
+				absoluteDistance = -26;
+				absoluteText = 35.8;
+			}
+			else if (name === "Uranus"){
+				absoluteDistance = 62;
+				absoluteText = 80.6;
+			}
+			else if (name === "Neptune"){
+				absoluteDistance = 82;
+				absoluteText = 91.6;
+			}
+			else if (name === "Jupiter"){
+				absoluteDistance = -9;
+				absoluteText = 44.1;
+			}
+			else{
+				absoluteDistance = 27;
+				absoluteText = 62.6;
+			}
 			//For planets with terrain, add bumps
 			if (type === "Terrestrial"){
-				var bumpUrl = "images/" + name.toLowerCase() + "bump.png";
-				material.bumpMap = new THREE.TextureLoader().load(bumpUrl);
+				material.bumpMap = new THREE.TextureLoader().load(data.bumpUrl);
 				material.bumpScale = 0.1;
 
 				//Add div to planets. This will be used for clicking smaller planets
@@ -580,49 +648,22 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				planetDiv.className = "planet-div";
 				planetPos.appendChild(planetDiv);
 				document.getElementById("div-" + name).style.padding = "2%";
-				document.getElementById("div-" + name).style.marginLeft = textDistance - 1 + "%";
+				document.getElementById("div-" + name).style.marginLeft = absoluteText - 1 + "%";
 			}
 
 			if (name !== "Sun"){
 				//Add names to planets
-				var planetNewName = document.createElement("div");
-				planetNewName.id = "new-name-" + name;
-				planetNewName.className = "planet-new-name";
-				planetNewName.innerHTML = l10n.get(name);
-				planetPos.appendChild(planetNewName);
-				document.getElementById("new-name-" + name).style.marginLeft = textDistance + "%";
+				if (document.getElementById("new-name-" + name) == null) {
+					var planetNewName = document.createElement("div");
+					planetNewName.id = "new-name-" + name;
+					planetNewName.className = "planet-new-name";
+					planetNewName.innerHTML = l10n.get(name);
+					planetPos.appendChild(planetNewName);
+				}
+				document.getElementById("new-name-" + name).style.marginLeft = absoluteText + "%";
 			}
 
-
-			if (name === "Sun"){
-				distance +=-27;
-			}
-			else if (name === "Mercury"){
-				distance +=52;
-				textDistance += 7.7;
-			}
-			else if (name === "Venus" || name === "Earth" || name === "Mars"){
-				distance +=15;
-				textDistance += 8.3;
-			}
-			else if (name === "Uranus"){
-				distance += 35;
-				textDistance += 11;
-			}
-			else if (name === "Neptune"){
-				distance += 20;
-				textDistance += 15;
-			}
-			else if (name === "Jupiter"){
-				distance += 17;
-				textDistance += 18.5;
-			}
-			else{
-				distance += 36;
-				textDistance += 18;
-			}
-
-			planetMesh.position.x = distance;
+			planetMesh.position.x = absoluteDistance;
 			planetMesh.name = name;
 			planetMesh.userData.typeOfPlanet = type;
 			planetMesh.userData.year = year;
@@ -786,9 +827,45 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				requestAnim = false;
 			});
 
+			}); // End of preload
 
 		}
 
 	});
 
 });
+
+// Load all images as data URI
+function preloadDataURI(toload, callback) {
+	var _loadDataURIfromURL = function(url, callback) {
+		if (!url) { callback(null); return; }
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', url, true);
+		xhr.responseType = 'blob';
+		xhr.onload = function() {
+			var reader = new FileReader();
+			reader.readAsDataURL(xhr.response);
+			reader.onload = function(e){
+				callback(e.target.result);
+			};
+		};
+		xhr.send();
+	};
+	var result = {};
+	_loadDataURIfromURL(toload.url, function(data) {
+		result.url = data;
+		_loadDataURIfromURL(toload.specUrl, function(data) {
+			result.specUrl = data;
+			_loadDataURIfromURL(toload.cloudUrl, function(data) {
+				result.cloudUrl = data;
+				_loadDataURIfromURL(toload.ringUrl, function(data) {
+					result.ringUrl = data;
+					_loadDataURIfromURL(toload.bumpUrl, function(data) {
+						result.bumpUrl = data;
+						callback(result);
+					});
+				});
+			});
+		});
+	});
+}

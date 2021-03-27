@@ -1,3 +1,6 @@
+body {
+	height: 100vh;
+}
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 	z-index:5;

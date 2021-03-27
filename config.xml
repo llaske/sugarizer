@@ -27,26 +27,28 @@
 	<access origin="*" />
 	<allow-navigation href="*" />
 
-	<preference name="android-minSdkVersion" value="14" />
+	<preference name="android-minSdkVersion" value="22" />
 	<preference name="android-targetSdkVersion" value="29" />
+	<preference name="android-compileSdkVersion" value="29" />
 
-	<engine name="android" spec="6.3.0" />
-	<plugin name="cordova-plugin-inappbrowser" spec="1.0.1" />
-	<plugin name="cordova-plugin-camera" spec="2.4.0" />
-	<plugin name="cordova-plugin-file" spec="4.3.1" />
-	<plugin name="cordova-plugin-device" spec="1.1.0" />
-	<plugin name="cordova-plugin-device-motion" spec="1.2.0" />
-	<plugin name="cordova-plugin-dialogs" spec="1.2.0" />
-	<plugin name="cordova-plugin-file-transfer" spec="1.6.0" />
-	<plugin name="cordova-plugin-fullscreen" spec="1.1.0" />
+	<engine name="android" spec="9.0.0" />
+	<plugin name="cordova-plugin-inappbrowser" spec="5.0.0" />
+	<plugin name="cordova-plugin-camera" spec="5.0.1" />
+	<plugin name="cordova-plugin-file" spec="6.0.2" />
+	<plugin name="cordova-plugin-device" spec="2.0.3" />
+	<plugin name="cordova-plugin-device-motion" spec="2.0.1" />
+	<plugin name="cordova-plugin-dialogs" spec="2.0.2" />
+	<plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
+	<plugin name="cordova-plugin-fullscreen" spec="1.3.0" />
 	<plugin name="cordova-plugin-ios-longpress-fix" spec="1.1.0" />
-	<plugin name="cordova-plugin-media" spec="1.0.1" />
-	<plugin name="cordova-plugin-network-information" spec="1.1.0" />
+	<plugin name="cordova-plugin-media" spec="5.0.3" />
+	<plugin name="cordova-plugin-media-capture" spec="3.0.3" />
+	<plugin name="cordova-plugin-network-information" spec="2.0.2" />
 	<plugin name="cordova-plugin-qrscanner" spec="3.0.1" />
-	<plugin name="cordova-plugin-splashscreen" spec="4.1.0" />
-	<plugin name="cordova-plugin-swift-support" spec="3.1.1" />
-	<plugin name="cordova-plugin-vibration" spec="2.1.1" />
-	<plugin name="cordova-plugin-whitelist" spec="1.3.1" />
+	<plugin name="cordova-plugin-splashscreen" spec="6.0.0" />
+	<plugin name="cordova-plugin-add-swift-support" spec="2.0.2" />
+	<plugin name="cordova-plugin-vibration" spec="3.1.1" />
+	<plugin name="cordova-plugin-whitelist" spec="1.3.4" />
 	<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
 
 	<!-- &SugarizerOS
@@ -61,8 +63,33 @@
 		<icon density="xxhdpi" src="res/icon/android/icon-144-xxhdpi.png" />
 		<icon density="xxxhdpi" src="res/icon/android/icon-192-xxxhdpi.png" />
 		<plugin name="cordova-plugin-ionic-keyboard" spec="2.2.0" />
+		<splash src="res/splash/android/drawable-land-hdpi.png" density="land-hdpi" />
+		<splash src="res/splash/android/drawable-land-ldpi.png" density="land-ldpi" />
+		<splash src="res/splash/android/drawable-land-mdpi.png" density="land-mdpi" />
+		<splash src="res/splash/android/drawable-land-xhdpi.png" density="land-xhdpi" />
+		<splash src="res/splash/android/drawable-land-xxhdpi.png" density="land-xxhdpi" />
+		<splash src="res/splash/android/drawable-land-xxxhdpi.png" density="land-xxxhdpi" />
+		<splash src="res/splash/android/drawable-port-hdpi.png" density="port-hdpi" />
+		<splash src="res/splash/android/drawable-port-ldpi.png" density="port-ldpi" />
+		<splash src="res/splash/android/drawable-port-mdpi.png" density="port-mdpi" />
+		<splash src="res/splash/android/drawable-port-xhdpi.png" density="port-xhdpi" />
+		<splash src="res/splash/android/drawable-port-xxhdpi.png" density="port-xxhdpi" />
+		<splash src="res/splash/android/drawable-port-xxxhdpi.png" density="port-xxxhdpi" />
 	</platform>
 	<platform name="ios">
+		<plugin name="cordova-plugin-wkwebview-file-xhr" spec="../cordova-plugin-wkwebview-file-xhr" />
+		<config-file parent="UIStatusBarHidden" target="*-Info.plist">
+			<true/>
+		</config-file>
+		<config-file parent="UIViewControllerBasedStatusBarAppearance" target="*-Info.plist">
+			<false/>
+		</config-file>
+		<config-file parent="NSCameraUsageDescription" target="*-Info.plist">
+			<string>The camera is used to scan QR codes.</string>
+		</config-file>
+		<config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
+			<string>Library is use to insert images in the Journal.</string>
+		</config-file>
 		<icon src="res/icon/ios/icon-60@3x.png" width="180" height="180" />
 		<icon src="res/icon/ios/icon-60.png" width="60" height="60" />
 		<icon src="res/icon/ios/icon-60@2x.png" width="120" height="120" />

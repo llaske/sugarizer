@@ -150,6 +150,10 @@
   }
 }
 
+body {
+  height: 100vh;
+}
+
 html, body, #viewport {
   margin: 0; background: #ffffff;
   overflow: hidden;
