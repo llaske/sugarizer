@@ -34,7 +34,7 @@ var StreetPlace = {
 	computed: {
 		formattedIncome: function() {
 			if (this.topicMode) {
-				let thing = app.$refs.api.getThingByTopic(this.place.topics[0]);
+				let thing = app.$refs.api.getThingByTopic(this.place.topics[0].id);
 				return thing && thing.thingName ? thing.thingName : "";
 			} else {
 				return new Intl.NumberFormat(app.$refs.api.language,{style:'currency', currency:'USD', maximumFractionDigits: 0, minimumFractionDigits: 0}).format(Math.floor(this.place.place.income)).replace("$US","$");
@@ -44,7 +44,7 @@ var StreetPlace = {
 			return this.place.country.id.toUpperCase().replace(/./g, function(char) { return String.fromCodePoint(char.charCodeAt(0)+127397); });
 		},
 		thingIcon: function() {
-			let thing = app.$refs.api.getThingByTopic(this.place.topics[0]);
+			let thing = app.$refs.api.getThingByTopic(this.place.topics[0].id);
 			return thing ? thing.svg : "";
 		},
 		containerClass: function() {

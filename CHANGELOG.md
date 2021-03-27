@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Video not responsive in Video Viewer Activity #933
 - Sound and Video recording in Record activity don't work on Android/iOS #932
 - The way to launch Sugarizer locally with Chrome has changed #937
+- Dollar Street Activity no longer work #940
 
 
 ## [1.4.0] - 2020-09-23
