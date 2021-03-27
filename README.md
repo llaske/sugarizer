@@ -62,7 +62,14 @@ To run locally **Sugarizer Application into the Web Browser** (GNU Linux/Mac OS/
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
- 	chrome --allow-file-access-from-files  index.html
+ 	chrome --allow-file-access-from-files file:\\\<Directory>\sugarizer\index.html
+
+In the path above, `<Directory>` is where you have stored/cloned your sugarizer repo into.
+
+In Windows, \ is the way path is written and / is the way for Linux/MacOS backward and forward slashes differ here, hence path for Linux/MacOS will be:
+
+	chrome --allow-file-access-from-files file:///<Directory>/sugarizer/index.html
+
 
 On Windows, you should launch:
 
