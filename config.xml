@@ -3,12 +3,12 @@
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
-		version   = "1.4.0"
-		android-versionCode = "14000">
+		version   = "1.5.0"
+		android-versionCode = "14900">
 	<name>Sugarizer</name>
 
 	<description>
-		A taste of the Sugar on any device.
+		The leading learning platform for children.
 	</description>
 
 	<author href="https://sugarizer.org" email="lionel@sugarizer.org">
