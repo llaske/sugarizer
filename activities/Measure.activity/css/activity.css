@@ -124,11 +124,19 @@ p {
 }
 
 #mainCanvas {
-	/* background-color: white; */
 	display: block;
 }
 
 #axisScale {
 	text-align: center;
 	font-size: 1.2rem;
+}
+
+#play-button {
+	background-image: url("../icons/play.svg");
+}
+
+#pause-button {
+	background-image: url("../icons/pause.svg");
+	display: none;
 }

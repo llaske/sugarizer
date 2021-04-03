@@ -17,7 +17,7 @@ var app = new Vue({
 		time_domain: true,
 		timeDomainData: [],
 		play: true,
-		time_div: 0.00005,
+		time_div: 0.0005,
 		num_of_samples: 1024,
 		num_of_divs: 20
 	},
@@ -41,7 +41,7 @@ var app = new Vue({
 			this.canvas.height = window.innerHeight - 55 - (document.getElementById("axisScale").clientHeight);
 		},
 		setTimeDomain: function(stream) {
-			document.getElementById("scaleValue").innerText = "0.05";
+			document.getElementById("scaleValue").innerText = this.time_div*1000;
 			this.context = new AudioContext();
 			this.analyser = this.context.createAnalyser();
 			this.analyser.smoothingTimeConstant = 0;
@@ -88,6 +88,17 @@ var app = new Vue({
 		mapCoords: function(value, a, b, c, d) {
 			value = (value - a) / (b - a);
 			return c + value * (d - c);
+		},
+		playOrPause: function() {
+			this.play = !this.play;
+			if(this.play) {
+				document.getElementById("play-button").style.display = "initial";
+				document.getElementById("pause-button").style.display = "none";
+			}
+			else {
+				document.getElementById("play-button").style.display = "none";
+				document.getElementById("pause-button").style.display = "initial";
+			}
 		}
 	},
 	mounted() {
