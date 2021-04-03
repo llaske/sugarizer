@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - DollarStreet activity
+- Xmas Lights activity
 - Add Photo mode in Journal popup
 - Add a noLoginMode to hide login button on first screen
 - Add more fun at end of Calligra #894
@@ -28,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use HTTPS for default videos libraries in Video Viewer activity
 - Change color of Calligra icon - was too white
 - Optimize drawing in neighborhood view
+- Update to Cordova 10
 
 ### Fixed
 - Wrong poll is displayed in Vote activity #854
@@ -48,7 +50,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improved Responsiveness in Game of life Activity #793
 - Wrong values for inverse trigonometric function in Calculate Activity #895
 - Palettes not responsive in Dollar Street Activity #929
-- Video not responsive in Video Viewer Activity #933 
+- Video not responsive in Video Viewer Activity #933
+- Sound and Video recording in Record activity don't work on Android/iOS #932
+- The way to launch Sugarizer locally with Chrome has changed #937
+- Dollar Street Activity no longer work #940
 
 
 ## [1.4.0] - 2020-09-23

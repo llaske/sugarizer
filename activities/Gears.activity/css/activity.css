@@ -1,3 +1,7 @@
+body {
+  height: 100vh;
+}
+
 #canvas {
   overflow: hidden;
   background-color: #ffffff;

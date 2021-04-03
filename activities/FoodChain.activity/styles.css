@@ -1,4 +1,8 @@
-﻿/* Toolbar buttons */
+body {
+  height: 100vh;
+}
+
+/* Toolbar buttons */
 #main-toolbar #activity-button {
   background-image: url(activity/activity-icon.svg);
 }

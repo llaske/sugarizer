@@ -1,6 +1,6 @@
 # Architecture
 
-## Global overview 
+## Global overview
 Sugarizer is fully written in HTML5 and JavaScript.
 
 > Sugarizer is composed of three components:
@@ -13,7 +13,7 @@ Sugarizer is fully written in HTML5 and JavaScript.
 
 ![](images/global-architecture.svg)
 
-| **Component** | **Description(Detailed)** | 
+| **Component** | **Description(Detailed)** |
 | ------------- | ------------------------- |
 | **Sugarizer Core** | It is independent of activities. **Sugarizer Core** has it's own `index.html` and redirects the browser to the `index.html` for activities when an activity is launched. The UI of Sugarizer Core use the **[Enyo Framework](http://enyojs.com/)** and, like activities, rely on Sugar-Web to handle Journal and collaboration. |
 | **Sugar-Web** | It uses `localStorage` and `IndexedDB` features of the browser to store Journal content. localStorage is used to store metadata entries, IndexedDB is used to store data entries. localStorage also contains user settings. **Sugar-Web** uses Web Sockets for real-time communication (presence) with the server and XmlHttpRequest calls on the server REST API to handle remote Journal. **Sugar-Web** rely on **[require.js](http://www.requirejs.org/)** to handle JavaScript libraries dependancies. |
@@ -22,8 +22,8 @@ Sugarizer is fully written in HTML5 and JavaScript.
 ## Portability
 
 The main conception rule of Sugarizer is that all platforms must share the same source code. <br>
-So Sugarizer runs the same JavaScript/HTML5 code whatever device used : 
-* **Web** 
+So Sugarizer runs the same JavaScript/HTML5 code whatever device used :
+* **Web**
 * **Mobile**
 * **Computer**
 
@@ -42,7 +42,6 @@ This feature is implemented in a dedicated **Cordova** plugin named **[cordova-p
 
 ### Desktop App
 
-On Desktop Platforms such as **GNU Lunix**, **Mac OS** or **Windows**, Sugarizer relies on **[electron](https://github.com/electron/electron)** to package the source code as a native application.
+On Desktop Platforms such as **GNU Linux**, **Mac OS** or **Windows**, Sugarizer relies on **[electron](https://github.com/electron/electron)** to package the source code as a native application.
 
 ![](images/app-architecture.svg)
-

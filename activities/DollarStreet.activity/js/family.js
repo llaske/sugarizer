@@ -13,7 +13,7 @@ var Family = {
 				<div id="family-description" class="family-description">
 					<div class="family-income">{{formattedIncome}}</div><div class="family-bymonth">{{"/"+app.$refs.SugarL10n.get("Months_one")}}</div>
 					<div class="family-name">{{capitalizeName}}, {{place.country.name}}</div>
-					<div class="family-content">{{place.place.description||app.$refs.SugarL10n.get("NoDescription")}}</div>
+					<div class="family-content">{{""}}</div>
 				</div>
 			</div>
 			<div id="family-things" class="family-things">

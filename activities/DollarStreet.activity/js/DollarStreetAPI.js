@@ -8,7 +8,7 @@ const dsLanguage = "language?lang=";
 const dsStreetSettings = "street-settings";
 const dsRegions = "countries-filter?thing=Families&countries=World&regions=World&lang=";
 const dsThings = "things-filter?thing=Families&countries=World&regions=World&lang=";
-const dsFamilies = "search/families?pageSize=1000&lng=";
+const dsFamilies = "search/families?featuredOnly=false&pageSize=1000&lng=";
 
 // Main component
 Vue.component("dollarstreet-api", {

@@ -3,6 +3,10 @@
   -webkit-user-select: none;
 }
 
+body {
+	height: 100vh;
+}
+
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
@@ -361,4 +365,3 @@ color: black;
     right: 3%;
   }
 }
-

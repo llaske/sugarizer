@@ -159,6 +159,7 @@ select {
 
 body {
 	overflow: hidden;
+	height: 100vh;
 }
 
 .tutorial-title {
