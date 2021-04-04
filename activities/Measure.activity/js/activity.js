@@ -25,9 +25,13 @@ var app = new Vue({
 		init: function() {
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight - 55 - (document.getElementById("axisScale").clientHeight);
+
 			window.addEventListener("resize", () => {
 				this.resizeCanvas()
 			})
+			this.drawGrid();
+
+			//Getting permission for microphone from user
 			navigator.mediaDevices.getUserMedia({ audio: true })
 				.then((stream) => {
 					if (this.time_domain) {
@@ -41,7 +45,10 @@ var app = new Vue({
 			this.canvas.height = window.innerHeight - 55 - (document.getElementById("axisScale").clientHeight);
 		},
 		setTimeDomain: function(stream) {
+			document.getElementById("domainName").innerText = 'Time'
 			document.getElementById("scaleValue").innerText = this.time_div*1000;
+
+			// Create and init a Web Audio Analyser node
 			this.context = new AudioContext();
 			this.analyser = this.context.createAnalyser();
 			this.analyser.smoothingTimeConstant = 0;
@@ -56,18 +63,20 @@ var app = new Vue({
 				if(!this.play) return;
 				this.analyser.getFloatTimeDomainData(this.timeDomainData)
 				
-				this.num_of_divs = this.canvas.width/50;
+				this.num_of_divs = this.canvas.width/50; // 50 is width of one div
 				var total_time_duration = this.time_div*this.num_of_divs;
-				this.num_of_samples = Math.ceil(total_time_duration*48000);
+
+				// Formula: num_of_samples = sampling_frequency*total_time_duration 
+				this.num_of_samples = Math.ceil(total_time_duration*48000); //48000 is sampling frequency
 				this.drawWaveform()
 			})
 		},
 		drawWaveform: function() {
 			var canvasCtx = this.canvas.getContext("2d");
-			canvasCtx.fillStyle = 'white';
-			canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-			canvasCtx.lineWidth = 1;
+			this.drawGrid();
+			canvasCtx.lineWidth = 3;
 			canvasCtx.strokeStyle = 'red';
+
 			canvasCtx.beginPath();
 			
 			var sliceWidth = this.canvas.width*1.0/this.num_of_samples;
@@ -84,6 +93,20 @@ var app = new Vue({
 			}
 			canvasCtx.lineTo(this.canvas.width, this.canvas.height/2);
 			canvasCtx.stroke();
+		},
+		drawGrid: function() {
+			var canvasCtx = this.canvas.getContext("2d");
+
+			canvasCtx.fillStyle = 'white';
+			canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+			canvasCtx.fillStyle = 'black';
+			for (var i = 0; i < this.canvas.width; i = i + 50) {
+				canvasCtx.fillRect(i, 0, 1, this.canvas.height)
+			}
+			for (var i = 0; i < this.canvas.width; i = i + 50) {
+				canvasCtx.fillRect(0, i, this.canvas.width, 1)
+			}
 		},
 		mapCoords: function(value, a, b, c, d) {
 			value = (value - a) / (b - a);
