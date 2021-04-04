@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Change color of Calligra icon - was too white
 - Optimize drawing in neighborhood view
 - Update to Cordova 10
+- Consider unsecure server accessed via HTTPS like secured server
 
 ### Fixed
 - Wrong poll is displayed in Vote activity #854
