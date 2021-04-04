@@ -23,6 +23,7 @@ var app = new Vue({
 	},
 	methods: {
 		init: function() {
+			
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight - 55 - (document.getElementById("axisScale").clientHeight);
 
@@ -32,13 +33,23 @@ var app = new Vue({
 			this.drawGrid();
 
 			//Getting permission for microphone from user
-			navigator.mediaDevices.getUserMedia({ audio: true })
-				.then((stream) => {
-					if (this.time_domain) {
-						this.setTimeDomain(stream)
-					}
-				})
-				.catch((err) => alert('Please allow microphone access'))
+			// if (window.cordova || window.PhoneGap) {
+			// 	console.log("cordova", window.cordova)
+			// 	console.log("audioinput", window.audioinput)
+			// 	// Start the plugin in Web Audio mode
+			// 	audioinput.start({
+			// 		streamToWebAudio: true
+			// 	});
+			// }
+			// else{
+			// 	navigator.mediaDevices.getUserMedia({ audio: true })
+			// 		.then((stream) => {
+			// 			if (this.time_domain) {
+			// 				this.setTimeDomain(stream)
+			// 			}
+			// 		})
+			// 		.catch((err) => alert('Please allow microphone access'))
+			// }
 		},
 		resizeCanvas: function() {
 			this.canvas.width = window.innerWidth;
@@ -49,11 +60,19 @@ var app = new Vue({
 			document.getElementById("scaleValue").innerText = this.time_div*1000;
 
 			// Create and init a Web Audio Analyser node
-			this.context = new AudioContext();
+			if (window.cordova || window.PhoneGap) {
+				this.context = audioinput.getAudioContext();
+				this.source = audioinput;
+				console.log(this.context)
+			}
+			else {
+				this.context = new AudioContext();
+				this.source = this.context.createMediaStreamSource(stream);
+			}
 			this.analyser = this.context.createAnalyser();
 			this.analyser.smoothingTimeConstant = 0;
 			this.analyser.fftSize = 1024;
-			this.source = this.context.createMediaStreamSource(stream);
+			
 			this.processor = this.context.createScriptProcessor(this.analyser.fftSize, 1, 1);
 			this.timeDomainData = new Float32Array(this.analyser.fftSize);
 			this.source.connect(this.analyser);
@@ -62,6 +81,8 @@ var app = new Vue({
 			this.processor.addEventListener('audioprocess', (e) => {
 				if(!this.play) return;
 				this.analyser.getFloatTimeDomainData(this.timeDomainData)
+
+				console.log(this.timeDomainData)
 				
 				this.num_of_divs = this.canvas.width/50; // 50 is width of one div
 				var total_time_duration = this.time_div*this.num_of_divs;
@@ -104,7 +125,7 @@ var app = new Vue({
 			for (var i = 0; i < this.canvas.width; i = i + 50) {
 				canvasCtx.fillRect(i, 0, 1, this.canvas.height)
 			}
-			for (var i = 0; i < this.canvas.width; i = i + 50) {
+			for (var i = 0; i < this.canvas.height; i = i + 50) {
 				canvasCtx.fillRect(0, i, this.canvas.width, 1)
 			}
 		},
@@ -122,10 +143,32 @@ var app = new Vue({
 				document.getElementById("play-button").style.display = "none";
 				document.getElementById("pause-button").style.display = "initial";
 			}
+		},
+		onDeviceReady: function() {
+			console.log("Hello")
+			console.log("cordova from ondevice", window.cordova)
+			console.log("audioinput from ondevice", window.audioinput)
+			this.init()
+			audioinput.start({
+				streamToWebAudio: true
+			});
+			this.setTimeDomain(null)
 		}
 	},
 	mounted() {
 		this.canvas = document.getElementById("mainCanvas");
-		this.init()
+		if (window.cordova || window.PhoneGap) {
+			document.addEventListener('deviceready', this.onDeviceReady, false);
+		}
+		else {
+			this.init()
+			navigator.mediaDevices.getUserMedia({ audio: true })
+				.then((stream) => {
+					if (this.time_domain) {
+						this.setTimeDomain(stream)
+					}
+				})
+				.catch((err) => alert('Please allow microphone access'))
+		}
 	}
 });
