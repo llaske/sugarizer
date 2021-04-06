@@ -31,25 +31,6 @@ var app = new Vue({
 				this.resizeCanvas()
 			})
 			this.drawGrid();
-
-			//Getting permission for microphone from user
-			// if (window.cordova || window.PhoneGap) {
-			// 	console.log("cordova", window.cordova)
-			// 	console.log("audioinput", window.audioinput)
-			// 	// Start the plugin in Web Audio mode
-			// 	audioinput.start({
-			// 		streamToWebAudio: true
-			// 	});
-			// }
-			// else{
-			// 	navigator.mediaDevices.getUserMedia({ audio: true })
-			// 		.then((stream) => {
-			// 			if (this.time_domain) {
-			// 				this.setTimeDomain(stream)
-			// 			}
-			// 		})
-			// 		.catch((err) => alert('Please allow microphone access'))
-			// }
 		},
 		resizeCanvas: function() {
 			this.canvas.width = window.innerWidth;
@@ -63,7 +44,6 @@ var app = new Vue({
 			if (window.cordova || window.PhoneGap) {
 				this.context = audioinput.getAudioContext();
 				this.source = audioinput;
-				console.log(this.context)
 			}
 			else {
 				this.context = new AudioContext();
@@ -81,8 +61,6 @@ var app = new Vue({
 			this.processor.addEventListener('audioprocess', (e) => {
 				if(!this.play) return;
 				this.analyser.getFloatTimeDomainData(this.timeDomainData)
-
-				console.log(this.timeDomainData)
 				
 				this.num_of_divs = this.canvas.width/50; // 50 is width of one div
 				var total_time_duration = this.time_div*this.num_of_divs;
@@ -118,10 +96,10 @@ var app = new Vue({
 		drawGrid: function() {
 			var canvasCtx = this.canvas.getContext("2d");
 
-			canvasCtx.fillStyle = 'white';
+			canvasCtx.fillStyle = 'black';
 			canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-			canvasCtx.fillStyle = 'black';
+			canvasCtx.fillStyle = 'grey';
 			for (var i = 0; i < this.canvas.width; i = i + 50) {
 				canvasCtx.fillRect(i, 0, 1, this.canvas.height)
 			}
