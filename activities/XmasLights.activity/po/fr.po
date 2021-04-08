@@ -1,0 +1,378 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Apr 08 2021 22:21:49 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Play
+msgctxt "Play"
+msgid "Play"
+msgstr "Démarrer"
+
+#: Pause
+msgctxt "Pause"
+msgid "Pause"
+msgstr "Pause"
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr "Plein écran"
+
+#: Unfullscreen
+msgctxt "Unfullscreen"
+msgid "Unfullscreen"
+msgstr "Écran normal"
+
+#: Zoom
+msgctxt "Zoom"
+msgid "Zoom"
+msgstr "Zoom"
+
+#: Speed
+msgctxt "Speed"
+msgid "Speed"
+msgstr "Vitesse"
+
+#: Text
+msgctxt "Text"
+msgid "Text"
+msgstr "Texte"
+
+#: Settings
+msgctxt "Settings"
+msgid "Settings"
+msgstr "Paramètrage"
+
+#: DragIcons
+msgctxt "DragIcons"
+msgid "Drag icons here to create your pattern:"
+msgstr "Faites glisser les icônes ici pour construire votre modèle:"
+
+#: DragColors
+msgctxt "DragColors"
+msgid "Drag colors here to create your pattern:"
+msgstr "Faites glisser les couleurs ici pour construire votre modèle:"
+
+#: EmptyIcon
+msgctxt "EmptyIcon"
+msgid "Use all activities icons"
+msgstr "Utiliser tous les icônes"
+
+#: EmptyColor
+msgctxt "EmptyColor"
+msgid "Use all colors"
+msgstr "Utiliser toutes les couleurs"
+
+#: Templates
+msgctxt "Templates"
+msgid "Templates"
+msgstr "Modèles"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoGridWelcomeTitle
+msgctxt "TutoGridWelcomeTitle"
+msgid "Xmas Lights Activity"
+msgstr "Activité Xmas Lights"
+
+#: TutoGridWelcomeContent
+msgctxt "TutoGridWelcomeContent"
+msgid "Welcome in Xmas Lights activity. This activity will allow creation of nice blinking Christmas lights using Sugarizer icons and colors"
+msgstr "Bienvenue dans l'activité Xmas Lights. Cette activité vous permet de créer des sympathiques guirlandes de noël clignotantes en utilisant les icônes et les couleurs de Sugarizer"
+
+#: TutoGridBoardTitle
+msgctxt "TutoGridBoardTitle"
+msgid "Board"
+msgstr "Plateau"
+
+#: TutoGridBoardContent
+msgctxt "TutoGridBoardContent"
+msgid "This is the board where lights are display, you could fully control what is display here and which animation is use"
+msgstr "Ceci est le plateau où les guirlandes sont affichées. Vous pouvez complètement contrôler ce qui est affiché ici et quelle animation est utilisée"
+
+#: TutoGridTemplateButtonTitle
+msgctxt "TutoGridTemplateButtonTitle"
+msgid "Templates"
+msgstr "Modèle"
+
+#: TutoGridTemplateButtonContent
+msgctxt "TutoGridTemplateButtonContent"
+msgid "Click here to choose one of sample Christmas lights. You will be able to fully customize it"
+msgstr "Cliquer ici pour choisir une des guirlandes d'exemple. Vous aurez ensuite la possibilité de la personnaliser"
+
+#: TutoGridPlayButtonTitle
+msgctxt "TutoGridPlayButtonTitle"
+msgid "Play/Pause"
+msgstr "Démarrer/Arrêter"
+
+#: TutoGridPlayButtonContent
+msgctxt "TutoGridPlayButtonContent"
+msgid "Click here to stop or restart blinking"
+msgstr "Cliquer ici pour arrêter et redémarrer le clignotement"
+
+#: TutoGridSettingsButtonTitle
+msgctxt "TutoGridSettingsButtonTitle"
+msgid "Edit"
+msgstr "Éditer"
+
+#: TutoGridSettingsButtonContent
+msgctxt "TutoGridSettingsButtonContent"
+msgid "This will open the edit view. In this view you will be able to edit icons and colors used"
+msgstr "Ce bouton vous permet d'afficher la vue d'édition. Dans cette vue vous pourrez modifier les icônes et les couleurs utilisées"
+
+#: TutoGridSpeedButtonTitle
+msgctxt "TutoGridSpeedButtonTitle"
+msgid "Speed control"
+msgstr "Contrôle vitesse"
+
+#: TutoGridSpeedButtonContent
+msgctxt "TutoGridSpeedButtonContent"
+msgid "Click here to make blinking faster or slower"
+msgstr "Cliquer ici pour accélérer ou ralentir le clignotement"
+
+#: TutoGridTextButtonTitle
+msgctxt "TutoGridTextButtonTitle"
+msgid "Text control"
+msgstr "Contrôle texte"
+
+#: TutoGridTextButtonContent
+msgctxt "TutoGridTextButtonContent"
+msgid "Click here to change text displayed and change text characteristics (color, style, size)"
+msgstr "Cliquer ici pour modifier le texte affiché et changer les caractéristiques du texte (couleur, style, taille)"
+
+#: TutoGridZoomButtonTitle
+msgctxt "TutoGridZoomButtonTitle"
+msgid "Zoom"
+msgstr "Zoom"
+
+#: TutoGridZoomButtonContent
+msgctxt "TutoGridZoomButtonContent"
+msgid "This menu let you change icons size in the board"
+msgstr "Ce menu vous permet de changer la taille des icônes sur le plateau"
+
+#: TutoGridNetworkButtonTitle
+msgctxt "TutoGridNetworkButtonTitle"
+msgid "Network Button"
+msgstr "Bouton Réseau"
+
+#: TutoGridNetworkButtonContent
+msgctxt "TutoGridNetworkButtonContent"
+msgid "This button will share the activity so other users can then join and update your light"
+msgstr "Ce bouton vous permet de partager l'activité ce qui permettra à d'autres utilisateurs de la rejoindre et de modifier votre guirlande"
+
+#: TutoDetailWelcomeTitle
+msgctxt "TutoDetailWelcomeTitle"
+msgid "Edit screen"
+msgstr "Écran Édition"
+
+#: TutoDetailWelcomeContent
+msgctxt "TutoDetailWelcomeContent"
+msgid "On this screen you will be able to customize icons and colors. To the left are tools to change icons, to the right are tools to change colors"
+msgstr "Sur cet écran, vous pourrez personnaliser les icônes et les couleurs. A gauche se trouve les outils pour modifier les icônes, à droite se trouve les outils pour modifier les couleurs"
+
+#: TutoDetailDropIconTitle
+msgctxt "TutoDetailDropIconTitle"
+msgid "Icon pattern"
+msgstr "Modèle Icônes"
+
+#: TutoDetailDropIconContent
+msgctxt "TutoDetailDropIconContent"
+msgid "In this zone you can define the icons pattern use to draw your light. Drop and arrange here list of icons you want to use. Let this zone empty to use all icons"
+msgstr "Dans cette zone vous pouvez définir l'enchaînement d'icônes utilisé pour dessiner votre guirlande. Déplacer et organiser ici la liste des icônes qui vont être utilisés. Laissez cette zone vide pour utiliser tous les icônes successivement"
+
+#: TutoDetailDragIconTitle
+msgctxt "TutoDetailDragIconTitle"
+msgid "Icons set"
+msgstr "Ensemble d'icônes"
+
+#: TutoDetailDragIconContent
+msgctxt "TutoDetailDragIconContent"
+msgid "Here are all icons you could use in your pattern. Drag and drop in the pattern, icons you want to use. The special Dice icon mean: choose randomly one icon"
+msgstr "Ici se trouve tous les icônes que vous pouvez utiliser dans votre modèle. Glisser et déposer dans le modèle les icônes que vous vouler utiliser. L'icône spécial \"Dés\" signifie: choisir un icône aléatoirement"
+
+#: TutoDetailDeleteIconTitle
+msgctxt "TutoDetailDeleteIconTitle"
+msgid "Clean pattern"
+msgstr "Effacer modèle"
+
+#: TutoDetailDeleteIconContent
+msgctxt "TutoDetailDeleteIconContent"
+msgid "Click here to remove all icons in the pattern"
+msgstr "Cliquer ici pour supprimer tous les icônes du modèle"
+
+#: TutoDetailDropColorTitle
+msgctxt "TutoDetailDropColorTitle"
+msgid "Color pattern"
+msgstr "Modèle Couleur"
+
+#: TutoDetailDropColorContent
+msgctxt "TutoDetailDropColorContent"
+msgid "In this zone you can define the colors pattern use to draw your light. Drop and arrange here list of colors you want to use. Let this zone empty to use all colors"
+msgstr "Dans cette zone vous pouvez définir l'enchaînement de couleurs utilisées pour dessiner votre guirlande. Déplacer et organiser ici la liste des couleurs qui vont être utilisées. Laissez cette zone vide pour utiliser toutes les couleurs successivement"
+
+#: TutoDetailDragColorTitle
+msgctxt "TutoDetailDragColorTitle"
+msgid "Colors set"
+msgstr "Ensemble de couleurs"
+
+#: TutoDetailDragColorContent
+msgctxt "TutoDetailDragColorContent"
+msgid "Here are all colors you could use in your pattern. Drag and drop in the pattern, colors you want to use. The special Dice icon mean: choose randomly one color"
+msgstr "Ici se trouve tous les couleurs que vous pouvez utiliser dans votre modèle. Glisser et déposer dans le modèle les couleurs que vous voulez utiliser. L'icône spécial \"Dés\" signifie: choisir une couleur aléatoirement"
+
+#: TutoDetailDeleteColorTitle
+msgctxt "TutoDetailDeleteColorTitle"
+msgid "Clean pattern"
+msgstr "Effacer modèle"
+
+#: TutoDetailDeleteColorContent
+msgctxt "TutoDetailDeleteColorContent"
+msgid "Click here to remove all colors in the pattern"
+msgstr "Cliquer ici pour supprimer toutes les couleurs du modèle"
+
+#: TutoDetailGridButtonTitle
+msgctxt "TutoDetailGridButtonTitle"
+msgid "Go back"
+msgstr "Retourner"
+
+#: TutoDetailGridButtonContent
+msgctxt "TutoDetailGridButtonContent"
+msgid "Click here to go back to the light screen to see change"
+msgstr "Cliquer ici pour retourner à l'écran guirlande pour voir les changements"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr "A l\'instant"
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr "il y a {{time}}"
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr "minute"
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr "minutes"
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr "heure"
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr "heures"
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr "jour"
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr "jours"
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr "semaine"
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr "semaines"
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr "mois"
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr "mois"
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr "an"
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr "ans"
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr "N'importe quand"
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr "Depuis hier"
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr "Depuis une semaine"
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr "Depuis un mois"
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr "Depuis une année"
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr "{{name}} a rejoint"
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
+msgstr "{{name}} est parti"
+
