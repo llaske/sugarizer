@@ -2,11 +2,11 @@
 
 # What is Sugarizer ?
 
-Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used every day by more than 2 million children around the world.
+Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
 
-Sugarizer runs on every device: from Raspberry Pi computers to Android and iOS phones to tablets and to laptops and desktops.
+Sugarizer runs on every device: laptops, desktops, tiny computers, tablets or smartphones.
 
-Sugarizer includes a bunch of pedagogic activities thought for children, see [here](https://sugarizer.org) for more.
+Sugarizer includes a large set of pedagogic activities thought for children, see [here](https://sugarizer.org/activities.html) for a full list.
 
 Sugarizer is available as:
 
@@ -16,7 +16,7 @@ Sugarizer is available as:
 
 # Sugarizer Application
 
-Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS X, Android or iOS device.
+Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS, Android or iOS device.
 
 To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
@@ -62,19 +62,26 @@ To run locally **Sugarizer Application into the Web Browser** (GNU Linux/Mac OS/
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
- 	chrome --allow-file-access-from-files  index.html
+ 	chrome --allow-file-access-from-files file:\\\<Directory>\sugarizer\index.html
+
+In the path above, `<Directory>` is where you have stored/cloned your sugarizer repo into.
+
+In Windows, \ is the way path is written and / is the way for Linux/MacOS backward and forward slashes differ here, hence path for Linux/MacOS will be:
+
+	chrome --allow-file-access-from-files file:///<Directory>/sugarizer/index.html
+
 
 On Windows, you should launch:
 
-	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files
+	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files <path>
 
 On Mac OS, you should launch:
 
-	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files
+	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files <path>
 
 On Linux, you should launch:
 
-	google-chrome-stable --allow-file-access-from-files index.html
+	google-chrome-stable --allow-file-access-from-files <path>
 
 > Note: `google-chrome-stable` is the name of Chrome in Ubuntu but it could be different on other distribution, you can get the package-name for Chrome by running `sudo dpkg -l | grep chrome`
 

@@ -1,0 +1,6 @@
+[Activity]
+name = Dollar Street
+activity_version = 1
+bundle_id = org.olpcfrance.DollarStreet
+exec = sugar-activity-web
+icon = activity-icon

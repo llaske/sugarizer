@@ -6,6 +6,60 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- DollarStreet activity
+- Xmas Lights activity
+- Add Photo mode in Journal popup
+- Add a noLoginMode to hide login button on first screen
+- Add more fun at end of Calligra #894
+- Add an option to remove seconds hand in Clock activity #885
+- Check if login exist before asking password #893
+- Add presence simulator
+- Add option for clock to show or hide minutes, AM hours, PM hours #903
+- Add option in Paint to export the current drawing to the journal as an image #911
+- Add country flag in Color My World activity #920
+- Add a feature to change background in Shared Notes activity #799
+- Add a full 24h mode in Clock activity #921
+- Add an option to change default server at login
+- Add a popup when image is exported in Planets Activity #927
+
+### Changed
+- Update noServerMode: add a Quit button in the buddy menu
+- Use HTTPS for default Sugarizer Server
+- Use HTTPS for default library in Ebook Reader activity
+- Use HTTPS for default videos libraries in Video Viewer activity
+- Change color of Calligra icon - was too white
+- Optimize drawing in neighborhood view
+- Update to Cordova 10
+- Update to Electron 9
+- Consider unsecured server accessed via HTTPS like secured server
+
+### Fixed
+- Wrong poll is displayed in Vote activity #854
+- Font is too small in Tangram activity on Safari or iOS #852
+- Leaving Sugarizer app without leaving current activity cause some activities to become empty #850
+- Improve frog control using touch/click in FoodChain activity #858
+- Allow frog to move with arrow keys in FoodChain activity #857
+- Add a popup when image is exported in Moon activity #867
+- Add a popup when image is exported in Shared Notes activity #868
+- Add a popup when image is exported in Labyrinth activity #869
+- Stop playing a video change to fullscreen in VideoViewer activity #859
+- Fix JournalChooser icons in Memorize activity
+- Color My World Error between the two Korea #898
+- Password characters flash from color to black&white #897
+- Issues on West Bank, Somalia and Cyprus in Color My World #901
+- Add a popup when image/sound is exported in Abecedarium activity #870
+- Improve responsiveness of TankOp activity #566
+- Improved Responsiveness in Game of life Activity #793
+- Wrong values for inverse trigonometric function in Calculate Activity #895
+- Palettes not responsive in Dollar Street Activity #929
+- Video not responsive in Video Viewer Activity #933
+- Sound and Video recording in Record activity don't work on Android/iOS #932
+- The way to launch Sugarizer locally with Chrome has changed #937
+- Dollar Street Activity no longer work #940
+
+
+## [1.4.0] - 2020-09-23
+### Added
 - Fraction activity #205
 - Implode activity #710
 - Planets activity

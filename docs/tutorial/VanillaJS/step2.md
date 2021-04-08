@@ -1,6 +1,6 @@
 [Go back to tutorial home](tutorial.md)
 
-# Step 2: Ccustomize icon and content
+# Step 2: Customize icon and content
 *(Estimated time: 30mn)*
 
 Let's now improve our activity to customize the content.

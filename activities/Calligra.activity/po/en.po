@@ -208,6 +208,16 @@ msgctxt "TutoRestartButtonContent"
 msgid "Click here to restart the drawing."
 msgstr "Click here to restart the drawing."
 
+#: TutoNextButtonTitle
+msgctxt "TutoNextButtonTitle"
+msgid "Next"
+msgstr "Next"
+
+#: TutoNextButtonContent
+msgctxt "TutoNextButtonContent"
+msgid "Click here to attempt the next one."
+msgstr "Click here to attempt the next one."
+
 #: TutoEditorAddButtonTitle
 msgctxt "TutoEditorAddButtonTitle"
 msgid "Add start point"

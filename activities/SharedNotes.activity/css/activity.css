@@ -43,6 +43,10 @@
   background-image: url(../icons/help.svg);
 }
 
+#main-toolbar #background-image-button {
+  background-image: url(../icons/insert-picture.svg);
+}
+
 #private-button {
   background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
   width: 47px;
@@ -294,6 +298,7 @@
 body {
   overflow-x: hidden;
   overflow-y: hidden;
+  height: 100vh;
 }
 
 #canvas {
@@ -378,4 +383,10 @@ body {
  #main-toolbar #stop-button {
    position: absolute;
  }
+}
+
+@media screen and (max-width: 750px) {
+  #background-image-button {
+    display: none;
+  }
 }

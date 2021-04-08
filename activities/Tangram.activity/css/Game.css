@@ -72,7 +72,7 @@
   height: 90%;
   border: 2px solid black;
   border-radius: 5px;
-  font-size: min(3.3vh, 3.3vw);
+  font-size: 3.3vh;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
@@ -129,7 +129,7 @@
   height: 15%;
   border: 2px solid black;
   border-radius: 5px;
-  font-size: min(3.5vh, 3.5vw);
+  font-size: 3.5vh;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
@@ -223,4 +223,14 @@
   justify-content: center;
   border-radius: 50%;
   font-size: 3vh;
+}
+
+@media (orientation: portrait) {
+  .detail-block {
+    font-size: 3.3vw;
+  }
+
+  .gameOver-block {
+    font-size: 3.5vw;
+  }
 }

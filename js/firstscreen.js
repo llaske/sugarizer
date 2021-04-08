@@ -67,7 +67,8 @@ enyo.kind({
 		util.updateFavicon();
 
 		// Get server information
-		this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+		var defaultServer = util.getOptions()["defaultServer"] || constant.defaultServer;
+		this.$.server.setValue((util.getClientType() == constant.appType) ? defaultServer : util.getCurrentServerUrl());
 		if (util.getClientType() == constant.webAppType) {
 			var that = this;
 			myserver.getServerInformation(myserver.getServerUrl(), function(inSender, inResponse) {
@@ -140,6 +141,7 @@ enyo.kind({
 			vhistory = false;
 		var currentserver;
 		var serverurl;
+		var defaultServer;
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
@@ -147,7 +149,8 @@ enyo.kind({
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
 			vstop = enyo.platform.electron;
 			vhistory = true;
-			this.$.server.setValue((util.getClientType() == constant.appType) ? constant.defaultServer : util.getCurrentServerUrl());
+			defaultServer = util.getOptions()["defaultServer"] || constant.defaultServer;
+			this.$.server.setValue((util.getClientType() == constant.appType) ? defaultServer : util.getCurrentServerUrl());
 			this.$.server.setDisabled(true);
 			break;
 
@@ -183,8 +186,8 @@ enyo.kind({
 		}
 
 		this.$.stopbutton.setShowing(vstop);
-		this.$.login.setShowing(vlogin);
-		this.$.logintext.setShowing(vlogintext);
+		this.$.login.setShowing(vlogin && !constant.noLoginMode);
+		this.$.logintext.setShowing(vlogintext && !constant.noLoginMode);
 		this.$.newuser.setShowing(vnewuser && !constant.noSignupMode);
 		this.$.newusertext.setShowing(vnewusertext && !constant.noSignupMode);
 		this.$.namebox.setShowing(vnamebox);
@@ -232,13 +235,24 @@ enyo.kind({
 			return;
 		}
 		if (this.step == 1 && this.$.server.getValue()) {
+			// Change default options
+			var name = this.$.server.getValue();
+			if (name.indexOf("!default") == name.length-8) {
+				var options = util.getOptions();
+				name = name.substr(0, name.length-8);
+				options.defaultServer = name;
+				this.$.server.setValue(name);
+				util.setOptions(options);
+				humane.log("Default server now "+name);
+			}
+
 			// Retrieve server information
 			this.$.spinner.setShowing(true);
 			var that = this;
-			myserver.getServerInformation(this.$.server.getValue(), function(inSender, inResponse) {
+			myserver.getServerInformation(name, function(inSender, inResponse) {
 				var server = inResponse;
-				server.url = that.$.server.getValue();
-				if (server.secure) {
+				server.url = name;
+				if (server.secure || server.url.indexOf(constant.https) == 0) {
 					server.url = server.url.replace(constant.http, constant.https);
 				} else {
 					server.url = server.url.replace(constant.https, constant.http);
@@ -262,10 +276,8 @@ enyo.kind({
 			if (util.getClientType() == constant.appType && (this.createnew || !this.$.server.getValue())) { // No password for the app when create new or server is null
 				this.step += 2;
 				this.displayStep();
-			} else if(!this.createnew) {  // Login
-				this.step++;
-			} else {  // Signup
-				this.checkUsername(name);
+			} else {
+				this.checkUsername(name, this.createnew);
 			}
 			this.displayStep();
 		} else if (this.step == 3) {
@@ -367,18 +379,19 @@ enyo.kind({
 		this.$.logintext.applyStyle("margin-top", (newUserPosition+constant.sizeNewUser+20)+"px");
 		this.$.logintext.applyStyle("width", constant.sizeNewUser+"px");
 		if (this.history.length) {
-			var left = (canvas_center.x-(constant.sizeNewUser*1.5)-30);
+			var left = (canvas_center.x-(constant.sizeNewUser*1.5)-30+(constant.noLoginMode?120:0));
 			this.$.newuser.applyStyle("margin-left", left+"px");
 			this.$.newusertext.applyStyle("margin-left", left+"px");
 			left += constant.sizeNewUser+30;
 			this.$.login.applyStyle("margin-left", left+"px");
 			this.$.logintext.applyStyle("margin-left", left+"px");
 			left += constant.sizeNewUser+30;
-			this.$.historybox.applyStyle("margin-left", left+"px");
+			this.$.historybox.applyStyle("margin-left", (left+(constant.noLoginMode?-140:0))+"px");
 		} else {
 			var newuser = (constant.noSignupMode?-80:0);
-			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
-			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25)+"px");
+			var login = (constant.noLoginMode?80:0);
+			this.$.newuser.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25+login)+"px");
+			this.$.newusertext.applyStyle("margin-left", (canvas_center.x-constant.sizeNewUser-25+login)+"px");
 			this.$.login.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
 			this.$.logintext.applyStyle("margin-left", (canvas_center.x+25+newuser)+"px");
 		}
@@ -433,7 +446,7 @@ enyo.kind({
 		}
 	},
 
-	checkUsername: function(name) {
+	checkUsername: function(name, createnew) {
 		var that = this;
 		that.$.spinner.setShowing(true);
 		myserver.postUser(
@@ -443,10 +456,14 @@ enyo.kind({
 				beforeSignup: true
 			},
 			function(inSender, inResponse) {
-				if(!inResponse.exists) {
-					// Username unique
+				if((!inResponse.exists && createnew) || (inResponse.exists && !createnew)) {
 					that.step++;
 					that.displayStep();
+				} else {
+					if (!createnew) {
+						that.$.warningmessage.setContent(l10n.get("InvalidUser"));
+						that.$.warningmessage.setShowing(true);
+					}
 				}
 				that.$.spinner.setShowing(false);
 			},
@@ -458,12 +475,18 @@ enyo.kind({
 				} else {
 					// Server supports fix -> new workflow
 					if(error == 22) {
-						// Username already exists
-						that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+						if (createnew) {
+							that.$.warningmessage.setContent(l10n.get("UserAlreadyExist"));
+							that.$.warningmessage.setShowing(true);
+						} else {
+							that.step++;
+							that.displayStep();
+							that.$.warningmessage.setShowing(false);
+						}
 					} else {
 						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
+						that.$.warningmessage.setShowing(true);
 					}
-					that.$.warningmessage.setShowing(true);
 				}
 				that.$.spinner.setShowing(false);
 			}

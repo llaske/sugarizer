@@ -6,7 +6,7 @@ body {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-	height: 100%;
+	height: 100vh;
 }
 
 p {
@@ -24,7 +24,6 @@ p {
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
-
 
 #main-toolbar .splitbar {
 	border-right: 1.5px solid #565656;
@@ -169,12 +168,18 @@ p {
   margin: 0px 1%;
   cursor: pointer;
 	font-weight: bold;
-	font-size: min(2vh, 2vw);
+	font-size: 2vh;
   border-radius: 20%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 80%;
+}
+
+@media (orientation: portrait) {
+	.btn-in-footer {
+		font-size: 2vw;
+	}
 }
 
 .btn-in-footer:hover {

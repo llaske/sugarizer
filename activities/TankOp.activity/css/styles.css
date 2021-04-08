@@ -23,6 +23,7 @@
 }
 
 .credit-button {
+	cursor: pointer;
 	position: absolute;
 	top: 20%;
 	right: 5%;
@@ -37,6 +38,7 @@
 }
 
 .start-button {
+	cursor: pointer;
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
@@ -116,6 +118,7 @@
 }
 
 .go-left {
+	cursor: pointer;
 	background-image: url(../images/go-left.svg);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
@@ -123,6 +126,7 @@
 }
 
 .go-right {
+	cursor: pointer;
 	background-image: url(../images/go-right.svg);
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
@@ -478,6 +482,7 @@
 
 @media screen and (min-width: 481px) and (max-width: 640px) {
 	.title {
+		margin-left: 30%;
 		font-size: 24px;
 		top: -10px;
 	}
@@ -526,33 +531,72 @@
 
 
 @media screen and (min-width: 641px) and (max-width: 820px) {
-	.mission-description {
-		bottom: 11%;
+	.title {
+		top: -15px;
+		font-size: 28px;
+		margin-left: 30%;
 	}
-
+	.home-image{
+		max-width: 55%;
+	}
+	.start-button{
+		width: 130px;
+	}
+	.mission-description {
+		max-width: 45%;
+		margin-bottom: 5px;
+	}
 	.mission-text {
 		font-size: 24px;
 		height: 30px;
 		padding: 0px 5px 0px 5px;
 	}
-
+	.credit-button {
+		max-width: 7%;
+	}
 	.mission-header {
-		font-size: 26px;
+		font-size: 20px;
 	}
-
 	.mission-dot {
-		font-size: 32px;
+		font-size: 25px;
 	}
-
+	.mission-text{
+		font-size: 20px;
+	}
+	.mission-status{
+		max-width: 40%;
+	}
+	.mission{
+		background-size: 20px 20px;
+		width: 20px;
+		height: 20px;
+		padding: 1px 2px;
+	}
 	.go-arrow {
-		background-size: 35px 35px;
-		width: 35px;
-		height: 40px;
+		background-size: 25px 25px;
+		width: 25px;
+		height: 30px;
 	}
-
-	.mission {
-		background-size: 35px 35px;
-		width: 35px;
-		height: 40px;
+	.credit-title {
+		margin-top: 20px;
+		font-size: 20px;
+	}
+	.credits-popup {
+		transform: scale(0.8);
+		max-width: 95%;
+		max-height: 96vh;
+	}
+	.status-line {
+		font-size: 20px;
+	}
+	.keyboard{
+		width: 30px;
+		height: 30px;
+	}
+	.lcd-value {
+		width: 80px;
+	}
+	.keyboard-set{
+		height: 200px;
 	}
 }

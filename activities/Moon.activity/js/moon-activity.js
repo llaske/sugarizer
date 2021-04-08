@@ -1,4 +1,4 @@
-define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sugar-web/datastore', 'moment-with-locales.min'], function(DataModel, Draw, l10n, env, datastore, moment) {
+define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sugar-web/datastore', 'moment-with-locales.min', 'humane'], function(DataModel, Draw, l10n, env, datastore, moment, humane) {
 
     'use strict';
 
@@ -319,7 +319,8 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 			file_size: 0
 		};
 		datastore.create(metadata, function() {
-			console.log("export done.")
+            humane.log(l10n.get('MoonImageSaved'));
+            console.log("export done.")
 		}, inputData);
     }
 

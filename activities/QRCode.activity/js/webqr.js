@@ -6,7 +6,7 @@ var gCanvas = null;
 var c=0;
 var stype=0;
 var gUM=false;
-var webkit=false;
+var _webkit=false;
 var moz=false;
 var v=null;
 var qrSize = 0;
@@ -171,13 +171,13 @@ function setwebcam2(options)
     else
     if(n.getUserMedia)
 	{
-		webkit=true;
+		_webkit=true;
         n.getUserMedia({video: options, audio: false}, success, error);
 	}
     else
     if(n.webkitGetUserMedia)
     {
-        webkit=true;
+        _webkit=true;
         n.webkitGetUserMedia({video:options, audio: false}, success, error);
     }
 

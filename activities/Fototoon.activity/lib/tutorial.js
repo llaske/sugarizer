@@ -32,7 +32,7 @@ define(["webL10n"], function (l10n) {
             {
                 element: "#add-globe",
                 placement: "bottom",
-                title: l10n.get("AddGlobe"),
+                title: l10n.get("AddAglobe"),
                 content: l10n.get("TutoAddGlobeExplanation")
             },
             {

@@ -1,3 +1,7 @@
+body {
+  height: 100vh;
+}
+
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
 }
@@ -667,6 +671,9 @@
 
 	.libraryTitle {
 		font-size: 14pt;
+	}
+	.video-item {
+		max-height: 82%;
 	}
 }
 
