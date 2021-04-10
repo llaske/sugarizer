@@ -1,22 +1,24 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Thu Feb 27 2020 22:51:57 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-11-11 15:52+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-chatprototype/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: WriteYourMessage
 msgctxt "WriteYourMessage"
 msgid "Write your message here..."
-msgstr "Escribe tu mensaje aqui..."
+msgstr "Escribe tu mensaje aquí..."
 
 #: DisconnectedFromWebSocket
 msgctxt "DisconnectedFromWebSocket"
@@ -41,115 +43,119 @@ msgstr "Error"
 #: status
 msgctxt "status"
 msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
-msgstr "Haga clic en el icono Vecindario en la paleta de presencia para iniciar el Chat"
+msgstr ""
+"Haz clic en el icono Vecindario en la paleta de presencia para abrir el chat"
 
 #: Join
 msgctxt "Join"
 msgid "join"
-msgstr "entra"
+msgstr "entrar"
 
 #: Leave
 msgctxt "Leave"
 msgid "leave"
-msgstr "salid"
+msgstr "salir"
 
 #: Chat
 msgctxt "Chat"
 msgid "the chat"
-msgstr "el Chat"
+msgstr "el chat"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Chat Activity"
-msgstr "Chat Activity"
+msgstr "Actividad \"Chat\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
-msgstr "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
+msgstr ""
+"Bienvenido a la actividad \"Chat\". En \"Chat\", el alumno podrá usar un "
+"programa de chat para hablar con otros usuarios conectados a internet"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Join Network"
-msgstr "Join Network"
+msgstr "Unirse a la red"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Want to start a Chat? Click on the Neighborhood icon in this menu"
-msgstr "Want to start a Chat? Click on the Neighborhood icon in this menu"
+msgstr "¿Quieres abrir un chat? Haz clic en el icono de Vecindario de este menú"
 
 #: TutoMessageTitle
 msgctxt "TutoMessageTitle"
 msgid "Message"
-msgstr "Message"
+msgstr "Mensaje"
 
 #: TutoMessageContent
 msgctxt "TutoMessageContent"
 msgid "Write your message here and hit enter to share it in your conversation"
-msgstr "Write your message here and hit enter to share it in your conversation"
+msgstr "Escribe aquí tu mensaje y pulsa Enter para enviarlo a tu conversación"
 
 #: TutoStopTitle
 msgctxt "TutoStopTitle"
 msgid "Quit"
-msgstr "Quit"
+msgstr "Abandonar"
 
 #: TutoStopContent
 msgctxt "TutoStopContent"
 msgid "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
-msgstr "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
+msgstr ""
+"¿Ya has hablado demasiado? Haz clic en este icono para abandonar esta "
+"actividad y volver al menú principal de Sugarizer"
 
 #: TutoImageTitle
 msgctxt "TutoImageTitle"
 msgid "Share Image"
-msgstr "Share Image"
+msgstr "Compartir imagen"
 
 #: TutoImageContent
 msgctxt "TutoImageContent"
 msgid "Click this icon if you want to send an image in your conversation"
-msgstr "Click this icon if you want to send an image in your conversation"
+msgstr "Haz clic aquí si quieres enviar una imagen a tu conversación"
 
 #: TutoSmileyTitle
 msgctxt "TutoSmileyTitle"
 msgid "Smiley Emojis"
-msgstr "Smiley Emojis"
+msgstr "Emoticonos alegres"
 
 #: TutoSmileyContent
 msgctxt "TutoSmileyContent"
 msgid "Express Smiles. Send Smiley Emojis in message"
-msgstr "Express Smiles. Send Smiley Emojis in message"
+msgstr "Te permite usar emoticonos alegres en tu mensaje"
 
 #: TutoSadTitle
 msgctxt "TutoSadTitle"
 msgid "Sad Emojis"
-msgstr "Sad Emojis"
+msgstr "Emoticonos tristes"
 
 #: TutoSadContent
 msgctxt "TutoSadContent"
 msgid "Express Sadness. Send Sad Emojis in message"
-msgstr "Express Sadness. Send Sad Emojis in message"
+msgstr "Te permite usar emoticonos tristes en tu mensaje"
 
 #: TutoEmojiTitle
 msgctxt "TutoEmojiTitle"
 msgid "Other Emojis"
-msgstr "Other Emojis"
+msgstr "Otros emoticonos"
 
 #: TutoEmojiContent
 msgctxt "TutoEmojiContent"
 msgid "Have a different expression. Look through the list to send different Emojis"
-msgstr "Have a different expression. Look through the list to send different Emojis"
-
+msgstr "Te permite usar emoticonos con otros tipos de expresiones en tu mensaje"

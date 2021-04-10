@@ -1,17 +1,19 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Mar 06 2018 22:16:51 GMT+0100 (CET)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2020-11-09 12:04+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-markdown/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: sample-input
 msgctxt "sample-input"
@@ -21,7 +23,7 @@ msgstr "Ejemplo de entrada"
 #: need-help
 msgctxt "need-help"
 msgid "Do you need help?"
-msgstr "Necesitas ayuda?"
+msgstr "¿Necesitas ayuda?"
 
 #: insertText
 msgctxt "insertText"
@@ -31,7 +33,7 @@ msgstr "Insertar texto"
 #: put-it-right-here
 msgctxt "put-it-right-here"
 msgid "whatever you are quoting, put it right here"
-msgstr "Lo que usted está citando, lo puso aquí"
+msgstr "Escribe aquí lo que quieras citar"
 
 #: wmd-bold-button-second
 msgctxt "wmd-bold-button-second"
@@ -66,7 +68,7 @@ msgstr "Lista punteada <ul> Ctrl+U"
 #: wmd-code-button
 msgctxt "wmd-code-button"
 msgid "Code Sample <pre><code> Ctrl+K"
-msgstr "Ejemplo de codigo <pre><code> Ctrl+K"
+msgstr "Ejemplo de código <pre><code> Ctrl+K"
 
 #: wmd-quote-button
 msgctxt "wmd-quote-button"
@@ -76,7 +78,7 @@ msgstr "Blockquote <blockquote> Ctrl+Q"
 #: wmd-link-button
 msgctxt "wmd-link-button"
 msgid "Hyperlink <a> Ctrl+L"
-msgstr "Hyperenlace <a> Ctrl+L"
+msgstr "Hipervínculo <a> Ctrl+L"
 
 #: wmd-undo-button
 msgctxt "wmd-undo-button"
@@ -97,4 +99,3 @@ msgstr "Mostrar/ocultar editor"
 msgctxt "wmd-showHidePreview-button"
 msgid "Show/Hide Preview"
 msgstr "Mostrar/ocultar vista previa"
-

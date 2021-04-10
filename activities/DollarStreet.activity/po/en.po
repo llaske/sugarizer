@@ -1,0 +1,293 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Thu Apr 08 2021 22:16:32 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: IncomePalette
+msgctxt "IncomePalette"
+msgid "Filter by income"
+msgstr "Filter by income"
+
+#: WorldButton
+msgctxt "WorldButton"
+msgid "Filter by region"
+msgstr "Filter by region"
+
+#: FamilyButton
+msgctxt "FamilyButton"
+msgid "See families"
+msgstr "See families"
+
+#: ThingsButton
+msgctxt "ThingsButton"
+msgid "See things"
+msgstr "See things"
+
+#: Close
+msgctxt "Close"
+msgid "Close"
+msgstr "Close"
+
+#: ImageExported
+msgctxt "ImageExported"
+msgid "Image exported to Journal"
+msgstr "Image exported to Journal"
+
+#: NoDescription
+msgctxt "NoDescription"
+msgid "(No description)"
+msgstr "(No description)"
+
+#: NoMatchingPlace
+msgctxt "NoMatchingPlace"
+msgid "No place match your filter"
+msgstr "No place match your filter"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoListWelcomeTitle
+msgctxt "TutoListWelcomeTitle"
+msgid "DollarStreet Activity"
+msgstr "DollarStreet Activity"
+
+#: TutoListWelcomeContent
+msgctxt "TutoListWelcomeContent"
+msgid "Welcome in DollarStreet activity. This activity - based on <a href='https://www.dollarstreet.org' target='_blank'>DollarStreet</a> web site from Gapminder - let you discover how people lives in different countries depending of their monthly income. Imagine the world as a street ordered by income: everyone lives somewhere on the street. Explore places where your neighbor lives on this street by region and income"
+msgstr "Welcome in DollarStreet activity. This activity - based on <a href='https://www.dollarstreet.org' target='_blank'>DollarStreet</a> web site from Gapminder - let you discover how people lives in different countries depending of their monthly income. Imagine the world as a street ordered by income: everyone lives somewhere on the street. Explore places where your neighbor lives on this street by region and income"
+
+#: TutoListIncomeTitle
+msgctxt "TutoListIncomeTitle"
+msgid "Filter by income"
+msgstr "Filter by income"
+
+#: TutoListIncomeContent
+msgctxt "TutoListIncomeContent"
+msgid "Filter places to display by income: minimum income and maximum income.<br/>You will learn that, at same income level, people lives in similar way whatever the country they come from"
+msgstr "Filter places to display by income: minimum income and maximum income.<br/>You will learn that, at same income level, people lives in similar way whatever the country they come from"
+
+#: TutoListFamilyTitle
+msgctxt "TutoListFamilyTitle"
+msgid "Display families"
+msgstr "Display families"
+
+#: TutoListFamilyContent
+msgctxt "TutoListFamilyContent"
+msgid "Click on this icon to explore the street by families. This is the default view"
+msgstr "Click on this icon to explore the street by families. This is the default view"
+
+#: TutoListThingsTitle
+msgctxt "TutoListThingsTitle"
+msgid "Display things"
+msgstr "Display things"
+
+#: TutoListThingsContent
+msgctxt "TutoListThingsContent"
+msgid "Click here to choose to explore the street by popular things you can find in people's home"
+msgstr "Click here to choose to explore the street by popular things you can find in people's home"
+
+#: TutoListRegionTitle
+msgctxt "TutoListRegionTitle"
+msgid "Filter by region"
+msgstr "Filter by region"
+
+#: TutoListRegionContent
+msgctxt "TutoListRegionContent"
+msgid "Filter places to display by region in the world"
+msgstr "Filter places to display by region in the world"
+
+#: TutoListPlaceTitle
+msgctxt "TutoListPlaceTitle"
+msgid "A place on the street"
+msgstr "A place on the street"
+
+#: TutoListPlaceContent
+msgctxt "TutoListPlaceContent"
+msgid "This a place on the street. Click on it to learn more on this place and how people lives there"
+msgstr "This a place on the street. Click on it to learn more on this place and how people lives there"
+
+#: TutoDetailViewTitle
+msgctxt "TutoDetailViewTitle"
+msgid "Family detail view"
+msgstr "Family detail view"
+
+#: TutoDetailViewContent
+msgctxt "TutoDetailViewContent"
+msgid "You're on detailed view for a place. Here you could learn more about his place and how people lives there"
+msgstr "You're on detailed view for a place. Here you could learn more about his place and how people lives there"
+
+#: TutoDetailImageTitle
+msgctxt "TutoDetailImageTitle"
+msgid "Place image"
+msgstr "Place image"
+
+#: TutoDetailImageContent
+msgctxt "TutoDetailImageContent"
+msgid "Here you could see a larger view of the place. Click on the image to see it at full size"
+msgstr "Here you could see a larger view of the place. Click on the image to see it at full size"
+
+#: TutoDetailDescriptionTitle
+msgctxt "TutoDetailDescriptionTitle"
+msgid "Description"
+msgstr "Description"
+
+#: TutoDetailDescriptionContent
+msgctxt "TutoDetailDescriptionContent"
+msgid "Here you could see the name of the family who live at this place and a description of them"
+msgstr "Here you could see the name of the family who live at this place and a description of them"
+
+#: TutoDetailThingsTitle
+msgctxt "TutoDetailThingsTitle"
+msgid "Things"
+msgstr "Things"
+
+#: TutoDetailThingsContent
+msgctxt "TutoDetailThingsContent"
+msgid "Here is set of photos to understand how people lives at this place. Click on photos to see them at full size"
+msgstr "Here is set of photos to understand how people lives at this place. Click on photos to see them at full size"
+
+#: TutoDetailBackTitle
+msgctxt "TutoDetailBackTitle"
+msgid "Go back"
+msgstr "Go back"
+
+#: TutoDetailBackContent
+msgctxt "TutoDetailBackContent"
+msgid "Click here to go back to the place list screen"
+msgstr "Click here to go back to the place list screen"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr "Seconds ago"
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr "{{time}} ago"
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr "minute"
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr "minutes"
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr "hour"
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr "hours"
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr "day"
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr "days"
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr "week"
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr "weeks"
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr "month"
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr "months"
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr "year"
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr "years"
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr "Anytime"
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr "Today"
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr "Since yesterday"
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr "Past week"
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr "Past month"
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr "Past year"
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr "{{name}} joined"
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
+msgstr "{{name}} left"
+

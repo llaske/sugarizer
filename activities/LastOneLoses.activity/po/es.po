@@ -1,122 +1,143 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Tue Feb 18 2020 22:27:02 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-01-02 12:39+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-lastoneloses/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr "{{user}} joined"
+msgstr "{{user}} se ha unido"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr "{{user}} left"
+msgstr "{{user}} ha abandonado"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Last One Loses Activity"
-msgstr "Last One Loses Activity"
+msgstr "Actividad \"El último pierde\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Last One Loses activity. Last One Loses is a small game where each player should avoid to take the last item on the board. You could play against the computer or against another player on the network"
-msgstr "Welcome into the Last One Loses activity. Last One Loses is a small game where each player should avoid to take the last item on the board. You could play against the computer or against another player on the network"
+msgstr ""
+"Bienvenido a la actividad \"El último pierde\". En esta actividad, el alumno "
+"accederá a un juego multijugador donde deberá evitar recoger el último "
+"objeto de la mesa. Podrá jugar contra el ordenador o contra otro jugador que "
+"esté conectado"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Network"
-msgstr "Network"
+msgstr "Compartir en red"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the game on the network so an opponent could play against you"
-msgstr "Click here to share the game on the network so an opponent could play against you"
+msgstr ""
+"Haz clic aquí para compartir tu partida y que un oponente pueda enfrentarse "
+"a ti"
 
 #: TutoNewgameTitle
 msgctxt "TutoNewgameTitle"
 msgid "New Game"
-msgstr "New Game"
+msgstr "Nueva partida"
 
 #: TutoNewgameContent
 msgctxt "TutoNewgameContent"
 msgid "Click here to start a new game. It will reinit the board with 13 items."
-msgstr "Click here to start a new game. It will reinit the board with 13 items."
+msgstr ""
+"Haz clic aquí para empezar una nueva partida, colocando 13 objetos sobre la "
+"mesa."
 
 #: TutoEasyTitle
 msgctxt "TutoEasyTitle"
 msgid "Easy Level"
-msgstr "Easy Level"
+msgstr "Nivel fácil"
 
 #: TutoEasyContent
 msgctxt "TutoEasyContent"
 msgid "Click here to select the level of difficulty easy. At this level the computer will be equivalent to a beginner opponent"
-msgstr "Click here to select the level of difficulty easy. At this level the computer will be equivalent to a beginner opponent"
+msgstr ""
+"Haz clic aquí para elegir el nivel de dificultad fácil. En este nivel, el "
+"ordenador se comportará como un oponente principiante"
 
 #: TutoMediumTitle
 msgctxt "TutoMediumTitle"
 msgid "Medium Level"
-msgstr "Medium Level"
+msgstr "Nivel normal"
 
 #: TutoMediumContent
 msgctxt "TutoMediumContent"
 msgid "Click here to select the level of difficulty medium. At this level the computer will be equivalent to an average opponent"
-msgstr "Click here to select the level of difficulty medium. At this level the computer will be equivalent to an average opponent"
+msgstr ""
+"Haz clic aquí para elegir el nivel de dificultad normal. En este nivel, el "
+"ordenador se comportará como un oponente normal"
 
 #: TutoHardTitle
 msgctxt "TutoHardTitle"
 msgid "Hard Level"
-msgstr "Hard Level"
+msgstr "Nivel difícil"
 
 #: TutoHardContent
 msgctxt "TutoHardContent"
 msgid "Click here to select the level of difficulty hard. At this level the computer will be equivalent to an expert opponent"
-msgstr "Click here to select the level of difficulty hard. At this level the computer will be equivalent to an expert opponent"
+msgstr ""
+"Haz clic aquí para elegir el nivel de dificultad difícil. En este nivel, el "
+"ordenador se comportará como un oponente experto"
 
 #: TutoSwitchTitle
 msgctxt "TutoSwitchTitle"
 msgid "Switch Player"
-msgstr "Switch Player"
+msgstr "Cambiar administrador"
 
 #: TutoSwitchContent
 msgctxt "TutoSwitchContent"
 msgid "Click here to let your opponent begin the game. It will work only at the begining of the game"
-msgstr "Click here to let your opponent begin the game. It will work only at the begining of the game"
+msgstr ""
+"Haz clic aquí para que sea tu oponente el que decida cuándo comenzar la "
+"partida. Solo funcionará al comienzo de la partida"
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
 msgid "Board"
-msgstr "Board"
+msgstr "Tablero"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
 msgid "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
-msgstr "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
-
+msgstr ""
+"La partida comienza con 13 objetos sobre el tablero. Durante su turno, cada "
+"jugador tiene que recoger entre 1 y 3 objetos del tablero haciendo clic "
+"sobre ellos y luego sobre el botón \"Terminar\". El jugador que recoja el "
+"último objeto del tablero pierde la partida"
