@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Sep 06 2020 21:26:19 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Thu Apr 08 2021 22:04:56 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1741,8 +1741,8 @@ msgstr "Do you want to duplicate {{count}} entries?"
 
 #: TutoActivityCurriculumactivity
 msgctxt "TutoActivityCurriculumactivity"
-msgid "Curriculum is an activity to self evalutate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
-msgstr "Curriculum is an activity to self evalutate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgid "Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgstr "Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
 
 #: TutoActivityVoteactivity
 msgctxt "TutoActivityVoteactivity"
@@ -1753,4 +1753,19 @@ msgstr "The Vote activity allow easy creation of a poll system. The user can cre
 msgctxt "TutoActivityPlanetsactivity"
 msgid "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
 msgstr "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
+
+#: InvalidUser
+msgctxt "InvalidUser"
+msgid "Unknown user"
+msgstr "Unknown user"
+
+#: TutoActivityXmasLightsactivity
+msgctxt "TutoActivityXmasLightsactivity"
+msgid "Xmas Lights activity allow creation of nice blinking Christmas lights using Sugarizer icons and colors."
+msgstr "Xmas Lights activity allow creation of nice blinking Christmas lights using Sugarizer icons and colors."
+
+#: TutoActivityDollarStreetactivity
+msgctxt "TutoActivityDollarStreetactivity"
+msgid "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
+msgstr "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
 

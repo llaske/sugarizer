@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Sep 06 2020 21:26:19 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Thu Apr 08 2021 22:04:56 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1741,7 +1741,7 @@ msgstr "Voulez-vous dupliquer {{count}} entrées ?"
 
 #: TutoActivityCurriculumactivity
 msgctxt "TutoActivityCurriculumactivity"
-msgid "Curriculum is an activity to self evalutate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgid "Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
 msgstr "Curriculum vous permet d'auto-évaluer vos compétences. Vous pouvez acquérir différentes compétences dans plusieurs catégories et télécharger des médias pour le démontrer."
 
 #: TutoActivityVoteactivity
@@ -1753,4 +1753,19 @@ msgstr "L'activité Vote permet de créer facilement des sondages. L'utilisateur
 msgctxt "TutoActivityPlanetsactivity"
 msgid "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
 msgstr "L'activité Planets vous propose un modèle 3D des planètes pour vous permettre d'explorer le système solaire."
+
+#: InvalidUser
+msgctxt "InvalidUser"
+msgid "Unknown user"
+msgstr "Utilisateur inconnu"
+
+#: TutoActivityXmasLightsactivity
+msgctxt "TutoActivityXmasLightsactivity"
+msgid "Xmas Lights activity allow creation of nice blinking Christmas lights using Sugarizer icons and colors."
+msgstr "L'activité Xmas Lights permet de créer des sympathiques guirlandes de noël clignotantes en utilisant les icônes et les couleurs de Sugarizer."
+
+#: TutoActivityDollarStreetactivity
+msgctxt "TutoActivityDollarStreetactivity"
+msgid "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
+msgstr "L'activité DollarStreet vous permet de découvrir comment les gens vivent dans les différents pays en fonction de leur revenu mensuel."
 
