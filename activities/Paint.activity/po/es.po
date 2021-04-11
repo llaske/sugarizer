@@ -1,17 +1,20 @@
 #. extracted from ../translate.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:26:38 GMT+0200 (heure d’été d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:26:38 GMT+0200 (heure d’été d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2021-04-11 14:13+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-paint/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: PaintImageSaved
 msgctxt "PaintImageSaved"
@@ -22,7 +25,7 @@ msgstr "¡La imagen se guardó en el diario!"
 #: PaintBy
 msgctxt "PaintBy"
 msgid "Paint by {{name}}"
-msgstr "Paint by {{name}}"
+msgstr "Pintado por {{name}}"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -234,10 +237,11 @@ msgstr "Haz clic aquí para despejar el tablón. Todo lo que hay en él será el
 #: TutoSaveImageButtonTitle
 msgctxt "TutoSaveImageButtonTitle"
 msgid "Save in Journal"
-msgstr "Save in Journal"
+msgstr "Guardar en la biblioteca"
 
 #: TutoSaveImageButtonContent
 msgctxt "TutoSaveImageButtonContent"
 msgid "Click here to save the current paint image to your journal, where you can use it for other activites"
-msgstr "Click here to save the current paint image to your journal, where you can use it for other activites"
-
+msgstr ""
+"Haz clic aquí para guardar la imagen pintada actual en tu biblioteca, donde "
+"podrás usarla en otras actividades."
