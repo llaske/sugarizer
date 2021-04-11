@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:24:34 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-11-09 18:49+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-constellation/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:11:52 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: AddDay
 msgctxt "AddDay"
@@ -183,10 +181,7 @@ msgstr "Actividad \"Constelación\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Constellation activity. Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth"
-msgstr ""
-"Bienvenido a la actividad \"Constelación\". En esta actividad, el alumno "
-"accederá a un planetario offline, con el cual sabrá lo que se puede ver en "
-"el cielo desde cualquier punto de la Tierra"
+msgstr "Bienvenido a la actividad \"Constelación\". En esta actividad, el alumno accederá a un planetario offline, con el cual sabrá lo que se puede ver en el cielo desde cualquier punto de la Tierra"
 
 #: TutoAddTitle
 msgctxt "TutoAddTitle"
@@ -246,9 +241,7 @@ msgstr "Países"
 #: TutoWorldContent
 msgctxt "TutoWorldContent"
 msgid "Click here to select a country. You will see how the sky above this country looks"
-msgstr ""
-"Haz clic aquí para elegir un país, y podrás ver cómo se ve el cielo desde "
-"ese país"
+msgstr "Haz clic aquí para elegir un país, y podrás ver cómo se ve el cielo desde ese país"
 
 #: TutoViewTitle
 msgctxt "TutoViewTitle"
@@ -258,9 +251,7 @@ msgstr "Tipo de proyección"
 #: TutoViewContent
 msgctxt "TutoViewContent"
 msgid "Click here to choose projection type. It will change the way the sky is displayed"
-msgstr ""
-"Haz clic aquí para elegir el tipo de proyección. Al hacerlo, cambiarás la "
-"manera en la que aparecerá el cielo"
+msgstr "Haz clic aquí para elegir el tipo de proyección. Al hacerlo, cambiarás la manera en la que aparecerá el cielo"
 
 #: TutoTimeTitle
 msgctxt "TutoTimeTitle"
@@ -271,3 +262,4 @@ msgstr "Fecha y hora"
 msgctxt "TutoTimeContent"
 msgid "Here you can see the date and time for which the sky is shown"
 msgstr "Aquí podrás ver la fecha y la hora del cielo que estás viendo"
+

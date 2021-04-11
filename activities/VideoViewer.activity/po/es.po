@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:04:07 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-11-09 15:45+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-videoviewer/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:32:17 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: TutoPrev
 msgctxt "TutoPrev"
@@ -38,9 +36,7 @@ msgstr "Actividad \"Reproductor de vídeos\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Video Viewer Activity. A browser and a viewer for Khan Academy, Canopé videos and more."
-msgstr ""
-"Bienvenido a la actividad \"Reproductor de vídeos\", que permite al alumno "
-"buscar y ver vídeos de Khan Academy, Canopé y muchas otras plataformas."
+msgstr "Bienvenido a la actividad \"Reproductor de vídeos\", que permite al alumno buscar y ver vídeos de Khan Academy, Canopé y muchas otras plataformas."
 
 #: TutoFilterTitle
 msgctxt "TutoFilterTitle"
@@ -70,9 +66,7 @@ msgstr "Bibliotecas"
 #: TutoLibraryContent
 msgctxt "TutoLibraryContent"
 msgid "Click here to choose between Khan Academy, Canopé videos or to add your own library"
-msgstr ""
-"Haz clic aquí para elegir entre los vídeos de Khan Academy o de Canopé, o "
-"para añadir tu propia biblioteca"
+msgstr "Haz clic aquí para elegir entre los vídeos de Khan Academy o de Canopé, o para añadir tu propia biblioteca"
 
 #: TutoExportvideoTitle
 msgctxt "TutoExportvideoTitle"
@@ -82,9 +76,7 @@ msgstr "Exportar vídeos"
 #: TutoExportvideoContent
 msgctxt "TutoExportvideoContent"
 msgid "Click here to save a video in the Journal. First click here then click on the video you want to save"
-msgstr ""
-"Haz clic aquí para guardar un vídeo en tu historial. Primero haz clic aquí, "
-"y luego sobre el vídeo que quieres guardar"
+msgstr "Haz clic aquí para guardar un vídeo en tu historial. Primero haz clic aquí, y luego sobre el vídeo que quieres guardar"
 
 #: TutoVideoTitle
 msgctxt "TutoVideoTitle"
@@ -105,3 +97,4 @@ msgstr "Buscar"
 msgctxt "TutoSearchContent"
 msgid "Type here to search for a video by its name"
 msgstr "Escribe aquí el nombre de un vídeo para buscarlo"
+

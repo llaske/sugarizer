@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:38:45 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:05:19 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,6 +12,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
+
+#: AbecedariumImage
+msgctxt "AbecedariumImage"
+msgid "Your Image was saved"
+msgstr "Your Image was saved"
+
+#: AbecedariumSound
+msgctxt "AbecedariumSound"
+msgid "Sound Saved"
+msgstr "Sound Saved"
 
 #: TutoPrev
 msgctxt "TutoPrev"
@@ -327,4 +337,9 @@ msgstr "Save sound"
 msgctxt "TutoSoundContent"
 msgid "Here you can export to Journal the sound of a word. Click here then on the word to export"
 msgstr "Here you can export to Journal the sound of a word. Click here then on the word to export"
+
+#: GameFinised
+msgctxt "GameFinised"
+msgid "Game Finished!"
+msgstr "Game Finished!"
 

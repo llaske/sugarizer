@@ -1,20 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Sep 06 2020 16:45:30 GMT+0200 (heure d’été d’Europe "
-"centrale)\n"
-"PO-Revision-Date: 2020-12-09 10:16+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-clock/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:10:32 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: SimpleClock
 msgctxt "SimpleClock"
@@ -35,6 +32,11 @@ msgstr "Escribir tiempo"
 msgctxt "WriteDate"
 msgid "Write date"
 msgstr "Escribir fecha"
+
+#: WriteSeconds
+msgctxt "WriteSeconds"
+msgid "Write seconds"
+msgstr "Write seconds"
 
 #: SetTime
 msgctxt "SetTime"
@@ -169,9 +171,7 @@ msgstr "Actividad \"Reloj\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Clock is a simple activity to learn how to read and tell the time"
-msgstr ""
-"\"Reloj\" es una actividad simple que ayudará al alumno a leer y decir la "
-"hora"
+msgstr "\"Reloj\" es una actividad simple que ayudará al alumno a leer y decir la hora"
 
 #: TutoHandTitle
 msgctxt "TutoHandTitle"
@@ -181,9 +181,7 @@ msgstr "El reloj y sus manecillas"
 #: TutoHandContent
 msgctxt "TutoHandContent"
 msgid "The Red, Green and Blue lines are the hands of the clock. The Blue hand tells the hour, the Green hand tells the minutes and the Red hand is the seconds"
-msgstr ""
-"Las líneas roja, verde y azul son las manecillas del reloj. La azul te dirá "
-"la hora, la verde te dirá los minutos y la roja te dirá los segundos"
+msgstr "Las líneas roja, verde y azul son las manecillas del reloj. La azul te dirá la hora, la verde te dirá los minutos y la roja te dirá los segundos"
 
 #: TutoSimpleTitle
 msgctxt "TutoSimpleTitle"
@@ -203,8 +201,7 @@ msgstr "Reloj elegante"
 #: TutoNiceContent
 msgctxt "TutoNiceContent"
 msgid "Click this icon to change the clock look into nice mode"
-msgstr ""
-"Haz clic en este icono para cambiar el aspecto del reloj al modo elegante"
+msgstr "Haz clic en este icono para cambiar el aspecto del reloj al modo elegante"
 
 #: TutoTimeTitle
 msgctxt "TutoTimeTitle"
@@ -226,6 +223,16 @@ msgctxt "TutoDateContent"
 msgid "Click this icon to also display the current date"
 msgstr "Haz clic en este icono para mostrar también la fecha actual"
 
+#: TutoSecondsTitle
+msgctxt "TutoSecondsTitle"
+msgid "Show Seconds"
+msgstr "Show Seconds"
+
+#: TutoSecondsContent
+msgctxt "TutoSecondsContent"
+msgid "Click this icon to display the seconds"
+msgstr "Click this icon to display the seconds"
+
 #: TutoSetTimeTitle
 msgctxt "TutoSetTimeTitle"
 msgid "Set-Time Mode"
@@ -234,9 +241,7 @@ msgstr "Modo de ajuste de la hora"
 #: TutoSetTimeContent
 msgctxt "TutoSetTimeContent"
 msgid "Click this icon to switch to set-time mode. In this mode you could move the hands to display the hour you want"
-msgstr ""
-"Haz clic en este icono para abrir el modo de ajuste de la hora. En este "
-"modo, podrás mover las manecillas del reloj para ver la hora que quieras"
+msgstr "Haz clic en este icono para abrir el modo de ajuste de la hora. En este modo, podrás mover las manecillas del reloj para ver la hora que quieras"
 
 #: TutoSetTimeGameTitle
 msgctxt "TutoSetTimeGameTitle"
@@ -246,7 +251,15 @@ msgstr "Modo de juego"
 #: TutoSetTimeGameContent
 msgctxt "TutoSetTimeGameContent"
 msgid "Click this icon to switch to set-time-Game mode. In this mode, the time is displayed in number format and you have to move the hands to set it in the matching hour"
-msgstr ""
-"Haz clic en este icono para cambiar al modo de ajuste de la hora para el "
-"juego. En este modo, se mostrará la hora en formato numérico, y tendrás que "
-"mover las manecillas para poner esa misma hora en el reloj"
+msgstr "Haz clic en este icono para cambiar al modo de ajuste de la hora para el juego. En este modo, se mostrará la hora en formato numérico, y tendrás que mover las manecillas para poner esa misma hora en el reloj"
+
+#: ShowAmPmTitle
+msgctxt "ShowAmPmTitle"
+msgid "Show hours"
+msgstr "Show hours and minutes"
+
+#: TutoShowAmPmContent
+msgctxt "TutoShowAmPmContent"
+msgid "Click this icon to display 24 hour format in Simple Clock."
+msgstr "Click this icon to display AM and PM hours along with minutes in Simple Clock."
+

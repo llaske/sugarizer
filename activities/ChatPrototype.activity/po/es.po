@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Feb 27 2020 22:51:57 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-11-11 15:52+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-chatprototype/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:09:31 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: WriteYourMessage
 msgctxt "WriteYourMessage"
@@ -43,8 +41,7 @@ msgstr "Error"
 #: status
 msgctxt "status"
 msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
-msgstr ""
-"Haz clic en el icono Vecindario en la paleta de presencia para abrir el chat"
+msgstr "Haz clic en el icono Vecindario en la paleta de presencia para abrir el chat"
 
 #: Join
 msgctxt "Join"
@@ -84,9 +81,7 @@ msgstr "Actividad \"Chat\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
-msgstr ""
-"Bienvenido a la actividad \"Chat\". En \"Chat\", el alumno podrá usar un "
-"programa de chat para hablar con otros usuarios conectados a internet"
+msgstr "Bienvenido a la actividad \"Chat\". En \"Chat\", el alumno podrá usar un programa de chat para hablar con otros usuarios conectados a internet"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
@@ -116,9 +111,7 @@ msgstr "Abandonar"
 #: TutoStopContent
 msgctxt "TutoStopContent"
 msgid "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
-msgstr ""
-"¿Ya has hablado demasiado? Haz clic en este icono para abandonar esta "
-"actividad y volver al menú principal de Sugarizer"
+msgstr "¿Ya has hablado demasiado? Haz clic en este icono para abandonar esta actividad y volver al menú principal de Sugarizer"
 
 #: TutoImageTitle
 msgctxt "TutoImageTitle"
@@ -159,3 +152,4 @@ msgstr "Otros emoticonos"
 msgctxt "TutoEmojiContent"
 msgid "Have a different expression. Look through the list to send different Emojis"
 msgstr "Te permite usar emoticonos con otros tipos de expresiones en tu mensaje"
+

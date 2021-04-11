@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:27:43 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2021-01-02 12:49+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-write/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:33:19 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -231,11 +229,7 @@ msgstr "Actividad \"Escribir\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Write activity. The Write activity is a basic word processor with a simple interface for children. Like a standard word processor, you will be able to format your text using buttons in the toolbar"
-msgstr ""
-"Bienvenido a la actividad \"Escribir\". Esta actividad es un procesador de "
-"texto básico, con una interfaz sencilla para los niños. Al igual que otros "
-"procesadores de texto, podrás guardar tus textos en otros formatos usando "
-"los botones adecuados en la barra de herramientas"
+msgstr "Bienvenido a la actividad \"Escribir\". Esta actividad es un procesador de texto básico, con una interfaz sencilla para los niños. Al igual que otros procesadores de texto, podrás guardar tus textos en otros formatos usando los botones adecuados en la barra de herramientas"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
@@ -245,9 +239,7 @@ msgstr "Compartir en red"
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the activity so other users on the network could co-edit the text with you"
-msgstr ""
-"Haz clic aquí para compartir la actividad con otros usuarios de tu red, que "
-"podrán editar el texto junto a ti"
+msgstr "Haz clic aquí para compartir la actividad con otros usuarios de tu red, que podrán editar el texto junto a ti"
 
 #: TutoForegroundTitle
 msgctxt "TutoForegroundTitle"
@@ -277,9 +269,7 @@ msgstr "Estilo"
 #: TutoFormatContent
 msgctxt "TutoFormatContent"
 msgid "Click here to change the text style. It will allow you to use bold, italic, underline or strike"
-msgstr ""
-"Haz clic aquí para cambiar el estilo del texto. Esto te permitirá usar texto "
-"en negrita, itálicas, subrayado o tachado"
+msgstr "Haz clic aquí para cambiar el estilo del texto. Esto te permitirá usar texto en negrita, itálicas, subrayado o tachado"
 
 #: TutoParagraphTitle
 msgctxt "TutoParagraphTitle"
@@ -289,9 +279,7 @@ msgstr "Párrafo"
 #: TutoParagraphContent
 msgctxt "TutoParagraphContent"
 msgid "Click here to change paragraph alignement. You could align text to the right, to the left or to the center"
-msgstr ""
-"Haz clic aquí para cambiar la alineación del párrafo. Puedes alinear el "
-"texto a la derecha, a la izquierda o en el centro"
+msgstr "Haz clic aquí para cambiar la alineación del párrafo. Puedes alinear el texto a la derecha, a la izquierda o en el centro"
 
 #: TutoListTitle
 msgctxt "TutoListTitle"
@@ -321,9 +309,7 @@ msgstr "Fuente"
 #: TutoFontContent
 msgctxt "TutoFontContent"
 msgid "Click here to change font for the text: Arial, Comic Sans MS, Verdana, ..."
-msgstr ""
-"Haz clic aquí para cambiar la fuente del texto: Arial, Comic Sans MS, "
-"Verdana..."
+msgstr "Haz clic aquí para cambiar la fuente del texto: Arial, Comic Sans MS, Verdana..."
 
 #: TutoDecreaseTitle
 msgctxt "TutoDecreaseTitle"
@@ -393,9 +379,7 @@ msgstr "Exportar"
 #: TutoExportContent
 msgctxt "TutoExportContent"
 msgid "Click here to export your document in the Journal as a TXT, PDF, DOC or ODT file"
-msgstr ""
-"Haz clic aquí para exportar tu documento a la biblioteca en formato TXT, "
-"PDF, DOC o ODT"
+msgstr "Haz clic aquí para exportar tu documento a la biblioteca en formato TXT, PDF, DOC o ODT"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
@@ -405,10 +389,7 @@ msgstr "Contenido"
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Here is the place where you can type, edit text and insert images. By default there is a sample text but feel free to remove it and begin to create!"
-msgstr ""
-"Aquí podrás escribir, editar el texto e insertar imágenes. Por defecto, "
-"aparecerá un texto de muestra, ¡pero puedes eliminarlo cuando quieras y "
-"empezar a crear tu contenido!"
+msgstr "Aquí podrás escribir, editar el texto e insertar imágenes. Por defecto, aparecerá un texto de muestra, ¡pero puedes eliminarlo cuando quieras y empezar a crear tu contenido!"
 
 #: SuperScript
 msgctxt "SuperScript"
@@ -428,10 +409,7 @@ msgstr "Superíndice"
 #: TutoSuperContent
 msgctxt "TutoSuperContent"
 msgid "Click here to format text as a superscript: i.e. above the current line of text"
-msgstr ""
-"Haz clic aquí para que el texto se convierta en un superíndice (es decir, "
-"esté escrito por encima de la línea de texto actual y con un tamaño "
-"ligeramente menor)"
+msgstr "Haz clic aquí para que el texto se convierta en un superíndice (es decir, esté escrito por encima de la línea de texto actual y con un tamaño ligeramente menor)"
 
 #: TutoSubTitle
 msgctxt "TutoSubTitle"
@@ -441,7 +419,5 @@ msgstr "Subíndice"
 #: TutoSubContent
 msgctxt "TutoSubContent"
 msgid "Click here to fortmat text as a subcript: i.e. under the current line of text"
-msgstr ""
-"Haz clic aquí para que el texto se convierta en un subíndice (es decir, esté "
-"escrito por debajo de la línea de texto actual y con un tamaño ligeramente "
-"menor)"
+msgstr "Haz clic aquí para que el texto se convierta en un subíndice (es decir, esté escrito por debajo de la línea de texto actual y con un tamaño ligeramente menor)"
+

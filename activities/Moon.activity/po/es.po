@@ -1,19 +1,22 @@
 #. extracted from ../data.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:18:10 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-12-07 12:16+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-moon/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:26:13 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: MoonImageSaved
+msgctxt "MoonImageSaved"
+msgid "Image was saved to journal!"
+msgstr "Image was saved to journal!"
 
 #: phase-0
 msgctxt "phase-0"
@@ -223,10 +226,7 @@ msgstr "Actividad \"Luna\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Moon activity. Moon activity is Moon phase viewer, includes Lunar phase information and eclipse data"
-msgstr ""
-"Bienvenido a la actividad \"Luna\". \"Luna\" permite al alumno ver las fases "
-"de la luna (incluyendo información sobre cada una de ellas y datos sobre los "
-"próximos eclipses)"
+msgstr "Bienvenido a la actividad \"Luna\". \"Luna\" permite al alumno ver las fases de la luna (incluyendo información sobre cada una de ellas y datos sobre los próximos eclipses)"
 
 #: TutoActivityButtonTitle
 msgctxt "TutoActivityButtonTitle"
@@ -236,9 +236,7 @@ msgstr "Actividad"
 #: TutoActivityButtonContent
 msgctxt "TutoActivityButtonContent"
 msgid "Click here to update the title of the activity to easily find it in the Journal"
-msgstr ""
-"Haz clic aquí para actualizar el título de la actividad y poderla encontrar "
-"más fácilmente en la biblioteca"
+msgstr "Haz clic aquí para actualizar el título de la actividad y poderla encontrar más fácilmente en la biblioteca"
 
 #: TutoToggleGridButtonTitle
 msgctxt "TutoToggleGridButtonTitle"
@@ -248,9 +246,7 @@ msgstr "Ver/ocultar cuadrícula"
 #: TutoToggleGridButtonContent
 msgctxt "TutoToggleGridButtonContent"
 msgid "Click here to display a grid with the latitude and Longitude (in degrees) of each area of the Moon"
-msgstr ""
-"Haz clic aquí para mostrar una plantilla con la latitud y longitud (en "
-"grados) de cada zona de la Luna"
+msgstr "Haz clic aquí para mostrar una plantilla con la latitud y longitud (en grados) de cada zona de la Luna"
 
 #: TutoToggleHemisphereButtonTitle
 msgctxt "TutoToggleHemisphereButtonTitle"
@@ -270,9 +266,7 @@ msgstr "Guardar en biblioteca"
 #: TutoSaveImageButtonContent
 msgctxt "TutoSaveImageButtonContent"
 msgid "Click here to save the current moon image to your journal, where you can use it for other activites"
-msgstr ""
-"Haz clic aquí para guardar la imagen actual de la Luna en tu biblioteca, "
-"donde podrás usarla para otras actividades"
+msgstr "Haz clic aquí para guardar la imagen actual de la Luna en tu biblioteca, donde podrás usarla para otras actividades"
 
 #: TutoFullScreenButtonTitle
 msgctxt "TutoFullScreenButtonTitle"
@@ -282,9 +276,7 @@ msgstr "Pantalla completa"
 #: TutoFullScreenButtonContent
 msgctxt "TutoFullScreenButtonContent"
 msgid "Click here to toggle between full and non-full screen"
-msgstr ""
-"Haz clic aquí para alternar entre el modo de pantalla completa/pantalla en "
-"ventana"
+msgstr "Haz clic aquí para alternar entre el modo de pantalla completa/pantalla en ventana"
 
 #: TutoStopButtonTitle
 msgctxt "TutoStopButtonTitle"
@@ -294,9 +286,7 @@ msgstr "Detener"
 #: TutoStopButtonContent
 msgctxt "TutoStopButtonContent"
 msgid "Click on this icon to stop the activity and go back to the home."
-msgstr ""
-"Haz clic en este icono para detener la actividad y regresar a la pantalla de "
-"inicio."
+msgstr "Haz clic en este icono para detener la actividad y regresar a la pantalla de inicio."
 
 #: TutoPanelLeftTitle
 msgctxt "TutoPanelLeftTitle"
@@ -307,3 +297,4 @@ msgstr "Información de la Luna"
 msgctxt "TutoPanelLeftContent"
 msgid "Find here live information on the Moon and its current whereabouts"
 msgstr "Aquí podrás consultar la información sobre la Luna y su estado actual"
+

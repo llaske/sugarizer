@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:18:35 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,6 +270,6 @@ msgstr "Stop"
 
 #: TutoStopExplanation
 msgctxt "TutoStopExplanation"
-msgid "Click here to end activity ang go back to Sugarizer home page"
+msgid "Click here to end activity and go back to Sugarizer home page"
 msgstr "Cliquez sur cette icône pour arrêter l'activité et revenir sur l'écran d'accueil de Sugarizer"
 

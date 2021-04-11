@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:37:11 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:17:31 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,546 +15,546 @@ msgstr ""
 
 #: sounddir
 msgctxt "sounddir"
-msgid "en"
+msgid ""
 msgstr "en"
 
 #: learn
 msgctxt "learn"
-msgid "Learn"
+msgid ""
 msgstr "Learn"
 
 #: build
 msgctxt "build"
-msgid "Build"
+msgid ""
 msgstr "Build"
 
 #: play
 msgctxt "play"
-msgid "Play"
+msgid ""
 msgstr "Play"
 
 #: learndesc
 msgctxt "learndesc"
-msgid "Put cards in the correct boxes to learn what sort of food each animal eats."
+msgid ""
 msgstr "Put cards in the correct boxes to learn what sort of food each animal eats."
 
 #: builddesc
 msgctxt "builddesc"
-msgid "Arrange cards in the correct order to build the right food chain."
+msgid ""
 msgstr "Arrange cards in the correct order to build the right food chain."
 
 #: playdesc
 msgctxt "playdesc"
-msgid "Play the food chain: eat and avoid being eaten."
+msgid ""
 msgstr "Play the food chain: eat and avoid being eaten."
 
 #: level
 msgctxt "level"
-msgid "Level"
+msgid ""
 msgstr "Level"
 
 #: score
 msgctxt "score"
-msgid "Score:"
+msgid ""
 msgstr "Score:"
 
 #: concept
 msgctxt "concept"
-msgid "concept & code:"
+msgid ""
 msgstr "concept & code:"
 
 #: arts
 msgctxt "arts"
-msgid "arts:"
+msgid ""
 msgstr "arts:"
 
 #: music
 msgctxt "music"
-msgid "music:"
+msgid ""
 msgstr "music:"
 
 #: sound
 msgctxt "sound"
-msgid "sound effects:"
+msgid ""
 msgstr "sound effects:"
 
 #: alligator
 msgctxt "alligator"
-msgid "Alligator"
+msgid ""
 msgstr "Alligator"
 
 #: animal
 msgctxt "animal"
-msgid "Animal"
+msgid ""
 msgstr "Animal"
 
 #: bat
 msgctxt "bat"
-msgid "Bat"
+msgid ""
 msgstr "Bat"
 
 #: bee
 msgctxt "bee"
-msgid "Bee"
+msgid ""
 msgstr "Bee"
 
 #: bird
 msgctxt "bird"
-msgid "Bird"
+msgid ""
 msgstr "Bird"
 
 #: camel
 msgctxt "camel"
-msgid "Camel"
+msgid ""
 msgstr "Camel"
 
 #: cat
 msgctxt "cat"
-msgid "Cat"
+msgid ""
 msgstr "Cat"
 
 #: chicken
 msgctxt "chicken"
-msgid "Chicken"
+msgid ""
 msgstr "Chicken"
 
 #: chimp
 msgctxt "chimp"
-msgid "Chimp"
+msgid ""
 msgstr "Chimp"
 
 #: clam
 msgctxt "clam"
-msgid "Clam"
+msgid ""
 msgstr "Clam"
 
 #: corn
 msgctxt "corn"
-msgid "Corn"
+msgid ""
 msgstr "Corn"
 
 #: cow
 msgctxt "cow"
-msgid "Cow"
+msgid ""
 msgstr "Cow"
 
 #: crab
 msgctxt "crab"
-msgid "Crab"
+msgid ""
 msgstr "Crab"
 
 #: crocodile
 msgctxt "crocodile"
-msgid "Crocodile"
+msgid ""
 msgstr "Crocodile"
 
 #: crow
 msgctxt "crow"
-msgid "Crow"
+msgid ""
 msgstr "Crow"
 
 #: dog
 msgctxt "dog"
-msgid "Dog"
+msgid ""
 msgstr "Dog"
 
 #: duck
 msgctxt "duck"
-msgid "Duck"
+msgid ""
 msgstr "Duck"
 
 #: fish
 msgctxt "fish"
-msgid "Fish"
+msgid ""
 msgstr "Fish"
 
 #: flies
 msgctxt "flies"
-msgid "Flies"
+msgid ""
 msgstr "Flies"
 
 #: fox
 msgctxt "fox"
-msgid "Fox"
+msgid ""
 msgstr "Fox"
 
 #: frog
 msgctxt "frog"
-msgid "Frog"
+msgid ""
 msgstr "Frog"
 
 #: giraffe
 msgctxt "giraffe"
-msgid "Giraffe"
+msgid ""
 msgstr "Giraffe"
 
 #: goat
 msgctxt "goat"
-msgid "Goat"
+msgid ""
 msgstr "Goat"
 
 #: grass
 msgctxt "grass"
-msgid "Grass"
+msgid ""
 msgstr "Grass"
 
 #: hay
 msgctxt "hay"
-msgid "Hay"
+msgid ""
 msgstr "Hay"
 
 #: hen
 msgctxt "hen"
-msgid "Hen"
+msgid ""
 msgstr "Hen"
 
 #: lamb
 msgctxt "lamb"
-msgid "Lamb"
+msgid ""
 msgstr "Lamb"
 
 #: mice
 msgctxt "mice"
-msgid "Mice"
+msgid ""
 msgstr "Mice"
 
 #: mole
 msgctxt "mole"
-msgid "Mole"
+msgid ""
 msgstr "Mole"
 
 #: mosquito
 msgctxt "mosquito"
-msgid "Mosquito"
+msgid ""
 msgstr "Mosquito"
 
 #: mule
 msgctxt "mule"
-msgid "Mule"
+msgid ""
 msgstr "Mule"
 
 #: owl
 msgctxt "owl"
-msgid "Owl"
+msgid ""
 msgstr "Owl"
 
 #: ox
 msgctxt "ox"
-msgid "Ox"
+msgid ""
 msgstr "Ox"
 
 #: pig
 msgctxt "pig"
-msgid "Pig"
+msgid ""
 msgstr "Pig"
 
 #: rat
 msgctxt "rat"
-msgid "Rat"
+msgid ""
 msgstr "Rat"
 
 #: shark
 msgctxt "shark"
-msgid "Shark"
+msgid ""
 msgstr "Shark"
 
 #: shrimp
 msgctxt "shrimp"
-msgid "Shrimp"
+msgid ""
 msgstr "Shrimp"
 
 #: skunk
 msgctxt "skunk"
-msgid "Skunk"
+msgid ""
 msgstr "Skunk"
 
 #: snail
 msgctxt "snail"
-msgid "Snail"
+msgid ""
 msgstr "Snail"
 
 #: snake
 msgctxt "snake"
-msgid "Snake"
+msgid ""
 msgstr "Snake"
 
 #: spider
 msgctxt "spider"
-msgid "Spider"
+msgid ""
 msgstr "Spider"
 
 #: spike
 msgctxt "spike"
-msgid "Spike"
+msgid ""
 msgstr "Spike"
 
 #: squid
 msgctxt "squid"
-msgid "Squid"
+msgid ""
 msgstr "Squid"
 
 #: squirrel
 msgctxt "squirrel"
-msgid "Squirrel"
+msgid ""
 msgstr "Squirrel"
 
 #: starfish
 msgctxt "starfish"
-msgid "Starfish"
+msgid ""
 msgstr "Starfish"
 
 #: swan
 msgctxt "swan"
-msgid "Swan"
+msgid ""
 msgstr "Swan"
 
 #: tick
 msgctxt "tick"
-msgid "Tick"
+msgid ""
 msgstr "Tick"
 
 #: wheat
 msgctxt "wheat"
-msgid "Wheat"
+msgid ""
 msgstr "Wheat"
 
 #: herbivore
 msgctxt "herbivore"
-msgid "Herbivore"
+msgid ""
 msgstr "Herbivore"
 
 #: carnivore
 msgctxt "carnivore"
-msgid "Carnivore"
+msgid ""
 msgstr "Carnivore"
 
 #: omnivore
 msgctxt "omnivore"
-msgid "Omnivore"
+msgid ""
 msgstr "Omnivore"
 
 #: TutoPrev
 msgctxt "TutoPrev"
-msgid "Prev"
+msgid ""
 msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
-msgid "Next"
+msgid ""
 msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
-msgid "End"
+msgid ""
 msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
-msgid "FoodChain Activity"
+msgid ""
 msgstr "FoodChain Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
-msgid "Welcome into the FoodChain activity. FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who?"
+msgid ""
 msgstr "Welcome into the FoodChain activity. FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who?"
 
 #: TutoEnTitle
 msgctxt "TutoEnTitle"
-msgid "English"
+msgid ""
 msgstr "English"
 
 #: TutoEnContent
 msgctxt "TutoEnContent"
-msgid "Click here to change language cards to English"
+msgid ""
 msgstr "Click here to change language cards to English"
 
 #: TutoFrTitle
 msgctxt "TutoFrTitle"
-msgid "French"
+msgid ""
 msgstr "French"
 
 #: TutoFrContent
 msgctxt "TutoFrContent"
-msgid "Click here to change language cards to French"
+msgid ""
 msgstr "Click here to change language cards to French"
 
 #: TutoPtTitle
 msgctxt "TutoPtTitle"
-msgid "Potuguese"
+msgid ""
 msgstr "Potuguese"
 
 #: TutoPtContent
 msgctxt "TutoPtContent"
-msgid "Click here to change language cards to Portuguese"
+msgid ""
 msgstr "Click here to change language cards to Portuguese"
 
 #: TutoLearnTitle
 msgctxt "TutoLearnTitle"
-msgid "Learn"
+msgid ""
 msgstr "Learn"
 
 #: TutoLearnContent
 msgctxt "TutoLearnContent"
-msgid "Click here to run the \"Learn\" game. In this game, you have to put animals in the correct box depending on what sort of food each animal eats"
+msgid ""
 msgstr "Click here to run the \"Learn\" game. In this game, you have to put animals in the correct box depending on what sort of food each animal eats"
 
 #: TutoBuildTitle
 msgctxt "TutoBuildTitle"
-msgid "Build"
+msgid ""
 msgstr "Build"
 
 #: TutoBuildContent
 msgctxt "TutoBuildContent"
-msgid "Click here to run the \"Build\" game. In this game, you have to arrange cards in the correct order to build the right food chain"
+msgid ""
 msgstr "Click here to run the \"Build\" game. In this game, you have to arrange cards in the correct order to build the right food chain"
 
 #: TutoPlayGameTitle
 msgctxt "TutoPlayGameTitle"
-msgid "Play"
+msgid ""
 msgstr "Play"
 
 #: TutoPlayGameContent
 msgctxt "TutoPlayGameContent"
-msgid "Click here to run the \"Play\" game. In this game, you have to steer the frog to eat flies, don't get eaten by snakes and don't hit rocks"
+msgid ""
 msgstr "Click here to run the \"Play\" game. In this game, you have to steer the frog to eat flies, don't get eaten by snakes and don't hit rocks"
 
 #: TutoInfoTitle
 msgctxt "TutoInfoTitle"
-msgid "Credits"
+msgid ""
 msgstr "Credits"
 
 #: TutoInfoContent
 msgctxt "TutoInfoContent"
-msgid "Click here to display activity credits"
+msgid ""
 msgstr "Click here to display activity credits"
 
 #: TutoExplainGameTitle
 msgctxt "TutoExplainGameTitle"
-msgid "Build"
+msgid ""
 msgstr "Build"
 
 #: TutoExplainGameContent
 msgctxt "TutoExplainGameContent"
-msgid "In this game, you need to sort the animals according to who eats what with the strongest ones being on the left of the box"
+msgid ""
 msgstr "In this game, you need to sort the animals according to who eats what with the strongest ones being on the left of the box"
 
 #: TutoValidateTitle
 msgctxt "TutoValidateTitle"
-msgid "Check"
+msgid ""
 msgstr "Check"
 
 #: TutoValidateContent
 msgctxt "TutoValidateContent"
-msgid "Click here to check if your order is correct"
+msgid ""
 msgstr "Click here to check if your order is correct"
 
 #: TutoPauseTitle
 msgctxt "TutoPauseTitle"
-msgid "Pause"
+msgid ""
 msgstr "Pause"
 
 #: TutoPauseContent
 msgctxt "TutoPauseContent"
-msgid "Click here to pause the game"
+msgid ""
 msgstr "Click here to pause the game"
 
 #: TutoPlayTitle
 msgctxt "TutoPlayTitle"
-msgid "Play"
+msgid ""
 msgstr "Play"
 
 #: TutoPlayContent
 msgctxt "TutoPlayContent"
-msgid "Click here to resume the game"
+msgid ""
 msgstr "Click here to resume the game"
 
 #: TutoHomeTitle
 msgctxt "TutoHomeTitle"
-msgid "Home"
+msgid ""
 msgstr "Home"
 
 #: TutoHomeContent
 msgctxt "TutoHomeContent"
-msgid "Click here to go back to the Home page"
+msgid ""
 msgstr "Click here to go back to the Home page"
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
-msgid "Box"
+msgid ""
 msgstr "Box"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
-msgid "Here the animals appear. You need to sort them in the proper order"
+msgid ""
 msgstr "Here the animals appear. You need to sort them in the proper order"
 
 #: TutoExplainLearnTitle
 msgctxt "TutoExplainLearnTitle"
-msgid "Learn"
+msgid ""
 msgstr "Learn"
 
 #: TutoExplainLearnContent
 msgctxt "TutoExplainLearnContent"
-msgid "In this game, you need to drag the animal over the sort of food it eats"
+msgid ""
 msgstr "In this game, you need to drag the animal over the sort of food it eats"
 
 #: TutoStartTitle
 msgctxt "TutoStartTitle"
-msgid "Start Box"
+msgid ""
 msgstr "Start Box"
 
 #: TutoStartContent
 msgctxt "TutoStartContent"
-msgid "Here is the animal. You have to decide what sort of food it eats"
+msgid ""
 msgstr "Here is the animal. You have to decide what sort of food it eats"
 
 #: TutoHerbTitle
 msgctxt "TutoHerbTitle"
-msgid "Herbivore"
+msgid ""
 msgstr "Herbivore"
 
 #: TutoHerbContent
 msgctxt "TutoHerbContent"
-msgid "Drag the animal here if you think that it eats herbs"
+msgid ""
 msgstr "Drag the animal here if you think that it eats herbs"
 
 #: TutoCarnTitle
 msgctxt "TutoCarnTitle"
-msgid "Carnivore"
+msgid ""
 msgstr "Carnivore"
 
 #: TutoCarnContent
 msgctxt "TutoCarnContent"
-msgid "Drag the animal here if you think that it eats meat"
+msgid ""
 msgstr "Drag the animal here if you think that it eats meat"
 
 #: TutoExplainPlayTitle
 msgctxt "TutoExplainPlayTitle"
-msgid "Play"
+msgid ""
 msgstr "Play"
 
 #: TutoExplainPlayContent
 msgctxt "TutoExplainPlayContent"
-msgid "In this game, you have to steer the frog to eat flies, don't hit rocks and don't get eaten by snakes"
+msgid ""
 msgstr "In this game, you have to steer the frog to eat flies, don't hit rocks and don't get eaten by snakes"
 
 #: TutoLivesTitle
 msgctxt "TutoLivesTitle"
-msgid "Lives"
+msgid ""
 msgstr "Lives"
 
 #: TutoLivesContent
 msgctxt "TutoLivesContent"
-msgid "Here you can see how many lives have you got"
+msgid ""
 msgstr "Here you can see how many lives have you got"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
-msgid "Board"
+msgid ""
 msgstr "Board"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
-msgid "Here is the board of the game. To move the frog, click on the direction you want to go"
+msgid ""
 msgstr "Here is the board of the game. To move the frog, click on the direction you want to go"
 

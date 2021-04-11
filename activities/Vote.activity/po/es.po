@@ -1,20 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Sep 02 2020 21:46:02 GMT+0200 (heure d’été d’Europe "
-"centrale)\n"
-"PO-Revision-Date: 2021-01-07 12:59+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-vote/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:32:50 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: SecondsAgo
 msgctxt "SecondsAgo"
@@ -192,8 +189,7 @@ msgstr "Modo ventana"
 #: WaitingHost
 msgctxt "WaitingHost"
 msgid "Host has left. Waiting for host to connect back"
-msgstr ""
-"El anfitrión se ha desconectado. Esperando a que el anfitrión se reconecte"
+msgstr "El anfitrión se ha desconectado. Esperando a que el anfitrión se reconecte"
 
 #: WaitingPoll
 msgctxt "WaitingPoll"
@@ -375,10 +371,7 @@ msgstr "Editar botón"
 #: TutoSettingsEditButtonContent
 msgctxt "TutoSettingsEditButtonContent"
 msgid "This will open the edit view for this poll. You can edit the type, question (also options in MCQ and Image-MCQ) or the poll image"
-msgstr ""
-"Esta opción abrirá la vista de edición para la encuesta actual. Podrás "
-"editar el tipo de encuesta, sus preguntas (incluyendo texto PRM o imagen PRM)"
-" o la imagen de la encuesta"
+msgstr "Esta opción abrirá la vista de edición para la encuesta actual. Podrás editar el tipo de encuesta, sus preguntas (incluyendo texto PRM o imagen PRM) o la imagen de la encuesta"
 
 #: TutoSettingsDeleteButtonTitle
 msgctxt "TutoSettingsDeleteButtonTitle"
@@ -398,8 +391,7 @@ msgstr "Botón \"Jugar\""
 #: TutoSettingsPlayButtonContent
 msgctxt "TutoSettingsPlayButtonContent"
 msgid "This button will turn the settings mode off and let you start a poll"
-msgstr ""
-"Este botón te permitirá salir del modo de edición e iniciar una encuesta"
+msgstr "Este botón te permitirá salir del modo de edición e iniciar una encuesta"
 
 #: TutoSettingsAddButtonTitle
 msgctxt "TutoSettingsAddButtonTitle"
@@ -419,10 +411,7 @@ msgstr "Editar imagen"
 #: TutoSettingsImageEditButtonContent
 msgctxt "TutoSettingsImageEditButtonContent"
 msgid "You can change the display image of the poll to an image in Journal. To get back the original image, click the delete button next to this button"
-msgstr ""
-"Puedes cambiar la imagen mostrada en la encuesta por una imagen de tu "
-"biblioteca. Para revertir la imagen, haz clic en el botón \"Borrar\"   junto "
-"a este botón"
+msgstr "Puedes cambiar la imagen mostrada en la encuesta por una imagen de tu biblioteca. Para revertir la imagen, haz clic en el botón \"Borrar\"   junto a este botón"
 
 #: TutoSettingsQuestionTitle
 msgctxt "TutoSettingsQuestionTitle"
@@ -462,9 +451,7 @@ msgstr "Opción"
 #: TutoSettingsOptionContent
 msgctxt "TutoSettingsOptionContent"
 msgid "This is an option. You can drag to reorder it or click the cross icon to delete it"
-msgstr ""
-"Una de las opciones disponibles. Podrás arrastrarla para reubicarla o hacer "
-"clic en el icono de la cruz para borrarla"
+msgstr "Una de las opciones disponibles. Podrás arrastrarla para reubicarla o hacer clic en el icono de la cruz para borrarla"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
@@ -474,13 +461,7 @@ msgstr "Actividad \"Votación\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Vote activity. This activity will allow easy creation of a poll system. The user can create a poll (Yes/No, Rating, MCQ, Text, Image-MCQ) and then share it on the network so any user could vote in real-time. After ending it, the stats of the poll can be viewed and exported to different formats"
-msgstr ""
-"Bienvenido a la actividad \"Votación\". Esta actividad permite al alumno "
-"crear una encuesta de forma fácil y rápida (con votos de tipo SÍ/NO, "
-"puntuaciones y textos/imágenes con preguntas de respuesta múltiple, o PRM). "
-"Además, podrás compartirla en la red para que cualquier usuario pueda "
-"completarla en tiempo real. Cuando termines de prepararla, podrás ver y "
-"exportar sus estadísticas en diferentes formatos"
+msgstr "Bienvenido a la actividad \"Votación\". Esta actividad permite al alumno crear una encuesta de forma fácil y rápida (con votos de tipo SÍ/NO, puntuaciones y textos/imágenes con preguntas de respuesta múltiple, o PRM). Además, podrás compartirla en la red para que cualquier usuario pueda completarla en tiempo real. Cuando termines de prepararla, podrás ver y exportar sus estadísticas en diferentes formatos"
 
 #: TutoPollCardTitle
 msgctxt "TutoPollCardTitle"
@@ -490,9 +471,7 @@ msgstr "Encuesta"
 #: TutoPollCardContent
 msgctxt "TutoPollCardContent"
 msgid "This is a poll with a type and a question. Click on this to automatically share the activity and start the poll"
-msgstr ""
-"Esto es una encuesta, para la que has elegido un tipo y una pregunta. Haz "
-"clic aquí para compartir la actividad automáticamente y comenzar la encuesta"
+msgstr "Esto es una encuesta, para la que has elegido un tipo y una pregunta. Haz clic aquí para compartir la actividad automáticamente y comenzar la encuesta"
 
 #: TutoPollSearchTitle
 msgctxt "TutoPollSearchTitle"
@@ -512,9 +491,7 @@ msgstr "Ajustes"
 #: TutoSettingsButtonContent
 msgctxt "TutoSettingsButtonContent"
 msgid "This button opens the settings mode. Here you can add, edit or delete a poll"
-msgstr ""
-"Este botón abre el menú de ajustes. Desde ahí podrás añadir, editar o borrar "
-"una encuesta"
+msgstr "Este botón abre el menú de ajustes. Desde ahí podrás añadir, editar o borrar una encuesta"
 
 #: TutoHistoryButtonTitle
 msgctxt "TutoHistoryButtonTitle"
@@ -524,9 +501,7 @@ msgstr "Botón de historial"
 #: TutoHistoryButtonContent
 msgctxt "TutoHistoryButtonContent"
 msgid "This will open the history of previously completed polls. You can view the stats and export them to a suitable format"
-msgstr ""
-"Esta opción abrirá el historial de las encuestas completadas. Aquí podrás "
-"ver sus estadísticas y exportar los datos obtenidos a varios formatos"
+msgstr "Esta opción abrirá el historial de las encuestas completadas. Aquí podrás ver sus estadísticas y exportar los datos obtenidos a varios formatos"
 
 #: TutoNetworkButtonTitle
 msgctxt "TutoNetworkButtonTitle"
@@ -536,9 +511,7 @@ msgstr "Compartir"
 #: TutoNetworkButtonContent
 msgctxt "TutoNetworkButtonContent"
 msgid "This button will share the activity and other users can then join and vote in any poll you start"
-msgstr ""
-"Este botón permite compartir la actividad con otros usuarios, permitiendo "
-"que se unan y participen en cualquier encuesta que crees"
+msgstr "Este botón permite compartir la actividad con otros usuarios, permitiendo que se unan y participen en cualquier encuesta que crees"
 
 #: TutoHistoryItemTitle
 msgctxt "TutoHistoryItemTitle"
@@ -548,9 +521,7 @@ msgstr "Historial de estadísticas"
 #: TutoHistoryItemContent
 msgctxt "TutoHistoryItemContent"
 msgid "This shows the brief information about a completed poll. Click on it to view all the stats or to delete it"
-msgstr ""
-"Aquí accederás a un pequeño resumen acerca de una encuesta concluida. Haz "
-"clic sobre una encuesta para ver o eliminar sus estadísticas"
+msgstr "Aquí accederás a un pequeño resumen acerca de una encuesta concluida. Haz clic sobre una encuesta para ver o eliminar sus estadísticas"
 
 #: TutoHomeButtonTitle
 msgctxt "TutoHomeButtonTitle"
@@ -560,8 +531,7 @@ msgstr "Inicio"
 #: TutoHomeButtonContent
 msgctxt "TutoHomeButtonContent"
 msgid "Click here to go back to poll templates grid"
-msgstr ""
-"Haz clic aquí para volver a la pantalla de plantillas para crear encuestas"
+msgstr "Haz clic aquí para volver a la pantalla de plantillas para crear encuestas"
 
 #: TutoExportButtonTitle
 msgctxt "TutoExportButtonTitle"
@@ -571,9 +541,7 @@ msgstr "Exportar"
 #: TutoExportButtonContent
 msgctxt "TutoExportButtonContent"
 msgid "This palette can be used to export a report of all completed polls in TXT, PDF, DOC or ODT formats"
-msgstr ""
-"Esta zona de trabajo te permitirá exportar un informe de todas las encuestas "
-"que hayas cerrado en formatos TXT, PDF, DOC o ODT"
+msgstr "Esta zona de trabajo te permitirá exportar un informe de todas las encuestas que hayas cerrado en formatos TXT, PDF, DOC o ODT"
 
 #: TutoDeleteButtonTitle
 msgctxt "TutoDeleteButtonTitle"
@@ -593,9 +561,7 @@ msgstr "Estadísticas de encuesta"
 #: TutoPollStatsContent
 msgctxt "TutoPollStatsContent"
 msgid "This is the chart for the poll which will update in real-time"
-msgstr ""
-"Esta es la tabla de estadísticas de la encuesta que se actualizará en tiempo "
-"real"
+msgstr "Esta es la tabla de estadísticas de la encuesta que se actualizará en tiempo real"
 
 #: TutoPollFooterTitle
 msgctxt "TutoPollFooterTitle"
@@ -605,10 +571,7 @@ msgstr "Pie de página de la encuesta"
 #: TutoPollFooterContent
 msgctxt "TutoPollFooterContent"
 msgid "This shows the buddy icons of all connected users with the count of how many have voted. It also shows whether a user has voted or has raised his/her hand"
-msgstr ""
-"Aquí se mostrarán los avatares de todos los usuarios conectados y la "
-"cantidad de votos que han hecho. También mostrará si un usuario ha hecho un "
-"voto o ha levantado la mano"
+msgstr "Aquí se mostrarán los avatares de todos los usuarios conectados y la cantidad de votos que han hecho. También mostrará si un usuario ha hecho un voto o ha levantado la mano"
 
 #: TutoStopPollTitle
 msgctxt "TutoStopPollTitle"
@@ -628,10 +591,7 @@ msgstr "Resultados en tiempo real"
 #: TutoRealTimeButtonContent
 msgctxt "TutoRealTimeButtonContent"
 msgid "This button will switch the real-time results option. If it is enabled, results of the poll will be shown to the connected user right after they have voted in real-time"
-msgstr ""
-"Aquí se mostrarán los resultados en tiempo real. Si se activa este botón, se "
-"mostrarán los resultados en tiempo real a los usuarios conectados una vez "
-"que hayan votado"
+msgstr "Aquí se mostrarán los resultados en tiempo real. Si se activa este botón, se mostrarán los resultados en tiempo real a los usuarios conectados una vez que hayan votado"
 
 #: TutoAutoStopButtonTitle
 msgctxt "TutoAutoStopButtonTitle"
@@ -641,7 +601,5 @@ msgstr "Cerrar encuesta automáticamente"
 #: TutoAutoStopButtonContent
 msgctxt "TutoAutoStopButtonContent"
 msgid "This button will switch the auto-stop poll option. If it is enabled, the poll will stop automatically after all the connected users have voted"
-msgstr ""
-"Este botón activará el cierre automático de la encuesta. Si se activa, la "
-"encuesta se cerrará automáticamente después de que todos los usuarios "
-"conectados voten"
+msgstr "Este botón activará el cierre automático de la encuesta. Si se activa, la encuesta se cerrará automáticamente después de que todos los usuarios conectados voten"
+

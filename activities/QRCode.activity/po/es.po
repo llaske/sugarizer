@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:39:27 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-11-11 14:55+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-qrcode/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:28:12 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: QRCodeSaved
 msgctxt "QRCodeSaved"
@@ -43,9 +41,7 @@ msgstr "Actividad \"Código QR\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the QRCode activity. QRCode activity is a simple QR Code generator and reader"
-msgstr ""
-"Bienvenido a la actividad \"Código QR\". En esta actividad, el alumno "
-"aprenderá a usar un generador y lector de códigos QR"
+msgstr "Bienvenido a la actividad \"Código QR\". En esta actividad, el alumno aprenderá a usar un generador y lector de códigos QR"
 
 #: TutoPhotoTitle
 msgctxt "TutoPhotoTitle"
@@ -55,8 +51,7 @@ msgstr "Leer código QR"
 #: TutoPhotoContent
 msgctxt "TutoPhotoContent"
 msgid "Click here to scan a QR code through Camera of your device"
-msgstr ""
-"Haz clic aquí para escanear un código QA usando la cámara de tu dispositivo"
+msgstr "Haz clic aquí para escanear un código QA usando la cámara de tu dispositivo"
 
 #: TutoPNGTitle
 msgctxt "TutoPNGTitle"
@@ -66,8 +61,7 @@ msgstr "Exportar a PNG"
 #: TutoPNGContent
 msgctxt "TutoPNGContent"
 msgid "Click this icon to export the QR Code in Journal as a PNG file"
-msgstr ""
-"Haz clic aquí para exportar el código QR a tu biblioteca como archivo PNG"
+msgstr "Haz clic aquí para exportar el código QR a tu biblioteca como archivo PNG"
 
 #: TutoGenerateTitle
 msgctxt "TutoGenerateTitle"
@@ -107,5 +101,10 @@ msgstr "Texto a generar"
 #: TutoInputContent
 msgctxt "TutoInputContent"
 msgid "Type here the text you want to generate as a QR Code"
-msgstr ""
-"Escribe aquí el texto que quieres incluir como contenido de tu código QR"
+msgstr "Escribe aquí el texto que quieres incluir como contenido de tu código QR"
+
+#: Text
+msgctxt "Text"
+msgid "Type text here"
+msgstr "Type text here"
+

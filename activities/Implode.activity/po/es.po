@@ -1,20 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun May 17 2020 22:23:49 GMT+0200 (heure d’été d’Europe "
-"centrale)\n"
-"PO-Revision-Date: 2020-11-15 12:47+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-implode/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:21:27 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: NewGame
 msgctxt "NewGame"
@@ -59,9 +56,7 @@ msgstr "Continuar"
 #: StuckMessage
 msgctxt "StuckMessage"
 msgid "Stuck? You can still solve the puzzle by undo some moves"
-msgstr ""
-"¿Te has atascado? Todavía puedes completar el puzzle si deshaces algunos "
-"movimientos"
+msgstr "¿Te has atascado? Todavía puedes completar el puzzle si deshaces algunos movimientos"
 
 #: TutoPrev
 msgctxt "TutoPrev"
@@ -86,11 +81,7 @@ msgstr "Actividad \"Implosión\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Implode activity. Implode is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more"
-msgstr ""
-"Bienvenido a la actividad \"Implosión\". En \"Implosión\", el alumno "
-"accederá a un juego de lógica basado en el uso de bloques. El objetivo final "
-"es eliminar todos los bloques disponibles mediante la creación de grupos de "
-"3 o más bloques"
+msgstr "Bienvenido a la actividad \"Implosión\". En \"Implosión\", el alumno accederá a un juego de lógica basado en el uso de bloques. El objetivo final es eliminar todos los bloques disponibles mediante la creación de grupos de 3 o más bloques"
 
 #: HowToPlayTitle
 msgctxt "HowToPlayTitle"
@@ -100,14 +91,7 @@ msgstr "Cómo jugar"
 #: HowToPlayContent
 msgctxt "HowToPlayContent"
 msgid "The game starts up with a field of blocks.Using the mouse pointer, or keyboard keys, click on a block that is in a group of three or more of the same color (clickable groups highlight as you pass the mouse cursor over them). Clicking(double tap for touchscreen) on a group removes it and compacts the playing field. To win the game, remove all blocks on the board: there is always a solution to win!"
-msgstr ""
-"El juego comienza con un escenario lleno de bloques. Usa el puntero del "
-"ratón o el teclado para elegir un bloque que esté en un grupo de tres o más "
-"bloques del mismo color (estos grupos resaltarán al pasar el cursor sobre "
-"ellos). Si haces clic (tocas dos veces en la pantalla en dispositivos "
-"táctiles) sobre un grupo hará que el mismo desaparezca, compactando el "
-"tablero. Para ganar, elimina todos los bloques del tablero. Y sí, ¡todas las "
-"partidas tienen solución!"
+msgstr "El juego comienza con un escenario lleno de bloques. Usa el puntero del ratón o el teclado para elegir un bloque que esté en un grupo de tres o más bloques del mismo color (estos grupos resaltarán al pasar el cursor sobre ellos). Si haces clic (tocas dos veces en la pantalla en dispositivos táctiles) sobre un grupo hará que el mismo desaparezca, compactando el tablero. Para ganar, elimina todos los bloques del tablero. Y sí, ¡todas las partidas tienen solución!"
 
 #: NewGameContent
 msgctxt "NewGameContent"
@@ -122,9 +106,7 @@ msgstr "Haz clic en este botón para reiniciar el puzle"
 #: UndoContent
 msgctxt "UndoContent"
 msgid "Click this button to undo some moves so that you can try again"
-msgstr ""
-"Haz clic en este botón para deshacer algunos movimientos y poder probar de "
-"nuevo"
+msgstr "Haz clic en este botón para deshacer algunos movimientos y poder probar de nuevo"
 
 #: RedoContent
 msgctxt "RedoContent"
@@ -139,30 +121,20 @@ msgstr "Controles (teclado)"
 #: KeyboardKeysContent
 msgctxt "KeyboardKeysContent"
 msgid "For moving up: w/keypad 8/up arrow key <br> For moving down: s/keypad 2/down arrow key <br> For moving left: a/keypad 4/left arrow key <br> For moving right: d/keypad 6/right arrow key <br> For selecting: enter/space/end/keypad 1/q <br> For new game: Home <br> For easy/medium/hard: 1/2/3 respectively <br> For undo: PgUp <br> For redo: PgDn"
-msgstr ""
-"Mover hacia arriba: w/keypad 8/up arrow key <br> Mover hacia abajo: s/keypad "
-"2/down arrow key <br> Mover a la izquierda: a/keypad 4/left arrow key <br> "
-"Mover a la derecha: d/keypad 6/right arrow key <br> Seleccionar: "
-"enter/space/end/keypad 1/q <br> Nueva partida: Home <br> Cambiar dificultad "
-"(fácil/normal/difícil): 1/2/3 (respectivamente) <br> Deshacer: PgUp <br> "
-"Rehacer: PgDn"
+msgstr "Mover hacia arriba: w/keypad 8/up arrow key <br> Mover hacia abajo: s/keypad 2/down arrow key <br> Mover a la izquierda: a/keypad 4/left arrow key <br> Mover a la derecha: d/keypad 6/right arrow key <br> Seleccionar: enter/space/end/keypad 1/q <br> Nueva partida: Home <br> Cambiar dificultad (fácil/normal/difícil): 1/2/3 (respectivamente) <br> Deshacer: PgUp <br> Rehacer: PgDn"
 
 #: EasyContent
 msgctxt "EasyContent"
 msgid "In this mode, maximum board size is 8x6 (i.e 8 columns and 6 rows)"
-msgstr ""
-"En este modo, el tamaño máximo del tablero es de 8x6 (8 columnas y 6 filas)"
+msgstr "En este modo, el tamaño máximo del tablero es de 8x6 (8 columnas y 6 filas)"
 
 #: MediumContent
 msgctxt "MediumContent"
 msgid "In this mode, maximum board size is 12x10 (i.e 12 columns and 10 rows)"
-msgstr ""
-"En este modo, el tamaño máximo del tablero es de 12x10 (12 columnas y 10 "
-"filas)"
+msgstr "En este modo, el tamaño máximo del tablero es de 12x10 (12 columnas y 10 filas)"
 
 #: HardContent
 msgctxt "HardContent"
 msgid "In this mode, maximum board size is 20x15 (i.e 20 columns and 15 rows)"
-msgstr ""
-"En este modo, el tamaño máximo del tablero es de 20x15 (20 columnas y 15 "
-"filas)"
+msgstr "En este modo, el tamaño máximo del tablero es de 20x15 (20 columnas y 15 filas)"
+

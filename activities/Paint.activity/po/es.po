@@ -1,19 +1,28 @@
 #. extracted from ../translate.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:15:21 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2021-01-02 12:39+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-paint/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:26:38 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: PaintImageSaved
+msgctxt "PaintImageSaved"
+msgid "Image saved to journal!"
+msgstr "¡La imagen se guardó en el diario!"
+
+#. Do not translate {{name}}
+#: PaintBy
+msgctxt "PaintBy"
+msgid "Paint by {{name}}"
+msgstr "Paint by {{name}}"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -50,9 +59,7 @@ msgstr "Actividad \"Pintar\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Paint activity. Paint is an activity to create paintings or drawings"
-msgstr ""
-"Bienvenido a la actividad \"Pintar\". \"Pintar\" es una actividad para crear "
-"pinturas o dibujos"
+msgstr "Bienvenido a la actividad \"Pintar\". \"Pintar\" es una actividad para crear pinturas o dibujos"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
@@ -112,9 +119,7 @@ msgstr "Tamaño"
 #: TutoSizeContent
 msgctxt "TutoSizeContent"
 msgid "Click here to select brush size. Each click increase the brush size until the maximum size"
-msgstr ""
-"Haz clic aquí para elegir el tamaño de tu brocha. Cada clic que hagas "
-"aumentará el tamaño de la brocha, hasta llegar a un límite máximo"
+msgstr "Haz clic aquí para elegir el tamaño de tu brocha. Cada clic que hagas aumentará el tamaño de la brocha, hasta llegar a un límite máximo"
 
 #: TutoPenTitle
 msgctxt "TutoPenTitle"
@@ -124,9 +129,7 @@ msgstr "Modo \"Lápiz\""
 #: TutoPenContent
 msgctxt "TutoPenContent"
 msgid "Click here to select pen mode. In pen mode you could draw on the screen using the pen color"
-msgstr ""
-"Haz clic aquí para elegir el modo \"Lápiz\". En el modo \"Lápiz\", podrás "
-"dibujar en la pantalla usando un lápiz de color"
+msgstr "Haz clic aquí para elegir el modo \"Lápiz\". En el modo \"Lápiz\", podrás dibujar en la pantalla usando un lápiz de color"
 
 #: TutoEraserTitle
 msgctxt "TutoEraserTitle"
@@ -136,9 +139,7 @@ msgstr "Modo \"Goma de borrar\""
 #: TutoEraserContent
 msgctxt "TutoEraserContent"
 msgid "Click here to select eraser mode. In eraser mode everything under your pen is erased"
-msgstr ""
-"Haz clic aquí para elegir el modo \"Goma de borrar\". En el modo \"Goma de "
-"borrar\", borrarás todo lo que esté debajo de tu lápiz"
+msgstr "Haz clic aquí para elegir el modo \"Goma de borrar\". En el modo \"Goma de borrar\", borrarás todo lo que esté debajo de tu lápiz"
 
 #: TutoStampsTitle
 msgctxt "TutoStampsTitle"
@@ -148,11 +149,7 @@ msgstr "Modo \"Figuras\""
 #: TutoStampsContent
 msgctxt "TutoStampsContent"
 msgid "Click here to select stamp mode. In stamp mode you could draw pre-defined stamps (heart, star, square, ...). Click to draw the stamp then move to change its size. Use pen color and border color button to choose stamps colors"
-msgstr ""
-"Haz clic aquí para elegir el modo \"Figuras\". En el modo \"Figuras\", "
-"podrás dibujar figuras predefinidas (corazón, estrella, cuadrado...). Haz "
-"clic para dibujar la figura, y luego mueve el cursor para cambiar su tamaño. "
-"Usa el color de lápiz y de borde para cambiar los colores de las figuras"
+msgstr "Haz clic aquí para elegir el modo \"Figuras\". En el modo \"Figuras\", podrás dibujar figuras predefinidas (corazón, estrella, cuadrado...). Haz clic para dibujar la figura, y luego mueve el cursor para cambiar su tamaño. Usa el color de lápiz y de borde para cambiar los colores de las figuras"
 
 #: TutoTextTitle
 msgctxt "TutoTextTitle"
@@ -162,10 +159,7 @@ msgstr "Text mode"
 #: TutoTextContent
 msgctxt "TutoTextContent"
 msgid "Click here to write text in your drawing. Type the text to write in the palette and choose the font. Then click on the board to draw the text and move to change its size"
-msgstr ""
-"Haz clic aquí para escribir textos dentro de tu dibujo. Escribe el texto en "
-"la paleta y elige la fuente. Después, haz clic en el tablón para dibujar el "
-"texto y mueve el cursos para cambiar su tamaño"
+msgstr "Haz clic aquí para escribir textos dentro de tu dibujo. Escribe el texto en la paleta y elige la fuente. Después, haz clic en el tablón para dibujar el texto y mueve el cursos para cambiar su tamaño"
 
 #: TutoInsertimageTitle
 msgctxt "TutoInsertimageTitle"
@@ -175,10 +169,7 @@ msgstr "Insert image"
 #: TutoInsertimageContent
 msgctxt "TutoInsertimageContent"
 msgid "Click here to insert in your drawing an image coming from the Journal. Click one time to set the image position then another time to change its size"
-msgstr ""
-"Haz clic aquí para insertar una imagen de tu biblioteca en tu dibujo. Haz "
-"clic una vez para elegir la posición de la imagen, y un segundo clic para "
-"cambiar su tamaño"
+msgstr "Haz clic aquí para insertar una imagen de tu biblioteca en tu dibujo. Haz clic una vez para elegir la posición de la imagen, y un segundo clic para cambiar su tamaño"
 
 #: TutoDrawingsTitle
 msgctxt "TutoDrawingsTitle"
@@ -188,9 +179,7 @@ msgstr "Dibujos"
 #: TutoDrawingsContent
 msgctxt "TutoDrawingsContent"
 msgid "Click here to select a background from preset drawings that you could fill like in a colouring book"
-msgstr ""
-"Haz clic aquí para elegir el fondo de tu tablón de entre varios tipos de "
-"patrones, que podrás llenar de color como si fuera un libro para colorear"
+msgstr "Haz clic aquí para elegir el fondo de tu tablón de entre varios tipos de patrones, que podrás llenar de color como si fuera un libro para colorear"
 
 #: TutoBucketTitle
 msgctxt "TutoBucketTitle"
@@ -200,9 +189,7 @@ msgstr "Rellenar"
 #: TutoBucketContent
 msgctxt "TutoBucketContent"
 msgid "Click here to select bucket mode. In bucket mode you could fill part of your drawing with the current pen color"
-msgstr ""
-"Haz clic aquí para elegir el modo \"Rellenar\". En el modo \"Rellenar\", "
-"podrás rellenar una parte de tu dibujo con el color actual de tu lápiz"
+msgstr "Haz clic aquí para elegir el modo \"Rellenar\". En el modo \"Rellenar\", podrás rellenar una parte de tu dibujo con el color actual de tu lápiz"
 
 #: TutoFiltersTitle
 msgctxt "TutoFiltersTitle"
@@ -222,10 +209,7 @@ msgstr "Copiar"
 #: TutoCopyContent
 msgctxt "TutoCopyContent"
 msgid "Click here to copy a part of your drawing. Select a box on the board to copy it then use the paste button to repeat the drawing"
-msgstr ""
-"Haz clic aquí para copiar parte de tu dibujo. Dibuja y elige una sección "
-"cuadrada para copiarla, y luego pégala usando el botón \"Pegar\" para "
-"repetir la selección en otra parte del dibujo"
+msgstr "Haz clic aquí para copiar parte de tu dibujo. Dibuja y elige una sección cuadrada para copiarla, y luego pégala usando el botón \"Pegar\" para repetir la selección en otra parte del dibujo"
 
 #: TutoPasteTitle
 msgctxt "TutoPasteTitle"
@@ -235,10 +219,7 @@ msgstr "Pegar"
 #: TutoPasteContent
 msgctxt "TutoPasteContent"
 msgid "Click here to paste a part of your drawing copied with the copy button. Click as many times you want to repeat the copied box"
-msgstr ""
-"Haz clic aquí para pegar parte de un dibujo (que habrás copiado antes con el "
-"botón \"Copiar\"). Haz clic tantas veces como quieras para pegar tantas "
-"copias como te apetezca"
+msgstr "Haz clic aquí para pegar parte de un dibujo (que habrás copiado antes con el botón \"Copiar\"). Haz clic tantas veces como quieras para pegar tantas copias como te apetezca"
 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
@@ -248,6 +229,15 @@ msgstr "Reiniciar"
 #: TutoClearContent
 msgctxt "TutoClearContent"
 msgid "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
-msgstr ""
-"Haz clic aquí para despejar el tablón. Todo lo que hay en él será eliminado. "
-"Haz clic en \"Deshacer\" para recuperar el dibujo"
+msgstr "Haz clic aquí para despejar el tablón. Todo lo que hay en él será eliminado. Haz clic en \"Deshacer\" para recuperar el dibujo"
+
+#: TutoSaveImageButtonTitle
+msgctxt "TutoSaveImageButtonTitle"
+msgid "Save in Journal"
+msgstr "Save in Journal"
+
+#: TutoSaveImageButtonContent
+msgctxt "TutoSaveImageButtonContent"
+msgid "Click here to save the current paint image to your journal, where you can use it for other activites"
+msgstr "Click here to save the current paint image to your journal, where you can use it for other activites"
+

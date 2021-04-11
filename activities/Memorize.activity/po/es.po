@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:02:13 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2021-01-01 23:58+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-memorize/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:24:00 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -145,10 +143,7 @@ msgstr "Eliminar par"
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the famous memorize game: find matching pairs in pre-existing game (addition, letters, sounds) or create easily new games by yourself"
-msgstr ""
-"Bienvenido al mundialmente famoso juego de memoria: encuentra pares de "
-"figuras en los modos por defecto (sumas, letras, sonidos) o crea tus propios "
-"juegos"
+msgstr "Bienvenido al mundialmente famoso juego de memoria: encuentra pares de figuras en los modos por defecto (sumas, letras, sonidos) o crea tus propios juegos"
 
 #: TutoNumberOne
 msgctxt "TutoNumberOne"
@@ -168,9 +163,7 @@ msgstr "No te olvides de acordarte de dónde está cada carta para emparejarla"
 #: TutoActivity
 msgctxt "TutoActivity"
 msgid "Click here to update the title of the activity to easily find it in the Journal"
-msgstr ""
-"Haz clic aquí para actualizar el título de la actividad, así podrás "
-"encontrarla más fácilmente en la biblioteca"
+msgstr "Haz clic aquí para actualizar el título de la actividad, así podrás encontrarla más fácilmente en la biblioteca"
 
 #: TutoNetwork
 msgctxt "TutoNetwork"
@@ -180,9 +173,7 @@ msgstr "Este menú te permitirá compartir tu actividad con otros usuarios"
 #: TutoGameTemplate
 msgctxt "TutoGameTemplate"
 msgid "Click here to choose the types of cards you want to match (addition, letters, sounds)"
-msgstr ""
-"Haz clic aquí para elegir el tipo de cartas con las que quieres jugar ("
-"sumas, letras, sonidos)"
+msgstr "Haz clic aquí para elegir el tipo de cartas con las que quieres jugar (sumas, letras, sonidos)"
 
 #: TutoGameSize
 msgctxt "TutoGameSize"
@@ -202,16 +193,12 @@ msgstr "Haz clic aquí para crear tu propio juego o actualizar el juego actual"
 #: TutoInsertMode
 msgctxt "TutoInsertMode"
 msgid "Click here to define if the user will search two times the same card or if he will search two different cards representing the same concept"
-msgstr ""
-"Haz clic aquí para definir si el usuario debe buscar dos cartas idénticas o "
-"dos cartas representando el mismo concepto"
+msgstr "Haz clic aquí para definir si el usuario debe buscar dos cartas idénticas o dos cartas representando el mismo concepto"
 
 #: TutoPlayMode
 msgctxt "TutoPlayMode"
 msgid "Click here to define if cards are splitted in two groups or if cards are mixed together"
-msgstr ""
-"Haz clic aquí para definir si las cartas estarán divididas en dos grupos o "
-"si estarán mezcladas"
+msgstr "Haz clic aquí para definir si las cartas estarán divididas en dos grupos o si estarán mezcladas"
 
 #: TutoClear
 msgctxt "TutoClear"
@@ -257,3 +244,4 @@ msgstr "...y luego escoge otra para emparejarla"
 msgctxt "TutoEditorPlayMode"
 msgid "Click here to go back to play mode"
 msgstr "Haz clic aquí para volver al modo de juego"
+

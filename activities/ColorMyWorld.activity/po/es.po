@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Feb 19 2020 10:48:22 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-12-29 19:27+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-colormyworld/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:11:14 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: appname
 msgctxt "appname"
@@ -1428,10 +1426,7 @@ msgstr "Actividad \"Colorea mi mundo\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Color My World activity. In Color My World, you can color the countries of the world to create your own customized map of the world. You can also play a geography game and go on a virtual tour across the world"
-msgstr ""
-"Bienvenido a la actividad \"Colorea mi mundo\". En ella, el alumno podrá "
-"colorear los países del mundo, creando su mapa personalizado. También podrá "
-"jugar un juego de geografía y recorrer el mundo de manera virtual"
+msgstr "Bienvenido a la actividad \"Colorea mi mundo\". En ella, el alumno podrá colorear los países del mundo, creando su mapa personalizado. También podrá jugar un juego de geografía y recorrer el mundo de manera virtual"
 
 #: TutoModeTitle
 msgctxt "TutoModeTitle"
@@ -1441,12 +1436,7 @@ msgstr "Jugar"
 #: TutoModeContent
 msgctxt "TutoModeContent"
 msgid "Click here to select the mode of the activity.<br/> You can either color countries by selecting <b>Coloring</b> (default), play a geography game by selecting <b>Interactive</b>, or go on a virtual tour across the world by selecting <b>Tour</b>.<br/>You can also play on the entire world or just to focus a specific region of it"
-msgstr ""
-"Haz clic para seleccionar un modo para la actividad.<br/> Podrás colorear "
-"los mapas seleccionando <b>Coloreado</b> (por defecto), jugar a un juego de "
-"geografía seleccionando <b>Interactivo</b> o recorrer el mundo de manera "
-"virtual seleccionando <b>Gira</b>.<br/>Podrás jugar en todo el mundo o "
-"elegir solamente una región concreta"
+msgstr "Haz clic para seleccionar un modo para la actividad.<br/> Podrás colorear los mapas seleccionando <b>Coloreado</b> (por defecto), jugar a un juego de geografía seleccionando <b>Interactivo</b> o recorrer el mundo de manera virtual seleccionando <b>Gira</b>.<br/>Podrás jugar en todo el mundo o elegir solamente una región concreta"
 
 #: TutoColorTitle
 msgctxt "TutoColorTitle"
@@ -1466,6 +1456,25 @@ msgstr "Ejecutar"
 #: TutoRunContent
 msgctxt "TutoRunContent"
 msgid "If you selected Interactive or Tour play mode, click here to start running the game"
-msgstr ""
-"Si has seleccionado los modos \"Interactivo\" o \"Gira\", haz clic aquí para "
-"ejecutar el juego"
+msgstr "Si has seleccionado los modos \"Interactivo\" o \"Gira\", haz clic aquí para ejecutar el juego"
+
+#: Vietnam
+msgctxt "Vietnam"
+msgid "Vietnam"
+msgstr "Vietnam"
+
+#: Somaliland
+msgctxt "Somaliland"
+msgid "Somaliland"
+msgstr "Somaliland"
+
+#: West_Bank
+msgctxt "West_Bank"
+msgid "West_Bank"
+msgstr "West_Bank"
+
+#: Northern_Cyprus
+msgctxt "Northern_Cyprus"
+msgid "Northern_Cyprus"
+msgstr "Northern_Cyprus"
+

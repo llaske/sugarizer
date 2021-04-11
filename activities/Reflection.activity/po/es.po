@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:25:17 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-11-15 17:46+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-reflection/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:29:37 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: TutoPrev
 msgctxt "TutoPrev"
@@ -38,9 +36,7 @@ msgstr "Actividad \"Reflejo\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Reflection activity. Reflection is a game to learn reflective symmetry"
-msgstr ""
-"Bienvenido a la actividad \"Reflejo\". \"Reflejo\" es un juego en el que el "
-"alumno aprenderá más acerca de la simetría asociada a los reflejos"
+msgstr "Bienvenido a la actividad \"Reflejo\". \"Reflejo\" es un juego en el que el alumno aprenderá más acerca de la simetría asociada a los reflejos"
 
 #: TutoBuddyTitle
 msgctxt "TutoBuddyTitle"
@@ -50,9 +46,7 @@ msgstr "Tus colores"
 #: TutoBuddyContent
 msgctxt "TutoBuddyContent"
 msgid "Click here to use your Buddy colors for tokens. It will give choice for each token between 4 different colors"
-msgstr ""
-"Haz clic aquí para usar los colores de tu avatar en tus fichas. Podrás "
-"escoger entre 4 colores diferentes para cada ficha"
+msgstr "Haz clic aquí para usar los colores de tu avatar en tus fichas. Podrás escoger entre 4 colores diferentes para cada ficha"
 
 #: TutoRainbowTitle
 msgctxt "TutoRainbowTitle"
@@ -62,9 +56,7 @@ msgstr "Colores del arcoíris"
 #: TutoRainbowContent
 msgctxt "TutoRainbowContent"
 msgid "Click here to use colors of rainbow for tokens. It will give choice for each token between 8 different colors"
-msgstr ""
-"Haz clic aquí para usar los colores del arcoíris para tus fichas. Podrás "
-"escoger entre 8 colores diferentes para cada ficha"
+msgstr "Haz clic aquí para usar los colores del arcoíris para tus fichas. Podrás escoger entre 8 colores diferentes para cada ficha"
 
 #: TutoHorizontalTitle
 msgctxt "TutoHorizontalTitle"
@@ -74,9 +66,7 @@ msgstr "Simetría horizontal"
 #: TutoHorizontalContent
 msgctxt "TutoHorizontalContent"
 msgid "Click here to play with horizontal symmetry. The left side of the screen should be identical to the right side of the screen"
-msgstr ""
-"Haz clic aquí para jugar con la simetría horizontal. El lado izquierdo de la "
-"pantalla debería ser idéntico al lado derecho"
+msgstr "Haz clic aquí para jugar con la simetría horizontal. El lado izquierdo de la pantalla debería ser idéntico al lado derecho"
 
 #: TutoVerticalTitle
 msgctxt "TutoVerticalTitle"
@@ -86,9 +76,7 @@ msgstr "Simetría vertical"
 #: TutoVerticalContent
 msgctxt "TutoVerticalContent"
 msgid "Click here to play with vertical symmetry. The upper side of the screen should be identical to the lower side of the screen"
-msgstr ""
-"Haz clic aquí para jugar con la simetría vertical. El lado superior de la "
-"pantalla debería ser idéntico al lado inferior"
+msgstr "Haz clic aquí para jugar con la simetría vertical. El lado superior de la pantalla debería ser idéntico al lado inferior"
 
 #: TutoBilateralTitle
 msgctxt "TutoBilateralTitle"
@@ -98,9 +86,7 @@ msgstr "Simetría bilateral"
 #: TutoBilateralContent
 msgctxt "TutoBilateralContent"
 msgid "Click here to play with both- horizontal and vertical symmetry. All 4 parts of the screen should be identical"
-msgstr ""
-"Haz clic aquí para jugar con la simetría horizontal y vertical a la vez. Las "
-"cuatro partes de la pantalla deberían ser idénticas"
+msgstr "Haz clic aquí para jugar con la simetría horizontal y vertical a la vez. Las cuatro partes de la pantalla deberían ser idénticas"
 
 #: TutoRobotTitle
 msgctxt "TutoRobotTitle"
@@ -110,10 +96,7 @@ msgstr "Modo \"Robot\""
 #: TutoRobotContent
 msgctxt "TutoRobotContent"
 msgid "Click here to toggle Robot mode. In Robot mode when you click on a token the symmetric token color is changed at the same time. Too easy!"
-msgstr ""
-"Haz clic aquí para activar el modo \"Robot\". En este modo, al hacer clic en "
-"una ficha, el color de la ficha simétrica cambiará a la vez. ¡Demasiado "
-"fácil!"
+msgstr "Haz clic aquí para activar el modo \"Robot\". En este modo, al hacer clic en una ficha, el color de la ficha simétrica cambiará a la vez. ¡Demasiado fácil!"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
@@ -123,6 +106,5 @@ msgstr "Tablero"
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Click on tokens to change their colors until the image become symmetric"
-msgstr ""
-"Haz clic en las fichas para cambiar sus colores y hacer que la imagen sea "
-"simétrica"
+msgstr "Haz clic en las fichas para cambiar sus colores y hacer que la imagen sea simétrica"
+

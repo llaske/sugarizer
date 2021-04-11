@@ -1,20 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Fri Sep 04 2020 21:54:23 GMT+0200 (heure d’été d’Europe "
-"centrale)\n"
-"PO-Revision-Date: 2021-01-05 20:11+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-tangram/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:31:57 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: SecondsAgo
 msgctxt "SecondsAgo"
@@ -307,10 +304,7 @@ msgstr "Actividad \"Tangram\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Tangram Activity. Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes"
-msgstr ""
-"Bienvenido a la actividad \"Tangram\". El \"tangram\" es un juego clásico "
-"chino, en el que el objetivo es reorganizar siete piezas para obtener "
-"diferentes formas"
+msgstr "Bienvenido a la actividad \"Tangram\". El \"tangram\" es un juego clásico chino, en el que el objetivo es reorganizar siete piezas para obtener diferentes formas"
 
 #: TutoAboutTitle
 msgctxt "TutoAboutTitle"
@@ -320,13 +314,7 @@ msgstr "Modos de juego"
 #: TutoAboutContent
 msgctxt "TutoAboutContent"
 msgid "You can play the game in single player or multi player mode. In Single player mode, you have an option to enable/disable timer while in multi player mode, the timer is always enabled. When timer is disabled, you will have one puzzle or question per game, while when timer is enabled, you will have more than one puzzle or question per game"
-msgstr ""
-"Puedes jugar a este juego en el modo de un jugador o en multijugador. En el "
-"modo de un jugador, tendrás la opción de activar/desactivar el contador de "
-"tiempo, mientras que en el modo multijugador este contador siempre estará "
-"activo. Si no hay contador, tendrás un puzle o pregunta por partida, "
-"mientras que cuando tengas un contado, tendrás que resolver más de una de "
-"estas actividades"
+msgstr "Puedes jugar a este juego en el modo de un jugador o en multijugador. En el modo de un jugador, tendrás la opción de activar/desactivar el contador de tiempo, mientras que en el modo multijugador este contador siempre estará activo. Si no hay contador, tendrás un puzle o pregunta por partida, mientras que cuando tengas un contado, tendrás que resolver más de una de estas actividades"
 
 #: TutoEachPuzzleTitle
 msgctxt "TutoEachPuzzleTitle"
@@ -336,10 +324,7 @@ msgstr "Puzle"
 #: TutoEachPuzzleContent
 msgctxt "TutoEachPuzzleContent"
 msgid "In Each Puzzle or question, you will be given a target shape or tangram. Using the 7 pieces ( can only be used once each and should be non-overlapping ) you have to form the target shape"
-msgstr ""
-"En cada puzle o pregunta, recibirás una forma o tangram determinado. Usando "
-"las 7 piezas iniciales (que no podrás usar más de una vez y que no pueden "
-"superponerse), tendrás que crear esa forma final"
+msgstr "En cada puzle o pregunta, recibirás una forma o tangram determinado. Usando las 7 piezas iniciales (que no podrás usar más de una vez y que no pueden superponerse), tendrás que crear esa forma final"
 
 #: TutoTangramCategoryTitle
 msgctxt "TutoTangramCategoryTitle"
@@ -349,9 +334,7 @@ msgstr "Categoría de tangram"
 #: TutoTangramCategoryContent
 msgctxt "TutoTangramCategoryContent"
 msgid "These are the various categories you choose for the tangrams you want to solve"
-msgstr ""
-"Estas son las diferentes categorías que puedes escoger para los tangrams a "
-"resolver"
+msgstr "Estas son las diferentes categorías que puedes escoger para los tangrams a resolver"
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
@@ -361,10 +344,7 @@ msgstr "Tablero"
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
 msgid "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px"
-msgstr ""
-"Este es tu tablero de juego. Tienes tus 7 \"tans\" o piezas a usar, y "
-"también podrás ver la figura que debes construir. <div><div class=\""
-"tutNumbersRow\"><img style=\"width:50px"
+msgstr "Este es tu tablero de juego. Tienes tus 7 \"tans\" o piezas a usar, y también podrás ver la figura que debes construir. <div><div class=\"tutNumbersRow\"><img style=\"width:50px"
 
 #: TutoKeyBoardTitle
 msgctxt "TutoKeyBoardTitle"
@@ -374,9 +354,7 @@ msgstr "Controles del teclado"
 #: TutoKeyBoardContent
 msgctxt "TutoKeyBoardContent"
 msgid "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
-msgstr ""
-"También podrás controlar tus \"tans\" usando el teclado.<div><div class=\""
-"tutNumbersRow\"><img style=\"width:50px"
+msgstr "También podrás controlar tus \"tans\" usando el teclado.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
 
 #: TutoRefreshTitle
 msgctxt "TutoRefreshTitle"
@@ -396,9 +374,7 @@ msgstr "Pasar"
 #: TutoPassContent
 msgctxt "TutoPassContent"
 msgid "If you are unable to solve the puzzle you can pass the current puzzle and move to another one"
-msgstr ""
-"Si no eres capaz de resolver el puzle, puedes pasar de él y empezar otro "
-"nuevo"
+msgstr "Si no eres capaz de resolver el puzle, puedes pasar de él y empezar otro nuevo"
 
 #: TutoSettingViewTitle
 msgctxt "TutoSettingViewTitle"
@@ -408,10 +384,7 @@ msgstr "Ajustes"
 #: TutoSettingViewContent
 msgctxt "TutoSettingViewContent"
 msgid "You can Edit / Delete the particular tangram puzzle or category from the list. You can also create new tangram Puzzle or category and add the same to your puzzle set"
-msgstr ""
-"En esta sección, podrás editar/borrar el puzle o categoría de tangram actual "
-"de esta lista. También podrás crear un nuevo puzle o categoría de tangram, y "
-"añadirlos a un conjunto de puzles"
+msgstr "En esta sección, podrás editar/borrar el puzle o categoría de tangram actual de esta lista. También podrás crear un nuevo puzle o categoría de tangram, y añadirlos a un conjunto de puzles"
 
 #: TutoScoreTitle
 msgctxt "TutoScoreTitle"
@@ -421,20 +394,7 @@ msgstr "Puntuación"
 #: TutoScoreContent
 msgctxt "TutoScoreContent"
 msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold"
-msgstr ""
-"Si resuelves el puzle, obtendrás la puntuación que se mostrará en pantalla. "
-"Trata de maximizar dicha puntuación, lo cual dependerá de:<br><div style"
-"=\"font-weight:bold\">A. Puntos por resolver el puzle</div><div style=\"font-"
-"weight:bold\">B. Tiempo empleado</div>Si resuelves el puzle en menos de un "
-"minuto, obtendrás una bonificación de puntuación (que mejorará cuanto menos "
-"tiempo hayas empleado).<div style=\"font-weight:bold\">C. Dificultad del "
-"puzle</div><div>Los tangrams pueden ser fáciles o difíciles, dependiendo del "
-"número de puntos exteriores del tangram</div><div style=\"font-weight:bold\">"
-"D. Dificultad de la partida</div><div>La dificultad de la partida puede ser "
-"fácil o normal, representando por ejemplo un puzle con o sin piezas "
-"internas</div><div style=\"font-weight:bold\">E. Cantidad de pistas "
-"empleadas</div><div>Cuantas menos pistas uses, mayor será tu "
-"puntuación</div><div style=\"font-weight:bold"
+msgstr "Si resuelves el puzle, obtendrás la puntuación que se mostrará en pantalla. Trata de maximizar dicha puntuación, lo cual dependerá de:<br><div style=\"font-weight:bold\">A. Puntos por resolver el puzle</div><div style=\"font-weight:bold\">B. Tiempo empleado</div>Si resuelves el puzle en menos de un minuto, obtendrás una bonificación de puntuación (que mejorará cuanto menos tiempo hayas empleado).<div style=\"font-weight:bold\">C. Dificultad del puzle</div><div>Los tangrams pueden ser fáciles o difíciles, dependiendo del número de puntos exteriores del tangram</div><div style=\"font-weight:bold\">D. Dificultad de la partida</div><div>La dificultad de la partida puede ser fácil o normal, representando por ejemplo un puzle con o sin piezas internas</div><div style=\"font-weight:bold\">E. Cantidad de pistas empleadas</div><div>Cuantas menos pistas uses, mayor será tu puntuación</div><div style=\"font-weight:bold"
 
 #: TutoHintTitle
 msgctxt "TutoHintTitle"
@@ -444,10 +404,7 @@ msgstr "Pista"
 #: TutoHintContent
 msgctxt "TutoHintContent"
 msgid "Click this to get a hint from the computer. WARNING!! There will be a penalty on using hint. If you use hints for all six or seven tans then you will get 0 score"
-msgstr ""
-"Haz clic aquí para recibir una pista. ¡¡CUIDADO!! Habrá una penalización a "
-"tus puntos si usas una pista. Si usas pistas para todos los \"tans\", no "
-"ganarás puntos al resolverlo"
+msgstr "Haz clic aquí para recibir una pista. ¡¡CUIDADO!! Habrá una penalización a tus puntos si usas una pista. Si usas pistas para todos los \"tans\", no ganarás puntos al resolverlo"
 
 #: TutoLevelTitle
 msgctxt "TutoLevelTitle"
@@ -457,10 +414,7 @@ msgstr "Nivel de dificultad"
 #: TutoLevelContent
 msgctxt "TutoLevelContent"
 msgid "Choose the Difficulty level. There are two Levels:- Easy where All the outlines and inner outlines of all the tans would be visible and Medium where only silhouette of the target tangram would be visible"
-msgstr ""
-"Escoge un nivel de dificultad. Hay dos niveles: fácil (podrás ver los bordes "
-"internos y externos de todos los \"tans\") y normal (solo podrás ver la "
-"silueta del tangram a construir)"
+msgstr "Escoge un nivel de dificultad. Hay dos niveles: fácil (podrás ver los bordes internos y externos de todos los \"tans\") y normal (solo podrás ver la silueta del tangram a construir)"
 
 #: TutoTimerTitle
 msgctxt "TutoTimerTitle"
@@ -480,10 +434,7 @@ msgstr "Acciones del juego"
 #: TutoGameActionsContent
 msgctxt "TutoGameActionsContent"
 msgid "Here you have Game Actions buttons like \"Restart\", \"Pass\", \"Refresh\". \"Refresh\" will move back all of  your tans to initial positions"
-msgstr ""
-"En esta sección cuentas con varios botones de acciones para el juego, como \""
-"Reiniciar\", \"Pasar\" o \"Reiniciar posiciones\". \"Reiniciar posiciones\" "
-"devolverá todos los \"tans\" a su posición original"
+msgstr "En esta sección cuentas con varios botones de acciones para el juego, como \"Reiniciar\", \"Pasar\" o \"Reiniciar posiciones\". \"Reiniciar posiciones\" devolverá todos los \"tans\" a su posición original"
 
 #: TutoViewTitle
 msgctxt "TutoViewTitle"
@@ -523,9 +474,7 @@ msgstr "Indicador de validez del puzle"
 #: TutoValidPuzzleIndicatorContent
 msgctxt "TutoValidPuzzleIndicatorContent"
 msgid "This will indicate if the puzzle you created is valid or invalid"
-msgstr ""
-"Este indicador aparecerá cuando el puzle que hayas creado sea válido o no "
-"válido"
+msgstr "Este indicador aparecerá cuando el puzle que hayas creado sea válido o no válido"
 
 #: TutoResultTitle
 msgctxt "TutoResultTitle"
@@ -535,9 +484,7 @@ msgstr "Pantalla de resultados"
 #: TutoResultContent
 msgctxt "TutoResultContent"
 msgid "On this screen you can see Solutions of the puzzles you have attempted in Timer Mode"
-msgstr ""
-"En esta pantalla, podrás ver las soluciones a todos los puzles que has "
-"intentado en el modo Contrarreloj"
+msgstr "En esta pantalla, podrás ver las soluciones a todos los puzles que has intentado en el modo Contrarreloj"
 
 #: TutoTangramCardTitle
 msgctxt "TutoTangramCardTitle"
@@ -547,10 +494,7 @@ msgstr "Ficha del puzle"
 #: TutoTangramCardContent
 msgctxt "TutoTangramCardContent"
 msgid "Each Card will show you the info about the puzzle you have encountered in the game.If You have solved the puzzle then you will see your solution of the puzzle otherwise you will see computer's solution"
-msgstr ""
-"Cada tarjeta te mostrará la información de los puzles que has realizado en "
-"el juego. Si has resuelto el puzle, también aparecerá su solución en la "
-"tarjeta; si no es así, aparecerá la solución propuesta"
+msgstr "Cada tarjeta te mostrará la información de los puzles que has realizado en el juego. Si has resuelto el puzle, también aparecerá su solución en la tarjeta"
 
 #: TutoClockInfoTitle
 msgctxt "TutoClockInfoTitle"
@@ -570,8 +514,7 @@ msgstr "Puntuación"
 #: TutoScoreInfoContent
 msgctxt "TutoScoreInfoContent"
 msgid "This will show the score you got in the particular puzzle"
-msgstr ""
-"Aquí se mostrará la puntuación que has conseguir en un puzle en concreto"
+msgstr "Aquí se mostrará la puntuación que has conseguir en un puzle en concreto"
 
 #: TutoRestartTitle
 msgctxt "TutoRestartTitle"
@@ -591,10 +534,7 @@ msgstr "Paginado"
 #: TutoPaginationContent
 msgctxt "TutoPaginationContent"
 msgid "This will show the puzzle number you are at and the total puzzles you have attempted. You can move to next/previous puzzles by the controls given"
-msgstr ""
-"Aquí se mostrará el número de puzle en el que estás y la cantidad total de "
-"puzles que has intentado completar. Puedes cambiar al puzle anterior/"
-"siguiente usando los controles del juego"
+msgstr "Aquí se mostrará el número de puzle en el que estás y la cantidad total de puzles que has intentado completar. Puedes cambiar al puzle anterior/siguiente usando los controles del juego"
 
 #: TutoLeaderboardPaginationTitle
 msgctxt "TutoLeaderboardPaginationTitle"
@@ -604,10 +544,7 @@ msgstr "Paginado"
 #: TutoLeaderboardPaginationContent
 msgctxt "TutoLeaderboardPaginationContent"
 msgid "This will show the page number of the leaderboard rankings you are at. You can move to next/previous rankings by the controls given"
-msgstr ""
-"Aquí se mostrará el número de página de la clasificación a la que "
-"perteneces. Podrás ir a la posición siguiente/anterior usando los controles "
-"del juego"
+msgstr "Aquí se mostrará el número de página de la clasificación a la que perteneces. Podrás ir a la posición siguiente/anterior usando los controles del juego"
 
 #: TutoLeaderboardMainTitle
 msgctxt "TutoLeaderboardMainTitle"
@@ -617,9 +554,7 @@ msgstr "Pantalla de clasificación"
 #: TutoLeaderboardMainContent
 msgctxt "TutoLeaderboardMainContent"
 msgid "Here you can see the rankings and score of the users competiting with you"
-msgstr ""
-"Aquí podrás ver las posiciones y puntuación de los usuarios pertenecientes a "
-"la tabla de clasificación a la que perteneces"
+msgstr "Aquí podrás ver las posiciones y puntuación de los usuarios pertenecientes a la tabla de clasificación a la que perteneces"
 
 #: TutoGoBackTitle
 msgctxt "TutoGoBackTitle"
@@ -659,9 +594,7 @@ msgstr "Tablero de edición"
 #: TutoBoardEditorContent
 msgctxt "TutoBoardEditorContent"
 msgid "This is the Editor board where you can arrange the pieces together to form a Valid tangram"
-msgstr ""
-"Este es el tablero de edición, donde podrás reorganizar las piezas para "
-"formar un tangram válido"
+msgstr "Este es el tablero de edición, donde podrás reorganizar las piezas para formar un tangram válido"
 
 #: TutoValidPuzzleTitle
 msgctxt "TutoValidPuzzleTitle"
@@ -671,12 +604,7 @@ msgstr "Puzle válido"
 #: TutoValidPuzzleContent
 msgctxt "TutoValidPuzzleContent"
 msgid "For a puzzle to be a valid puzzle:<br>1) No any two tans or pieces should be overlapped to each other.<br>2) Every tan should be connected or joined to atleast one other tan<br>3) The width and height of the tangram created should not be more than the width and height of the square box present on the board<br>4) Tangram Name should not be empty"
-msgstr ""
-"Para que un puzle sea válido:<br>1) Los \"tans\" o piezas no pueden "
-"solaparse.<br>2) Cada \"tan\" debe estar conectado o unido, al menos, con "
-"otro \"tan\"<br>3) La anchura y la altura del tangram creado no puede "
-"exceder la anchura y altura del cuadrado que hay en el tablero<br>4) El "
-"nombre del tangram no puede estar vacío"
+msgstr "Para que un puzle sea válido:<br>1) Los \"tans\" o piezas no pueden solaparse.<br>2) Cada \"tan\" debe estar conectado o unido, al menos, con otro \"tan\"<br>3) La anchura y la altura del tangram creado no puede exceder la anchura y altura del cuadrado que hay en el tablero<br>4) El nombre del tangram no puede estar vacío"
 
 #: TutoCategoryNameTitle
 msgctxt "TutoCategoryNameTitle"
@@ -736,9 +664,7 @@ msgstr "Borrar categoría"
 #: TutoDeleteCategoryContent
 msgctxt "TutoDeleteCategoryContent"
 msgid "Click here to Delete the current category and all of its puzzles"
-msgstr ""
-"Haz clic aquí para borrar la categoría actual y todos los puzles incluidos "
-"en ella"
+msgstr "Haz clic aquí para borrar la categoría actual y todos los puzles incluidos en ella"
 
 #: DataAnimals
 msgctxt "DataAnimals"
@@ -1323,7 +1249,7 @@ msgstr "Vela"
 #: DataTeapot
 msgctxt "DataTeapot"
 msgid "Teapot"
-msgstr "Tetera"
+msgstr "Teapot"
 
 #: DataIron
 msgctxt "DataIron"
@@ -1579,3 +1505,4 @@ msgstr "Árbol"
 msgctxt "DataShoppingCart"
 msgid "Shopping Cart"
 msgstr "Carrito de compra"
+

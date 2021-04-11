@@ -1,19 +1,17 @@
 #. extracted from ../localization.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2021-01-01 17:08+0000\n"
-"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
-"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-fototoon/es/>\n"
-"Language: es\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:18:35 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: AddAglobe
 msgctxt "AddAglobe"
@@ -168,10 +166,7 @@ msgstr "Actividad \"FotoComic\""
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip"
-msgstr ""
-"La actividad \"FotoComic\" te permitirá usar tus fotos, dibujos o imágenes "
-"de la biblioteca para crear una tira de comic impresionante en unos pocos "
-"minutos"
+msgstr "La actividad \"FotoComic\" te permitirá usar tus fotos, dibujos o imágenes de la biblioteca para crear una tira de comic impresionante en unos pocos minutos"
 
 #: TutoPreviousExplanation
 msgctxt "TutoPreviousExplanation"
@@ -191,8 +186,7 @@ msgstr "Añadir viñeta"
 #: TutoAddPageExplanation
 msgctxt "TutoAddPageExplanation"
 msgid "Click here to add picture, drawing or image as a new box"
-msgstr ""
-"Haz clic aquí para añadir una nueva viñeta con una foto, dibujo o imagen"
+msgstr "Haz clic aquí para añadir una nueva viñeta con una foto, dibujo o imagen"
 
 #: TutoAddGlobeExplanation
 msgctxt "TutoAddGlobeExplanation"
@@ -217,10 +211,7 @@ msgstr "Ordenar viñetas"
 #: TutoSortBoxesExplanation
 msgctxt "TutoSortBoxesExplanation"
 msgid "Click here to sort boxes in your comic strip. Just drag & drop boxes to arrange them as you wish. Click again to go back to the box view"
-msgstr ""
-"Haz clic aquí para organizar las viñetas de tu tira de cómic. Simplemente "
-"arrástralas y suéltalas para organizarlas como quieras. Haz clic aquí de "
-"nuevo para volver al modo de viñetas"
+msgstr "Haz clic aquí para organizar las viñetas de tu tira de cómic. Simplemente arrástralas y suéltalas para organizarlas como quieras. Haz clic aquí de nuevo para volver al modo de viñetas"
 
 #: TutoCleanAll
 msgctxt "TutoCleanAll"
@@ -240,10 +231,7 @@ msgstr "Guardar como imagen"
 #: TutoImageSaveExplanation
 msgctxt "TutoImageSaveExplanation"
 msgid "Click here to save your comic strip in the Journal as a page containing all boxes as one row, one column, or two columns"
-msgstr ""
-"Haz clic aquí para guardar la tira de cómic en tu biblioteca en forma de "
-"página. La página puede contener todas las viñetas en una fila, en una "
-"columna o en dos columnas"
+msgstr "Haz clic aquí para guardar la tira de cómic en tu biblioteca en forma de página. La página puede contener todas las viñetas en una fila, en una columna o en dos columnas"
 
 #: TutoPageCounter
 msgctxt "TutoPageCounter"
@@ -253,9 +241,7 @@ msgstr "Contador de viñetas"
 #: TutoPageCounterExplanation
 msgctxt "TutoPageCounterExplanation"
 msgid "It shows current box out of total number of boxes in your comic strip"
-msgstr ""
-"Te mostrará la cantidad de viñetas que tienes y la cantidad total de viñetas "
-"que puedes añadir en tu tira de cómic"
+msgstr "Te mostrará la cantidad de viñetas que tienes y la cantidad total de viñetas que puedes añadir en tu tira de cómic"
 
 #: TutoStop
 msgctxt "TutoStop"
@@ -264,10 +250,8 @@ msgstr "Finalizar"
 
 #: TutoStopExplanation
 msgctxt "TutoStopExplanation"
-msgid "Click here to end activity ang go back to Sugarizer home page"
-msgstr ""
-"Haz clic aquí para finalizar la actividad y volver a la pantalla de inicio "
-"de Sugarizer"
+msgid "Click here to end activity and go back to Sugarizer home page"
+msgstr "Haz clic aquí para finalizar la actividad y volver a la pantalla de inicio de Sugarizer"
 
 #: CancelChanges
 msgctxt "CancelChanges"
@@ -288,3 +272,4 @@ msgstr "¡Se eliminarán todas las viñetas de tu tira de cómic!"
 msgctxt "Warning"
 msgid "Warning"
 msgstr "Aviso"
+
