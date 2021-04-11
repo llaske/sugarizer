@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Jul 13 2020 11:54:44 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:12:25 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,6 +113,18 @@ msgstr "Depuis un mois"
 msgctxt "PastYear"
 msgid "Past year"
 msgstr "Depuis une année"
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr "{{name}} a rejoint"
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
+msgstr "{{name}} est parti"
 
 #: Title
 msgctxt "Title"
@@ -2193,7 +2205,7 @@ msgstr "Activité Curriculum"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
-msgid "This is an activity to self evalutate your skills You can acquire different skills from multiple categories and upload media elements to demonstrate it"
+msgid "Welcome in Curriculum activity. Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it"
 msgstr "Bienvenue dans l'activité Curriculum. Curriculum vous permet d'auto-évaluer vos compétences. Vous pouvez acquérir différentes compétences dans plusieurs catégories et télécharger des médias pour le démontrer"
 
 #: TutoTemplateSelectionTitle
@@ -2213,7 +2225,7 @@ msgstr "Modèle"
 
 #: TutoTemplateContent
 msgctxt "TutoTemplateContent"
-msgid "Click on this to select the template You can also change the title of the template using the edit button"
+msgid "Click on this to select the template. You can also change the title of the template using the edit button"
 msgstr "Cliquez ici pour choisir le modèle. Vous pouvez aussi modifier le titre du modèle en utilisant le bouton Modifier"
 
 #: TutoAddTemplateTitle

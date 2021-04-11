@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Jul 21 2020 16:03:15 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:25:24 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,6 +12,119 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr ""
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr ""
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr ""
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr ""
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr ""
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr ""
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr ""
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr ""
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr ""
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr ""
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr ""
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr ""
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr ""
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr ""
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr ""
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr ""
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr ""
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr ""
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr ""
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr ""
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr ""
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
+msgstr ""
 
 #: Network
 msgctxt "Network"

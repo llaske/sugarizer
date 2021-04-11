@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:31:33 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:10:32 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,11 @@ msgstr ""
 #: WriteDate
 msgctxt "WriteDate"
 msgid "Write date"
+msgstr ""
+
+#: WriteSeconds
+msgctxt "WriteSeconds"
+msgid "Write seconds"
 msgstr ""
 
 #: SetTime
@@ -218,6 +223,16 @@ msgctxt "TutoDateContent"
 msgid "Click this icon to also display the current date"
 msgstr ""
 
+#: TutoSecondsTitle
+msgctxt "TutoSecondsTitle"
+msgid "Show Seconds"
+msgstr ""
+
+#: TutoSecondsContent
+msgctxt "TutoSecondsContent"
+msgid "Click this icon to display the seconds"
+msgstr ""
+
 #: TutoSetTimeTitle
 msgctxt "TutoSetTimeTitle"
 msgid "Set-Time Mode"
@@ -236,5 +251,25 @@ msgstr ""
 #: TutoSetTimeGameContent
 msgctxt "TutoSetTimeGameContent"
 msgid "Click this icon to switch to set-time-Game mode. In this mode, the time is displayed in number format and you have to move the hands to set it in the matching hour"
+msgstr ""
+
+#: ShowAmPmTitle
+msgctxt "ShowAmPmTitle"
+msgid "Show hours"
+msgstr ""
+
+#: TutoShowAmPmContent
+msgctxt "TutoShowAmPmContent"
+msgid "Click this icon to display 24 hour format in Simple Clock."
+msgstr ""
+
+#: ShowMinsTitle
+msgctxt "ShowMinsTitle"
+msgid "Show minutes"
+msgstr ""
+
+#: TutoShowMinsContent
+msgctxt "TutoShowMinsContent"
+msgid "Click this icon to display minutes in Simple Clock."
 msgstr ""
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Mar 06 2018 22:16:51 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:23:00 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr "Ejemplo de entrada"
 #: need-help
 msgctxt "need-help"
 msgid "Do you need help?"
-msgstr "Necesitas ayuda?"
+msgstr "¿Necesitas ayuda?"
 
 #: insertText
 msgctxt "insertText"
@@ -31,7 +31,7 @@ msgstr "Insertar texto"
 #: put-it-right-here
 msgctxt "put-it-right-here"
 msgid "whatever you are quoting, put it right here"
-msgstr "Lo que usted está citando, lo puso aquí"
+msgstr "Escribe aquí lo que quieras citar"
 
 #: wmd-bold-button-second
 msgctxt "wmd-bold-button-second"
@@ -66,7 +66,7 @@ msgstr "Lista punteada <ul> Ctrl+U"
 #: wmd-code-button
 msgctxt "wmd-code-button"
 msgid "Code Sample <pre><code> Ctrl+K"
-msgstr "Ejemplo de codigo <pre><code> Ctrl+K"
+msgstr "Ejemplo de código <pre><code> Ctrl+K"
 
 #: wmd-quote-button
 msgctxt "wmd-quote-button"
@@ -76,7 +76,7 @@ msgstr "Blockquote <blockquote> Ctrl+Q"
 #: wmd-link-button
 msgctxt "wmd-link-button"
 msgid "Hyperlink <a> Ctrl+L"
-msgstr "Hyperenlace <a> Ctrl+L"
+msgstr "Hipervínculo <a> Ctrl+L"
 
 #: wmd-undo-button
 msgctxt "wmd-undo-button"

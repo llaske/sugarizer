@@ -1,19 +1,17 @@
 #. extracted from ../localization.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:08:22 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-06-06 03:44+0000\n"
-"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
-"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-fototoon/pt/>\n"
-"Language: pt\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:18:35 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: AddAglobe
 msgctxt "AddAglobe"
@@ -252,7 +250,7 @@ msgstr "Stop"
 
 #: TutoStopExplanation
 msgctxt "TutoStopExplanation"
-msgid "Click here to end activity ang go back to Sugarizer home page"
+msgid "Click here to end activity and go back to Sugarizer home page"
 msgstr "Click here to end activity ang go back to Sugarizer home page"
 
 #: CancelChanges
@@ -274,3 +272,4 @@ msgstr "All the boxes in your comic strip will be removed!"
 msgctxt "Warning"
 msgid "Warning"
 msgstr "Aviso"
+

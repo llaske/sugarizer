@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Sep 02 2020 21:46:02 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:32:50 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,6 +265,16 @@ msgstr "Oui"
 msgctxt "No"
 msgid "No"
 msgstr "Non"
+
+#: Confirm
+msgctxt "Confirm"
+msgid "Confirm"
+msgstr "Confirmer"
+
+#: Cancel
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr "Annuler"
 
 #. Do not translate {{ format }}
 #: ExportTo
