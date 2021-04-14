@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a popup when image is exported in Planets Activity #927
 
 ### Changed
+- Improved Spanish localization
 - Update noServerMode: add a Quit button in the buddy menu
 - Use HTTPS for default Sugarizer Server
 - Use HTTPS for default library in Ebook Reader activity
@@ -30,6 +31,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Change color of Calligra icon - was too white
 - Optimize drawing in neighborhood view
 - Update to Cordova 10
+- Update to Electron 9
+- Consider unsecured server accessed via HTTPS like secured server
 
 ### Fixed
 - Wrong poll is displayed in Vote activity #854

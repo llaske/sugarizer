@@ -1,0 +1,378 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Apr 11 2021 11:34:00 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: Play
+msgctxt "Play"
+msgid "Play"
+msgstr ""
+
+#: Pause
+msgctxt "Pause"
+msgid "Pause"
+msgstr ""
+
+#: Fullscreen
+msgctxt "Fullscreen"
+msgid "Fullscreen"
+msgstr ""
+
+#: Unfullscreen
+msgctxt "Unfullscreen"
+msgid "Unfullscreen"
+msgstr ""
+
+#: Zoom
+msgctxt "Zoom"
+msgid "Zoom"
+msgstr ""
+
+#: Speed
+msgctxt "Speed"
+msgid "Speed"
+msgstr ""
+
+#: Text
+msgctxt "Text"
+msgid "Text"
+msgstr ""
+
+#: Settings
+msgctxt "Settings"
+msgid "Settings"
+msgstr ""
+
+#: DragIcons
+msgctxt "DragIcons"
+msgid "Drag icons here to create your pattern:"
+msgstr ""
+
+#: DragColors
+msgctxt "DragColors"
+msgid "Drag colors here to create your pattern:"
+msgstr ""
+
+#: EmptyIcon
+msgctxt "EmptyIcon"
+msgid "Use all activities icons"
+msgstr ""
+
+#: EmptyColor
+msgctxt "EmptyColor"
+msgid "Use all colors"
+msgstr ""
+
+#: Templates
+msgctxt "Templates"
+msgid "Templates"
+msgstr ""
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr ""
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr ""
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr ""
+
+#: TutoGridWelcomeTitle
+msgctxt "TutoGridWelcomeTitle"
+msgid "Xmas Lights Activity"
+msgstr ""
+
+#: TutoGridWelcomeContent
+msgctxt "TutoGridWelcomeContent"
+msgid "Welcome in Xmas Lights activity. This activity will allow creation of nice blinking Christmas lights using Sugarizer icons and colors"
+msgstr ""
+
+#: TutoGridBoardTitle
+msgctxt "TutoGridBoardTitle"
+msgid "Board"
+msgstr ""
+
+#: TutoGridBoardContent
+msgctxt "TutoGridBoardContent"
+msgid "This is the board where lights are display, you could fully control what is display here and which animation is use"
+msgstr ""
+
+#: TutoGridTemplateButtonTitle
+msgctxt "TutoGridTemplateButtonTitle"
+msgid "Templates"
+msgstr ""
+
+#: TutoGridTemplateButtonContent
+msgctxt "TutoGridTemplateButtonContent"
+msgid "Click here to choose one of sample Christmas lights. You will be able to fully customize it"
+msgstr ""
+
+#: TutoGridPlayButtonTitle
+msgctxt "TutoGridPlayButtonTitle"
+msgid "Play/Pause"
+msgstr ""
+
+#: TutoGridPlayButtonContent
+msgctxt "TutoGridPlayButtonContent"
+msgid "Click here to stop or restart blinking"
+msgstr ""
+
+#: TutoGridSettingsButtonTitle
+msgctxt "TutoGridSettingsButtonTitle"
+msgid "Edit"
+msgstr ""
+
+#: TutoGridSettingsButtonContent
+msgctxt "TutoGridSettingsButtonContent"
+msgid "This will open the edit view. In this view you will be able to edit icons and colors used"
+msgstr ""
+
+#: TutoGridSpeedButtonTitle
+msgctxt "TutoGridSpeedButtonTitle"
+msgid "Speed control"
+msgstr ""
+
+#: TutoGridSpeedButtonContent
+msgctxt "TutoGridSpeedButtonContent"
+msgid "Click here to make blinking faster or slower"
+msgstr ""
+
+#: TutoGridTextButtonTitle
+msgctxt "TutoGridTextButtonTitle"
+msgid "Text control"
+msgstr ""
+
+#: TutoGridTextButtonContent
+msgctxt "TutoGridTextButtonContent"
+msgid "Click here to change text displayed and change text characteristics (color, style, size)"
+msgstr ""
+
+#: TutoGridZoomButtonTitle
+msgctxt "TutoGridZoomButtonTitle"
+msgid "Zoom"
+msgstr ""
+
+#: TutoGridZoomButtonContent
+msgctxt "TutoGridZoomButtonContent"
+msgid "This menu let you change icons size in the board"
+msgstr ""
+
+#: TutoGridNetworkButtonTitle
+msgctxt "TutoGridNetworkButtonTitle"
+msgid "Network Button"
+msgstr ""
+
+#: TutoGridNetworkButtonContent
+msgctxt "TutoGridNetworkButtonContent"
+msgid "This button will share the activity so other users can then join and update your light"
+msgstr ""
+
+#: TutoDetailWelcomeTitle
+msgctxt "TutoDetailWelcomeTitle"
+msgid "Edit screen"
+msgstr ""
+
+#: TutoDetailWelcomeContent
+msgctxt "TutoDetailWelcomeContent"
+msgid "On this screen you will be able to customize icons and colors. To the left are tools to change icons, to the right are tools to change colors"
+msgstr ""
+
+#: TutoDetailDropIconTitle
+msgctxt "TutoDetailDropIconTitle"
+msgid "Icon pattern"
+msgstr ""
+
+#: TutoDetailDropIconContent
+msgctxt "TutoDetailDropIconContent"
+msgid "In this zone you can define the icons pattern use to draw your light. Drop and arrange here list of icons you want to use. Let this zone empty to use all icons"
+msgstr ""
+
+#: TutoDetailDragIconTitle
+msgctxt "TutoDetailDragIconTitle"
+msgid "Icons set"
+msgstr ""
+
+#: TutoDetailDragIconContent
+msgctxt "TutoDetailDragIconContent"
+msgid "Here are all icons you could use in your pattern. Drag and drop in the pattern, icons you want to use. The special Dice icon mean: choose randomly one icon"
+msgstr ""
+
+#: TutoDetailDeleteIconTitle
+msgctxt "TutoDetailDeleteIconTitle"
+msgid "Clean pattern"
+msgstr ""
+
+#: TutoDetailDeleteIconContent
+msgctxt "TutoDetailDeleteIconContent"
+msgid "Click here to remove all icons in the pattern"
+msgstr ""
+
+#: TutoDetailDropColorTitle
+msgctxt "TutoDetailDropColorTitle"
+msgid "Color pattern"
+msgstr ""
+
+#: TutoDetailDropColorContent
+msgctxt "TutoDetailDropColorContent"
+msgid "In this zone you can define the colors pattern use to draw your light. Drop and arrange here list of colors you want to use. Let this zone empty to use all colors"
+msgstr ""
+
+#: TutoDetailDragColorTitle
+msgctxt "TutoDetailDragColorTitle"
+msgid "Colors set"
+msgstr ""
+
+#: TutoDetailDragColorContent
+msgctxt "TutoDetailDragColorContent"
+msgid "Here are all colors you could use in your pattern. Drag and drop in the pattern, colors you want to use. The special Dice icon mean: choose randomly one color"
+msgstr ""
+
+#: TutoDetailDeleteColorTitle
+msgctxt "TutoDetailDeleteColorTitle"
+msgid "Clean pattern"
+msgstr ""
+
+#: TutoDetailDeleteColorContent
+msgctxt "TutoDetailDeleteColorContent"
+msgid "Click here to remove all colors in the pattern"
+msgstr ""
+
+#: TutoDetailGridButtonTitle
+msgctxt "TutoDetailGridButtonTitle"
+msgid "Go back"
+msgstr ""
+
+#: TutoDetailGridButtonContent
+msgctxt "TutoDetailGridButtonContent"
+msgid "Click here to go back to the light screen to see change"
+msgstr ""
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr ""
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr ""
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr ""
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr ""
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr ""
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr ""
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr ""
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr ""
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr ""
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr ""
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr ""
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr ""
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr ""
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr ""
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr ""
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr ""
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr ""
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr ""
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr ""
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr ""
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr ""
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
+msgstr ""
+

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Feb 19 2020 10:48:22 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:11:14 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -643,6 +643,11 @@ msgctxt "Palestine"
 msgid "Palestine"
 msgstr ""
 
+#: West_Bank
+msgctxt "West_Bank"
+msgid "West_Bank"
+msgstr ""
+
 #: Haiti
 msgctxt "Haiti"
 msgid "Haiti"
@@ -1098,6 +1103,11 @@ msgctxt "Somalia"
 msgid "Somalia"
 msgstr ""
 
+#: Somaliland
+msgctxt "Somaliland"
+msgid "Somaliland"
+msgstr ""
+
 #: Spain
 msgctxt "Spain"
 msgid "Spain"
@@ -1466,5 +1476,10 @@ msgstr ""
 #: TutoRunContent
 msgctxt "TutoRunContent"
 msgid "If you selected Interactive or Tour play mode, click here to start running the game"
+msgstr ""
+
+#: Vietnam
+msgctxt "Vietnam"
+msgid "Vietnam"
 msgstr ""
 

@@ -252,7 +252,7 @@ enyo.kind({
 			myserver.getServerInformation(name, function(inSender, inResponse) {
 				var server = inResponse;
 				server.url = name;
-				if (server.secure) {
+				if (server.secure || server.url.indexOf(constant.https) == 0) {
 					server.url = server.url.replace(constant.http, constant.https);
 				} else {
 					server.url = server.url.replace(constant.https, constant.http);

@@ -82,7 +82,7 @@ function LoadFile(event, file) {
 		}
 	}
 	var json = (extension == 'json' ? 'utf8' : null);
-	fs.readFile(file, function(err, data) {
+	fs.readFile(file, json, function(err, data) {
 		var text = (json ? data : "data:"+fileProperty.type+";base64,"+data.toString('base64'));
 		event.sender.send('choose-files-reply', fileProperty, err, text);
 	});
