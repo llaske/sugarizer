@@ -1,3 +1,5 @@
+var scrollbarTop = 0;
+var scrollbarMaxTop = 0;
 
 // Listview view
 enyo.kind({
@@ -27,6 +29,9 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.realLength = 0;
+		this.move_scrollbar = true;
+		this.scrollbar_session_value = 0;
+		this.scroll_count = 0;
 		this.favoriteActivityButton = null;
 		if (!window.sugarizerOS) {
 			this.activitiesChanged();
@@ -41,6 +46,19 @@ enyo.kind({
 				t.draw();
 			});
 		}
+	},
+
+	rendered:function() {
+
+		this.inherited(arguments);
+		this.scrollbar_session_value = sessionStorage.getItem('scroll-value');
+		if (this.scrollbar_session_value == null) {
+			this.scrollbar_session_value = 0;
+		}
+		else {
+			this.scrollbar_session_value = parseInt(this.scrollbar_session_value);
+		}
+		this.scrollTo(0, this.scrollbar_session_value);
 	},
 
 	localize: function() {
@@ -129,13 +147,32 @@ enyo.kind({
 
 	// Handle scroll to lazy display content
 	onscroll: function(inSender, inEvent) {
+
 		var scrollBounds = inEvent.scrollBounds;
+		if(scrollBounds != undefined) {
+			scrollbarTop = Math.ceil(scrollBounds.top);
+			scrollbarMaxTop = Math.ceil(scrollBounds.maxTop);
+		}
+
 		var currentCount = this.$.activityList.get("count");
 		if (app.getToolbar().getSearchText().length == 0 && scrollBounds && (scrollBounds.maxTop - scrollBounds.top) < constant.listScrollLimit && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.listStepCount, this.activities.length);
 			humane.log(l10n.get("Loading"));
 			this.$.activityList.set("count", length, true);
 		}
+		
+		if (scrollbarTop <= this.scrollbar_session_value && this.move_scrollbar) {
+			this.scrollTo(0, this.scrollbar_session_value);
+		}
+
+		if (scrollbarTop == this.scrollbar_session_value && this.move_scrollbar) {
+			this.scroll_count = this.scroll_count + 1;
+		}
+
+		if (scrollbarTop > this.scrollbar_session_value || this.scroll_count == 2) {
+			this.move_scrollbar = false;
+		}
+
 	},
 
 	// Switch favorite value for clicked line
@@ -251,3 +288,16 @@ function sorted(activities) {
 	});
 	return result;
 }
+
+function scrollbar_position() {
+	var diff = scrollbarTop - scrollbarMaxTop;
+	if (diff > 0) {
+		return (scrollbarTop - diff);
+	}
+	return scrollbarTop;
+}
+
+window.addEventListener("beforeunload", (e) => {
+	// store scroll bar position in session storage
+	sessionStorage.setItem("scroll-value", scrollbar_position());
+});
