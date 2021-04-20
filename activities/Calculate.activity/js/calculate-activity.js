@@ -165,6 +165,12 @@ function launchCalculation(calcInputValue, labelValue) {
     graph: false
   };
 
+  if (calcInputValue[0]=='f' && calcInputValue[1]=='('){
+    calculation.error = "Invalid left hand side of assignment operator =";
+    CalculateApp.displayCalculation(calculation);
+    return;
+  }
+
   if (labelValue) {
     calculation.label = labelValue;
   }
