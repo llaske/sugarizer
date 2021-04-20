@@ -306,3 +306,7 @@ Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Su
 Sugarizer is licensed under the **Apache-2.0** license. See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some use a different license, see [here](docs/licenses.md) for details.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fllaske%2Fsugarizer.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fllaske%2Fsugarizer?ref=badge_shield)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fllaske%2Fsugarizer.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fllaske%2Fsugarizer?ref=badge_large)
