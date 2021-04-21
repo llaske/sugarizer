@@ -141,7 +141,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                     // add a globe for the title
                     var titleGlobe = {
                         "direction": null, "text_font_description": "Sans 30",
-                        "globe_type": "RECTANGLE", "height": 50, "width": 200,
+                        "globe_type": "RECTANGLE", "height": this._canvas.height/10, "width": this._canvas.width/5,
                         "text_color": [0, 0, 0], "radio": 15, "text_width": 76,
                         "y": this._canvas.height / 2,
                         "x": this._canvas.width / 2,
@@ -233,6 +233,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             if (this.activeBox > this._data['boxs'].length - 1) {
                 this.activeBox --;
             }
+            this.init();
             this.comicBox.init(this._data['boxs'][this.activeBox],
                                this._data['images'], (this.activeBox > 0));
 
