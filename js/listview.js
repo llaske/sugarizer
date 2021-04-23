@@ -1,5 +1,3 @@
-var scrollbarTop = 0;
-var scrollbarMaxTop = 0;
 
 // Listview view
 enyo.kind({
@@ -29,6 +27,8 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.realLength = 0;
+		this.scrollbarTop = 0;
+		this.scrollbarMaxTop = 0;
 		this.move_scrollbar = true;
 		this.scrollbar_session_value = 0;
 		this.scroll_count = 0;
@@ -51,12 +51,9 @@ enyo.kind({
 	rendered:function() {
 
 		this.inherited(arguments);
-		this.scrollbar_session_value = sessionStorage.getItem('scroll-value');
-		if (this.scrollbar_session_value == null) {
+		this.scrollbar_session_value = preferences.getOptions("scroll-value");
+		if (!this.scrollbar_session_value) {
 			this.scrollbar_session_value = 0;
-		}
-		else {
-			this.scrollbar_session_value = parseInt(this.scrollbar_session_value);
 		}
 		this.scrollTo(0, this.scrollbar_session_value);
 	},
@@ -150,8 +147,18 @@ enyo.kind({
 
 		var scrollBounds = inEvent.scrollBounds;
 		if(scrollBounds != undefined) {
-			scrollbarTop = Math.ceil(scrollBounds.top);
-			scrollbarMaxTop = Math.ceil(scrollBounds.maxTop);
+			this.scrollbarTop = Math.ceil(scrollBounds.top);
+			this.scrollbarMaxTop = Math.ceil(scrollBounds.maxTop);
+			if(!this.move_scrollbar) {
+				var diff = this.scrollbarTop - this.scrollbarMaxTop;
+				if (diff > 0) {
+					preferences.setOptions("scroll-value", (this.scrollbarTop - diff));
+				}
+				else {
+					preferences.setOptions("scroll-value", this.scrollbarTop);
+				}
+				preferences.save()
+			}
 		}
 
 		var currentCount = this.$.activityList.get("count");
@@ -161,15 +168,15 @@ enyo.kind({
 			this.$.activityList.set("count", length, true);
 		}
 		
-		if (scrollbarTop <= this.scrollbar_session_value && this.move_scrollbar) {
+		if (this.scrollbarTop <= this.scrollbar_session_value && this.move_scrollbar) {
 			this.scrollTo(0, this.scrollbar_session_value);
 		}
 
-		if (scrollbarTop == this.scrollbar_session_value && this.move_scrollbar) {
+		if (this.scrollbarTop == this.scrollbar_session_value && this.move_scrollbar) {
 			this.scroll_count = this.scroll_count + 1;
 		}
 
-		if (scrollbarTop > this.scrollbar_session_value || this.scroll_count == 2) {
+		if (this.scrollbarTop > this.scrollbar_session_value || this.scroll_count == 2) {
 			this.move_scrollbar = false;
 		}
 
@@ -289,15 +296,3 @@ function sorted(activities) {
 	return result;
 }
 
-function scrollbar_position() {
-	var diff = scrollbarTop - scrollbarMaxTop;
-	if (diff > 0) {
-		return (scrollbarTop - diff);
-	}
-	return scrollbarTop;
-}
-
-window.addEventListener("beforeunload", (e) => {
-	// store scroll bar position in session storage
-	sessionStorage.setItem("scroll-value", scrollbar_position());
-});

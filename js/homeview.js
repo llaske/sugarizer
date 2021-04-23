@@ -456,13 +456,6 @@ enyo.kind({
 		this.currentView = newView;
 		stats.trace(constant.viewNames[oldView], 'change_view', constant.viewNames[newView]);
 
-		if (
-			(constant.viewNames[oldView] == 'list_view' && constant.viewNames[newView] == 'home_view') || 
-			(constant.viewNames[oldView] == 'list_view' && constant.viewNames[newView] == 'neighborhood_view')
-		) {
-			sessionStorage.setItem("scroll-value", scrollbar_position());
-		}
-
 		// Show desktop
 		if (newView == constant.radialView) {
 			this.otherview = null;
