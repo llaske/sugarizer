@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Jul 13 2020 11:54:44 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:12:25 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,6 +112,18 @@ msgstr ""
 #: PastYear
 msgctxt "PastYear"
 msgid "Past year"
+msgstr ""
+
+#. Do not translate {{name}}
+#: UserJoined
+msgctxt "UserJoined"
+msgid "{{name}} joined"
+msgstr ""
+
+#. Do not translate {{name}}
+#: UserLeft
+msgctxt "UserLeft"
+msgid "{{name}} left"
 msgstr ""
 
 #: Title
@@ -2193,7 +2205,7 @@ msgstr ""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
-msgid "This is an activity to self evalutate your skills You can acquire different skills from multiple categories and upload media elements to demonstrate it"
+msgid "Welcome in Curriculum activity. Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it"
 msgstr ""
 
 #: TutoTemplateSelectionTitle
@@ -2213,7 +2225,7 @@ msgstr ""
 
 #: TutoTemplateContent
 msgctxt "TutoTemplateContent"
-msgid "Click on this to select the template You can also change the title of the template using the edit button"
+msgid "Click on this to select the template. You can also change the title of the template using the edit button"
 msgstr ""
 
 #: TutoAddTemplateTitle

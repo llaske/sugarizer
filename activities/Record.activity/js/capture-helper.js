@@ -662,8 +662,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                         path = "file:/" + path;
                     }
                     path = path.replace("file:/", "file:///");
-
-                    window.resolveLocalFileSystemURI(path, function (entry) {
+                    window.resolveLocalFileSystemURL(path, function (entry) {
                         entry.file(function (file) {
                             if (file.size / 1000000 > 2) {
                                 displayAlertMessage("File is too big");
@@ -705,7 +704,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                     }
                     path = path.replace("file:/", "file:///");
 
-                    window.resolveLocalFileSystemURI(path, function (entry) {
+                    window.resolveLocalFileSystemURL(path, function (entry) {
                         entry.file(function (file) {
                             if (file.size / 1000000 > 2) {
                                 displayAlertMessage("File is too big");

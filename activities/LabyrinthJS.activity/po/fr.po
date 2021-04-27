@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Aug 29 2017 18:13:19 GMT+0200 (CEST)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:21:53 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,6 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
+
+#: LabyrinthImage
+msgctxt "LabyrinthImage"
+msgid "Image was saved to journal!"
+msgstr "Votre image a été enregistrée dans le Journal"
 
 #: YourNewIdea
 msgctxt "YourNewIdea"
@@ -297,4 +302,16 @@ msgstr "Diminuer fonte"
 msgctxt "TutoFontMinusContent"
 msgid "Click here to decrease the font size for the current text node."
 msgstr "Cliquez ici pour diminuer la taille de la fonte du texte du noeud courant."
+
+#. Do not translate {{user}}
+#: PlayerJoin
+msgctxt "PlayerJoin"
+msgid "{{user}} joined"
+msgstr "{{user}} a rejoint"
+
+#. Do not translate {{user}}
+#: PlayerLeave
+msgctxt "PlayerLeave"
+msgid "{{user}} left"
+msgstr "{{user}} est parti"
 

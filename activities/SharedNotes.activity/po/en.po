@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 21:52:45 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:29:58 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,6 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
+
+#: NotesSaved
+msgctxt "NotesSaved"
+msgid "Image was saved to journal!"
+msgstr "Image was saved to journal!"
 
 #: YourNewIdea
 msgctxt "YourNewIdea"
@@ -234,4 +239,84 @@ msgstr "{{user}} joined"
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
 msgstr "{{user}} left"
+
+#: BackgroundChangeTitle
+msgctxt "BackgroundChangeTitle"
+msgid "Change Background"
+msgstr "Change Background"
+
+#: TutoBackgroundChangeContent
+msgctxt "TutoBackgroundChangeContent"
+msgid "Click this button to change background of board."
+msgstr "Click this button to change background of board."
+
+#: white
+msgctxt "white"
+msgid "white"
+msgstr "white"
+
+#: silver
+msgctxt "silver"
+msgid "silver"
+msgstr "silver"
+
+#: black
+msgctxt "black"
+msgid "black"
+msgstr "black"
+
+#: purple
+msgctxt "purple"
+msgid "purple"
+msgstr "purple"
+
+#: violet
+msgctxt "violet"
+msgid "violet"
+msgstr "violet"
+
+#: yellow
+msgctxt "yellow"
+msgid "yellow"
+msgstr "yellow"
+
+#: lightBlue
+msgctxt "lightBlue"
+msgid "light blue"
+msgstr "light blue"
+
+#: darkGreen
+msgctxt "darkGreen"
+msgid "dark green"
+msgstr "dark green"
+
+#: orange
+msgctxt "orange"
+msgid "orange"
+msgstr "orange"
+
+#: darkBlue
+msgctxt "darkBlue"
+msgid "dark blue"
+msgstr "dark blue"
+
+#: lightGreen
+msgctxt "lightGreen"
+msgid "light green"
+msgstr "light green"
+
+#: red
+msgctxt "red"
+msgid "red"
+msgstr "red"
+
+#: titleBackgroundColor
+msgctxt "titleBackgroundColor"
+msgid "Background Color"
+msgstr "Background Color"
+
+#: holderSearchBackgroundColor
+msgctxt "holderSearchBackgroundColor"
+msgid "Search color name"
+msgstr "Search color name"
 

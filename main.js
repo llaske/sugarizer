@@ -12,6 +12,7 @@ var BrowserWindow = electron.BrowserWindow;
 var Menu = electron.Menu;
 var ipc = electron.ipcMain;
 var dialog = electron.dialog;
+var nativeImage = electron.nativeImage;
 
 var mainWindow = null;
 
@@ -82,7 +83,7 @@ function LoadFile(event, file) {
 		}
 	}
 	var json = (extension == 'json' ? 'utf8' : null);
-	fs.readFile(file, function(err, data) {
+	fs.readFile(file, json, function(err, data) {
 		var text = (json ? data : "data:"+fileProperty.type+";base64,"+data.toString('base64'));
 		event.sender.send('choose-files-reply', fileProperty, err, text);
 	});
@@ -114,7 +115,7 @@ function createWindow () {
 			webSecurity: false,
 			nodeIntegration: true
 		},
-		icon: './res/icon/electron/icon-1024.png'
+		icon: nativeImage.createFromPath('./res/icon/electron/icon-1024.png')
 	});
 	if (process.platform === 'darwin') {
 		app.dock.setIcon(app.getAppPath()+'/res/icon/electron/icon-1024.png');

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Sep 06 2020 21:26:19 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:03:26 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1741,7 +1741,7 @@ msgstr ""
 
 #: TutoActivityCurriculumactivity
 msgctxt "TutoActivityCurriculumactivity"
-msgid "Curriculum is an activity to self evalutate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgid "Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
 msgstr ""
 
 #: TutoActivityVoteactivity
@@ -1752,5 +1752,20 @@ msgstr ""
 #: TutoActivityPlanetsactivity
 msgctxt "TutoActivityPlanetsactivity"
 msgid "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
+msgstr ""
+
+#: InvalidUser
+msgctxt "InvalidUser"
+msgid "Unknown user"
+msgstr ""
+
+#: TutoActivityXmasLightsactivity
+msgctxt "TutoActivityXmasLightsactivity"
+msgid "Xmas Lights activity allow creation of nice blinking Christmas lights using Sugarizer icons and colors."
+msgstr ""
+
+#: TutoActivityDollarStreetactivity
+msgctxt "TutoActivityDollarStreetactivity"
+msgid "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
 msgstr ""
 

@@ -32,6 +32,7 @@
 	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
+	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
 
 <body>
@@ -40,74 +41,74 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem 
-				id="network-button" 
+			<sugar-toolitem
+				id="network-button"
 				title="Network"
-				palette-file="sugar-web/graphics/presencepalette" 
+				palette-file="sugar-web/graphics/presencepalette"
 				palette-class="PresencePalette"
 				palette-event="shared"
 				v-on:shared="SugarPresence.onShared"
 				v-if="SugarPresence"
 			></sugar-toolitem>
 			<sugar-toolitem splitbar></sugar-toolitem>
-			<sugar-toolitem 
-				id="settings-button" 
+			<sugar-toolitem
+				id="settings-button"
 				v-if="currentView == 'polls-grid'"
 				:icon="settings ? 'icons/play.svg' : 'icons/settings.svg'"
 				@click="settings = !settings"
 				v-bind:title="l10n.stringSettings"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="add-button" 
-				v-if="settings && currentView != 'poll-settings'" 
+			<sugar-toolitem
+				id="add-button"
+				v-if="settings && currentView != 'poll-settings'"
 				@click="onAddClick"
 				v-bind:title="l10n.stringAdd"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="real-time-button" 
+			<sugar-toolitem
+				id="real-time-button"
 				:class="{ active: realTimeResults }"
-				v-if="currentView == 'poll-stats'" 
+				v-if="currentView == 'poll-stats'"
 				@click="switchRealTimeResults"
 				v-bind:title="l10n.stringRealTimeResults"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="auto-stop-button" 
+			<sugar-toolitem
+				id="auto-stop-button"
 				:class="{ active: autoStop}"
-				v-if="currentView == 'poll-stats'" 
+				v-if="currentView == 'poll-stats'"
 				@click="autoStop = !autoStop"
 				v-bind:title="l10n.stringAutoStop"
 			></sugar-toolitem>
 			<div class="search-field" v-if="currentView == 'polls-grid'">
 				<div class="search-icon"></div>
-				<input 
-					type="text" 
-					class="search-input" 
-					v-model="searchText" 
+				<input
+					type="text"
+					class="search-input"
+					v-model="searchText"
 					:placeholder="l10n.stringSearch"
 				>
 				<div class="search-cancel" v-if="searchText != ''" @click="searchText = ''"></div>
 			</div>
-			<sugar-toolitem 
-				id="home-button" 
-				v-if="currentView == 'history' && openHistoryIndex == null" 
+			<sugar-toolitem
+				id="home-button"
+				v-if="currentView == 'history' && openHistoryIndex == null"
 				@click="currentView = 'polls-grid'"
 				v-bind:title="l10n.stringHome"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="history-button" 
-				v-if="currentView == 'polls-grid'" 
+			<sugar-toolitem
+				id="history-button"
+				v-if="currentView == 'polls-grid'"
 				@click="currentView = 'history'"
 				v-bind:title="l10n.stringHistory"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="delete-button" 
-				v-if="currentView == 'history' && openHistoryIndex != null" 
+			<sugar-toolitem
+				id="delete-button"
+				v-if="currentView == 'history' && openHistoryIndex != null"
 				@click="deleteHistoryPoll"
 				v-bind:title="l10n.stringDeletePoll"
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="export-button"
-				v-show="currentView == 'history' && openHistoryIndex == null" 
+				v-show="currentView == 'history' && openHistoryIndex == null"
 				palette-file="js/palettes/exportpalette.js"
 				palette-class="ExportPalette"
 				palette-title="Export"
@@ -125,8 +126,8 @@
 		<div id="content" :class="{ fullscreen: $refs.SugarToolbar ? $refs.SugarToolbar.isHidden() : false }">
 			<!-- <transition name="fade" mode="out-in"> -->
 				<keep-alive :exclude="settings ? /.*/ : /^((?!categories\-grid).)*$/gm">
-					<component 
-						:is="currentView" 
+					<component
+						:is="currentView"
 						:settings="settings"
 						:search-query="searchQuery"
 						:polls="polls"
@@ -162,9 +163,9 @@
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
-		<sugar-journal ref="SugarJournal" 
-			v-on:journal-data-loaded="onJournalDataLoaded" 
-			v-on:journal-new-instance="onJournalNewInstance" 
+		<sugar-journal ref="SugarJournal"
+			v-on:journal-data-loaded="onJournalDataLoaded"
+			v-on:journal-new-instance="onJournalNewInstance"
 			v-on:journal-shared-instance="onJournalSharedInstance"
 		></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>

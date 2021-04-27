@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   enable-background="new 0 0 55 55"
+   height="55px"
+   version="1.1"
+   viewBox="0 0 55 55"
+   width="55px"
+   x="0px"
+   y="0px"
+   id="svg7">
+   <circle
+     cx="27.371"
+     cy="26.848999"
+     fill="&fill_color;"
+     r="20"
+     stroke="&stroke_color;"
+     stroke-width="7"
+     id="circle4" />
+ </svg>

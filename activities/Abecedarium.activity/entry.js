@@ -123,6 +123,9 @@ enyo.kind({
 			file_size: 0
 		};
 		Abcd.datastore.create(metadata, function() {
+			requirejs(["webL10n"], function (webL10n) {
+				Abcd.humane.log(webL10n.get('AbecedariumImage'));
+			});
 			console.log("image '"+__$FC(entry.text)+"' saved in journal.")
 		}, imgAsDataURL);
 	},
@@ -162,6 +165,9 @@ enyo.kind({
 					file_size: 0
 				};
 				Abcd.datastore.create(metadata, function() {
+					requirejs(["webL10n"], function (webL10n) {
+						Abcd.humane.log(webL10n.get('AbecedariumSound'));
+					});
 					console.log("sound '"+__$FC(entry.text)+"' saved in journal.");
 				}, base64);
 			}

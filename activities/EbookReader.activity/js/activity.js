@@ -4,7 +4,7 @@ requirejs.config({
 });
 
 // Default library url
-var defaultUrlLibrary = (document.location.protocol.substr(0,5)=="https"?"https":"http") + "://sugarizer.org/content/books.php";
+var defaultUrlLibrary = "https://sugarizer.org/content/books.php";
 
 // Vue main app
 var app = new Vue({
@@ -53,6 +53,8 @@ var app = new Vue({
 					});
 				} else {
 					vm.loadLibrary(defaultUrlLibrary);
+					// Fix in case of accidental exit
+					vm.saveContextToJournal();
 				}
 			});
 		});
@@ -193,20 +195,26 @@ var app = new Vue({
 				vm.currentBook = book;
 				Vue.set(book, 'spinner', true);
 				vm.currentEpub = new ePub.Book();
-				vm.currentEpub.open(vm.currentLibrary.information.fileprefix+vm.currentBook.file).then(function() {
-					vm.currentEpub.loaded.navigation.then(function(sections) {
-						sections.forEach(function(section) {
-							if(section.label.toUpperCase().trim() == "CONTENTS") {
-								vm.currentEpub.contents = section.href;
-							}
+				var xhr = new XMLHttpRequest();
+				xhr.open("GET", vm.currentLibrary.information.fileprefix+vm.currentBook.file, true);
+				xhr.responseType = "arraybuffer";
+				xhr.onload = function() {
+					vm.currentEpub.open(this.response).then(function() {
+						vm.currentEpub.loaded.navigation.then(function(sections) {
+							sections.forEach(function(section) {
+								if(section.label.toUpperCase().trim() == "CONTENTS") {
+									vm.currentEpub.contents = section.href;
+								}
+							});
 						});
+						vm.currentView = EbookReader;
+						book.spinner = false;
+					}, function() {
+						console.log("Error loading "+vm.currentLibrary.information.fileprefix+vm.currentBook.file);
+						book.spinner = false;
 					});
-					vm.currentView = EbookReader;
-					book.spinner = false;
-				}, function() {
-					console.log("Error loading "+vm.currentLibrary.information.fileprefix+vm.currentBook.file);
-					book.spinner = false;
-				});
+				};
+				xhr.send();
 			}
 		},
 
@@ -243,7 +251,7 @@ var app = new Vue({
 			this.$refs.tutorial.show(options);
 		},
 
-		onStop: function() {
+		saveContextToJournal: function() {
 			// Save current library in Journal on Stop
 			var vm = this;
 			vm.saveContext();
@@ -265,6 +273,10 @@ var app = new Vue({
 					}
 				});
 			});
+		},
+
+		onStop: function() {
+			this.saveContextToJournal();
 		}
 	}
 });

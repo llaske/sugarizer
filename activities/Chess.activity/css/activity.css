@@ -1,3 +1,7 @@
+body {
+  height: 100vh;
+}
+
 #canvas {
   background-color: #a3e84f;
   font-weight: bold;

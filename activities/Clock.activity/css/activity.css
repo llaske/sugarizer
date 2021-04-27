@@ -56,12 +56,24 @@ canvas {
   background-image: url(../icons/write-date.svg);
 }
 
+#main-toolbar #write-seconds-button {
+  background-image: url(../icons/write-seconds.svg);
+}
+
 #main-toolbar #set-time-button {
   background-image: url(../icons/set-time.svg);
 }
 
 #main-toolbar #set-timeGame-button {
   background-image: url(../icons/set-time-game.svg);
+}
+
+#main-toolbar #show-am-pm {
+  background-image: url(../icons/time.svg);
+}
+
+#main-toolbar #show-mins {
+  background-image: url(../icons/clock-with-minutes.svg);
 }
 
 #main-toolbar #help-button {
@@ -223,5 +235,17 @@ canvas {
   #unfullscreen-button
   {
     right: 15%;
+  }
+}
+
+@media only screen and (max-width: 735px) {
+  #show-mins {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 678px) {
+  #show-am-pm {
+    display: none;
   }
 }

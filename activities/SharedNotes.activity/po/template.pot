@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 21:52:45 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:29:58 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,6 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
+
+#: NotesSaved
+msgctxt "NotesSaved"
+msgid "Image was saved to journal!"
+msgstr ""
 
 #: YourNewIdea
 msgctxt "YourNewIdea"
@@ -233,5 +238,85 @@ msgstr ""
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
+msgstr ""
+
+#: BackgroundChangeTitle
+msgctxt "BackgroundChangeTitle"
+msgid "Change Background"
+msgstr ""
+
+#: TutoBackgroundChangeContent
+msgctxt "TutoBackgroundChangeContent"
+msgid "Click this button to change background of board."
+msgstr ""
+
+#: white
+msgctxt "white"
+msgid "white"
+msgstr ""
+
+#: silver
+msgctxt "silver"
+msgid "silver"
+msgstr ""
+
+#: black
+msgctxt "black"
+msgid "black"
+msgstr ""
+
+#: purple
+msgctxt "purple"
+msgid "purple"
+msgstr ""
+
+#: violet
+msgctxt "violet"
+msgid "violet"
+msgstr ""
+
+#: yellow
+msgctxt "yellow"
+msgid "yellow"
+msgstr ""
+
+#: lightBlue
+msgctxt "lightBlue"
+msgid "light blue"
+msgstr ""
+
+#: darkGreen
+msgctxt "darkGreen"
+msgid "dark green"
+msgstr ""
+
+#: orange
+msgctxt "orange"
+msgid "orange"
+msgstr ""
+
+#: darkBlue
+msgctxt "darkBlue"
+msgid "dark blue"
+msgstr ""
+
+#: lightGreen
+msgctxt "lightGreen"
+msgid "light green"
+msgstr ""
+
+#: red
+msgctxt "red"
+msgid "red"
+msgstr ""
+
+#: titleBackgroundColor
+msgctxt "titleBackgroundColor"
+msgid "Background Color"
+msgstr ""
+
+#: holderSearchBackgroundColor
+msgctxt "holderSearchBackgroundColor"
+msgid "Search color name"
 msgstr ""
 

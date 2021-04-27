@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Nov 02 2019 10:44:35 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-06-06 03:36+0000\n"
-"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
-"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-calligra/pt/>\n"
-"Language: pt\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:08:09 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: CalligraActivity
 msgctxt "CalligraActivity"
@@ -210,6 +208,16 @@ msgctxt "TutoRestartButtonContent"
 msgid "Click here to restart the drawing."
 msgstr "Click here to restart the drawing."
 
+#: TutoNextButtonTitle
+msgctxt "TutoNextButtonTitle"
+msgid "Next"
+msgstr "Next"
+
+#: TutoNextButtonContent
+msgctxt "TutoNextButtonContent"
+msgid "Click here to attempt the next one."
+msgstr "Click here to attempt the next one."
+
 #: TutoEditorAddButtonTitle
 msgctxt "TutoEditorAddButtonTitle"
 msgid "Add start point"
@@ -249,3 +257,4 @@ msgstr "Remove path point"
 msgctxt "TutoEditorRemovePathButtonContent"
 msgid "Click here to remove the last path point."
 msgstr "Click here to remove the last path point."
+

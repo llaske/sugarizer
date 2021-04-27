@@ -1,5 +1,8 @@
 /*For smartphone mode*/
 /** Splitbar only appears on desktop mode. I hid it when window size becomes small. **/
+body {
+  height: 100vh;
+}
 
 .toolbar {
   padding: 0 30px !important;
