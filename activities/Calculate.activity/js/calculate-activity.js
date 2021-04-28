@@ -164,8 +164,9 @@ function launchCalculation(calcInputValue, labelValue) {
     calculation: calcInputValue,
     graph: false
   };
-
-  if (calcInputValue[0]=='f' && calcInputValue[1]=='('){
+  
+  var reg = /f\(.*\)=[\w]+/;
+  if (reg.test(calcInputValue)){
     calculation.error = "Invalid left hand side of assignment operator =";
     CalculateApp.displayCalculation(calculation);
     return;
