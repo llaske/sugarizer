@@ -532,9 +532,13 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 MemorizeApp.game.selectedCards[0].card.solved = true;
                 t.card.solved = true;
 
-                for (var i = 0; i < MemorizeApp.game.players.length; i++) {
-                    if (MemorizeApp.game.players[i].networkId == user.networkId) {
-                        MemorizeApp.game.players[i].score = MemorizeApp.game.players[i].score + 1;
+                if (MemorizeApp.game.players.length == 1){
+                    MemorizeApp.game.players[0].score = MemorizeApp.game.players[0].score + 1;
+                } else {
+                    for (var i = 0; i < MemorizeApp.game.players.length; i++) {
+                        if (MemorizeApp.game.players[i].networkId == user.networkId) {
+                            MemorizeApp.game.players[i].score = MemorizeApp.game.players[i].score + 1;
+                        }
                     }
                 }
 
@@ -572,6 +576,8 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                                     });
                                     displayUsersAndScores();
                                     break;
+                                } else {
+                                    MemorizeApp.game.currentPlayer = MemorizeApp.game.players[0].networkId;
                                 }
                             }
                         }
@@ -787,11 +793,15 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
 
             MemorizeApp.hasLoadedMultiplayer = true;
 
+            MemorizeApp.game.players = [];
 
             if (users.length == 1) {
                 MemorizeApp.isHost = true;
                 MemorizeApp.game.currentPlayer = MemorizeApp.me.networkId;
                 MemorizeApp.game.selectedCards = [];
+                MemorizeApp.game.players.push(users[0]);
+                MemorizeApp.game.players[0].online = true;
+                MemorizeApp.game.players[0].score=0;
                 drawGame();
                 displayUsersAndScores();
                 return;
