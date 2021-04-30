@@ -786,12 +786,13 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             }
 
             MemorizeApp.hasLoadedMultiplayer = true;
-
+            MemorizeApp.game.players = [];
 
             if (users.length == 1) {
                 MemorizeApp.isHost = true;
                 MemorizeApp.game.currentPlayer = MemorizeApp.me.networkId;
                 MemorizeApp.game.selectedCards = [];
+                MemorizeApp.game.players.push(users[0]);
                 drawGame();
                 displayUsersAndScores();
                 return;
