@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Enhancement in multiplayer mode of Memorize activity #795
+- Position of scrollbar in listview is saved #945
 
 ### Fixed
 - Name and XO visible even after removing in Memorize Activity #794
