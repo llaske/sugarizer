@@ -802,6 +802,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 MemorizeApp.game.players.push(users[0]);
                 MemorizeApp.game.players[0].online = true;
                 MemorizeApp.game.players[0].score=0;
+
                 drawGame();
                 displayUsersAndScores();
                 return;
