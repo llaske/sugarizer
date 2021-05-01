@@ -51,7 +51,7 @@ enyo.kind({
 	rendered:function() {
 
 		this.inherited(arguments);
-		this.scrollbar_session_value = preferences.getOptions("scroll-value");
+		this.scrollbar_session_value = preferences.getScrollValue();
 		if (!this.scrollbar_session_value) {
 			this.scrollbar_session_value = 0;
 		}
@@ -152,10 +152,10 @@ enyo.kind({
 			if(!this.move_scrollbar) {
 				var diff = this.scrollbarTop - this.scrollbarMaxTop;
 				if (diff > 0) {
-					preferences.setOptions("scroll-value", (this.scrollbarTop - diff));
+					preferences.setScrollValue(this.scrollbarTop - diff);
 				}
 				else {
-					preferences.setOptions("scroll-value", this.scrollbarTop);
+					preferences.setScrollValue(this.scrollbarTop);
 				}
 				preferences.save()
 			}
