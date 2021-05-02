@@ -35,7 +35,7 @@ To run **Sugarizer Application on iOS**, download it on [Apple Store](https://it
 ![](images/applestore.png)
 
 To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
-The Sugarizer desktop application has three possible arguments:
+The Sugarizer desktop application has four possible arguments:
 
 * `--window` to open Sugarizer in a window (instead of fullscreen)
 * `--debug` to open Sugarizer with the debug console
