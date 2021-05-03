@@ -37,9 +37,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         var mainCanvas = document.getElementById("mainCanvas");
         var sortCanvas = document.getElementById("sortCanvas");
         // remove 5 more to be sure no scrollbars are visible
-        mainCanvas.height = window.innerHeight - sugarCellSize - 5;
-        mainCanvas.width = mainCanvas.height * 4 / 3;
-        mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
+        mainCanvas.height = window.innerHeight*.9;
+        mainCanvas.width = window.innerWidth*3/4;
+        mainCanvas.style.left  = ((window.innerWidth-mainCanvas.width)/2) + "px";
 
         var previousButton = document.getElementById("previous-button");
 		previousButton.title = _("Previous");
@@ -267,6 +267,38 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                 }).show();
 
             }
+        });
+
+        window.addEventListener('resize', (e) => {
+            var dataWithoutImages = {}
+            dataWithoutImages['version'] = toonModel.getData()['version'];
+            dataWithoutImages['boxs'] = toonModel.getData()['boxs'];
+
+            dataImages = {};
+            for(var key in toonModel.getData()['images']) {
+                var imageName = key;
+                console.log('saving image ' + imageName);
+				dataImages[imageName] = LZString.compressToUTF16(toonModel.getData()['images'][imageName]);
+            };
+			var fullData = {
+				dataWithoutImages: dataWithoutImages,
+				dataImages: dataImages
+            };
+            var images = dataImages;
+            dataWithoutImages.images = {};
+            for(var key in images) {
+                 var imageName = key;
+                 dataWithoutImages.images[imageName] = LZString.decompressFromUTF16(images[imageName]);
+            }
+            resizeTimeout = setTimeout(function(){      
+                mainCanvas.height = e.target.innerHeight*.9;    
+                mainCanvas.style.left = ((e.target.innerWidth - mainCanvas.width) / 2) + "px";
+                mainCanvas.width = (e.target.innerWidth)*3/4;
+            var toonModel = new toon.Model(dataWithoutImages, mainCanvas, tp);
+            toonModel.init();
+            toonModel.setData(dataWithoutImages);
+        }, 5); 
+        location.reload();
         });
 
         // Launch tutorial
