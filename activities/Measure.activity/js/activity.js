@@ -41,14 +41,8 @@ var app = new Vue({
 			document.getElementById("scaleValue").innerText = this.time_div*1000;
 
 			// Create and init a Web Audio Analyser node
-			if (window.cordova || window.PhoneGap) {
-				this.context = audioinput.getAudioContext();
-				this.source = audioinput;
-			}
-			else {
-				this.context = new AudioContext();
-				this.source = this.context.createMediaStreamSource(stream);
-			}
+			this.context = new AudioContext();
+			this.source = this.context.createMediaStreamSource(stream);
 			this.analyser = this.context.createAnalyser();
 			this.analyser.smoothingTimeConstant = 0;
 			this.analyser.fftSize = 1024;
@@ -122,15 +116,25 @@ var app = new Vue({
 				document.getElementById("pause-button").style.display = "initial";
 			}
 		},
+		onAudioInput: function(e) {
+			if (!this.play) return;
+			this.timeDomainData = e.data;
+			this.num_of_divs = this.canvas.width / 50; // 50 is width of one div
+			var total_time_duration = this.time_div * this.num_of_divs; 
+			this.num_of_samples = Math.ceil(total_time_duration * 48000); //48000 is sampling frequency
+			this.drawWaveform()
+		},
 		onDeviceReady: function() {
-			console.log("Hello")
 			console.log("cordova from ondevice", window.cordova)
 			console.log("audioinput from ondevice", window.audioinput)
+			window.addEventListener("audioinput", this.onAudioInput, false)
 			this.init()
+			document.getElementById("domainName").innerText = 'Time'
+			document.getElementById("scaleValue").innerText = this.time_div * 1000;
 			audioinput.start({
-				streamToWebAudio: true
+				bufferSize: 2048,
+				streamToWebAudio: false
 			});
-			this.setTimeDomain(null)
 		}
 	},
 	mounted() {
