@@ -154,7 +154,12 @@ function launchGraph(calcInputValue, labelValue) {
   CalculateApp.persistCalculations();
   CalculateApp.displayCalculation(calculation);
   if (!calculation.error) {
-    CalculateApp.graph(calculation.calculation);
+    try {
+      CalculateApp.graph(calculation.calculation);
+    } catch (error) {
+      calculation.error= error.message;
+      CalculateApp.displayCalculation(calculation);
+    }
   }
 }
 
@@ -165,13 +170,6 @@ function launchCalculation(calcInputValue, labelValue) {
     graph: false
   };
   
-  var reg = /f\(.*\)=[\w]+/;
-  if (reg.test(calcInputValue)){
-    calculation.error = "Invalid left hand side of assignment operator =";
-    CalculateApp.displayCalculation(calculation);
-    return;
-  }
-
   if (labelValue) {
     calculation.label = labelValue;
   }
