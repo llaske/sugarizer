@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:11:52 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:01:24 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,250 +16,250 @@ msgstr ""
 #: AddDay
 msgctxt "AddDay"
 msgid "Add 1 Day"
-msgstr ""
+msgstr "Add 1 Day"
 
 #: MinusDay
 msgctxt "MinusDay"
 msgid "Minus 1 Day"
-msgstr ""
+msgstr "Minus 1 Day"
 
 #: ToggleConst
 msgctxt "ToggleConst"
 msgid "Toggle Constellation Lines"
-msgstr ""
+msgstr "Toggle Constellation Lines"
 
 #: ToggleStar
 msgctxt "ToggleStar"
 msgid "Toggle Star Names"
-msgstr ""
+msgstr "Toggle Star Names"
 
 #: Location
 msgctxt "Location"
 msgid "Set To My Location"
-msgstr ""
+msgstr "Set To My Location"
 
 #: WorldList
 msgctxt "WorldList"
 msgid "World List"
-msgstr ""
+msgstr "World List"
 
 #: View
 msgctxt "View"
 msgid "Projection View"
-msgstr ""
+msgstr "Projection View"
 
 #: Britain
 msgctxt "Britain"
 msgid "Britain"
-msgstr ""
+msgstr "Britain"
 
 #: Mexico
 msgctxt "Mexico"
 msgid "Mexico"
-msgstr ""
+msgstr "Mexico"
 
 #: Spain
 msgctxt "Spain"
 msgid "Spain"
-msgstr ""
+msgstr "Spain"
 
 #: Germany
 msgctxt "Germany"
 msgid "Germany"
-msgstr ""
+msgstr "Germany"
 
 #: NorthKorea
 msgctxt "NorthKorea"
 msgid "North Korea"
-msgstr ""
+msgstr "North Korea"
 
 #: SaudiArabia
 msgctxt "SaudiArabia"
 msgid "Saudi Arabia"
-msgstr ""
+msgstr "Saudi Arabia"
 
 #: SouthKorea
 msgctxt "SouthKorea"
 msgid "South Korea"
-msgstr ""
+msgstr "South Korea"
 
 #: France
 msgctxt "France"
 msgid "France"
-msgstr ""
+msgstr "France"
 
 #: Poland
 msgctxt "Poland"
 msgid "Poland"
-msgstr ""
+msgstr "Poland"
 
 #: Italy
 msgctxt "Italy"
 msgid "Italy"
-msgstr ""
+msgstr "Italy"
 
 #: India
 msgctxt "India"
 msgid "India"
-msgstr ""
+msgstr "India"
 
 #: Nigeria
 msgctxt "Nigeria"
 msgid "Nigeria"
-msgstr ""
+msgstr "Nigeria"
 
 #: Indonesia
 msgctxt "Indonesia"
 msgid "Indonesia"
-msgstr ""
+msgstr "Indonesia"
 
 #: Brazil
 msgctxt "Brazil"
 msgid "Brazil"
-msgstr ""
+msgstr "Brazil"
 
 #: NorthAmerica
 msgctxt "NorthAmerica"
 msgid "North America"
-msgstr ""
+msgstr "North America"
 
 #: SouthAmerica
 msgctxt "SouthAmerica"
 msgid "South America"
-msgstr ""
+msgstr "South America"
 
 #: Africa
 msgctxt "Africa"
 msgid "Africa"
-msgstr ""
+msgstr "Africa"
 
 #: Australia
 msgctxt "Australia"
 msgid "Australia"
-msgstr ""
+msgstr "Australia"
 
 #: Philippines
 msgctxt "Philippines"
 msgid "Philippines"
-msgstr ""
+msgstr "Philippines"
 
 #: Malaysia
 msgctxt "Malaysia"
 msgid "Malaysia"
-msgstr ""
+msgstr "Malaysia"
 
 #: Japan
 msgctxt "Japan"
 msgid "Japan"
-msgstr ""
+msgstr "Japan"
 
 #: China
 msgctxt "China"
 msgid "China"
-msgstr ""
+msgstr "China"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Constellation Activity"
-msgstr ""
+msgstr "Constellation Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Constellation activity. Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth"
-msgstr ""
+msgstr "Welcome into the Constellation activity. Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth"
 
 #: TutoAddTitle
 msgctxt "TutoAddTitle"
 msgid "One day forward"
-msgstr ""
+msgstr "One day forward"
 
 #: TutoAddContent
 msgctxt "TutoAddContent"
 msgid "Click here to move forward the sky by 1 day"
-msgstr ""
+msgstr "Click here to move forward the sky by 1 day"
 
 #: TutoMinusTitle
 msgctxt "TutoMinusTitle"
 msgid "One day backward"
-msgstr ""
+msgstr "One day backward"
 
 #: TutoMinusContent
 msgctxt "TutoMinusContent"
 msgid "Click here to move backward the sky by 1 day"
-msgstr ""
+msgstr "Click here to move backward the sky by 1 day"
 
 #: TutoConstTitle
 msgctxt "TutoConstTitle"
 msgid "Constellations"
-msgstr ""
+msgstr "Constellations"
 
 #: TutoConstContent
 msgctxt "TutoConstContent"
 msgid "Click here to toggle display of constellations"
-msgstr ""
+msgstr "Click here to toggle display of constellations"
 
 #: TutoStarTitle
 msgctxt "TutoStarTitle"
 msgid "Stars"
-msgstr ""
+msgstr "Stars"
 
 #: TutoStarContent
 msgctxt "TutoStarContent"
 msgid "Click here to toggle display of star names"
-msgstr ""
+msgstr "Click here to toggle display of star names"
 
 #: TutoLocationTitle
 msgctxt "TutoLocationTitle"
 msgid "Location"
-msgstr ""
+msgstr "Location"
 
 #: TutoLocationContent
 msgctxt "TutoLocationContent"
 msgid "Click here to set the sky to your current location"
-msgstr ""
+msgstr "Click here to set the sky to your current location"
 
 #: TutoWorldTitle
 msgctxt "TutoWorldTitle"
 msgid "Countries"
-msgstr ""
+msgstr "Countries"
 
 #: TutoWorldContent
 msgctxt "TutoWorldContent"
 msgid "Click here to select a country. You will see how the sky above this country looks"
-msgstr ""
+msgstr "Click here to select a country. You will see how the sky above this country looks"
 
 #: TutoViewTitle
 msgctxt "TutoViewTitle"
 msgid "Projection type"
-msgstr ""
+msgstr "Projection type"
 
 #: TutoViewContent
 msgctxt "TutoViewContent"
 msgid "Click here to choose projection type. It will change the way the sky is displayed"
-msgstr ""
+msgstr "Click here to choose projection type. It will change the way the sky is displayed"
 
 #: TutoTimeTitle
 msgctxt "TutoTimeTitle"
 msgid "Date & Time"
-msgstr ""
+msgstr "Date & Time"
 
 #: TutoTimeContent
 msgctxt "TutoTimeContent"
 msgid "Here you can see the date and time for which the sky is shown"
-msgstr ""
+msgstr "Here you can see the date and time for which the sky is shown"
 

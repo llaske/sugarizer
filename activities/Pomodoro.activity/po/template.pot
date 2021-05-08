@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Mon Mar 04 2019 23:58:04 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sat May 08 2021 22:18:22 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,10 @@ msgstr ""
 #: work
 msgctxt "work"
 msgid "Work"
-msgstr ""
+msgstr "Work"
 
 #: break
 msgctxt "break"
 msgid "Break"
-msgstr ""
+msgstr "Break"
 
