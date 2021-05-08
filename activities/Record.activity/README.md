@@ -11,4 +11,3 @@ Made by Michaël Ohayon for the Google Summer of Code 2015
 * Delete by Juan Garces from the Noun Project
 * Stop by Marc Grützmacher from the Noun Project
 
-You really should use https://play.google.com/store/apps/details?id=com.cyngn.cameranext with this app
