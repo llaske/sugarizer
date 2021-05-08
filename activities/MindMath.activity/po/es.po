@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:25:24 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 09:52:25 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,7 +170,7 @@ msgstr "Números iniciales"
 
 #: TutoInputNumbersContent
 msgctxt "TutoInputNumbersContent"
-msgid "These are the Input Numbers from which you can select the operands for your operation.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+msgid "These are the Input Numbers from which you can select the operands for your operation.<div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/diamond-bg.svg\"><span>Initial numbers</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/square-bg.svg\"><span>Results from previous operations</span></div></div>"
 msgstr "Estos son los números iniciales con los que debes realizar tus operaciones con los operadores básicos.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
 
 #: TutoTargetTitle
@@ -240,7 +240,7 @@ msgstr "Puntuación"
 
 #: TutoScoreContent
 msgctxt "TutoScoreContent"
-msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Number of operations</div><div style=\"font-weight:bold\">B. Types of operation</div><div>for '+','x' 1 point, for '-' 2 points, for '÷' 3 points. You will get the Bonus also if you use all the four operations exactly once.</div><div style=\"font-weight:bold\">C. Time Taken</div><div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).<div style=\"font-weight:bold\">D. Number of Hints Used</div><div style=\"font-weight:bold"
+msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Number of operations</div><div style=\"font-weight:bold\">B. Types of operation</div><div>for '+','x' 1 point, for '-' 2 points, for '÷' 3 points. You will get the Bonus also if you use all the four operations exactly once.</div><div style=\"font-weight:bold\">C. Time Taken</div><div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).<div style=\"font-weight:bold\">D. Number of Hints Used</div><div style=\"font-weight:bold;border:black solid\">score = (A+B+max(0,15-C/4))*(1-D/4)</div>"
 msgstr "Si resuelves el puzle, obtendrás los puntos que hayas calculado. Intenta siempre maximizar dicha puntuación. Dependerá de varios factores:<br><div style=\"font-weight:bold\">A. Número de operaciones</div><div style=\"font-weight:bold\">B. Tipos de operaciones</div><div>Si usas la operación \"+\" o \"x\": 1 punto / \"-\": 2 puntos / \"÷\": 3 puntos. También conseguirás una bonificación si usas todas las operaciones y solo una vez cada una.</div><div style=\"font-weight:bold\">C. Tiempo empleado</div><div>Si resuelves el puzle en menos de 1 minuto, ganarás una bonificación (que disminuirá cuanto más tiempo necesites).<div style=\"font-weight:bold\">D. Número de pistas usadas</div><div style=\"font-weight:bold"
 
 #: TutoCompulsoryOpTitle
@@ -251,7 +251,7 @@ msgstr "Operadores obligatorios"
 #: TutoCompulsoryOpContent
 msgctxt "TutoCompulsoryOpContent"
 msgid "You can choose Compulsory Operators from here. You have to include a compulsory operation in at least one slot, otherwise you won't be able to solve the puzzle even after obtaining the target number"
-msgstr "Puedes elegir los operadores obligatorios en esta sección. Debes incluir una operación obligatoria en, al menos, una de las casillas"
+msgstr "Puedes elegir los operadores obligatorios en esta sección. Debes incluir una operación obligatoria en, al menos, una de las casillas; si no lo haces, no podrás resolver el puzle (incluso si obtienes el número final)"
 
 #: TutoHintTitle
 msgctxt "TutoHintTitle"
