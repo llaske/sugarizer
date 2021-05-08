@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:31:57 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Fri May 07 2021 23:01:38 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -348,7 +348,7 @@ msgstr ""
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
-msgid "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+msgid "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/drag.svg\"><span>You can drag and drop the piece to move it.</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/click.svg\"><span>You can click or tap on the piece to rotate it.</span></div></div>"
 msgstr ""
 
 #: TutoKeyBoardTitle
@@ -358,7 +358,7 @@ msgstr ""
 
 #: TutoKeyBoardContent
 msgctxt "TutoKeyBoardContent"
-msgid "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+msgid "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/enter.svg\"><span>Select or Deselct Tans</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/arrows.svg\"><span>Move Tans</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/shift.svg\"><span>Rotate Tans</span></div></div>"
 msgstr ""
 
 #: TutoRefreshTitle
@@ -398,7 +398,7 @@ msgstr ""
 
 #: TutoScoreContent
 msgctxt "TutoScoreContent"
-msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold"
+msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold;border:black solid\">score = A+max(0,15-B/4)+C+D-E</div>"
 msgstr ""
 
 #: TutoHintTitle
