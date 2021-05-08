@@ -1,22 +1,25 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:21:53 GMT+0200 (heure d’été d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:21:53 GMT+0200 (heure d’été d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2021-04-11 14:16+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-labyrinthjs/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: LabyrinthImage
 msgctxt "LabyrinthImage"
 msgid "Image was saved to journal!"
-msgstr "Image was saved to journal!"
+msgstr "¡Imagen guardada en tu biblioteca!"
 
 #: YourNewIdea
 msgctxt "YourNewIdea"
@@ -302,4 +305,3 @@ msgstr "Disminuir fuente"
 msgctxt "TutoFontMinusContent"
 msgid "Click here to decrease the font size for the current text node."
 msgstr "Haz clic aquí para disminuir el tamaño de la fuente en el texto del nodo actual."
-
