@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:31:01 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:21:16 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,164 +16,164 @@ msgstr ""
 #: Time
 msgctxt "Time"
 msgid "Time"
-msgstr ""
+msgstr "Time"
 
 #: Score
 msgctxt "Score"
 msgid "Score"
-msgstr ""
+msgstr "Score"
 
 #: easy
 msgctxt "easy"
 msgid "easy"
-msgstr ""
+msgstr "easy"
 
 #: medium
 msgctxt "medium"
 msgid "medium"
-msgstr ""
+msgstr "medium"
 
 #: hard
 msgctxt "hard"
 msgid "hard"
-msgstr ""
+msgstr "hard"
 
 #: correct
 msgctxt "correct"
 msgid "correct"
-msgstr ""
+msgstr "correct"
 
 #: wrong
 msgctxt "wrong"
 msgid "wrong"
-msgstr ""
+msgstr "wrong"
 
 #. Do not translate {{name}} {{score}}
 #: GameOver
 msgctxt "GameOver"
 msgid "{{name}}'s score is {{score}}"
-msgstr ""
+msgstr "{{name}}'s score is {{score}}"
 
 #. Do not translate {{name}}
 #: GamePlaying
 msgctxt "GamePlaying"
 msgid "{{name}} is playing"
-msgstr ""
+msgstr "{{name}} is playing"
 
 #. Do not translate {{name}}
 #: joined
 msgctxt "joined"
 msgid "{{name}} joined!"
-msgstr ""
+msgstr "{{name}} joined!"
 
 #. Do not translate {{name}}
 #: left
 msgctxt "left"
 msgid "{{name}} left!"
-msgstr ""
+msgstr "{{name}} left!"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Sprint Math Activity"
-msgstr ""
+msgstr "Sprint Math Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Sprint Math activity. Sprint Math is a simple activity to challenge yourself on mental arithmetic"
-msgstr ""
+msgstr "Welcome into the Sprint Math activity. Sprint Math is a simple activity to challenge yourself on mental arithmetic"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the activity on the network so you could play against other users"
-msgstr ""
+msgstr "Click here to share the activity on the network so you could play against other users"
 
 #: TutoRestartTitle
 msgctxt "TutoRestartTitle"
 msgid "Restart"
-msgstr ""
+msgstr "Restart"
 
 #: TutoRestartContent
 msgctxt "TutoRestartContent"
 msgid "Click here to restart the game"
-msgstr ""
+msgstr "Click here to restart the game"
 
 #: TutoFilterTitle
 msgctxt "TutoFilterTitle"
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 #: TutoFilterContent
 msgctxt "TutoFilterContent"
 msgid "Click here to choose mathematical operations that you want to work on (addition, subtraction, multiplication or all of that)"
-msgstr ""
+msgstr "Click here to choose mathematical operations that you want to work on (addition, subtraction, multiplication or all of that)"
 
 #: TutoLevelTitle
 msgctxt "TutoLevelTitle"
 msgid "Level"
-msgstr ""
+msgstr "Level"
 
 #: TutoLevelContent
 msgctxt "TutoLevelContent"
 msgid "Click here to select the difficulty level (easy, medium, hard). More difficult the level is, more larger numbers are"
-msgstr ""
+msgstr "Click here to select the difficulty level (easy, medium, hard). More difficult the level is, more larger numbers are"
 
 #: TutoTimeTitle
 msgctxt "TutoTimeTitle"
 msgid "Time"
-msgstr ""
+msgstr "Time"
 
 #: TutoTimeContent
 msgctxt "TutoTimeContent"
 msgid "Time left to finish the game. You've got 60 seconds to solve a maximum of operations"
-msgstr ""
+msgstr "Time left to finish the game. You've got 60 seconds to solve a maximum of operations"
 
 #: TutoScoreTitle
 msgctxt "TutoScoreTitle"
 msgid "Score"
-msgstr ""
+msgstr "Score"
 
 #: TutoScoreContent
 msgctxt "TutoScoreContent"
 msgid "Your current score. Each correct answer increase the score of one"
-msgstr ""
+msgstr "Your current score. Each correct answer increase the score of one"
 
 #: TutoQuestionTitle
 msgctxt "TutoQuestionTitle"
 msgid "Question"
-msgstr ""
+msgstr "Question"
 
 #: TutoQuestionContent
 msgctxt "TutoQuestionContent"
 msgid "Here is the operation you have to solve"
-msgstr ""
+msgstr "Here is the operation you have to solve"
 
 #: TutoChoicesTitle
 msgctxt "TutoChoicesTitle"
 msgid "Choices"
-msgstr ""
+msgstr "Choices"
 
 #: TutoChoicesContent
 msgctxt "TutoChoicesContent"
 msgid "Select the correct answer in these 4 propositions"
-msgstr ""
+msgstr "Select the correct answer in these 4 propositions"
 

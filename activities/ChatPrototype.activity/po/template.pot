@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:09:31 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 21:59:18 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,140 +16,140 @@ msgstr ""
 #: WriteYourMessage
 msgctxt "WriteYourMessage"
 msgid "Write your message here..."
-msgstr ""
+msgstr "Write your message here..."
 
 #: DisconnectedFromWebSocket
 msgctxt "DisconnectedFromWebSocket"
 msgid "Disconnected From Web Socket."
-msgstr ""
+msgstr "Disconnected From Web Socket."
 
 #: ConnectionClosed
 msgctxt "ConnectionClosed"
 msgid "Connection Closed"
-msgstr ""
+msgstr "Connection Closed"
 
 #: Connected
 msgctxt "Connected"
 msgid "Connected"
-msgstr ""
+msgstr "Connected"
 
 #: Error
 msgctxt "Error"
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: status
 msgctxt "status"
 msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
-msgstr ""
+msgstr "Click on the Neighborhood icon in the presence palette to start the Chat"
 
 #: Join
 msgctxt "Join"
 msgid "join"
-msgstr ""
+msgstr "join"
 
 #: Leave
 msgctxt "Leave"
 msgid "leave"
-msgstr ""
+msgstr "leave"
 
 #: Chat
 msgctxt "Chat"
 msgid "the chat"
-msgstr ""
+msgstr "the chat"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Chat Activity"
-msgstr ""
+msgstr "Chat Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
-msgstr ""
+msgstr "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Join Network"
-msgstr ""
+msgstr "Join Network"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Want to start a Chat? Click on the Neighborhood icon in this menu"
-msgstr ""
+msgstr "Want to start a Chat? Click on the Neighborhood icon in this menu"
 
 #: TutoMessageTitle
 msgctxt "TutoMessageTitle"
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: TutoMessageContent
 msgctxt "TutoMessageContent"
 msgid "Write your message here and hit enter to share it in your conversation"
-msgstr ""
+msgstr "Write your message here and hit enter to share it in your conversation"
 
 #: TutoStopTitle
 msgctxt "TutoStopTitle"
 msgid "Quit"
-msgstr ""
+msgstr "Quit"
 
 #: TutoStopContent
 msgctxt "TutoStopContent"
 msgid "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
-msgstr ""
+msgstr "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
 
 #: TutoImageTitle
 msgctxt "TutoImageTitle"
 msgid "Share Image"
-msgstr ""
+msgstr "Share Image"
 
 #: TutoImageContent
 msgctxt "TutoImageContent"
 msgid "Click this icon if you want to send an image in your conversation"
-msgstr ""
+msgstr "Click this icon if you want to send an image in your conversation"
 
 #: TutoSmileyTitle
 msgctxt "TutoSmileyTitle"
 msgid "Smiley Emojis"
-msgstr ""
+msgstr "Smiley Emojis"
 
 #: TutoSmileyContent
 msgctxt "TutoSmileyContent"
 msgid "Express Smiles. Send Smiley Emojis in message"
-msgstr ""
+msgstr "Express Smiles. Send Smiley Emojis in message"
 
 #: TutoSadTitle
 msgctxt "TutoSadTitle"
 msgid "Sad Emojis"
-msgstr ""
+msgstr "Sad Emojis"
 
 #: TutoSadContent
 msgctxt "TutoSadContent"
 msgid "Express Sadness. Send Sad Emojis in message"
-msgstr ""
+msgstr "Express Sadness. Send Sad Emojis in message"
 
 #: TutoEmojiTitle
 msgctxt "TutoEmojiTitle"
 msgid "Other Emojis"
-msgstr ""
+msgstr "Other Emojis"
 
 #: TutoEmojiContent
 msgctxt "TutoEmojiContent"
 msgid "Have a different expression. Look through the list to send different Emojis"
-msgstr ""
+msgstr "Have a different expression. Look through the list to send different Emojis"
 

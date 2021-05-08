@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:32:17 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:24:34 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,85 +16,85 @@ msgstr ""
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Video Viewer Activity"
-msgstr ""
+msgstr "Video Viewer Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Video Viewer Activity. A browser and a viewer for Khan Academy, Canopé videos and more."
-msgstr ""
+msgstr "Welcome to the Video Viewer Activity. A browser and a viewer for Khan Academy, Canopé videos and more."
 
 #: TutoFilterTitle
 msgctxt "TutoFilterTitle"
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: TutoFilterContent
 msgctxt "TutoFilterContent"
 msgid "Click here to filter the videos by category"
-msgstr ""
+msgstr "Click here to filter the videos by category"
 
 #: TutoFavoriteTitle
 msgctxt "TutoFavoriteTitle"
 msgid "Favorite videos"
-msgstr ""
+msgstr "Favorite videos"
 
 #: TutoFavoriteContent
 msgctxt "TutoFavoriteContent"
 msgid "Click here to see the videos marked by you as favorite"
-msgstr ""
+msgstr "Click here to see the videos marked by you as favorite"
 
 #: TutoLibraryTitle
 msgctxt "TutoLibraryTitle"
 msgid "Libraries"
-msgstr ""
+msgstr "Libraries"
 
 #: TutoLibraryContent
 msgctxt "TutoLibraryContent"
 msgid "Click here to choose between Khan Academy, Canopé videos or to add your own library"
-msgstr ""
+msgstr "Click here to choose between Khan Academy, Canopé videos or to add your own library"
 
 #: TutoExportvideoTitle
 msgctxt "TutoExportvideoTitle"
 msgid "Export videos"
-msgstr ""
+msgstr "Export videos"
 
 #: TutoExportvideoContent
 msgctxt "TutoExportvideoContent"
 msgid "Click here to save a video in the Journal. First click here then click on the video you want to save"
-msgstr ""
+msgstr "Click here to save a video in the Journal. First click here then click on the video you want to save"
 
 #: TutoVideoTitle
 msgctxt "TutoVideoTitle"
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: TutoVideoContent
 msgctxt "TutoVideoContent"
 msgid "Click here to play the video"
-msgstr ""
+msgstr "Click here to play the video"
 
 #: TutoSearchTitle
 msgctxt "TutoSearchTitle"
 msgid "Search"
-msgstr ""
+msgstr "Search"
 
 #: TutoSearchContent
 msgctxt "TutoSearchContent"
 msgid "Type here to search for a video by its name"
-msgstr ""
+msgstr "Type here to search for a video by its name"
 

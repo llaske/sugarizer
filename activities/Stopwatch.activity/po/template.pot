@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Mar 07 2020 22:13:17 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sat May 08 2021 22:21:38 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,85 +16,85 @@ msgstr ""
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Stopwatch Activity"
-msgstr ""
+msgstr "Stopwatch Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Stopwatch activity. Stopwatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent"
-msgstr ""
+msgstr "Welcome to the Stopwatch activity. Stopwatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent"
 
 #: TutoAddTitle
 msgctxt "TutoAddTitle"
 msgid "Add"
-msgstr ""
+msgstr "Add"
 
 #: TutoAddContent
 msgctxt "TutoAddContent"
 msgid "Press this icon to add a new Stopwatch"
-msgstr ""
+msgstr "Press this icon to add a new Stopwatch"
 
 #: TutoCounterTitle
 msgctxt "TutoCounterTitle"
 msgid "Counter"
-msgstr ""
+msgstr "Counter"
 
 #: TutoCounterContent
 msgctxt "TutoCounterContent"
 msgid "Displays the current time of the Stopwatch"
-msgstr ""
+msgstr "Displays the current time of the Stopwatch"
 
 #: TutoStartStopTitle
 msgctxt "TutoStartStopTitle"
 msgid "Start/Stop"
-msgstr ""
+msgstr "Start/Stop"
 
 #: TutoStartStopContent
 msgctxt "TutoStartStopContent"
 msgid "Press this icon to Start/Stop the Stopwatch"
-msgstr ""
+msgstr "Press this icon to Start/Stop the Stopwatch"
 
 #: TutoResetTitle
 msgctxt "TutoResetTitle"
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: TutoResetContent
 msgctxt "TutoResetContent"
 msgid "Press this icon to reset the Stopwatch"
-msgstr ""
+msgstr "Press this icon to reset the Stopwatch"
 
 #: TutoMarkTitle
 msgctxt "TutoMarkTitle"
 msgid "Lap"
-msgstr ""
+msgstr "Lap"
 
 #: TutoMarkContent
 msgctxt "TutoMarkContent"
 msgid "Press this icon to add an intermediate time lap"
-msgstr ""
+msgstr "Press this icon to add an intermediate time lap"
 
 #: TutoRemoveTitle
 msgctxt "TutoRemoveTitle"
 msgid "Remove"
-msgstr ""
+msgstr "Remove"
 
 #: TutoRemoveContent
 msgctxt "TutoRemoveContent"
 msgid "Press this icon to remove this Stopwatch from list"
-msgstr ""
+msgstr "Press this icon to remove this Stopwatch from list"
 

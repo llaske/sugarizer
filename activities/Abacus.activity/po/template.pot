@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:04:41 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 21:56:08 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,75 +16,75 @@ msgstr ""
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Abacus Activity"
-msgstr ""
+msgstr "Abacus Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Abacus activity. Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese"
-msgstr ""
+msgstr "Welcome into the Abacus activity. Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese"
 
 #: TutoAbacusTitle
 msgctxt "TutoAbacusTitle"
 msgid "Abacus Choice"
-msgstr ""
+msgstr "Abacus Choice"
 
 #: TutoAbacusContent
 msgctxt "TutoAbacusContent"
 msgid "Click here to select the type of Abacus to use. Some Abacus handle decimals, some handle fractions, some handle number in base 2 and you could even create your own abacus"
-msgstr ""
+msgstr "Click here to select the type of Abacus to use. Some Abacus handle decimals, some handle fractions, some handle number in base 2 and you could even create your own abacus"
 
 #: TutoCustomTitle
 msgctxt "TutoCustomTitle"
 msgid "Custom"
-msgstr ""
+msgstr "Custom"
 
 #: TutoCustomContent
 msgctxt "TutoCustomContent"
 msgid "Click here to create a custom abacus. You could define number of rods, lines and base"
-msgstr ""
+msgstr "Click here to create a custom abacus. You could define number of rods, lines and base"
 
 #: TutoCopyTitle
 msgctxt "TutoCopyTitle"
 msgid "Copy"
-msgstr ""
+msgstr "Copy"
 
 #: TutoCopyContent
 msgctxt "TutoCopyContent"
 msgid "Click here to copy the current value into the clipboard"
-msgstr ""
+msgstr "Click here to copy the current value into the clipboard"
 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr ""
+msgstr "Clear"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
 msgid "Click here to reinit the value of abacus to 0"
-msgstr ""
+msgstr "Click here to reinit the value of abacus to 0"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Abacus"
-msgstr ""
+msgstr "Abacus"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Here is the abacus. Click or drag the beads toward the central zone to set numbers"
-msgstr ""
+msgstr "Here is the abacus. Click or drag the beads toward the central zone to set numbers"
 
