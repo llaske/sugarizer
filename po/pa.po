@@ -1,0 +1,1783 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Apr 11 2021 11:03:26 GMT+0200 (heure dâ€™Ã©tÃ© dâ€™Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: StartNew
+msgctxt "StartNew"
+msgid "Start new"
+msgstr "ਨਵਾਂ ਸ਼ੁਰੂ ਕਰੋ "
+
+#. Do not translate {{name}}
+#: NameActivity
+msgctxt "NameActivity"
+msgid "{{name}} Activity"
+msgstr "{{name}} ਐਕਟੀਵਿਟੀ "
+
+#: RemoveFavorite
+msgctxt "RemoveFavorite"
+msgid "Remove favorite"
+msgstr "ਪਸੰਦੀਦਾਰ ਹਟਾਓ "
+
+#: MakeFavorite
+msgctxt "MakeFavorite"
+msgid "Make favorite"
+msgstr "ਪਸੰਦੀਦਾਰ ਬਣਾਓ "
+
+#. Do not translate {{number}}
+#: VersionNumber
+msgctxt "VersionNumber"
+msgid "Version {{number}}"
+msgstr "ਵਰਜਨ {{number}}"
+
+#: FavoritesView
+msgctxt "FavoritesView"
+msgid "Favorites view"
+msgstr "ਪਸੰਦੀਦਾਰ ਦਿੱਖ"
+
+#: ListView
+msgctxt "ListView"
+msgid "List view"
+msgstr "ਲਿਸਟ ਦਿੱਖ"
+
+#: Home
+msgctxt "Home"
+msgid "Home"
+msgstr "ਘਰ"
+
+#: FilterFavorites
+msgctxt "FilterFavorites"
+msgid "Filter favorites"
+msgstr "ਫਿਲਟਰ ਪਸੰਦੀਦਾਰ"
+
+#: SecondsAgo
+msgctxt "SecondsAgo"
+msgid "Seconds ago"
+msgstr "ਕੁਝ ਚਿਰ ਪਹਿਲਾ"
+
+#. Do not translate {{time}}
+#: Ago
+msgctxt "Ago"
+msgid "{{time}} ago"
+msgstr "{{time}} ਪਹਿਲਾ 
+
+#: Minutes_one
+msgctxt "Minutes_one"
+msgid "minute"
+msgstr "ਮਿੰਟ"
+
+#: Minutes_other
+msgctxt "Minutes_other"
+msgid "minutes"
+msgstr "ਮਿੰਟਸ"
+
+#: Hours_one
+msgctxt "Hours_one"
+msgid "hour"
+msgstr "ਘੰਟਾ"
+
+#: Hours_other
+msgctxt "Hours_other"
+msgid "hours"
+msgstr "ਘੰਟੇ"
+
+#: Days_one
+msgctxt "Days_one"
+msgid "day"
+msgstr "ਦਿਨ"
+
+#: Days_other
+msgctxt "Days_other"
+msgid "days"
+msgstr "ਦਿਨ"
+
+#: Weeks_one
+msgctxt "Weeks_one"
+msgid "week"
+msgstr "ਹਫਤਾ"
+
+#: Weeks_other
+msgctxt "Weeks_other"
+msgid "weeks"
+msgstr "ਹਫਤੇ"
+
+#: Months_one
+msgctxt "Months_one"
+msgid "month"
+msgstr "ਮਹੀਨਾ"
+
+#: Months_other
+msgctxt "Months_other"
+msgid "months"
+msgstr "ਮਹੀਨੇ"
+
+#: Years_one
+msgctxt "Years_one"
+msgid "year"
+msgstr "ਸਾਲ"
+
+#: Years_other
+msgctxt "Years_other"
+msgid "years"
+msgstr "ਸਾਲ"
+
+#: SecondsAgo_short
+msgctxt "SecondsAgo_short"
+msgid "Sec. ago"
+msgstr "ਕੁਜ ਚਿਰ ਪਹਿਲਾ"
+
+#. Do not translate {{time}}
+#: Ago_short
+msgctxt "Ago_short"
+msgid " ago"
+msgstr "{{time}} ਪਹਿਲਾ"
+
+#: Minutes_one_short
+msgctxt "Minutes_one_short"
+msgid "mn"
+msgstr "ਤੋਂ"
+
+#: Minutes_other_short
+msgctxt "Minutes_other_short"
+msgid "mn"
+msgstr "ਤੋਂ"
+
+#: Hours_one_short
+msgctxt "Hours_one_short"
+msgid "hr"
+msgstr "ਘੰਟਾ"
+
+#: Hours_other_short
+msgctxt "Hours_other_short"
+msgid "hr"
+msgstr "ਘੰਟਾ"
+
+#: Days_one_short
+msgctxt "Days_one_short"
+msgid "dy"
+msgstr " ਦਿਨ"
+
+#: Days_other_short
+msgctxt "Days_other_short"
+msgid "dy"
+msgstr " ਦਿਨ"
+
+#: Weeks_one_short
+msgctxt "Weeks_one_short"
+msgid "wk"
+msgstr "wk"
+
+#: Weeks_other_short
+msgctxt "Weeks_other_short"
+msgid "wk"
+msgstr "ਹਫ਼ਤਾ"
+
+#: Months_one_short
+msgctxt "Months_one_short"
+msgid "mo"
+msgstr "ਮਹੀਨਾ"
+
+#: Months_other_short
+msgctxt "Months_other_short"
+msgid "mo"
+msgstr "ਮਹੀਨਾ"
+
+#: Years_one_short
+msgctxt "Years_one_short"
+msgid "yr"
+msgstr "ਸਾਲ"
+
+#: Years_other_short
+msgctxt "Years_other_short"
+msgid "yr"
+msgstr "ਸਾਲ"
+
+#: Shutdown
+msgctxt "Shutdown"
+msgid "Shutdown"
+msgstr "ਬੰਦ"
+
+#: Restart
+msgctxt "Restart"
+msgid "Restart"
+msgstr "ਦੁਬਾਰਾ ਚਾਲੂ "
+
+#: MySettings
+msgctxt "MySettings"
+msgid "My Settings"
+msgstr "ਮੇਰੀਆਂ ਸੈਟਿੰਗ"
+
+#: SearchHome
+msgctxt "SearchHome"
+msgid "Search in home"
+msgstr "ਘਰ ਵਿਚੋਂ ਲੱਬੋ"
+
+#: JournalEmpty
+msgctxt "JournalEmpty"
+msgid "Your journal is empty"
+msgstr "ਤੁਹਾਡਾ ਰਸਾਲਾ ਖਾਲੀ ਹੈ"
+
+#: NoMatchingActivities
+msgctxt "NoMatchingActivities"
+msgid "No matching activities"
+msgstr "ਕੋਈ ਵੀ ਇਕੋ ਜਿਹੀ ਹਰਕਤ ਨਹੀਂ ਹੈ"
+
+#: ClearSearch
+msgctxt "ClearSearch"
+msgid "Clear search"
+msgstr "ਭਾਲ ਮਿਟਾ ਦਵੋ "
+
+#: SearchJournal
+msgctxt "SearchJournal"
+msgid "Search in journal"
+msgstr "ਰਸਾਲੇ ਵਿਚੋਂ ਲੱਬੋ"
+
+#: Anytime
+msgctxt "Anytime"
+msgid "Anytime"
+msgstr "ਕੋਈ ਵੀ ਸਮਾਂ "
+
+#: Today
+msgctxt "Today"
+msgid "Today"
+msgstr "ਅੱਜ"
+
+#: SinceYesterday
+msgctxt "SinceYesterday"
+msgid "Since yesterday"
+msgstr "ਕਲ ਤੋਂ "
+
+#: PastWeek
+msgctxt "PastWeek"
+msgid "Past week"
+msgstr "ਪਿਛਲੇ ਹਫਤੇ ਤੋਂ"
+
+#: PastMonth
+msgctxt "PastMonth"
+msgid "Past month"
+msgstr "ਪਿਛਲੇ ਮਹੀਨੇ ਤੋਂ"
+
+#: PastYear
+msgctxt "PastYear"
+msgid "Past year"
+msgstr "ਪਿਛਲੇ ਸਾਲ ਤੋਂ"
+
+#: Anything
+msgctxt "Anything"
+msgid "Anything"
+msgstr "ਕੁਝ ਵੀ "
+
+#: NoMatchingEntries
+msgctxt "NoMatchingEntries"
+msgid "No matching entries"
+msgstr "ਕੋਈ ਵੀ ਇਕੋ ਜੇਹਾ ਦਾਖਲਾ ਨਹੀਂ "
+
+#: SearchSettings
+msgctxt "SearchSettings"
+msgid "Search in settings"
+msgstr "ਸੈਟਿੰਗਸ ਵਿਚ ਲੱਬੋ "
+
+#: AboutMe
+msgctxt "AboutMe"
+msgid "About me"
+msgstr "ਮੇਰੇ ਬਾਰੇ"
+
+#: AboutMyComputer
+msgctxt "AboutMyComputer"
+msgid "About my computer"
+msgstr "ਮੇਰੇ ਕੰਪਿਊਟਰ ਬਾਰੇ"
+
+#: MySecurity
+msgctxt "MySecurity"
+msgid "My security"
+msgstr "ਮੇਰੀ ਰਾਖੀ"
+
+#: SecurityMessage
+msgctxt "SecurityMessage"
+msgid "If you want to change your images, first type current images:"
+msgstr "ਜੇ ਤੁਸੀਂ ਆਪਦੀ ਤਸਵੀਰ ਬਦਲਣਾ ਚਾਉਂਦੇ ਹੋ, ਤਾ ਪਹਿਲਾ ਆਪਦੀ ਅੱਜ ਦੀ ਤਸਵੀਰ ਲਿਖੋ "
+
+#. Do not translate {{min}}
+#: SecurityMessageNew
+msgctxt "SecurityMessageNew"
+msgid "Now choose at least {{min}} new images:"
+msgstr "ਘਟੋਂ ਘਟ ਚੁਣੋ {{min}} ਨਵੀ ਤਸਵੀਰ "
+
+#: SecurityMessageDone
+msgctxt "SecurityMessageDone"
+msgid "Images updated!"
+msgstr "ਤਸਵੀਰ ਬਾਦਲ ਦਿੱਤੀ ਗਯੀ ਹੈ"
+
+#: InvalidPassword
+msgctxt "InvalidPassword"
+msgid "Invalid images"
+msgstr "ਤਸਵੀਰ ਠੀਕ ਨਹੀਂ ਹੈ "
+
+#: MyPrivacy
+msgctxt "MyPrivacy"
+msgid "My privacy"
+msgstr "ਮੇਰੀ ਪਰਦੇਦਾਰੀ"
+
+#: PrivacyStats
+msgctxt "PrivacyStats"
+msgid "Do not send to the server statistics about my usage of the app"
+msgstr " ਐਪ ਦੀ ਮੇਰੀ ਵਰਤੋਂ ਬਾਰੇ ਸਰਵਰ ਦੇ ਅੰਕੜਿਆਂ ਨੂੰ ਨਾ ਭੇਜੋ"
+
+#: PrivacySync
+msgctxt "PrivacySync"
+msgid "Do not synchronize my local journal with the server"
+msgstr " ਮੇਰੀ ਸਥਾਨਕ ਜਰਨਲ ਨੂੰ ਸਰਵਰ ਨਾਲ ਸਮਕਾਲੀ ਨਾ ਕਰੋ"
+
+#: Language
+msgctxt "Language"
+msgid "Language"
+msgstr "ਭਾਸ਼ਾ"
+
+#: Done
+msgctxt "Done"
+msgid "Done"
+msgstr "ਹੋ ਗਿਆ"
+
+#: Ok
+msgctxt "Ok"
+msgid "Ok"
+msgstr "ਠੀਕ ਹੈ"
+
+#: Cancel
+msgctxt "Cancel"
+msgid "Cancel"
+msgstr "ਰੱਦ ਕਰੋ"
+
+#: ClickToChangeColor
+msgctxt "ClickToChangeColor"
+msgid "Click to change color:"
+msgstr "ਰੰਗ ਬਦਲਣ ਲਈ ਕਲਿਕ ਕਰੋ"
+
+#: Warning
+msgctxt "Warning"
+msgid "Warning"
+msgstr "ਚੇਤਾਵਨੀ"
+
+#: ChangesRequireRestart
+msgctxt "ChangesRequireRestart"
+msgid "Changes require restart"
+msgstr "ਤਬਦੀਲੀਆਂ ਲਈ ਮੁੜ ਚਾਲੂ ਹੋਣਾ ਪੈਂਦਾ ਹੈ"
+
+#: CancelChanges
+msgctxt "CancelChanges"
+msgid "Cancel changes"
+msgstr "ਤਬਦੀਲੀਆਂ ਰੱਦ ਕਰੋ"
+
+#: RestartNow
+msgctxt "RestartNow"
+msgid "Restart now"
+msgstr "ਹੁਣ ਮੁੜ ਚਾਲੂ ਕਰੋ"
+
+#: ChooseLanguage
+msgctxt "ChooseLanguage"
+msgid "Choose language you prefer:"
+msgstr "ਆਪਣੀ ਪਸੰਦ ਦੀ ਭਾਸ਼ਾ ਚੁਣੋ"
+
+#: English
+msgctxt "English"
+msgid "English"
+msgstr "ਅੰਗਰੇਜ਼ੀ"
+
+#: Spanish
+msgctxt "Spanish"
+msgid "Spanish"
+msgstr "ਸਪੈਨਿਸ਼"
+
+#: French
+msgctxt "French"
+msgid "French"
+msgstr "ਫ੍ਰੈਂਚ"
+
+#: Igbo
+msgctxt "Igbo"
+msgid "Igbo"
+msgstr "ਇਗਬੋ"
+
+#: Yoruba
+msgctxt "Yoruba"
+msgid "Yoruba"
+msgstr "ਯੋਰੂਬਾ"
+
+#: German
+msgctxt "German"
+msgid "German"
+msgstr "ਜਰਮਨ"
+
+#: Arabic
+msgctxt "Arabic"
+msgid "Arabic"
+msgstr "ਅਰਬੀ"
+
+#: Japanese
+msgctxt "Japanese"
+msgid "Japanese"
+msgstr "ਜਪਾਨੀ"
+
+#: Polish
+msgctxt "Polish"
+msgid "Polish"
+msgstr "ਪੋਲਿਸ਼"
+
+#: Portuguese
+msgctxt "Portuguese"
+msgid "Portuguese"
+msgstr "ਪੁਰਤਗਾਲੀ"
+
+#: Software
+msgctxt "Software"
+msgid "Software"
+msgstr "ਸਾਫਟਵੇਅਰ"
+
+#: ClientType
+msgctxt "ClientType"
+msgid "Client type:"
+msgstr "ਕਲਾਇੰਟ ਦੀ ਕਿਸਮ: "
+
+#: Browser
+msgctxt "Browser"
+msgid "Browser:"
+msgstr "ਬ੍ਰਾਜ਼ਰ"
+
+#: BrowserVersion
+msgctxt "BrowserVersion"
+msgid "Browser version:"
+msgstr "ਬ੍ਰਾਜ਼ਰ ਵਰਜਨ"
+
+#: UserAgent
+msgctxt "UserAgent"
+msgid "User agent:"
+msgstr "ਉਪਭੋਗਤਾ ਏਜੰਟ"
+
+#: Storage
+msgctxt "Storage"
+msgid "Storage:"
+msgstr "ਸਟੋਰੇਜ"
+
+#. Do not translate {{used}} {{formatted}}
+#: StorageSize
+msgctxt "StorageSize"
+msgid "{{used}} bytes - {{formatted}}"
+msgstr "{{used}} ਬਾਈਟ - {{formatted}}"
+
+#: JournalAlmostFull
+msgctxt "JournalAlmostFull"
+msgid "Warning: Journal almost full!"
+msgstr "ਚੇਤਾਵਨੀ: ਜਰਨਲ ਲਗਭਗ ਭਰਿਆ ਹੋਇਆ ਹੈ!
+
+#: ShortForBytes
+msgctxt "ShortForBytes"
+msgid "b"
+msgstr "ਬੀ"
+
+#: ShortForKilobytes
+msgctxt "ShortForKilobytes"
+msgid "Kb"
+msgstr "ਕੇ.ਬੀ."
+
+#: ShortForMegabytes
+msgctxt "ShortForMegabytes"
+msgid "Mb"
+msgstr "ਐਮ.ਬੀ."
+
+#: Copyright
+msgctxt "Copyright"
+msgid "Copyright and license"
+msgstr "
+ਕਾਪੀਰਾਈਟ ਅਤੇ ਲਾਇਸੰਸ"
+
+#: LicenseTerms
+msgctxt "LicenseTerms"
+msgid "Sugarizer is an open source software licensed under the Apache 2.0 license."
+msgstr "ਸ਼ੂਗਰਾਈਜ਼ਰ ਇੱਕ ਓਪਨ ਸੋਰਸ ਸਾੱਫਟਵੇਅਰ ਹੈ ਜੋ ਅਪਾਚੇ 2.0 ਲਾਇਸੈਂਸ ਅਧੀਨ ਲਾਇਸੈਂਸਸ਼ੁਦਾ ਹੈ."
+
+#: LicenseTermsPlus
+msgctxt "LicenseTermsPlus"
+msgid "Most activities use this license too but some could use a different license, check the README file to be sure."
+msgstr 
+"ਬਹੁਤੀਆਂ ਗਤੀਵਿਧੀਆਂ ਇਸ ਲਾਇਸੈਂਸ ਦੀ ਵਰਤੋਂ ਵੀ ਕਰਦੀਆਂ ਹਨ ਪਰ ਕੁਝ ਵੱਖਰੇ ਲਾਇਸੈਂਸ ਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੀਆਂ ਹਨ, ਇਹ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ README ਫਾਈਲ ਦੀ ਜਾਂਚ ਕਰੋ."
+
+#: RestartActivity
+msgctxt "RestartActivity"
+msgid "Restart"
+msgstr "ਮੁੜ ਚਾਲੂ ਕਰੋ"
+
+#: CopyToLocal
+msgctxt "CopyToLocal"
+msgid "Copy to local"
+msgstr "ਸਥਾਨਕ ਨੂੰ ਕਾਪੀ ਕਰੋ"
+
+#: CopyToPrivate
+msgctxt "CopyToPrivate"
+msgid "Copy to remote"
+msgstr ""
+
+#: CopyToShared
+msgctxt "CopyToShared"
+msgid "Copy to shared"
+msgstr "ਰਿਮੋਟ ਤੇ ਕਾਪੀ ਕਰੋ"
+
+#. Do not translate {{user}}
+#: ByUser
+msgctxt "ByUser"
+msgid "by {{user}}"
+msgstr "ਨਾਲ {{user}}"
+
+#: Erase
+msgctxt "Erase"
+msgid "Erase"
+msgstr "ਮਿਟਾਓ"
+
+#: ErrorLoadingRemote
+msgctxt "ErrorLoadingRemote"
+msgid "Remote server not responding"
+msgstr "ਰਿਮੋਟ ਸਰਵਰ ਜਵਾਬ ਨਹੀਂ ਦੇ ਰਿਹਾ"
+
+#: Retry
+msgctxt "Retry"
+msgid "Retry"
+msgstr ""
+
+#: Server
+msgctxt "Server"
+msgid "About my server"
+msgstr "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+
+#: ConnectedToServer
+msgctxt "ConnectedToServer"
+msgid "Connected to a server"
+msgstr "ਇੱਕ ਸਰਵਰ ਨਾਲ ਜੁੜਿਆ"
+
+#: ServerUrl
+msgctxt "ServerUrl"
+msgid "Server address:"
+msgstr "ਸਰਵਰ ਦਾ ਐਡਰੈੱਸ"
+
+#: ServerDescription
+msgctxt "ServerDescription"
+msgid "Description:"
+msgstr "ਵੇਰਵਾ"
+
+#: ServerName
+msgctxt "ServerName"
+msgid "Server Name:"
+msgstr "ਸਰਵਰ ਨਾਮ"
+
+#: UserId
+msgctxt "UserId"
+msgid "User name on server:"
+msgstr "ਸਰਵਰ ਉੱਤੇ ਯੂਜ਼ਰ ਨਾਮ"
+
+#: SessionExpired
+msgctxt "SessionExpired"
+msgid "Server connection expired"
+msgstr "ਸਰਵਰ ਕੁਨੈਕਸ਼ਨ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ"
+
+#: SecurityMessageExpired
+msgctxt "SecurityMessageExpired"
+msgid "Connection expired, type your images:"
+msgstr "ਕਨੈਕਸ਼ਨ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ, ਆਪਣੀਆਂ ਤਸਵੀਰਾਂ ਟਾਈਪ ਕਰੋ"
+
+#: NeighborhoodView
+msgctxt "NeighborhoodView"
+msgid "Neighborhood View"
+msgstr "ਨੇਬਰਹੁੱਡ ਦ੍ਰਿਸ਼"
+
+#: SearchNeighbor
+msgctxt "SearchNeighbor"
+msgid "Search in Neighborhood"
+msgstr "ਨੇਬਰਹੁੱਡ ਵਿੱਚ ਖੋਜ ਕਰੋ"
+
+#: Connected
+msgctxt "Connected"
+msgid "Connected"
+msgstr "ਜੁੜਿਆ"
+
+#: JoinActivity
+msgctxt "JoinActivity"
+msgid "Join"
+msgstr "ਜੁੜੋ"
+
+#: Name
+msgctxt "Name"
+msgid "Name:"
+msgstr "ਨਾਮ"
+
+#: Next
+msgctxt "Next"
+msgid "Next"
+msgstr "ਅਗਲਾ"
+
+#: Back
+msgctxt "Back"
+msgid "Back"
+msgstr "ਵਾਪਸ"
+
+#: ClickToColor
+msgctxt "ClickToColor"
+msgid "Click to change color:"
+msgstr "ਰੰਗ ਬਦਲਣ ਲਈ ਕਲਿਕ ਕਰੋ"
+
+#: NewUser
+msgctxt "NewUser"
+msgid "New user"
+msgstr "ਨਵਾਂ ਯੂਜ਼ਰ"
+
+#: Login
+msgctxt "Login"
+msgid "Login"
+msgstr "ਲਾਗਿਨ"
+
+#: Logoff
+msgctxt "Logoff"
+msgid "Logoff"
+msgstr "ਲਾਗ ਆਫ"
+
+#: ChooseName
+msgctxt "ChooseName"
+msgid "Choose name:"
+msgstr "ਨਾਮ ਚੁਣੋ"
+
+#: Password
+msgctxt "Password"
+msgid "Your images:"
+msgstr "ਤੁਹਾਡੀਆਂ ਤਸਵੀਰਾਂ"
+
+#. Do not translate {{min}}
+#: ChoosePassword
+msgctxt "ChoosePassword"
+msgid "Choose at least {{min}} images:"
+msgstr "ਘੱਟੋ ਘੱਟ {{min}} ਚਿੱਤਰਾਂ ਦੀ ਚੋਣ ਕਰੋ"
+
+#: UserLoginInvalid
+msgctxt "UserLoginInvalid"
+msgid "Invalid user name or images"
+msgstr "ਅਪ੍ਰਮਾਣਿਕ ਉਪਭੋਗਤਾ ਨਾਮ ਜਾਂ ਤਸਵੀਰਾਂ"
+
+#: UserAlreadyExist
+msgctxt "UserAlreadyExist"
+msgid "User already exist"
+msgstr "ਉਪਭੋਗਤਾ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ"
+
+#. Do not translate {{code}}
+#: ServerError
+msgctxt "ServerError"
+msgid "Server error code {{code}}"
+msgstr "ਸਰਵਰ ਗਲਤੀ ਕੋਡ"
+
+#: ServerNotSet
+msgctxt "ServerNotSet"
+msgid "Your server is not set"
+msgstr "ਤੁਹਾਡਾ ਸਰਵਰ ਸੈਟ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ"
+
+#: AndroidSettings
+msgctxt "AndroidSettings"
+msgid "Android Settings"
+msgstr "ਐਂਡਰਾਇਡ ਸੈਟਿੰਗਜ਼"
+
+#: ResetLauncher
+msgctxt "ResetLauncher"
+msgid "Switch Launcher"
+msgstr "ਸਵਿਚ ਲਾਂਚਰ"
+
+#: JoinNetwork
+msgctxt "JoinNetwork"
+msgid "Join Network"
+msgstr "ਨੈੱਟਵਰਕ ਨਾਲ ਜੁੜੋ"
+
+#: EnterKey
+msgctxt "EnterKey"
+msgid "Enter shared key"
+msgstr "ਸਾਂਝੀ ਕੁੰਜੀ ਦਰਜ ਕਰੋ"
+
+#: SetLauncherTitle
+msgctxt "SetLauncherTitle"
+msgid "Change the launcher"
+msgstr "ਲਾਂਚਰ ਬਦਲੋ"
+
+#. Do not translate {{launcher}}
+#: SetLauncherText
+msgctxt "SetLauncherText"
+msgid "You can use either SugarizerOS as a launcher or only use the Sugarizer environment as an application with your native launcher. The launcher you are actually using is {{launcher}}, click on the icon of the launcher you want to switch to."
+msgstr "ਤੁਸੀਂ ਜਾਂ ਤਾਂ ਸ਼ੂਗਰਾਈਜ਼ਰ ਨੂੰ ਇਕ ਲਾਂਚਰ ਦੇ ਤੌਰ ਤੇ ਵਰਤ ਸਕਦੇ ਹੋ ਜਾਂ ਸਿਰਫ ਸ਼ੂਗਰਾਈਜ਼ਰ ਵਾਤਾਵਰਣ ਦੀ ਵਰਤੋਂ ਆਪਣੇ ਦੇਸੀ ਲਾਂਚਰ ਨਾਲ ਇੱਕ ਐਪਲੀਕੇਸ਼ਨ ਵਜੋਂ ਕਰ ਸਕਦੇ ਹੋ. ਜੋ ਲਾਂਚਰ ਤੁਸੀਂ ਅਸਲ ਵਿੱਚ ਵਰਤ ਰਹੇ ਹੋ ਉਹ {{launcher}} ਹੈ, ਉਸ ਲਾਂਚਰ ਦੇ ਆਈਕਨ ਤੇ ਕਲਿਕ ਕਰੋ ਜਿਸ ਤੇ ਤੁਸੀਂ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ."
+
+#: Disconnect
+msgctxt "Disconnect"
+msgid "Disconnect"
+msgstr "ਡਿਸਕਨੈਕਟ"
+
+#: Synchronize
+msgctxt "Synchronize"
+msgid "Synchronize"
+msgstr "ਸਮਕਾਲੀ"
+
+#: RetrievingJournal
+msgctxt "RetrievingJournal"
+msgid "Synchronizing Journal..."
+msgstr "ਸਿੰਕ੍ਰੋਨਾਈਜ਼ਿੰਗ ਜਰਨਲ"
+
+#: Loading
+msgctxt "Loading"
+msgid "Loading..."
+msgstr "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ"
+
+#: AllDataWillBeLost
+msgctxt "AllDataWillBeLost"
+msgid "Journal and settings will be lost"
+msgstr "ਜਰਨਲ ਅਤੇ ਸੈਟਿੰਗਸ ਖਤਮ ਹੋ ਜਾਣਗੇ"
+
+#: ClickMore
+msgctxt "ClickMore"
+msgid "Click again for more options"
+msgstr "ਹੋਰ ਵਿਕਲਪਾਂ ਲਈ ਦੁਬਾਰਾ ਕਲਿਕ ਕਰੋ"
+
+#: ReinitJournalAndSettings
+msgctxt "ReinitJournalAndSettings"
+msgid "Reinit journal and settings"
+msgstr "ਜਰਨਲ ਅਤੇ ਸੈਟਿੰਗਜ਼ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ"
+
+#: ForgetPassword
+msgctxt "ForgetPassword"
+msgid "Forget password"
+msgstr "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ"
+
+#: CopyToDevice
+msgctxt "CopyToDevice"
+msgid "Copy to your device"
+msgstr "ਆਪਣੀ ਡਿਵਾਈਸ ਤੇ ਕਾਪੀ ਕਰੋ"
+
+#. Do not translate {{file}}
+#: FileWroteTo
+msgctxt "FileWroteTo"
+msgid "Wrote file to {{file}}"
+msgstr "ਨੂੰ ਫਾਇਲ ਲਿਖੀ"
+
+#: ErrorWritingFile
+msgctxt "ErrorWritingFile"
+msgid "Can't write file"
+msgstr "ਫਾਈਲ ਨਹੀਂ ਲਿਖ ਸਕਦਾ"
+
+#: UnableToConnect
+msgctxt "UnableToConnect"
+msgid "Unable to connect to server"
+msgstr "ਸਰਵਰ ਨਾਲ ਜੁੜਨ ਵਿੱਚ ਅਸਮਰੱਥ"
+
+#: Refresh
+msgctxt "Refresh"
+msgid "Retry"
+msgstr "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+
+#: Quit
+msgctxt "Quit"
+msgid "Quit"
+msgstr "ਛੱਡੋ"
+
+#: Tutorial
+msgctxt "Tutorial"
+msgid "Tutorial"
+msgstr "ਟਿਊਟੋਰਿਯਲ "
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "ਪਿਛਲੇ"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "ਅਗਲਾ"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "ਅੰਤ"
+
+#: TutoUserTitle
+msgctxt "TutoUserTitle"
+msgid "Me"
+msgstr "ਮੈਨੂੰ"
+
+#: TutoUserContent
+msgctxt "TutoUserContent"
+msgid "This icon is you. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr "ਇਹ ਆਈਕਨ ਤੁਸੀਂ ਹੋ. ਇਸ ਨੂੰ ਮਾ itਸ ਤੋਂ ਲੰਘੋ ਜਾਂ ਆਪਣੀ ਸੈਟਿੰਗਜ਼ (ਨਾਮ, ਰੰਗ, ...) ਨੂੰ ਬਦਲਣ ਲਈ ਇਸ ਨੂੰ ਲੰਮਾ ਛੂਹੋ"
+
+#: TutoActivityTitle
+msgctxt "TutoActivityTitle"
+msgid "Activity"
+msgstr "ਸਰਗਰਮੀ"
+
+#: TutoActivityContent
+msgctxt "TutoActivityContent"
+msgid "Around you are icons for activities. Click on these icons to run activities. Pass the mouse over it or long touch it to display advanced launch menu."
+msgstr "ਤੁਹਾਡੇ ਆਸ ਪਾਸ ਗਤੀਵਿਧੀਆਂ ਲਈ ਆਈਕਾਨ ਹਨ. ਗਤੀਵਿਧੀਆਂ ਨੂੰ ਚਲਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਆਈਕਾਨਾਂ 'ਤੇ ਕਲਿੱਕ ਕਰੋ. ਇਸ ਉੱਤੇ ਮਾਉਸ ਨੂੰ ਲੰਘੋ ਜਾਂ ਇਸਨੂੰ ਐਡਵਾਂਸਡ ਲੌਂਚ ਮੀਨੂ ਪ੍ਰਦਰਸ਼ਤ ਕਰਨ ਲਈ ਲੰਬੇ ਸਮੇਂ ਲਈ ਛੋਹਵੋ"
+
+#: TutoJournalTitle
+msgctxt "TutoJournalTitle"
+msgid "Journal"
+msgstr "ਰਸਾਲਾ"
+
+#: TutoJournalContent
+msgctxt "TutoJournalContent"
+msgid "Journal is the place to retrieve the work you've done in activities and access your history."
+msgstr "ਜਰਨਲ ਉਹ ਕੰਮ ਹੈ ਜੋ ਤੁਸੀਂ ਗਤੀਵਿਧੀਆਂ ਵਿੱਚ ਕੀਤੇ ਕੰਮ ਨੂੰ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਅਤੇ ਆਪਣੇ ਇਤਿਹਾਸ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਕਰਦੇ ਹੋ"
+
+#: TutoFavoriteTitle
+msgctxt "TutoFavoriteTitle"
+msgid "Favorite view"
+msgstr "ਮਨਪਸੰਦ ਦ੍ਰਿਸ਼"
+
+#: TutoFavoriteContent
+msgctxt "TutoFavoriteContent"
+msgid "Use this button to display the favorite view."
+msgstr "ਮਨਪਸੰਦ ਦ੍ਰਿਸ਼ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ ਲਈ ਇਸ ਬਟਨ ਦੀ ਵਰਤੋਂ ਕਰੋ"
+
+#: TutoListTitle
+msgctxt "TutoListTitle"
+msgid "List view"
+msgstr "ਸੂਚੀ ਦ੍ਰਿਸ਼"
+
+#: TutoListContent
+msgctxt "TutoListContent"
+msgid "Use this button to display all activities, to select activities in the favorite view and to have more information about activities."
+msgstr "ਸਾਰੇ ਕੰਮਾਂ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨ, ਮਨਪਸੰਦ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਗਤੀਵਿਧੀਆਂ ਦੀ ਚੋਣ ਕਰਨ ਅਤੇ ਗਤੀਵਿਧੀਆਂ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲੈਣ ਲਈ ਇਸ ਬਟਨ ਦੀ ਵਰਤੋਂ ਕਰੋ"
+
+#: TutoFavswitchTitle
+msgctxt "TutoFavswitchTitle"
+msgid "Favorite switch"
+msgstr "ਮਨਪਸੰਦ ਸਵਿਚ"
+
+#: TutoFavswitchContent
+msgctxt "TutoFavswitchContent"
+msgid "Use this icon to change visibility of this activity in the favorite view."
+msgstr "ਮਨਪਸੰਦ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਇਸ ਗਤੀਵਿਧੀ ਦੀ ਦਿੱਖ ਨੂੰ ਬਦਲਣ ਲਈ ਇਸ ਆਈਕਨ ਦੀ ਵਰਤੋਂ ਕਰੋ"
+
+#: TutoSearchTitle
+msgctxt "TutoSearchTitle"
+msgid "Search activity"
+msgstr "ਸਰਗਰਮੀ ਦੀ ਭਾਲ ਕਰੋ"
+
+#: TutoSearchContent
+msgctxt "TutoSearchContent"
+msgid "Use this text to search an activity by its name."
+msgstr "ਇਸ ਟੈਕਸਟ ਦੇ ਨਾਮ ਨਾਲ ਕਿਸੇ ਗਤੀਵਿਧੀ ਦੀ ਖੋਜ ਕਰਨ ਲਈ ਇਸ ਦੀ ਵਰਤੋਂ ਕਰੋ"
+
+#: TutoNeighborTitle
+msgctxt "TutoNeighborTitle"
+msgid "Neighborhood view"
+msgstr "ਨੇਬਰਹੁੱਡ ਦ੍ਰਿਸ਼"
+
+#: TutoNeighborContent
+msgctxt "TutoNeighborContent"
+msgid "Display users around you and join activities they shared."
+msgstr " ਆਪਣੇ ਆਲੇ ਦੁਆਲੇ ਦੇ ਉਪਭੋਗਤਾਵਾਂ ਨੂੰ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰੋ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਵਿਧੀਆਂ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ
+ "
+
+#: TutoRunTitle
+msgctxt "TutoRunTitle"
+msgid "Now it's your turn!"
+msgstr " ਹੁਣ ਤੁਹਾਡੀ ਵਾਰੀ ਹੈ
+ "
+
+#: TutoRunContent
+msgctxt "TutoRunContent"
+msgid "Now look for the Shared Notes activity icon and click on it to run the activity."
+msgstr " ਹੁਣ ਸ਼ੇਅਰਡ ਨੋਟਸ ਐਕਟੀਵਿਟੀ ਆਈਕਾਨ ਨੂੰ ਵੇਖੋ ਅਤੇ ਸਰਗਰਮੀ ਨੂੰ ਚਲਾਉਣ ਲਈ ਇਸ 'ਤੇ ਕਲਿੱਕ ਕਰੋ
+ "
+
+#: TutoJournalIntroTitle
+msgctxt "TutoJournalIntroTitle"
+msgid "Journal"
+msgstr " ਰਸਾਲਾ "
+
+#: TutoJournalIntroContent
+msgctxt "TutoJournalIntroContent"
+msgid "You're in the Journal. The Journal is the place to retrieve the work you've done. Each row is one thing you've done. Just click on it to reopen it in its old state."
+msgstr " ਤੁਸੀਂ ਜਰਨਲ ਵਿਚ ਹੋ. ਤੁਹਾਡੇ ਦੁਆਰਾ ਕੀਤੇ ਕੰਮ ਨੂੰ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਜਰਨਲ ਉਹ ਜਗ੍ਹਾ ਹੈ. ਹਰ ਕਤਾਰ ਇਕ ਚੀਜ ਹੈ ਜੋ ਤੁਸੀਂ ਕੀਤੀ ਹੈ. ਇਸ ਨੂੰ ਆਪਣੀ ਪੁਰਾਣੀ ਸਥਿਤੀ ਵਿਚ ਦੁਬਾਰਾ ਖੋਲ੍ਹਣ ਲਈ ਇਸ 'ਤੇ ਕਲਿੱਕ ਕਰੋ
+ "
+
+#: TutoJournalActivityTitle
+msgctxt "TutoJournalActivityTitle"
+msgid "Activity"
+msgstr " ਸਰਗਰਮੀ
+ "
+
+#: TutoJournalActivityContent
+msgctxt "TutoJournalActivityContent"
+msgid "Here's the icon of the activity you've done. Pass the mouse over it or long touch it to access advanced features (erase the row, copy to other journals, ...)."
+msgstr " ਤੁਹਾਡੇ ਦੁਆਰਾ ਕੀਤੀ ਗਈ ਗਤੀਵਿਧੀ ਦਾ ਆਈਕਾਨ ਇੱਥੇ ਹੈ. ਮਾ overਸ ਨੂੰ ਇਸ ਤੋਂ ਲੰਘੋ ਜਾਂ ਉੱਨਤ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨੂੰ ਐਕਸੈਸ ਕਰਨ ਲਈ ਲੰਬੇ ਸਮੇਂ ਲਈ ਇਸ ਨੂੰ ਛੋਹਵੋ (ਕਤਾਰ ਮਿਟਾਓ, ਹੋਰ ਰਸਾਲਿਆਂ ਵਿਚ ਨਕਲ ਕਰੋ, ...)
+"
+
+#: TutoJournalTimeTitle
+msgctxt "TutoJournalTimeTitle"
+msgid "When"
+msgstr " ਕਦੋਂ "
+
+#: TutoJournalTimeContent
+msgctxt "TutoJournalTimeContent"
+msgid "Here's the time when you've done the activity: seconds, minutes, hours, days or month ago."
+msgstr " ਇਹ ਉਹ ਸਮਾਂ ਹੈ ਜਦੋਂ ਤੁਸੀਂ ਗਤੀਵਿਧੀ ਕੀਤੀ ਹੈ: ਸਕਿੰਟ, ਮਿੰਟ, ਘੰਟੇ, ਦਿਨ ਜਾਂ ਮਹੀਨਾ ਪਹਿਲਾਂ
+ "
+
+#: TutoJournalTitleTitle
+msgctxt "TutoJournalTitleTitle"
+msgid "Title"
+msgstr " ਸਿਰਲੇਖ "
+
+#: TutoJournalTitleContent
+msgctxt "TutoJournalTitleContent"
+msgid "It's the title of the activity. By default it's just the name of the activity but you could change it. Just click on it to do that."
+msgstr " ਇਹ ਸਰਗਰਮੀ ਦਾ ਸਿਰਲੇਖ ਹੈ. ਮੂਲ ਰੂਪ ਵਿੱਚ ਇਹ ਸਿਰਫ ਸਰਗਰਮੀ ਦਾ ਨਾਮ ਹੈ ਪਰ ਤੁਸੀਂ ਇਸਨੂੰ ਬਦਲ ਸਕਦੇ ਹੋ. ਬੱਸ ਅਜਿਹਾ ਕਰਨ ਲਈ ਇਸ 'ਤੇ ਕਲਿੱਕ ਕਰੋ."
+
+#: TutoJournalFavoriteTitle
+msgctxt "TutoJournalFavoriteTitle"
+msgid "Favorite"
+msgstr " ਮਨਪਸੰਦ "
+
+#: TutoJournalFavoriteContent
+msgctxt "TutoJournalFavoriteContent"
+msgid "If you click on this icon, this Journal entry will be marked as favorite so it will be easy for you to find it in the list."
+msgstr " ਜੇ ਤੁਸੀਂ ਇਸ ਆਈਕਨ ਤੇ ਕਲਿਕ ਕਰਦੇ ਹੋ, ਤਾਂ ਇਸ ਜਰਨਲ ਐਂਟਰੀ ਨੂੰ ਮਨਪਸੰਦ ਵਜੋਂ ਚਿੰਨ੍ਹਿਤ ਕੀਤਾ ਜਾਵੇਗਾ ਤਾਂ ਜੋ ਤੁਹਾਨੂੰ ਇਸ ਸੂਚੀ ਵਿਚ ਲੱਭਣਾ ਸੌਖਾ ਹੋ ਜਾਵੇਗਾ."
+
+#: TutoJournalFavButtonTitle
+msgctxt "TutoJournalFavButtonTitle"
+msgid "Show favorites"
+msgstr " ਮਨਪਸੰਦ ਦਿਖਾਓ"
+
+#: TutoJournalFavButtonContent
+msgctxt "TutoJournalFavButtonContent"
+msgid "Click on this icon to filter Journal on the favorite flag."
+msgstr " ਜਰਨਲ ਨੂੰ ਮਨਪਸੰਦ ਫਲੈਗ ਤੇ ਫਿਲਟਰ ਕਰਨ ਲਈ ਇਸ ਆਈਕਨ ਤੇ ਕਲਿਕ ਕਰੋ "
+
+#: TutoJournalSearchTitle
+msgctxt "TutoJournalSearchTitle"
+msgid "Search entry"
+msgstr " ਖੋਜ ਇੰਦਰਾਜ਼"
+
+#: TutoJournalSearchContent
+msgctxt "TutoJournalSearchContent"
+msgid "Use this text to search an entry by its title."
+msgstr ""
+
+#: TutoJournalTypeTitle
+msgctxt "TutoJournalTypeTitle"
+msgid "Filter by type"
+msgstr " ਇਸ ਦੇ ਸਿਰਲੇਖ ਨਾਲ ਐਂਟਰੀ ਲੱਭਣ ਲਈ ਇਸ ਟੈਕਸਟ ਦੀ ਵਰਤੋਂ ਕਰੋ"
+
+#: TutoJournalTypeContent
+msgctxt "TutoJournalTypeContent"
+msgid "Click here to select and filter Journal by activity type."
+msgstr " ਸਰਗਰਮੀ ਦੀ ਕਿਸਮ ਅਨੁਸਾਰ ਜਰਨਲ ਨੂੰ ਚੁਣਨ ਅਤੇ ਫਿਲਟਰ ਕਰਨ ਲਈ ਇੱਥੇ ਕਲਿੱਕ ਕਰੋ"
+
+#: TutoJournalTimeButtonTitle
+msgctxt "TutoJournalTimeButtonTitle"
+msgid "Filter by time"
+msgstr " ਸਮੇਂ ਅਨੁਸਾਰ ਫਿਲਟਰ ਕਰੋ"
+
+#: TutoJournalTimeButtonContent
+msgctxt "TutoJournalTimeButtonContent"
+msgid "Click here to view only activities that you've done in a period of time."
+msgstr " ਸਿਰਫ ਉਹਨਾਂ ਗਤੀਵਿਧੀਆਂ ਨੂੰ ਵੇਖਣ ਲਈ ਇੱਥੇ ਕਲਿਕ ਕਰੋ ਜੋ ਤੁਸੀਂ ਸਮੇਂ ਦੇ ਸਮੇਂ ਵਿੱਚ ਕੀਤੇ ਹਨ"
+
+#: TutoJournalLocalTitle
+msgctxt "TutoJournalLocalTitle"
+msgid "Local Journal"
+msgstr " ਸਥਾਨਕ ਜਰਨਲ "
+
+#: TutoJournalLocalContent
+msgctxt "TutoJournalLocalContent"
+msgid "When this icon is active, you're seeing the content of the local journal. All this content is stored on your current device."
+msgstr " ਜਦੋਂ ਇਹ ਆਈਕਨ ਕਿਰਿਆਸ਼ੀਲ ਹੁੰਦਾ ਹੈ, ਤੁਸੀਂ ਸਥਾਨਕ ਜਰਨਲ ਦੀ ਸਮਗਰੀ ਨੂੰ ਵੇਖ ਰਹੇ ਹੋ. ਇਹ ਸਾਰੀ ਸਮੱਗਰੀ ਤੁਹਾਡੀ ਮੌਜੂਦਾ ਡਿਵਾਈਸ ਤੇ ਸਟੋਰ ਕੀਤੀ ਗਈ ਹੈ"
+
+#: TutoJournalCloudOneTitle
+msgctxt "TutoJournalCloudOneTitle"
+msgid "Remote Journal"
+msgstr " ਰਿਮੋਟ ਜਰਨਲ "
+
+#: TutoJournalCloudOneContent
+msgctxt "TutoJournalCloudOneContent"
+msgid "Click on this icon to display the content of your private journal on the server. You're the only one to access to this journal. It's a good place to store content that you don't want to loose."
+msgstr " ਸਰਵਰ ਉੱਤੇ ਆਪਣੀ ਪ੍ਰਾਈਵੇਟ ਜਰਨਲ ਦੀ ਸਮਗਰੀ ਪ੍ਰਦਰਸ਼ਤ ਕਰਨ ਲਈ ਇਸ ਆਈਕਨ ਤੇ ਕਲਿਕ ਕਰੋ. ਤੁਸੀਂ ਇਸ ਰਸਾਲੇ ਤਕ ਪਹੁੰਚਣ ਵਾਲੇ ਇੱਕਲੇ ਹੋ. ਸਮਗਰੀ ਨੂੰ ਸਟੋਰ ਕਰਨ ਲਈ ਇਹ ਇਕ ਵਧੀਆ ਜਗ੍ਹਾ ਹੈ ਜੋ ਤੁਸੀਂ ਨਹੀਂ ਕਰਨਾ ਚਾਹੁੰਦੇ "
+
+#: TutoJournalCloudAllTitle
+msgctxt "TutoJournalCloudAllTitle"
+msgid "Shared Journal"
+msgstr " ਸ਼ੇਅਰਡ ਜਰਨਲ "
+
+#: TutoJournalCloudAllContent
+msgctxt "TutoJournalCloudAllContent"
+msgid "Click on this icon to display the content of the shared journal on the server. Every user connected to the same server could access to this journal. So, it's nice to share your work with others."
+msgstr " ਸਰਵਰ ਉੱਤੇ ਸਾਂਝੀ ਜਰਨਲ ਦੀ ਸਮਗਰੀ ਪ੍ਰਦਰਸ਼ਤ ਕਰਨ ਲਈ ਇਸ ਆਈਕਨ ਤੇ ਕਲਿਕ ਕਰੋ. ਇੱਕੋ ਸਰਵਰ ਨਾਲ ਜੁੜਿਆ ਹਰੇਕ ਉਪਭੋਗਤਾ ਇਸ ਜਰਨਲ ਤੱਕ ਪਹੁੰਚ ਸਕਦਾ ਸੀ. ਇਸ ਲਈ, ਇਹ ਚੰਗਾ ਹੈ ਕਿ ਤੁਸੀਂ ਆਪਣਾ ਕੰਮ ਦੂਜਿਆਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ "
+
+#: TutoGotoHomeTitle
+msgctxt "TutoGotoHomeTitle"
+msgid "Home view"
+msgstr " ਘਰ ਦ੍ਰਿਸ਼"
+
+#: TutoGotoHomeContent
+msgctxt "TutoGotoHomeContent"
+msgid "Click here to go back to the home view."
+msgstr " ਘਰ ਦੇ ਦ੍ਰਿਸ਼ ਤੇ ਵਾਪਸ ਜਾਣ ਲਈ ਇੱਥੇ ਕਲਿਕ ਕਰੋ"
+
+#: TutoNeighborIntroTitle
+msgctxt "TutoNeighborIntroTitle"
+msgid "Neighborhood view"
+msgstr " ਨੇਬਰਹੁੱਡ ਦ੍ਰਿਸ਼ "
+
+#: TutoNeighborIntroContent
+msgctxt "TutoNeighborIntroContent"
+msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server."
+msgstr " ਤੁਸੀਂ ਨੇਬਰਹੁੱਡ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਹੋ. ਇੱਥੇ ਤੁਸੀਂ ਆਪਣੇ ਆਲੇ ਦੁਆਲੇ ਦੇ ਉਪਭੋਗਤਾ ਉਹੀ ਸਰਵਰ ਨਾਲ ਜੁੜੇ ਵੇਖ ਸਕਦੇ ਹੋ "
+
+#: TutoNeighborIntroContent2
+msgctxt "TutoNeighborIntroContent2"
+msgid "You're in the Neighborhood view. Here you could see users around you connected to the same server. You could also see all WiFi access point around you."
+msgstr " ਤੁਸੀਂ ਨੇਬਰਹੁੱਡ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਹੋ. ਇੱਥੇ ਤੁਸੀਂ ਆਪਣੇ ਆਲੇ ਦੁਆਲੇ ਦੇ ਉਪਭੋਗਤਾ ਉਹੀ ਸਰਵਰ ਨਾਲ ਜੁੜੇ ਵੇਖ ਸਕਦੇ ਹੋ. ਤੁਸੀਂ ਆਪਣੇ ਆਲੇ ਦੁਆਲੇ ਦੇ ਸਾਰੇ WiFi ਐਕਸੈਸ ਪੁਆਇੰਟ ਨੂੰ ਵੀ ਦੇਖ ਸਕਦੇ ਹੋ "
+
+#: TutoNeighborUserTitle
+msgctxt "TutoNeighborUserTitle"
+msgid "You"
+msgstr " ਤੁਸੀਂ "
+
+#: TutoNeighborUserContent
+msgctxt "TutoNeighborUserContent"
+msgid "This icon is you like other users could see you on their own Neighborhood view. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
+msgstr " 
+ਇਹ ਆਈਕਨ ਤੁਸੀਂ ਇਸ ਤਰ੍ਹਾਂ ਹੋ ਜਿਵੇਂ ਹੋਰ ਉਪਭੋਗਤਾ ਤੁਹਾਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਨੇਬਰਹੁੱਡ ਦ੍ਰਿਸ਼ 'ਤੇ ਦੇਖ ਸਕਦੇ ਹੋਣ. ਇਸ ਨੂੰ ਮਾ overਸ ਉੱਤੇ ਲੰਘੋ ਜਾਂ ਆਪਣੀ ਸੈਟਿੰਗਾਂ (ਨਾਮ, ਰੰਗ, ...) ਨੂੰ ਬਦਲਣ ਲਈ ਇਸ ਨੂੰ ਲੰਮਾ ਛੋਹਵੋ."
+
+#: TutoNeighborServerTitle
+msgctxt "TutoNeighborServerTitle"
+msgid "Your server"
+msgstr " ਤੁਹਾਡਾ ਸਰਵਰ "
+
+#: TutoNeighborServerContent
+msgctxt "TutoNeighborServerContent"
+msgid "This icon is the server where you're connected. You could only see users connected to the same server than you."
+msgstr " ਇਹ ਆਈਕਨ ਉਹ ਸਰਵਰ ਹੈ ਜਿੱਥੇ ਤੁਸੀਂ ਕਨੈਕਟ ਹੋ. ਤੁਸੀਂ ਸਿਰਫ ਉਹੀ ਸਰਵਰ ਨਾਲ ਜੁੜੇ ਉਪਭੋਗਤਾਵਾਂ ਨੂੰ ਵੇਖ ਸਕਦੇ ਹੋ ਜੋ ਤੁਹਾਡੇ ਨਾਲੋਂ ਵੱਧ ਹਨ"
+
+#: TutoNeighborOtherTitle
+msgctxt "TutoNeighborOtherTitle"
+msgid "Another"
+msgstr " ਇਕ ਹੋਰ"
+
+#: TutoNeighborOtherContent
+msgctxt "TutoNeighborOtherContent"
+msgid "This is another user connected to the same server. You could share activities with him or join an activity that he shared with you."
+msgstr "ਇਹ ਉਹੀ ਸਰਵਰ ਨਾਲ ਜੁੜਿਆ ਇੱਕ ਹੋਰ ਉਪਭੋਗਤਾ ਹੈ. ਤੁਸੀਂ ਉਸ ਨਾਲ ਗਤੀਵਿਧੀਆਂ ਸਾਂਝੀਆਂ ਕਰ ਸਕਦੇ ਹੋ ਜਾਂ ਕਿਸੇ ਗਤੀਵਿਧੀ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋ ਸਕਦੇ ਹੋ ਜੋ ਉਸਨੇ ਤੁਹਾਡੇ ਨਾਲ ਸਾਂਝੀ ਕੀਤੀ ਹੈ"
+
+#: TutoNeighborActivityTitle
+msgctxt "TutoNeighborActivityTitle"
+msgid "Shared activity"
+msgstr " ਸਾਂਝੀ ਕੀਤੀ ਗਤੀਵਿਧੀ "
+
+#: TutoNeighborActivityContent
+msgctxt "TutoNeighborActivityContent"
+msgid "This activity is shared by another user. Pass the mouse over it or long touch it to join him."
+msgstr " ਇਹ ਗਤੀਵਿਧੀ ਕਿਸੇ ਹੋਰ ਉਪਭੋਗਤਾ ਦੁਆਰਾ ਸਾਂਝੀ ਕੀਤੀ ਗਈ ਹੈ. ਇਸ ਉੱਤੇ ਮਾਸ ਲੰਘੋ ਜਾਂ ਉਸ ਨਾਲ ਜੁੜਨ ਲਈ ਇਸ ਨੂੰ ਲੰਮਾ ਛੋਹਵੋ"
+
+#: TutoNeighborWifiTitle
+msgctxt "TutoNeighborWifiTitle"
+msgid "WiFi"
+msgstr " WiFi "
+
+#: TutoNeighborWifiContent
+msgctxt "TutoNeighborWifiContent"
+msgid "This is a WiFi access point around you. Pass the mouse over it or long touch it to connect/disconnect to this WiFi."
+msgstr "ਇਹ ਤੁਹਾਡੇ ਆਸ ਪਾਸ ਇੱਕ WiFi ਐਕਸੈਸ ਪੁਆਇੰਟ ਹੈ. ਇਸ ਉੱਤੇ ਮਾਸ ਨੂੰ ਲੰਘੋ ਜਾਂ ਇਸ ਨੂੰ ਫਾਈ ਨਾਲ ਜੁੜਨ / ਡਿਸਕਨੈਕਟ ਕਰਨ ਲਈ ਲੰਬੇ ਛੋਹਵੋ"
+
+#: AllType
+msgctxt "AllType"
+msgid "All"
+msgstr " ਸਾਰੇ "
+
+#: SelectFilter
+msgctxt "SelectFilter"
+msgid "Select filter"
+msgstr " ਫਿਲਟਰ ਚੁਣੋ "
+
+#: SortDisplay
+msgctxt "SortDisplay"
+msgid "Sort display"
+msgstr " ਕ੍ਰਮਬੱਧ ਡਿਸਪਲੇਅ "
+
+#: SortByUpdated
+msgctxt "SortByUpdated"
+msgid "Sort by updated date"
+msgstr "ਅਪਡੇਟ ਕੀਤੀ ਮਿਤੀ ਅਨੁਸਾਰ ਕ੍ਰਮਬੱਧ"
+
+#: SortByCreated
+msgctxt "SortByCreated"
+msgid "Sort by creation date"
+msgstr " ਸਿਰਜਣਾ ਮਿਤੀ ਦੇ ਅਨੁਸਾਰ ਛਾਂਟੋ"
+
+#: SortBySize
+msgctxt "SortBySize"
+msgid "Sort by size"
+msgstr " ਅਕਾਰ ਅਨੁਸਾਰ ਕ੍ਰਮਬੱਧ"
+
+#: UnselectAll
+msgctxt "UnselectAll"
+msgid "Unselect all"
+msgstr " ਸਭ ਦੀ ਚੋਣ ਕਰੋ"
+
+#: SelectAll
+msgctxt "SelectAll"
+msgid "Select all"
+msgstr " ਸਾਰਿਆ ਨੂੰ ਚੁਣੋ "
+
+#. Do not translate {{count}} {{total}}
+#: Selected_one
+msgctxt "Selected_one"
+msgid "{{count}} selected on {{total}}"
+msgstr " {{count}} ਤੇ ਚੁਣਿਆ {{total}}"
+
+#. Do not translate {{count}} {{total}}
+#: Selected_other
+msgctxt "Selected_other"
+msgid "{{count}} selected on {{total}}"
+msgstr " {{count}} ਤੇ ਚੁਣਿਆ {{total}} "
+
+#. Do not translate {{count}}
+#: Erase_one
+msgctxt "Erase_one"
+msgid "Do you want to remove {{count}} entry?"
+msgstr " ਕੀ ਤੁਸੀਂ {{count}}  ਇੰਦਰਾਜ਼ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#. Do not translate {{count}}
+#: Erase_other
+msgctxt "Erase_other"
+msgid "Do you want to remove {{count}} entries?"
+msgstr " ਕੀ ਤੁਸੀਂ {{count}} ਇੰਦਰਾਜ਼ਾਂ ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#: Erasing
+msgctxt "Erasing"
+msgid "Removing..."
+msgstr " ਹਟਾ ਰਿਹਾ ਹੈ ..."
+
+#. Do not translate {{count}}
+#: CopyToLocal_one
+msgctxt "CopyToLocal_one"
+msgid "Do you want to copy {{count}} entry in your local Journal?"
+msgstr " ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਸਥਾਨਕ ਜਰਨਲ ਵਿਚ {{count}} ਦਾਖਲੇ ਦੀ ਨਕਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#. Do not translate {{count}}
+#: CopyToLocal_other
+msgctxt "CopyToLocal_other"
+msgid "Do you want to copy {{count}} entries in your local Journal?"
+msgstr " ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਸਥਾਨਕ ਜਰਨਲ ਵਿਚ {{count}} ries ਇੰਦਰਾਜ਼ਾਂ ਦੀ ਨਕਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#. Do not translate {{count}}
+#: CopyToPrivate_one
+msgctxt "CopyToPrivate_one"
+msgid "Do you want to copy {{count}} entry in your remote Journal?"
+msgstr " ਕੀ ਤੁਸੀਂ ਆਪਣੇ ਰਿਮੋਟ ਜਰਨਲ ਵਿਚ {{count}} ਦਾਖਲੇ ਦੀ ਨਕਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#. Do not translate {{count}}
+#: CopyToPrivate_other
+msgctxt "CopyToPrivate_other"
+msgid "Do you want to copy {{count}} entries in your remote Journal?"
+msgstr " ਕੀ ਤੁਸੀਂ ਆਪਣੇ ਰਿਮੋਟ ਜਰਨਲ ਵਿਚ {{count}} ਇੰਦਰਾਜ਼ਾਂ ਦੀ ਨਕਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+
+#. Do not translate {{count}}
+#: CopyToShared_one
+msgctxt "CopyToShared_one"
+msgid "Do you want to copy {{count}} entry in the shared Journal?"
+msgstr " ਕੀ ਤੁਸੀਂ ਸਾਂਝੀ ਜਰਨਲ ਵਿਚ {{count}} ਦਾਖਲੇ ਦੀ ਨਕਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#. Do not translate {{count}}
+#: CopyToShared_other
+msgctxt "CopyToShared_other"
+msgid "Do you want to copy {{count}} entries in the shared Journal?"
+msgstr " ਕੀ ਤੁਸੀਂ ਸਾਂਝੀ ਜਰਨਲ ਵਿਚ {{count}} ਇੰਦਰਾਜ਼ਾਂ ਦੀ ਨਕਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#. Do not translate {{count}}
+#: CopyToDevice_one
+msgctxt "CopyToDevice_one"
+msgid "Do you want to copy {{count}} entry to your device?"
+msgstr " ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਡਿਵਾਈਸ ਤੇ {{count}} ਦਾਖਲੇ ਨੂੰ ਕਾਪੀ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#. Do not translate {{count}}
+#: CopyToDevice_other
+msgctxt "CopyToDevice_other"
+msgid "Do you want to copy {{count}} entries to your device?"
+msgstr " ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਡਿਵਾਈਸ ਤੇ {{count}} ries ਇੰਦਰਾਜ਼ਾਂ ਨੂੰ ਕਾਪੀ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#: Copying
+msgctxt "Copying"
+msgid "Copying..."
+msgstr " ਨਕਲ ਕਰ ਰਿਹਾ ਹੈ ... "
+
+#: TutoJournalCheckTitle
+msgctxt "TutoJournalCheckTitle"
+msgid "Selection"
+msgstr " ਚੋਣ"
+
+#: TutoJournalCheckContent
+msgctxt "TutoJournalCheckContent"
+msgid "This checkbox allow you to do actions (remove, copy) on multiple items at the same time."
+msgstr " ਇਹ ਚੈੱਕਬਾਕਸ ਤੁਹਾਨੂੰ ਇਕੋ ਸਮੇਂ ਕਈ ਆਈਟਮਾਂ ਤੇ ਕਿਰਿਆਵਾਂ (ਹਟਾਓ, ਕਾੱਪੀ) ਕਰਨ ਦੀ ਆਗਿਆ ਦਿੰਦਾ ਹੈ "
+
+#: TutoJournalSortButtonTitle
+msgctxt "TutoJournalSortButtonTitle"
+msgid "Sort"
+msgstr " ਲੜੀਬੱਧ "
+
+#: TutoJournalSortButtonContent
+msgctxt "TutoJournalSortButtonContent"
+msgid "Click here to sort items by date of last update, date of creation or size."
+msgstr ""
+
+#: SaveFile
+msgctxt "SaveFile"
+msgid "Save file..."
+msgstr " ਆਖਰੀ ਅਪਡੇਟ, ਨਿਰਮਾਣ ਦੀ ਮਿਤੀ ਜਾਂ ਆਕਾਰ ਦੀ ਮਿਤੀ ਦੇ ਅਨੁਸਾਰ ਆਈਟਮਾਂ ਨੂੰ ਕ੍ਰਮਬੱਧ ਕਰਨ ਲਈ ਇੱਥੇ ਕਲਿੱਕ ਕਰੋ "
+
+#: Save
+msgctxt "Save"
+msgid "Save"
+msgstr " ਸੇਵ "
+
+#: ChooseDirectory
+msgctxt "ChooseDirectory"
+msgid "Choose directory..."
+msgstr " ਡਾਇਰੈਕਟਰੀ ਦੀ ਚੋਣ ਕਰੋ"
+
+#: Choose
+msgctxt "Choose"
+msgid "Choose"
+msgstr " ਚੋਣ ਕਰੋ "
+
+#. Do not translate {{file}}
+#: ErrorLoadingFile
+msgctxt "ErrorLoadingFile"
+msgid "Error loading file {{file}}"
+msgstr " ਫਾਈਲ ਲੋਡ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ "
+
+#: ChooseFiles
+msgctxt "ChooseFiles"
+msgid "Choose files..."
+msgstr " ਫਾਈਲਾਂ ਦੀ ਚੋਣ ਕਰੋ "
+
+#: FilesSupported
+msgctxt "FilesSupported"
+msgid "Files supported"
+msgstr " ਫਾਈਲਾਂ ਸਮਰਥਿਤ ਹਨ "
+
+#: ImageFromDevice
+msgctxt "ImageFromDevice"
+msgid "Image from device"
+msgstr " ਡਿਵਾਈਸ ਤੋਂ ਚਿੱਤਰ "
+
+#: TutoJournalFromDeviceButtonTitle
+msgctxt "TutoJournalFromDeviceButtonTitle"
+msgid "Import from device"
+msgstr " ਡਿਵਾਈਸ ਤੋਂ ਆਯਾਤ ਕਰੋ"
+
+#: TutoJournalFromDeviceButtonContent
+msgctxt "TutoJournalFromDeviceButtonContent"
+msgid "Click here to import content from your device to the Journal"
+msgstr " 
+ਆਪਣੇ ਜੰਤਰ ਤੋਂ ਜਰਨਲ ਨੂੰ ਸਮੱਗਰੀ ਆਯਾਤ ਕਰਨ ਲਈ ਇੱਥੇ ਕਲਿੱਕ ਕਰੋ"
+
+#: TutoInitIntroTitle
+msgctxt "TutoInitIntroTitle"
+msgid "Welcome to Sugarizer"
+msgstr " ਸ਼ੂਗਰਾਈਜ਼ਰ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ"
+
+#: TutoInitIntroTitleIntroContent
+msgctxt "TutoInitIntroTitleIntroContent"
+msgid "Welcome to Sugarizer the leading learning platform. You will find here a set of activities to create, play, learn and share."
+msgstr " ਸ਼ੂਗਰਾਈਜ਼ਰ ਪ੍ਰਮੁੱਖ ਸਿਖਲਾਈ ਪਲੇਟਫਾਰਮ ਤੇ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ. ਤੁਸੀਂ ਇੱਥੇ ਬਣਾਉਣ, ਖੇਡਣ, ਸਿੱਖਣ ਅਤੇ ਸਾਂਝਾ ਕਰਨ ਲਈ ਗਤੀਵਿਧੀਆਂ ਦਾ ਇੱਕ ਸਮੂਹ ਲੱਭੋਗੇ"
+
+#: TutoInitNewUserTitle
+msgctxt "TutoInitNewUserTitle"
+msgid "New user"
+msgstr " ਨਵਾਂ ਯੂਜ਼ਰ"
+
+#: TutoInitNewUserContent
+msgctxt "TutoInitNewUserContent"
+msgid "First, you need a user to associate your content. Click here if it's your first time in Sugarizer so you could create a new user."
+msgstr " ਪਹਿਲਾਂ, ਤੁਹਾਨੂੰ ਆਪਣੀ ਸਮਗਰੀ ਨੂੰ ਜੋੜਨ ਲਈ ਉਪਭੋਗਤਾ ਦੀ ਜ਼ਰੂਰਤ ਹੈ. ਇੱਥੇ ਕਲਿੱਕ ਕਰੋ ਜੇ ਸ਼ੂਗਰਾਈਜ਼ਰ ਵਿੱਚ ਇਹ ਤੁਹਾਡੀ ਪਹਿਲੀ ਵਾਰ ਹੈ ਤਾਂ ਕਿ ਤੁਸੀਂ ਇੱਕ ਨਵਾਂ ਉਪਭੋਗਤਾ ਬਣਾ ਸਕੋ"
+
+#: TutoInitLoginTitle
+msgctxt "TutoInitLoginTitle"
+msgid "User login"
+msgstr " ਉਪਭੋਗਤਾ ਲਾਗਇਨ"
+
+#: TutoInitLoginContent
+msgctxt "TutoInitLoginContent"
+msgid "You've already created a Sugarizer user on a server? Click here to give your login information."
+msgstr " ਤੁਸੀਂ ਪਹਿਲਾਂ ਹੀ ਸਰਵਰ ਤੇ ਸ਼ੂਗਰਾਈਜ਼ਰ ਉਪਭੋਗਤਾ ਬਣਾਇਆ ਹੈ? ਆਪਣੀ ਲੌਗਇਨ ਜਾਣਕਾਰੀ ਦੇਣ ਲਈ ਇੱਥੇ ਕਲਿੱਕ ਕਰੋ"
+
+#: TutoInitHistoryTitle
+msgctxt "TutoInitHistoryTitle"
+msgid "Recent users"
+msgstr " ਹਾਲ ਦੇ ਉਪਭੋਗਤਾ"
+
+#: TutoInitHistoryContent
+msgctxt "TutoInitHistoryContent"
+msgid "Not your first time on this device? Just click on your name here to connect."
+msgstr " ਇਸ ਡਿਵਾਈਸ ਤੇ ਤੁਹਾਡੀ ਪਹਿਲੀ ਵਾਰ ਨਹੀਂ? ਜੁੜਨ ਲਈ ਇੱਥੇ ਆਪਣੇ ਨਾਮ ਤੇ ਕਲਿੱਕ ਕਰੋ"
+
+#: TutoInitHelpTitle
+msgctxt "TutoInitHelpTitle"
+msgid "Help me"
+msgstr " ਮੇਰੀ ਮਦਦ ਕਰੋ"
+
+#: TutoInitHelpContent
+msgctxt "TutoInitHelpContent"
+msgid "Remind you this icon. If you're lost, just click on it anytime anywhere to get some help."
+msgstr " ਤੁਹਾਨੂੰ ਇਸ ਆਈਕਨ ਦੀ ਯਾਦ ਦਿਵਾਓ. ਜੇ ਤੁਸੀਂ ਗੁਆਚ ਗਏ ਹੋ, ਕੁਝ ਸਹਾਇਤਾ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇਸ 'ਤੇ ਕਦੇ ਵੀ ਕਲਿੱਕ ਕਰੋ"
+
+#: TutoInitStopTitle
+msgctxt "TutoInitStopTitle"
+msgid "Quit Sugarizer"
+msgstr " ਸ਼ੂਗਰਾਈਜ਼ਰ ਛੱਡੋ "
+
+#: TutoInitStopContent
+msgctxt "TutoInitStopContent"
+msgid "Click on this icon if you really want to quit Sugarizer. We will miss you!"
+msgstr " ਇਸ ਆਈਕਾਨ ਤੇ ਕਲਿੱਕ ਕਰੋ ਜੇ ਤੁਸੀਂ ਸੱਚਮੁੱਚ ਸ਼ੂਗਰਾਈਜ਼ਰ ਨੂੰ ਛੱਡਣਾ ਚਾਹੁੰਦੇ ਹੋ. ਅਸੀਂ ਤੁਹਾਨੂੰ ਯਾਦ ਕਰਾਂਗੇ "
+
+#: TutoInitServerTitle
+msgctxt "TutoInitServerTitle"
+msgid "Server address"
+msgstr " ਸਰਵਰ ਦਾ ਐਡਰੈੱਸ"
+
+#: TutoInitServerContent
+msgctxt "TutoInitServerContent"
+msgid "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
+msgstr " ਇਹ ਉਹ ਸਰਵਰ ਪਤਾ ਹੈ ਜਿਥੇ ਤੁਹਾਡਾ ਡੇਟਾ ਸਟੋਰ ਹੁੰਦਾ ਹੈ. ਜੇ ਤੁਸੀਂ ਆਪਣੇ ਸਰਵਰ ਦਾ ਪਤਾ ਜਾਣਦੇ ਹੋ, ਤਾਂ ਖੇਤਰ ਨੂੰ ਤਾਲਾ ਖੋਲ੍ਹਣ ਲਈ ਪੈਡਲੌਕ ਤੇ ਕਲਿਕ ਕਰੋ ਅਤੇ ਫਿਰ ਇਸ ਨੂੰ ਟਾਈਪ ਕਰੋ. ਇਹ start "http: // \" ਜਾਂ \ "https: // by ਦੁਆਰਾ ਅਰੰਭ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
+
+#: TutoInitNameTitle
+msgctxt "TutoInitNameTitle"
+msgid "Your name"
+msgstr " ਤੁਹਾਡਾ ਨਾਮ "
+
+#: TutoInitNameContent
+msgctxt "TutoInitNameContent"
+msgid "The name you use to connect to the application."
+msgstr " ਨਾਮ ਜੋ ਤੁਸੀਂ ਐਪਲੀਕੇਸ਼ਨ ਨਾਲ ਜੁੜਨ ਲਈ ਵਰਤਦੇ ਹੋ"
+
+#: TutoInitPasswordTitle
+msgctxt "TutoInitPasswordTitle"
+msgid "Your password"
+msgstr " ਤੁਹਾਡਾ ਪਾਸਵਰਡ "
+
+#: TutoInitPasswordContent
+msgctxt "TutoInitPasswordContent"
+msgid "The series of images that you use as password to connect to the application. If you forget it, ask an administrator to remind you."
+msgstr " ਚਿੱਤਰਾਂ ਦੀ ਲੜੀ ਜੋ ਤੁਸੀਂ ਐਪਲੀਕੇਸ਼ਨ ਨਾਲ ਜੁੜਨ ਲਈ ਪਾਸਵਰਡ ਵਜੋਂ ਵਰਤਦੇ ਹੋ. ਜੇ ਤੁਸੀਂ ਇਸ ਨੂੰ ਭੁੱਲ ਜਾਂਦੇ ਹੋ, ਤਾਂ ਕਿਸੇ ਪ੍ਰਬੰਧਕ ਨੂੰ ਯਾਦ ਕਰਾਉਣ ਲਈ ਕਹੋ"
+
+#: TutoInitNameNewTitle
+msgctxt "TutoInitNameNewTitle"
+msgid "Choose a name"
+msgstr " ਇੱਕ ਨਾਮ ਚੁਣੋ"
+
+#: TutoInitNameNewContent
+msgctxt "TutoInitNameNewContent"
+msgid "The name you will use in the application. It could be your full name or anything you want. You could change it later."
+msgstr " ਨਾਮ ਜੋ ਤੁਸੀਂ ਐਪਲੀਕੇਸ਼ਨ ਵਿੱਚ ਇਸਤੇਮਾਲ ਕਰੋਗੇ. ਇਹ ਤੁਹਾਡਾ ਪੂਰਾ ਨਾਮ ਜਾਂ ਕੁਝ ਵੀ ਹੋ ਸਕਦਾ ਹੈ ਜੋ ਤੁਸੀਂ ਚਾਹੁੰਦੇ ਹੋ. ਤੁਸੀਂ ਇਸਨੂੰ ਬਾਅਦ ਵਿੱਚ ਬਦਲ ਸਕਦੇ ਹੋ "
+
+#: TutoInitPasswordNewTitle
+msgctxt "TutoInitPasswordNewTitle"
+msgid "Choose a password"
+msgstr " ਇੱਕ ਪਾਸਵਰਡ ਚੁਨੋ "
+
+#: TutoInitPasswordNewContent
+msgctxt "TutoInitPasswordNewContent"
+msgid "Choose a series of images that you will use as password to protect your content. You could change it later but don't forget it!"
+msgstr " ਤਸਵੀਰਾਂ ਦੀ ਇੱਕ ਲੜੀ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਆਪਣੀ ਸਮੱਗਰੀ ਦੀ ਰੱਖਿਆ ਲਈ ਪਾਸਵਰਡ ਵਜੋਂ ਵਰਤੋਗੇ. ਤੁਸੀਂ ਇਸਨੂੰ ਬਾਅਦ ਵਿੱਚ ਬਦਲ ਸਕਦੇ ਹੋ ਪਰ ਇਸਨੂੰ ਨਾ ਭੁੱਲੋ"
+
+#: TutoInitPreviousTitle
+msgctxt "TutoInitPreviousTitle"
+msgid "Go back"
+msgstr " ਵਾਪਸ ਜਾਓ "
+
+#: TutoInitPreviousContent
+msgctxt "TutoInitPreviousContent"
+msgid "You're not sure of your previous choice? Not a problem, just go back to the previous step."
+msgstr " ਕੀ ਤੁਹਾਨੂੰ ਆਪਣੀ ਪਿਛਲੀ ਚੋਣ ਬਾਰੇ ਯਕੀਨ ਨਹੀਂ ਹੈ? ਕੋਈ ਸਮੱਸਿਆ ਨਹੀਂ, ਸਿਰਫ ਪਿਛਲੇ ਕਦਮ 'ਤੇ ਵਾਪਸ ਜਾਓ"
+
+#: TutoInitNextTitle
+msgctxt "TutoInitNextTitle"
+msgid "Go next"
+msgstr " ਅੱਗੇ ਜਾਓ "
+
+#: TutoInitNextContent
+msgctxt "TutoInitNextContent"
+msgid "Validate your choice and go to the next step."
+msgstr " ਆਪਣੀ ਚੋਣ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ ਅਤੇ ਅਗਲੇ ਪਗ ਤੇ ਜਾਓ"
+
+#: TutoInitColorTitle
+msgctxt "TutoInitColorTitle"
+msgid "Choose your colors"
+msgstr " ਆਪਣੇ ਰੰਗ ਚੁਣੋ "
+
+#: TutoInitColorContent
+msgctxt "TutoInitColorContent"
+msgid "Click here to choose your favorite colors for icons. Don't worry you will be able to change it later if you change your mind."
+msgstr " ਆਈਕਾਨਾਂ ਲਈ ਆਪਣੇ ਮਨਪਸੰਦ ਰੰਗ ਚੁਣਨ ਲਈ ਇੱਥੇ ਕਲਿੱਕ ਕਰੋ. ਚਿੰਤਾ ਨਾ ਕਰੋ ਜੇ ਤੁਸੀਂ ਆਪਣਾ ਮਨ ਬਦਲਦੇ ਹੋ ਤਾਂ ਤੁਸੀਂ ਇਸਨੂੰ ਬਾਅਦ ਵਿੱਚ ਬਦਲ ਸਕੋਗੇ "
+
+#: TutoInitMainTitle
+msgctxt "TutoInitMainTitle"
+msgid "Home screen"
+msgstr " ਹੋਮ ਸਕ੍ਰੀਨ"
+
+#: TutoInitMainContent
+msgctxt "TutoInitMainContent"
+msgid "You're now on the Sugarizer home screen. Everything happens from here. Let's see details."
+msgstr " ਤੁਸੀਂ ਹੁਣ ਸ਼ੂਗਰਾਈਜ਼ਰ ਹੋਮ ਸਕ੍ਰੀਨ 'ਤੇ ਹੋ. ਸਭ ਕੁਝ ਇਥੋਂ ਹੁੰਦਾ ਹੈ. ਆਓ ਵੇਰਵੇ ਵੇਖੀਏ "
+
+#: TutoActivityAbacusactivity
+msgctxt "TutoActivityAbacusactivity"
+msgid "Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese."
+msgstr " ਐਬੈਕਸ ਸਿੱਖਣ ਵਾਲੇ ਨੂੰ ਪ੍ਰਾਚੀਨ ਰੋਮਨ ਅਤੇ ਚੀਨੀ ਦੁਆਰਾ ਵਿਕਸਤ ਵੱਖੋ ਵੱਖਰੀਆਂ ਮਕੈਨੀਕਲ ਕਾਟਿੰਗ ਪ੍ਰਣਾਲੀਆਂ ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਹੋਏ ਨੰਬਰਾਂ ਦੀਆਂ ਵੱਖੋ ਵੱਖਰੀਆਂ ਨੁਮਾਇੰਦਗੀਆਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਦਿੰਦਾ ਹੈ"
+
+#: TutoActivityAbecedariumactivity
+msgctxt "TutoActivityAbecedariumactivity"
+msgid "Abecedarium is an abecedary activity to learn its alphabet using images, sounds and words."
+msgstr " ਚਿੱਤਰ, ਆਵਾਜ਼ਾਂ ਅਤੇ ਸ਼ਬਦਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦਿਆਂ ਇਸ ਦੇ ਵਰਣਮਾਲਾ ਸਿੱਖਣ ਲਈ ਅਬੇਸੈਡਰਿਅਮ ਇੱਕ ਅਭਿਆਸਸ਼ੀਲ ਗਤੀਵਿਧੀ ਹੈ"
+
+#: TutoActivityBlockrainactivity
+msgctxt "TutoActivityBlockrainactivity"
+msgid "Blockrain is a clone of the classic Tetris game. The objective of the game is to manipulate blocks to create horizontal lines."
+msgstr " ਬਲਾਕਰੇਨ ਕਲਾਸਿਕ ਟੈਟ੍ਰਿਸ ਖੇਡ ਦਾ ਕਲੋਨ ਹੈ. ਖੇਡ ਦਾ ਉਦੇਸ਼ ਖਿਤਿਜੀ ਰੇਖਾਵਾਂ ਬਣਾਉਣ ਲਈ ਬਲਾਕਾਂ ਵਿੱਚ ਹੇਰਾਫੇਰੀ ਕਰਨਾ ਹੈ"
+
+#: TutoActivityCalculateactivity
+msgctxt "TutoActivityCalculateactivity"
+msgid "Calculate is a calculator. The interface provides the simplest functions directly, but it also supports more complicated math and variables and even basic plotting."
+msgstr " ਗਣਨਾ ਇਕ ਕੈਲਕੁਲੇਟਰ ਹੈ. ਇੰਟਰਫੇਸ ਸਿੱਧੇ ਤੌਰ 'ਤੇ ਸਧਾਰਣ ਕਾਰਜਾਂ ਨੂੰ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ, ਪਰ ਇਹ ਵਧੇਰੇ ਗੁੰਝਲਦਾਰ ਗਣਿਤ ਅਤੇ ਵੇਰੀਏਬਲਸ ਅਤੇ ਇੱਥੋਂ ਤੱਕ ਕਿ ਮੁ .ਲੀ ਸਾਜ਼ਿਸ਼ ਨੂੰ ਵੀ ਸਮਰਥਤ ਕਰਦਾ ਹੈ"
+
+#: TutoActivityChatPrototypeactivity
+msgctxt "TutoActivityChatPrototypeactivity"
+msgid "Chat provides a simple interface for collaborative discussion between users through the network. Use Neighborhood View to share a conversation."
+msgstr "ਚੈਟ ਨੈਟਵਰਕ ਦੁਆਰਾ ਉਪਭੋਗਤਾਵਾਂ ਵਿਚਕਾਰ ਸਹਿਯੋਗੀ ਵਿਚਾਰ ਵਟਾਂਦਰੇ ਲਈ ਇੱਕ ਸਧਾਰਨ ਇੰਟਰਫੇਸ ਪ੍ਰਦਾਨ ਕਰਦਾ ਹੈ. ਗੱਲਬਾਤ ਨੂੰ ਸਾਂਝਾ ਕਰਨ ਲਈ ਨੇਬਰਹੁੱਡ ਵਿਦੀ ਵਰਤੋਂ ਕਰੋ "
+
+#: TutoActivityChessactivity
+msgctxt "TutoActivityChessactivity"
+msgid "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
+msgstr " ਸ਼ਤਰੰਜ ਦੀ ਗਤੀਵਿਧੀ ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸ਼ਤਰੰਜ ਦੀ ਇੱਕ ਖੇਡ ਵਿੱਚ ਸਿੱਖਣ ਅਤੇ ਚੁਣੌਤੀ ਦੇਣ ਦਾ ਇੱਕ ਮਜ਼ੇਦਾਰ ਹੈ "
+
+#: TutoActivityClockactivity
+msgctxt "TutoActivityClockactivity"
+msgid "Clock is a simple activity to learn how to read and tell the time."
+msgstr " ਘੜੀ ਇੱਕ ਸਧਾਰਣ ਗਤੀਵਿਧੀ ਹੈ ਜੋ ਸਮਾਂ ਪੜ੍ਹਨਾ ਅਤੇ ਦੱਸਣਾ ਸਿੱਖਦਾ ਹੈ"
+
+#: TutoActivityColorMyWorldactivity
+msgctxt "TutoActivityColorMyWorldactivity"
+msgid "Color My World activity let you explore the world and its countries. Fill countries with color you like or use the interactive mode to find location of countries on the offline map."
+msgstr " ਕਲਰ ਮਾਈ ਵਰਲਡ ਗਤੀਵਿਧੀ ਤੁਹਾਨੂੰ ਵਿਸ਼ਵ ਅਤੇ ਇਸਦੇ ਦੇਸ਼ਾਂ ਦੀ ਪੜਚੋਲ ਕਰਨ ਦਿੰਦੀ ਹੈ. ਉਨ੍ਹਾਂ ਦੇਸ਼ਾਂ ਨੂੰ ਭਰੋ ਜੋ ਤੁਸੀਂ ਪਸੰਦ ਕਰਦੇ ਹੋ ਜਾਂ theਫਲਾਈਨ ਨਕਸ਼ੇ 'ਤੇ ਦੇ ਦੇਸ਼ਾਂ ਦੀ ਸਥਿਤੀ ਦਾ ਪਤਾ ਲਗਾਉਣ ਲਈ ਇੰਟਰਐਕਟਿਵ ਮੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ "
+
+#: TutoActivityEbookReaderactivity
+msgctxt "TutoActivityEbookReaderactivity"
+msgid "An e-book reader to read a set of books from the classical litterature."
+msgstr " ਕਲਾਸੀਕਲ ਸਾਹਿਤ ਦੀਆਂ ਕਿਤਾਬਾਂ ਦਾ ਸਮੂਹ ਪੜ੍ਹਨ ਲਈ ਇੱਕ ਈ-ਬੁੱਕ ਰੀਡਰ"
+
+#: TutoActivityEtoysactivity
+msgctxt "TutoActivityEtoysactivity"
+msgid "EToys is a media-rich authoring environment and visual programming system. A complete educational tool for teaching children powerful ideas in compelling ways."
+msgstr " ਈਟੀਓਸ ਇੱਕ ਮੀਡੀਆ-ਅਮੀਰ ਲੇਖਣ ਵਾਲਾ ਵਾਤਾਵਰਣ ਅਤੇ ਵਿਜ਼ੂਅਲ ਪ੍ਰੋਗਰਾਮਿੰਗ ਪ੍ਰਣਾਲੀ ਹੈ. ਬੱਚਿਆਂ ਨੂੰ ਮਜਬੂਰ ਕਰਨ ਦੇ ਤਰੀਕਿਆਂ ਨਾਲ ਸ਼ਕਤੀਸ਼ਾਲੀ ਵਿਚਾਰ ਸਿਖਾਉਣ ਲਈ ਇੱਕ ਸੰਪੂਰਨ ਵਿਦਿਅਕ ਉਪਕਰਣ"
+
+#: TutoActivityExerciseractivity
+msgctxt "TutoActivityExerciseractivity"
+msgid "Exerciser is a tool to create your set of interactive questions (MCQ, Cloze Text, ...) and share it with your friends."
+msgstr " ਅਭਿਆਸ ਕਰਨ ਵਾਲਾ ਇਕ ਸਾਧਨ ਹੈ ਜੋ ਤੁਹਾਡੇ ਇੰਟਰਐਕਟਿਵ ਪ੍ਰਸ਼ਨਾਂ ਦਾ ਸਮੂਹ ਤਿਆਰ ਕਰਦਾ ਹੈ (ਐਮਸੀਕਿਉ, ਕਲੋਜ਼ ਟੈਕਸਟ, ...) ਅਤੇ ਇਸਨੂੰ ਆਪਣੇ ਦੋਸਤਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ "
+
+#: TutoActivityFalabracmanactivity
+msgctxt "TutoActivityFalabracmanactivity"
+msgid "Falabracman Activity is a simple game where you have to Help Falabracman learn some words, by collecting all the letters in the right order."
+msgstr " ਫੈਲਾਬ੍ਰੈਕਮੈਨ ਐਕਟੀਵਿਟੀ ਇਕ ਸਧਾਰਨ ਖੇਡ ਹੈ ਜਿੱਥੇ ਤੁਹਾਨੂੰ ਫਾਲਬ੍ਰੈਕਮੈਨ ਨੂੰ ਕੁਝ ਸ਼ਬਦ ਸਿੱਖਣ ਵਿਚ ਸਹਾਇਤਾ ਕਰਨੀ ਪੈਂਦੀ ਹੈ, ਸਾਰੇ ਅੱਖਰਾਂ ਨੂੰ ਸਹੀ ਕ੍ਰਮ ਵਿਚ ਇਕੱਠਾ ਕਰਕੇ"
+
+#: TutoActivityFlipactivity
+msgctxt "TutoActivityFlipactivity"
+msgid "Flip is a simple strategy game where you have to flip \"coins\" until they are all of the same color. Each time you \"win\" the challenge gets more difficult."
+msgstr " ਫਲਿੱਪ ਇਕ ਸਧਾਰਨ ਰਣਨੀਤੀ ਵਾਲੀ ਖੇਡ ਹੈ ਜਿੱਥੇ ਤੁਹਾਨੂੰ "ਸਿੱਕੇ \" ਨੂੰ ਫਲਿੱਪ ਕਰਨਾ ਪੈਂਦਾ ਹੈ ਜਦੋਂ ਤਕ ਉਹ ਸਾਰੇ ਇਕੋ ਰੰਗ ਦੇ ਨਾ ਹੋਣ. ਹਰ ਵਾਰ ਜਦੋਂ ਤੁਸੀਂ "ਜਿੱਤ \" ਜਾਂਦੇ ਹੋ ਤਾਂ ਚੁਣੌਤੀ ਹੋਰ ਮੁਸ਼ਕਲ ਹੁੰਦੀ ਜਾਂਦੀ ਹੈ"
+
+#: TutoActivityFoodChainactivity
+msgctxt "TutoActivityFoodChainactivity"
+msgid "FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who? The activity is composed of 3 little games with 20 levels of growing complexity."
+msgstr "ਫੂਡਚੇਨ ਜਾਨਵਰਾਂ ਦਾ ਨਾਮ (ਸ਼ਬਦ ਅਤੇ ਉਚਾਰਨ) ਅਤੇ ਭੋਜਨ ਚੇਨਜ਼ ਦੀ ਧਾਰਣਾ ਸਿੱਖਣ ਲਈ ਇੱਕ ਵਿਦਿਅਕ ਖੇਡ ਹੈ: ਕੌਣ ਕੀ ਖਾਂਦਾ ਹੈ? ਕੌਣ ਕੌਣ ਖਾਂਦਾ ਹੈ? ਗਤੀਵਿਧੀ 3 ਛੋਟੇ ਖੇਡਾਂ ਨਾਲ ਬਣੀ ਹੈ 20 ਵਧ ਰਹੀ ਜਟਿਲਤਾ ਦੇ ਨਾਲ"
+
+#: TutoActivityFototoonactivity
+msgctxt "TutoActivityFototoonactivity"
+msgid "FotoToon allow you to use your pictures, drawing or images coming from Journal to create in few minutes an amazing comic strip to share with your friends."
+msgstr " ਫੋਟਟੂਨ ਤੁਹਾਨੂੰ ਆਪਣੀਆਂ ਤਸਵੀਰਾਂ, ਡਰਾਇੰਗ ਜਾਂ ਚਿੱਤਰਾਂ ਨੂੰ ਜਰਨਲ ਤੋਂ ਆਉਣ ਵਾਲੀਆਂ ਕੁਝ ਮਿੰਟਾਂ ਵਿਚ ਆਪਣੇ ਮਿੱਤਰਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰਨ ਲਈ ਇਕ ਹੈਰਾਨੀ ਵਾਲੀ ਕਾਮਿਕ ਸਟ੍ਰਿਪ ਦੀ ਵਰਤੋਂ ਕਰਨ ਦੀ ਆਗਿਆ ਦਿੰਦਾ ਹੈ."
+
+#: TutoActivityGameOfLifeactivity
+msgctxt "TutoActivityGameOfLifeactivity"
+msgid "Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen."
+msgstr " ਗੇਮ ਆਹਫ ਲਾਈਫ ਇਕ ਗੇਮ ਹੈ ਜਿਸ ਨੂੰ ਵੇਖਣ ਅਤੇ ਇਹ ਪਤਾ ਲਗਾਉਣ ਲਈ ਹੈ ਕਿ ਸੈੱਲ ਕਿਵੇਂ ਪੀੜ੍ਹੀ ਦਰ ਪੀੜ੍ਹੀ ਇਕਸਾਰ ਹੁੰਦੇ ਹਨ ਅਤੇ ਵਿਕਾਸ ਕਰਦੇ ਹਨ. ਇੱਕ ਪ੍ਰਦਾਨ ਕੀਤੇ ਪੈਟਰਨ, ਇੱਕ ਪੂਰੀ ਬੇਤਰਤੀਬੇ ਪੈਟਰਨ ਦੀ ਵਰਤੋਂ ਕਰੋ ਜਾਂ ਆਪਣਾ ਖੁਦ ਦਾ ਬਣਾਓ ਅਤੇ ਵੇਖੋ ਕਿ ਕੀ ਵਾਪਰਦਾ ਹੈ "
+
+#: TutoActivityGearsactivity
+msgctxt "TutoActivityGearsactivity"
+msgid "Gears is a tool to explore the ways in which gears and chains transmit motion. Draw your gears and see it coming to life."
+msgstr " ਗੇਅਰਜ਼ ਉਨ੍ਹਾਂ ਤਰੀਕਿਆਂ ਦਾ ਪਤਾ ਲਗਾਉਣ ਲਈ ਇਕ ਸਾਧਨ ਹੈ ਜਿਸ ਵਿਚ ਗੇਅਰਜ਼ ਅਤੇ ਚੇਨ ਗਤੀ ਪ੍ਰਸਾਰਿਤ ਕਰਦੇ ਹਨ. ਆਪਣੇ ਗੀਅਰ ਬਣਾਉ ਅਤੇ ਇਸ ਨੂੰ ਜ਼ਿੰਦਗੀ ਵਿਚ ਆਉਂਦੇ ਦੇਖੋ"
+
+#: TutoActivityGetThingsDoneactivity
+msgctxt "TutoActivityGetThingsDoneactivity"
+msgid "Get Things Done is a small tool to track your to-do list."
+msgstr " ਕੰਮ ਕਰਨ ਦੀ ਸੰਭਾਵਨਾ ਤੁਹਾਡੀ ਟੂ-ਡੂ ਲਿਸਟ ਨੂੰ ਟ੍ਰੈਕ ਕਰਨ ਲਈ ਇਕ ਛੋਟਾ ਜਿਹਾ ਟੂਲ ਹੈ"
+
+#: TutoActivityGridpaintactivity
+msgctxt "TutoActivityGridpaintactivity"
+msgid "Grid Paint is a simple paint activity for kids to draw pictures using a grid of triangles. Never miss your drawing with Grid Paint activity!"
+msgstr " ਗਰਿੱਡ ਪੇਂਟ ਬੱਚਿਆਂ ਲਈ ਤਿਕੋਣ ਦੇ ਇੱਕ ਗਰਿੱਡ ਦੀ ਵਰਤੋਂ ਨਾਲ ਤਸਵੀਰਾਂ ਖਿੱਚਣ ਲਈ ਇੱਕ ਸਧਾਰਣ ਪੇਂਟ ਗਤੀਵਿਧੀ ਹੈ. ਗਰਿੱਡ ਪੇਂਟ ਦੀ ਗਤੀਵਿਧੀ ਨਾਲ ਕਦੇ ਵੀ ਆਪਣੀ ਡਰਾਇੰਗ ਨੂੰ ਯਾਦ ਨਾ ਕਰੋ"
+
+#: TutoActivityJappyactivity
+msgctxt "TutoActivityJappyactivity"
+msgid "Jappy is a code editor with built-in examples and a run-time environment to learn Python programming language."
+msgstr " ਜੈੱਪੀ ਇੱਕ ਕੋਡ ਸੰਪਾਦਕ ਹੈ ਜਿਸ ਵਿੱਚ ਬਿਲਟ-ਇਨ ਉਦਾਹਰਣਾਂ ਹਨ ਅਤੇ ਪਾਇਥਨ ਪ੍ਰੋਗਰਾਮਿੰਗ ਭਾਸ਼ਾ ਸਿੱਖਣ ਲਈ ਰਨ-ਟਾਈਮ ਵਾਤਾਵਰਣ ਹੈ"
+
+#: TutoActivityLabyrinthJSactivity
+msgctxt "TutoActivityLabyrinthJSactivity"
+msgid "LabyrinthJS is a lightweight mind-mapping activity to visually organize your thought or informations."
+msgstr " ਤੁਹਾਡੇ ਵਿਚਾਰਾਂ ਜਾਂ ਜਾਣਕਾਰੀ ਨੂੰ ਨਜ਼ਰਅੰਦਾਜ਼ੀ ਨਾਲ ਸੰਗਠਿਤ ਕਰਨ ਲਈ ਲਾਇਬ੍ਰੇਥ ਜੇਐਸ ਇੱਕ ਹਲਕੇ ਦਿਮਾਗ਼ ਨਾਲ ਮੇਲ ਕਰਨ ਵਾਲੀ ਗਤੀਵਿਧੀ ਹੈ"
+
+#: TutoActivityLastOneLosesactivity
+msgctxt "TutoActivityLastOneLosesactivity"
+msgid "Last One Loses is a small game against the computer. Each one had to get between 1 to 3 items on the board. The one which get the last one on the board loses the game."
+msgstr " ਆਖਰੀ ਇਕ ਹਾਰਨ ਕੰਪਿਓਟਰ ਦੇ ਵਿਰੁੱਧ ਇੱਕ ਛੋਟੀ ਜਿਹੀ ਖੇਡ ਹੈ. ਹਰ ਇੱਕ ਨੂੰ ਬੋਰਡ ਤੇ 1 ਤੋਂ 3 ਚੀਜ਼ਾਂ ਮਿਲਣੀਆਂ ਸਨ. ਜਿਹੜਾ ਬੋਰਡ 'ਤੇ ਆਖਰੀ ਪ੍ਰਾਪਤ ਕਰਦਾ ਹੈ ਉਹ ਖੇਡ ਹਾਰ ਜਾਂਦਾ ਹੈ "
+
+#: TutoActivityMarkdownactivity
+msgctxt "TutoActivityMarkdownactivity"
+msgid "Markdown is an editor for lightweight markup language. It allow to format (bold, italic, ...) easily a text."
+msgstr " ਮਾਰਕਡਾਉਨ ਹਲਕੇ ਭਾਰ ਦੀ ਮਾਰਕਅਪ ਭਾਸ਼ਾ ਲਈ ਇੱਕ ਸੰਪਾਦਕ ਹੈ. ਇਹ ਆਸਾਨੀ ਨਾਲ ਟੈਕਸਟ ਨੂੰ ਫਾਰਮੈਟ (ਬੋਲਡ, ਇਟੈਲਿਕ, ...) ਕਰਨ ਦੀ ਆਗਿਆ ਦਿੰਦਾ ਹੈ "
+
+#: TutoActivityMazeWebactivity
+msgctxt "TutoActivityMazeWebactivity"
+msgid "A simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one."
+msgstr " ਇੱਕ ਸਧਾਰਣ ਭੁੱਲਰ ਖੇਡ. ਟੀਚੇ 'ਤੇ ਪਹੁੰਚਣ ਲਈ ਭੁੱਬਾਂ ਮਾਰੋ. ਹਰੇਕ ਭੁੱਲਰ ਪਿਛਲੇ ਨਾਲੋਂ ਵੱਡਾ ਅਤੇ ਮੁਸ਼ਕਲ ਹੁੰਦਾ ਹੈ"
+
+#: TutoActivityMediaVieweractivity
+msgctxt "TutoActivityMediaVieweractivity"
+msgid "An activity to display multimedia content coming from the Journal."
+msgstr " ਜਰਨਲ ਤੋਂ ਆਉਣ ਵਾਲੀ ਮਲਟੀਮੀਡੀਆ ਸਮਗਰੀ ਨੂੰ ਪ੍ਰਦਰਸ਼ਤ ਕਰਨ ਲਈ ਇੱਕ ਗਤੀਵਿਧੀ
+ "
+
+#: TutoActivityMemorizeactivity
+msgctxt "TutoActivityMemorizeactivity"
+msgid "The famous memorize game: find matching pairs (images, sounds or text). Memorize is actually more than just a predefined game you can play, it allows you to create new games yourself as well."
+msgstr " ਮਸ਼ਹੂਰ ਯਾਦਗਾਰ ਖੇਡ: ਮੇਲ ਜੋੜੀ ਲੱਭੋ (ਚਿੱਤਰ, ਆਵਾਜ਼ਾਂ ਜਾਂ ਟੈਕਸਟ). ਯਾਦ ਰੱਖਣਾ ਅਸਲ ਵਿੱਚ ਕੇਵਲ ਇੱਕ ਪ੍ਰਭਾਸ਼ਿਤ ਖੇਡ ਨਾਲੋਂ ਵੱਧ ਹੈ ਜਿਸ ਨੂੰ ਤੁਸੀਂ ਖੇਡ ਸਕਦੇ ਹੋ, ਇਹ ਤੁਹਾਨੂੰ ਆਪਣੇ ਆਪ ਵੀ ਨਵੀਆਂ ਖੇਡਾਂ ਬਣਾਉਣ ਦੀ ਆਗਿਆ ਦਿੰਦਾ ਹੈ"
+
+#: TutoActivityMindMathactivity
+msgctxt "TutoActivityMindMathactivity"
+msgid "Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations."
+msgstr " ਮਨ ਗਣਿਤ ਕਾਉਂਟਡਾਉਨ ਨੰਬਰ ਰਾਡ ਦੇ ਸਮਾਨ ਮਾਨਸਿਕ ਗਣਨਾ ਵਾਲੀ ਖੇਡ ਹੈ. ਟੀਚਾ ਗਣਿਤਿਕ ਕਾਰਜਾਂ ਦੁਆਰਾ ਇੱਕ ਟੀਚਾ ਨੰਬਰ ਪ੍ਰਾਪਤ ਕਰਨਾ ਹੈ "
+
+#: TutoActivityMoonactivity
+msgctxt "TutoActivityMoonactivity"
+msgid "Moon phase viewer, includes Lunar phase information and eclipse data."
+msgstr " ਚੰਦਰਮਾ ਦੇ ਪੜਾਅ ਦੇ ਦਰਸ਼ਕ, ਚੰਦਰ ਪੜਾਅ ਦੀ ਜਾਣਕਾਰੀ ਅਤੇ ਗ੍ਰਹਿਣ ਡੇਟਾ ਸ਼ਾਮਲ ਕਰਦੇ ਹਨ"
+
+#: TutoActivityPaintactivity
+msgctxt "TutoActivityPaintactivity"
+msgid "Paint is an activity to create paintings or drawings. Change brush size or color, draw text, stamps, include images or preset patterns."
+msgstr " ਪੇਂਟ ਪੇਂਟਿੰਗ ਜਾਂ ਡਰਾਇੰਗ ਬਣਾਉਣ ਦੀ ਕਿਰਿਆ ਹੈ. ਬੁਰਸ਼ ਦਾ ਆਕਾਰ ਜਾਂ ਰੰਗ ਬਦਲੋ, ਟੈਕਸਟ ਬਣਾਓ, ਸਟਪਸ ਲਗਾਓ, ਚਿੱਤਰ ਸ਼ਾਮਲ ਕਰੋ ਜਾਂ ਪ੍ਰੀਸੈਟ ਪੈਟਰਨ "
+
+#: TutoActivityPhysicsJSactivity
+msgctxt "TutoActivityPhysicsJSactivity"
+msgid "PhysicsJS is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia."
+msgstr " ਭੌਤਿਕ ਵਿਗਿਆਨ ਜੇਐਸ ਇੱਕ ਭੌਤਿਕ ਵਿਸ਼ਵ ਸਿਮੂਲੇਟਰ ਅਤੇ ਖੇਡ ਦਾ ਮੈਦਾਨ ਹੈ. ਤੁਸੀਂ ਵਰਗ, ਚੱਕਰ, ਤਿਕੋਣ ਜੋੜ ਸਕਦੇ ਹੋ ਅਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਸ਼ਕਤੀਆਂ (ਸੋਚਦੇ ਹੋ ਕਿ ਗ੍ਰੈਵਿਟੀ ਅਤੇ ਨਿtonਟਨ) ਅਤੇ ਆਕੜ ਨਾਲ ਜੀਵਨ ਵਿਚ ਆਉਂਦੇ ਵੇਖ ਸਕਦੇ ਹੋ."
+
+#: TutoActivityQRCodeactivity
+msgctxt "TutoActivityQRCodeactivity"
+msgid "Use easily QR Code with this simple QR Code Generator and scanner."
+msgstr " ਇਸ ਸਧਾਰਣ QR ਕੋਡ ਜੇਨਰੇਟਰ ਅਤੇ ਸਕੈਨਰ ਦੇ ਨਾਲ ਅਸਾਨੀ ਨਾਲ QR ਕੋਡ ਦੀ ਵਰਤੋਂ ਕਰੋ "
+
+#: TutoActivityRecordactivity
+msgctxt "TutoActivityRecordactivity"
+msgid "Record is a basic rich-media capture activity. It lets you capture still images, video, and/or audio."
+msgstr " ਰਿਕਾਰਡ ਇਕ ਅਮੀਰ-ਮੀਡੀਆ ਕੈਪਚਰ ਗਤੀਵਿਧੀ ਹੈ. ਇਹ ਤੁਹਾਨੂੰ ਅਰਾਮ ਵਾਲੀਆਂ ਤਸਵੀਰਾਂ, ਵੀਡੀਓ ਅਤੇ / ਜਾਂ captureਡੀਓ ਨੂੰ ਕੈਪਚਰ ਕਰਨ ਦਿੰਦਾ ਹੈ "
+
+#: TutoActivityReflectionactivity
+msgctxt "TutoActivityReflectionactivity"
+msgid "Reflection is a game designed around reflective symmetry. The user modifies an image until it has reflective symmetry around either the horizontal or vertical axis."
+msgstr " ਰਿਫਲਿਕਸ਼ਨ ਇਕ ਗੇਮ ਹੈ ਜੋ ਰਿਫਲੈਕਟਿਵ ਸਮਮਿਤੀ ਦੇ ਦੁਆਲੇ ਡਿਜ਼ਾਈਨ ਕੀਤੀ ਗਈ ਹੈ. ਉਪਯੋਗਕਰਤਾ ਇੱਕ ਚਿੱਤਰ ਨੂੰ ਉਦੋਂ ਤੱਕ ਸੰਸ਼ੋਧਿਤ ਕਰਦਾ ਹੈ ਜਦੋਂ ਤੱਕ ਇਸ ਵਿੱਚ ਦੂਰੀ ਜਾਂ ਲੰਬਕਾਰੀ ਧੁਰੇ ਦੁਆਲੇ ਪ੍ਰਤੀਬਿੰਬਿਤ ਸਮਰੂਪ ਨਾ ਹੋਵੇ"
+
+#: TutoActivityScratchactivity
+msgctxt "TutoActivityScratchactivity"
+msgid "Scratch is a full environment where you can program your own interactive stories, games, and animations."
+msgstr " ਸਕ੍ਰੈਚ ਇੱਕ ਪੂਰਾ ਵਾਤਾਵਰਣ ਹੈ ਜਿੱਥੇ ਤੁਸੀਂ ਆਪਣੀਆਂ ਖੁਦ ਦੀਆਂ ਇੰਟਰਐਕਟਿਵ ਕਹਾਣੀਆਂ, ਗੇਮਜ਼ ਅਤੇ ਐਨੀਮੇਸ਼ਨ ਪ੍ਰੋਗਰਾਮ ਕਰ ਸਕਦੇ ਹੋ"
+
+#: TutoActivitySharedNotesactivity
+msgctxt "TutoActivitySharedNotesactivity"
+msgid "Shared Notes is an activity that let you pin small notes - like \"Post-It\" - on a virtual board and share it with other users."
+msgstr " ਸ਼ੇਅਰਡ ਨੋਟਸ ਇੱਕ ਗਤੀਵਿਧੀ ਹੈ ਜੋ ਤੁਹਾਨੂੰ ਛੋਟੇ ਨੋਟਸ ਪਿੰਨ ਕਰਨ ਦਿੰਦੀ ਹੈ - ਜਿਵੇਂ ਕਿ ਇੱਕ ਵਰਚੁਅਲ ਬੋਰਡ ਤੇ \ "ਇਸ ਤੋਂ ਬਾਅਦ \" - ਅਤੇ ਹੋਰ ਉਪਭੋਗਤਾਵਾਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ."
+
+#: TutoActivitySpeakactivity
+msgctxt "TutoActivitySpeakactivity"
+msgid "Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer."
+msgstr ""
+
+#: TutoActivitySprintMathactivity
+msgctxt "TutoActivitySprintMathactivity"
+msgid "Sprint Math is a simple activity to challenge yourself on mental arithmetic. Could be also played with other users through the network."
+msgstr " ਬੋਲਦਾ ਹੈ ਚਿਹਰਾ. ਜੋ ਵੀ ਤੁਸੀਂ ਟਾਈਪ ਕਰਦੇ ਹੋ ਉਹ ਸਪੀਚ ਸਿੰਥੇਸਾਈਜ਼ਰ ਦੀ ਵਰਤੋਂ ਨਾਲ ਉੱਚਾ ਬੋਲਿਆ ਜਾਏਗਾ"
+
+#: TutoActivityStopwatchactivity
+msgctxt "TutoActivityStopwatchactivity"
+msgid "StopWatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent."
+msgstr " ਸਟੌਪਵਾਚ ਇਕ ਸਧਾਰਨ ਸਟਾਪ ਵਾਚ ਹੈ. ਇਹ ਉਪਭੋਗਤਾ ਨੂੰ ਕਈਂ ਡਿਜੀਟਲ ਸਟੌਪਵਾਚਸ ਦਰਸਾਉਂਦਾ ਹੈ. ਹਰ ਸਟੌਪਵਾਚ ਸੁਤੰਤਰ ਹੈ"
+
+#: TutoActivityTamTamMicroactivity
+msgctxt "TutoActivityTamTamMicroactivity"
+msgid "Tam Tam Micro is an activity to play instruments, sounds and noise of different type."
+msgstr " ਟੈਮ ਟੈਮ ਮਾਈਕਰੋ ਵੱਖ ਵੱਖ ਕਿਸਮਾਂ ਦੇ ਯੰਤਰਾਂ, ਆਵਾਜ਼ਾਂ ਅਤੇ ਸ਼ੋਰ ਨੂੰ ਵਜਾਉਣ ਲਈ ਇੱਕ ਗਤੀਵਿਧੀ ਹੈ"
+
+#: TutoActivityTangramactivity
+msgctxt "TutoActivityTangramactivity"
+msgid "Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes."
+msgstr " ਟਾਂਗਰਾਮ ਇਕ ਮਸ਼ਹੂਰ ਕਲਾਸੀਕਲ ਚੀਨੀ ਖੇਡ ਹੈ ਜਿਸ ਵਿੱਚ ਸੱਤ ਵੱਖ ਵੱਖ ਟੁਕੜਿਆਂ ਨੂੰ ਵੱਖ ਵੱਖ ਆਕਾਰ ਦੇ ਇੱਕ ਪੂਰੇ ਚਿੱਤਰ ਵਿੱਚ ਪੁਨਰਗਠਿਤ ਕਰਨਾ ਹੈ"
+
+#: TutoActivityTankOpactivity
+msgctxt "TutoActivityTankOpactivity"
+msgid "Tank Operation is an arcade game that helps kids practice their math facts with different level of difficulty."
+msgstr " ਟੈਂਕ ਆਪ੍ਰੇਸ਼ਨ ਇਕ ਆਰਕੇਡ ਗੇਮ ਹੈ ਜੋ ਬੱਚਿਆਂ ਨੂੰ ਵੱਖੋ ਵੱਖਰੀ ਮੁਸ਼ਕਲ ਦੇ ਨਾਲ ਉਨ੍ਹਾਂ ਦੇ ਗਣਿਤ ਦੇ ਤੱਥਾਂ ਦਾ ਅਭਿਆਸ ਕਰਨ ਵਿਚ ਸਹਾਇਤਾ ਕਰਦੀ ਹੈ"
+
+#: TutoActivityTurtleBlocksJSactivity
+msgctxt "TutoActivityTurtleBlocksJSactivity"
+msgid "Turtle Blocks JS is an activity with a Logo-inspired graphical \"turtle\" that draws colorful art with snap-together visual programming elements."
+msgstr " ਟਰਟਲ ਬਲੌਕਸ ਜੇ ਐਸ ਲੋਗੋ-ਪ੍ਰੇਰਿਤ ਗ੍ਰਾਫਿਕਲ tur "ਟਰਟਲ with" ਵਾਲੀ ਇੱਕ ਗਤੀਵਿਧੀ ਹੈ ਜੋ ਸਨੈਪ-ਇਕੱਠੇ ਵਿਜ਼ੂਅਲ ਪ੍ਰੋਗਰਾਮਿੰਗ ਐਲੀਮੈਂਟਸ ਦੇ ਨਾਲ ਰੰਗੀਨ ਕਲਾ ਖਿੱਚਦੀ ਹੈ. "
+
+#: TutoActivityVideoVieweractivity
+msgctxt "TutoActivityVideoVieweractivity"
+msgid "A browser and a viewer for Khan Academy and CanopÃ© videos."
+msgstr " ਖਾਨ ਅਕੈਡਮੀ ਅਤੇ ਕੈਨੋਪੋ © ਵੀਡਿਓਜ਼ ਲਈ ਇੱਕ ਬ੍ਰਾਜ਼ਰ ਅਤੇ ਦਰਸ਼ਕ"
+
+#: TutoActivityXOEditoractivity
+msgctxt "TutoActivityXOEditoractivity"
+msgid "Editor for your buddy icon colors. This activity lets you explore different color patterns and choose your favorite."
+msgstr " ਤੁਹਾਡੇ ਬੱਡੀ ਆਈਕਾਨ ਰੰਗਾਂ ਲਈ ਸੰਪਾਦਕ. ਇਹ ਗਤੀਵਿਧੀ ਤੁਹਾਨੂੰ ਵੱਖ ਵੱਖ ਰੰਗ ਪੈਟਰਨ ਦੀ ਪੜਚੋਲ ਕਰਨ ਅਤੇ ਆਪਣੀ ਮਨਪਸੰਦ ਦੀ ਚੋਣ ਕਰਨ ਦਿੰਦੀ ਹੈ"
+
+#: TutoActivityPomodoroactivity
+msgctxt "TutoActivityPomodoroactivity"
+msgid "Pomodoro is a countdown activity used to break down work into intervals separated by short breaks."
+msgstr " ਪੋਮੋਡੋਰੋ ਇੱਕ ਕਾਉਂਟਡਾ ਗਤੀਵਿਧੀ ਹੈ ਜੋ ਕੰਮ ਨੂੰ ਥੋੜੇ ਸਮੇਂ ਤੋਂ ਵੱਖ ਕਰਕੇ ਅੰਤਰਾਲਾਂ ਵਿੱਚ ਵੰਡਣ ਲਈ ਵਰਤੀ ਜਾਂਦੀ ਹੈ"
+
+#: TutoActivityConstellationactivity
+msgctxt "TutoActivityConstellationactivity"
+msgid "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
+msgstr " ਤਾਰਾਮੰਡਲ ਇੱਕ ਆਫਲਾਈਨ ਗ੍ਰਹਿ ਹੈ ਜੋ ਤੁਹਾਨੂੰ ਧਰਤੀ ਦੇ ਕਿਸੇ ਵੀ ਸਥਾਨ ਤੋਂ ਅਕਾਸ਼ ਵਿੱਚ ਕੀ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ ਦੀ ਆਗਿਆ ਦਿੰਦਾ ਹੈ "
+
+#: TutoActivityFractionBounceactivity
+msgctxt "TutoActivityFractionBounceactivity"
+msgid "Fraction activity is a game to learn Fraction. The player should nudge a bouncing ball to land at a point of a given fraction."
+msgstr " ਭਾਗਾਂ ਦੀ ਗਤੀਵਿਧੀ ਫਰੈਕਸ਼ਨ ਸਿੱਖਣ ਲਈ ਇੱਕ ਖੇਡ ਹੈ. ਖਿਡਾਰੀ ਨੂੰ ਇੱਕ ਦਿੱਤੇ ਹਿੱਸੇ ਦੇ ਇੱਕ ਬਿੰਦੂ 'ਤੇ ਉਤਰਨ ਲਈ ਉਛਾਲ ਵਾਲੀ ਗੇਂਦ ਨੂੰ ਹਿਲਾਉਣਾ ਚਾਹੀਦਾ ਹੈ"
+
+#: NotConnected
+msgctxt "NotConnected"
+msgid "Not connected"
+msgstr " ਜੁੜਿਆ ਨਹੀਂ"
+
+#: TutoOfflineTitle
+msgctxt "TutoOfflineTitle"
+msgid "Not connected icon"
+msgstr " ਜੁੜਿਆ ਹੋਇਆ ਆਈਕਨ ਨਹੀਂ"
+
+#: TutoOfflineContent
+msgctxt "TutoOfflineContent"
+msgid "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
+msgstr " ਜਦੋਂ ਦਿਖਾਈ ਦਿੰਦਾ ਹੈ, ਇਹ ਆਈਕਨ ਤੁਹਾਨੂੰ ਯਾਦ ਦਿਵਾਉਂਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਕਨੈਕਟ ਨਹੀਂ ਹੋ. ਸਹਿਯੋਗੀ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰਨ ਅਤੇ ਆਪਣੇ ਕੰਮ ਦਾ ਬੈਕਅਪ ਲੈਣ ਲਈ ਆਪਣੀ ਡਿਵਾਈਸ ਨੂੰ ਸਰਵਰ ਨਾਲ ਕਨੈਕਟ ਕਰੋ "
+
+#: PleaseConnectMessage
+msgctxt "PleaseConnectMessage"
+msgid "Connect your account to a server to use collaboration features and to backup your work."
+msgstr " ਸਹਿਕਾਰੀ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਦੀ ਵਰਤੋਂ ਕਰਨ ਅਤੇ ਆਪਣੇ ਕੰਮ ਦਾ ਬੈਕਅਪ ਲੈਣ ਲਈ ਆਪਣੇ ਖਾਤੇ ਨੂੰ ਸਰਵਰ ਨਾਲ ਕਨੈਕਟ ਕਰੋ"
+
+#: TutoInitQRCodeTitle
+msgctxt "TutoInitQRCodeTitle"
+msgid "Scan server code"
+msgstr " ਸਰਵਰ ਕੋਡ ਸਕੈਨ ਕਰੋ "
+
+#: TutoInitQRCodeContent
+msgctxt "TutoInitQRCodeContent"
+msgid "Use this button to scan the QR code of your server instead of typing its address."
+msgstr " ਆਪਣੇ ਸਰਵਰ ਦਾ ਐਡਰੈੱਸ ਟਾਈਪ ਕਰਨ ਦੀ ਬਜਾਏ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਇਸ ਬਟਨ ਦੀ ਵਰਤੋਂ ਕਰੋ"
+
+#: TutoActivityWriteactivity
+msgctxt "TutoActivityWriteactivity"
+msgid "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
+msgstr "ਲਿਖੋ ਗਤੀਵਿਧੀ ਬੱਚਿਆਂ ਲਈ ਕਹਾਣੀ, ਕਵਿਤਾ ਜਾਂ ਲੇਖ ਲਿਖਣ ਦੇਣ ਲਈ ਇੱਕ ਸਧਾਰਣ ਇੰਟਰਫੇਸ ਵਾਲਾ ਇੱਕ ਮੁਲਾ ਵਰਡ ਪ੍ਰੋਸੈਸਰ ਹੈ. ਇਹ ਚਿੱਤਰ ਸ਼ਾਮਲ ਕਰਨ, ਬੁਨਿਆਦੀ ਲੇਆਉਟ ਕਾਰਜ ਕਰਨ ਅਤੇ ਪੀਡੀਐਫ, ਓਡੀਟੀ ਜਾਂ ਡੀਓਸੀ ਫਾਈਲਾਂ ਤਿਆਰ ਕਰਨ ਦਾ ਵੀ ਸਮਰਥਨ ਕਰਦਾ ਹੈ"
+
+#: TutoActivityCalligraactivity
+msgctxt "TutoActivityCalligraactivity"
+msgid "The Calligra activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
+msgstr " ਕੈਲੀਗਰਾ ਗਤੀਵਿਧੀ ਇੱਕ ਮਜ਼ੇਦਾਰ ਗਤੀਵਿਧੀ ਹੈ ਜੋ ਬੱਚਿਆਂ ਨੂੰ ਸਰਾਪ ਲਿਖਣਾ ਸਿੱਖਣ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ: ਅੱਖਰ, ਨੰਬਰ ਜਾਂ ਅੰਕੜੇ"
+
+#: YouveGotDisconnected
+msgctxt "YouveGotDisconnected"
+msgid "You've been disconnected by the server"
+msgstr " ਤੁਸੀਂ ਸਰਵਰ ਦੁਆਰਾ ਡਿਸਕਨੈਕਟ ਹੋ ਗਏ ਹੋ"
+
+#: YouveGotDisconnectedAutomatically
+msgctxt "YouveGotDisconnectedAutomatically"
+msgid "You've been disconnected by another device"
+msgstr " ਤੁਹਾਨੂੰ ਕਿਸੇ ਹੋਰ ਡਿਵਾਈਸ ਦੁਆਰਾ ਡਿਸਕਨੈਕਟ ਕੀਤਾ ਗਿਆ ਹੈ"
+
+#: TutoActivityImplodeactivity
+msgctxt "TutoActivityImplodeactivity"
+msgid "The Implode activity is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more."
+msgstr " ਇੰਪਲੋਡ ਗਤੀਵਿਧੀ ਬਲਾਕਾਂ ਦੇ ਅਧਾਰ ਤੇ ਇੱਕ ਤਰਕਸ਼ੀਲ ਖੇਡ ਹੈ. ਖੇਡ ਦਾ ਉਦੇਸ਼ ਸਾਰੇ ਬਲਾਕਾਂ ਨੂੰ ਹਟਾਉਣਾ ਹੈ, ਤਿੰਨ ਜਾਂ ਵਧੇਰੇ ਸਮੂਹਾਂ ਵਿੱਚ ਬਲਾਕਾਂ ਨੂੰ ਹਟਾ ਕੇ"
+
+#: Duplicate
+msgctxt "Duplicate"
+msgid "Duplicate"
+msgstr " ਡੁਪਲਿਕੇਟ"
+
+#. Do not translate {{count}}
+#: Duplicate_one
+msgctxt "Duplicate_one"
+msgid "Do you want to duplicate {{count}} entry?"
+msgstr " ਕੀ ਤੁਸੀਂ  {{count}} ਇੰਦਰਾਜ਼ ਨੂੰ ਡੁਪਲਿਕੇਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#. Do not translate {{count}}
+#: Duplicate_other
+msgctxt "Duplicate_other"
+msgid "Do you want to duplicate {{count}} entries?"
+msgstr " ਕੀ ਤੁਸੀਂ {{count}}ਇੰਦਰਾਜ਼ਾਂ ਦੀ ਨਕਲ ਬਣਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ? "
+
+#: TutoActivityCurriculumactivity
+msgctxt "TutoActivityCurriculumactivity"
+msgid "Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgstr " ਪਾਠਕ੍ਰਮ ਤੁਹਾਡੀ ਕੁਸ਼ਲਤਾਵਾਂ ਦੇ ਸਵੈ-ਮੁਲਾਂਕਣ ਲਈ ਇੱਕ ਕਿਰਿਆ ਹੈ. ਤੁਸੀਂ ਇਸ ਨੂੰ ਪ੍ਰਦਰਸ਼ਤ ਕਰਨ ਲਈ ਮਲਟੀਪਲ ਸ਼੍ਰੇਣੀਆਂ ਤੋਂ ਵੱਖ ਵੱਖ ਹੁਨਰ ਪ੍ਰਾਪਤ ਕਰ ਸਕਦੇ ਹੋ ਅਤੇ ਮੀਡੀਆ ਤੱਤ ਅਪਲੋਡ ਕਰ ਸਕਦੇ ਹੋ"
+
+#: TutoActivityVoteactivity
+msgctxt "TutoActivityVoteactivity"
+msgid "The Vote activity allow easy creation of a poll system. The user can create a poll and then share it on the network so any user could vote in real-time."
+msgstr " ਵੋਟ ਗਤੀਵਿਧੀ ਇੱਕ ਪੋਲ ਸਿਸਟਮ ਦੀ ਅਸਾਨੀ ਨਾਲ ਨਿਰਮਾਣ ਦੀ ਆਗਿਆ ਦਿੰਦੀ ਹੈ. ਉਪਭੋਗਤਾ ਇੱਕ ਪੋਲ ਤਿਆਰ ਕਰ ਸਕਦਾ ਹੈ ਅਤੇ ਫਿਰ ਇਸਨੂੰ ਨੈਟਵਰਕ ਤੇ ਸਾਂਝਾ ਕਰ ਸਕਦਾ ਹੈ ਤਾਂ ਜੋ ਕੋਈ ਵੀ ਉਪਭੋਗਤਾ ਅਸਲ-ਸਮੇਂ ਵਿੱਚ ਵੋਟ ਪਾ ਸਕੇ"
+
+#: TutoActivityPlanetsactivity
+msgctxt "TutoActivityPlanetsactivity"
+msgid "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
+msgstr " ਗ੍ਰਹਿ ਗਤੀਵਿਧੀ ਗ੍ਰਹਿਾਂ ਦਾ ਇੱਕ 3D ਮਾਡਲ ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ ਤਾਂ ਜੋ ਤੁਹਾਨੂੰ ਸੌਰ ਸਿਸਟਮ ਦੀ ਪੜਚੋਲ ਕਰ ਸਕੀਏ"
+
+#: InvalidUser
+msgctxt "InvalidUser"
+msgid "Unknown user"
+msgstr " ਅਣਜਾਣ ਯੂਜ਼ਰ "
+
+#: TutoActivityXmasLightsactivity
+msgctxt "TutoActivityXmasLightsactivity"
+msgid "Xmas Lights activity allow creation of nice blinking Christmas lights using Sugarizer icons and colors."
+msgstr " ਕ੍ਰਿਸਮਸ ਲਾਈਟਸ ਗਤੀਵਿਧੀ ਸ਼ੂਗਰਾਈਜ਼ਰ ਆਈਕਾਨਾਂ ਅਤੇ ਰੰਗਾਂ ਦੀ ਵਰਤੋਂ ਕਰਦਿਆਂ ਚੰਗੀਆਂ ਝਪਕਦੀਆਂ ਕ੍ਰਿਸਮਸ ਲਾਈਟਾਂ ਨੂੰ ਬਣਾਉਣ ਦੀ ਆਗਿਆ ਦਿੰਦੀ ਹੈ"
+
+#: TutoActivityDollarStreetactivity
+msgctxt "TutoActivityDollarStreetactivity"
+msgid "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
+msgstr " ਡਾਲਰਸਟ੍ਰੀਟ ਗਤੀਵਿਧੀ ਤੁਹਾਨੂੰ ਇਹ ਖੋਜਣ ਦਿੰਦੀ ਹੈ ਕਿ ਲੋਕ ਆਪਣੀ ਮਹੀਨਾਵਾਰ ਆਮਦਨੀ ਦੇ ਅਧਾਰ ਤੇ ਵੱਖ-ਵੱਖ ਦੇਸ਼ਾਂ ਵਿੱਚ ਕਿਵੇਂ ਰਹਿੰਦੇ ਹਨ "
+
