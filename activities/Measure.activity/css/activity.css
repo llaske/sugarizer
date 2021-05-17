@@ -1,0 +1,244 @@
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+#main-toolbar #help-button {
+	background-image: url(../images/help.svg);
+}
+#defaultCanvas0{
+	margin-top: 60px;
+	margin-bottom: -7px;
+	margin-left:50px ;
+	max-height: 820px;
+	max-width: 1783px;
+}
+#main-toolbar #image-button {
+	background-image: url(../icons/save-image.svg);
+}
+
+#defaultCanvas1 {
+	margin-top: 60px;
+	margin-bottom: -7px;
+	margin-left:50px ;
+	max-height: 820px;
+	max-width: 1793px;
+}
+#speech-button{
+	background-image: url(../icons/settings.svg);
+	max-width: 47px;
+	max-height: 47px;
+}
+#save-image-button {
+	background-image: url(../icons/save-image.svg);
+}
+#pause{
+	background-image: url(../icons/pause.svg);
+}
+#play{
+	background-image: url(../icons/play.svg);
+}
+#graph-image{
+	margin-top: 0px;
+}
+#canvas{
+	background-color: black;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+body{
+	overflow-y: hidden;
+	overflow-x: hidden;
+} 
+#timebtny1{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/amplow.svg);
+}
+#timebtny2{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/amphigh.svg);
+}
+#timebtnx1{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/freqhigh.svg);
+	
+}
+#timebtnx2{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/freqlow.svg);
+}
+#freqbtny1{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/amplow.svg);
+}
+#freqbtny2{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/amphigh.svg);
+}
+#freqbtnx1{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/freqhigh.svg);
+	
+}
+#freqbtnx2{
+	width: 58px;
+	height: 58px;
+	padding-top: 23px;
+	background: url(../images/freqlow.svg);
+}
+#fullscreen-button {
+	background-image: url(../images/view-fullscreen.svg);
+}
+#unfullscreen-button {
+	background-image: url(../images/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+.tutorial-title {
+	background-color: #808080 !important;
+	color: #ffffff !important;
+}
+
+.tutorial-prev-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-prev-icon.icon-button {
+	color: white;
+}
+
+.tutorial-prev-icon.icon-button.disabled {
+	color: black;
+}
+
+.tutorial-prev-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-prev-icon2 {
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-prev-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-next-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-next-icon.icon-button {
+	color: white;
+}
+
+.tutorial-next-icon.icon-button.disabled {
+	color: black;
+}
+
+.tutorial-next-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-next-icon2 {
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-next-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.tutorial-end-icon {
+	display: inline-flex;
+	width: 90px;
+}
+
+.tutorial-end-icon.icon-button {
+	color: white;
+}
+
+.tutorial-end-icon.icon-button.disabled {
+	color: black;
+}
+
+.tutorial-end-icon1 {
+	margin-left: 6px;
+	margin-top: 6px;
+}
+
+.tutorial-end-icon2 {
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.tutorial-end-icon3 {
+	display: none;
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+	background-color: white;
+	margin-top: -20px;
+}
+
+.icon-tutorial-text {
+	margin-top: 7px;
+	padding-left: 4px;
+	padding-right: 38px;
+	display: inline-block;
+}
+
+.web-activity-icon {
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 2px;
+}
+
+.icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
