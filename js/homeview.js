@@ -17,6 +17,7 @@ var humane;
 var tutorial;
 var stats;
 var autosync;
+var historic;
 
 
 
