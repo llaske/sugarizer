@@ -27,6 +27,11 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.realLength = 0;
+		this.scrollbarTop = 0;
+		this.scrollbarMaxTop = 0;
+		this.move_scrollbar = true;
+		this.scrollbar_session_value = 0;
+		this.scroll_count = 0;
 		this.favoriteActivityButton = null;
 		if (!window.sugarizerOS) {
 			this.activitiesChanged();
@@ -41,6 +46,16 @@ enyo.kind({
 				t.draw();
 			});
 		}
+	},
+
+	rendered:function() {
+
+		this.inherited(arguments);
+		this.scrollbar_session_value = preferences.getScrollValue();
+		if (!this.scrollbar_session_value) {
+			this.scrollbar_session_value = 0;
+		}
+		this.scrollTo(0, this.scrollbar_session_value);
 	},
 
 	localize: function() {
@@ -129,13 +144,42 @@ enyo.kind({
 
 	// Handle scroll to lazy display content
 	onscroll: function(inSender, inEvent) {
+
 		var scrollBounds = inEvent.scrollBounds;
+		if(scrollBounds != undefined) {
+			this.scrollbarTop = Math.ceil(scrollBounds.top);
+			this.scrollbarMaxTop = Math.ceil(scrollBounds.maxTop);
+			if(!this.move_scrollbar) {
+				var diff = this.scrollbarTop - this.scrollbarMaxTop;
+				if (diff > 0) {
+					preferences.setScrollValue(this.scrollbarTop - diff);
+				}
+				else {
+					preferences.setScrollValue(this.scrollbarTop);
+				}
+				preferences.save()
+			}
+		}
+
 		var currentCount = this.$.activityList.get("count");
 		if (app.getToolbar().getSearchText().length == 0 && scrollBounds && (scrollBounds.maxTop - scrollBounds.top) < constant.listScrollLimit && this.realLength > currentCount) {
 			var length = Math.min(currentCount + constant.listStepCount, this.activities.length);
 			humane.log(l10n.get("Loading"));
 			this.$.activityList.set("count", length, true);
 		}
+		
+		if (this.scrollbarTop <= this.scrollbar_session_value && this.move_scrollbar) {
+			this.scrollTo(0, this.scrollbar_session_value);
+		}
+
+		if (this.scrollbarTop == this.scrollbar_session_value && this.move_scrollbar) {
+			this.scroll_count = this.scroll_count + 1;
+		}
+
+		if (this.scrollbarTop > this.scrollbar_session_value || this.scroll_count == 2) {
+			this.move_scrollbar = false;
+		}
+
 	},
 
 	// Switch favorite value for clicked line
@@ -251,3 +295,4 @@ function sorted(activities) {
 	});
 	return result;
 }
+

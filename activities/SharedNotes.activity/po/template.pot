@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 21:52:45 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sat May 08 2021 22:20:24 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,225 +13,310 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
 
+#: NotesSaved
+msgctxt "NotesSaved"
+msgid "Image was saved to journal!"
+msgstr "Image was saved to journal!"
+
 #: YourNewIdea
 msgctxt "YourNewIdea"
 msgid "<Your content>"
-msgstr ""
+msgstr "<Your content>"
 
 #: nodetextTitle
 msgctxt "nodetextTitle"
 msgid "Text idea"
-msgstr ""
+msgstr "Text idea"
 
 #: removeButtonTitle
 msgctxt "removeButtonTitle"
 msgid "Remove"
-msgstr ""
+msgstr "Remove"
 
 #: undoButtonTitle
 msgctxt "undoButtonTitle"
 msgid "Undo"
-msgstr ""
+msgstr "Undo"
 
 #: redoButtonTitle
 msgctxt "redoButtonTitle"
 msgid "Redo"
-msgstr ""
+msgstr "Redo"
 
 #: zoomButtonTitle
 msgctxt "zoomButtonTitle"
 msgid "View"
-msgstr ""
+msgstr "View"
 
 #: pngButtonTitle
 msgctxt "pngButtonTitle"
 msgid "Export to PNG"
-msgstr ""
+msgstr "Export to PNG"
 
 #: networkButtonTitle
 msgctxt "networkButtonTitle"
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: helpButtonTitle
 msgctxt "helpButtonTitle"
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoActivityTitle
 msgctxt "TutoActivityTitle"
 msgid "Activity Menu"
-msgstr ""
+msgstr "Activity Menu"
 
 #: TutoActivityContent
 msgctxt "TutoActivityContent"
 msgid "This colored menu is the activity menu. Click on it now to open it."
-msgstr ""
+msgstr "This colored menu is the activity menu. Click on it now to open it."
 
 #: TutoTitleTitle
 msgctxt "TutoTitleTitle"
 msgid "Name in Journal"
-msgstr ""
+msgstr "Name in Journal"
 
 #: TutoTitleContent
 msgctxt "TutoTitleContent"
 msgid "This text will be the name of your activity when it will be saved in the Journal. Update it to easily find the activity in the Journal."
-msgstr ""
+msgstr "This text will be the name of your activity when it will be saved in the Journal. Update it to easily find the activity in the Journal."
 
 #: TutoStopTitle
 msgctxt "TutoStopTitle"
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: TutoStopContent
 msgctxt "TutoStopContent"
 msgid "Click on this icon to stop the activity and go back to the Sugarizer home."
-msgstr ""
+msgstr "Click on this icon to stop the activity and go back to the Sugarizer home."
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Network Menu"
-msgstr ""
+msgstr "Network Menu"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "This menu let you share your activity with other users. Click on it now to open it."
-msgstr ""
+msgstr "This menu let you share your activity with other users. Click on it now to open it."
 
 #: TutoSharedTitle
 msgctxt "TutoSharedTitle"
 msgid "Share"
-msgstr ""
+msgstr "Share"
 
 #: TutoSharedContent
 msgctxt "TutoSharedContent"
 msgid "Click on this button to share your activity so other users could see it on the neighborhood view and could join it."
-msgstr ""
+msgstr "Click on this button to share your activity so other users could see it on the neighborhood view and could join it."
 
 #: TutoHelpTitle
 msgctxt "TutoHelpTitle"
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: TutoHelpContent
 msgctxt "TutoHelpContent"
 msgid "This icon will show you features of this activity. You could click on it at the end of the current tutorial."
-msgstr ""
+msgstr "This icon will show you features of this activity. You could click on it at the end of the current tutorial."
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Shared Notes Activity"
-msgstr ""
+msgstr "Shared Notes Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "This activity let you pin small notes - like \"Post-It\" - on a virtual board and share them with other users."
-msgstr ""
+msgstr "This activity let you pin small notes - like \"Post-It\" - on a virtual board and share them with other users."
 
 #: TutoNodeTitle
 msgctxt "TutoNodeTitle"
 msgid "Board"
-msgstr ""
+msgstr "Board"
 
 #: TutoNodeContent
 msgctxt "TutoNodeContent"
 msgid "This is the board where you could pin your notes. Click on it to add a new note. Click on a note to update its content. Drag the board to move the view."
-msgstr ""
+msgstr "This is the board where you could pin your notes. Click on it to add a new note. Click on a note to update its content. Drag the board to move the view."
 
 #: TutoColorTitle
 msgctxt "TutoColorTitle"
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 #: TutoColorContent
 msgctxt "TutoColorContent"
 msgid "This menu let you change the color of a note and choose the color for the next note."
-msgstr ""
+msgstr "This menu let you change the color of a note and choose the color for the next note."
 
 #: TutoAddTitle
 msgctxt "TutoAddTitle"
 msgid "Add note"
-msgstr ""
+msgstr "Add note"
 
 #: TutoAddContent
 msgctxt "TutoAddContent"
 msgid "If this icon is active, when you click in the board a new note appear."
-msgstr ""
+msgstr "If this icon is active, when you click in the board a new note appear."
 
 #: TutoRemoveTitle
 msgctxt "TutoRemoveTitle"
 msgid "Remove note"
-msgstr ""
+msgstr "Remove note"
 
 #: TutoRemoveContent
 msgctxt "TutoRemoveContent"
 msgid "If this icon is active, when you click on a note, it will be remove."
-msgstr ""
+msgstr "If this icon is active, when you click on a note, it will be remove."
 
 #: TutoUndoTitle
 msgctxt "TutoUndoTitle"
 msgid "Undo"
-msgstr ""
+msgstr "Undo"
 
 #: TutoUndoContent
 msgctxt "TutoUndoContent"
 msgid "With this icon you could undo your last change."
-msgstr ""
+msgstr "With this icon you could undo your last change."
 
 #: TutoRedoTitle
 msgctxt "TutoRedoTitle"
 msgid "Redo"
-msgstr ""
+msgstr "Redo"
 
 #: TutoRedoContent
 msgctxt "TutoRedoContent"
 msgid "With this icon you could redo your last undo."
-msgstr ""
+msgstr "With this icon you could redo your last undo."
 
 #: TutoZoomTitle
 msgctxt "TutoZoomTitle"
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: TutoZoomContent
 msgctxt "TutoZoomContent"
 msgid "This menu let you adapt the zoom level in the board."
-msgstr ""
+msgstr "This menu let you adapt the zoom level in the board."
 
 #: TutoPngTitle
 msgctxt "TutoPngTitle"
 msgid "Export PNG"
-msgstr ""
+msgstr "Export PNG"
 
 #: TutoPngContent
 msgctxt "TutoPngContent"
 msgid "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
-msgstr ""
+msgstr "Click on this icon to generate a PNG file in the Journal with the whole content of the board."
 
 #. Do not translate {{user}}
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr ""
+msgstr "{{user}} joined"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr ""
+msgstr "{{user}} left"
+
+#: BackgroundChangeTitle
+msgctxt "BackgroundChangeTitle"
+msgid "Change Background"
+msgstr "Change Background"
+
+#: TutoBackgroundChangeContent
+msgctxt "TutoBackgroundChangeContent"
+msgid "Click this button to change background of board."
+msgstr "Click this button to change background of board."
+
+#: white
+msgctxt "white"
+msgid "white"
+msgstr "white"
+
+#: silver
+msgctxt "silver"
+msgid "silver"
+msgstr "silver"
+
+#: black
+msgctxt "black"
+msgid "black"
+msgstr "black"
+
+#: purple
+msgctxt "purple"
+msgid "purple"
+msgstr "purple"
+
+#: violet
+msgctxt "violet"
+msgid "violet"
+msgstr "violet"
+
+#: yellow
+msgctxt "yellow"
+msgid "yellow"
+msgstr "yellow"
+
+#: lightBlue
+msgctxt "lightBlue"
+msgid "light blue"
+msgstr "light blue"
+
+#: darkGreen
+msgctxt "darkGreen"
+msgid "dark green"
+msgstr "dark green"
+
+#: orange
+msgctxt "orange"
+msgid "orange"
+msgstr "orange"
+
+#: darkBlue
+msgctxt "darkBlue"
+msgid "dark blue"
+msgstr "dark blue"
+
+#: lightGreen
+msgctxt "lightGreen"
+msgid "light green"
+msgstr "light green"
+
+#: red
+msgctxt "red"
+msgid "red"
+msgstr "red"
+
+#: titleBackgroundColor
+msgctxt "titleBackgroundColor"
+msgid "Background Color"
+msgstr "Background Color"
+
+#: holderSearchBackgroundColor
+msgctxt "holderSearchBackgroundColor"
+msgid "Search color name"
+msgstr "Search color name"
 

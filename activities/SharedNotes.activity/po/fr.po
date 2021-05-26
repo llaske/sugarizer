@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Dec 08 2018 21:52:45 GMT+0100 (CET)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:29:58 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,6 +12,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: ini2po 0.0.1\n"
+
+#: NotesSaved
+msgctxt "NotesSaved"
+msgid "Image was saved to journal!"
+msgstr "Votre image a été exportée dans le Journal"
 
 #: YourNewIdea
 msgctxt "YourNewIdea"
@@ -234,4 +239,84 @@ msgstr "{{user}} a rejoint"
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
 msgstr "{{user}} est parti"
+
+#: BackgroundChangeTitle
+msgctxt "BackgroundChangeTitle"
+msgid "Change Background"
+msgstr "Changer fond"
+
+#: TutoBackgroundChangeContent
+msgctxt "TutoBackgroundChangeContent"
+msgid "Click this button to change background of board."
+msgstr "Cliquer sur cette icône pour changer la couleur de fond du tableau."
+
+#: white
+msgctxt "white"
+msgid "white"
+msgstr "blanc"
+
+#: silver
+msgctxt "silver"
+msgid "silver"
+msgstr "argent"
+
+#: black
+msgctxt "black"
+msgid "black"
+msgstr "noir"
+
+#: purple
+msgctxt "purple"
+msgid "purple"
+msgstr "pourpre"
+
+#: violet
+msgctxt "violet"
+msgid "violet"
+msgstr "violet"
+
+#: yellow
+msgctxt "yellow"
+msgid "yellow"
+msgstr "jaune"
+
+#: lightBlue
+msgctxt "lightBlue"
+msgid "light blue"
+msgstr "bleu clair"
+
+#: darkGreen
+msgctxt "darkGreen"
+msgid "dark green"
+msgstr "vert foncé"
+
+#: orange
+msgctxt "orange"
+msgid "orange"
+msgstr "orange"
+
+#: darkBlue
+msgctxt "darkBlue"
+msgid "dark blue"
+msgstr "bleu foncé"
+
+#: lightGreen
+msgctxt "lightGreen"
+msgid "light green"
+msgstr "vert clair"
+
+#: red
+msgctxt "red"
+msgid "red"
+msgstr "rouge"
+
+#: titleBackgroundColor
+msgctxt "titleBackgroundColor"
+msgid "Background Color"
+msgstr "Couleur de l'arrière plan"
+
+#: holderSearchBackgroundColor
+msgctxt "holderSearchBackgroundColor"
+msgid "Search color name"
+msgstr "Rechercher le nom de la couleur"
 

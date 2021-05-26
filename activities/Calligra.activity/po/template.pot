@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sat Nov 02 2019 10:44:35 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sat May 08 2021 21:58:50 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,245 +16,245 @@ msgstr ""
 #: CalligraActivity
 msgctxt "CalligraActivity"
 msgid "Calligra Activity"
-msgstr ""
+msgstr "Calligra Activity"
 
 #: Help
 msgctxt "Help"
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr ""
+msgstr "Fullscreen"
 
 #: Settings
 msgctxt "Settings"
 msgid "Editor/Play mode"
-msgstr ""
+msgstr "Editor/Play mode"
 
 #: Lines
 msgctxt "Lines"
 msgid "Show/Hide Lines"
-msgstr ""
+msgstr "Show/Hide Lines"
 
 #: Zoom
 msgctxt "Zoom"
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: InsertImage
 msgctxt "InsertImage"
 msgid "Insert item"
-msgstr ""
+msgstr "Insert item"
 
 #: PrevShort
 msgctxt "PrevShort"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: NextShort
 msgctxt "NextShort"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: EndShort
 msgctxt "EndShort"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: Template
 msgctxt "Template"
 msgid "Templates"
-msgstr ""
+msgstr "Templates"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Calligra activity"
-msgstr ""
+msgstr "Calligra activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome to the Calligra activity. This activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
-msgstr ""
+msgstr "Welcome to the Calligra activity. This activity is a fun activity to help kids learn cursive writing: letters, numbers or figures."
 
 #: TutoTemplateButtonTitle
 msgctxt "TutoTemplateButtonTitle"
 msgid "Templates"
-msgstr ""
+msgstr "Templates"
 
 #: TutoTemplateButtonContent
 msgctxt "TutoTemplateButtonContent"
 msgid "Click on the palette to choose template to draw."
-msgstr ""
+msgstr "Click on the palette to choose template to draw."
 
 #: TutoEditorItemTitle
 msgctxt "TutoEditorItemTitle"
 msgid "Item to remove"
-msgstr ""
+msgstr "Item to remove"
 
 #: TutoEditorItemContent
 msgctxt "TutoEditorItemContent"
 msgid "Click on the item you want to remove."
-msgstr ""
+msgstr "Click on the item you want to remove."
 
 #: TutoPlayerItemTitle
 msgctxt "TutoPlayerItemTitle"
 msgid "Item to draw"
-msgstr ""
+msgstr "Item to draw"
 
 #: TutoPlayerItemContent
 msgctxt "TutoPlayerItemContent"
 msgid "Click on the item you want to draw."
-msgstr ""
+msgstr "Click on the item you want to draw."
 
 #: TutoInsertImageButtonTitle
 msgctxt "TutoInsertImageButtonTitle"
 msgid "Insert item"
-msgstr ""
+msgstr "Insert item"
 
 #: TutoInsertImageButtonContent
 msgctxt "TutoInsertImageButtonContent"
 msgid "Click here to create a new item. It will let you choose the image for the new item."
-msgstr ""
+msgstr "Click here to create a new item. It will let you choose the image for the new item."
 
 #: TutoEditorTemplateButtonTitle
 msgctxt "TutoEditorTemplateButtonTitle"
 msgid "Switch to editor mode"
-msgstr ""
+msgstr "Switch to editor mode"
 
 #: TutoEditorTemplateButtonContent
 msgctxt "TutoEditorTemplateButtonContent"
 msgid "Click to switch to the editor mode where you could update the template: create new item or remove an existing item."
-msgstr ""
+msgstr "Click to switch to the editor mode where you could update the template: create new item or remove an existing item."
 
 #: TutoPlayerTemplateButtonTitle
 msgctxt "TutoPlayerTemplateButtonTitle"
 msgid "Switch to play mode"
-msgstr ""
+msgstr "Switch to play mode"
 
 #: TutoPlayerTemplateButtonContent
 msgctxt "TutoPlayerTemplateButtonContent"
 msgid "Click to switch to the play mode where you could draw items in the template."
-msgstr ""
+msgstr "Click to switch to the play mode where you could draw items in the template."
 
 #: TutoEditorItemButtonTitle
 msgctxt "TutoEditorItemButtonTitle"
 msgid "Switch to editor mode"
-msgstr ""
+msgstr "Switch to editor mode"
 
 #: TutoEditorItemButtonContent
 msgctxt "TutoEditorItemButtonContent"
 msgid "Click to switch to the editor mode where you could define drawing paths for this item."
-msgstr ""
+msgstr "Click to switch to the editor mode where you could define drawing paths for this item."
 
 #: TutoPlayerItemButtonTitle
 msgctxt "TutoPlayerItemButtonTitle"
 msgid "Switch to play mode"
-msgstr ""
+msgstr "Switch to play mode"
 
 #: TutoPlayerItemButtonContent
 msgctxt "TutoPlayerItemButtonContent"
 msgid "Click to switch to the play mode where you could draw the item."
-msgstr ""
+msgstr "Click to switch to the play mode where you could draw the item."
 
 #: TutoFullscreenButtonTitle
 msgctxt "TutoFullscreenButtonTitle"
 msgid "Fullscreen"
-msgstr ""
+msgstr "Fullscreen"
 
 #: TutoFullscreenButtonContent
 msgctxt "TutoFullscreenButtonContent"
 msgid "Click on this icon to display the current content in full screen mode."
-msgstr ""
+msgstr "Click on this icon to display the current content in full screen mode."
 
 #: TutoLinesButtonTitle
 msgctxt "TutoLinesButtonTitle"
 msgid "Show/Hide Lines"
-msgstr ""
+msgstr "Show/Hide Lines"
 
 #: TutoLinesButtonContent
 msgctxt "TutoLinesButtonContent"
 msgid "Click to show/hide lines to guide your drawing."
-msgstr ""
+msgstr "Click to show/hide lines to guide your drawing."
 
 #: TutoZoomButtonTitle
 msgctxt "TutoZoomButtonTitle"
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: TutoZoomButtonContent
 msgctxt "TutoZoomButtonContent"
 msgid "Click on this palette to zoom in/zoom out the item."
-msgstr ""
+msgstr "Click on this palette to zoom in/zoom out the item."
 
 #: TutoBackButtonTitle
 msgctxt "TutoBackButtonTitle"
 msgid "Back"
-msgstr ""
+msgstr "Back"
 
 #: TutoBackButtonContent
 msgctxt "TutoBackButtonContent"
 msgid "Click here to go back to the list of items."
-msgstr ""
+msgstr "Click here to go back to the list of items."
 
 #: TutoRestartButtonTitle
 msgctxt "TutoRestartButtonTitle"
 msgid "Restart"
-msgstr ""
+msgstr "Restart"
 
 #: TutoRestartButtonContent
 msgctxt "TutoRestartButtonContent"
 msgid "Click here to restart the drawing."
-msgstr ""
+msgstr "Click here to restart the drawing."
 
 #: TutoNextButtonTitle
 msgctxt "TutoNextButtonTitle"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoNextButtonContent
 msgctxt "TutoNextButtonContent"
 msgid "Click here to attempt the next one."
-msgstr ""
+msgstr "Click here to attempt the next one."
 
 #: TutoEditorAddButtonTitle
 msgctxt "TutoEditorAddButtonTitle"
 msgid "Add start point"
-msgstr ""
+msgstr "Add start point"
 
 #: TutoEditorAddButtonContent
 msgctxt "TutoEditorAddButtonContent"
 msgid "Click here to add a start point. Each drawing could have as many start points that you want. It's generally a good way to show where the pen should be up. Once the point is add, use mouse or arrow keys to move it."
-msgstr ""
+msgstr "Click here to add a start point. Each drawing could have as many start points that you want. It's generally a good way to show where the pen should be up. Once the point is add, use mouse or arrow keys to move it."
 
 #: TutoEditorRemoveButtonTitle
 msgctxt "TutoEditorRemoveButtonTitle"
 msgid "Remove start point"
-msgstr ""
+msgstr "Remove start point"
 
 #: TutoEditorRemoveButtonContent
 msgctxt "TutoEditorRemoveButtonContent"
 msgid "Click here to remove the last start point."
-msgstr ""
+msgstr "Click here to remove the last start point."
 
 #: TutoEditorAddPathButtonTitle
 msgctxt "TutoEditorAddPathButtonTitle"
 msgid "Add path point"
-msgstr ""
+msgstr "Add path point"
 
 #: TutoEditorAddPathButtonContent
 msgctxt "TutoEditorAddPathButtonContent"
 msgid "Click here (or type the P key) to add a path point. Use path points to define the path to follow to draw your item. It's better if path points are not very far from one another. Once the point is add, use mouse or arrow keys to move it."
-msgstr ""
+msgstr "Click here (or type the P key) to add a path point. Use path points to define the path to follow to draw your item. It's better if path points are not very far from one another. Once the point is add, use mouse or arrow keys to move it."
 
 #: TutoEditorRemovePathButtonTitle
 msgctxt "TutoEditorRemovePathButtonTitle"
 msgid "Remove path point"
-msgstr ""
+msgstr "Remove path point"
 
 #: TutoEditorRemovePathButtonContent
 msgctxt "TutoEditorRemovePathButtonContent"
 msgid "Click here to remove the last path point."
-msgstr ""
+msgstr "Click here to remove the last path point."
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:31:33 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:10:32 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,11 @@ msgstr "Zapisz czas"
 msgctxt "WriteDate"
 msgid "Write date"
 msgstr "Zapisz datę"
+
+#: WriteSeconds
+msgctxt "WriteSeconds"
+msgid "Write seconds"
+msgstr "Write seconds"
 
 #: SetTime
 msgctxt "SetTime"
@@ -218,6 +223,16 @@ msgctxt "TutoDateContent"
 msgid "Click this icon to also display the current date"
 msgstr "Kliknij tę ikonę, aby wyświetlić również bieżącą datę"
 
+#: TutoSecondsTitle
+msgctxt "TutoSecondsTitle"
+msgid "Show Seconds"
+msgstr "Show Seconds"
+
+#: TutoSecondsContent
+msgctxt "TutoSecondsContent"
+msgid "Click this icon to display the seconds"
+msgstr "Click this icon to display the seconds"
+
 #: TutoSetTimeTitle
 msgctxt "TutoSetTimeTitle"
 msgid "Set-Time Mode"
@@ -237,4 +252,14 @@ msgstr "Tryb ustawiania czasu gry"
 msgctxt "TutoSetTimeGameContent"
 msgid "Click this icon to switch to set-time-Game mode. In this mode, the time is displayed in number format and you have to move the hands to set it in the matching hour"
 msgstr "Kliknij tę ikonę, aby przejść do trybu gry ustawionego czasu"
+
+#: ShowAmPmTitle
+msgctxt "ShowAmPmTitle"
+msgid "Show hours"
+msgstr "Show hours and minutes"
+
+#: TutoShowAmPmContent
+msgctxt "TutoShowAmPmContent"
+msgid "Click this icon to display 24 hour format in Simple Clock."
+msgstr "Click this icon to display AM and PM hours along with minutes in Simple Clock."
 

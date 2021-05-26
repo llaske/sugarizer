@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Thu Feb 27 2020 22:51:57 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-06-06 03:23+0000\n"
-"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
-"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-chatprototype/pt/>\n"
-"Language: pt\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:09:31 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #: WriteYourMessage
 msgctxt "WriteYourMessage"
@@ -154,3 +152,4 @@ msgstr "Outros Emojis"
 msgctxt "TutoEmojiContent"
 msgid "Have a different expression. Look through the list to send different Emojis"
 msgstr "Have a different expression. Look through the list to send different Emojis"
+

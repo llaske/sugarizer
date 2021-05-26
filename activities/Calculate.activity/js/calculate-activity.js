@@ -154,7 +154,12 @@ function launchGraph(calcInputValue, labelValue) {
   CalculateApp.persistCalculations();
   CalculateApp.displayCalculation(calculation);
   if (!calculation.error) {
-    CalculateApp.graph(calculation.calculation);
+    try {
+      CalculateApp.graph(calculation.calculation);
+    } catch (error) {
+      calculation.error= error.message;
+      CalculateApp.displayCalculation(calculation);
+    }
   }
 }
 
@@ -164,7 +169,7 @@ function launchCalculation(calcInputValue, labelValue) {
     calculation: calcInputValue,
     graph: false
   };
-
+  
   if (labelValue) {
     calculation.label = labelValue;
   }

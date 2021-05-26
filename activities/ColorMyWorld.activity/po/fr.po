@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed Feb 19 2020 10:48:22 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:11:14 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,6 +397,11 @@ msgstr "les_Îles_Cook"
 msgctxt "Cyprus"
 msgid "Cyprus"
 msgstr "Chypre"
+
+#: Northern_Cyprus
+msgctxt "Northern_Cyprus"
+msgid "Northern_Cyprus"
+msgstr "Chypre_du_Nord"
 
 #: Denmark
 msgctxt "Denmark"
@@ -1457,4 +1462,19 @@ msgstr "Lancer"
 msgctxt "TutoRunContent"
 msgid "If you selected Interactive or Tour play mode, click here to start running the game"
 msgstr "Si vous avez choisi le mode de jeu Interactif ou Visite, cliquez ici pour démarrer le jeu"
+
+#: Vietnam
+msgctxt "Vietnam"
+msgid "Vietnam"
+msgstr "Vietnam"
+
+#: Somaliland
+msgctxt "Somaliland"
+msgid "Somaliland"
+msgstr "Somaliland"
+
+#: West_Bank
+msgctxt "West_Bank"
+msgid "West_Bank"
+msgstr "Cisjordanie"
 

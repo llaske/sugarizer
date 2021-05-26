@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:28:53 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:04:41 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,75 +16,75 @@ msgstr ""
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Abacus Activity"
-msgstr "Abacus Activity"
+msgstr "Actividad \"Ábaco\""
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Abacus activity. Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese"
-msgstr "Welcome into the Abacus activity. Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese"
+msgstr "Bienvenido a la actividad \"Ábaco\". Con \"Ábaco\", el alumno aprenderá diferentes formas de representar números, usando mecanismos para contar desarrollados por las antiguas civilizaciones romana y china"
 
 #: TutoAbacusTitle
 msgctxt "TutoAbacusTitle"
 msgid "Abacus Choice"
-msgstr "Abacus Choice"
+msgstr "Tipo de ábaco"
 
 #: TutoAbacusContent
 msgctxt "TutoAbacusContent"
 msgid "Click here to select the type of Abacus to use. Some Abacus handle decimals, some handle fractions, some handle number in base 2 and you could even create your own abacus"
-msgstr "Click here to select the type of Abacus to use. Some Abacus handle decimals, some handle fractions, some handle number in base 2 and you could even create your own abacus"
+msgstr "Haz clic aquí para elegir un tipo de ábaco. Algunos de ellos te permitirán usar números con decimales, con otros manejarás fracciones y con algunos incluso podrás expresar números en base 2. Por último, también podrás crear tu propio ábaco"
 
 #: TutoCustomTitle
 msgctxt "TutoCustomTitle"
 msgid "Custom"
-msgstr "Custom"
+msgstr "Personalizar"
 
 #: TutoCustomContent
 msgctxt "TutoCustomContent"
 msgid "Click here to create a custom abacus. You could define number of rods, lines and base"
-msgstr "Click here to create a custom abacus. You could define number of rods, lines and base"
+msgstr "Haz clic aquí para crear un ábaco personalizado. Elige tu propio número de cuentas, líneas y base numérica"
 
 #: TutoCopyTitle
 msgctxt "TutoCopyTitle"
 msgid "Copy"
-msgstr "Copy"
+msgstr "Copiar"
 
 #: TutoCopyContent
 msgctxt "TutoCopyContent"
 msgid "Click here to copy the current value into the clipboard"
-msgstr "Click here to copy the current value into the clipboard"
+msgstr "Haz clic aquí para copiar el valor actual en el portapapeles"
 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr "Clear"
+msgstr "Reiniciar"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
 msgid "Click here to reinit the value of abacus to 0"
-msgstr "Click here to reinit the value of abacus to 0"
+msgstr "Haz clic aquí para devolver el valor del ábaco a 0"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Abacus"
-msgstr "Abacus"
+msgstr "Ábaco"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Here is the abacus. Click or drag the beads toward the central zone to set numbers"
-msgstr "Here is the abacus. Click or drag the beads toward the central zone to set numbers"
+msgstr "Este es tu ábaco. Haz clic o arrastra las cuentas al centro para escribir números"
 

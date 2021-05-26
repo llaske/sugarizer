@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:31:33 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sat May 08 2021 22:00:15 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,225 +16,260 @@ msgstr ""
 #: SimpleClock
 msgctxt "SimpleClock"
 msgid "Simple Clock"
-msgstr ""
+msgstr "Simple Clock"
 
 #: NiceClock
 msgctxt "NiceClock"
 msgid "Nice Clock"
-msgstr ""
+msgstr "Nice Clock"
 
 #: WriteTime
 msgctxt "WriteTime"
 msgid "Write time"
-msgstr ""
+msgstr "Write time"
 
 #: WriteDate
 msgctxt "WriteDate"
 msgid "Write date"
-msgstr ""
+msgstr "Write date"
+
+#: WriteSeconds
+msgctxt "WriteSeconds"
+msgid "Write seconds"
+msgstr "Write seconds"
 
 #: SetTime
 msgctxt "SetTime"
 msgid "Set-Time Mode"
-msgstr ""
+msgstr "Set-Time Mode"
 
 #: SetTimeGame
 msgctxt "SetTimeGame"
 msgid "Set-Time-Game Mode"
-msgstr ""
+msgstr "Set-Time-Game Mode"
 
 #: WhatTime
 msgctxt "WhatTime"
 msgid "What Time Is It?"
-msgstr ""
+msgstr "What Time Is It?"
 
 #: Sunday
 msgctxt "Sunday"
 msgid "Sunday"
-msgstr ""
+msgstr "Sunday"
 
 #: Monday
 msgctxt "Monday"
 msgid "Monday"
-msgstr ""
+msgstr "Monday"
 
 #: Tuesday
 msgctxt "Tuesday"
 msgid "Tuesday"
-msgstr ""
+msgstr "Tuesday"
 
 #: Wednesday
 msgctxt "Wednesday"
 msgid "Wednesday"
-msgstr ""
+msgstr "Wednesday"
 
 #: Thursday
 msgctxt "Thursday"
 msgid "Thursday"
-msgstr ""
+msgstr "Thursday"
 
 #: Friday
 msgctxt "Friday"
 msgid "Friday"
-msgstr ""
+msgstr "Friday"
 
 #: Saturday
 msgctxt "Saturday"
 msgid "Saturday"
-msgstr ""
+msgstr "Saturday"
 
 #: January
 msgctxt "January"
 msgid "January"
-msgstr ""
+msgstr "January"
 
 #: February
 msgctxt "February"
 msgid "February"
-msgstr ""
+msgstr "February"
 
 #: March
 msgctxt "March"
 msgid "March"
-msgstr ""
+msgstr "March"
 
 #: April
 msgctxt "April"
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: May
 msgctxt "May"
 msgid "May"
-msgstr ""
+msgstr "May"
 
 #: June
 msgctxt "June"
 msgid "June"
-msgstr ""
+msgstr "June"
 
 #: July
 msgctxt "July"
 msgid "July"
-msgstr ""
+msgstr "July"
 
 #: August
 msgctxt "August"
 msgid "August"
-msgstr ""
+msgstr "August"
 
 #: September
 msgctxt "September"
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: October
 msgctxt "October"
 msgid "October"
-msgstr ""
+msgstr "October"
 
 #: November
 msgctxt "November"
 msgid "November"
-msgstr ""
+msgstr "November"
 
 #: December
 msgctxt "December"
 msgid "December"
-msgstr ""
+msgstr "December"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Clock Activity"
-msgstr ""
+msgstr "Clock Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Clock is a simple activity to learn how to read and tell the time"
-msgstr ""
+msgstr "Clock is a simple activity to learn how to read and tell the time"
 
 #: TutoHandTitle
 msgctxt "TutoHandTitle"
 msgid "The Clock and its \"hands\""
-msgstr ""
+msgstr "The Clock and its \"hands\""
 
 #: TutoHandContent
 msgctxt "TutoHandContent"
 msgid "The Red, Green and Blue lines are the hands of the clock. The Blue hand tells the hour, the Green hand tells the minutes and the Red hand is the seconds"
-msgstr ""
+msgstr "The Red, Green and Blue lines are the hands of the clock. The Blue hand tells the hour, the Green hand tells the minutes and the Red hand is the seconds"
 
 #: TutoSimpleTitle
 msgctxt "TutoSimpleTitle"
 msgid "Simple Clock"
-msgstr ""
+msgstr "Simple Clock"
 
 #: TutoSimpleContent
 msgctxt "TutoSimpleContent"
 msgid "Click this icon to change the look of the clock into simple mode"
-msgstr ""
+msgstr "Click this icon to change the look of the clock into simple mode"
 
 #: TutoNiceTitle
 msgctxt "TutoNiceTitle"
 msgid "Nice Clock"
-msgstr ""
+msgstr "Nice Clock"
 
 #: TutoNiceContent
 msgctxt "TutoNiceContent"
 msgid "Click this icon to change the clock look into nice mode"
-msgstr ""
+msgstr "Click this icon to change the clock look into nice mode"
 
 #: TutoTimeTitle
 msgctxt "TutoTimeTitle"
 msgid "Show Digital Time"
-msgstr ""
+msgstr "Show Digital Time"
 
 #: TutoTimeContent
 msgctxt "TutoTimeContent"
 msgid "Click this icon to also display the time in number format"
-msgstr ""
+msgstr "Click this icon to also display the time in number format"
 
 #: TutoDateTitle
 msgctxt "TutoDateTitle"
 msgid "Show Date"
-msgstr ""
+msgstr "Show Date"
 
 #: TutoDateContent
 msgctxt "TutoDateContent"
 msgid "Click this icon to also display the current date"
-msgstr ""
+msgstr "Click this icon to also display the current date"
+
+#: TutoSecondsTitle
+msgctxt "TutoSecondsTitle"
+msgid "Show Seconds"
+msgstr "Show Seconds"
+
+#: TutoSecondsContent
+msgctxt "TutoSecondsContent"
+msgid "Click this icon to display the seconds"
+msgstr "Click this icon to display the seconds"
 
 #: TutoSetTimeTitle
 msgctxt "TutoSetTimeTitle"
 msgid "Set-Time Mode"
-msgstr ""
+msgstr "Set-Time Mode"
 
 #: TutoSetTimeContent
 msgctxt "TutoSetTimeContent"
 msgid "Click this icon to switch to set-time mode. In this mode you could move the hands to display the hour you want"
-msgstr ""
+msgstr "Click this icon to switch to set-time mode. In this mode you could move the hands to display the hour you want"
 
 #: TutoSetTimeGameTitle
 msgctxt "TutoSetTimeGameTitle"
 msgid "Game Mode"
-msgstr ""
+msgstr "Game Mode"
 
 #: TutoSetTimeGameContent
 msgctxt "TutoSetTimeGameContent"
 msgid "Click this icon to switch to set-time-Game mode. In this mode, the time is displayed in number format and you have to move the hands to set it in the matching hour"
-msgstr ""
+msgstr "Click this icon to switch to set-time-Game mode. In this mode, the time is displayed in number format and you have to move the hands to set it in the matching hour"
+
+#: ShowAmPmTitle
+msgctxt "ShowAmPmTitle"
+msgid "Show hours"
+msgstr "Show hours"
+
+#: TutoShowAmPmContent
+msgctxt "TutoShowAmPmContent"
+msgid "Click this icon to display 24 hour format in Simple Clock."
+msgstr "Click this icon to display 24 hour format in Simple Clock."
+
+#: ShowMinsTitle
+msgctxt "ShowMinsTitle"
+msgid "Show minutes"
+msgstr "Show minutes"
+
+#: TutoShowMinsContent
+msgctxt "TutoShowMinsContent"
+msgid "Click this icon to display minutes in Simple Clock."
+msgstr "Click this icon to display minutes in Simple Clock."
 

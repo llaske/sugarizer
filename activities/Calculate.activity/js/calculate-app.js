@@ -177,7 +177,13 @@ var CalculateApp = {
       node.innerHTML = CalculateApp.libs.mustache.render(getErrorTemplate(), calculation);
     } else {
       if (calculation.graph) {
-        node.innerHTML = CalculateApp.libs.mustache.render(getGraphTemplate(), calculation);
+        try {
+          node.innerHTML = CalculateApp.libs.mustache.render(getGraphTemplate(), calculation);
+        } catch (error) {
+          calculation.error=error.message;
+          node.innerHTML = CalculateApp.libs.mustache.render(getErrorTemplate(), calculation);
+          CalculateApp.elements.calcInput.value = '';         
+        }
         var childrens = node.childNodes[0].childNodes;
         var functionGraph = function(input) {
           CalculateApp.graph(input.target.value);
@@ -188,7 +194,13 @@ var CalculateApp = {
           }
         }
       } else {
-        node.innerHTML = CalculateApp.libs.mustache.render(getResultTemplate(), calculation);
+        try {
+          node.innerHTML = CalculateApp.libs.mustache.render(getResultTemplate(), calculation);
+        } catch (e) {
+          calculation.error=e.message;
+          node.innerHTML = CalculateApp.libs.mustache.render(getErrorTemplate(), calculation);
+          CalculateApp.elements.calcInput.value = '';         
+        }
       }
     }
     CalculateApp.elements.resultsZoneDiv.insertBefore(node, CalculateApp.elements.resultsZoneDiv.childNodes[0]);

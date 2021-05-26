@@ -1,19 +1,17 @@
 #. extracted from ../locale.ini
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:27:43 GMT+0100 (GMT+01:00)\n"
-"PO-Revision-Date: 2020-06-05 21:09+0000\n"
-"Last-Translator: Paulo Francisco Slomp <slomp@ufrgs.br>\n"
-"Language-Team: Portuguese <http://translate.sugarizer.org/projects/sugarizer"
-"/activity-write/pt/>\n"
-"Language: pt\n"
+"POT-Creation-Date: Fri May 07 2021 23:17:04 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.16\n"
+"X-Generator: ini2po 0.0.1\n"
 
 #. Do not translate {{user}}
 #: PlayerJoin
@@ -34,8 +32,8 @@ msgstr "Write é um editor onde você pode <strong>digitar</strong> e <em>format
 
 #: Writefeatures
 msgctxt "Writefeatures"
-msgid "You can also play with <span style=\"color:rgb(255, 0, 0)"
-msgstr "Você também pode jogar com <span style =\"color:rgb(255, 0, 0)\""
+msgid "You can also play with <span style=\"color:rgb(255, 0, 0);\">colors</span> , <span style=\"color:rgb(0, 255, 0);\">fonts</span> and <span style=\"color:rgb(0, 0, 255);\">images</span> and share your experience with your friends"
+msgstr "Você também pode jogar com <span style =\"color:rgb(255, 0, 0)\";>cores</span>, <span style = \"color:rgb(0, 255, 0);\">fontes</span> e <span style = \"color:rgb(0, 0, 255);\">imagens</span> e compartilhe sua experiência com seus amigos"
 
 #: Enjoy
 msgctxt "Enjoy"
@@ -422,3 +420,4 @@ msgstr "Subscript"
 msgctxt "TutoSubContent"
 msgid "Click here to fortmat text as a subcript: i.e. under the current line of text"
 msgstr "Click here to fortmat text as a subcript: i.e. under the current line of text"
+

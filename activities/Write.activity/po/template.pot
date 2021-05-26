@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Tue Feb 18 2020 22:27:43 GMT+0100 (GMT+01:00)\n"
+"POT-Creation-Date: Sat May 08 2021 22:25:14 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,407 +17,407 @@ msgstr ""
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr ""
+msgstr "{{user}} joined"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr ""
+msgstr "{{user}} left"
 
 #: Write
 msgctxt "Write"
 msgid "Write is an editor where you could <strong>type</strong> and <em>format</em> your <u>text</u> and ideas."
-msgstr ""
+msgstr "Write is an editor where you could <strong>type</strong> and <em>format</em> your <u>text</u> and ideas."
 
 #: Writefeatures
 msgctxt "Writefeatures"
-msgid "You can also play with <span style=\"color:rgb(255, 0, 0)"
-msgstr ""
+msgid "You can also play with <span style=\"color:rgb(255, 0, 0);\">colors</span> , <span style=\"color:rgb(0, 255, 0);\">fonts</span> and <span style=\"color:rgb(0, 0, 255);\">images</span> and share your experience with your friends"
+msgstr "You can also play with <span style=\"color:rgb(255, 0, 0);\">colors</span> , <span style=\"color:rgb(0, 255, 0);\">fonts</span> and <span style=\"color:rgb(0, 0, 255);\">images</span> and share your experience with your friends"
 
 #: Enjoy
 msgctxt "Enjoy"
 msgid "Enjoy"
-msgstr ""
+msgstr "Enjoy"
 
 #: Doc
 msgctxt "Doc"
 msgid "Export to DOC Done"
-msgstr ""
+msgstr "Export to DOC Done"
 
 #: Odt
 msgctxt "Odt"
 msgid "Export to ODT Done"
-msgstr ""
+msgstr "Export to ODT Done"
 
 #: Pdf
 msgctxt "Pdf"
 msgid "Export to PDF Done"
-msgstr ""
+msgstr "Export to PDF Done"
 
 #: Txt
 msgctxt "Txt"
 msgid "Export to TXT Done"
-msgstr ""
+msgstr "Export to TXT Done"
 
 #. Do not translate {{username}}
 #: Welcome
 msgctxt "Welcome"
 msgid "Welcome {{username}}!"
-msgstr ""
+msgstr "Welcome {{username}}!"
 
 #: Network
 msgctxt "Network"
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: ForegroundColor
 msgctxt "ForegroundColor"
 msgid "Foreground Color"
-msgstr ""
+msgstr "Foreground Color"
 
 #: BackgroundColor
 msgctxt "BackgroundColor"
 msgid "Background Color"
-msgstr ""
+msgstr "Background Color"
 
 #: Formattext
 msgctxt "Formattext"
 msgid "Format text"
-msgstr ""
+msgstr "Format text"
 
 #: Paragraph
 msgctxt "Paragraph"
 msgid "Paragraph"
-msgstr ""
+msgstr "Paragraph"
 
 #: List
 msgctxt "List"
 msgid "List"
-msgstr ""
+msgstr "List"
 
 #: Increasefontsize
 msgctxt "Increasefontsize"
 msgid "Increase Font size"
-msgstr ""
+msgstr "Increase Font size"
 
 #: ChooseFont
 msgctxt "ChooseFont"
 msgid "Choose Font"
-msgstr ""
+msgstr "Choose Font"
 
 #: Decreasefontsize
 msgctxt "Decreasefontsize"
 msgid "Decrease Font size"
-msgstr ""
+msgstr "Decrease Font size"
 
 #: Image
 msgctxt "Image"
 msgid "Insert Image"
-msgstr ""
+msgstr "Insert Image"
 
 #: Undo
 msgctxt "Undo"
 msgid "Undo"
-msgstr ""
+msgstr "Undo"
 
 #: Redo
 msgctxt "Redo"
 msgid "Redo"
-msgstr ""
+msgstr "Redo"
 
 #: Copy
 msgctxt "Copy"
 msgid "Copy"
-msgstr ""
+msgstr "Copy"
 
 #: Paste
 msgctxt "Paste"
 msgid "Paste"
-msgstr ""
+msgstr "Paste"
 
 #: Export
 msgctxt "Export"
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #: Bold
 msgctxt "Bold"
 msgid "Bold"
-msgstr ""
+msgstr "Bold"
 
 #: Italic
 msgctxt "Italic"
 msgid "Italic"
-msgstr ""
+msgstr "Italic"
 
 #: Underline
 msgctxt "Underline"
 msgid "Underline"
-msgstr ""
+msgstr "Underline"
 
 #: Strike
 msgctxt "Strike"
 msgid "Strike"
-msgstr ""
+msgstr "Strike"
 
 #: OrderedList
 msgctxt "OrderedList"
 msgid "Ordered List"
-msgstr ""
+msgstr "Ordered List"
 
 #: UnorderedList
 msgctxt "UnorderedList"
 msgid "Unordered List"
-msgstr ""
+msgstr "Unordered List"
 
 #: JustifyLeft
 msgctxt "JustifyLeft"
 msgid "Justify Left"
-msgstr ""
+msgstr "Justify Left"
 
 #: JustifyRight
 msgctxt "JustifyRight"
 msgid "Justify Right"
-msgstr ""
+msgstr "Justify Right"
 
 #: JustifyCenter
 msgctxt "JustifyCenter"
 msgid "Justify Center"
-msgstr ""
+msgstr "Justify Center"
 
 #: ExportToTxt
 msgctxt "ExportToTxt"
 msgid "Export to TXT"
-msgstr ""
+msgstr "Export to TXT"
 
 #: ExportToPdf
 msgctxt "ExportToPdf"
 msgid "Export to PDF"
-msgstr ""
+msgstr "Export to PDF"
 
 #: ExportToDoc
 msgctxt "ExportToDoc"
 msgid "Export to DOC"
-msgstr ""
+msgstr "Export to DOC"
 
 #: ExportToOdt
 msgctxt "ExportToOdt"
 msgid "Export to ODT"
-msgstr ""
+msgstr "Export to ODT"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Write Activity"
-msgstr ""
+msgstr "Write Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Write activity. The Write activity is a basic word processor with a simple interface for children. Like a standard word processor, you will be able to format your text using buttons in the toolbar"
-msgstr ""
+msgstr "Welcome into the Write activity. The Write activity is a basic word processor with a simple interface for children. Like a standard word processor, you will be able to format your text using buttons in the toolbar"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the activity so other users on the network could co-edit the text with you"
-msgstr ""
+msgstr "Click here to share the activity so other users on the network could co-edit the text with you"
 
 #: TutoForegroundTitle
 msgctxt "TutoForegroundTitle"
 msgid "Text Color"
-msgstr ""
+msgstr "Text Color"
 
 #: TutoForegroundContent
 msgctxt "TutoForegroundContent"
 msgid "Click here to change the color for the text"
-msgstr ""
+msgstr "Click here to change the color for the text"
 
 #: TutoBackgroundTitle
 msgctxt "TutoBackgroundTitle"
 msgid "Background Color"
-msgstr ""
+msgstr "Background Color"
 
 #: TutoBackgroundContent
 msgctxt "TutoBackgroundContent"
 msgid "Click here to change the background color for the text"
-msgstr ""
+msgstr "Click here to change the background color for the text"
 
 #: TutoFormatTitle
 msgctxt "TutoFormatTitle"
 msgid "Style"
-msgstr ""
+msgstr "Style"
 
 #: TutoFormatContent
 msgctxt "TutoFormatContent"
 msgid "Click here to change the text style. It will allow you to use bold, italic, underline or strike"
-msgstr ""
+msgstr "Click here to change the text style. It will allow you to use bold, italic, underline or strike"
 
 #: TutoParagraphTitle
 msgctxt "TutoParagraphTitle"
 msgid "Paragraph"
-msgstr ""
+msgstr "Paragraph"
 
 #: TutoParagraphContent
 msgctxt "TutoParagraphContent"
 msgid "Click here to change paragraph alignement. You could align text to the right, to the left or to the center"
-msgstr ""
+msgstr "Click here to change paragraph alignement. You could align text to the right, to the left or to the center"
 
 #: TutoListTitle
 msgctxt "TutoListTitle"
 msgid "List"
-msgstr ""
+msgstr "List"
 
 #: TutoListContent
 msgctxt "TutoListContent"
 msgid "Click here to create an ordered or unordered list"
-msgstr ""
+msgstr "Click here to create an ordered or unordered list"
 
 #: TutoIncreaseTitle
 msgctxt "TutoIncreaseTitle"
 msgid "Increase Font Size"
-msgstr ""
+msgstr "Increase Font Size"
 
 #: TutoIncreaseContent
 msgctxt "TutoIncreaseContent"
 msgid "Click here to increase font size"
-msgstr ""
+msgstr "Click here to increase font size"
 
 #: TutoFontTitle
 msgctxt "TutoFontTitle"
 msgid "Font"
-msgstr ""
+msgstr "Font"
 
 #: TutoFontContent
 msgctxt "TutoFontContent"
 msgid "Click here to change font for the text: Arial, Comic Sans MS, Verdana, ..."
-msgstr ""
+msgstr "Click here to change font for the text: Arial, Comic Sans MS, Verdana, ..."
 
 #: TutoDecreaseTitle
 msgctxt "TutoDecreaseTitle"
 msgid "Decrease Font Size"
-msgstr ""
+msgstr "Decrease Font Size"
 
 #: TutoDecreaseContent
 msgctxt "TutoDecreaseContent"
 msgid "Click here to decrease font size"
-msgstr ""
+msgstr "Click here to decrease font size"
 
 #: TutoInsertTitle
 msgctxt "TutoInsertTitle"
 msgid "Insert Image"
-msgstr ""
+msgstr "Insert Image"
 
 #: TutoInsertContent
 msgctxt "TutoInsertContent"
 msgid "Click here to insert into the document an image from Journal"
-msgstr ""
+msgstr "Click here to insert into the document an image from Journal"
 
 #: TutoUndoTitle
 msgctxt "TutoUndoTitle"
 msgid "Undo"
-msgstr ""
+msgstr "Undo"
 
 #: TutoUndoContent
 msgctxt "TutoUndoContent"
 msgid "Click here to undo last action"
-msgstr ""
+msgstr "Click here to undo last action"
 
 #: TutoRedoTitle
 msgctxt "TutoRedoTitle"
 msgid "Redo"
-msgstr ""
+msgstr "Redo"
 
 #: TutoRedoContent
 msgctxt "TutoRedoContent"
 msgid "Click here to redo last action"
-msgstr ""
+msgstr "Click here to redo last action"
 
 #: TutoCopyTitle
 msgctxt "TutoCopyTitle"
 msgid "Copy"
-msgstr ""
+msgstr "Copy"
 
 #: TutoCopyContent
 msgctxt "TutoCopyContent"
 msgid "Click here to copy selected text"
-msgstr ""
+msgstr "Click here to copy selected text"
 
 #: TutoPasteTitle
 msgctxt "TutoPasteTitle"
 msgid "Paste"
-msgstr ""
+msgstr "Paste"
 
 #: TutoPasteContent
 msgctxt "TutoPasteContent"
 msgid "Click here to paste copied text"
-msgstr ""
+msgstr "Click here to paste copied text"
 
 #: TutoExportTitle
 msgctxt "TutoExportTitle"
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #: TutoExportContent
 msgctxt "TutoExportContent"
 msgid "Click here to export your document in the Journal as a TXT, PDF, DOC or ODT file"
-msgstr ""
+msgstr "Click here to export your document in the Journal as a TXT, PDF, DOC or ODT file"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Content"
-msgstr ""
+msgstr "Content"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Here is the place where you can type, edit text and insert images. By default there is a sample text but feel free to remove it and begin to create!"
-msgstr ""
+msgstr "Here is the place where you can type, edit text and insert images. By default there is a sample text but feel free to remove it and begin to create!"
 
 #: SuperScript
 msgctxt "SuperScript"
 msgid "SuperScript"
-msgstr ""
+msgstr "SuperScript"
 
 #: SubScript
 msgctxt "SubScript"
 msgid "SubScript"
-msgstr ""
+msgstr "SubScript"
 
 #: TutoSuperTitle
 msgctxt "TutoSuperTitle"
 msgid "Superscript"
-msgstr ""
+msgstr "Superscript"
 
 #: TutoSuperContent
 msgctxt "TutoSuperContent"
 msgid "Click here to format text as a superscript: i.e. above the current line of text"
-msgstr ""
+msgstr "Click here to format text as a superscript: i.e. above the current line of text"
 
 #: TutoSubTitle
 msgctxt "TutoSubTitle"
 msgid "Subscript"
-msgstr ""
+msgstr "Subscript"
 
 #: TutoSubContent
 msgctxt "TutoSubContent"
 msgid "Click here to fortmat text as a subcript: i.e. under the current line of text"
-msgstr ""
+msgstr "Click here to fortmat text as a subcript: i.e. under the current line of text"
 
