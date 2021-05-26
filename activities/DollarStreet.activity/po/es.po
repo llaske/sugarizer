@@ -1,193 +1,225 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:13:19 GMT+0200 (heure d’été d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:13:19 GMT+0200 (heure d’été d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2021-04-11 15:24+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-dollarstreet/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: IncomePalette
 msgctxt "IncomePalette"
 msgid "Filter by income"
-msgstr "Filter by income"
+msgstr "Filtrar por ingreso"
 
 #: WorldButton
 msgctxt "WorldButton"
 msgid "Filter by region"
-msgstr "Filter by region"
+msgstr "Filtrar por región"
 
 #: FamilyButton
 msgctxt "FamilyButton"
 msgid "See families"
-msgstr "See families"
+msgstr "Ver familias"
 
 #: ThingsButton
 msgctxt "ThingsButton"
 msgid "See things"
-msgstr "See things"
+msgstr "Ver cosas"
 
 #: Close
 msgctxt "Close"
 msgid "Close"
-msgstr "Close"
+msgstr "Cerrar"
 
 #: ImageExported
 msgctxt "ImageExported"
 msgid "Image exported to Journal"
-msgstr "Image exported to Journal"
+msgstr "Imagen exportada a la biblioteca"
 
 #: NoDescription
 msgctxt "NoDescription"
 msgid "(No description)"
-msgstr "(No description)"
+msgstr "(sin descripción)"
 
 #: NoMatchingPlace
 msgctxt "NoMatchingPlace"
 msgid "No place match your filter"
-msgstr "No place match your filter"
+msgstr "No hay ningún lugar que se ajuste a tu filtro"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoListWelcomeTitle
 msgctxt "TutoListWelcomeTitle"
 msgid "DollarStreet Activity"
-msgstr "DollarStreet Activity"
+msgstr "Actividad \"DollarStreet\""
 
 #: TutoListWelcomeContent
 msgctxt "TutoListWelcomeContent"
 msgid "Welcome in DollarStreet activity. This activity - based on <a href='https://www.dollarstreet.org' target='_blank'>DollarStreet</a> web site from Gapminder - let you discover how people lives in different countries depending of their monthly income. Imagine the world as a street ordered by income: everyone lives somewhere on the street. Explore places where your neighbor lives on this street by region and income"
-msgstr "Welcome in DollarStreet activity. This activity - based on <a href='https://www.dollarstreet.org' target='_blank'>DollarStreet</a> web site from Gapminder - let you discover how people lives in different countries depending of their monthly income. Imagine the world as a street ordered by income: everyone lives somewhere on the street. Explore places where your neighbor lives on this street by region and income"
+msgstr ""
+"Bienvenido a la actividad \"DollarStreet\". Esta actividad, basada en la "
+"página web <a href='https://www.dollarstreet.org' "
+"target='_blank'>DollarStreet</a> de Gapminder, te permite descubrir cómo "
+"vive la gente en diferentes países del mundo en función de los ingresos "
+"mensuales que tienen. Imagina el mundo como una calle que se organiza por "
+"ingresos: todos viven en alguna parte de la calle.  Explora los lugares "
+"donde viven tus vecinos recorriendo esta calle, dividida en regiones e "
+"ingresos"
 
 #: TutoListIncomeTitle
 msgctxt "TutoListIncomeTitle"
 msgid "Filter by income"
-msgstr "Filter by income"
+msgstr "Filtrar por ingresos"
 
 #: TutoListIncomeContent
 msgctxt "TutoListIncomeContent"
 msgid "Filter places to display by income: minimum income and maximum income.<br/>You will learn that, at same income level, people lives in similar way whatever the country they come from"
-msgstr "Filter places to display by income: minimum income and maximum income.<br/>You will learn that, at same income level, people lives in similar way whatever the country they come from"
+msgstr ""
+"Te permite filtrar los lugares a visitar por sus ingresos, tanto por su "
+"ingreso mínimo como por el máximo.<br/>De esta forma podrás ver que, con el "
+"mismo nivel de ingresos, la gente vive de maneras muy diferentes dependiendo "
+"del país en el que viven"
 
 #: TutoListFamilyTitle
 msgctxt "TutoListFamilyTitle"
 msgid "Display families"
-msgstr "Display families"
+msgstr "Mostrar familias"
 
 #: TutoListFamilyContent
 msgctxt "TutoListFamilyContent"
 msgid "Click on this icon to explore the street by families. This is the default view"
-msgstr "Click on this icon to explore the street by families. This is the default view"
+msgstr ""
+"Haz clic en este icono para explorar la calle por familias. Esta es la vista "
+"por defecto"
 
 #: TutoListThingsTitle
 msgctxt "TutoListThingsTitle"
 msgid "Display things"
-msgstr "Display things"
+msgstr "Mostrar cosas"
 
 #: TutoListThingsContent
 msgctxt "TutoListThingsContent"
 msgid "Click here to choose to explore the street by popular things you can find in people's home"
-msgstr "Click here to choose to explore the street by popular things you can find in people's home"
+msgstr ""
+"Haz clic aquí para explorar la calle por las cosas que normalmente "
+"encontrarás en las casas de las personas de cada país"
 
 #: TutoListRegionTitle
 msgctxt "TutoListRegionTitle"
 msgid "Filter by region"
-msgstr "Filter by region"
+msgstr "Filtrar por región"
 
 #: TutoListRegionContent
 msgctxt "TutoListRegionContent"
 msgid "Filter places to display by region in the world"
-msgstr "Filter places to display by region in the world"
+msgstr ""
+"Filtra los lugares que se muestra por la región del mundo en la que se "
+"encuentran"
 
 #: TutoListPlaceTitle
 msgctxt "TutoListPlaceTitle"
 msgid "A place on the street"
-msgstr "A place on the street"
+msgstr "Posición en la calle"
 
 #: TutoListPlaceContent
 msgctxt "TutoListPlaceContent"
 msgid "This a place on the street. Click on it to learn more on this place and how people lives there"
-msgstr "This a place on the street. Click on it to learn more on this place and how people lives there"
+msgstr ""
+"Esta es una de las posiciones donde puedes estar en la calle. Haz clic en "
+"ella para consultar más información y para ver cuánta gente vive en esa "
+"posición"
 
 #: TutoDetailViewTitle
 msgctxt "TutoDetailViewTitle"
 msgid "Family detail view"
-msgstr "Family detail view"
+msgstr "Vista detallada de familias"
 
 #: TutoDetailViewContent
 msgctxt "TutoDetailViewContent"
 msgid "You're on detailed view for a place. Here you could learn more about his place and how people lives there"
-msgstr "You're on detailed view for a place. Here you could learn more about his place and how people lives there"
+msgstr ""
+"En esta vista de la actividad, podrás aprender más sobre este lugar y sobre "
+"la cantidad de gente que vive en él"
 
 #: TutoDetailImageTitle
 msgctxt "TutoDetailImageTitle"
 msgid "Place image"
-msgstr "Place image"
+msgstr "Imagen del lugar"
 
 #: TutoDetailImageContent
 msgctxt "TutoDetailImageContent"
 msgid "Here you could see a larger view of the place. Click on the image to see it at full size"
-msgstr "Here you could see a larger view of the place. Click on the image to see it at full size"
+msgstr ""
+"Aquí podrás echar un vistazo más general al lugar elegido. Haz clic en la "
+"imagen para verla a pantalla completa"
 
 #: TutoDetailDescriptionTitle
 msgctxt "TutoDetailDescriptionTitle"
 msgid "Description"
-msgstr "Description"
+msgstr "Descripción"
 
 #: TutoDetailDescriptionContent
 msgctxt "TutoDetailDescriptionContent"
 msgid "Here you could see the name of the family who live at this place and a description of them"
-msgstr "Here you could see the name of the family who live at this place and a description of them"
+msgstr ""
+"Aquí puedes ver el nombre de la familia que vive en este lugar y una "
+"descripción sobre ellos"
 
 #: TutoDetailThingsTitle
 msgctxt "TutoDetailThingsTitle"
 msgid "Things"
-msgstr "Things"
+msgstr "Cosas"
 
 #: TutoDetailThingsContent
 msgctxt "TutoDetailThingsContent"
 msgid "Here is set of photos to understand how people lives at this place. Click on photos to see them at full size"
-msgstr "Here is set of photos to understand how people lives at this place. Click on photos to see them at full size"
+msgstr ""
+"Aquí se incluyen un conjunto de fotos que ayudan a entender cómo vive la "
+"gente en este lugar. Haz clic en las fotos para verlas a pantalla completa"
 
 #: TutoDetailBackTitle
 msgctxt "TutoDetailBackTitle"
 msgid "Go back"
-msgstr "Go back"
+msgstr "Volver"
 
 #: TutoDetailBackContent
 msgctxt "TutoDetailBackContent"
 msgid "Click here to go back to the place list screen"
-msgstr "Click here to go back to the place list screen"
+msgstr "Haz clic aquí para volver a la lista de lugares"
 
 #: SecondsAgo
 msgctxt "SecondsAgo"
 msgid "Seconds ago"
-msgstr "Segundos atrás"
+msgstr "Hace unos segundos"
 
 #. Do not translate {{time}}
 #: Ago
 msgctxt "Ago"
 msgid "{{time}} ago"
-msgstr "{{time}} atrás"
+msgstr "Hace {{time}}"
 
 #: Minutes_one
 msgctxt "Minutes_one"
@@ -283,11 +315,10 @@ msgstr "El año pasado"
 #: UserJoined
 msgctxt "UserJoined"
 msgid "{{name}} joined"
-msgstr "{{name}} joined"
+msgstr "{{name}} se ha unido"
 
 #. Do not translate {{name}}
 #: UserLeft
 msgctxt "UserLeft"
 msgid "{{name}} left"
-msgstr "{{name}} left"
-
+msgstr "{{name}} se ha desconectado"

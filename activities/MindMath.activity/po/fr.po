@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:25:24 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 09:52:25 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,8 +283,8 @@ msgstr "Nombre à utiliser"
 
 #: TutoInputNumbersContent
 msgctxt "TutoInputNumbersContent"
-msgid "These are the Input Numbers from which you can select the operands for your operation.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
-msgstr "Voici les nombres que vous pouvez utiliser comme opérandes pour vos calculs.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
+msgid "These are the Input Numbers from which you can select the operands for your operation.<div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/diamond-bg.svg\"><span>Initial numbers</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/square-bg.svg\"><span>Results from previous operations</span></div></div>"
+msgstr "Voici les nombres que vous pouvez utiliser comme opérandes pour vos calculs.<div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/diamond-bg.svg\"><span>Nombres Initiaux</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/square-bg.svg\"><span>Résultats des calculs précédents</span></div></div>"
 
 #: TutoTargetTitle
 msgctxt "TutoTargetTitle"
@@ -353,8 +353,8 @@ msgstr "Score"
 
 #: TutoScoreContent
 msgctxt "TutoScoreContent"
-msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Number of operations</div><div style=\"font-weight:bold\">B. Types of operation</div><div>for '+','x' 1 point, for '-' 2 points, for '÷' 3 points. You will get the Bonus also if you use all the four operations exactly once.</div><div style=\"font-weight:bold\">C. Time Taken</div><div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).<div style=\"font-weight:bold\">D. Number of Hints Used</div><div style=\"font-weight:bold"
-msgstr "Lorsque vous résolvez un problème, votre score est calculé par l'ordinateur. Vous devez obtenir le score le plus élevé. Cela dépendra de:<br><div style=\"font-weight:bold\">A. Nombre d'opérations</div><div style=\"font-weight:bold\">B. Types des opérations</div><div>pour '+','x' 1 point, pour '-' 2 points, pour '÷' 3 points. Vous aurez un Bonus si vous utilisez chacune des quatre opérations exactement une fois.</div><div style=\"font-weight:bold\">C. Temps écoulé</div><div>Si vous résolvez le problème en moins d'1 min, vous aurez un bonus (dépendant du temps passé à résoudre le problème).<div style=\"font-weight:bold\">D. Nombre de Conseils Utilisés</div><div style=\"font-weight:bold"
+msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Number of operations</div><div style=\"font-weight:bold\">B. Types of operation</div><div>for '+','x' 1 point, for '-' 2 points, for '÷' 3 points. You will get the Bonus also if you use all the four operations exactly once.</div><div style=\"font-weight:bold\">C. Time Taken</div><div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).<div style=\"font-weight:bold\">D. Number of Hints Used</div><div style=\"font-weight:bold;border:black solid\">score = (A+B+max(0,15-C/4))*(1-D/4)</div>"
+msgstr "Lorsque vous résolvez un problème, votre score est calculé par l'ordinateur. Vous devez obtenir le score le plus élevé. Cela dépendra de:<br><div style=\"font-weight:bold\">A. Nombre d'opérations</div><div style=\"font-weight:bold\">B. Types des opérations</div><div>pour '+','x' 1 point, pour '-' 2 points, pour '÷' 3 points. Vous aurez un Bonus si vous utilisez chacune des quatre opérations exactement une fois.</div><div style=\"font-weight:bold\">C. Temps écoulé</div><div>Si vous résolvez le problème en moins d'1 min, vous aurez un bonus (dépendant du temps passé à résoudre le problème).<div style=\"font-weight:bold\">D. Nombre de Conseils Utilisés</div><div style=\"font-weight:bold;border:black solid\">score = (A+B+max(0,15-C/4))*(1-D/4)</div>"
 
 #: TutoCompulsoryOpTitle
 msgctxt "TutoCompulsoryOpTitle"

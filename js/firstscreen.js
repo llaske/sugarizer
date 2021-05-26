@@ -48,7 +48,7 @@ enyo.kind({
 		app = this;
 		this.inherited(arguments);
 		this.localize();
-		this.history = preferences.getHistory();
+		this.history = historic.get();
 		if (!this.history || !this.history.length) {
 			this.history = [];
 		}
@@ -427,7 +427,7 @@ enyo.kind({
 
 		// Not connected
 		if (util.getClientType() != constant.webAppType && (this.createnew || !this.$.server.getValue())) {
-			preferences.addUserInHistory();
+			historic.addUser({name: preferences.getName(), color: preferences.getColor(), server: preferences.getServer()});
 			this.launchDesktop();
 			return;
 		}
@@ -542,7 +542,7 @@ enyo.kind({
 						preferences.save();
 					}
 					that.$.spinner.setShowing(false);
-					preferences.addUserInHistory();
+					historic.addUser({name: preferences.getName(), color: preferences.getColor(), server: preferences.getServer()});
 					that.launchDesktop();
 				},
 				function(response, code) {

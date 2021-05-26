@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:17:31 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:07:06 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,546 +15,546 @@ msgstr ""
 
 #: sounddir
 msgctxt "sounddir"
-msgid ""
+msgid "en"
 msgstr "pt_BR"
 
 #: learn
 msgctxt "learn"
-msgid ""
+msgid "Learn"
 msgstr "Aprender"
 
 #: build
 msgctxt "build"
-msgid ""
+msgid "Build"
 msgstr "Construir"
 
 #: play
 msgctxt "play"
-msgid ""
+msgid "Play"
 msgstr "Jogar"
 
 #: learndesc
 msgctxt "learndesc"
-msgid ""
+msgid "Put cards in the correct boxes to learn what sort of food each animal eats."
 msgstr "Coloque as cartas nas caixas corretas para aprender qual tipo de comida cada animal come."
 
 #: builddesc
 msgctxt "builddesc"
-msgid ""
+msgid "Arrange cards in the correct order to build the right food chain."
 msgstr "Organize as cartas na posição correta para construir corretamente a cadeia alimentar."
 
 #: playdesc
 msgctxt "playdesc"
-msgid ""
+msgid "Play the food chain: eat and avoid being eaten."
 msgstr "Jogar a cadeia alimentar: comer e evitar ser comido."
 
 #: level
 msgctxt "level"
-msgid ""
+msgid "Level"
 msgstr "Nível"
 
 #: score
 msgctxt "score"
-msgid ""
+msgid "Score:"
 msgstr "Pontuação:"
 
 #: concept
 msgctxt "concept"
-msgid ""
+msgid "concept & code:"
 msgstr "Conceito & código:"
 
 #: arts
 msgctxt "arts"
-msgid ""
+msgid "arts:"
 msgstr "artes:"
 
 #: music
 msgctxt "music"
-msgid ""
+msgid "music:"
 msgstr "música:"
 
 #: sound
 msgctxt "sound"
-msgid ""
+msgid "sound effects:"
 msgstr "efeitos sonoros:"
 
 #: alligator
 msgctxt "alligator"
-msgid ""
+msgid "Alligator"
 msgstr "Jacaré"
 
 #: animal
 msgctxt "animal"
-msgid ""
+msgid "Animal"
 msgstr "Animal"
 
 #: bat
 msgctxt "bat"
-msgid ""
+msgid "Bat"
 msgstr "Morcego"
 
 #: bee
 msgctxt "bee"
-msgid ""
+msgid "Bee"
 msgstr "Abelha"
 
 #: bird
 msgctxt "bird"
-msgid ""
+msgid "Bird"
 msgstr "Pássaro"
 
 #: camel
 msgctxt "camel"
-msgid ""
+msgid "Camel"
 msgstr "Camelo"
 
 #: cat
 msgctxt "cat"
-msgid ""
+msgid "Cat"
 msgstr "Gato"
 
 #: chicken
 msgctxt "chicken"
-msgid ""
+msgid "Chicken"
 msgstr "Frango"
 
 #: chimp
 msgctxt "chimp"
-msgid ""
+msgid "Chimp"
 msgstr "Chimpanzé"
 
 #: clam
 msgctxt "clam"
-msgid ""
+msgid "Clam"
 msgstr "Molusco"
 
 #: corn
 msgctxt "corn"
-msgid ""
+msgid "Corn"
 msgstr "Milho"
 
 #: cow
 msgctxt "cow"
-msgid ""
+msgid "Cow"
 msgstr "Vaca"
 
 #: crab
 msgctxt "crab"
-msgid ""
+msgid "Crab"
 msgstr "Caranguejo"
 
 #: crocodile
 msgctxt "crocodile"
-msgid ""
+msgid "Crocodile"
 msgstr "Crocodilo"
 
 #: crow
 msgctxt "crow"
-msgid ""
+msgid "Crow"
 msgstr "Corvo"
 
 #: dog
 msgctxt "dog"
-msgid ""
+msgid "Dog"
 msgstr "Cachorro"
 
 #: duck
 msgctxt "duck"
-msgid ""
+msgid "Duck"
 msgstr "Pato"
 
 #: fish
 msgctxt "fish"
-msgid ""
+msgid "Fish"
 msgstr "Peixe"
 
 #: flies
 msgctxt "flies"
-msgid ""
+msgid "Flies"
 msgstr "Moscas"
 
 #: fox
 msgctxt "fox"
-msgid ""
+msgid "Fox"
 msgstr "Raposa"
 
 #: frog
 msgctxt "frog"
-msgid ""
+msgid "Frog"
 msgstr "Sapo"
 
 #: giraffe
 msgctxt "giraffe"
-msgid ""
+msgid "Giraffe"
 msgstr "Girafa"
 
 #: goat
 msgctxt "goat"
-msgid ""
+msgid "Goat"
 msgstr "Bode"
 
 #: grass
 msgctxt "grass"
-msgid ""
+msgid "Grass"
 msgstr "Grama"
 
 #: hay
 msgctxt "hay"
-msgid ""
+msgid "Hay"
 msgstr "Feno"
 
 #: hen
 msgctxt "hen"
-msgid ""
+msgid "Hen"
 msgstr "Galinha"
 
 #: lamb
 msgctxt "lamb"
-msgid ""
+msgid "Lamb"
 msgstr "Cordeiro"
 
 #: mice
 msgctxt "mice"
-msgid ""
+msgid "Mice"
 msgstr "Ratos"
 
 #: mole
 msgctxt "mole"
-msgid ""
+msgid "Mole"
 msgstr "Topeira"
 
 #: mosquito
 msgctxt "mosquito"
-msgid ""
+msgid "Mosquito"
 msgstr "Mosquito"
 
 #: mule
 msgctxt "mule"
-msgid ""
+msgid "Mule"
 msgstr "Mula"
 
 #: owl
 msgctxt "owl"
-msgid ""
+msgid "Owl"
 msgstr "Coruja"
 
 #: ox
 msgctxt "ox"
-msgid ""
+msgid "Ox"
 msgstr "Boi"
 
 #: pig
 msgctxt "pig"
-msgid ""
+msgid "Pig"
 msgstr "Porco"
 
 #: rat
 msgctxt "rat"
-msgid ""
+msgid "Rat"
 msgstr "Rato"
 
 #: shark
 msgctxt "shark"
-msgid ""
+msgid "Shark"
 msgstr "Tubarão"
 
 #: shrimp
 msgctxt "shrimp"
-msgid ""
+msgid "Shrimp"
 msgstr "Camarão"
 
 #: skunk
 msgctxt "skunk"
-msgid ""
+msgid "Skunk"
 msgstr "Gambá"
 
 #: snail
 msgctxt "snail"
-msgid ""
+msgid "Snail"
 msgstr "Caracol"
 
 #: snake
 msgctxt "snake"
-msgid ""
+msgid "Snake"
 msgstr "Cobra"
 
 #: spider
 msgctxt "spider"
-msgid ""
+msgid "Spider"
 msgstr "Aranha"
 
 #: spike
 msgctxt "spike"
-msgid ""
+msgid "Spike"
 msgstr "Ouriço"
 
 #: squid
 msgctxt "squid"
-msgid ""
+msgid "Squid"
 msgstr "Lula"
 
 #: squirrel
 msgctxt "squirrel"
-msgid ""
+msgid "Squirrel"
 msgstr "Esquilo"
 
 #: starfish
 msgctxt "starfish"
-msgid ""
+msgid "Starfish"
 msgstr "Estrela-do-mar"
 
 #: swan
 msgctxt "swan"
-msgid ""
+msgid "Swan"
 msgstr "Cisne"
 
 #: tick
 msgctxt "tick"
-msgid ""
+msgid "Tick"
 msgstr "Carrapato"
 
 #: wheat
 msgctxt "wheat"
-msgid ""
+msgid "Wheat"
 msgstr "Trigo"
 
 #: herbivore
 msgctxt "herbivore"
-msgid ""
+msgid "Herbivore"
 msgstr "Herbívoro"
 
 #: carnivore
 msgctxt "carnivore"
-msgid ""
+msgid "Carnivore"
 msgstr "Carnívoro"
 
 #: omnivore
 msgctxt "omnivore"
-msgid ""
+msgid "Omnivore"
 msgstr "Onívoro"
 
 #: TutoPrev
 msgctxt "TutoPrev"
-msgid ""
+msgid "Prev"
 msgstr "Anterior"
 
 #: TutoNext
 msgctxt "TutoNext"
-msgid ""
+msgid "Next"
 msgstr "Próxima"
 
 #: TutoEnd
 msgctxt "TutoEnd"
-msgid ""
+msgid "End"
 msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
-msgid ""
+msgid "FoodChain Activity"
 msgstr "Atividade Cadeia Alimentar"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
-msgid ""
+msgid "Welcome into the FoodChain activity. FoodChain is a pedagogical game to learn name of animals (word and pronunciation) and concept of food chains: who eats what? Who eats who?"
 msgstr "Bem vindo à atividade Cadeia Alimentar. FoodChain é um jogo pedagógico para aprender o nome de animais (a palavra e a pronúncia) e o conceito de cadeia alimentar: quem come o que? Quem come quem?"
 
 #: TutoEnTitle
 msgctxt "TutoEnTitle"
-msgid ""
+msgid "English"
 msgstr "English"
 
 #: TutoEnContent
 msgctxt "TutoEnContent"
-msgid ""
+msgid "Click here to change language cards to English"
 msgstr "Clique aqui para mudar o idioma dos cartões para o Inglês"
 
 #: TutoFrTitle
 msgctxt "TutoFrTitle"
-msgid ""
+msgid "French"
 msgstr "Francês"
 
 #: TutoFrContent
 msgctxt "TutoFrContent"
-msgid ""
+msgid "Click here to change language cards to French"
 msgstr "Clique aqui para mudar o idioma dos cartões para o Francês"
 
 #: TutoPtTitle
 msgctxt "TutoPtTitle"
-msgid ""
+msgid "Potuguese"
 msgstr "Português"
 
 #: TutoPtContent
 msgctxt "TutoPtContent"
-msgid ""
+msgid "Click here to change language cards to Portuguese"
 msgstr "Clique aqui para mudar o idioma dos cartões para o Português"
 
 #: TutoLearnTitle
 msgctxt "TutoLearnTitle"
-msgid ""
+msgid "Learn"
 msgstr "Aprender"
 
 #: TutoLearnContent
 msgctxt "TutoLearnContent"
-msgid ""
+msgid "Click here to run the \"Learn\" game. In this game, you have to put animals in the correct box depending on what sort of food each animal eats"
 msgstr "Clique aqui para iniciar o jogo \"Learn (Aprender)\". Neste jogo, você deve colocar os animais nas caixas correspondontes a comida que este animal come"
 
 #: TutoBuildTitle
 msgctxt "TutoBuildTitle"
-msgid ""
+msgid "Build"
 msgstr "Construir"
 
 #: TutoBuildContent
 msgctxt "TutoBuildContent"
-msgid ""
+msgid "Click here to run the \"Build\" game. In this game, you have to arrange cards in the correct order to build the right food chain"
 msgstr "Click here to run the \"Build\" game. In this game, you have to arrange cards in the correct order to build the right food chain"
 
 #: TutoPlayGameTitle
 msgctxt "TutoPlayGameTitle"
-msgid ""
+msgid "Play"
 msgstr "Jogar"
 
 #: TutoPlayGameContent
 msgctxt "TutoPlayGameContent"
-msgid ""
+msgid "Click here to run the \"Play\" game. In this game, you have to steer the frog to eat flies, don't get eaten by snakes and don't hit rocks"
 msgstr "Click here to run the \"Play\" game. In this game, you have to steer the frog to eat flies, don't get eaten by snakes and don't hit rocks"
 
 #: TutoInfoTitle
 msgctxt "TutoInfoTitle"
-msgid ""
+msgid "Credits"
 msgstr "Créditos"
 
 #: TutoInfoContent
 msgctxt "TutoInfoContent"
-msgid ""
+msgid "Click here to display activity credits"
 msgstr "Clique aqui para exibir os créditos da atividade"
 
 #: TutoExplainGameTitle
 msgctxt "TutoExplainGameTitle"
-msgid ""
+msgid "Build"
 msgstr "Construir"
 
 #: TutoExplainGameContent
 msgctxt "TutoExplainGameContent"
-msgid ""
+msgid "In this game, you need to sort the animals according to who eats what with the strongest ones being on the left of the box"
 msgstr "In this game, you need to sort the animals according to who eats what with the strongest ones being on the left of the box"
 
 #: TutoValidateTitle
 msgctxt "TutoValidateTitle"
-msgid ""
+msgid "Check"
 msgstr "Verificar"
 
 #: TutoValidateContent
 msgctxt "TutoValidateContent"
-msgid ""
+msgid "Click here to check if your order is correct"
 msgstr "Clique aqui para verificar se sua ordem está correta"
 
 #: TutoPauseTitle
 msgctxt "TutoPauseTitle"
-msgid ""
+msgid "Pause"
 msgstr "Pause"
 
 #: TutoPauseContent
 msgctxt "TutoPauseContent"
-msgid ""
+msgid "Click here to pause the game"
 msgstr "Clique aqui para pausar o jogo"
 
 #: TutoPlayTitle
 msgctxt "TutoPlayTitle"
-msgid ""
+msgid "Play"
 msgstr "Continuar"
 
 #: TutoPlayContent
 msgctxt "TutoPlayContent"
-msgid ""
+msgid "Click here to resume the game"
 msgstr "Clique aqui para continuar o jogo"
 
 #: TutoHomeTitle
 msgctxt "TutoHomeTitle"
-msgid ""
+msgid "Home"
 msgstr "Início"
 
 #: TutoHomeContent
 msgctxt "TutoHomeContent"
-msgid ""
+msgid "Click here to go back to the Home page"
 msgstr "Clique aqui para retornar à página inicial"
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
-msgid ""
+msgid "Box"
 msgstr "Caixa"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
-msgid ""
+msgid "Here the animals appear. You need to sort them in the proper order"
 msgstr "Here the animals appear. You need to sort them in the proper order"
 
 #: TutoExplainLearnTitle
 msgctxt "TutoExplainLearnTitle"
-msgid ""
+msgid "Learn"
 msgstr "Aprender"
 
 #: TutoExplainLearnContent
 msgctxt "TutoExplainLearnContent"
-msgid ""
+msgid "In this game, you need to drag the animal over the sort of food it eats"
 msgstr "In this game, you need to drag the animal over the sort of food it eats"
 
 #: TutoStartTitle
 msgctxt "TutoStartTitle"
-msgid ""
+msgid "Start Box"
 msgstr "Start Box"
 
 #: TutoStartContent
 msgctxt "TutoStartContent"
-msgid ""
+msgid "Here is the animal. You have to decide what sort of food it eats"
 msgstr "Here is the animal. You have to decide what sort of food it eats"
 
 #: TutoHerbTitle
 msgctxt "TutoHerbTitle"
-msgid ""
+msgid "Herbivore"
 msgstr "Herbívoro"
 
 #: TutoHerbContent
 msgctxt "TutoHerbContent"
-msgid ""
+msgid "Drag the animal here if you think that it eats herbs"
 msgstr "Drag the animal here if you think that it eats herbs"
 
 #: TutoCarnTitle
 msgctxt "TutoCarnTitle"
-msgid ""
+msgid "Carnivore"
 msgstr "Carnívoro"
 
 #: TutoCarnContent
 msgctxt "TutoCarnContent"
-msgid ""
+msgid "Drag the animal here if you think that it eats meat"
 msgstr "Drag the animal here if you think that it eats meat"
 
 #: TutoExplainPlayTitle
 msgctxt "TutoExplainPlayTitle"
-msgid ""
+msgid "Play"
 msgstr "Jogar"
 
 #: TutoExplainPlayContent
 msgctxt "TutoExplainPlayContent"
-msgid ""
+msgid "In this game, you have to steer the frog to eat flies, don't hit rocks and don't get eaten by snakes"
 msgstr "In this game, you have to steer the frog to eat flies, don't hit rocks and don't get eaten by snakes"
 
 #: TutoLivesTitle
 msgctxt "TutoLivesTitle"
-msgid ""
+msgid "Lives"
 msgstr "Vidas"
 
 #: TutoLivesContent
 msgctxt "TutoLivesContent"
-msgid ""
+msgid "Here you can see how many lives have you got"
 msgstr "Here you can see how many lives have you got"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
-msgid ""
+msgid "Board"
 msgstr "Quadro"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
-msgid ""
+msgid "Here is the board of the game. To move the frog, click on the direction you want to go"
 msgstr "Here is the board of the game. To move the frog, click on the direction you want to go"
 

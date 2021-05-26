@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:26:38 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:16:23 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,228 +16,228 @@ msgstr ""
 #: PaintImageSaved
 msgctxt "PaintImageSaved"
 msgid "Image saved to journal!"
-msgstr ""
+msgstr "Image saved to journal!"
 
 #. Do not translate {{name}}
 #: PaintBy
 msgctxt "PaintBy"
 msgid "Paint by {{name}}"
-msgstr ""
+msgstr "Paint by {{name}}"
 
 #. Do not translate {{user}}
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr ""
+msgstr "{{user}} joined"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr ""
+msgstr "{{user}} left"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Paint Activity"
-msgstr ""
+msgstr "Paint Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Paint activity. Paint is an activity to create paintings or drawings"
-msgstr ""
+msgstr "Welcome into the Paint activity. Paint is an activity to create paintings or drawings"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share your work with other users on the network"
-msgstr ""
+msgstr "Click here to share your work with other users on the network"
 
 #: TutoColorsButtonFillTitle
 msgctxt "TutoColorsButtonFillTitle"
 msgid "Pen color"
-msgstr ""
+msgstr "Pen color"
 
 #: TutoColorsButtonFillContent
 msgctxt "TutoColorsButtonFillContent"
 msgid "Click here to choose pen color"
-msgstr ""
+msgstr "Click here to choose pen color"
 
 #: TutoColorsButtonStrokeTitle
 msgctxt "TutoColorsButtonStrokeTitle"
 msgid "Border color"
-msgstr ""
+msgstr "Border color"
 
 #: TutoColorsButtonStrokeContent
 msgctxt "TutoColorsButtonStrokeContent"
 msgid "Click here to choose border color"
-msgstr ""
+msgstr "Click here to choose border color"
 
 #: TutoUndoTitle
 msgctxt "TutoUndoTitle"
 msgid "Undo"
-msgstr ""
+msgstr "Undo"
 
 #: TutoUndoContent
 msgctxt "TutoUndoContent"
 msgid "Click here to undo previous actions"
-msgstr ""
+msgstr "Click here to undo previous actions"
 
 #: TutoRedoTitle
 msgctxt "TutoRedoTitle"
 msgid "Redo"
-msgstr ""
+msgstr "Redo"
 
 #: TutoRedoContent
 msgctxt "TutoRedoContent"
 msgid "Click here to redo previous actions"
-msgstr ""
+msgstr "Click here to redo previous actions"
 
 #: TutoSizeTitle
 msgctxt "TutoSizeTitle"
 msgid "Size"
-msgstr ""
+msgstr "Size"
 
 #: TutoSizeContent
 msgctxt "TutoSizeContent"
 msgid "Click here to select brush size. Each click increase the brush size until the maximum size"
-msgstr ""
+msgstr "Click here to select brush size. Each click increase the brush size until the maximum size"
 
 #: TutoPenTitle
 msgctxt "TutoPenTitle"
 msgid "Pen mode"
-msgstr ""
+msgstr "Pen mode"
 
 #: TutoPenContent
 msgctxt "TutoPenContent"
 msgid "Click here to select pen mode. In pen mode you could draw on the screen using the pen color"
-msgstr ""
+msgstr "Click here to select pen mode. In pen mode you could draw on the screen using the pen color"
 
 #: TutoEraserTitle
 msgctxt "TutoEraserTitle"
 msgid "Eraser mode"
-msgstr ""
+msgstr "Eraser mode"
 
 #: TutoEraserContent
 msgctxt "TutoEraserContent"
 msgid "Click here to select eraser mode. In eraser mode everything under your pen is erased"
-msgstr ""
+msgstr "Click here to select eraser mode. In eraser mode everything under your pen is erased"
 
 #: TutoStampsTitle
 msgctxt "TutoStampsTitle"
 msgid "Stamps mode"
-msgstr ""
+msgstr "Stamps mode"
 
 #: TutoStampsContent
 msgctxt "TutoStampsContent"
 msgid "Click here to select stamp mode. In stamp mode you could draw pre-defined stamps (heart, star, square, ...). Click to draw the stamp then move to change its size. Use pen color and border color button to choose stamps colors"
-msgstr ""
+msgstr "Click here to select stamp mode. In stamp mode you could draw pre-defined stamps (heart, star, square, ...). Click to draw the stamp then move to change its size. Use pen color and border color button to choose stamps colors"
 
 #: TutoTextTitle
 msgctxt "TutoTextTitle"
 msgid "Text mode"
-msgstr ""
+msgstr "Text mode"
 
 #: TutoTextContent
 msgctxt "TutoTextContent"
 msgid "Click here to write text in your drawing. Type the text to write in the palette and choose the font. Then click on the board to draw the text and move to change its size"
-msgstr ""
+msgstr "Click here to write text in your drawing. Type the text to write in the palette and choose the font. Then click on the board to draw the text and move to change its size"
 
 #: TutoInsertimageTitle
 msgctxt "TutoInsertimageTitle"
 msgid "Insert image"
-msgstr ""
+msgstr "Insert image"
 
 #: TutoInsertimageContent
 msgctxt "TutoInsertimageContent"
 msgid "Click here to insert in your drawing an image coming from the Journal. Click one time to set the image position then another time to change its size"
-msgstr ""
+msgstr "Click here to insert in your drawing an image coming from the Journal. Click one time to set the image position then another time to change its size"
 
 #: TutoDrawingsTitle
 msgctxt "TutoDrawingsTitle"
 msgid "Drawings"
-msgstr ""
+msgstr "Drawings"
 
 #: TutoDrawingsContent
 msgctxt "TutoDrawingsContent"
 msgid "Click here to select a background from preset drawings that you could fill like in a colouring book"
-msgstr ""
+msgstr "Click here to select a background from preset drawings that you could fill like in a colouring book"
 
 #: TutoBucketTitle
 msgctxt "TutoBucketTitle"
 msgid "Bucket"
-msgstr ""
+msgstr "Bucket"
 
 #: TutoBucketContent
 msgctxt "TutoBucketContent"
 msgid "Click here to select bucket mode. In bucket mode you could fill part of your drawing with the current pen color"
-msgstr ""
+msgstr "Click here to select bucket mode. In bucket mode you could fill part of your drawing with the current pen color"
 
 #: TutoFiltersTitle
 msgctxt "TutoFiltersTitle"
 msgid "Filters"
-msgstr ""
+msgstr "Filters"
 
 #: TutoFiltersContent
 msgctxt "TutoFiltersContent"
 msgid "Click here to choose a filter to change your image appearance"
-msgstr ""
+msgstr "Click here to choose a filter to change your image appearance"
 
 #: TutoCopyTitle
 msgctxt "TutoCopyTitle"
 msgid "Copy"
-msgstr ""
+msgstr "Copy"
 
 #: TutoCopyContent
 msgctxt "TutoCopyContent"
 msgid "Click here to copy a part of your drawing. Select a box on the board to copy it then use the paste button to repeat the drawing"
-msgstr ""
+msgstr "Click here to copy a part of your drawing. Select a box on the board to copy it then use the paste button to repeat the drawing"
 
 #: TutoPasteTitle
 msgctxt "TutoPasteTitle"
 msgid "Paste"
-msgstr ""
+msgstr "Paste"
 
 #: TutoPasteContent
 msgctxt "TutoPasteContent"
 msgid "Click here to paste a part of your drawing copied with the copy button. Click as many times you want to repeat the copied box"
-msgstr ""
+msgstr "Click here to paste a part of your drawing copied with the copy button. Click as many times you want to repeat the copied box"
 
 #: TutoClearTitle
 msgctxt "TutoClearTitle"
 msgid "Clear"
-msgstr ""
+msgstr "Clear"
 
 #: TutoClearContent
 msgctxt "TutoClearContent"
 msgid "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
-msgstr ""
+msgstr "Click here to clear the board. Everything will be erased. Click undo to retrieve the drawing"
 
 #: TutoSaveImageButtonTitle
 msgctxt "TutoSaveImageButtonTitle"
 msgid "Save in Journal"
-msgstr ""
+msgstr "Save in Journal"
 
 #: TutoSaveImageButtonContent
 msgctxt "TutoSaveImageButtonContent"
 msgid "Click here to save the current paint image to your journal, where you can use it for other activites"
-msgstr ""
+msgstr "Click here to save the current paint image to your journal, where you can use it for other activites"
 

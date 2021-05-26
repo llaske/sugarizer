@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:23:27 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:14:12 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,84 +17,84 @@ msgstr ""
 #: PlayerEndLevel
 msgctxt "PlayerEndLevel"
 msgid "{{user}} just ended the level"
-msgstr ""
+msgstr "{{user}} just ended the level"
 
 #. Do not translate {{user}}
 #: PlayerJoin
 msgctxt "PlayerJoin"
 msgid "{{user}} joined"
-msgstr ""
+msgstr "{{user}} joined"
 
 #. Do not translate {{user}}
 #: PlayerLeave
 msgctxt "PlayerLeave"
 msgid "{{user}} left"
-msgstr ""
+msgstr "{{user}} left"
 
 #. Do not translate {{count}}
 #: PlayersWaitOne
 msgctxt "PlayersWaitOne"
 msgid "Waiting for {{count}} player"
-msgstr ""
+msgstr "Waiting for {{count}} player"
 
 #. Do not translate {{count}}
 #: PlayersWaitMany
 msgctxt "PlayersWaitMany"
 msgid "Waiting for {{count}} players"
-msgstr ""
+msgstr "Waiting for {{count}} players"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Maze Activity"
-msgstr ""
+msgstr "Maze Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Maze activity. Maze activity is a simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one"
-msgstr ""
+msgstr "Welcome into the Maze activity. Maze activity is a simple maze game. Move through the maze to reach the goal. Each maze is larger and more difficult than the last one"
 
 #: TutoNetworkTitle
 msgctxt "TutoNetworkTitle"
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: TutoNetworkContent
 msgctxt "TutoNetworkContent"
 msgid "Click here to share the activity so other users on the network could play with you"
-msgstr ""
+msgstr "Click here to share the activity so other users on the network could play with you"
 
 #: TutoRestartTitle
 msgctxt "TutoRestartTitle"
 msgid "Restart"
-msgstr ""
+msgstr "Restart"
 
 #: TutoRestartContent
 msgctxt "TutoRestartContent"
 msgid "Click here to get restart the game. It will restart to the first level of difficulty"
-msgstr ""
+msgstr "Click here to get restart the game. It will restart to the first level of difficulty"
 
 #: TutoCanvasTitle
 msgctxt "TutoCanvasTitle"
 msgid "Maze"
-msgstr ""
+msgstr "Maze"
 
 #: TutoCanvasContent
 msgctxt "TutoCanvasContent"
 msgid "Here is the maze. Use arrows keys or click in the direction you want to go to guide your buddy to the exit: the colorful box. You will stop on each intersection to decide which way do you want to go next"
-msgstr ""
+msgstr "Here is the maze. Use arrows keys or click in the direction you want to go to guide your buddy to the exit: the colorful box. You will stop on each intersection to decide which way do you want to go next"
 
