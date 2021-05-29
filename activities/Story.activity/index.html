@@ -23,17 +23,42 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-
+			<sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem>
+			<sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
-		<h1>Congratulations!</h1>
-		<p>You are ready to develop this activity. Go ahead and edit the files.<br />
-		You can remove this message in the index.html.</p>
+		<!-- Image Section -->
+		<div id="display-image">
+			<!-- Grid Mode -->
+			<div v-if='grid' id="display-grid">
+				<div class="grid-image" v-for='image in images'>
+					<img :src='image' />
+				</div>
+			</div>
+			<!-- Single Mode -->
+			<div v-if='!grid' :id="previousBtnId" @click="previousImage"></div>
+			<div v-if="!grid" id="display-single">
+				<img :src='activeImage' />
+			</div>
+			<div v-if='!grid' :id="nextBtnId" @click="nextImage"></div>
+		</div>
 
-		<sugar-activity ref="SugarActivity"></sugar-activity>
+		<!-- Editor Section -->
+		<div id="editor">
+			<div id="editor-area">
+				<!-- Vue editor here -->
+			</div>
+			<div id="icons-flex">
+				<div :id="recordIconId"></div>
+				<div id="play"></div>
+				<div id="speak"></div>
+			</div>
+		</div>
+		
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>

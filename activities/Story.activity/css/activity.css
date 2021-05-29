@@ -15,6 +15,7 @@ p {
 
 #app {
 	min-height: 100%;
+	background-color: #fff;
 }
 
 #main-toolbar .splitbar {
@@ -71,6 +72,15 @@ p {
 	border-radius: 5.5px;
 }
 
+/* Buttons added */
+
+#grid-mode {
+	background-image: url(../icons/grid.svg);
+}
+#single-mode {
+	background-image: url(../icons/linear.svg);
+}
+
 .tutorial-icon-button {
 	border-radius: 22px;
 	margin-top: 5px;
@@ -120,4 +130,116 @@ p {
 
 .tutorial-icon-text {
 	padding-left: 4px;
+}
+
+#display-image {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	margin-top: 20px;
+}
+
+#display-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 120px);
+	grid-auto-rows: 120px;
+	grid-gap: 5px;
+}
+.grid-image img {
+	height: 120px;
+	width: 120px;
+}
+
+#display-single {
+	height: 375px;
+	width: 375px;
+}
+
+#display-single img {
+	height: 375px;
+	width: 375px;
+}
+
+#previous-btn {
+	background-image: url(../icons/go-previous.svg);
+	width: 30px;
+	height: 30px;
+	background-size: 30px 30px;
+}
+#previous-btn-inactive {
+	background-image: url(../icons/go-previous-inactive.svg);
+	width: 30px;
+	height: 30px;
+	background-size: 30px 30px;
+}
+#next-btn {
+	background-image: url(../icons/go-next.svg);
+	width: 30px;
+	height: 30px;
+	background-size: 30px 30px;
+}
+#next-btn-inactive {
+	background-image: url(../icons/go-next-inactive.svg);
+	width: 30px;
+	height: 30px;
+	background-size: 30px 30px;
+}
+
+/* Editor Styling */
+
+#editor {
+	margin-top: 20px;
+	display: flex;
+	height: 150px;
+	justify-content: center;
+}
+
+#editor-area {
+	height: 100%;
+	min-width: 70vw;
+	border: 1px solid black;
+}
+
+#icons-flex {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	margin-left: 15px;
+} 
+#record {
+	background-image: url(../icons/media-audio.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#record-start {
+	background-image: url(../icons/media-audio-recording.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#play {
+	background-image: url(../icons/play.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#play-inactive {
+	background-image: url(../icons/play-inactive.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#speak {
+	background-image: url(../icons/speak.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#speak-inactive {
+	background-image: url(../icons/speak-inactive.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
 }
