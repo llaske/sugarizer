@@ -35,7 +35,8 @@
 			<!-- Grid Mode -->
 			<div v-if='grid' id="display-grid">
 				<div class="grid-image" v-for='image in images'>
-					<img :src='image' />
+					<img :src='image' v-bind:style="{display:(isLoaded)?'block':'none'}" @load="loaded" />
+					<img v-if="!isLoaded" src="./icons/question-mark.svg" class="questionmark"/>
 				</div>
 			</div>
 			<!-- Single Mode -->

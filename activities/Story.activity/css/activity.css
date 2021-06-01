@@ -143,11 +143,16 @@ p {
 	display: grid;
 	grid-template-columns: repeat(3, 120px);
 	grid-auto-rows: 120px;
-	grid-gap: 5px;
+	grid-gap: 10px;
 }
 .grid-image img {
 	height: 120px;
 	width: 120px;
+}
+
+.questionmark {
+	border-radius: 100px;
+	padding: 2px;
 }
 
 #display-single {
