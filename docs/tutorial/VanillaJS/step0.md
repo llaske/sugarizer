@@ -32,7 +32,7 @@ In the path above, `<Directory>` is where you have stored/cloned your sugarizer 
 
 * On this line `chrome` is the name of the Chrome executable file. Depending of your system it could be `google-chrome` or `"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"` or `open -n /Applications/Google\ Chrome.app --args` instead.
 
-* The option `--allow-file-access-from-files` is required to enable access to local files using XMLHttpRequest. Equivalent options for other browser, see how to run *Sugarizer Application into the Web Browser* in [README.md](../../README.md).
+* The option `--allow-file-access-from-files` is required to enable access to local files using XMLHttpRequest. Equivalent options for other browser, see how to run *Sugarizer Application into the Web Browser* in [README.md](https://github.com/llaske/sugarizer#sugarizer-application).
 
 * The `index.html` file is located in the new Sugarizer directory so you will have to use `cd` command line to change location to this directory before running the command.
 
