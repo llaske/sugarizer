@@ -24,20 +24,37 @@
 
 			<!-- Add more buttons here -->
 
-			<sugar-toolitem id="play-button" title="Play" v-on:click="playOrPause" ></sugar-toolitem>
-			<sugar-toolitem id="pause-button" title="Pause" v-on:click="playOrPause"></sugar-toolitem>
+			<sugar-toolitem 
+				id="play-button" 
+				v-bind:title="l10n.stringPlay"
+				v-on:click="playOrPause"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="pause-button" 
+				v-bind:title="l10n.stringPause"
+				v-on:click="playOrPause"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<canvas id="mainCanvas"></canvas>
-		<div id="axisScale">Sound <span id="domainName"></span> Base<br> X-axis Scale: 1 division = <span id="scaleValue"></span></div>
+		<div id="axisScale">
+			<span id="domainName"></span>
+			<br>
+			X-<span id="axis"></span> 
+			<span id="scale"></span>
+			: 1 <span id="division"></span> = 
+			<span id="scaleValue"></span>
+		</div>
 
-		<sugar-activity ref="SugarActivity"></sugar-activity>
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/fft.js"></script>
 	<script src="js/activity.js"></script>
 </body>

@@ -10,6 +10,8 @@ requirejs.config({
 var app = new Vue({
 	el: '#app',
 	data: {
+		currentenv: null,
+		SugarL10n: null,
 		canvas: '',
 		context: '',
 		analyser: '',
@@ -23,9 +25,30 @@ var app = new Vue({
 		freq_div: 100,
 		fftSize: 1024,
 		freqDomainData: [],
-		num_of_samples_freq: 4096
+		num_of_samples_freq: 4096,
+		l10n: {
+			stringPlay: '',
+			stringPause: ''
+		}
 	},
 	methods: {
+		initialized: function () {
+			this.currentenv = this.$refs.SugarActivity.getEnvironment();
+		},
+		localized: function () {
+			this.freq_base_string = this.SugarL10n.get("FrequencyBase");
+			this.time_base_string = this.SugarL10n.get("TimeBase");
+			document.getElementById("axis").innerText = this.SugarL10n.get("axisString");
+			document.getElementById("scale").innerText = this.SugarL10n.get("scaleString");
+			document.getElementById("division").innerText = this.SugarL10n.get("divisionString");
+			if(this.time_domain) {
+				document.getElementById("domainName").innerText = this.time_base_string;
+			}
+			else {
+				document.getElementById("domainName").innerText = this.freq_base_string;
+			}
+			this.SugarL10n.localize(this.l10n);
+		},
 		init: function() {
 			
 			this.canvas.width = window.innerWidth;
@@ -57,7 +80,7 @@ var app = new Vue({
 
 		},
 		setTimeDomain: function(stream) {
-			document.getElementById("domainName").innerText = 'Time'
+
 			document.getElementById("scaleValue").innerText = this.time_div*1000;
 
 			this.createAnalyserNode(stream, this.fftSize);
@@ -76,7 +99,8 @@ var app = new Vue({
 		},
 		calcFreqDomainData: function() {
 
-			this.num_of_divs = this.canvas.width / 50; // 50 is width of one div
+			// Calculate Frequency Domain Data
+			this.num_of_divs = this.canvas.width / 50;
 			var total_freq = this.freq_div * this.num_of_divs;
 
 			this.freqDomainData = []
@@ -102,17 +126,17 @@ var app = new Vue({
 					Math.sqrt(Math.pow(this.freqDomainData[i], 2) + Math.pow(imag[i], 2))
 				)
 			}
-			// if (window.cordova || window.PhoneGap) {
-			// 	this.num_of_samples_freq = total_freq;
-			// }
-			// else {
+			if (window.cordova || window.PhoneGap) {
+				this.num_of_samples_freq = total_freq / 44;
+			}
+			else {
 				this.num_of_samples_freq = total_freq / 12;
-			// }
+			}
 
 			this.drawWaveform()
 		},
 		setFreqDomain: function(stream) {
-			document.getElementById("domainName").innerText = 'Frequency'
+
 			document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
 
 			this.fftSize = 4096;
@@ -126,6 +150,7 @@ var app = new Vue({
 
 		},
 		drawWaveform: function() {
+			// Plotting of waveform on canvas
 			var canvasCtx = this.canvas.getContext("2d");
 			this.drawGrid();
 			canvasCtx.lineWidth = 3;
@@ -159,6 +184,7 @@ var app = new Vue({
 			canvasCtx.stroke();
 		},
 		drawGrid: function() {
+			// Drawing grid on canvas
 			var canvasCtx = this.canvas.getContext("2d");
 
 			canvasCtx.fillStyle = 'black';
@@ -173,10 +199,13 @@ var app = new Vue({
 			}
 		},
 		mapCoords: function(value, a, b, c, d) {
+			// to bring value in range
 			value = (value - a) / (b - a);
 			return c + value * (d - c);
 		},
 		playOrPause: function() {
+
+			// Switch between play and pause mode
 			this.play = !this.play;
 			if(this.play) {
 				document.getElementById("play-button").style.display = "initial";
@@ -188,6 +217,8 @@ var app = new Vue({
 			}
 		},
 		onAudioInput: function(e) {
+
+			// This function executes whenever stream from microphone is received (only for cordova) 
 			if (!this.play) return;
 
 			this.timeDomainData = e.data;
@@ -207,12 +238,10 @@ var app = new Vue({
 			window.addEventListener("audioinput", this.onAudioInput, false)
 			this.init()
 			// if(this.time_domain) {
-			// 	document.getElementById("domainName").innerText = 'Time'
 			// 	document.getElementById("scaleValue").innerText = (this.time_div * 1000) + ' ms';
 			// }
 			// else {
 				this.time_domain = false;
-				document.getElementById("domainName").innerText = 'Frequency'
 				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
 			// }
 			audioinput.start({
@@ -222,6 +251,7 @@ var app = new Vue({
 		}
 	},
 	mounted() {
+		this.SugarL10n = this.$refs.SugarL10n;
 		this.canvas = document.getElementById("mainCanvas");
 		if (window.cordova || window.PhoneGap) {
 			document.addEventListener('deviceready', this.onDeviceReady, false);
