@@ -18,8 +18,12 @@ var app = new Vue({
 		timeDomainData: [],
 		play: true,
 		time_div: 0.0005,
-		num_of_samples: 1024,
-		num_of_divs: 20
+		num_of_samples_time: 1024,
+		num_of_divs: 20,
+		freq_div: 100,
+		fftSize: 1024,
+		freqDomainData: [],
+		num_of_samples_freq: 4096
 	},
 	methods: {
 		init: function() {
@@ -36,22 +40,28 @@ var app = new Vue({
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight - 55 - (document.getElementById("axisScale").clientHeight);
 		},
-		setTimeDomain: function(stream) {
-			document.getElementById("domainName").innerText = 'Time'
-			document.getElementById("scaleValue").innerText = this.time_div*1000;
+		createAnalyserNode: function(stream, fft_size) {
 
 			// Create and init a Web Audio Analyser node
 			this.context = new AudioContext();
 			this.source = this.context.createMediaStreamSource(stream);
 			this.analyser = this.context.createAnalyser();
 			this.analyser.smoothingTimeConstant = 0;
-			this.analyser.fftSize = 1024;
-			
+			this.analyser.fftSize = fft_size;
+
 			this.processor = this.context.createScriptProcessor(this.analyser.fftSize, 1, 1);
 			this.timeDomainData = new Float32Array(this.analyser.fftSize);
 			this.source.connect(this.analyser);
 			this.analyser.connect(this.processor);
 			this.processor.connect(this.context.destination);
+
+		},
+		setTimeDomain: function(stream) {
+			document.getElementById("domainName").innerText = 'Time'
+			document.getElementById("scaleValue").innerText = this.time_div*1000;
+
+			this.createAnalyserNode(stream, this.fftSize);
+
 			this.processor.addEventListener('audioprocess', (e) => {
 				if(!this.play) return;
 				this.analyser.getFloatTimeDomainData(this.timeDomainData)
@@ -59,10 +69,61 @@ var app = new Vue({
 				this.num_of_divs = this.canvas.width/50; // 50 is width of one div
 				var total_time_duration = this.time_div*this.num_of_divs;
 
-				// Formula: num_of_samples = sampling_frequency*total_time_duration 
-				this.num_of_samples = Math.ceil(total_time_duration*48000); //48000 is sampling frequency
+				// Formula: num_of_samples_time = sampling_frequency*total_time_duration 
+				this.num_of_samples_time = Math.ceil(total_time_duration*48000); //48000 is sampling frequency
 				this.drawWaveform()
 			})
+		},
+		calcFreqDomainData: function() {
+
+			this.num_of_divs = this.canvas.width / 50; // 50 is width of one div
+			var total_freq = this.freq_div * this.num_of_divs;
+
+			this.freqDomainData = []
+			for (var i = 0; i < this.fftSize; i++) {
+				if(this.timeDomainData[i]) {
+					this.freqDomainData.push(this.timeDomainData[i]);
+				}
+				else {
+					this.freqDomainData.push(0);
+				}
+			}
+
+			var imag = []
+			for (var i = 0; i < this.fftSize; i++) {
+				imag.push(0);
+			}
+
+			transform(this.freqDomainData, imag)
+
+			for (var i = 0; i < this.fftSize; i++) {
+				this.freqDomainData[i] = Math.min(
+					100,
+					Math.sqrt(Math.pow(this.freqDomainData[i], 2) + Math.pow(imag[i], 2))
+				)
+			}
+			// if (window.cordova || window.PhoneGap) {
+			// 	this.num_of_samples_freq = total_freq;
+			// }
+			// else {
+				this.num_of_samples_freq = total_freq / 12;
+			// }
+
+			this.drawWaveform()
+		},
+		setFreqDomain: function(stream) {
+			document.getElementById("domainName").innerText = 'Frequency'
+			document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
+
+			this.fftSize = 4096;
+			this.createAnalyserNode(stream, this.fftSize);
+
+			this.processor.addEventListener('audioprocess', (e) => {
+				if (!this.play) return;
+				this.analyser.getFloatTimeDomainData(this.timeDomainData)
+				this.calcFreqDomainData();
+			})
+
 		},
 		drawWaveform: function() {
 			var canvasCtx = this.canvas.getContext("2d");
@@ -72,10 +133,14 @@ var app = new Vue({
 
 			canvasCtx.beginPath();
 			
-			var sliceWidth = this.canvas.width*1.0/this.num_of_samples;
 			var x = 0;
-			for(var i=0;i<this.num_of_samples;i++) {
-				let y = this.mapCoords(this.timeDomainData[i], -1, 1, 0, this.canvas.height);
+			var samples = (this.time_domain) ? this.num_of_samples_time : this.num_of_samples_freq;
+
+			var sliceWidth = this.canvas.width * 1.0 / samples;
+
+			for (var i = 0; i < samples;i++) {
+				let y = (this.time_domain) ? this.mapCoords(this.timeDomainData[i], -1, 1, 0, this.canvas.height) 
+					: this.mapCoords(-1 * this.freqDomainData[i], 0, 100, this.canvas.height / 1.01, 2 * this.canvas.height);
 				if(i == 0) {
 					canvasCtx.moveTo(x,y);
 				}
@@ -84,7 +149,13 @@ var app = new Vue({
 				}
 				x += sliceWidth;
 			}
-			canvasCtx.lineTo(this.canvas.width, this.canvas.height/2);
+
+			// if(this.time_domain) {
+			// 	canvasCtx.lineTo(this.canvas.width, this.canvas.height / 2);
+			// }
+			// else {
+			// 	canvasCtx.lineTo(this.canvas.width, this.canvas.height / 1.01);
+			// }
 			canvasCtx.stroke();
 		},
 		drawGrid: function() {
@@ -118,21 +189,34 @@ var app = new Vue({
 		},
 		onAudioInput: function(e) {
 			if (!this.play) return;
+
 			this.timeDomainData = e.data;
-			this.num_of_divs = this.canvas.width / 50; // 50 is width of one div
-			var total_time_duration = this.time_div * this.num_of_divs; 
-			this.num_of_samples = Math.ceil(total_time_duration * 48000); //48000 is sampling frequency
-			this.drawWaveform()
+
+			// if(this.time_domain) {
+			// 	this.num_of_divs = this.canvas.width / 50; // 50 is width of one div
+			// 	var total_time_duration = this.time_div * this.num_of_divs;
+			// 	this.num_of_samples_time = Math.ceil(total_time_duration * 48000); //48000 is sampling frequency
+			// 	this.drawWaveform()
+			// }
+			// else {
+				this.calcFreqDomainData()
+			// }
 		},
 		onDeviceReady: function() {
-			console.log("cordova from ondevice", window.cordova)
-			console.log("audioinput from ondevice", window.audioinput)
+
 			window.addEventListener("audioinput", this.onAudioInput, false)
 			this.init()
-			document.getElementById("domainName").innerText = 'Time'
-			document.getElementById("scaleValue").innerText = this.time_div * 1000;
+			// if(this.time_domain) {
+			// 	document.getElementById("domainName").innerText = 'Time'
+			// 	document.getElementById("scaleValue").innerText = (this.time_div * 1000) + ' ms';
+			// }
+			// else {
+				this.time_domain = false;
+				document.getElementById("domainName").innerText = 'Frequency'
+				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
+			// }
 			audioinput.start({
-				bufferSize: 2048,
+				bufferSize: 4096,
 				streamToWebAudio: false
 			});
 		}
@@ -146,9 +230,13 @@ var app = new Vue({
 			this.init()
 			navigator.mediaDevices.getUserMedia({ audio: true })
 				.then((stream) => {
-					if (this.time_domain) {
-						this.setTimeDomain(stream)
-					}
+					// if (this.time_domain) {
+					// 	this.setTimeDomain(stream)
+					// }
+					// else {
+						this.time_domain = false;
+						this.setFreqDomain(stream)
+					// }
 				})
 				.catch((err) => alert('Please allow microphone access'))
 		}
