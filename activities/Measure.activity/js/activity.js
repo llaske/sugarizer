@@ -41,12 +41,6 @@ var app = new Vue({
 			document.getElementById("axis").innerText = this.SugarL10n.get("axisString");
 			document.getElementById("scale").innerText = this.SugarL10n.get("scaleString");
 			document.getElementById("division").innerText = this.SugarL10n.get("divisionString");
-			if(this.time_domain) {
-				document.getElementById("domainName").innerText = this.time_base_string;
-			}
-			else {
-				document.getElementById("domainName").innerText = this.freq_base_string;
-			}
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -244,6 +238,14 @@ var app = new Vue({
 				this.time_domain = false;
 				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
 			// }
+
+			if (this.time_domain) {
+				document.getElementById("domainName").innerText = this.time_base_string;
+			}
+			else {
+				document.getElementById("domainName").innerText = this.freq_base_string;
+			}
+
 			audioinput.start({
 				bufferSize: 4096,
 				streamToWebAudio: false
@@ -267,6 +269,13 @@ var app = new Vue({
 						this.time_domain = false;
 						this.setFreqDomain(stream)
 					// }
+
+					if (this.time_domain) {
+						document.getElementById("domainName").innerText = this.time_base_string;
+					}
+					else {
+						document.getElementById("domainName").innerText = this.freq_base_string;
+					}
 				})
 				.catch((err) => alert('Please allow microphone access'))
 		}
