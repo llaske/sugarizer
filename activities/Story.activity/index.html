@@ -42,7 +42,8 @@
 			<!-- Single Mode -->
 			<div v-if='!grid' :id="previousBtnId" @click="previousImage"></div>
 			<div v-if="!grid" id="display-single">
-				<img :src='activeImage' />
+				<img :src='activeImage' v-bind:style="{display:(isLoaded)?'block':'none'}"/>
+				<img v-if="!isLoaded" src="./icons/question-mark.svg" class="questionmark"/>
 			</div>
 			<div v-if='!grid' :id="nextBtnId" @click="nextImage"></div>
 		</div>

@@ -19,6 +19,7 @@ var app = new Vue({
 		recordIconId: null,
 		imageCount: 9,	//update with Image slider
 		imageLoaded: 0,
+		intervalIds: [],
 		colors: null,
 		isLoaded: false,
 	},
@@ -36,23 +37,26 @@ var app = new Vue({
 			}
 			this.recordIconId = "record";
 			document.getElementById('grid-mode').classList.add("active");
-
+			this.imageLoaders();
+		},
+		imageLoaders: function(){
 			function getRandomInt (min, max) {
 				min = Math.ceil(min);
 				max = Math.floor(max);
 				return Math.floor(Math.random() * (max - min + 1)) + min;
 			}
-
-			const  that = this;
+			const that = this;
 			function getColor(){
 				return that.colors[getRandomInt(0,2)];
 			}
-
 			var quesimgs = document.getElementsByClassName('questionmark');
 			var len = quesimgs.length;
 			for (var i=0; i<len; i++){
 				quesimgs[i].style.background = that.colors[getRandomInt(0,2)];
-				(function(i){setInterval(function(){that.isLoaded==false ? quesimgs[i].style.background = getColor() : null}, 1000)})(i);
+				(function (i){
+					var intervalId = setInterval(function(){quesimgs[i].style.background = getColor()}, 900);
+					that.intervalIds.push(intervalId);
+				})(i);
 			}
 		},
 		gridImageMode: function(){
@@ -61,7 +65,6 @@ var app = new Vue({
 			document.getElementById('single-mode').classList.remove("active");
 		},
 		singleImageMode: function(){
-			if (this.isLoaded == true){
 				this.grid = false;
 				document.getElementById('grid-mode').classList.remove("active");
 				document.getElementById('single-mode').classList.add("active");
@@ -69,7 +72,6 @@ var app = new Vue({
 				if (this.activeImageIndex === 0){
 					this.previousBtnId = "previous-btn-inactive";
 				}
-			}
 		},
 		previousImage: function () {
 			if (this.activeImageIndex === 0){
@@ -97,6 +99,10 @@ var app = new Vue({
 			this.imageLoaded++;
 			if (this.imageLoaded === this.imageCount ){
 				this.isLoaded = true;
+				this.activeImage = this.images[this.activeImageIndex];
+				for (var i=0; i<this.imageCount; i++){
+					clearInterval(this.intervalIds[i]);
+				}
 			}
 		},
 	}
