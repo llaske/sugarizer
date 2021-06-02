@@ -23,7 +23,17 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-
+			<div class="splitbar"></div>
+			<sugar-toolitem 
+				id="time-domain-button" 
+				v-bind:title="l10n.stringTimeDomain"
+				v-on:click="TimeOrFreq"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="freq-domain-button" 
+				v-bind:title="l10n.stringFreqDomain"
+				v-on:click="TimeOrFreq"
+			></sugar-toolitem>
 			<sugar-toolitem 
 				id="play-button" 
 				v-bind:title="l10n.stringPlay"
@@ -42,9 +52,12 @@
 		<div id="axisScale">
 			<span id="domainName"></span>
 			<br>
-			X-<span id="axis"></span> 
+			X-
+			<span id="axis"></span> 
 			<span id="scale"></span>
-			: 1 <span id="division"></span> = 
+			: 1
+			<span id="division"></span> 
+			= 
 			<span id="scaleValue"></span>
 		</div>
 

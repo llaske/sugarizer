@@ -140,3 +140,12 @@ p {
 	background-image: url("../icons/pause.svg");
 	display: none;
 }
+
+#time-domain-button {
+	background-image: url("../icons/domain-time.svg");
+}
+
+#freq-domain-button {
+	background-image: url("../icons/domain-freq.svg");
+	display: none;
+}
