@@ -149,3 +149,15 @@ p {
 	background-image: url("../icons/domain-freq.svg");
 	display: none;
 }
+
+#zoom-button {
+	background-image: url("../icons/zoom.svg");
+}
+
+#zoom-in-button {
+	background-image: url("../icons/zoom-in.svg");
+}
+
+#zoom-out-button {
+	background-image: url("../icons/zoom-out.svg");
+}

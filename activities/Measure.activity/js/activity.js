@@ -23,15 +23,16 @@ var app = new Vue({
 		time_div: 0.0005,
 		num_of_samples_time: 1024,
 		num_of_divs: 20,
-		freq_div: 100,
-		fftSize: 1024,
+		freq_div: 500,
+		fftSize: 4096,
 		freqDomainData: [],
 		num_of_samples_freq: 4096,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
 			stringTimeDomain: '',
-			stringFreqDomain: ''
+			stringFreqDomain: '',
+			stringZoomInOut: ''
 		}
 	},
 	methods: {
@@ -46,12 +47,16 @@ var app = new Vue({
 			document.getElementById("division").innerText = this.SugarL10n.get("divisionString");
 			if (this.time_domain) {
 				document.getElementById("domainName").innerText = this.time_base_string;
-				document.getElementById("scaleValue").innerText = (this.time_div * 1000) + ' ms';
+				document.getElementById("scaleValue").innerText = (this.time_div * 1000).toFixed(2) + ' ms';
+				this.setZoomSlider();
 			}
 			else {
 				document.getElementById("domainName").innerText = this.freq_base_string;
 				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
+				this.setZoomSlider();
 			}
+			document.getElementById("zoom-in-button").title = this.SugarL10n.get("zoomIn");
+			document.getElementById("zoom-out-button").title = this.SugarL10n.get("zoomOut");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -129,9 +134,7 @@ var app = new Vue({
 
 			this.drawWaveform()
 		},
-		setTimeDomain: function (stream) {
-
-			this.createAnalyserNode(stream, this.fftSize);
+		setTimeDomain: function () {
 
 			this.processor.addEventListener('audioprocess', (e) => {
 				if (!this.play) return;
@@ -139,10 +142,7 @@ var app = new Vue({
 				this.calcTimeDomainData();
 			})
 		},
-		setFreqDomain: function(stream) {
-
-			this.fftSize = 4096;
-			this.createAnalyserNode(stream, this.fftSize);
+		setFreqDomain: function() {
 
 			this.processor.addEventListener('audioprocess', (e) => {
 				if (!this.play) return;
@@ -222,13 +222,16 @@ var app = new Vue({
 
 			// Switch between Time and Frequency Domain
 			this.time_domain = !this.time_domain;
+
 			if(this.time_domain) {
 				document.getElementById("time-domain-button").style.display = "initial";
 				document.getElementById("freq-domain-button").style.display = "none";
 				document.getElementById("domainName").innerText = this.time_base_string;
-				document.getElementById("scaleValue").innerText = (this.time_div * 1000) + ' ms';
+				document.getElementById("scaleValue").innerText = (this.time_div * 1000).toFixed(2) + ' ms';
+				this.setZoomSlider();
+				this.calcTimeDomainData();
 				if (!(window.cordova || window.PhoneGap)) {
-					this.setTimeDomain(this.webAudio_mediaStreamSource);
+					this.setTimeDomain();
 				}
 			}
 			else {
@@ -236,10 +239,65 @@ var app = new Vue({
 				document.getElementById("freq-domain-button").style.display = "initial";
 				document.getElementById("domainName").innerText = this.freq_base_string;
 				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
+				this.setZoomSlider();
+				this.calcFreqDomainData();
 				if (!(window.cordova || window.PhoneGap)) {
-					this.setFreqDomain(this.webAudio_mediaStreamSource);
+					this.setFreqDomain();
 				}
 			}
+		},
+		setZoomSlider: function () {
+			var slider = document.getElementById("zoomSlider");
+			if (this.time_domain) {
+				slider.min = "0";
+				slider.max = "95";
+				slider.step = "0.00001";
+				var val = (this.time_div - 0.00005) / 0.00001;
+				val = Math.round(val * 100000) / 100000;
+				slider.value = val;
+			}
+			else {
+				slider.min = "50";
+				slider.max = "1000";
+				slider.step = "10";
+				slider.value = this.freq_div;
+			}
+		},
+		ZoomInOut: function() {
+
+			var slider_value = document.getElementById("zoomSlider").value;
+			if(this.time_domain) {
+				var time_div_value = 0.00005 + 0.00001 * parseFloat(slider_value);
+				this.time_div = Math.round(time_div_value * 100000) / 100000;
+				this.calcTimeDomainData();
+				document.getElementById("scaleValue").innerText = (this.time_div * 1000).toFixed(2) + ' ms';
+			}
+			else {
+				var freq_div_value = parseInt(slider_value);
+				this.freq_div = freq_div_value;
+				this.calcFreqDomainData();
+				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
+			}
+		},
+		decrementZoom: function() {
+			if (this.time_domain) {
+				this.time_div = this.time_div - 0.00001;
+			}
+			else {
+				this.freq_div = this.freq_div - 10;
+			}
+			this.setZoomSlider();
+			this.ZoomInOut();
+		},
+		incrementZoom: function() {
+			if(this.time_domain) {
+				this.time_div = this.time_div + 0.00001;
+			}
+			else {
+				this.freq_div = this.freq_div + 10;
+			}
+			this.setZoomSlider();
+			this.ZoomInOut();
 		},
 		onAudioInput: function(e) {
 
@@ -277,14 +335,16 @@ var app = new Vue({
 			this.init()
 			navigator.mediaDevices.getUserMedia({ audio: true })
 				.then((stream) => {
+					this.fftSize = 4096;
+					this.createAnalyserNode(stream, this.fftSize);
 
 					this.webAudio_mediaStreamSource = stream;
 
 					if (this.time_domain) {
-						this.setTimeDomain(stream)
+						this.setTimeDomain()
 					}
 					else {
-						this.setFreqDomain(stream)
+						this.setFreqDomain()
 					}
 				})
 				.catch((err) => alert('Please allow microphone access'))

@@ -35,6 +35,13 @@
 				v-on:click="TimeOrFreq"
 			></sugar-toolitem>
 			<sugar-toolitem 
+				id="zoom-button" 
+				v-bind:title="l10n.stringZoomInOut"
+				v-on:click="ZoomInOut"
+				palette-file="js/palettes/zoompalette.js"
+				palette-class="ZoomPalette"
+			></sugar-toolitem>
+			<sugar-toolitem 
 				id="play-button" 
 				v-bind:title="l10n.stringPlay"
 				v-on:click="playOrPause"
