@@ -76,7 +76,7 @@ var app = new Vue({
 		createAnalyserNode: function(stream, fft_size) {
 
 			// Create and init a Web Audio Analyser node
-			this.context = new AudioContext();
+			this.context = new (window.AudioContext || window.webkitAudioContext)();
 			this.source = this.context.createMediaStreamSource(stream);
 			this.analyser = this.context.createAnalyser();
 			this.analyser.smoothingTimeConstant = 0;
