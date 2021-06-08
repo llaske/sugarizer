@@ -27,12 +27,15 @@ var app = new Vue({
 		fftSize: 4096,
 		freqDomainData: [],
 		num_of_samples_freq: 4096,
+		fullscreen: false,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
 			stringTimeDomain: '',
 			stringFreqDomain: '',
-			stringZoomInOut: ''
+			stringZoomInOut: '',
+			stringFullScreen: '',
+			stringUnFullScreen: ''
 		}
 	},
 	methods: {
@@ -69,9 +72,26 @@ var app = new Vue({
 			})
 			this.drawGrid();
 		},
-		resizeCanvas: function() {
+		resizeCanvas: function(scaleWidth = 55) {
 			this.canvas.width = window.innerWidth;
-			this.canvas.height = window.innerHeight - 55 - (document.getElementById("axisScale").clientHeight);
+			this.canvas.height = window.innerHeight - scaleWidth - (document.getElementById("axisScale").clientHeight);
+			this.drawWaveform();
+		},
+		fullscreenOrUnfullscreen: function() {
+			this.fullscreen = !this.fullscreen;
+
+			if(this.fullscreen) {
+				document.getElementById("main-toolbar").style.height = "0px";
+				document.getElementById("unfullscreen-button").style.display = "initial";
+				document.getElementById("fullscreen-button").style.display = "none";
+				this.resizeCanvas(0);
+			}
+			else {
+				document.getElementById("main-toolbar").style.height = "55px";
+				document.getElementById("unfullscreen-button").style.display = "none";
+				document.getElementById("fullscreen-button").style.display = "initial";
+				this.resizeCanvas();
+			}
 		},
 		createAnalyserNode: function(stream, fft_size) {
 

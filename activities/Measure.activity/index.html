@@ -52,7 +52,23 @@
 				v-on:click="playOrPause"
 			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem 
+				id="stop-button" 
+				title="Stop" 
+				class="pull-right"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="fullscreen-button" 
+				v-bind:title="l10n.stringFullScreen"
+				class="pull-right"
+				v-on:click="fullscreenOrUnfullscreen"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="unfullscreen-button" 
+				v-bind:title="l10n.stringUnFullScreen"
+				class="pull-right"
+				v-on:click="fullscreenOrUnfullscreen"
+			></sugar-toolitem>
 		</sugar-toolbar>
 
 		<canvas id="mainCanvas"></canvas>

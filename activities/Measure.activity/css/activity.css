@@ -161,3 +161,20 @@ p {
 #zoom-out-button {
 	background-image: url("../icons/zoom-out.svg");
 }
+
+#fullscreen-button {
+	background-image: url("../icons/view-fullscreen.svg");
+}
+
+#unfullscreen-button {
+	background-image: url("../icons/view-return.svg");
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 10px;
+	right: 15px;
+	position: absolute;
+	display: none;
+}
