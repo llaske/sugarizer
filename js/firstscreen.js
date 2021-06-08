@@ -427,7 +427,7 @@ enyo.kind({
 
 		// Not connected
 		if (util.getClientType() != constant.webAppType && (this.createnew || !this.$.server.getValue())) {
-			historic.addUser({name: preferences.getName(), color: preferences.getColor(), server: preferences.getServer()});
+			historic.addUser({name: preferences.getName(), color: util.getColorIndex(preferences.getColor()), server: preferences.getServer()});
 			this.launchDesktop();
 			return;
 		}
@@ -542,7 +542,7 @@ enyo.kind({
 						preferences.save();
 					}
 					that.$.spinner.setShowing(false);
-					historic.addUser({name: preferences.getName(), color: preferences.getColor(), server: preferences.getServer()});
+					historic.addUser({name: preferences.getName(), color: util.getColorIndex(preferences.getColor()), server: preferences.getServer()});
 					that.launchDesktop();
 				},
 				function(response, code) {
