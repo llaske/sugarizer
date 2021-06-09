@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="55.125"
+   height="55"
+   viewBox="0 0 55.125 55"
+   id="svg3497"
+   xml:space="preserve"><metadata
+     id="metadata3515"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+     id="defs3513" /><g
+     transform="matrix(0.81818182,0,0,0.81818182,5.0625,5)"
+     id="domain-freq"
+     style="display:block">
+	<g
+   id="Freq_Domain_1_">
+		<g
+   id="g3501">
+			<path
+   d="m 55,45 c 0,5.5 -4.5,10 -10,10 H 10 C 4.5,55 0,50.5 0,45 V 10 C 0,4.5 4.5,0 10,0 h 35 c 5.5,0 10,4.5 10,10 v 35 z"
+   id="path3503"
+   style="fill:#282828" />
+		</g>
+		<path
+   d="m 51,46.506 c 0,0 -1.982,0 -7.779,0 C 37.424,46.506 40.018,10 35.289,10 29.603,10 31.398,46.584 25.449,46.584 19.5,46.584 21.31,20.32 17.898,20.32 14.47,20.32 15.021,46.353 9.203,46.353 H 6"
+   id="path3505"
+   style="fill:none;stroke:#ffffff;stroke-width:3.5" />
+		<line
+   x1="6"
+   x2="51"
+   y1="50"
+   y2="50"
+   id="line3507"
+   style="fill:none;stroke:#c6c8ca;stroke-width:2.25;stroke-linecap:round" />
+		<line
+   x1="6"
+   x2="6"
+   y1="5"
+   y2="50"
+   id="line3509"
+   style="fill:none;stroke:#c6c8ca;stroke-width:2.25;stroke-linecap:round" />
+	</g>
+</g></svg>

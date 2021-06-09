@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Measure Activity</title>
+	<meta name="viewport"
+		content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+	<link rel="prefetch" type="application/l10n" href="locale.ini" />
+	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+	<link rel="stylesheet" href="css/activity.css">
+	<script src="lib/vue.min.js"></script>
+	<script src="lib/require.js"></script>
+	<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<sugar-toolbar ref="SugarToolbar">
+			<sugar-toolitem id="activity-button"></sugar-toolitem>
+
+			<!-- Add more buttons here -->
+			<div class="splitbar"></div>
+			<sugar-toolitem 
+				id="time-domain-button" 
+				v-bind:title="l10n.stringTimeDomain"
+				v-on:click="TimeOrFreq"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="freq-domain-button" 
+				v-bind:title="l10n.stringFreqDomain"
+				v-on:click="TimeOrFreq"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="zoom-button" 
+				v-bind:title="l10n.stringZoomInOut"
+				v-on:click="ZoomInOut"
+				palette-file="js/palettes/zoompalette.js"
+				palette-class="ZoomPalette"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="play-button" 
+				v-bind:title="l10n.stringPlay"
+				v-on:click="playOrPause"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="pause-button" 
+				v-bind:title="l10n.stringPause"
+				v-on:click="playOrPause"
+			></sugar-toolitem>
+			<!-- Toolitems with class="pull-right" will be right aligned -->
+			<sugar-toolitem 
+				id="stop-button" 
+				title="Stop" 
+				class="pull-right"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="fullscreen-button" 
+				v-bind:title="l10n.stringFullScreen"
+				class="pull-right"
+				v-on:click="fullscreenOrUnfullscreen"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="unfullscreen-button" 
+				v-bind:title="l10n.stringUnFullScreen"
+				class="pull-right"
+				v-on:click="fullscreenOrUnfullscreen"
+			></sugar-toolitem>
+		</sugar-toolbar>
+
+		<canvas id="mainCanvas"></canvas>
+		<div id="axisScale">
+			<span id="domainName"></span>
+			<br>
+			X-
+			<span id="axis"></span> 
+			<span id="scale"></span>
+			: 1
+			<span id="division"></span> 
+			= 
+			<span id="scaleValue"></span>
+		</div>
+
+		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+	</div>
+
+	<script src="js/components/SugarActivity.js"></script>
+	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/fft.js"></script>
+	<script src="js/activity.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+Nayuki (https://github.com/nayuki/Nayuki-web-published-code/blob/master/fast-discrete-cosine-transform-algorithms/fft.js)
