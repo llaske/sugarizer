@@ -45,7 +45,7 @@ var app = new Vue({
 			var xhr = new XMLHttpRequest();
 			var imgs = [];
 			var that = this;
-			var source = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/database/db_en.json";
+			var source = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/database/db_meta.json";
 		
 			function checkFileExists (urlToFile) {
 				try {
@@ -62,13 +62,10 @@ var app = new Vue({
 				}
 			}
 			xhr.onload = function(){
-				if (xhr.status != 0){
-					console.log("Error occured", xhr.statusText);
-				} else {
 					var data;
 					data  = JSON.parse(xhr.response);
 					for (var i=0; i<that.imageCount; i++){
-						var img = data[Math.floor(Math.random() *  data.length)];
+						var img = data[Math.floor(Math.random() *  data.length)].code;
 						var imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/database/"+img+".png");
 						if (imgs.indexOf(img)===-1 && imgCheck==true){
 							imgs.push(img);
@@ -77,7 +74,13 @@ var app = new Vue({
 						}
 					}
 					that.images = imgs;
-				}
+					that.activeImage = that.images[that.activeImageIndex];
+					if (!that.grid){ 
+						that.isLoaded = true;
+						for (var i=0; i<that.imageCount; i++){
+							clearInterval(that.intervalIds[i]);
+						}
+					}
 			};
 			xhr.onerror = function(err){
 				console.log("Error: ", xhr.statusText);
