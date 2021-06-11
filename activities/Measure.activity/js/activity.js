@@ -28,6 +28,7 @@ var app = new Vue({
 		freqDomainData: [],
 		num_of_samples_freq: 4096,
 		fullscreen: false,
+		time_int_arr: [],
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -103,6 +104,7 @@ var app = new Vue({
 			this.analyser.fftSize = fft_size;
 			this.processor = this.context.createScriptProcessor(this.analyser.fftSize, 1, 1);
 			this.timeDomainData = new Float32Array(this.analyser.fftSize);
+			this.time_int_arr = new Uint8Array(this.analyser.fftSize);
 			this.source.connect(this.analyser);
 			this.analyser.connect(this.processor);
 			this.processor.connect(this.context.destination);
@@ -154,11 +156,26 @@ var app = new Vue({
 
 			this.drawWaveform()
 		},
+		getWebAudioTimeData: function() {
+
+			//get time data from web audio
+			if(this.analyser.getFloatTimeDomainData) {
+				this.analyser.getFloatTimeDomainData(this.timeDomainData)
+			}
+			else {
+				this.analyser.getByteTimeDomainData(this.time_int_arr);
+				this.timeDomainData = []
+				for(var i=0;i<this.fftSize;i++) {
+					var val = (this.time_int_arr[i] - 128) * 0.0078125;
+					this.timeDomainData.push(val);
+				}
+			}
+		},
 		setTimeDomain: function () {
 
 			this.processor.addEventListener('audioprocess', (e) => {
 				if (!this.play) return;
-				this.analyser.getFloatTimeDomainData(this.timeDomainData)
+				this.getWebAudioTimeData();
 				this.calcTimeDomainData();
 			})
 		},
@@ -166,7 +183,7 @@ var app = new Vue({
 
 			this.processor.addEventListener('audioprocess', (e) => {
 				if (!this.play) return;
-				this.analyser.getFloatTimeDomainData(this.timeDomainData)
+				this.getWebAudioTimeData();
 				this.calcFreqDomainData();
 			})
 
