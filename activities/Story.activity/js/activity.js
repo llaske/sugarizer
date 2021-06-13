@@ -52,11 +52,19 @@ var app = new Vue({
 					var req = new XMLHttpRequest();
 					req.open('HEAD', urlToFile, false);
 					req.send();
-					if (req.readyState === 4){
-						return true;
+					if(navigator.userAgent.indexOf("Safari") != -1){
+						if (req.readyState === 4 && req.response != ""){
+							return true;
+						} else {
+							return false;
+						}	
 					} else {
-						return false;
-					}					
+						if (req.readyState === 4){
+							return true;
+						} else {
+							return false;
+						}	
+					}
 				} catch (error) {
 					return false;
 				}
