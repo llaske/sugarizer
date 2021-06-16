@@ -210,7 +210,7 @@ If you want to build it yourself, you could adapt the [source code](https://gith
 
 For iOS:
 
-Refer [this](https://github.com/sarthak-g/sugarizer/blob/ios-docs/docs/ios/ios_doc.md) documentation for building sugarizer for iOS.
+Refer [this](docs/ios/ios_doc.md) documentation for building sugarizer for iOS.
 
 # Reduce package size
 
