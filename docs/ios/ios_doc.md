@@ -10,7 +10,7 @@ Go inside sugarizer-cordova directory
 
     cd sugarizer-cordova/
 
-Put [make_ios.sh](https://github.com/sarthak-g/sugarizer-ios-build/blob/main/make_ios.sh) and [exlude.ios](https://github.com/sarthak-g/sugarizer-ios-build/blob/main/exclude.ios) file in the directory.
+Put [make_ios.sh](./make_ios.sh) and [exlude.ios](./exclude.ios) file in the directory.
 
 Run make_ios.sh script using below command:
 
