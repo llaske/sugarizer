@@ -51,6 +51,11 @@
 				v-bind:title="l10n.stringPause"
 				v-on:click="playOrPause"
 			></sugar-toolitem>
+			<sugar-toolitem 
+				id="invert-waveform-button" 
+				v-bind:title="l10n.stringInvertWaveform"
+				v-on:click="invertWaveform"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem 
 				id="stop-button" 

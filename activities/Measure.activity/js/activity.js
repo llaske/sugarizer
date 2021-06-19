@@ -29,6 +29,7 @@ var app = new Vue({
 		num_of_samples_freq: 4096,
 		fullscreen: false,
 		time_int_arr: [],
+		invert_waveform: false,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -36,7 +37,8 @@ var app = new Vue({
 			stringFreqDomain: '',
 			stringZoomInOut: '',
 			stringFullScreen: '',
-			stringUnFullScreen: ''
+			stringUnFullScreen: '',
+			stringInvertWaveform: ''
 		}
 	},
 	methods: {
@@ -203,7 +205,11 @@ var app = new Vue({
 			var sliceWidth = this.canvas.width * 1.0 / samples;
 
 			for (var i = 0; i < samples;i++) {
-				let y = (this.time_domain) ? this.mapCoords(this.timeDomainData[i], -1, 1, 0, this.canvas.height) 
+				var time_amp = this.timeDomainData[i];
+				if(this.invert_waveform) {
+					time_amp = -1*time_amp;
+				}
+				let y = (this.time_domain) ? this.mapCoords(time_amp, -1, 1, 0, this.canvas.height)
 					: this.mapCoords(-1 * this.freqDomainData[i], 0, 100, this.canvas.height / 1.01, 2 * this.canvas.height);
 				if(i == 0) {
 					canvasCtx.moveTo(x,y);
@@ -214,12 +220,6 @@ var app = new Vue({
 				x += sliceWidth;
 			}
 
-			// if(this.time_domain) {
-			// 	canvasCtx.lineTo(this.canvas.width, this.canvas.height / 2);
-			// }
-			// else {
-			// 	canvasCtx.lineTo(this.canvas.width, this.canvas.height / 1.01);
-			// }
 			canvasCtx.stroke();
 		},
 		drawGrid: function() {
@@ -335,6 +335,18 @@ var app = new Vue({
 			}
 			this.setZoomSlider();
 			this.ZoomInOut();
+		},
+		invertWaveform: function() {
+
+			// function to switch between invert and normal waveform
+			this.invert_waveform = !this.invert_waveform;
+			if (this.invert_waveform) {
+				document.getElementById("invert-waveform-button").style.backgroundColor = "gray";
+			}
+			else {
+				document.getElementById("invert-waveform-button").style.backgroundColor = "#282828";
+			}
+			this.drawWaveform();
 		},
 		onAudioInput: function(e) {
 

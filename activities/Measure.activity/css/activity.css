@@ -178,3 +178,7 @@ p {
 	position: absolute;
 	display: none;
 }
+
+#invert-waveform-button {
+	background-image: url("../icons/invert.svg");
+}
