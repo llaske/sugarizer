@@ -24,7 +24,7 @@ sed -i -e "s/\({\"id\": \"org.somosazucar.JappyActivity\",.*\},\)//" www/activit
 rm -rf www/activities/Jappy.activity www/activities/TurtleBlocksJS.activity
 
 cordova platform add ios
-cordova plugin add @ahovakimyan/cordova-plugin-wkwebviewxhrfix
+cordova plugin add https://github.com/llaske/cordova-plugin-wkwebview-file-xhr.git
 
 echo --- Build Cordova debug version
 cordova -d build ios 
