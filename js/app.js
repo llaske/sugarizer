@@ -1,7 +1,7 @@
 
 
 // Desktop handling
-define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/datastore", "sugar-web/presence", "settings", "server", "humane", "util", "tutorial", "stats", "autosync", "history"], function (_l10n, _iconLib, _xoPalette, _radioButtonsGroup, _datastore, _presence, _preferences, _myserver, _humane, _util, _tutorial, _stats, _autosync, _historic) {
+define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/datastore", "sugar-web/presence", "settings", "server", "humane", "util", "tutorial", "stats", "autosync", "history", "activities"], function (_l10n, _iconLib, _xoPalette, _radioButtonsGroup, _datastore, _presence, _preferences, _myserver, _humane, _util, _tutorial, _stats, _autosync, _historic, _activities) {
 	// Load required library
 	l10n = _l10n;
 	l10n.start();
@@ -17,6 +17,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	stats = _stats;
 	autosync = _autosync;
 	historic = _historic;
+	activities = _activities;
 	util = _util;
 	var toload = 2;
 	var preferenceset = false;
@@ -33,6 +34,41 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 		app.renderInto(document.getElementById("canvas"));
 	}
 
+	// Connect to server if an user is connected
+	var connectToServer = function(callback) {
+		if (!preferences.isUserConnected()) {
+			callback(true);
+			return;
+		}
+		var networkId = preferences.getNetworkId();
+		var that = this;
+		myserver.getUser(
+			networkId,
+			function(inSender, inResponse) {
+				preferences.merge(inResponse);
+				util.updateFavicon();
+				callback(true);
+			},
+			function() {
+				console.log("WARNING: Can't read network user settings");
+				callback(false);
+			}
+		);
+	};
+
+	// Load activities list if an user is connected
+	var loadActivities = function(callback) {
+		if (!preferences.isInitialized()) {
+			callback();
+			return;
+		}
+		activities.load().then(function(data) {
+			callback();
+		}).catch(function(error) {
+			console.log("Error loading init activities");
+		});
+	};
+
 	// Wait for preferences
 	var loadpreference = function() {
 		enyo.platform.electron = /Electron/.test(navigator.userAgent);
@@ -42,7 +78,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 		};
 		var rst = getUrlParameter('rst');
 		preferences.load(function(load) {
-			preferenceset = load;
+			preferenceset = (load != null);
 			if (util.getClientType() == constant.appType && (enyo.platform.electron || enyo.platform.android || enyo.platform.androidChrome)) {
 				if (rst == 1) {
 					// Restart from a fresh install, use from Electon option --init
@@ -56,7 +92,24 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 					}
 				}
 			}
-			main();
+			connectToServer(function(success) {
+				if (success) {
+					loadActivities(function() {
+						if (!preferences.isUserConnected() || window.sugarizerOS) {
+							// Update favorites
+							var list = activities.get();
+							for(var i = 0 ; i < list.length ; i++) {
+								for (var j = 0 ; j < load.activities.length ; j++) {
+									if (load.activities[j].id == list[i].id) {
+										list[i].favorite = load.activities[j].favorite;
+									}
+								}
+							}
+						}
+						main();
+					})
+				}
+			});
 		});
 	}
 

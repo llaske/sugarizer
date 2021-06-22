@@ -401,9 +401,9 @@ enyo.kind({
 		var user = this.history[this.history.length-inEvent.index-1];
 		this.$.name.setValue(user.name);
 		this.$.server.setValue(user.server ? user.server.url: "");
+		var that = this;
 		if (user.server && user.server.url) {
 			// Retrieve the server in history and go to login
-			var that = this;
 			myserver.getServerInformation(this.$.server.getValue(), function(inSender, inResponse) {
 				inResponse.url = that.$.server.getValue();
 				preferences.setServer(inResponse);
@@ -415,7 +415,11 @@ enyo.kind({
 			// No server in history, create a new local user
 			preferences.setName(user.name);
 			preferences.setColor(user.color);
-			this.launchDesktop();
+			activities.load().then(function(data) {
+				that.launchDesktop();
+			}).catch(function(error) {
+				console.log("Error loading init activities");
+			});
 		}
 	},
 
@@ -426,9 +430,14 @@ enyo.kind({
 		preferences.setName(this.$.name.getValue().trim());
 
 		// Not connected
+		var that = this;
 		if (util.getClientType() != constant.webAppType && (this.createnew || !this.$.server.getValue())) {
-			historic.addUser({name: preferences.getName(), color: preferences.getColor(), server: preferences.getServer()});
-			this.launchDesktop();
+			historic.addUser({name: preferences.getName(), color: util.getColorIndex(preferences.getColor()), server: preferences.getServer()});
+			activities.load().then(function(data) {
+				that.launchDesktop();
+			}).catch(function(error) {
+				console.log("Error loading init activities");
+			});
 			return;
 		}
 
@@ -542,8 +551,12 @@ enyo.kind({
 						preferences.save();
 					}
 					that.$.spinner.setShowing(false);
-					historic.addUser({name: preferences.getName(), color: preferences.getColor(), server: preferences.getServer()});
-					that.launchDesktop();
+					historic.addUser({name: preferences.getName(), color: util.getColorIndex(preferences.getColor()), server: preferences.getServer()});
+					activities.load().then(function(data) {
+						that.launchDesktop();
+					}).catch(function(error) {
+						console.log("Error loading init activities");
+					});
 				},
 				function(response, code) {
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: code}));

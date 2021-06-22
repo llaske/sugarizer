@@ -517,8 +517,8 @@ enyo.kind({
 		for (var i = 0 ; i < len ; i++) {
 			// Unknown activity, ignoe
 			 var currentActivity = this.activities[i];
-			 var activityInfo = preferences.getActivity(currentActivity.activityId);
-			 if (activityInfo == preferences.genericActivity) {
+			 var activityInfo = activities.getById(currentActivity.activityId);
+			 if (activities.isGeneric(activityInfo)) {
 				continue;
 			}
 
