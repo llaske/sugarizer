@@ -30,6 +30,7 @@ var app = new Vue({
 		fullscreen: false,
 		time_int_arr: [],
 		invert_waveform: false,
+		amp_value: 1,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -38,7 +39,8 @@ var app = new Vue({
 			stringZoomInOut: '',
 			stringFullScreen: '',
 			stringUnFullScreen: '',
-			stringInvertWaveform: ''
+			stringInvertWaveform: '',
+			stringWaveformSettings: ''
 		}
 	},
 	methods: {
@@ -63,6 +65,8 @@ var app = new Vue({
 			}
 			document.getElementById("zoom-in-button").title = this.SugarL10n.get("zoomIn");
 			document.getElementById("zoom-out-button").title = this.SugarL10n.get("zoomOut");
+			document.getElementById("amp-low-button").title = this.SugarL10n.get("decreaseAmp");
+			document.getElementById("amp-high-button").title = this.SugarL10n.get("increaseAmp");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -209,8 +213,8 @@ var app = new Vue({
 				if(this.invert_waveform) {
 					time_amp = -1*time_amp;
 				}
-				let y = (this.time_domain) ? this.mapCoords(time_amp, -1, 1, 0, this.canvas.height)
-					: this.mapCoords(-1 * this.freqDomainData[i], 0, 100, this.canvas.height / 1.01, 2 * this.canvas.height);
+				let y = (this.time_domain) ? this.mapCoords(this.amp_value*time_amp, -1, 1, 0, this.canvas.height)
+					: this.mapCoords(this.amp_value *-1 * this.freqDomainData[i], 0, 100, this.canvas.height / 1.01, 2 * this.canvas.height);
 				if(i == 0) {
 					canvasCtx.moveTo(x,y);
 				}
@@ -339,6 +343,10 @@ var app = new Vue({
 		invertWaveform: function() {
 
 			// function to switch between invert and normal waveform
+
+			if(!this.time_domain) {
+				return;
+			}
 			this.invert_waveform = !this.invert_waveform;
 			if (this.invert_waveform) {
 				document.getElementById("invert-waveform-button").style.backgroundColor = "gray";
@@ -346,6 +354,21 @@ var app = new Vue({
 			else {
 				document.getElementById("invert-waveform-button").style.backgroundColor = "#282828";
 			}
+			this.drawWaveform();
+		},
+		decreaseAmp: function() {
+			var val = parseInt(document.getElementById("ampSlider").value);
+			document.getElementById("ampSlider").value = val - 1;
+			this.ampSettings();
+		},
+		increaseAmp: function() {
+			var val = parseInt(document.getElementById("ampSlider").value);
+			document.getElementById("ampSlider").value = val + 1;
+			this.ampSettings();
+		},
+		ampSettings: function () { 
+			var slider_val = parseInt(document.getElementById("ampSlider").value);
+			this.amp_value = 0.1*slider_val;
 			this.drawWaveform();
 		},
 		onAudioInput: function(e) {

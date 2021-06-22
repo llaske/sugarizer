@@ -56,6 +56,12 @@
 				v-bind:title="l10n.stringInvertWaveform"
 				v-on:click="invertWaveform"
 			></sugar-toolitem>
+			<sugar-toolitem 
+				id="settings-button" 
+				v-bind:title="l10n.stringWaveformSettings" 
+				palette-file="js/palettes/settingspalette.js"
+				palette-class="SettingsPalette"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem 
 				id="stop-button" 
@@ -74,6 +80,7 @@
 				class="pull-right"
 				v-on:click="fullscreenOrUnfullscreen"
 			></sugar-toolitem>
+			<div class="splitbar"></div>
 		</sugar-toolbar>
 
 		<canvas id="mainCanvas"></canvas>

@@ -182,3 +182,15 @@ p {
 #invert-waveform-button {
 	background-image: url("../icons/invert.svg");
 }
+
+#settings-button {
+	background-image: url("../icons/settings.svg");
+}
+
+#amp-low-button {
+	background-image: url("../icons/amp-low.svg");
+}
+
+#amp-high-button {
+	background-image: url("../icons/amp-high.svg");
+}
