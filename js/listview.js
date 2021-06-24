@@ -130,7 +130,7 @@ enyo.kind({
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite-large.svg"});
-		inEvent.item.$.favorite.setColorized(activitiesList[inEvent.index].favorite);
+		inEvent.item.$.favorite.setColorized(activities.getFavoritesName().indexOf(activitiesList[inEvent.index].id)!=-1);
 		inEvent.item.$.name.setContent(activitiesList[inEvent.index].name);
 		inEvent.item.$.version.setContent(l10n.get("VersionNumber", {number:activitiesList[inEvent.index].version}));
 		inEvent.item.$.help.setIcon({directory: "icons", icon: "help-rev.svg"});
@@ -167,7 +167,7 @@ enyo.kind({
 			humane.log(l10n.get("Loading"));
 			this.$.activityList.set("count", length, true);
 		}
-		
+
 		if (this.scrollbarTop <= this.scrollbar_session_value && this.move_scrollbar) {
 			this.scrollTo(0, this.scrollbar_session_value);
 		}
@@ -190,7 +190,7 @@ enyo.kind({
 	switchFavorite: function(favorite, activity) {
 		stats.trace(constant.viewNames[app.getView()], 'switch_favorite', activity.id, null);
 		util.vibrate();
-		favorite.setColorized(preferences.switchFavoriteActivity(activity));
+		favorite.setColorized(activities.switchFavoriteActivity(activity));
 		favorite.container.render();
 		preferences.save();
 		preferences.saveToServer(myserver);
@@ -295,4 +295,3 @@ function sorted(activities) {
 	});
 	return result;
 }
-
