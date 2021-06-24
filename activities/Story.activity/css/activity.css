@@ -80,6 +80,12 @@ p {
 #single-mode {
 	background-image: url(../icons/linear.svg);
 }
+#increase-font {
+	background-image: url(../icons/resize+.svg);
+}
+#decrease-font {
+	background-image: url(../icons/resize-.svg);
+}
 
 .tutorial-icon-button {
 	border-radius: 22px;
@@ -201,7 +207,7 @@ p {
 
 #editor-area {
 	height: 100%;
-	min-width: 70vw;
+	max-width: 60vw;
 	border: 1px solid black;
 }
 
@@ -247,4 +253,10 @@ p {
 	width: 40px;
 	height: 40px;
 	background-size: 40px 40px;
+}
+
+@media screen and (max-width: 767px){
+	#editor-area  {
+		max-width: 80vw;
+	}
 }

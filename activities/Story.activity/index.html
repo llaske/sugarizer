@@ -12,6 +12,11 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/quill/quill.core.css">
+	<script src="lib/quill/quill-cursors.js"></script>
+	<script src="lib/quill/quill.min.js"></script>
+	<script src="lib/quill/modules/image-resize.min.js"></script>
+	<script src="lib/quill/editor.js"></script>
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="../../cordova.js"></script>
@@ -25,6 +30,8 @@
 			<!-- Add more buttons here -->
 			<sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem>
 			<sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem>
+			<sugar-toolitem id="increase-font" title="Increase font size" @click='increaseFont'></sugar-toolitem>
+			<sugar-toolitem id="decrease-font" title="Decrease font size" @click='decreaseFont'></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
@@ -52,9 +59,7 @@
 
 		<!-- Editor Section -->
 		<div id="editor">
-			<div id="editor-area">
-				<!-- Vue editor here -->
-			</div>
+			<div id="editor-area"></div>
 			<div id="icons-flex">
 				<div :id="recordIconId"></div>
 				<div id="play"></div>

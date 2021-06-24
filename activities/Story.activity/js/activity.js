@@ -11,7 +11,6 @@ var app = new Vue({
 	el: '#app',
 	data: {
 		grid: true,
-		// images: ["https://i.ibb.co/QkBsPS3/Screenshot-from-2021-04-02-01-25-34.png", "https://i.ibb.co/Rv25tbt/sampleimage2.png","https://i.ibb.co/L91Lcz5/sampleimage3.png", "https://i.ibb.co/M8cPxbh/sampleimage4.png", "https://i.ibb.co/0Z73LGZ/sampleimage5.png", "https://i.ibb.co/gvTcPCH/sampleimage6.png", "https://i.ibb.co/98yqR7b/sampleimage7.png", "https://i.ibb.co/mGK22f3/sampleimage8.png", "https://i.ibb.co/YD1WVmp/sampleimage9.png"],
 		images: [],
 		activeImage: "",
 		activeImageIndex: 0,
@@ -23,6 +22,10 @@ var app = new Vue({
 		intervalIds: [],
 		colors: null,
 		isLoaded: false,
+		sizes: ['16px', '24px', '32px' ,'40px', '48px' , '56px', '64px' , '72px' , '80px' , '100px'],
+		gridEditorContent: null,
+		singleEditorsContent: [],
+		editor: null,
 	},
 	methods: {
 		initialized: function () {
@@ -38,8 +41,52 @@ var app = new Vue({
 			}
 			this.recordIconId = "record";
 			document.getElementById('grid-mode').classList.add("active");
+			for (var i=0; i<this.imageCount; i++){
+				this.singleEditorsContent.push(null);
+			}
 			this.imageLoaders();
 			this.loadImages();
+			this.loadEditor();			
+		},
+		increaseFont: function(){
+			var currentSize = this.editor.getFormat();
+			var that = this;
+			if(currentSize.size==null){
+				var index = that.sizes.indexOf('24px');
+				that.editor.format('size',that.sizes[index+1]);
+			} else {
+				var index = that.sizes.indexOf(currentSize.size);
+				index++;
+				if(index<that.sizes.length){
+					that.editor.format('size',that.sizes[index]);
+				}
+			}
+		},
+		decreaseFont: function(){
+			var currentSize = this.editor.getFormat();
+			var that = this;
+			if(currentSize.size==null){
+				var index = that.sizes.indexOf('24px');
+				if(index>0)
+				that.editor.format('size',that.sizes[index-1]);
+			}
+			else {
+				var index = that.sizes.indexOf(currentSize.size);
+				index--;
+				if(index>=0){
+					that.editor.format('size',that.sizes[index]);
+				}
+			}
+		},
+		loadEditor: function(){
+			var container = document.getElementById('editor-area');
+			var editor = new Quill(container, {
+				modules: {
+				  toolbar: false
+				},
+			  });
+			editor.format('size', '24px');
+			this.editor = editor;
 		},
 		loadImages: function(){
 			var xhr = new XMLHttpRequest();
@@ -123,22 +170,31 @@ var app = new Vue({
 			this.grid=true;
 			document.getElementById('grid-mode').classList.add("active");
 			document.getElementById('single-mode').classList.remove("active");
+			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+			this.editor.setContents(this.gridEditorContent);
+			this.editor.format('size', '24px');
 		},
 		singleImageMode: function(){
-				this.grid = false;
-				document.getElementById('grid-mode').classList.remove("active");
-				document.getElementById('single-mode').classList.add("active");
-				this.activeImage = this.images[this.activeImageIndex];
-				if (this.activeImageIndex === 0){
-					this.previousBtnId = "previous-btn-inactive";
-				}
+			this.grid = false;
+			document.getElementById('grid-mode').classList.remove("active");
+			document.getElementById('single-mode').classList.add("active");
+			this.activeImage = this.images[this.activeImageIndex];
+			this.gridEditorContent = this.editor.getContents();
+			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+			this.editor.format('size', '24px'); 
+			if (this.activeImageIndex === 0){
+				this.previousBtnId = "previous-btn-inactive";
+			}
 		},
 		previousImage: function () {
 			if (this.activeImageIndex === 0){
 				return;
 			}
 			this.nextBtnId = "next-btn"; 
+			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			this.activeImageIndex = this.activeImageIndex - 1; 
+			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+			this.editor.format('size', '24px');
 			this.activeImage = this.images[this.activeImageIndex];
 			if (this.activeImageIndex === 0){
 				this.previousBtnId = "previous-btn-inactive";
@@ -149,7 +205,10 @@ var app = new Vue({
 				return;
 			}
 			this.previousBtnId = "previous-btn"
+			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			this.activeImageIndex = this.activeImageIndex + 1; 
+			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+			this.editor.format('size', '24px');
 			this.activeImage = this.images[this.activeImageIndex];
 			if (this.activeImageIndex === this.images.length-1){
 				this.nextBtnId = "next-btn-inactive"; 
