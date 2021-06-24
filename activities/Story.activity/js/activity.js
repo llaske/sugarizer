@@ -26,6 +26,9 @@ var app = new Vue({
 		gridEditorContent: null,
 		singleEditorsContent: [],
 		editor: null,
+		boldSelected: false,
+		italicSelected: false,
+		underlineSelected: false
 	},
 	methods: {
 		initialized: function () {
@@ -82,7 +85,7 @@ var app = new Vue({
 			var container = document.getElementById('editor-area');
 			var editor = new Quill(container, {
 				modules: {
-				  toolbar: false
+				  toolbar: '.toolbar-container'
 				},
 			  });
 			editor.format('size', '24px');
@@ -165,6 +168,10 @@ var app = new Vue({
 					that.intervalIds.push(intervalId);
 				})(i);
 			}
+		},
+		onFormatText: function(event){
+			console.log(event.format)
+			this.editor.focus()
 		},
 		gridImageMode: function(){
 			this.grid=true;

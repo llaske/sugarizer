@@ -74,17 +74,38 @@ p {
 
 /* Buttons added */
 
-#grid-mode {
+#main-toolbar #grid-mode {
 	background-image: url(../icons/grid.svg);
 }
-#single-mode {
+#main-toolbar #single-mode {
 	background-image: url(../icons/linear.svg);
 }
-#increase-font {
+#main-toolbar #increase-font {
 	background-image: url(../icons/resize+.svg);
 }
-#decrease-font {
+#main-toolbar #decrease-font {
 	background-image: url(../icons/resize-.svg);
+}
+#main-toolbar #format-text-button {
+	background-image: url(../icons/format-text.svg);
+}
+#format-text-buttons {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: 3px;
+}
+#format-text-buttons button {
+	background-color: transparent;
+	border: none;
+}
+#format-text-buttons button:hover {
+	background-color: #808080;
+}
+.palette-item img {
+	width: 40px;
+	height: 40px;
+	padding: 3px;
 }
 
 .tutorial-icon-button {

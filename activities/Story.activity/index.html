@@ -30,6 +30,14 @@
 			<!-- Add more buttons here -->
 			<sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem>
 			<sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem>
+			<sugar-toolitem 
+				id="format-text-button" 
+				title="Format text" 
+				palette-file="js/palettes/formatTextPalette.js"
+				palette-class="FormatTextPalette"
+				palette-event="format-text-selected"
+				v-on:format-text-selected = "onFormatText"
+			></sugar-toolitem>
 			<sugar-toolitem id="increase-font" title="Increase font size" @click='increaseFont'></sugar-toolitem>
 			<sugar-toolitem id="decrease-font" title="Decrease font size" @click='decreaseFont'></sugar-toolitem>
 
@@ -66,7 +74,7 @@
 				<div id="speak"></div>
 			</div>
 		</div>
-		
+
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 	</div>
 
