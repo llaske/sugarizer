@@ -170,25 +170,40 @@ var app = new Vue({
 			}
 		},
 		onFormatText: function(event){
-			console.log(event.format)
+			this.editor.focus()
+		},
+		onFontChange: function(e){
+			var newfont = e.font;
+			if(newfont=="Arial") newfont="arial";
+			if(newfont=="Comic Sans MS") newfont="comic";
+			if(newfont=="Times New Roman")newfont="Times";
+			if(newfont=="Courier New")newfont="Courier";
+			if(newfont=="Lucida Console")newfont="Lucida";
+			if(newfont=="Impact")newfont="Impact";
+			if(newfont=="Georgia")newfont="Georgia";
+			this.editor.format('font', newfont);
 			this.editor.focus()
 		},
 		gridImageMode: function(){
-			this.grid=true;
 			document.getElementById('grid-mode').classList.add("active");
 			document.getElementById('single-mode').classList.remove("active");
-			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
-			this.editor.setContents(this.gridEditorContent);
-			this.editor.format('size', '24px');
+			if (!this.grid){
+				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+				this.editor.setContents(this.gridEditorContent);
+				this.editor.format('size', '24px');
+			}
+			this.grid=true;
 		},
 		singleImageMode: function(){
-			this.grid = false;
 			document.getElementById('grid-mode').classList.remove("active");
 			document.getElementById('single-mode').classList.add("active");
 			this.activeImage = this.images[this.activeImageIndex];
-			this.gridEditorContent = this.editor.getContents();
-			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-			this.editor.format('size', '24px'); 
+			if (this.grid){
+				this.gridEditorContent = this.editor.getContents();
+				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+				this.editor.format('size', '24px'); 
+			}
+			this.grid = false;
 			if (this.activeImageIndex === 0){
 				this.previousBtnId = "previous-btn-inactive";
 			}

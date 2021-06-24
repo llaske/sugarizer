@@ -38,6 +38,14 @@
 				palette-event="format-text-selected"
 				v-on:format-text-selected = "onFormatText"
 			></sugar-toolitem>
+			<sugar-toolitem 
+				id="font-button" 
+				title="Choose Font" 
+				palette-file="js/palettes/fontPalette.js"
+				palette-class="FontPalette"
+				palette-event="font-updated"
+				v-on:font-updated = "onFontChange"
+			></sugar-toolitem>
 			<sugar-toolitem id="increase-font" title="Increase font size" @click='increaseFont'></sugar-toolitem>
 			<sugar-toolitem id="decrease-font" title="Decrease font size" @click='decreaseFont'></sugar-toolitem>
 
