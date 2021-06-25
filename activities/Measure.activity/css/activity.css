@@ -179,8 +179,13 @@ p {
 	display: none;
 }
 
-#invert-waveform-button {
-	background-image: url("../icons/invert.svg");
+#invert-off-button {
+	background-image: url("../icons/invert-off.svg");
+}
+
+#invert-on-button {
+	background-image: url("../icons/invert-on.svg");
+	display: none;
 }
 
 #settings-button {

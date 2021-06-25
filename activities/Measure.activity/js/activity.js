@@ -39,7 +39,6 @@ var app = new Vue({
 			stringZoomInOut: '',
 			stringFullScreen: '',
 			stringUnFullScreen: '',
-			stringInvertWaveform: '',
 			stringWaveformSettings: ''
 		}
 	},
@@ -67,6 +66,10 @@ var app = new Vue({
 			document.getElementById("zoom-out-button").title = this.SugarL10n.get("zoomOut");
 			document.getElementById("amp-low-button").title = this.SugarL10n.get("decreaseAmp");
 			document.getElementById("amp-high-button").title = this.SugarL10n.get("increaseAmp");
+			document.getElementById("invert-on-button").title = this.SugarL10n.get("InvertWaveform");
+			document.getElementById("invert-off-button").title = this.SugarL10n.get("NormalWaveform");
+			document.getElementById("changeAmpTitle").innerText = this.SugarL10n.get("changeAmpTitle");
+			document.getElementById("invertWaveformTitle").innerText = this.SugarL10n.get("InvertWaveform");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -349,10 +352,12 @@ var app = new Vue({
 			}
 			this.invert_waveform = !this.invert_waveform;
 			if (this.invert_waveform) {
-				document.getElementById("invert-waveform-button").style.backgroundColor = "gray";
+				document.getElementById("invert-on-button").style.display = "initial";
+				document.getElementById("invert-off-button").style.display = "none";
 			}
 			else {
-				document.getElementById("invert-waveform-button").style.backgroundColor = "#282828";
+				document.getElementById("invert-on-button").style.display = "none";
+				document.getElementById("invert-off-button").style.display = "initial";
 			}
 			this.drawWaveform();
 		},

@@ -19,7 +19,9 @@
    sodipodi:version="0.32"
    inkscape:version="0.46"
    sodipodi:docname="invert2.svg"
-   inkscape:output_extension="org.inkscape.output.svg.inkscape"><metadata
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   style="background-color:#ffffff"
+   ><metadata
      id="metadata17"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
@@ -57,10 +59,10 @@
      y1="27.5"
      y2="27.5"
      id="line10"
-     style="fill:none;stroke:#ffffff;stroke-width:2.25;stroke-dasharray:5" /><path
+     style="fill:none;stroke:grey;stroke-width:2.25;stroke-dasharray:5" /><path
      d="M 8.7307727,14.728237 C 11.004337,10.44286 13.304409,6.1574807 17.98265,6.1574807 C 27.340151,6.1574807 27.706353,23.298996 37.063853,23.298996 C 41.743112,23.298996 44.094156,19.013617 46.394227,14.728237"
      id="path12"
-     style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-opacity:1" /><path
+     style="fill:none;stroke:grey;stroke-width:3;stroke-linecap:round;stroke-opacity:1" /><path
      d="M 8.7307731,40.271763 C 11.004337,44.55714 13.304409,48.842519 17.98265,48.842519 C 27.340151,48.842519 27.706353,31.701004 37.063853,31.701004 C 41.743112,31.701004 44.094156,35.986383 46.394227,40.271763"
      id="path2401"
-     style="fill:none;stroke:#ffffff;stroke-width:3;stroke-linecap:round;stroke-opacity:1" /></svg>
+     style="fill:none;stroke:grey;stroke-width:3;stroke-linecap:round;stroke-opacity:1" /></svg>
