@@ -30,6 +30,22 @@
 			<!-- Add more buttons here -->
 			<sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem>
 			<sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem>
+			<sugar-toolitem
+				id="foreground-color-button"
+				title="Foreground Color"	
+				palette-file="js/palettes/ForegroundColorPalette.js"
+				palette-class="ColorPalette"
+				palette-event="color-change"
+				v-on:color-change="onForegroundColorChange"
+			></sugar-toolitem>
+			<sugar-toolitem
+				id="background-color-button"
+				title="Background Color"	
+				palette-file="js/palettes/BackgroundColorPalette.js"
+				palette-class="ColorPalette"
+				palette-event="color-change"
+				v-on:color-change="onBackgroundColorChange"
+			></sugar-toolitem>
 			<sugar-toolitem 
 				id="format-text-button" 
 				title="Format text" 

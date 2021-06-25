@@ -125,6 +125,28 @@ p {
 	width: 40px;
 	height: 40px;
 }
+/* Color Palette */
+.colorpalette {
+	z-index: 20;
+}
+.palette .colors {
+	list-style-type: none;
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 0;
+}  
+.palette .colors button {
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border-color: white;
+	margin-left: 5.5px;
+	margin-top: 5.5px;
+}
+.palette .colors tr:nth-last-child(1) button {
+	margin-bottom: 5.5px;
+}
+  
 .tutorial-icon-button {
 	border-radius: 22px;
 	margin-top: 5px;

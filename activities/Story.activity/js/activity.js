@@ -26,9 +26,10 @@ var app = new Vue({
 		gridEditorContent: null,
 		singleEditorsContent: [],
 		editor: null,
-		boldSelected: false,
-		italicSelected: false,
-		underlineSelected: false
+		fontColor: null,
+		backgroundColor: null,
+		fontSelected: null,
+		fontSize:null
 	},
 	methods: {
 		initialized: function () {
@@ -57,11 +58,13 @@ var app = new Vue({
 			if(currentSize.size==null){
 				var index = that.sizes.indexOf('24px');
 				that.editor.format('size',that.sizes[index+1]);
+				that.fontSize = that.sizes[index+1];
 			} else {
 				var index = that.sizes.indexOf(currentSize.size);
 				index++;
 				if(index<that.sizes.length){
 					that.editor.format('size',that.sizes[index]);
+					that.fontSize = that.sizes[index];
 				}
 			}
 		},
@@ -72,12 +75,14 @@ var app = new Vue({
 				var index = that.sizes.indexOf('24px');
 				if(index>0)
 				that.editor.format('size',that.sizes[index-1]);
+				that.fontSize = that.sizes[index-1]
 			}
 			else {
 				var index = that.sizes.indexOf(currentSize.size);
 				index--;
 				if(index>=0){
 					that.editor.format('size',that.sizes[index]);
+					that.fontSize = that.sizes[index];
 				}
 			}
 		},
@@ -90,6 +95,12 @@ var app = new Vue({
 			  });
 			editor.format('size', '24px');
 			this.editor = editor;
+		},
+		updateEditor: function(){
+			this.fontColor != null && this.editor.format('color',this.fontColor);
+			this.backgroundColor!=null && this.editor.format('background-color',this.backgroundColor);
+			this.fontSelected !=null &&	this.editor.format('font', this.fontSelected);
+			this.fontSize !=null ? this.editor.format('size', this.fontSize) : this.editor.format('size', '24px');
 		},
 		loadImages: function(){
 			var xhr = new XMLHttpRequest();
@@ -169,7 +180,7 @@ var app = new Vue({
 				})(i);
 			}
 		},
-		onFormatText: function(event){
+		onFormatText: function(e){
 			this.editor.focus()
 		},
 		onFontChange: function(e){
@@ -182,7 +193,16 @@ var app = new Vue({
 			if(newfont=="Impact")newfont="Impact";
 			if(newfont=="Georgia")newfont="Georgia";
 			this.editor.format('font', newfont);
+			this.fontSelected = newfont;
 			this.editor.focus()
+		},
+		onForegroundColorChange: function(e){
+			this.fontColor = e.detail.color;
+			this.editor.format('color',this.fontColor);
+		},
+		onBackgroundColorChange: function(e){
+			this.backgroundColor = e.detail.color;
+			this.editor.format('background-color',this.backgroundColor);
 		},
 		gridImageMode: function(){
 			document.getElementById('grid-mode').classList.add("active");
@@ -190,8 +210,8 @@ var app = new Vue({
 			if (!this.grid){
 				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 				this.editor.setContents(this.gridEditorContent);
-				this.editor.format('size', '24px');
 			}
+			this.updateEditor();
 			this.grid=true;
 		},
 		singleImageMode: function(){
@@ -201,8 +221,8 @@ var app = new Vue({
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-				this.editor.format('size', '24px'); 
 			}
+			this.updateEditor();
 			this.grid = false;
 			if (this.activeImageIndex === 0){
 				this.previousBtnId = "previous-btn-inactive";
@@ -216,7 +236,7 @@ var app = new Vue({
 			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			this.activeImageIndex = this.activeImageIndex - 1; 
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-			this.editor.format('size', '24px');
+			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
 			if (this.activeImageIndex === 0){
 				this.previousBtnId = "previous-btn-inactive";
@@ -230,7 +250,7 @@ var app = new Vue({
 			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			this.activeImageIndex = this.activeImageIndex + 1; 
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-			this.editor.format('size', '24px');
+			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
 			if (this.activeImageIndex === this.images.length-1){
 				this.nextBtnId = "next-btn-inactive"; 
