@@ -39,7 +39,11 @@ var app = new Vue({
 			stringZoomInOut: '',
 			stringFullScreen: '',
 			stringUnFullScreen: '',
-			stringWaveformSettings: ''
+			stringWaveformSettings: '',
+			stringExportSettings: '',
+			stringLoggingInterval: '',
+			stringRecordOff: '',
+			stringRecordOn: ''
 		}
 	},
 	methods: {
@@ -70,6 +74,8 @@ var app = new Vue({
 			document.getElementById("invert-off-button").title = this.SugarL10n.get("NormalWaveform");
 			document.getElementById("changeAmpTitle").innerText = this.SugarL10n.get("changeAmpTitle");
 			document.getElementById("invertWaveformTitle").innerText = this.SugarL10n.get("InvertWaveform");
+			document.getElementById("csv-export").title = this.SugarL10n.get("exportAsCSV");
+			document.getElementById("pdf-export").title = this.SugarL10n.get("exportAsPDF");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -375,6 +381,63 @@ var app = new Vue({
 			var slider_val = parseInt(document.getElementById("ampSlider").value);
 			this.amp_value = 0.1*slider_val;
 			this.drawWaveform();
+		},
+		exportFile: function(e) {
+			var format = e.format;
+			if(e.format == 'csv') {
+				this.generateCSV();
+			}
+			else if(e.format == 'pdf'){
+				this.generatePDF();
+			}
+		},
+		generateCSV: function() {
+			var csvContent = "";
+			csvContent += "HelloWorld from csv";
+
+			var metadata = {
+				mimetype: 'text/plain',
+				title: "sample" + ".txt",
+				activity: "org.olpcfrance.Measure",
+				timestamp: new Date().getTime(),
+				creation_time: new Date().getTime(),
+				file_size: 0
+			};
+			var vm = this;
+			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
+				.then(() => {
+					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsCSV"));
+				});
+		},
+		generatePDF: function() {
+			const doc = new jsPDF();
+			doc.text("Hello world!", 10, 10);
+
+			var inputData = doc.output('dataurlstring');
+			var mimetype = 'application/pdf';
+			var metadata = {
+				mimetype: mimetype,
+				title: "sample" + ".pdf",
+				activity: "org.olpcfrance.Measure",
+				timestamp: new Date().getTime(),
+				creation_time: new Date().getTime(),
+				file_size: 0
+			};
+
+			var vm = this;
+			this.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
+				.then(() => {
+					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsPDF"));
+				});
+		},
+		logInterval: function(e) {
+			console.log(e.secondVal)
+		},
+		startRecord: function() {
+			console.log("Start Record")
+		},
+		stopRecord: function() {
+			console.log("Stop Record")
 		},
 		onAudioInput: function(e) {
 

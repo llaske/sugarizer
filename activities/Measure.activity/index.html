@@ -13,6 +13,7 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/jspdf.min.js"></script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
@@ -57,6 +58,33 @@
 				palette-file="js/palettes/settingspalette.js"
 				palette-class="SettingsPalette"
 			></sugar-toolitem>
+			<div class="splitbar"></div>
+			<sugar-toolitem 
+				id="logging-interval-button" 
+				v-bind:title="l10n.stringLoggingInterval" 
+				palette-file="js/palettes/loggingpalette.js"
+				palette-class="LoggingPalette"
+				palette-event="log-interval"
+				v-on:log-interval="logInterval"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="record-off-button" 
+				v-bind:title="l10n.stringRecordOff"
+				v-on:click="startRecord"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="record-on-button" 
+				v-bind:title="l10n.stringRecordOn"
+				v-on:click="stopRecord"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="export-button" 
+				v-bind:title="l10n.stringExportSettings" 
+				palette-file="js/palettes/exportpalette.js"
+				palette-class="ExportPalette"
+				palette-event="export-file"
+				v-on:export-file="exportFile"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem 
 				id="stop-button" 
@@ -75,7 +103,6 @@
 				class="pull-right"
 				v-on:click="fullscreenOrUnfullscreen"
 			></sugar-toolitem>
-			<div class="splitbar"></div>
 		</sugar-toolbar>
 
 		<canvas id="mainCanvas"></canvas>
@@ -92,12 +119,16 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal"></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/fft.js"></script>
 	<script src="js/activity.js"></script>
 </body>
