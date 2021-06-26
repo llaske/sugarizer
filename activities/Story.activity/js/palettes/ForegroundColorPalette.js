@@ -20,6 +20,8 @@ define([
         palette.Palette.call(this, invoker, primaryText);
 		this.getPalette().className += " colorpalette";
 
+        this.invoker.style.backgroundColor = "rgb(0,0,0)";
+		this.getPalette().querySelector('.palette-invoker').style.backgroundColor = "rgb(0,0,0)";
         
         this.colorChangeEvent = document.createEvent('CustomEvent');
         this.colorChangeEvent.initCustomEvent('color-change', true, true, {
