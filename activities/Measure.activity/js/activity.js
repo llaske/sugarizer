@@ -38,6 +38,7 @@ var app = new Vue({
 		log_session_obj: {
 			mode: '',
 			interval: 0,
+			date: '',
 			data: []
 		},
 		l10n: {
@@ -406,34 +407,32 @@ var app = new Vue({
 			}
 		},
 		generateCSV: function() {
-			var csvContent = "";
-			
+			var csvContent = "Session;Mode;Date;Interval;S.No;Value \n";
 			var i=1;
 			for (var session of this.log_data) {
-				csvContent += "Session," + i + '\n';
-				csvContent += "User," + this.currentenv.user.name + '\n';
-				csvContent += "Mode," + session.mode + '\n';
-				var d = new Date()
-				var completeDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
-				var completeTime = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-				csvContent += "Date," + completeDate + ' ' + completeTime + '\n';
-				if (this.log_interval == 300) {
-					csvContent += "Interval,5 minutes \n";
-				}
-				else {
-					csvContent += "Interval," + this.log_interval + " second \n";
-				}
-				csvContent += "S.No,Value \n";
+
 				var data_size = session.data.length;
+
 				for (var j = 0; j < data_size; j++) {
-					csvContent += j + ',' + session.data[j] + '\n';
+
+					csvContent += i + ';';
+					csvContent += session.mode + ';';
+					csvContent += session.date + ';';
+					if (this.log_interval == 300) {
+						csvContent += "5 minutes;";
+					}
+					else {
+						csvContent += this.log_interval + " second;";
+					}
+
+					csvContent += j + ';' + session.data[j] + '\n';
 				}
 				i += 1;
 			}
 
 			var metadata = {
 				mimetype: 'text/plain',
-				title: "Measure.txt",
+				title: this.currentenv.user.name + "_Measure.txt",
 				activity: "org.olpcfrance.Measure",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -445,68 +444,140 @@ var app = new Vue({
 					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsCSV"));
 				});
 		},
+		canvasToImage(path) {
+			if (path.indexOf('data:image/png') != -1) {
+				return Promise.resolve(path);
+			}
+			return new Promise((resolve, reject) => {
+				var img = new Image();
+				img.src = path;
+				img.onload = () => {
+					var canvas = document.createElement("canvas");
+					canvas.width = img.width;
+					canvas.height = img.height;
+					canvas.getContext("2d").drawImage(img, 0, 0);
+					resolve({
+						dataURL: canvas.toDataURL("image/png"),
+						width: img.width,
+						height: img.height
+					});
+				}
+			});
+		},
+		addCoverToPDF: function(doc) {
+			let vm = this;
+			return new Promise((resolve, reject) => {
+				doc.setFontStyle("bold");
+				doc.setFontSize(20);
+				doc.text(105, 100, 'Time Logging Details', { align: "center" });
+				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
+					.then(src => {
+						vm.canvasToImage(src)
+							.then(res => {
+								doc.addImage(res.dataURL, 90, 110, 30, 30);
+								// Next section
+								resolve();
+							});
+					});
+				doc.text(105, 150, vm.currentenv.user.name, { align: "center" });
+				doc.setFontSize(16);
+				doc.setFontStyle("normal");
+			})
+		},
 		generatePDF: function() {
 
-			// generate PDF of log data
-			if(this.log_data.length == 0) {
-				return;
-			}
-			const doc = new jsPDF('p', 'mm', '', true);
-			var y = 10;
-			var i=1;
-			var pageHeight = 295;
-			for(var session of this.log_data) {
-				if(y+28 > pageHeight) {
-					doc.addPage();
-					y = 10;
-				}
-				doc.text("Session: " + i, 10, y);
-				doc.text("User: " + this.currentenv.user.name, 10,  y+7)
-				doc.text("Mode: " + session.mode, 10, y+14);
-				var d = new Date()
-				var completeDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
-				var completeTime = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-				doc.text("Date: " + completeDate + ' ' + completeTime, 10, y+21);
-
-				if(this.log_interval == 300) {
-					doc.text("Interval: 5 minutes", 10, y+28);
-				}
-				else {
-					doc.text("Interval: " + this.log_interval + ' second', 10, y+28);
-				}
-				y = y+35;
-				var data_size = session.data.length;
-				for (var j = 0; j < data_size;j++) {
-					if(y > pageHeight) {
-						doc.addPage();
-						y = 10;
-					}
-					doc.text(j + ': ' + session.data[j], 10, y);
-					y+=7;
-				}
-				y += 7;
-				i += 1;
-			}
-
-			var inputData = doc.output('dataurlstring');
-			var mimetype = 'application/pdf';
-			var metadata = {
-				mimetype: mimetype,
-				title: "Measure.pdf",
-				activity: "org.olpcfrance.Measure",
-				timestamp: new Date().getTime(),
-				creation_time: new Date().getTime(),
-				file_size: 0
-			};
-
-			var vm = this;
-			this.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
+			var doc = new jsPDF();
+			let vm = this;
+			this.addCoverToPDF(doc)
 				.then(() => {
-					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsPDF"));
+
+					doc.addPage();
+					var x = 10;
+					var y = 15;
+					var i = 1;
+					var pageHeight = 285;
+					for (var session of this.log_data) {
+						if (y + 28 > pageHeight) {
+							doc.addPage();
+							y = 10;
+						}
+
+						doc.setFontSize(18);
+						doc.setFontStyle("bold");
+						doc.text(x, y, "Session: " + i);
+						doc.setFontStyle("normal");
+						doc.text("Mode:     " + session.mode, x, y + 14);
+						if (this.log_interval == 300) {
+							doc.text("Interval:   5 minutes", x, y + 21);
+						}
+						else {
+							doc.text("Interval:   " + this.log_interval + ' second', x, y + 21);
+						}
+						doc.text('Date:       ' + session.date, x, y + 28);
+						y = y + 42;
+						doc.line(x, y-5, x+90, y-5);
+						doc.text('S.No', x + 10, y+1);
+						doc.text('Value', x + 65, y+1);
+						doc.line(x, y + 3, x+90, y + 3);
+						doc.line(x, y-5, x, y+3);
+						doc.line(x + 50, y - 5, x + 50, y + 3);
+						doc.line(x+90, y - 5, x+90, y + 3);
+						doc.line(x, y + 3, x, y + 9);
+						doc.line(x + 50, y + 3, x + 50, y + 9);
+						doc.line(x+90, y + 3, x+90, y + 9);
+						y = y+8;
+
+						doc.setFontSize(14);
+						var data_size = session.data.length;
+						for (var j = 0; j < data_size; j++) {
+							if (y > pageHeight) {
+								doc.addPage();
+								y = 15;
+								doc.line(x, y - 7, x, y + 7);
+								doc.line(x + 50, y - 7, x + 50, y + 7);
+								doc.line(x+90, y - 7, x+90, y + 7);
+							}
+
+							doc.text(j + '', x + 10, y);
+							doc.text('' + session.data[j], x + 65, y);
+							doc.line(x, y + 1, x+90, y + 1);
+							if(j <data_size-1) {
+								doc.line(x, y + 1, x, y + 8);
+								doc.line(x + 50, y + 1, x + 50, y + 8);
+								doc.line(x+90, y + 1, x+90, y + 8);
+							}
+							y += 7;
+						}
+						y += 7;
+						i += 1;
+					}
+					
+					metadata = {
+						mimetype: 'application/pdf',
+						title: "Measure.pdf",
+						activity: "org.olpcfrance.Measure",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+
+					var vm = this;
+					this.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
+						.then(() => {
+							vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsPDF"));
+						});
+
 				});
+
 		},
 		logInterval: function(e) {
 			this.log_interval = e.secondVal;
+		},
+		getSessionDate: function(){
+			var d = new Date()
+			var completeDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+			var completeTime = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+			return completeDate + ' ' + completeTime;
 		},
 		startRecord: function() {
 			this.is_recording = true;
@@ -514,6 +585,7 @@ var app = new Vue({
 			document.getElementById("record-on-button").style.display = "initial";
 			document.getElementById("logging-interval-button").disabled = true;
 			this.log_session_obj.interval = '' + this.log_interval + ' second'
+			this.log_session_obj.date = this.getSessionDate();
 			this.log_session_obj.data = []
 			if(this.time_domain) {
 				this.log_session_obj.mode = 'Time'
