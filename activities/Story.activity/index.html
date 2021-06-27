@@ -28,8 +28,9 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
 			<!-- Add more buttons here -->
-			<sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem>
-			<sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem>
+			<!-- <sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem> -->
+			<!-- <sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem> -->
+			<sugar-toolitem :id="modeId" title="Toggle Mode" @click='toggleMode'></sugar-toolitem>
 			<sugar-toolitem
 				id="foreground-color-button"
 				title="Foreground Color"	

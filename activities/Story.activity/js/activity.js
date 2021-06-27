@@ -11,6 +11,7 @@ var app = new Vue({
 	el: '#app',
 	data: {
 		grid: true,
+		modeId: "grid-mode",
 		images: [],
 		activeImage: "",
 		activeImageIndex: 0,
@@ -44,7 +45,7 @@ var app = new Vue({
 				this.nextBtnId = "next-btn-inactive"; 
 			}
 			this.recordIconId = "record";
-			document.getElementById('grid-mode').classList.add("active");
+			// document.getElementById('grid-mode').classList.add("active");
 			for (var i=0; i<this.imageCount; i++){
 				this.singleEditorsContent.push(null);
 			}
@@ -204,28 +205,47 @@ var app = new Vue({
 			this.backgroundColor = e.detail.color;
 			this.editor.format('background-color',this.backgroundColor);
 		},
-		gridImageMode: function(){
-			document.getElementById('grid-mode').classList.add("active");
-			document.getElementById('single-mode').classList.remove("active");
-			if (!this.grid){
-				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
-				this.editor.setContents(this.gridEditorContent);
-			}
-			this.updateEditor();
-			this.grid=true;
-		},
-		singleImageMode: function(){
-			document.getElementById('grid-mode').classList.remove("active");
-			document.getElementById('single-mode').classList.add("active");
-			this.activeImage = this.images[this.activeImageIndex];
+		// gridImageMode: function(){
+			// document.getElementById('grid-mode').classList.add("active");
+			// document.getElementById('single-mode').classList.remove("active");
+		// 	if (!this.grid){
+		// 		this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+		// 		this.editor.setContents(this.gridEditorContent);
+		// 	}
+		// 	this.updateEditor();
+		// 	this.grid=true;
+		// },
+		// singleImageMode: function(){
+			// document.getElementById('grid-mode').classList.remove("active");
+			// document.getElementById('single-mode').classList.add("active");
+		// 	this.activeImage = this.images[this.activeImageIndex];
+		// 	if (this.grid){
+		// 		this.gridEditorContent = this.editor.getContents();
+		// 		this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+		// 	}
+		// 	this.updateEditor();
+		// 	this.grid = false;
+		// 	if (this.activeImageIndex === 0){
+		// 		this.previousBtnId = "previous-btn-inactive";
+		// 	}
+		// },
+		toggleMode: function(){
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-			}
-			this.updateEditor();
-			this.grid = false;
-			if (this.activeImageIndex === 0){
-				this.previousBtnId = "previous-btn-inactive";
+				this.updateEditor();
+				this.grid=false;
+				this.modeId="single-mode";
+			} else {
+				this.activeImage = this.images[this.activeImageIndex];
+				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+				this.editor.setContents(this.gridEditorContent);
+				this.updateEditor();
+				if (this.activeImageIndex === 0){
+					this.previousBtnId = "previous-btn-inactive";
+				}
+				this.grid=true;
+				this.modeId="grid-mode";
 			}
 		},
 		previousImage: function () {
@@ -281,11 +301,17 @@ var app = new Vue({
 			this.fontSize = data.fontSize;
 			
 			if(data.grid){
-				this.gridImageMode();
+				this.grid=true;
 				this.editor.setContents(this.gridEditorContent);
+				this.updateEditor();
 			} else {
-				this.singleImageMode();
+				this.activeImage = this.images[this.activeImageIndex];
+				this.grid = false;
 				this.editor.setContents(this.singleEditorsContent[0]);
+				this.updateEditor();
+				if (this.activeImageIndex === 0){
+					this.previousBtnId = "previous-btn-inactive";
+				}
 			}
 		},
 		onJournalLoadError: function(error) {
