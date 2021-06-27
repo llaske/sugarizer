@@ -31,6 +31,15 @@ var app = new Vue({
 		time_int_arr: [],
 		invert_waveform: false,
 		amp_value: 1,
+		log_interval: 0.1,
+		is_recording: false,
+		setInterval_id: null,
+		log_data: [],
+		log_session_obj: {
+			mode: '',
+			interval: 0,
+			data: []
+		},
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -271,6 +280,11 @@ var app = new Vue({
 		TimeOrFreq: function() {
 
 			// Switch between Time and Frequency Domain
+
+			if(this.setInterval_id) {
+				this.stopRecord()
+			}
+
 			this.time_domain = !this.time_domain;
 
 			if(this.time_domain) {
@@ -397,7 +411,7 @@ var app = new Vue({
 
 			var metadata = {
 				mimetype: 'text/plain',
-				title: "sample" + ".txt",
+				title: "Measure.txt",
 				activity: "org.olpcfrance.Measure",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -410,14 +424,53 @@ var app = new Vue({
 				});
 		},
 		generatePDF: function() {
-			const doc = new jsPDF();
-			doc.text("Hello world!", 10, 10);
+
+			// generate PDF of log data
+			if(this.log_data.length == 0) {
+				return;
+			}
+			const doc = new jsPDF('p', 'mm', '', true);
+			var y = 10;
+			var i=1;
+			var pageHeight = 295;
+			for(var session of this.log_data) {
+				if(y+28 > pageHeight) {
+					doc.addPage();
+					y = 10;
+				}
+				doc.text("Session: " + i, 10, y);
+				doc.text("User: " + this.currentenv.user.name, 10,  y+7)
+				doc.text("Mode: " + session.mode, 10, y+14);
+				var d = new Date()
+				var completeDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+				var completeTime = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+				doc.text("Date: " + completeDate + ' ' + completeTime, 10, y+21);
+
+				if(this.log_interval == 300) {
+					doc.text("Interval: 5 minutes", 10, y+28);
+				}
+				else {
+					doc.text("Interval: " + this.log_interval + ' second', 10, y+28);
+				}
+				y = y+35;
+				var data_size = session.data.length;
+				for (var j = 0; j < data_size;j++) {
+					if(y > pageHeight) {
+						doc.addPage();
+						y = 10;
+					}
+					doc.text(j + ': ' + session.data[j], 10, y);
+					y+=7;
+				}
+				y += 7;
+				i += 1;
+			}
 
 			var inputData = doc.output('dataurlstring');
 			var mimetype = 'application/pdf';
 			var metadata = {
 				mimetype: mimetype,
-				title: "sample" + ".pdf",
+				title: "Measure.pdf",
 				activity: "org.olpcfrance.Measure",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -431,13 +484,43 @@ var app = new Vue({
 				});
 		},
 		logInterval: function(e) {
-			console.log(e.secondVal)
+			this.log_interval = e.secondVal;
 		},
 		startRecord: function() {
-			console.log("Start Record")
+			this.is_recording = true;
+			document.getElementById("record-off-button").style.display = "none";
+			document.getElementById("record-on-button").style.display = "initial";
+			document.getElementById("logging-interval-button").disabled = true;
+			this.log_session_obj.interval = '' + this.log_interval + ' second'
+			this.log_session_obj.data = []
+			if(this.time_domain) {
+				this.log_session_obj.mode = 'Time'
+				this.setInterval_id = setInterval(() => {
+					var len = this.timeDomainData.length;
+					var sum = 0;
+					for(var i=0;i<len;i++) {
+						sum += Math.abs(this.timeDomainData[i]);
+					}
+					var ans = sum / len;
+					this.log_session_obj.data.push(ans.toFixed(2))
+				}, this.log_interval * 1000);
+			}
+			else {
+				this.log_session_obj.mode = 'Frequency'
+				this.setInterval_id = setInterval(() => {
+					var ans = this.amp_value*Math.max(...this.freqDomainData);
+					this.log_session_obj.data.push(ans.toFixed(2))
+				}, this.log_interval * 1000);
+			}
 		},
 		stopRecord: function() {
-			console.log("Stop Record")
+			this.is_recording = false;
+			document.getElementById("record-off-button").style.display = "initial";
+			document.getElementById("record-on-button").style.display = "none";
+			document.getElementById("logging-interval-button").disabled = false;
+			clearInterval(this.setInterval_id);
+			this.log_data.push({...this.log_session_obj})
+			this.setInterval_id = null;
 		},
 		onAudioInput: function(e) {
 
