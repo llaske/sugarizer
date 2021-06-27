@@ -66,7 +66,7 @@
 			<sugar-toolitem id="decrease-font" title="Decrease font size" @click='decreaseFont'></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
-			<sugar-toolitem id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="stop-button" title="Stop" @click="onStop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<!-- Image Section -->
@@ -100,8 +100,10 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
 	</div>
 
+	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/activity.js"></script>

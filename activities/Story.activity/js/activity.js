@@ -266,5 +266,47 @@ var app = new Vue({
 				}
 			}
 		},
+		onJournalNewInstance: function() {
+			console.log("New instance");
+		},
+		onJournalDataLoaded: function (data, metadata) {
+			console.log("Existing instance");
+
+			this.grid = data.grid;
+			this.images = data.images;
+			this.imageCount = data.imageCount;
+			this.gridEditorContent = JSON.parse(data.gridEditorContent);
+			this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
+			this.fontSelected = data.fontSelected;
+			this.fontSize = data.fontSize;
+			
+			if(data.grid){
+				this.gridImageMode();
+				this.editor.setContents(this.gridEditorContent);
+			} else {
+				this.singleImageMode();
+				this.editor.setContents(this.singleEditorsContent[0]);
+			}
+		},
+		onJournalLoadError: function(error) {
+			console.log("Error loading from journal");
+		},
+		onStop: function() {
+			if (this.grid){
+				this.gridEditorContent = this.editor.getContents();
+			} else {
+				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+			}
+			var context = {
+				grid: this.grid,
+				images: this.images,
+				imageCount: this.imageCount,
+				gridEditorContent: JSON.stringify(this.gridEditorContent),
+				singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+				fontSelected: this.fontSelected,
+				fontSize:this.fontSize,
+			};
+			this.$refs.SugarJournal.saveData(context);
+		}
 	}
 });
