@@ -407,7 +407,29 @@ var app = new Vue({
 		},
 		generateCSV: function() {
 			var csvContent = "";
-			csvContent += "HelloWorld from csv";
+			
+			var i=1;
+			for (var session of this.log_data) {
+				csvContent += "Session," + i + '\n';
+				csvContent += "User," + this.currentenv.user.name + '\n';
+				csvContent += "Mode," + session.mode + '\n';
+				var d = new Date()
+				var completeDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+				var completeTime = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+				csvContent += "Date," + completeDate + ' ' + completeTime + '\n';
+				if (this.log_interval == 300) {
+					csvContent += "Interval,5 minutes \n";
+				}
+				else {
+					csvContent += "Interval," + this.log_interval + " second \n";
+				}
+				csvContent += "S.No,Value \n";
+				var data_size = session.data.length;
+				for (var j = 0; j < data_size; j++) {
+					csvContent += j + ',' + session.data[j] + '\n';
+				}
+				i += 1;
+			}
 
 			var metadata = {
 				mimetype: 'text/plain',
@@ -521,6 +543,11 @@ var app = new Vue({
 			clearInterval(this.setInterval_id);
 			this.log_data.push({...this.log_session_obj})
 			this.setInterval_id = null;
+		},
+		onActivityStop: function() {
+			if (this.setInterval_id) {
+				this.stopRecord();
+			}
 		},
 		onAudioInput: function(e) {
 
