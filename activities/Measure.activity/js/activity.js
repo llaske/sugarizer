@@ -491,8 +491,8 @@ var app = new Vue({
 		},
 		generatePDF: function() {
 
-			var doc = new jsPDF();
 			let vm = this;
+			var doc = new jsPDF();
 			this.addCoverToPDF(doc)
 				.then(() => {
 
@@ -566,8 +566,7 @@ var app = new Vue({
 						file_size: 0
 					};
 
-					var vm = this;
-					this.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
+					vm.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
 						.then(() => {
 							vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsPDF"));
 						});
