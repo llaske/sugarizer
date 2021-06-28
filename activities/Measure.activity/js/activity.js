@@ -407,7 +407,12 @@ var app = new Vue({
 			}
 		},
 		generateCSV: function() {
-			var csvContent = "Session;Mode;Date;Interval;S.No;Value \n";
+			var csvContent = this.SugarL10n.get("Session") + ";"
+			csvContent += this.SugarL10n.get("Mode") + ";"
+			csvContent += this.SugarL10n.get("Date") + ";"
+			csvContent += this.SugarL10n.get("Interval") + ";"
+			csvContent += "S.No" + ";"
+			csvContent += this.SugarL10n.get("Value") +  "\n";
 			var i=1;
 			for (var session of this.log_data) {
 
@@ -419,10 +424,10 @@ var app = new Vue({
 					csvContent += session.mode + ';';
 					csvContent += session.date + ';';
 					if (this.log_interval == 300) {
-						csvContent += "5 minutes;";
+						csvContent += "5 " + this.SugarL10n.get("Minutes_other") + ";";
 					}
 					else {
-						csvContent += this.log_interval + " second;";
+						csvContent += this.log_interval + " " + this.SugarL10n.get("Second") + ";";
 					}
 
 					csvContent += j + ';' + session.data[j] + '\n';
@@ -469,7 +474,7 @@ var app = new Vue({
 			return new Promise((resolve, reject) => {
 				doc.setFontStyle("bold");
 				doc.setFontSize(20);
-				doc.text(105, 100, 'Time Logging Details', { align: "center" });
+				doc.text(105, 100, this.SugarL10n.get('TimeLoggingDetails'), { align: "center" });
 				vm.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", vm.currentenv.user.colorvalue)
 					.then(src => {
 						vm.canvasToImage(src)
@@ -504,20 +509,20 @@ var app = new Vue({
 
 						doc.setFontSize(18);
 						doc.setFontStyle("bold");
-						doc.text(x, y, "Session: " + i);
+						doc.text(x, y, this.SugarL10n.get("Session") + ": " + i);
 						doc.setFontStyle("normal");
-						doc.text("Mode:     " + session.mode, x, y + 14);
+						doc.text(this.SugarL10n.get("Mode") + ":     " + session.mode, x, y + 14);
 						if (this.log_interval == 300) {
-							doc.text("Interval:   5 minutes", x, y + 21);
+							doc.text(this.SugarL10n.get("Interval") + ":   5" + " " + this.SugarL10n.get("Minutes_other"), x, y + 21);
 						}
 						else {
-							doc.text("Interval:   " + this.log_interval + ' second', x, y + 21);
+							doc.text(this.SugarL10n.get("Interval") + ":   " + this.log_interval + ' ' + this.SugarL10n.get("Second"), x, y + 21);
 						}
-						doc.text('Date:       ' + session.date, x, y + 28);
+						doc.text(this.SugarL10n.get("Date") + ":       " + session.date, x, y + 28);
 						y = y + 42;
 						doc.line(x, y-5, x+90, y-5);
-						doc.text('S.No', x + 10, y+1);
-						doc.text('Value', x + 65, y+1);
+						doc.text("S.No", x + 10, y+1);
+						doc.text(this.SugarL10n.get("Value"), x + 65, y+1);
 						doc.line(x, y + 3, x+90, y + 3);
 						doc.line(x, y-5, x, y+3);
 						doc.line(x + 50, y - 5, x + 50, y + 3);
