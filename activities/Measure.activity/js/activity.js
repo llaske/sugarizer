@@ -592,6 +592,7 @@ var app = new Vue({
 			document.getElementById("record-off-button").style.display = "none";
 			document.getElementById("record-on-button").style.display = "initial";
 			document.getElementById("logging-interval-button").disabled = true;
+			this.$root.$refs.SugarPopup.log(this.SugarL10n.get("recordingStarted"))
 			this.log_session_obj.interval = '' + this.log_interval + ' second'
 			this.log_session_obj.date = this.getSessionDate();
 			this.log_session_obj.data = []
@@ -620,6 +621,7 @@ var app = new Vue({
 			document.getElementById("record-off-button").style.display = "initial";
 			document.getElementById("record-on-button").style.display = "none";
 			document.getElementById("logging-interval-button").disabled = false;
+			this.$root.$refs.SugarPopup.log(this.SugarL10n.get("recordingEnded"));
 			clearInterval(this.setInterval_id);
 			this.log_data.push({...this.log_session_obj})
 			this.setInterval_id = null;
