@@ -900,7 +900,7 @@ enyo.kind({
 		} else if (this.step == 1) {
 			this.$.servername.setValue(constant.defaultServer);
 			vtextservername = vservername = vnext = true;
-			vserverqr = (enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
+			vserverqr = (util.platform.ios || util.platform.android);
 		} else if (this.step == 2) {
 			vpasswordmessage = vpassword = vnext = true;
 			if (preferences.getToken() && preferences.getToken().expired) {

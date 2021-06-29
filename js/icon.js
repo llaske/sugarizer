@@ -85,10 +85,10 @@ enyo.kind({
 		this.inherited(arguments);
 
 		var node = this.$.icon.hasNode();
-		if (node && enyo.platform.touch) {
+		if (node && util.platform.touch) {
 			// HACK: On iOS and Chrome Android use touch events to simulate mouseover/mouseout
 			var that = this;
-			if (enyo.platform.ios || enyo.platform.androidChrome) {
+			if (util.platform.ios || util.platform.androidChrome) {
 				enyo.dispatcher.listen(node, "touchstart", function(e) {
 					mouse.position = {x: e.touches[0].clientX, y: e.touches[0].clientY};
 					that.popupShowTimer();

@@ -18,7 +18,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 
-		this.isCordova = (enyo.platform.android || enyo.platform.androidChrome || enyo.platform.ios) && document.location.protocol.substr(0,4) != "http";
+		this.isCordova = (util.platform.android || util.platform.ios) && document.location.protocol.substr(0,4) != "http";
 		this.startPlay = false;
 		this.srcChanged();
 		this.crossoriginChanged();
@@ -31,7 +31,7 @@ enyo.kind({
 
 	// Handle volume buttons on Android
 	handleVolumeButtons: function() {
-		if (this.isCordova && !enyo.platform.iOS) {
+		if (this.isCordova && !util.platform.ios) {
 			// HACK: Need only on Android because Cordova intercept volume buttons
 			var emptyf = function() {};
 			document.addEventListener("volumeupbutton", function() {

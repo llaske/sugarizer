@@ -147,7 +147,7 @@ enyo.kind({
 		case 0: // Choose between New User/Login
 			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
-			vstop = enyo.platform.electron;
+			vstop = util.platform.electron;
 			vhistory = true;
 			defaultServer = util.getOptions()["defaultServer"] || constant.defaultServer;
 			this.$.server.setValue((util.getClientType() == constant.appType) ? defaultServer : util.getCurrentServerUrl());
@@ -156,7 +156,7 @@ enyo.kind({
 
 		case 1: // Server name
 			vserverbox = vnext = vprevious = true;
-			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
+			this.$.qrbutton.setShowing(util.platform.ios || util.platform.android);
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
@@ -334,7 +334,7 @@ enyo.kind({
 	scrollToField: function(inSender) {
 		// HACK: Scroll screen on Android to avoid to be hide by the touch keyboard
 		var nodeName = inSender.hasNode();
-		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
+		if (nodeName && util.platform.android) {
 			setTimeout(function() {
 				nodeName.scrollIntoView();
 			}, 100);
@@ -342,7 +342,7 @@ enyo.kind({
 	},
 	scrollToTop: function() {
 		var nodeName = this.$.helpbutton.hasNode();
-		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
+		if (nodeName && util.platform.android) {
 			setTimeout(function() {
 				nodeName.scrollIntoView(true);
 			}, 100);

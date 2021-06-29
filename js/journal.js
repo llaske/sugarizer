@@ -161,7 +161,7 @@ enyo.kind({
 		var canvas_center = util.getCanvasCenter();
 		var footer_size = this.$.footer.getShowing() ? 55 : 0;   // HACK: 55 is the footer height
 		this.smallTime = (canvas_center.dx < 660);
-		var android_gap = (enyo.platform.android ? 3 : 0);
+		var android_gap = (util.platform.android ? 3 : 0);
 		this.$.content.applyStyle("height", (canvas_center.dy-footer_size-android_gap)+"px");
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
 		var margintop = (canvas_center.y-constant.sizeEmpty/4-80);
@@ -372,7 +372,7 @@ enyo.kind({
 			toProcess.push(this.journal[selection[i]]);
 		}
 		var that = this;
-		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && enyo.platform.electron);
+		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && util.platform.electron);
 		if (!isMultiple) {
 			humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
 		}
@@ -983,7 +983,7 @@ enyo.kind({
 		this.typeselected = 0;
 		this.dateselected = 0;
 		this.sortfield = 0;
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
 			this.createComponent({name: "file", kind: "Input", type: "file", showing: false, onchange: "fileSelected"}, {owner: this});
 		}
 	},
@@ -1165,7 +1165,7 @@ enyo.kind({
 	},
 
 	fromDeviceSelected: function() {
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
 			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();

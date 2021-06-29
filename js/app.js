@@ -71,7 +71,6 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 
 	// Wait for preferences
 	var loadpreference = function() {
-		enyo.platform.electron = /Electron/.test(navigator.userAgent);
 		var getUrlParameter = function(name) {
 			var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
 			return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
@@ -79,7 +78,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 		var rst = getUrlParameter('rst');
 		preferences.load(function(load) {
 			preferenceset = (load != null);
-			if (util.getClientType() == constant.appType && (enyo.platform.electron || enyo.platform.android || enyo.platform.androidChrome)) {
+			if (util.getClientType() == constant.appType && (util.platform.electron || util.platform.android)) {
 				if (rst == 1) {
 					// Restart from a fresh install, use from Electon option --init
 					util.cleanDatastore(true);
@@ -125,7 +124,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	}, false);
 
 	// HACK: on iOS, create a media to initialize sound
-	if (enyo.platform.ios && document.location.protocol.substr(0,4) != "http") {
+	if (util.platform.ios && document.location.protocol.substr(0,4) != "http") {
 		document.addEventListener("deviceready", function() {
 			var release = function() { media.release(); }
 			var media = new Media("audio/silence.mp3", release, release, release);
