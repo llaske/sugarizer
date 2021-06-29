@@ -426,27 +426,24 @@ var app = new Vue({
 					csvContent += i + ';';
 					csvContent += session.mode + ';';
 					csvContent += session.date + ';';
-					if (this.log_interval == 300) {
-						csvContent += "5 " + this.SugarL10n.get("Minutes_other") + ";";
-					}
-					else {
-						csvContent += this.log_interval + " " + this.SugarL10n.get("Second") + ";";
-					}
+
+					csvContent += this.log_interval + ";";
 
 					csvContent += j + ';' + session.data[j] + '\n';
 				}
 				i += 1;
 			}
 
+			var vm = this;
 			var metadata = {
 				mimetype: 'text/plain',
-				title: this.currentenv.user.name + "_Measure.txt",
+				title: "Measure Logging by " + vm.currentenv.user.name + ".txt",
 				activity: "org.olpcfrance.Measure",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
 				file_size: 0
 			};
-			var vm = this;
+
 			vm.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
 				.then(() => {
 					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsCSV"));
@@ -499,16 +496,14 @@ var app = new Vue({
 			this.addCoverToPDF(doc)
 				.then(() => {
 
-					doc.addPage();
 					var x = 10;
 					var y = 15;
 					var i = 1;
 					var pageHeight = 285;
 					for (var session of this.log_data) {
-						if (y + 28 > pageHeight) {
-							doc.addPage();
-							y = 10;
-						}
+						
+						doc.addPage();
+						y = 15;
 
 						doc.setFontSize(18);
 						doc.setFontStyle("bold");
@@ -530,13 +525,19 @@ var app = new Vue({
 						doc.line(x, y-5, x, y+3);
 						doc.line(x + 50, y - 5, x + 50, y + 3);
 						doc.line(x+90, y - 5, x+90, y + 3);
-						doc.line(x, y + 3, x, y + 9);
-						doc.line(x + 50, y + 3, x + 50, y + 9);
-						doc.line(x+90, y + 3, x+90, y + 9);
+
+						var data_size = session.data.length;
+
+						if(data_size != 0) {
+							doc.line(x, y + 3, x, y + 9);
+							doc.line(x + 50, y + 3, x + 50, y + 9);
+							doc.line(x + 90, y + 3, x + 90, y + 9);
+						}
+
 						y = y+8;
 
 						doc.setFontSize(14);
-						var data_size = session.data.length;
+
 						for (var j = 0; j < data_size; j++) {
 							if (y > pageHeight) {
 								doc.addPage();
@@ -562,7 +563,7 @@ var app = new Vue({
 					
 					metadata = {
 						mimetype: 'application/pdf',
-						title: "Measure.pdf",
+						title: "Measure Logging by " + vm.currentenv.user.name + ".pdf",
 						activity: "org.olpcfrance.Measure",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
