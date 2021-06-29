@@ -83,8 +83,8 @@ var app = new Vue({
 			document.getElementById("amp-high-button").title = this.SugarL10n.get("increaseAmp");
 			document.getElementById("invert-on-button").title = this.SugarL10n.get("InvertWaveform");
 			document.getElementById("invert-off-button").title = this.SugarL10n.get("NormalWaveform");
-			document.getElementById("changeAmpTitle").innerText = this.SugarL10n.get("changeAmpTitle");
-			document.getElementById("invertWaveformTitle").innerText = this.SugarL10n.get("InvertWaveform");
+			document.getElementById("AmpTitle").innerText = this.SugarL10n.get("AmpTitle");
+			document.getElementById("WaveformTitle").innerText = this.SugarL10n.get("WaveformTitle");
 			document.getElementById("csv-export").title = this.SugarL10n.get("exportAsCSV");
 			document.getElementById("pdf-export").title = this.SugarL10n.get("exportAsPDF");
 			this.SugarL10n.localize(this.l10n);
@@ -376,10 +376,12 @@ var app = new Vue({
 			if (this.invert_waveform) {
 				document.getElementById("invert-on-button").style.display = "initial";
 				document.getElementById("invert-off-button").style.display = "none";
+				document.getElementById("waveformStatus").innerText = 'Inverted';
 			}
 			else {
 				document.getElementById("invert-on-button").style.display = "none";
 				document.getElementById("invert-off-button").style.display = "initial";
+				document.getElementById("waveformStatus").innerText = 'Normal';
 			}
 			this.drawWaveform();
 		},
