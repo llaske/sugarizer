@@ -53,7 +53,8 @@ var app = new Vue({
 			stringExportSettings: '',
 			stringLoggingInterval: '',
 			stringRecordOff: '',
-			stringRecordOn: ''
+			stringRecordOn: '',
+			stringCaptureImage: ''
 		}
 	},
 	methods: {
@@ -444,7 +445,7 @@ var app = new Vue({
 				file_size: 0
 			};
 			var vm = this;
-			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
+			vm.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
 				.then(() => {
 					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("exportedLogAsCSV"));
 				});
@@ -624,6 +625,23 @@ var app = new Vue({
 			if (this.setInterval_id) {
 				this.stopRecord();
 			}
+		},
+		captureImage: function() {
+			var mimetype = 'image/jpeg';
+			var inputData = this.canvas.toDataURL(mimetype, 1);
+			var metadata = {
+				mimetype: mimetype,
+				title: "Measure Waveform Image",
+				activity: "org.olpcfrance.Measure",
+				timestamp: new Date().getTime(),
+				creation_time: new Date().getTime(),
+				file_size: 0
+			};
+			var vm = this;
+			vm.$root.$refs.SugarJournal.createEntry(inputData, metadata)
+				.then(() => {
+					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("CaptureImageDone"));
+				});
 		},
 		onAudioInput: function(e) {
 

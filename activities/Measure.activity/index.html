@@ -87,6 +87,12 @@
 				palette-event="export-file"
 				v-on:export-file="exportFile"
 			></sugar-toolitem>
+			<div class="splitbar"></div>
+			<sugar-toolitem 
+				id="capture-image-button" 
+				v-bind:title="l10n.stringCaptureImage"
+				v-on:click="captureImage"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem 
 				id="stop-button" 

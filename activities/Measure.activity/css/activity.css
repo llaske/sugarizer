@@ -361,3 +361,7 @@ p {
 	background-image: url("../icons/record-on.svg");
 	display: none;
 }
+
+#capture-image-button {
+	background-image: url("../icons/save-image.svg");
+}
