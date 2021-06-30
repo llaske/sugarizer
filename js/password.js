@@ -51,7 +51,7 @@ enyo.kind({
 		var node = this.$.pass.hasNode();
 		node.autocomplete="off";
 		// HACK: On Android the onkeydown event don't work, so using beforeinput and save value instead
-		this.isAndroid = (enyo.platform.android || enyo.platform.androidChrome);
+		this.isAndroid = util.platform.android;
 		if (this.isAndroid) {
 			this.savedValue = "";
 			node.addEventListener("beforeinput", enyo.bind(this, "onBeforeInput"));
