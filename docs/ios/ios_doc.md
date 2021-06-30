@@ -31,7 +31,7 @@ Scroll down you'll find "Swift Compiler - Language" section. In this section, se
 
 ![Swift Language Setting](https://user-images.githubusercontent.com/42293606/121804549-8976eb00-cc64-11eb-9f33-fe107a7a3ecd.JPG)
 
-Then go to "Sugarizer/plugins/" directory and open "CDVFileTransfer.m" file. Comment line 107-110 and save the file.
+Then go to "platforms/ios/Sugarizer/Plugins/cordova-plugin-file-transfer/" directory and open "CDVFileTransfer.m" file. Comment line 107-110 and save the file.
 
 ![CDVFileTransfer comment](https://user-images.githubusercontent.com/42293606/121804587-bc20e380-cc64-11eb-9843-ffc6e2a9624e.JPG)
     
