@@ -437,7 +437,7 @@ var app = new Vue({
 			var vm = this;
 			var metadata = {
 				mimetype: 'text/plain',
-				title: "Measure Logging by " + vm.currentenv.user.name + ".txt",
+				title: this.SugarL10n.get("MeasureLoggingBy", { name: vm.currentenv.user.name}) + ".txt",
 				activity: "org.olpcfrance.Measure",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -563,7 +563,7 @@ var app = new Vue({
 					
 					metadata = {
 						mimetype: 'application/pdf',
-						title: "Measure Logging by " + vm.currentenv.user.name + ".pdf",
+						title: this.SugarL10n.get("MeasureLoggingBy", { name: vm.currentenv.user.name }) + ".pdf",
 						activity: "org.olpcfrance.Measure",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
