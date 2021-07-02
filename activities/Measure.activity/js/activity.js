@@ -41,6 +41,7 @@ var app = new Vue({
 			date: '',
 			data: []
 		},
+		trigEdge: 0, // 0 for none, 1 for rising edge, 2 for falling edge
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -54,7 +55,10 @@ var app = new Vue({
 			stringLoggingInterval: '',
 			stringRecordOff: '',
 			stringRecordOn: '',
-			stringCaptureImage: ''
+			stringCaptureImage: '',
+			stringNone: '',
+			stringRisingEdge: '',
+			stringFallingEdge: ''
 		}
 	},
 	methods: {
@@ -226,16 +230,43 @@ var app = new Vue({
 			var x = 0;
 			var samples = (this.time_domain) ? this.num_of_samples_time : this.num_of_samples_freq;
 
+			var start = 0;
 			var sliceWidth = this.canvas.width * 1.0 / samples;
+			var is_trig = false;
 
-			for (var i = 0; i < samples;i++) {
+			if (this.time_domain && (this.trigEdge == 1 || this.trigEdge == 2)) {
+
+				is_trig = true;
+
+				if(this.trigEdge == 1) {
+					for(var i=0;i<samples;i++) {
+						if (this.timeDomainData[i] > 0) {
+							start = i;
+							break;
+						}
+					}
+				}
+				else {
+					for (var i = 0; i < samples; i++) {
+						if (this.timeDomainData[i] < 0) {
+							start = i;
+							break;
+						}
+					}
+				}
+				sliceWidth = this.canvas.width * 1.0 / (samples - start + 1);
+				x += sliceWidth;
+				canvasCtx.moveTo(0, this.canvas.height/2);
+			}
+
+			for (var i = start; i < samples;i++) {
 				var time_amp = this.timeDomainData[i];
 				if(this.invert_waveform) {
 					time_amp = -1*time_amp;
 				}
-				let y = (this.time_domain) ? this.mapCoords(this.amp_value*time_amp, -1, 1, 0, this.canvas.height)
+				let y = (this.time_domain) ? this.mapCoords(-1*this.amp_value*time_amp, -1, 1, 0, this.canvas.height)
 					: this.mapCoords(this.amp_value *-1 * this.freqDomainData[i], 0, 100, this.canvas.height / 1.01, 2 * this.canvas.height);
-				if(i == 0) {
+				if(i == 0 && !is_trig) {
 					canvasCtx.moveTo(x,y);
 				}
 				else {
@@ -647,6 +678,30 @@ var app = new Vue({
 				.then(() => {
 					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("CaptureImageDone"));
 				});
+		},
+		triggeringEdge:function() {
+			this.trigEdge += 1;
+
+			if(this.trigEdge > 2) {
+				this.trigEdge = 0;
+			}
+
+			if(this.trigEdge == 1) {
+				document.getElementById("triggering-edge-none-button").style.display = "none";
+				document.getElementById("triggering-edge-rising-button").style.display = "initial";
+				document.getElementById("triggering-edge-falling-button").style.display = "none";
+			}
+			else if(this.trigEdge == 2) {
+				document.getElementById("triggering-edge-none-button").style.display = "none";
+				document.getElementById("triggering-edge-rising-button").style.display = "none";
+				document.getElementById("triggering-edge-falling-button").style.display = "initial";
+			}
+			else {
+				document.getElementById("triggering-edge-none-button").style.display = "initial";
+				document.getElementById("triggering-edge-rising-button").style.display = "none";
+				document.getElementById("triggering-edge-falling-button").style.display = "none";
+			}
+			this.drawWaveform();
 		},
 		onAudioInput: function(e) {
 

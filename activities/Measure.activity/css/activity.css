@@ -365,3 +365,17 @@ p {
 #capture-image-button {
 	background-image: url("../icons/save-image.svg");
 }
+
+#triggering-edge-none-button {
+	background-image: url("../icons/trigger-none.svg");
+}
+
+#triggering-edge-rising-button {
+	background-image: url("../icons/trigger-rise.svg");
+	display: none;
+}
+
+#triggering-edge-falling-button {
+	background-image: url("../icons/trigger-fall.svg");
+	display: none;
+}
