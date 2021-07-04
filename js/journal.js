@@ -1030,7 +1030,7 @@ enyo.kind({
 		], ontap: "tapLine"});
 		var activitiesList = activities.get();
 		var unsortedItems = [];
-		for(var i = 0 ; i < activities.length ; i++) {
+		for(var i = 0 ; i < activitiesList.length ; i++) {
 			unsortedItems.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
 				{kind: "Sugar.Icon", icon: activitiesList[i], x: 5, y: 3, size: constant.iconSizeFavorite},
 				{classes: "item-name", content: activitiesList[i].name}
