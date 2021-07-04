@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
+- Refactor activities and preferences loading
+- Refactor browser and device detection
 - Enhancement in multiplayer mode of Memorize activity #795
 - Position of scrollbar in listview is saved #945
 
