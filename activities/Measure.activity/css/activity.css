@@ -379,3 +379,20 @@ p {
 	background-image: url("../icons/trigger-fall.svg");
 	display: none;
 }
+
+#instrument-select-button {
+	background-image: url("../icons/instruments.svg");
+}
+
+#note-select-button {
+	background-image: url("../icons/notes.svg");
+}
+
+#octave-select-button {
+	background-image: url("../icons/octaves.svg");
+}
+
+.note-palette {
+	width: 200px;
+	height: 20px;
+}

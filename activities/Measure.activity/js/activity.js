@@ -42,6 +42,21 @@ var app = new Vue({
 			data: []
 		},
 		trigEdge: 0, // 0 for none, 1 for rising edge, 2 for falling edge
+		instrument_data: {
+			'guitar': {
+				notes: {
+					'E1': 82.4069,
+					'A2': 110,
+					'D2': 146.832,
+					'G2': 195.998,
+					'B3': 246.942,
+					'E3': 329.628
+				},
+				'octaves': false,
+				'octave_data': {}
+			}
+		},
+		instrument_name: 'none',
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -58,7 +73,10 @@ var app = new Vue({
 			stringCaptureImage: '',
 			stringNone: '',
 			stringRisingEdge: '',
-			stringFallingEdge: ''
+			stringFallingEdge: '',
+			stringSelectInstrument: '',
+			stringSelectNote: '',
+			stringSelectOctave: ''
 		}
 	},
 	methods: {
@@ -702,6 +720,9 @@ var app = new Vue({
 				document.getElementById("triggering-edge-falling-button").style.display = "none";
 			}
 			this.drawWaveform();
+		},
+		selectInstrument: function(e) {
+			this.instrument_name = e.instrument_name;
 		},
 		onAudioInput: function(e) {
 

@@ -104,6 +104,26 @@
 			></sugar-toolitem>
 			<div class="splitbar"></div>
 			<sugar-toolitem 
+				id="instrument-select-button" 
+				v-bind:title="l10n.stringSelectInstrument" 
+				palette-file="js/palettes/instrumentpalette.js"
+				palette-class="InstrumentPalette"
+				palette-event="select-instrument"
+				v-on:select-instrument="selectInstrument"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="note-select-button" 
+				v-bind:title="l10n.stringSelectNote" 
+				palette-file="js/palettes/notepalette.js"
+				palette-class="NotePalette"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="octave-select-button" 
+				v-bind:title="l10n.stringSelectOctave" 
+				palette-file="js/palettes/octavepalette.js"
+				palette-class="OctavePalette"
+			></sugar-toolitem>
+			<sugar-toolitem 
 				id="capture-image-button" 
 				v-bind:title="l10n.stringCaptureImage"
 				v-on:click="captureImage"
