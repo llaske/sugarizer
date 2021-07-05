@@ -9,9 +9,10 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var notes_arr = ['A', 'A♯/B♭', 'B', 'C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭',
             'G', 'G♯/A♭']
+        
+        var len = notes_arr.length;
 
         if (app.instrument_name == 'none') {
-            var len = notes_arr.length;
             for(var i=0;i<len;i++) {
                 template += `
                     <div id="note_${i}" class="palette-item note-palette">${notes_arr[i]}</div>
@@ -28,11 +29,42 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var that = this;
 
-        // document.getElementById("guitar_instrument").addEventListener('click', function (event) {
-        //     that.SelectNoteEvent.instrument_name = 'guitar';
-        //     that.getPalette().dispatchEvent(that.SelectNoteEvent);
-        //     that.popDown();
-        // });
+        document.getElementById("none").addEventListener('click', function (event) {
+            template = "";
+            for (var i = 0; i < len; i++) {
+                template += `
+                    <div id="note_${i}" class="palette-item note-palette">${notes_arr[i]}</div>
+                `;
+            }
+            containerElem.innerHTML = template;
+        });
+        document.getElementById("guitar_instrument").addEventListener('click', function (event) {
+            template = `
+                    <div id="guitar_note_all" class="palette-item note-palette">All Notes</div>
+                `;
+
+            for(var i in app.instrument_data['guitar']['notes']) {
+                template += `
+                    <div id="guitar_note_${i}" class="palette-item note-palette">${i}</div>
+                `;
+            }
+            containerElem.innerHTML = template;
+            document.getElementById("guitar_note_all").addEventListener('click', function(e) {
+                window.app.drawNote(-1, 0);
+                that.popDown();
+            })
+            var j = 0;
+            for (var i in app.instrument_data['guitar']['notes']) {
+                (function (index, key) {
+                    document.getElementById(`guitar_note_${key}`).addEventListener('click', function (e) {
+                        window.app.drawNote(index, app.instrument_data['guitar']['notes'][key]);
+                        that.popDown();
+                    })
+                })(j, i)
+                j++;
+            }
+        });
+
     };
 
     var addEventListener = function (type, listener, useCapture) {

@@ -21,12 +21,14 @@ define(["sugar-web/graphics/palette"], function (palette) {
         var that = this;
 
         document.getElementById("none").addEventListener('click', function (event) {
+            document.getElementById("octave-select-button").style.display = "initial";
             that.SelectInstrumentEvent.instrument_name = 'none';
             that.getPalette().dispatchEvent(that.SelectInstrumentEvent);
             that.popDown();
         });
 
         document.getElementById("guitar_instrument").addEventListener('click', function (event) {
+            document.getElementById("octave-select-button").style.display = "none";
             that.SelectInstrumentEvent.instrument_name = 'guitar';
             that.getPalette().dispatchEvent(that.SelectInstrumentEvent);
             that.popDown();

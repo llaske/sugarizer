@@ -723,6 +723,12 @@ var app = new Vue({
 		},
 		selectInstrument: function(e) {
 			this.instrument_name = e.instrument_name;
+			if(this.time_domain) {
+				this.TimeOrFreq();
+			}
+		},
+		drawNote: function(note_idx, freq) {
+			console.log(note_idx, freq)
 		},
 		onAudioInput: function(e) {
 
