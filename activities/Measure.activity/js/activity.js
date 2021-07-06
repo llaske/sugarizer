@@ -79,9 +79,6 @@ var app = new Vue({
 			stringRecordOff: '',
 			stringRecordOn: '',
 			stringCaptureImage: '',
-			stringNone: '',
-			stringRisingEdge: '',
-			stringFallingEdge: '',
 			stringSelectInstrument: '',
 			stringSelectNote: '',
 			stringSelectOctave: '',
@@ -120,6 +117,10 @@ var app = new Vue({
 			document.getElementById("pdf-export").title = this.SugarL10n.get("exportAsPDF");
 			document.getElementById("harmonics-on-button").title = this.SugarL10n.get("ShowHarmonicsTitle");
 			document.getElementById("harmonics-off-button").title = this.SugarL10n.get("HideHarmonicsTitle");
+			document.getElementById("triggering-edge-none-button").title = this.SugarL10n.get("None");
+			document.getElementById("triggering-edge-rising-button").title = this.SugarL10n.get("RisingEdge");
+			document.getElementById("triggering-edge-falling-button").title = this.SugarL10n.get("FallingEdge");
+			document.getElementById("TriggeringEdgeTitle").innerText = this.SugarL10n.get("TriggeringEdge");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -795,6 +796,9 @@ var app = new Vue({
 			this.drawWaveform();
 		},
 		handleHarmonics: function() {
+			if (this.instrument_name == 'none') {
+				return;
+			}
 			this.show_harmonics = !this.show_harmonics;
 
 			if(this.show_harmonics) {
