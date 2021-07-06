@@ -43,7 +43,7 @@ var app = new Vue({
 		},
 		trigEdge: 0, // 0 for none, 1 for rising edge, 2 for falling edge
 		instrument_data: {
-			'guitar': {
+			guitar: {
 				notes: {
 					'E1': 82.4069,
 					'A2': 110,
@@ -56,7 +56,12 @@ var app = new Vue({
 				'octave_data': {}
 			}
 		},
+		draw_note: false,
+		note_index: -2,
+		note_freq: 0,
 		instrument_name: 'none',
+		colors: ['#B20008', '#00588C', '#F8E800', '#7F00BF', '#4BFF3A', '#FFA109',
+		'#00A0FF', '#BCCEFF', '#008009', '#F8E800', '#AC32FF', '#FFFFFF'],
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -251,6 +256,26 @@ var app = new Vue({
 			var start = 0;
 			var sliceWidth = this.canvas.width * 1.0 / samples;
 			var is_trig = false;
+
+			if (this.draw_note) {
+
+				if (this.note_index == -1) {
+					var instrument_notes_obj = this.instrument_data[this.instrument_name]['notes'];
+					var j = 0;
+					for(var i in instrument_notes_obj) {
+						var freq_val = instrument_notes_obj[i];
+						var x_coord = (50 / this.freq_div) * freq_val;
+						canvasCtx.fillStyle = this.colors[j];
+						canvasCtx.fillRect(x_coord, this.canvas.height, 2, -1 * this.canvas.height);
+						j++;
+					}
+				}
+				else {
+					var note_x_coord = (50/this.freq_div)*this.note_freq;
+					canvasCtx.fillStyle = this.colors[0];
+					canvasCtx.fillRect(note_x_coord, this.canvas.height, 2, -1*this.canvas.height);
+				}
+			}
 
 			if (this.time_domain && (this.trigEdge == 1 || this.trigEdge == 2)) {
 
@@ -697,7 +722,7 @@ var app = new Vue({
 					vm.$root.$refs.SugarPopup.log(this.SugarL10n.get("CaptureImageDone"));
 				});
 		},
-		triggeringEdge:function() {
+		triggeringEdge: function() {
 			this.trigEdge += 1;
 
 			if(this.trigEdge > 2) {
@@ -723,12 +748,25 @@ var app = new Vue({
 		},
 		selectInstrument: function(e) {
 			this.instrument_name = e.instrument_name;
+			if(this.instrument_name == 'none') {
+				this.draw_note = false;
+				this.note_index = -2;
+				this.note_freq = 0;
+				this.drawWaveform();
+				return;
+			}
 			if(this.time_domain) {
 				this.TimeOrFreq();
 			}
 		},
 		drawNote: function(note_idx, freq) {
-			console.log(note_idx, freq)
+			this.draw_note = true;
+			this.note_index = note_idx;
+			this.note_freq = freq;
+			if (this.time_domain) {
+				this.TimeOrFreq();
+			}
+			this.drawWaveform();
 		},
 		onAudioInput: function(e) {
 
