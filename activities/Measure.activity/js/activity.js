@@ -62,6 +62,9 @@ var app = new Vue({
 		instrument_name: 'none',
 		colors: ['#B20008', '#00588C', '#F8E800', '#7F00BF', '#4BFF3A', '#FFA109',
 		'#00A0FF', '#BCCEFF', '#008009', '#F8E800', '#AC32FF', '#FFFFFF'],
+		harmonic_colors: ['#b54e52', '#4a7187', '#d4cc63', '#a568c4', '#89ed80', '#edbd6f',
+			'#8ac8ed', '#d7e0f7', '#558558', '#f2ed9b', '#d4a4f5', '#e6e3e3'],
+		show_harmonics: false,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -81,7 +84,8 @@ var app = new Vue({
 			stringFallingEdge: '',
 			stringSelectInstrument: '',
 			stringSelectNote: '',
-			stringSelectOctave: ''
+			stringSelectOctave: '',
+			stringTuningSettings: ''
 		}
 	},
 	methods: {
@@ -114,6 +118,8 @@ var app = new Vue({
 			document.getElementById("WaveformTitle").innerText = this.SugarL10n.get("WaveformTitle");
 			document.getElementById("csv-export").title = this.SugarL10n.get("exportAsCSV");
 			document.getElementById("pdf-export").title = this.SugarL10n.get("exportAsPDF");
+			document.getElementById("harmonics-on-button").title = this.SugarL10n.get("ShowHarmonicsTitle");
+			document.getElementById("harmonics-off-button").title = this.SugarL10n.get("HideHarmonicsTitle");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -267,6 +273,13 @@ var app = new Vue({
 						var x_coord = (50 / this.freq_div) * freq_val;
 						canvasCtx.fillStyle = this.colors[j];
 						canvasCtx.fillRect(x_coord, this.canvas.height, 2, -1 * this.canvas.height);
+						if (this.show_harmonics) {
+							canvasCtx.fillStyle = this.harmonic_colors[j];
+							for (var k = 0; k < 3; k++) {
+								var x_val = (k + 2) * x_coord;
+								canvasCtx.fillRect(x_val, this.canvas.height, 2, -1 * (this.canvas.height - (k + 1) * 50));
+							}
+						}
 						j++;
 					}
 				}
@@ -274,6 +287,13 @@ var app = new Vue({
 					var note_x_coord = (50/this.freq_div)*this.note_freq;
 					canvasCtx.fillStyle = this.colors[0];
 					canvasCtx.fillRect(note_x_coord, this.canvas.height, 2, -1*this.canvas.height);
+					if(this.show_harmonics) {
+						canvasCtx.fillStyle = this.harmonic_colors[0];
+						for(var i=0;i<3;i++) {
+							var x_coord = (i+2)*note_x_coord;
+							canvasCtx.fillRect(x_coord, this.canvas.height, 2, -1 * (this.canvas.height - (i+1)*50));
+						}
+					}
 				}
 			}
 
@@ -748,16 +768,22 @@ var app = new Vue({
 		},
 		selectInstrument: function(e) {
 			this.instrument_name = e.instrument_name;
+			
+			if (this.time_domain) {
+				this.TimeOrFreq();
+			}
+
 			if(this.instrument_name == 'none') {
 				this.draw_note = false;
 				this.note_index = -2;
 				this.note_freq = 0;
-				this.drawWaveform();
-				return;
 			}
-			if(this.time_domain) {
-				this.TimeOrFreq();
+			else if(this.instrument_name == 'guitar') {
+				this.draw_note = true;
+				this.note_index = -1;
+				this.note_freq = 0;
 			}
+			this.drawWaveform();
 		},
 		drawNote: function(note_idx, freq) {
 			this.draw_note = true;
@@ -765,6 +791,19 @@ var app = new Vue({
 			this.note_freq = freq;
 			if (this.time_domain) {
 				this.TimeOrFreq();
+			}
+			this.drawWaveform();
+		},
+		handleHarmonics: function() {
+			this.show_harmonics = !this.show_harmonics;
+
+			if(this.show_harmonics) {
+				document.getElementById("harmonics-on-button").style.display = "initial";
+				document.getElementById("harmonics-off-button").style.display = "none";
+			}
+			else {
+				document.getElementById("harmonics-on-button").style.display = "none";
+				document.getElementById("harmonics-off-button").style.display = "initial";
 			}
 			this.drawWaveform();
 		},

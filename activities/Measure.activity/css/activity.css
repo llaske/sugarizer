@@ -396,3 +396,16 @@ p {
 	width: 200px;
 	height: 20px;
 }
+
+#tuning-palette-button {
+	background-image: url("../icons/tuning-tools-off.svg");
+}
+
+#harmonics-on-button {
+	background-image: url("../icons/harmonics-on.svg");
+	display: none;
+}
+
+#harmonics-off-button {
+	background-image: url("../icons/harmonics-off.svg");
+}

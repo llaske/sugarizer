@@ -124,6 +124,13 @@
 				palette-class="OctavePalette"
 			></sugar-toolitem>
 			<sugar-toolitem 
+				id="tuning-palette-button" 
+				v-bind:title="l10n.stringTuningSettings" 
+				palette-file="js/palettes/tuningpalette.js"
+				palette-class="TuningPalette"
+			></sugar-toolitem>
+			<div class="splitbar"></div>
+			<sugar-toolitem 
 				id="capture-image-button" 
 				v-bind:title="l10n.stringCaptureImage"
 				v-on:click="captureImage"
