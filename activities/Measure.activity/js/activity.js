@@ -293,10 +293,10 @@ var app = new Vue({
 				}
 				else {
 					var note_x_coord = (50/this.freq_div)*this.note_freq;
-					canvasCtx.fillStyle = this.colors[0];
+					canvasCtx.fillStyle = this.colors[this.note_index];
 					canvasCtx.fillRect(note_x_coord, this.canvas.height, 2, -1*this.canvas.height);
 					if(this.show_harmonics) {
-						canvasCtx.fillStyle = this.harmonic_colors[0];
+						canvasCtx.fillStyle = this.harmonic_colors[this.note_index];
 						for(var i=0;i<3;i++) {
 							var x_coord = (i+2)*note_x_coord;
 							canvasCtx.fillRect(x_coord, this.canvas.height, 2, -1 * (this.canvas.height - (i+1)*50));

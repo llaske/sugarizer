@@ -43,19 +43,21 @@ define(["sugar-web/graphics/palette"], function (palette) {
             template = `
                     <div id="guitar_note_all" class="palette-item note-palette">${app.SugarL10n.get("AllNotes")}</div>
                 `;
-
+            
+            var j = 0;
             for(var i in app.instrument_data['guitar']['notes']) {
 
                 template += `
-                    <div id="guitar_note_${i}" class="palette-item note-palette">${app.SugarL10n.get(i[0]) + ' ' + i[1]}</div>
+                    <div id="guitar_note_${i}" class="palette-item note-palette" style="color: ${app.colors[j]};">${app.SugarL10n.get(i[0]) + ' ' + i[1]}</div>
                 `;
+                j++;
             }
             containerElem.innerHTML = template;
             document.getElementById("guitar_note_all").addEventListener('click', function(e) {
                 window.app.drawNote(-1, 0);
                 that.popDown();
             })
-            var j = 0;
+            j = 0;
             for (var i in app.instrument_data['guitar']['notes']) {
                 (function (index, key) {
                     document.getElementById(`guitar_note_${key}`).addEventListener('click', function (e) {
