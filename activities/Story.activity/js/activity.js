@@ -49,59 +49,28 @@ var app = new Vue({
 			for (var i=0; i<this.imageCount; i++){
 				this.singleEditorsContent.push(null);
 			}
-			this.imageLoaders();
-			this.loadImages();
 			this.loadEditor();			
 		},
-		increaseFont: function(){
-			var currentSize = this.editor.getFormat();
-			var that = this;
-			if(currentSize.size==null){
-				var index = that.sizes.indexOf('24px');
-				that.editor.format('size',that.sizes[index+1]);
-				that.fontSize = that.sizes[index+1];
-			} else {
-				var index = that.sizes.indexOf(currentSize.size);
-				index++;
-				if(index<that.sizes.length){
-					that.editor.format('size',that.sizes[index]);
-					that.fontSize = that.sizes[index];
-				}
+		imageLoaders: function(){
+			function getRandomInt (min, max) {
+				min = Math.ceil(min);
+				max = Math.floor(max);
+				return Math.floor(Math.random() * (max - min + 1)) + min;
 			}
-		},
-		decreaseFont: function(){
-			var currentSize = this.editor.getFormat();
-			var that = this;
-			if(currentSize.size==null){
-				var index = that.sizes.indexOf('24px');
-				if(index>0)
-				that.editor.format('size',that.sizes[index-1]);
-				that.fontSize = that.sizes[index-1]
+			const that = this;
+			function getColor(){
+				return that.colors[getRandomInt(0,2)];
 			}
-			else {
-				var index = that.sizes.indexOf(currentSize.size);
-				index--;
-				if(index>=0){
-					that.editor.format('size',that.sizes[index]);
-					that.fontSize = that.sizes[index];
-				}
+			var quesimgs = document.getElementsByClassName('questionmark');
+			var len = quesimgs.length;
+			if (!this.grid) len=1;
+			for (var i=0; i<len; i++){
+				quesimgs[i].style.background = getColor();
+				(function (i){
+					var intervalId = setInterval(function(){quesimgs[i].style.background = getColor()}, 900);
+					that.intervalIds.push(intervalId);
+				})(i);
 			}
-		},
-		loadEditor: function(){
-			var container = document.getElementById('editor-area');
-			var editor = new Quill(container, {
-				modules: {
-				  toolbar: '.toolbar-container'
-				},
-			  });
-			editor.format('size', '24px');
-			this.editor = editor;
-		},
-		updateEditor: function(){
-			this.fontColor != null && this.editor.format('color',this.fontColor);
-			this.backgroundColor!=null && this.editor.format('background-color',this.backgroundColor);
-			this.fontSelected !=null &&	this.editor.format('font', this.fontSelected);
-			this.fontSize !=null ? this.editor.format('size', this.fontSize) : this.editor.format('size', '24px');
 		},
 		loadImages: function(){
 			var xhr = new XMLHttpRequest();
@@ -115,6 +84,7 @@ var app = new Vue({
 					req.open('HEAD', urlToFile, false);
 					req.send();
 					if(navigator.userAgent.indexOf("Safari") != -1){
+						// Check sugarizer-server error here
 						if (req.readyState === 4 && req.response != ""){
 							return true;
 						} else {
@@ -158,77 +128,25 @@ var app = new Vue({
 			xhr.open("GET", source);
 			xhr.send();
 		},
+		loadEditor: function(){
+			var container = document.getElementById('editor-area');
+			var editor = new Quill(container, {
+				modules: {
+				  toolbar: '.toolbar-container'
+				},
+			  });
+			editor.format('size', '24px');
+			this.editor = editor;
+		},
+		updateEditor: function(){
+			this.fontColor != null && this.editor.format('color',this.fontColor);
+			this.backgroundColor!=null && this.editor.format('background-color',this.backgroundColor);
+			this.fontSelected !=null &&	this.editor.format('font', this.fontSelected);
+			this.fontSize !=null ? this.editor.format('size', this.fontSize) : this.editor.format('size', '24px');
+		},
 		getUrlImg: function(img){
 			return '../Abecedarium.activity/images/database/'+ img + '.png';
 		},
-		imageLoaders: function(){
-			function getRandomInt (min, max) {
-				min = Math.ceil(min);
-				max = Math.floor(max);
-				return Math.floor(Math.random() * (max - min + 1)) + min;
-			}
-			const that = this;
-			function getColor(){
-				return that.colors[getRandomInt(0,2)];
-			}
-			var quesimgs = document.getElementsByClassName('questionmark');
-			var len = quesimgs.length;
-			for (var i=0; i<len; i++){
-				quesimgs[i].style.background = getColor();
-				(function (i){
-					var intervalId = setInterval(function(){quesimgs[i].style.background = getColor()}, 900);
-					that.intervalIds.push(intervalId);
-				})(i);
-			}
-		},
-		onFormatText: function(e){
-			this.editor.focus()
-		},
-		onFontChange: function(e){
-			var newfont = e.font;
-			if(newfont=="Arial") newfont="arial";
-			if(newfont=="Comic Sans MS") newfont="comic";
-			if(newfont=="Times New Roman")newfont="Times";
-			if(newfont=="Courier New")newfont="Courier";
-			if(newfont=="Lucida Console")newfont="Lucida";
-			if(newfont=="Impact")newfont="Impact";
-			if(newfont=="Georgia")newfont="Georgia";
-			this.editor.format('font', newfont);
-			this.fontSelected = newfont;
-			this.editor.focus()
-		},
-		onForegroundColorChange: function(e){
-			this.fontColor = e.detail.color;
-			this.editor.format('color',this.fontColor);
-		},
-		onBackgroundColorChange: function(e){
-			this.backgroundColor = e.detail.color;
-			this.editor.format('background-color',this.backgroundColor);
-		},
-		// gridImageMode: function(){
-			// document.getElementById('grid-mode').classList.add("active");
-			// document.getElementById('single-mode').classList.remove("active");
-		// 	if (!this.grid){
-		// 		this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
-		// 		this.editor.setContents(this.gridEditorContent);
-		// 	}
-		// 	this.updateEditor();
-		// 	this.grid=true;
-		// },
-		// singleImageMode: function(){
-			// document.getElementById('grid-mode').classList.remove("active");
-			// document.getElementById('single-mode').classList.add("active");
-		// 	this.activeImage = this.images[this.activeImageIndex];
-		// 	if (this.grid){
-		// 		this.gridEditorContent = this.editor.getContents();
-		// 		this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-		// 	}
-		// 	this.updateEditor();
-		// 	this.grid = false;
-		// 	if (this.activeImageIndex === 0){
-		// 		this.previousBtnId = "previous-btn-inactive";
-		// 	}
-		// },
 		toggleMode: function(){
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
@@ -286,20 +204,85 @@ var app = new Vue({
 				}
 			}
 		},
+		increaseFont: function(){
+			var currentSize = this.editor.getFormat();
+			var that = this;
+			if(currentSize.size==null){
+				var index = that.sizes.indexOf('24px');
+				that.editor.format('size',that.sizes[index+1]);
+				that.fontSize = that.sizes[index+1];
+			} else {
+				var index = that.sizes.indexOf(currentSize.size);
+				index++;
+				if(index<that.sizes.length){
+					that.editor.format('size',that.sizes[index]);
+					that.fontSize = that.sizes[index];
+				}
+			}
+		},
+		decreaseFont: function(){
+			var currentSize = this.editor.getFormat();
+			var that = this;
+			if(currentSize.size==null){
+				var index = that.sizes.indexOf('24px');
+				if(index>0)
+				that.editor.format('size',that.sizes[index-1]);
+				that.fontSize = that.sizes[index-1]
+			}
+			else {
+				var index = that.sizes.indexOf(currentSize.size);
+				index--;
+				if(index>=0){
+					that.editor.format('size',that.sizes[index]);
+					that.fontSize = that.sizes[index];
+				}
+			}
+		},
+		onFormatText: function(e){
+			this.editor.focus()
+		},
+		onFontChange: function(e){
+			var newfont = e.font;
+			if(newfont=="Arial") newfont="arial";
+			if(newfont=="Comic Sans MS") newfont="comic";
+			if(newfont=="Times New Roman")newfont="Times";
+			if(newfont=="Courier New")newfont="Courier";
+			if(newfont=="Lucida Console")newfont="Lucida";
+			if(newfont=="Impact")newfont="Impact";
+			if(newfont=="Georgia")newfont="Georgia";
+			this.editor.format('font', newfont);
+			this.fontSelected = newfont;
+			this.editor.focus()
+		},
+		onForegroundColorChange: function(e){
+			this.fontColor = e.detail.color;
+			this.editor.format('color',this.fontColor);
+		},
+		onBackgroundColorChange: function(e){
+			this.backgroundColor = e.detail.color;
+			this.editor.format('background-color',this.backgroundColor);
+		},
+
 		onJournalNewInstance: function() {
 			console.log("New instance");
+			for (var i=0; i<this.imageCount; i++){
+				this.singleEditorsContent.push(null);
+			}
+			this.imageLoaders();
+			var that = this;
+			window.setTimeout(function(){that.loadImages()},910);
 		},
 		onJournalDataLoaded: function (data, metadata) {
 			console.log("Existing instance");
-
+			
 			this.grid = data.grid;
+			this.imageLoaders();
 			this.images = data.images;
 			this.imageCount = data.imageCount;
 			this.gridEditorContent = JSON.parse(data.gridEditorContent);
 			this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
 			this.fontSelected = data.fontSelected;
 			this.fontSize = data.fontSize;
-			
 			if(data.grid){
 				this.grid=true;
 				this.editor.setContents(this.gridEditorContent);
@@ -307,8 +290,13 @@ var app = new Vue({
 			} else {
 				this.activeImage = this.images[this.activeImageIndex];
 				this.grid = false;
+				this.isLoaded = true;
+				for (var i=0; i<this.imageCount; i++){
+					clearInterval(this.intervalIds[i]);
+				}
 				this.editor.setContents(this.singleEditorsContent[0]);
 				this.updateEditor();
+				this.modeId="single-mode";
 				if (this.activeImageIndex === 0){
 					this.previousBtnId = "previous-btn-inactive";
 				}
