@@ -60,6 +60,8 @@ var app = new Vue({
 		note_index: -2,
 		note_freq: 0,
 		instrument_name: 'none',
+		notes_arr: ['A', 'A♯/B♭', 'B', 'C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭',
+			'G', 'G♯/A♭'],
 		colors: ['#B20008', '#00588C', '#F8E800', '#7F00BF', '#4BFF3A', '#FFA109',
 		'#00A0FF', '#BCCEFF', '#008009', '#F8E800', '#AC32FF', '#FFFFFF'],
 		harmonic_colors: ['#b54e52', '#4a7187', '#d4cc63', '#a568c4', '#89ed80', '#edbd6f',
@@ -121,6 +123,11 @@ var app = new Vue({
 			document.getElementById("triggering-edge-rising-button").title = this.SugarL10n.get("RisingEdge");
 			document.getElementById("triggering-edge-falling-button").title = this.SugarL10n.get("FallingEdge");
 			document.getElementById("TriggeringEdgeTitle").innerText = this.SugarL10n.get("TriggeringEdge");
+			document.getElementById("guitar_instrument").innerText = this.SugarL10n.get("Guitar");
+			var len = this.notes_arr.length;
+			for (var i = 0; i < len; i++) {
+				document.getElementById(`note_${i}`).innerText = this.SugarL10n.get(this.notes_arr[i]);
+			}
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {

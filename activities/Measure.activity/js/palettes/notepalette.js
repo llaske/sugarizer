@@ -7,12 +7,12 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var template = "";
 
-        var notes_arr = ['A', 'A♯/B♭', 'B', 'C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭',
-            'G', 'G♯/A♭']
+        var notes_arr = app.notes_arr;
         
         var len = notes_arr.length;
 
         if (app.instrument_name == 'none') {
+
             for(var i=0;i<len;i++) {
                 template += `
                     <div id="note_${i}" class="palette-item note-palette">${notes_arr[i]}</div>
@@ -33,19 +33,21 @@ define(["sugar-web/graphics/palette"], function (palette) {
             template = "";
             for (var i = 0; i < len; i++) {
                 template += `
-                    <div id="note_${i}" class="palette-item note-palette">${notes_arr[i]}</div>
+                    <div id="note_${i}" class="palette-item note-palette">${app.SugarL10n.get(notes_arr[i])}</div>
                 `;
             }
             containerElem.innerHTML = template;
         });
         document.getElementById("guitar_instrument").addEventListener('click', function (event) {
+
             template = `
-                    <div id="guitar_note_all" class="palette-item note-palette">All Notes</div>
+                    <div id="guitar_note_all" class="palette-item note-palette">${app.SugarL10n.get("AllNotes")}</div>
                 `;
 
             for(var i in app.instrument_data['guitar']['notes']) {
+
                 template += `
-                    <div id="guitar_note_${i}" class="palette-item note-palette">${i}</div>
+                    <div id="guitar_note_${i}" class="palette-item note-palette">${app.SugarL10n.get(i[0]) + ' ' + i[1]}</div>
                 `;
             }
             containerElem.innerHTML = template;
