@@ -10,6 +10,10 @@ define(["sugar-web/graphics/palette"], function (palette) {
             <div style="margin: 10px;">
                 <button id="harmonics-on-button" class="toolbutton" onclick="app.handleHarmonics()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
                 <button id="harmonics-off-button" class="toolbutton" onclick="app.handleHarmonics()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
+                <button id="tuning-line-on-button" class="toolbutton" onclick="app.showTuningLine()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
+                <button id="tuning-line-off-button" class="toolbutton" onclick="app.showTuningLine()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
+                <hr>
+                <input id="tuning-freq" type="text" value="440" style="width: 100px;margin-left: 10%;"/>
             </div>
         `;
 

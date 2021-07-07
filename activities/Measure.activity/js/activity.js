@@ -67,6 +67,7 @@ var app = new Vue({
 		harmonic_colors: ['#b54e52', '#4a7187', '#d4cc63', '#a568c4', '#89ed80', '#edbd6f',
 			'#8ac8ed', '#d7e0f7', '#558558', '#f2ed9b', '#d4a4f5', '#e6e3e3'],
 		show_harmonics: false,
+		show_tuning_line: false,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -128,6 +129,8 @@ var app = new Vue({
 			for (var i = 0; i < len; i++) {
 				document.getElementById(`note_${i}`).innerText = this.SugarL10n.get(this.notes_arr[i]);
 			}
+			document.getElementById("tuning-line-on-button").title = this.SugarL10n.get("ShowTuningLine");
+			document.getElementById("tuning-line-off-button").title = this.SugarL10n.get("HideTuningLine");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -303,6 +306,13 @@ var app = new Vue({
 						}
 					}
 				}
+			}
+
+			if(this.show_tuning_line) {
+				var tuning_freq = parseInt(document.getElementById("tuning-freq").value);
+				var x_value = (50 / this.freq_div) * tuning_freq;
+				canvasCtx.fillStyle = 'red';
+				canvasCtx.fillRect(x_value, this.canvas.height, 2, -1*this.canvas.height);
 			}
 
 			if (this.time_domain && (this.trigEdge == 1 || this.trigEdge == 2)) {
@@ -817,6 +827,25 @@ var app = new Vue({
 				document.getElementById("harmonics-off-button").style.display = "initial";
 			}
 			this.drawWaveform();
+		},
+		showTuningLine: function() {
+
+			if(this.time_domain) {
+				this.TimeOrFreq();
+			}
+
+			this.show_tuning_line = !this.show_tuning_line;
+
+			if(this.show_tuning_line) {
+				document.getElementById("tuning-line-on-button").style.display = "initial";
+				document.getElementById("tuning-line-off-button").style.display = "none";
+			}
+			else {
+				document.getElementById("tuning-line-on-button").style.display = "none";
+				document.getElementById("tuning-line-off-button").style.display = "initial";
+			}
+			this.drawWaveform();
+
 		},
 		onAudioInput: function(e) {
 

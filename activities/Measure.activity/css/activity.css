@@ -398,7 +398,7 @@ p {
 }
 
 #tuning-palette-button {
-	background-image: url("../icons/tuning-tools-off.svg");
+	background-image: url("../icons/tuning-tools-on.svg");
 }
 
 #harmonics-on-button {
@@ -408,4 +408,13 @@ p {
 
 #harmonics-off-button {
 	background-image: url("../icons/harmonics-off.svg");
+}
+
+#tuning-line-on-button {
+	background-image: url("../icons/tuning-tools-on.svg");
+	display: none;
+}
+
+#tuning-line-off-button {
+	background-image: url("../icons/tuning-tools-off.svg");
 }
