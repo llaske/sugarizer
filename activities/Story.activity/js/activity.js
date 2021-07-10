@@ -83,20 +83,11 @@ var app = new Vue({
 					var req = new XMLHttpRequest();
 					req.open('HEAD', urlToFile, false);
 					req.send();
-					if(navigator.userAgent.indexOf("Safari") != -1){
-						// Check sugarizer-server error here req.response != ""
-						if (req.readyState === 4){
-							return true;
-						} else {
-							return false;
-						}	
+					if (req.status === 200 || req.response != ""){
+						return true;
 					} else {
-						if (req.readyState === 4){
-							return true;
-						} else {
-							return false;
-						}	
-					}
+						return false;
+					}	
 				} catch (error) {
 					return false;
 				}
