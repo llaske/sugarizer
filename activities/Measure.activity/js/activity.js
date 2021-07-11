@@ -74,6 +74,7 @@ var app = new Vue({
 		freq_input_octave: 4,
 		A0: 27.5,
 		TWELTHROOT2: 1.05946309435929,
+		C8: 4186.01,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -321,6 +322,45 @@ var app = new Vue({
 				var x_value = (50 / this.freq_div) * tuning_freq;
 				canvasCtx.fillStyle = 'red';
 				canvasCtx.fillRect(x_value, this.canvas.height, 2, -1*this.canvas.height);
+
+				var freq_arr = this.freqDomainData.slice(0, samples+1);
+				var indexOfMaxValue = freq_arr.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+				var x_coord_value = indexOfMaxValue*sliceWidth;
+				var max_freq_value = (x_coord_value*this.freq_div)/50;
+
+				var label = "";
+				var color = "";
+
+				for(var i=0;i<88;i++) {
+					var f = this.A0 * Math.pow(this.TWELTHROOT2, i);
+					if (max_freq_value < f*1.03 && max_freq_value > f*0.97) {
+						label = this.SugarL10n.get(this.notes_arr[i%12]) + parseInt(i/12).toString();
+						color = 'white';
+						if (max_freq_value < f * 0.98) {
+							label = '♭ ' + label + ' ♭';
+							color = 'red';
+						}
+						else if (max_freq_value < f * 0.99) {
+							label = '♭ ' + label + ' ♭';
+							color = 'yellow';
+						}
+						else if (max_freq_value > f * 1.02) {
+							label = '# ' + label + ' #';
+							color = 'red';
+						}
+						else if (max_freq_value > f * 1.01) {
+							label = '# ' + label + ' #';
+							color = 'yellow';
+						}
+                		else {
+							color = 'white';
+						}
+						break;
+					}
+				}
+				canvasCtx.font = "20px Georgia";
+				canvasCtx.fillStyle = color;
+				canvasCtx.fillText(label, this.canvas.width - 200, 30);
 			}
 
 			if (this.time_domain && (this.trigEdge == 1 || this.trigEdge == 2)) {
