@@ -68,6 +68,8 @@ var app = new Vue({
 			'#8ac8ed', '#d7e0f7', '#558558', '#f2ed9b', '#d4a4f5', '#e6e3e3'],
 		show_harmonics: false,
 		show_tuning_line: false,
+		play_note : false,
+		tone_osc: null,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -131,6 +133,8 @@ var app = new Vue({
 			}
 			document.getElementById("tuning-line-on-button").title = this.SugarL10n.get("ShowTuningLine");
 			document.getElementById("tuning-line-off-button").title = this.SugarL10n.get("HideTuningLine");
+			document.getElementById("play-note-button").title = this.SugarL10n.get("playTitle");
+			document.getElementById("stop-note-button").title = this.SugarL10n.get("stopTitle");
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -309,7 +313,7 @@ var app = new Vue({
 			}
 
 			if(this.show_tuning_line) {
-				var tuning_freq = parseInt(document.getElementById("tuning-freq").value);
+				var tuning_freq = parseFloat(document.getElementById("tuning-freq").value);
 				var x_value = (50 / this.freq_div) * tuning_freq;
 				canvasCtx.fillStyle = 'red';
 				canvasCtx.fillRect(x_value, this.canvas.height, 2, -1*this.canvas.height);
@@ -846,6 +850,26 @@ var app = new Vue({
 			}
 			this.drawWaveform();
 
+		},
+		playStopNote: function() {
+			this.play_note = !this.play_note;
+
+			if(this.play_note) {
+				document.getElementById("play-note-button").style.display = "initial";
+				document.getElementById("stop-note-button").style.display = "none";
+				var note_freq_value = parseFloat(document.getElementById("tuning-freq").value);
+				if(note_freq_value >= 0 && note_freq_value <= 20000) {
+					this.tone_osc = new Tone.Oscillator(note_freq_value, "sine").toDestination().start();
+				}
+			}
+			else {
+				document.getElementById("play-note-button").style.display = "none";
+				document.getElementById("stop-note-button").style.display = "initial";
+				if(this.tone_osc != null) {
+					this.tone_osc.stop();
+					this.tone_osc = null;
+				}
+			}
 		},
 		onAudioInput: function(e) {
 

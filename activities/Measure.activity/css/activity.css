@@ -418,3 +418,14 @@ p {
 #tuning-line-off-button {
 	background-image: url("../icons/tuning-tools-off.svg");
 }
+
+#play-note-button {
+	background-image: url("../icons/play.svg");
+	background-repeat: round;
+	display: none;
+}
+
+#stop-note-button {
+	background-image: url("../icons/pause.svg");
+	background-repeat: no-repeat;
+}
