@@ -29,45 +29,69 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var that = this;
 
-        document.getElementById("none").addEventListener('click', function (event) {
-            template = "";
-            for (var i = 0; i < len; i++) {
-                template += `
+        for (var i = 0; i < len; i++) {
+            (function (index) {
+                document.getElementById(`note_${index}`).addEventListener('click', function (e) {
+                    app.setNote(index);
+                    that.popDown();
+                })
+            })(i)
+        }
+
+        if(document.getElementById("none")) {
+
+            document.getElementById("none").addEventListener('click', function (event) {
+                template = "";
+                for (var i = 0; i < len; i++) {
+                    template += `
                     <div id="note_${i}" class="palette-item note-palette">${app.SugarL10n.get(notes_arr[i])}</div>
                 `;
-            }
-            containerElem.innerHTML = template;
-        });
-        document.getElementById("guitar_instrument").addEventListener('click', function (event) {
+                }
+                containerElem.innerHTML = template;
+                for (var i = 0; i < len; i++) {
+                    (function (index) {
+                        document.getElementById(`note_${index}`).addEventListener('click', function (e) {
+                            app.setNote(index);
+                            that.popDown();
+                        })
+                    })(i)
+                }
+            });
 
-            template = `
+        }
+
+        if(document.getElementById("guitar_instrument")) {
+            document.getElementById("guitar_instrument").addEventListener('click', function (event) {
+
+                template = `
                     <div id="guitar_note_all" class="palette-item note-palette">${app.SugarL10n.get("AllNotes")}</div>
                 `;
-            
-            var j = 0;
-            for(var i in app.instrument_data['guitar']['notes']) {
 
-                template += `
+                var j = 0;
+                for (var i in app.instrument_data['guitar']['notes']) {
+
+                    template += `
                     <div id="guitar_note_${i}" class="palette-item note-palette" style="color: ${app.colors[j]};">${app.SugarL10n.get(i[0]) + ' ' + i[1]}</div>
                 `;
-                j++;
-            }
-            containerElem.innerHTML = template;
-            document.getElementById("guitar_note_all").addEventListener('click', function(e) {
-                window.app.drawNote(-1, 0);
-                that.popDown();
-            })
-            j = 0;
-            for (var i in app.instrument_data['guitar']['notes']) {
-                (function (index, key) {
-                    document.getElementById(`guitar_note_${key}`).addEventListener('click', function (e) {
-                        window.app.drawNote(index, app.instrument_data['guitar']['notes'][key]);
-                        that.popDown();
-                    })
-                })(j, i)
-                j++;
-            }
-        });
+                    j++;
+                }
+                containerElem.innerHTML = template;
+                document.getElementById("guitar_note_all").addEventListener('click', function (e) {
+                    window.app.drawNote(-1, 0);
+                    that.popDown();
+                })
+                j = 0;
+                for (var i in app.instrument_data['guitar']['notes']) {
+                    (function (index, key) {
+                        document.getElementById(`guitar_note_${key}`).addEventListener('click', function (e) {
+                            window.app.drawNote(index, app.instrument_data['guitar']['notes'][key]);
+                            that.popDown();
+                        })
+                    })(j, i)
+                    j++;
+                }
+            });
+        }
 
     };
 

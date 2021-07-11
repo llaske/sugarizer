@@ -20,10 +20,16 @@ define(["sugar-web/graphics/palette"], function (palette) {
         containerElem.innerHTML = template;
         this.setContent([containerElem]);
 
-        this.SelectOctaveEvent = document.createEvent('CustomEvent');
-        this.SelectOctaveEvent.initCustomEvent('select-octave', true, true, { octave: 0 });
-
         var that = this;
+
+        for (var i=0;i<9;i++) {
+            (function (index) {
+                document.getElementById(`octave_${index}`).addEventListener('click', function (e) {
+                    app.setOctave(index);
+                    that.popDown();
+                })
+            })(i)
+        }
 
     };
 

@@ -70,6 +70,10 @@ var app = new Vue({
 		show_tuning_line: false,
 		play_note : false,
 		tone_osc: null,
+		freq_input_note_index: 0,
+		freq_input_octave: 4,
+		A0: 27.5,
+		TWELTHROOT2: 1.05946309435929,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -278,7 +282,7 @@ var app = new Vue({
 			var sliceWidth = this.canvas.width * 1.0 / samples;
 			var is_trig = false;
 
-			if (this.draw_note) {
+			if ((!this.time_domain) && this.draw_note) {
 
 				if (this.note_index == -1) {
 					var instrument_notes_obj = this.instrument_data[this.instrument_name]['notes'];
@@ -312,7 +316,7 @@ var app = new Vue({
 				}
 			}
 
-			if(this.show_tuning_line) {
+			if ((!this.time_domain) && this.show_tuning_line) {
 				var tuning_freq = parseFloat(document.getElementById("tuning-freq").value);
 				var x_value = (50 / this.freq_div) * tuning_freq;
 				canvasCtx.fillStyle = 'red';
@@ -406,6 +410,12 @@ var app = new Vue({
 			this.time_domain = !this.time_domain;
 
 			if(this.time_domain) {
+				if (this.show_harmonics) {
+					this.harmonics_button_display();
+				}
+				if (this.show_tuning_line) {
+					this.tuning_line_button_display();
+				}
 				document.getElementById("time-domain-button").style.display = "initial";
 				document.getElementById("freq-domain-button").style.display = "none";
 				document.getElementById("domainName").innerText = this.time_base_string;
@@ -790,10 +800,6 @@ var app = new Vue({
 		},
 		selectInstrument: function(e) {
 			this.instrument_name = e.instrument_name;
-			
-			if (this.time_domain) {
-				this.TimeOrFreq();
-			}
 
 			if(this.instrument_name == 'none') {
 				this.draw_note = false;
@@ -805,6 +811,11 @@ var app = new Vue({
 				this.note_index = -1;
 				this.note_freq = 0;
 			}
+
+			if (this.time_domain) {
+				this.TimeOrFreq();
+			}
+
 			this.drawWaveform();
 		},
 		drawNote: function(note_idx, freq) {
@@ -816,13 +827,9 @@ var app = new Vue({
 			}
 			this.drawWaveform();
 		},
-		handleHarmonics: function() {
-			if (this.instrument_name == 'none') {
-				return;
-			}
+		harmonics_button_display: function() {
 			this.show_harmonics = !this.show_harmonics;
-
-			if(this.show_harmonics) {
+			if (this.show_harmonics) {
 				document.getElementById("harmonics-on-button").style.display = "initial";
 				document.getElementById("harmonics-off-button").style.display = "none";
 			}
@@ -830,17 +837,18 @@ var app = new Vue({
 				document.getElementById("harmonics-on-button").style.display = "none";
 				document.getElementById("harmonics-off-button").style.display = "initial";
 			}
+		},
+		handleHarmonics: function() {
+			if (this.instrument_name == 'none') {
+				return;
+			}
+			this.harmonics_button_display();
 			this.drawWaveform();
 		},
-		showTuningLine: function() {
-
-			if(this.time_domain) {
-				this.TimeOrFreq();
-			}
-
+		tuning_line_button_display: function() {
 			this.show_tuning_line = !this.show_tuning_line;
 
-			if(this.show_tuning_line) {
+			if (this.show_tuning_line) {
 				document.getElementById("tuning-line-on-button").style.display = "initial";
 				document.getElementById("tuning-line-off-button").style.display = "none";
 			}
@@ -848,6 +856,13 @@ var app = new Vue({
 				document.getElementById("tuning-line-on-button").style.display = "none";
 				document.getElementById("tuning-line-off-button").style.display = "initial";
 			}
+		},
+		showTuningLine: function() {
+
+			if(this.time_domain) {
+				return;
+			}
+			this.tuning_line_button_display();
 			this.drawWaveform();
 
 		},
@@ -870,6 +885,19 @@ var app = new Vue({
 					this.tone_osc = null;
 				}
 			}
+		},
+		setNote: function(idx){
+			this.freq_input_note_index = idx;
+			this.updateFreqInput();
+		},
+		setOctave: function(val) {
+			this.freq_input_octave = val;
+			this.updateFreqInput();
+		},
+		updateFreqInput: function() {
+			var res = this.freq_input_octave * 12 + this.freq_input_note_index;
+			var freq = this.A0 * Math.pow(this.TWELTHROOT2, res);
+			document.getElementById("tuning-freq").value = freq.toFixed(3);
 		},
 		onAudioInput: function(e) {
 
