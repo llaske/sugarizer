@@ -10,6 +10,7 @@ requirejs.config({
 var app = new Vue({
 	el: '#app',
 	data: {
+		environment: null,
 		grid: true,
 		modeId: "grid-mode",
 		images: [],
@@ -18,6 +19,11 @@ var app = new Vue({
 		previousBtnId: null,
 		nextBtnId: null,
 		recordIconId: null,
+		recording: false,
+		recordRTC: null,
+		mediaStream: null,
+		gridAudioRecord: null,
+		singleAudioRecords: [],
 		imageCount: 9,	//update with Image slider
 		imageLoaded: 0,
 		intervalIds: [],
@@ -36,6 +42,7 @@ var app = new Vue({
 		initialized: function () {
 			// Sugarizer initialized
 			var environment = this.$refs.SugarActivity.getEnvironment();	
+			this.environment = environment;
 			this.colors = [environment.user.colorvalue.fill, environment.user.colorvalue.stroke, '#FFFFFF'];
 			if (this.activeImageIndex===0){
 				this.previousBtnId = "previous-btn-inactive";
@@ -48,6 +55,7 @@ var app = new Vue({
 			// document.getElementById('grid-mode').classList.add("active");
 			for (var i=0; i<this.imageCount; i++){
 				this.singleEditorsContent.push(null);
+				this.singleAudioRecords.push(null);
 			}
 			this.loadEditor();			
 		},
@@ -274,7 +282,9 @@ var app = new Vue({
 			this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
 			this.fontSelected = data.fontSelected;
 			this.fontSize = data.fontSize;
-			if(data.grid){
+			this.gridAudioRecord = data.gridAudioRecord;
+			this.singleAudioRecords = data.singleAudioRecords;
+			if(data.grid){	
 				this.grid=true;
 				this.editor.setContents(this.gridEditorContent);
 				this.updateEditor();
@@ -296,6 +306,125 @@ var app = new Vue({
 		onJournalLoadError: function(error) {
 			console.log("Error loading from journal");
 		},
+		onRecord: function(error){
+			var t = this;
+			if (window.cordova || window.PhoneGap){
+				// Using Cordova
+				var captureSuccess = function (mediaFiles) {
+					var i, path, len;
+					for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+						path = mediaFiles[i].fullPath;
+						if (path.indexOf("file:/") == -1) {
+							path = "file:/" + path;
+						}
+						path = path.replace("file:/", "file:///");
+						window.resolveLocalFileSystemURL(path, function (entry) {
+							entry.file(function (file) {
+								// if (file.size / 1000000 > 2) {
+								// 	displayAlertMessage("File is too big");
+								// 	return;
+								// }
+								var reader = new FileReader();
+								reader.onloadend = function (evt) {
+									if (t.grid){
+										t.gridAudioRecord = evt.target.result;
+									} else {
+										t.singleAudioRecords[t.activeImageIndex]=evt.target.result;
+									}
+								};
+								reader.readAsDataURL(file);
+							}, function (err) {
+							})
+						}, function (err) {
+						});
+					}
+				};
+	
+				// capture error callback
+				var captureError = function (error) {
+					console.log("Error occured in capturing audio", error)
+				};
+	
+				// start audio capture
+				try {
+					navigator.device.capture.captureAudio(captureSuccess, captureError, {
+						limit: 1
+					});
+				} catch(err){
+					console.log("error", err);
+				}			
+			} else {
+				// Using recordRTC For web
+				var that = this;
+				if (that.recording){
+					that.recording = false;
+					that.recordIconId="record";
+						that.recordRTC.stopRecording(function () {
+							that.recordRTC.getDataURL(function (dataURL) {
+								// setTimeout(function () {
+									if (that.grid){
+										that.gridAudioRecord = dataURL;
+									} else {
+										that.singleAudioRecords[that.activeImageIndex]=dataURL;
+									}
+									if (that.mediaStream.stop) that.mediaStream.stop();
+								// }, 500);
+							}, false);
+						});
+				} else {
+					try {
+						that.recording = true;
+						that.recordIconId = "record-start";
+						navigator.mediaDevices.getUserMedia({audio: true}).then(function (mediaStream) {
+							var recordRTC = RecordRTC(mediaStream, {
+								type: 'audio'
+							});
+							that.recordRTC = recordRTC;
+							that.mediaStream= mediaStream;
+							recordRTC.startRecording();
+						}).catch(function (error) {
+							that.recording = false;
+						});
+					} catch (e) {
+						that.recording = false;
+					}
+				}
+			}
+		},
+		exportRecord: function(){
+			var t = this;
+			if (this.grid){
+				if (t.gridAudioRecord != null){
+					var dataURL = t.gridAudioRecord;
+					var mimetype = dataURL.split(";")[0].split(":")[1];
+					var metadata = {
+						mimetype: mimetype,
+						title: "Story by "+ t.environment.user.name + " in Grid Mode",
+						activity: "org.olpcfrance.MediaViewerActivity",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0 
+					};
+					t.$refs.SugarJournal.createEntry(dataURL, metadata);
+					t.$refs.SugarPopup.log("Grid Mode Audio exported")
+				}
+			} else {
+				if (t.singleAudioRecords[t.activeImageIndex] != null){
+					var dataURL = t.singleAudioRecords[t.activeImageIndex];
+					var mimetype = dataURL.split(";")[0].split(":")[1];
+					var metadata = {
+						mimetype: mimetype,
+						title: "Story by "+ t.environment.user.name + " for Image " + (t.activeImageIndex+1),
+						activity: "org.olpcfrance.MediaViewerActivity",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+					t.$refs.SugarJournal.createEntry(dataURL, metadata);
+					t.$refs.SugarPopup.log("Single Mode Audio exported")
+				}
+			}
+		},	
 		onStop: function() {
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
@@ -310,6 +439,8 @@ var app = new Vue({
 				singleEditorsContent: JSON.stringify(this.singleEditorsContent),
 				fontSelected: this.fontSelected,
 				fontSize:this.fontSize,
+				gridAudioRecord: this.gridAudioRecord,
+				singleAudioRecords: this.singleAudioRecords
 			};
 			this.$refs.SugarJournal.saveData(context);
 		}

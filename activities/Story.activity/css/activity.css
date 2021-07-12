@@ -92,6 +92,9 @@ p {
 #main-toolbar #font-button {
 	background-image: url(../icons/font-text.svg);
 }
+#main-toolbar #export-sound {
+	background-image: url(../icons/save-sound.svg);
+}
 /* Format text palette */
 #format-text-buttons {
 	display: flex;
