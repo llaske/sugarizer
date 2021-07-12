@@ -231,7 +231,8 @@ var app = new Vue({
 		resizeCanvas: function(scaleWidth = 55) {
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight - scaleWidth - (document.getElementById("axisScale").clientHeight);
-			this.drawWaveform();
+			this.calcTimeDomainData();
+			this.calcFreqDomainData();
 		},
 		fullscreenOrUnfullscreen: function() {
 			this.fullscreen = !this.fullscreen;
