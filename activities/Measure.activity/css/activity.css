@@ -123,6 +123,10 @@ p {
 	padding-left: 4px;
 }
 
+#app {
+	position: fixed;
+}
+
 #mainCanvas {
 	display: block;
 }
@@ -428,4 +432,31 @@ p {
 #stop-note-button {
 	background-image: url("../icons/pause.svg");
 	background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 908px) {
+	#tuning-palette-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 851px) {
+	#afterTuningSplitbar {
+		visibility: hidden;
+	}
+	#instrument-select-button {
+		display: none;
+	}
+	#note-select-button {
+		display: none;
+	}
+	#octave-select-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 679px) {
+	#capture-image-button {
+		display: none;
+	}
 }
