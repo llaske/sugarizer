@@ -236,27 +236,27 @@ p {
 
 #previous-btn {
 	background-image: url(../icons/go-previous.svg);
-	width: 30px;
-	height: 30px;
-	background-size: 30px 30px;
+	width: 50px;
+	height: 50px;
+	background-size: 50px 50px;
 }
 #previous-btn-inactive {
 	background-image: url(../icons/go-previous-inactive.svg);
-	width: 30px;
-	height: 30px;
-	background-size: 30px 30px;
+	width: 50px;
+	height: 50px;
+	background-size: 50px 50px;
 }
 #next-btn {
 	background-image: url(../icons/go-next.svg);
-	width: 30px;
-	height: 30px;
-	background-size: 30px 30px;
+	width: 50px;
+	height: 50px;
+	background-size: 50px 50px;
 }
 #next-btn-inactive {
 	background-image: url(../icons/go-next-inactive.svg);
-	width: 30px;
-	height: 30px;
-	background-size: 30px 30px;
+	width: 50px;
+	height: 50px;
+	background-size: 50px 50px;
 }
 
 /* Editor Styling */
