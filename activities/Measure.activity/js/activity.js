@@ -51,9 +51,83 @@ var app = new Vue({
 					'G2': 195.998,
 					'B3': 246.942,
 					'E3': 329.628
-				},
-				'octaves': false,
-				'octave_data': {}
+				}
+			},
+			violin: {
+				notes: {
+					'G2': 195.998,
+					'D3': 293.665,
+					'A4': 440,
+					'E4': 659.255
+				}
+			},
+			viola: {
+				notes: { 
+					'C2': 130.813,
+					'G2': 195.998,
+					'D3': 293.665,
+					'A4': 440
+				}
+			},
+			cello: {
+				notes: {
+					'C1': 65.4064,
+					'G1': 97.9989,
+					'D2': 146.832,
+					'A3': 220
+				}
+			},
+			bass: {
+				notes: {
+					'E0': 41.2034,
+					'A1': 55,
+					'D1': 73.4162,
+					'G1': 97.9989
+				}
+			},
+			charango: {
+				notes: {
+					'E3': 329.63,
+					'G3': 392,
+					'A4': 440,
+					'C4': 523.25,
+					'E4': 659.26
+				}
+			},
+			cavaquinho: {
+				notes: {
+					'D3': 293.665,
+					'G3': 391.995,
+					'B4': 493.883,
+					'D4': 587.330
+				}
+			},
+			ukulele: {
+				notes: {
+					'C3': 261.626,
+					'E3': 329.628,
+					'G3': 391.995,
+					'A4': 440
+				}
+			},
+			sitar: {
+				notes: {
+					'F2': 174.614,
+					'C2': 130.813,
+					'G2': 195.998,
+					'C1': 65.4064,
+					'G3': 391.995,
+					'C3': 261.626,
+					'C4': 523.251
+				}
+			},
+			mandolin: {
+				notes: {
+					'G2': 195.998,
+					'D3': 293.665,
+					'A4': 440,
+					'E4': 659.255
+				}
 			}
 		},
 		draw_note: false,
@@ -131,7 +205,9 @@ var app = new Vue({
 			document.getElementById("triggering-edge-rising-button").title = this.SugarL10n.get("RisingEdge");
 			document.getElementById("triggering-edge-falling-button").title = this.SugarL10n.get("FallingEdge");
 			document.getElementById("TriggeringEdgeTitle").innerText = this.SugarL10n.get("TriggeringEdge");
-			document.getElementById("guitar_instrument").innerText = this.SugarL10n.get("Guitar");
+			for (var instrument in app.instrument_data) {
+				document.getElementById(`${instrument}_instrument`).innerText = this.SugarL10n.get(instrument);
+			}
 			var len = this.notes_arr.length;
 			for (var i = 0; i < len; i++) {
 				document.getElementById(`note_${i}`).innerText = this.SugarL10n.get(this.notes_arr[i]);
@@ -846,7 +922,7 @@ var app = new Vue({
 				this.note_index = -2;
 				this.note_freq = 0;
 			}
-			else if(this.instrument_name == 'guitar') {
+			else {
 				this.draw_note = true;
 				this.note_index = -1;
 				this.note_freq = 0;

@@ -8,8 +8,11 @@ define(["sugar-web/graphics/palette"], function (palette) {
         var template =
         `
             <div id="none" class="palette-item">None</div>
-            <div id="guitar_instrument" class="palette-item">Guitar</div>
         `;
+
+        for (var instrument in app.instrument_data) {
+            template += `<div id="${instrument}_instrument" class="palette-item">${instrument}</div>`
+        }
 
         var containerElem = document.createElement('div');
         containerElem.innerHTML = template;
@@ -27,12 +30,16 @@ define(["sugar-web/graphics/palette"], function (palette) {
             that.popDown();
         });
 
-        document.getElementById("guitar_instrument").addEventListener('click', function (event) {
-            document.getElementById("octave-select-button").style.display = "none";
-            that.SelectInstrumentEvent.instrument_name = 'guitar';
-            that.getPalette().dispatchEvent(that.SelectInstrumentEvent);
-            that.popDown();
-        });
+        for (var instrument in app.instrument_data) {
+            (function (instrument) {
+                document.getElementById(`${instrument}_instrument`).addEventListener('click', function (event) {
+                    document.getElementById("octave-select-button").style.display = "none";
+                    that.SelectInstrumentEvent.instrument_name = instrument;
+                    that.getPalette().dispatchEvent(that.SelectInstrumentEvent);
+                    that.popDown();
+                });
+            })(instrument)
+        }
     };
 
     var addEventListener = function (type, listener, useCapture) {
