@@ -205,6 +205,15 @@ var app = new Vue({
 			document.getElementById("triggering-edge-rising-button").title = this.SugarL10n.get("RisingEdge");
 			document.getElementById("triggering-edge-falling-button").title = this.SugarL10n.get("FallingEdge");
 			document.getElementById("TriggeringEdgeTitle").innerText = this.SugarL10n.get("TriggeringEdge");
+			if(this.trigEdge == 0) {
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("None");
+			}
+			else if(this.trigEdge == 1) {
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("RisingEdge");
+			}
+			else {
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("FallingEdge");
+			}
 			for (var instrument in app.instrument_data) {
 				document.getElementById(`${instrument}_instrument`).innerText = this.SugarL10n.get(instrument);
 			}
@@ -902,16 +911,19 @@ var app = new Vue({
 				document.getElementById("triggering-edge-none-button").style.display = "none";
 				document.getElementById("triggering-edge-rising-button").style.display = "initial";
 				document.getElementById("triggering-edge-falling-button").style.display = "none";
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("RisingEdge");
 			}
 			else if(this.trigEdge == 2) {
 				document.getElementById("triggering-edge-none-button").style.display = "none";
 				document.getElementById("triggering-edge-rising-button").style.display = "none";
 				document.getElementById("triggering-edge-falling-button").style.display = "initial";
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("FallingEdge");
 			}
 			else {
 				document.getElementById("triggering-edge-none-button").style.display = "initial";
 				document.getElementById("triggering-edge-rising-button").style.display = "none";
 				document.getElementById("triggering-edge-falling-button").style.display = "none";
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("None");
 			}
 			this.drawWaveform();
 		},

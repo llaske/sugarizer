@@ -30,9 +30,12 @@ define(["sugar-web/graphics/palette"], function (palette) {
                 </div>
                 <hr>
                 <h3 id="TriggeringEdgeTitle">Triggering Edge</h3>
-                <button id="triggering-edge-none-button" class="toolbutton" onclick="app.triggeringEdge()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
-                <button id="triggering-edge-rising-button" class="toolbutton" onclick="app.triggeringEdge()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
-                <button id="triggering-edge-falling-button" class="toolbutton" onclick="app.triggeringEdge()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
+                <div style="display: -webkit-inline-box;">
+                    <button id="triggering-edge-none-button" class="toolbutton" onclick="app.triggeringEdge()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
+                    <button id="triggering-edge-rising-button" class="toolbutton" onclick="app.triggeringEdge()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
+                    <button id="triggering-edge-falling-button" class="toolbutton" onclick="app.triggeringEdge()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
+                    <h3 id="TrigEdgeType" style="margin-left: 30%;">None</h3>
+                </div>
             </div>
         `;
 
