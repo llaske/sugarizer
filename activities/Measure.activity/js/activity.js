@@ -928,14 +928,22 @@ var app = new Vue({
 			this.drawWaveform();
 		},
 		selectInstrument: function(e) {
+			if(this.instrument_name == 'none') {
+				document.getElementById("none").style.backgroundColor = '';
+			}
+			else {
+				document.getElementById(`${this.instrument_name}_instrument`).style.backgroundColor = '';
+			}
 			this.instrument_name = e.instrument_name;
 
 			if(this.instrument_name == 'none') {
+				document.getElementById("none").style.backgroundColor = 'darkgray';
 				this.draw_note = false;
 				this.note_index = -2;
 				this.note_freq = 0;
 			}
 			else {
+				document.getElementById(`${this.instrument_name}_instrument`).style.backgroundColor = 'darkgray';
 				this.draw_note = true;
 				this.note_index = -1;
 				this.note_freq = 0;
