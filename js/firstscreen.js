@@ -30,8 +30,15 @@ enyo.kind({
 		{name: "historybox", classes: "first-historybox", kind: "Repeater", onSetupItem: "setupHistory", onresize: "resize", showing: false, components:[
 			{name: "history", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "owner-icon.svg"}, classes: "first-historybutton", ontap: "historyClicked"}
 		]},
+		{name: "consentbox", classes: "first-consentbox", onresize: "resize", showing: false, components: [
+			{name: "privacy", kind: "Sugar.Icon", icon: {directory: "icons", icon: "cookie.svg"}, classes: "first-privacy-icon"},
+			{name: "cookietext", content: "xxx", classes: "first-cookietext", allowHtml: true},
+			{name: "policytext", content: "xxx", classes: "first-policytext", allowHtml: true}
+		]},
 		{name: "previous", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-left.svg"}, classes: "first-leftbutton", ontap: "previous", showing: false},
 		{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "first-rightbutton", ontap: "next", showing: false},
+		{name: "decline", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "first-leftbutton", ontap: "decline", showing: false},
+		{name: "accept", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "first-rightbutton", ontap: "accept", showing: false},
 		{name: "colortext", content: "xxx", classes: "first-colortext", showing: false},
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "first-owner-icon", showing: false, onresize: "resize", ontap: "nextcolor"},
 		{name: "newuser", kind: "Sugar.Icon", size: constant.sizeNewUser, colorized: false, classes: "first-owner-icon", showing: true, onresize: "resize", ontap: "newUser"},
@@ -106,6 +113,10 @@ enyo.kind({
 		this.$.password.setLabel(l10n.get("Password"));
 		this.$.previous.setText(l10n.get("Back"));
 		this.$.next.setText(l10n.get("Next"));
+		this.$.decline.setText(l10n.get("Decline"));
+		this.$.accept.setText(l10n.get("Accept"));
+		this.$.cookietext.setContent(l10n.get("CookieConsent"));
+		this.$.policytext.setContent(l10n.get("PolicyLink", {url: "#"}));
 		this.$.newusertext.setContent(l10n.get("NewUser"));
 		this.$.logintext.setContent(l10n.get("Login"));
 		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
@@ -137,11 +148,16 @@ enyo.kind({
 			vowner = false,
 			vnext = false,
 			vprevious = false,
+			vdecline = false,
+			vaccept = false,
+			vconsentbox = false,
 			vwarning = false,
 			vhistory = false;
 		var currentserver;
 		var serverurl;
 		var defaultServer;
+		var server = preferences.getServer();
+		var consentNeed = ((util.getClientType() == constant.appType && !this.createnew) || (server && server.options && server.options["consent-need"]));
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
@@ -177,10 +193,15 @@ enyo.kind({
 		case 4: // Choose color
 			this.scrollToTop();
 			vcolortext = vprevious = vnext = vowner = true;
-			this.$.next.setText(l10n.get("Done"));
+			this.$.next.setText(l10n.get(consentNeed ? "Next" : "Done"));
 			break;
 
-		case 5: // Go to home view
+		case 5: // Consent to cookies
+			this.scrollToTop();
+			vconsentbox = vdecline = vaccept = true;
+			break;
+
+		case 6: // Go to home view
 			this.createOrLogin();
 			return;
 		}
@@ -209,6 +230,9 @@ enyo.kind({
 		this.$.owner.setShowing(vowner);
 		this.$.previous.setShowing(vprevious);
 		this.$.next.setShowing(vnext);
+		this.$.decline.setShowing(vdecline);
+		this.$.accept.setShowing(vaccept);
+		this.$.consentbox.setShowing(vconsentbox);
 		this.$.historybox.setShowing(vhistory && this.history.length);
 		this.$.warningmessage.setShowing(vwarning);
 	},
@@ -286,9 +310,20 @@ enyo.kind({
 				return;
 			}
 			this.step++;
-			if (!this.createnew) { // No color when login
-				this.step++;
+			if (!this.createnew) {
+				this.step++; // No color when login
+				this.step++; // No cookie consent when login (asked at create)
 			}
+			this.displayStep();
+		} else if (this.step == 4) {
+			var server = preferences.getServer();
+			if ((util.getClientType() == constant.appType && this.createnew) // No cookie consent for the app when create new
+				|| (server && !server.options["consent-need"])) { // No cookie consent if server doesn't require it
+				this.step++;
+			} else if (server && server.options) {
+				this.$.policytext.setContent(l10n.get("PolicyLink", {url: server.options["policy-url"]+"?lang="+preferences.getLanguage() || "#"}));
+			}
+			this.step++;
 			this.displayStep();
 		} else {
 			this.step++;
@@ -308,6 +343,16 @@ enyo.kind({
 		) {
 			this.step--;
 		}
+		this.displayStep();
+	},
+
+	decline: function() {
+		this.step = 0;
+		this.displayStep();
+	},
+
+	accept: function() {
+		this.step++;
 		this.displayStep();
 	},
 
@@ -373,6 +418,8 @@ enyo.kind({
 		var newUserPosition = (middletop-constant.sizeNewUser/2);
 		this.$.newuser.applyStyle("margin-top", newUserPosition+"px");
 		this.$.login.applyStyle("margin-top", newUserPosition+"px");
+		this.$.privacy.applyStyle("margin-left", (canvas_center.x-25)+"px");
+		this.$.consentbox.applyStyle("margin-top", (newUserPosition+55)+"px");
 		this.$.historybox.applyStyle("margin-top", (newUserPosition+20)+"px");
 		this.$.newusertext.applyStyle("margin-top", (newUserPosition+constant.sizeNewUser+20)+"px");
 		this.$.newusertext.applyStyle("width", constant.sizeNewUser+"px");
@@ -610,6 +657,8 @@ enyo.kind({
 		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
 		tutorial.setElement("next", this.$.next.getAttribute("id"));
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+		tutorial.setElement("accept", this.$.accept.getAttribute("id"));
+		tutorial.setElement("decline", this.$.decline.getAttribute("id"));
 		tutorial.setElement("createnew", this.createnew);
 		tutorial.setElement("currentstep", this.step);
 		tutorial.start();

@@ -1327,6 +1327,32 @@ body {
 	width: 150px;
 }
 
+.first-consentbox {
+	position: absolute;
+	width: 100%;
+}
+
+.first-privacy-icon {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.first-cookietext {
+	text-align: center;
+	margin-top: 70px;
+	width: 100%;
+	display: inline-block;
+	font-size: 11pt;
+}
+
+.first-policytext {
+	text-align: center;
+	width: 100%;
+	display: inline-block;
+	margin-top: 10px;
+	font-size: 11pt;
+}
+
 .first-colortext {
 	position: absolute;
 	vertical-align: middle;
