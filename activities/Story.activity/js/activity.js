@@ -24,6 +24,8 @@ var app = new Vue({
 		mediaStream: null,
 		gridAudioRecord: null,
 		singleAudioRecords: [],
+		audio: null,
+		isPlaying: false,
 		imageCount: 9,	//update with Image slider
 		imageLoaded: 0,
 		intervalIds: [],
@@ -425,6 +427,32 @@ var app = new Vue({
 				}
 			}
 		},	
+		playAudio: function(){
+			var that = this;
+			if (this.grid && this.gridAudioRecord != null){
+				if (!that.isPlaying){
+					var audio = document.createElement("audio");	
+					that.audio = audio;
+					that.audio.src = that.gridAudioRecord;
+					that.audio.play();
+					that.isPlaying = true;
+				} else {
+					that.audio.pause();
+					that.isPlaying = false;
+				}
+			} else if (!this.grid && this.singleAudioRecords[this.activeImageIndex]!=null){
+				if (!that.isPlaying){
+					var audio = document.createElement("audio");
+					that.audio = audio;
+					that.audio.src = that.singleAudioRecords[that.activeImageIndex];
+					that.audio.play();
+					that.isPlaying = true;
+				} else {
+					that.audio.pause();
+					that.isPlaying = false;
+				}
+			}
+		},
 		onStop: function() {
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
