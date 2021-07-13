@@ -355,4 +355,57 @@ p {
 	#editor-area  {
 		max-width: 80vw;
 	}
+	.grid-image img {
+		height: 55px;
+		width: 55px;
+	}
+	#editor {
+		height: 100px;
+	}
+	#display-grid {
+		grid-template-columns: repeat(3, 50px);
+		grid-auto-rows: 50px;
+	}
+	#display-single {
+		height: 170px;
+		width: 170px;
+	}
+	#display-single img {
+		height: 170px;
+		width: 170px;
+	}
+	#record {
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
+	#record-start {
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
+	#play {
+		background-image: url(../icons/play.svg);
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
+	#play-inactive {
+		background-image: url(../icons/play-inactive.svg);
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
+	#speak {
+		background-image: url(../icons/speak.svg);
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
+	#speak-inactive {
+		background-image: url(../icons/speak-inactive.svg);
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
 }
