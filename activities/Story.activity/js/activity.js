@@ -205,6 +205,22 @@ var app = new Vue({
 				}
 			}
 		},
+		openImage: function(index){
+			this.grid=false;
+			this.activeImageIndex = index;
+			this.activeImage = this.images[this.activeImageIndex];
+			this.modeId="single-mode";
+			if (index === 0){
+				this.previousBtnId = "previous-btn-inactive";
+				this.nextBtnId = "next-btn";
+			} else if (index === this.images.length-1){
+				this.previousBtnId = "previous-btn";
+				this.nextBtnId = "next-btn-inactive"; 
+			} else {
+				this.previousBtnId = "previous-btn";
+				this.nextBtnId = "next-btn";
+			}
+		},
 		increaseFont: function(){
 			var currentSize = this.editor.getFormat();
 			var that = this;

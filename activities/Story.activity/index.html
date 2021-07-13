@@ -78,8 +78,8 @@
 		<div id="display-image">
 			<!-- Grid Mode -->
 			<div v-if='grid' id="display-grid">
-				<div class="grid-image"  v-bind:style="{display:(isLoaded)?'block':'none'}"  v-for='image in images'>
-					<img :src="getUrlImg(image)" @load="loaded" />
+				<div class="grid-image"  v-bind:style="{display:(isLoaded)?'block':'none'}"  v-for='(image, index) in images'>
+					<img :src="getUrlImg(image)" @click="openImage(index)" @load="loaded" />
 				</div>
 				<div v-if="!isLoaded" class="grid-image" v-for='i in imageCount'>
 					<img src="./icons/question-mark.svg" class="questionmark"/>
