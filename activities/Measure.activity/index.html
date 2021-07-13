@@ -12,7 +12,11 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/jspdf.min.js"></script>
+	<script src="lib/Tone.js"></script>
+	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
@@ -51,11 +55,78 @@
 				v-bind:title="l10n.stringPause"
 				v-on:click="playOrPause"
 			></sugar-toolitem>
+			<sugar-toolitem 
+				id="settings-button" 
+				v-bind:title="l10n.stringWaveformSettings" 
+				palette-file="js/palettes/settingspalette.js"
+				palette-class="SettingsPalette"
+			></sugar-toolitem>
+			<div class="splitbar"></div>
+			<sugar-toolitem 
+				id="logging-interval-button" 
+				v-bind:title="l10n.stringLoggingInterval" 
+				palette-file="js/palettes/loggingpalette.js"
+				palette-class="LoggingPalette"
+				palette-event="log-interval"
+				v-on:log-interval="logInterval"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="record-off-button" 
+				v-bind:title="l10n.stringRecordOff"
+				v-on:click="startRecord"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="record-on-button" 
+				v-bind:title="l10n.stringRecordOn"
+				v-on:click="stopRecord"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="export-button" 
+				v-bind:title="l10n.stringExportSettings" 
+				palette-file="js/palettes/exportpalette.js"
+				palette-class="ExportPalette"
+				palette-event="export-file"
+				v-on:export-file="exportFile"
+			></sugar-toolitem>
+			<div class="splitbar"></div>
+			<sugar-toolitem 
+				id="instrument-select-button" 
+				v-bind:title="l10n.stringSelectInstrument" 
+				palette-file="js/palettes/instrumentpalette.js"
+				palette-class="InstrumentPalette"
+				palette-event="select-instrument"
+				v-on:select-instrument="selectInstrument"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="note-select-button" 
+				v-bind:title="l10n.stringSelectNote" 
+				palette-file="js/palettes/notepalette.js"
+				palette-class="NotePalette"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="octave-select-button" 
+				v-bind:title="l10n.stringSelectOctave" 
+				palette-file="js/palettes/octavepalette.js"
+				palette-class="OctavePalette"
+			></sugar-toolitem>
+			<sugar-toolitem 
+				id="tuning-palette-button" 
+				v-bind:title="l10n.stringTuningSettings" 
+				palette-file="js/palettes/tuningpalette.js"
+				palette-class="TuningPalette"
+			></sugar-toolitem>
+			<div id="afterTuningSplitbar" class="splitbar"></div>
+			<sugar-toolitem 
+				id="capture-image-button" 
+				v-bind:title="l10n.stringCaptureImage"
+				v-on:click="captureImage"
+			></sugar-toolitem>
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem 
 				id="stop-button" 
 				title="Stop" 
 				class="pull-right"
+				v-on:click="onActivityStop"
 			></sugar-toolitem>
 			<sugar-toolitem 
 				id="fullscreen-button" 
@@ -85,12 +156,18 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-journal ref="SugarJournal"></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-icon ref="SugarIcon"></sugar-icon>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
+	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarIcon.js"></script>
 	<script src="js/fft.js"></script>
 	<script src="js/activity.js"></script>
 </body>

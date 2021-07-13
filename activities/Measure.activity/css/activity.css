@@ -123,6 +123,10 @@ p {
 	padding-left: 4px;
 }
 
+#app {
+	position: fixed;
+}
+
 #mainCanvas {
 	display: block;
 }
@@ -177,4 +181,282 @@ p {
 	right: 15px;
 	position: absolute;
 	display: none;
+}
+
+#invert-off-button {
+	background-image: url("../icons/invert-off.svg");
+}
+
+#invert-on-button {
+	background-image: url("../icons/invert-on.svg");
+	display: none;
+}
+
+#settings-button {
+	background-image: url("../icons/settings.svg");
+}
+
+#amp-low-button {
+	background-image: url("../icons/amp-low.svg");
+}
+
+#amp-high-button {
+	background-image: url("../icons/amp-high.svg");
+}
+
+#export-button {
+	background-image: url("../icons/file-export.svg");
+}
+
+#export-formats button {
+	border-radius: 0;
+	width: 50px;
+	height: 50px;
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#export-formats #csv-export {
+	background-image: url("../icons/save-as-txt.svg");
+}
+
+#export-formats #pdf-export {
+	background-image: url("../icons/save-as-pdf.svg");
+}
+
+.humane {
+	width: auto;
+}
+
+.humane,
+.humane-libnotify {
+  position: fixed;
+  -moz-transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  z-index: 100000;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+}
+
+.humane,
+.humane-libnotify {
+  font-family: Ubuntu, Arial, sans-serif;
+  text-align: center;
+  font-size: 15px;
+  bottom: 10px;
+  right: 10px;
+  opacity: 0;
+  width: 150px;
+  color: #fff;
+  padding: 10px;
+  background: #000;
+
+}
+
+.humane p,
+.humane-libnotify p,
+.humane ul,
+.humane-libnotify ul {
+  margin: 0;
+  padding: 0;
+}
+
+.humane ul,
+.humane-libnotify ul {
+  list-style: none;
+}
+
+.humane.humane-libnotify-info,
+.humane-libnotify.humane-libnotify-info {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABQCAYAAADYxx/bAAAABmJLR0QA/wD/AP+gvaeTAAAAMUlEQVQYlWNgYDB6ysTAwMDAxMDACCcYUFkMDEwMDEwMBNVhkxg65jGhmke6M6hgHgBSdgHnpZwADwAAAABJRU5ErkJggg==');
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0,0,50,0.9)), color-stop(1, rgba(0,0,100,0.9))) no-repeat;
+  background: -moz-linear-gradient(top, rgba(0,0,50,0.9) 0%, rgba(0,0,100,0.9) 100%) no-repeat;
+  background: -webkit-linear-gradient(top, rgba(0,0,50,0.9) 0%, rgba(0,0,100,0.9) 100%) no-repeat;
+  background: -ms-linear-gradient(top, rgba(0,0,50,0.9) 0%, rgba(0,0,100,0.9) 100%) no-repeat;
+  background: -o-linear-gradient(top, rgba(0,0,50,0.9) 0%, rgba(0,0,100,0.9) 100%) no-repeat;
+  background: linear-gradient(top, rgba(0,0,50,0.9) 0%, rgba(0,0,100,0.9) 100%) no-repeat;
+  *background-color: #030;
+}
+
+.humane.humane-libnotify-success,
+.humane-libnotify.humane-libnotify-success {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAABQCAYAAADYxx/bAAAABmJLR0QA/wD/AP+gvaeTAAAAMUlEQVQYlWNgMGJ4ysTAwMDAxMAIJxhQWQwMDEwMTKgS2NRhkxg65jGhmke6M6hhHgBS2QHn2LzhygAAAABJRU5ErkJggg==');
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0,50,0,0.9)), color-stop(1, rgba(0,100,0,0.9))) no-repeat;
+  background: -moz-linear-gradient(top, rgba(0,50,0,0.9) 0%, rgba(0,100,0,0.9) 100%) no-repeat;
+  background: -webkit-linear-gradient(top, rgba(0,50,0,0.9) 0%, rgba(0,100,0,0.9) 100%) no-repeat;
+  background: -ms-linear-gradient(top, rgba(0,50,0,0.9) 0%, rgba(0,100,0,0.9) 100%) no-repeat;
+  background: -o-linear-gradient(top, rgba(0,50,0,0.9) 0%, rgba(0,100,0,0.9) 100%) no-repeat;
+  background: linear-gradient(top, rgba(0,50,0,0.9) 0%, rgba(0,100,0,0.9) 100%) no-repeat;
+  *background-color: #030;
+}
+
+.humane.humane-libnotify-error,
+.humane-libnotify.humane-libnotify-error {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADICAYAAAAp8ov1AAAABmJLR0QA/wD/AP+gvaeTAAAAPklEQVQokWMwYmB4ysTAwMCATjASFsOmBBvBRJ7x+O0g0wCS7CDTH/RwH7X9MVDuwyaG032D2M2UeIYO7gMAqt8C19Bn7+YAAAAASUVORK5CYII=');
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(50,0,0,0.9)), color-stop(1, rgba(100,0,0,0.9))) no-repeat;
+  background: -moz-linear-gradient(top, rgba(50,0,0,0.9) 0%, rgba(100,0,0,0.9) 100%) no-repeat;
+  background: -webkit-linear-gradient(top, rgba(50,0,0,0.9) 0%, rgba(100,0,0,0.9) 100%) no-repeat;
+  background: -ms-linear-gradient(top, rgba(50,0,0,0.9) 0%, rgba(100,0,0,0.9) 100%) no-repeat;
+  background: -o-linear-gradient(top, rgba(50,0,0,0.9) 0%, rgba(100,0,0,0.9) 100%) no-repeat;
+  background: linear-gradient(top, rgba(50,0,0,0.9) 0%, rgba(100,0,0,0.9) 100%) no-repeat;
+  *background-color: #300;
+}
+
+.humane.humane-animate,
+.humane-libnotify.humane-libnotify-animate {
+  opacity: 1;
+
+}
+
+.humane.humane-animate:hover,
+.humane-libnotify.humane-libnotify-animate:hover {
+  opacity: 0.2;
+}
+
+.humane.humane-animate,
+.humane-libnotify.humane-libnotify-js-animate {
+  opacity: 1;
+
+}
+
+.humane.humane-animate:hover,
+.humane-libnotify.humane-libnotify-js-animate:hover {
+  opacity: 0.2;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+}
+
+#logging-interval-button {
+	background-image: url("../icons/timer.svg");
+}
+
+.palette-item {
+	width: 200px;
+	height: 30px;
+	padding-top: 15px;
+	padding-left: 10px;
+}
+
+.palette-item:hover {
+	background-color: #808080;
+}
+
+.palette-icon {
+	width: 30px;
+}
+
+.palette-text {
+	vertical-align: super;
+}
+
+.item-icon {
+	padding-top: 3px;
+	height: 40px;
+}
+
+#record-off-button {
+	background-image: url("../icons/record-off.svg");
+}
+
+#record-on-button {
+	background-image: url("../icons/record-on.svg");
+	display: none;
+}
+
+#capture-image-button {
+	background-image: url("../icons/save-image.svg");
+}
+
+#triggering-edge-none-button {
+	background-image: url("../icons/trigger-none.svg");
+}
+
+#triggering-edge-rising-button {
+	background-image: url("../icons/trigger-rise.svg");
+	display: none;
+}
+
+#triggering-edge-falling-button {
+	background-image: url("../icons/trigger-fall.svg");
+	display: none;
+}
+
+#instrument-select-button {
+	background-image: url("../icons/instruments.svg");
+}
+
+#note-select-button {
+	background-image: url("../icons/notes.svg");
+}
+
+#octave-select-button {
+	background-image: url("../icons/octaves.svg");
+}
+
+.note-palette {
+	width: 200px;
+	height: 20px;
+}
+
+#tuning-palette-button {
+	background-image: url("../icons/tuning-tools-on.svg");
+}
+
+#harmonics-on-button {
+	background-image: url("../icons/harmonics-on.svg");
+	display: none;
+}
+
+#harmonics-off-button {
+	background-image: url("../icons/harmonics-off.svg");
+}
+
+#tuning-line-on-button {
+	background-image: url("../icons/tuning-tools-on.svg");
+	display: none;
+}
+
+#tuning-line-off-button {
+	background-image: url("../icons/tuning-tools-off.svg");
+}
+
+#play-note-button {
+	background-image: url("../icons/play.svg");
+	background-repeat: round;
+	display: none;
+}
+
+#stop-note-button {
+	background-image: url("../icons/pause.svg");
+	background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 908px) {
+	#tuning-palette-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 851px) {
+	#afterTuningSplitbar {
+		visibility: hidden;
+	}
+	#instrument-select-button {
+		display: none;
+	}
+	#note-select-button {
+		display: none;
+	}
+	#octave-select-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 679px) {
+	#capture-image-button {
+		display: none;
+	}
 }
