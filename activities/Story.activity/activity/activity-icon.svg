@@ -1,0 +1,58 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#000">
+	<!ENTITY fill_color "#eee">
+]><svg height="55px" viewBox="0 0 55 55" width="55px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5" stroke="&stroke_color;" fill="&fill_color;">
+  <g
+     transform="translate(0.61712497,-0.0194526)"
+     id="g3913">
+    <path
+       d="m 6.7268398,49.291401 0,-7.269542 -3.5655176,0 c 0,0 -1.2680224,-0.569792 -1.7421173,-1.001264 C 0.88375196,40.533281 0.36092663,39.294787 0.36092663,39.294787 l 0,-29.794495 c 0,0 0.53580407,-1.3749626 1.05827827,-1.8967335 0.5053143,-0.5046346 1.904871,-0.8954552 1.904871,-0.8954552 l 47.3618061,0 c 0,0 1.373662,0.4087151 1.847902,0.8954552 0.45576,0.4677717 0.871039,1.8967335 0.871039,1.8967335 l 0,29.794495 c 0,0 -0.408124,1.303293 -0.871039,1.725808 -0.516877,0.471767 -1.896733,1.001264 -1.896733,1.001264 l -32.887902,0 z"
+       id="path3058"
+       style="fill:&fill_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:1.95610321;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <g
+       transform="translate(70.714287,-36.060463)"
+       id="g3884">
+      <path
+         d="m -43.555545,50.020575 0,21.584521 0,0 0,0 m -16.971094,-0.04185 0,-21.361671 c 0,0 6.935244,-2.831441 10.420707,-2.659204 2.435106,0.120333 6.550387,2.478204 6.550387,2.478204 0,0 3.948006,-2.29225 6.383919,-2.394969 3.583746,-0.151122 10.370763,2.575969 10.370763,2.575969 l 0,21.361671 c 0,0 -7.175343,-2.827945 -10.853518,-2.496962 -2.388497,0.21493 -5.901164,2.538812 -5.901164,2.538812 0,0 -3.380944,-2.279373 -5.668112,-2.472231 -3.754931,-0.316622 -11.302982,2.430381 -11.302982,2.430381 z"
+         id="path3881"
+         style="fill:#ffffff;fill-opacity:1;stroke:&stroke_color;;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m -57.257023,65.204277 c 0,0 4.219923,-1.803848 6.525424,-1.66463 1.56051,0.09423 4.44462,1.348345 4.44462,1.348345"
+         id="path3062"
+         style="fill:none;stroke:&stroke_color;;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m -57.257023,59.43816 c 0,0 4.219923,-1.803848 6.525424,-1.66463 1.56051,0.09423 4.44462,1.348345 4.44462,1.348345"
+         id="path3062-4"
+         style="fill:none;stroke:&stroke_color;;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m -57.257023,53.672044 c 0,0 4.219923,-1.803848 6.525424,-1.66463 1.56051,0.09423 4.44462,1.348345 4.44462,1.348345"
+         id="path3062-2"
+         style="fill:none;stroke:&stroke_color;;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m -29.931355,65.43106 c 0,0 -4.219923,-1.803848 -6.525424,-1.66463 -1.56051,0.09423 -4.44462,1.348345 -4.44462,1.348345"
+         id="path3062-0"
+         style="fill:none;stroke:&stroke_color;;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m -29.931355,59.664943 c 0,0 -4.219923,-1.803848 -6.525424,-1.66463 -1.56051,0.09423 -4.44462,1.348345 -4.44462,1.348345"
+         id="path3062-4-4"
+         style="fill:none;stroke:&stroke_color;;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         d="m -29.931355,53.898827 c 0,0 -4.219923,-1.803848 -6.525424,-1.66463 -1.56051,0.09423 -4.44462,1.348345 -4.44462,1.348345"
+         id="path3062-2-2"
+         style="fill:none;stroke:&stroke_color;;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+  </g>
+  <g
+     transform="translate(0,-45)"
+     id="quote"
+     style="display:none">
+    <polygon
+       points="11.119,16.378 11.119,50.713 29.547,77.188 42.673,67.431 31.152,50.713 45.454,50.713 45.454,16.378 "
+       id="polygon5"
+       style="display:inline" />
+    <polygon
+       points="53.192,16.378 53.192,50.713 71.621,77.188 84.747,67.431 73.226,50.713 87.528,50.713 87.528,16.378 "
+       id="polygon7"
+       style="display:inline" />
+  </g>
+</svg>
