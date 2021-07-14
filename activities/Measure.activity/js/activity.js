@@ -134,6 +134,7 @@ var app = new Vue({
 		note_index: -2,
 		note_freq: 0,
 		instrument_name: 'none',
+		note_name: 'all', // used only for instrument other than none for highlighting
 		notes_arr: ['A', 'A♯/B♭', 'B', 'C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭',
 			'G', 'G♯/A♭'],
 		colors: ['#B20008', '#00588C', '#F8E800', '#7F00BF', '#4BFF3A', '#FFA109',
@@ -955,10 +956,13 @@ var app = new Vue({
 
 			this.drawWaveform();
 		},
-		drawNote: function(note_idx, freq) {
+		drawNote: function(note_idx, freq, note_key) {
+			document.getElementById(`${this.instrument_name}_note_${this.note_name}`).style.backgroundColor = '';
+			document.getElementById(`${this.instrument_name}_note_${note_key}`).style.backgroundColor = 'darkgray';
 			this.draw_note = true;
 			this.note_index = note_idx;
 			this.note_freq = freq;
+			this.note_name = note_key;
 			if (this.time_domain) {
 				this.TimeOrFreq();
 			}
@@ -1024,11 +1028,15 @@ var app = new Vue({
 			}
 		},
 		setNote: function(idx){
+			document.getElementById(`note_${this.freq_input_note_index}`).style.backgroundColor = '';
 			this.freq_input_note_index = idx;
+			document.getElementById(`note_${this.freq_input_note_index}`).style.backgroundColor = 'darkgray';
 			this.updateFreqInput();
 		},
 		setOctave: function(val) {
+			document.getElementById(`octave_${this.freq_input_octave}`).style.backgroundColor = '';
 			this.freq_input_octave = val;
+			document.getElementById(`octave_${this.freq_input_octave}`).style.backgroundColor = 'darkgray';
 			this.updateFreqInput();
 		},
 		updateFreqInput: function() {
