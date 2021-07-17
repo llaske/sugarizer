@@ -806,8 +806,10 @@ enyo.kind({
 			{name: "serverdescriptionvalue", classes: "aboutserver-descriptionvalue"},
 			{components:[
 				{name: "textusername", content: "xxx", classes: "aboutserver-userlabel"},
-				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"}
+				{name: "username", kind: "Input", classes: "aboutserver-username", disabled: true}
 			]},
+			{name: "consent", kind: "Input", type: "checkbox", classes: "toggle aboutserver-consent", onchange: "switchConsent"},
+			{name: "textconsent", content: "xxx", classes: "aboutserver-consentmessage", allowHtml: true},
 			{name: "passwordmessage", classes: "aboutserver-passwordmessage"},
 			{name: "password", kind: "Sugar.Password", classes: "aboutserver-password", onEnter: "next"},
 			{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "aboutserver-rightbutton", ontap: "next"},
@@ -825,6 +827,7 @@ enyo.kind({
 		this.$.serversettingsname.setContent(l10n.get("ServerName"));
 		this.$.serverdescription.setContent(l10n.get("ServerDescription"));
 		this.$.textusername.setContent(l10n.get("UserId"));
+		this.$.textconsent.setContent(l10n.get("CheckboxCookieConsent",{url: "#"}));
 		this.$.next.setText(l10n.get("Next"));
 		this.currentserver = preferences.getServer();
 		this.initconnected = preferences.isConnected();
@@ -832,6 +835,8 @@ enyo.kind({
 		this.initusername = preferences.getName();
 		this.networkId = null;
 		this.forbidcheck = false;
+		this.createmode = false;
+		this.wait4consent = false;
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.textconnected.addClass("rtl-10");
@@ -892,6 +897,8 @@ enyo.kind({
 			vtextusername = false,
 			vusername = false,
 			vnext = false,
+			vconsent = false,
+			vtextconsent = false,
 			vpasswordmessage = false,
 			vpassword = false;
 		if (this.step == 0) {
@@ -915,6 +922,10 @@ enyo.kind({
 			this.$.serverdescriptionvalue.setContent(this.currentserver.description);
 			this.$.servername.setDisabled(true);
 			vtextservername = vserversettingsname = vserverdescription = vtextservername = vservername = vserversettingsvalue = vserverdescriptionvalue = vtextusername = vusername = true;
+			if (this.wait4consent = (this.createmode && this.currentserver.options["consent-need"])) {
+				vconsent = vtextconsent = true;
+				this.$.textconsent.setContent(l10n.get("CheckboxCookieConsent",{url: this.currentserver.options["policy-url"]+"?lang="+preferences.getLanguage() || "#"}));
+			}
 		}
 		this.$.textservername.setShowing(vtextservername);
 		this.$.serversettingsname.setShowing(vserversettingsname);
@@ -927,6 +938,8 @@ enyo.kind({
 		this.$.textusername.setShowing(vtextusername);
 		this.$.username.setShowing(vusername);
 		this.$.next.setShowing(vnext);
+		this.$.consent.setShowing(vconsent);
+		this.$.textconsent.setShowing(vtextconsent);
 		this.$.passwordmessage.setShowing(vpasswordmessage);
 		this.$.password.setShowing(vpassword);
 		if (vpassword) {
@@ -968,6 +981,14 @@ enyo.kind({
 			this.step++;
 			this.displayStep();
 		}
+	},
+
+	switchConsent: function() {
+		var consent = this.$.consent.getNodeProperty("checked");
+		this.$.warningmessage.setContent(l10n.get(consent?"ChangesRequireRestart":"CheckboxToConsent"));
+		this.$.warningbox.setShowing(consent);
+		this.$.okbutton.setDisabled(consent);
+		this.$.cancelbutton.setDisabled(consent);
 	},
 
 	next: function() {
@@ -1014,11 +1035,13 @@ enyo.kind({
 					options: { sync: preferences.getOptions("sync"), stats: preferences.getOptions("stats") }
 				},
 				function(inSender, inResponse) {
+					that.createmode = true;
 					that.login();
 				},
 				function(response, error) {
 					// User already exist, try to login instead
 					if (error == 22) {
+						that.createmode = false;
 						that.login();
 					} else {
 						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
@@ -1043,12 +1066,16 @@ enyo.kind({
 				preferences.setToken({'x_key': that.networkId, 'access_token': loginResponse.token});
 				preferences.setPrivateJournal(loginResponse.user.private_journal);
 				preferences.setSharedJournal(loginResponse.user.shared_journal);
-				that.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
-				that.$.warningmessage.setShowing(true);
 				that.$.spinner.setShowing(false);
-				that.$.warningbox.setShowing(true);
-				that.$.okbutton.setDisabled(true);
-				that.$.cancelbutton.setDisabled(true);
+				if (that.wait4consent) {
+					that.$.warningmessage.setContent(l10n.get("CheckboxToConsent"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
+					that.$.warningbox.setShowing(true);
+					that.$.okbutton.setDisabled(true);
+					that.$.cancelbutton.setDisabled(true);
+				}
+				that.$.warningmessage.setShowing(true);
 			},
 			function(response, error) {
 				// Login error, retry
