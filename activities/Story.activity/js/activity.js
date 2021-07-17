@@ -26,6 +26,8 @@ var app = new Vue({
 		singleAudioRecords: [],
 		audio: null,
 		isPlaying: false,
+		playIconId: "play",
+		currentTime: 0,
 		imageCount: 9,	//update with Image slider
 		imageLoaded: 0,
 		intervalIds: [],
@@ -149,6 +151,7 @@ var app = new Vue({
 			return '../Abecedarium.activity/images/database/'+ img + '.png';
 		},
 		toggleMode: function(){
+			this.currentTime = 0;
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
@@ -171,6 +174,7 @@ var app = new Vue({
 			if (this.activeImageIndex === 0){
 				return;
 			}
+			this.currentTime = 0;
 			this.nextBtnId = "next-btn"; 
 			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			this.activeImageIndex = this.activeImageIndex - 1; 
@@ -185,6 +189,7 @@ var app = new Vue({
 			if (this.activeImageIndex === this.images.length-1){
 				return;
 			}
+			this.currentTime = 0;
 			this.previousBtnId = "previous-btn"
 			this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			this.activeImageIndex = this.activeImageIndex + 1; 
@@ -326,6 +331,7 @@ var app = new Vue({
 		},
 		onRecord: function(error){
 			var t = this;
+			if (this.isPlaying) return;
 			if (window.cordova || window.PhoneGap){
 				// Using Cordova
 				var captureSuccess = function (mediaFiles) {
@@ -392,11 +398,11 @@ var app = new Vue({
 				} else {
 					try {
 						that.recording = true;
-						that.recordIconId = "record-start";
 						navigator.mediaDevices.getUserMedia({audio: true}).then(function (mediaStream) {
 							var recordRTC = RecordRTC(mediaStream, {
 								type: 'audio'
 							});
+							that.recordIconId = "record-start";
 							that.recordRTC = recordRTC;
 							that.mediaStream= mediaStream;
 							recordRTC.startRecording();
@@ -445,15 +451,27 @@ var app = new Vue({
 		},	
 		playAudio: function(){
 			var that = this;
+			if (this.recording) return;
 			if (this.grid && this.gridAudioRecord != null){
 				if (!that.isPlaying){
 					var audio = document.createElement("audio");	
 					that.audio = audio;
 					that.audio.src = that.gridAudioRecord;
 					that.audio.play();
+					that.playIconId = "pause-play";
 					that.isPlaying = true;
+					if (that.currentTime != 0){
+						that.audio.currentTime = that.currentTime;
+					}
+					audio.onended = function(){
+						that.playIconId = "play";
+						that.isPlaying = false;
+						that.currentTime = 0;
+					};
 				} else {
+					that.currentTime = that.audio.currentTime;
 					that.audio.pause();
+					that.playIconId = "play";
 					that.isPlaying = false;
 				}
 			} else if (!this.grid && this.singleAudioRecords[this.activeImageIndex]!=null){
@@ -462,12 +480,29 @@ var app = new Vue({
 					that.audio = audio;
 					that.audio.src = that.singleAudioRecords[that.activeImageIndex];
 					that.audio.play();
+					that.playIconId = "pause-play";
 					that.isPlaying = true;
+					if (that.currentTime != 0){
+						that.audio.currentTime = that.currentTime;
+					}
+					audio.onended = function(){
+						that.playIconId = "play";
+						that.isPlaying = false;
+						that.currentTime = 0;
+					};
 				} else {
+					that.currentTime = that.audio.currentTime;
 					that.audio.pause();
+					that.playIconId = "play";
 					that.isPlaying = false;
 				}
 			}
+		},
+		stopAudio: function(){
+			this.currentTime = 0;
+			this.audio.pause();
+			this.playIconId = "play";
+			this.isPlaying = false;
 		},
 		onStop: function() {
 			if (this.grid){

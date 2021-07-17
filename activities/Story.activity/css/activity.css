@@ -301,6 +301,18 @@ p {
 	height: 40px;
 	background-size: 40px 40px;
 }
+#stop-play {
+	background-image: url(../icons/stop-play.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
+#pause-play {
+	background-image: url(../icons/pause-play.svg);
+	width: 40px;
+	height: 40px;
+	background-size: 40px 40px;
+}
 #play-inactive {
 	background-image: url(../icons/play-inactive.svg);
 	width: 40px;
@@ -318,6 +330,11 @@ p {
 	width: 40px;
 	height: 40px;
 	background-size: 40px 40px;
+}
+#playIconFlex {
+	display: flex;
+	width: 90px;
+	justify-content: space-between;
 }
 /* Font Styling */
 
@@ -385,25 +402,34 @@ p {
 		background-size: 25px 25px;
 	}
 	#play {
-		background-image: url(../icons/play.svg);
 		width: 25px;
 		height: 25px;
 		background-size: 25px 25px;
 	}
 	#play-inactive {
-		background-image: url(../icons/play-inactive.svg);
 		width: 25px;
 		height: 25px;
 		background-size: 25px 25px;
 	}
+	#stop-play {
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
+	#pause-play {
+		width: 25px;
+		height: 25px;
+		background-size: 25px 25px;
+	}
+	#playIconFlex {
+		width: 55px;
+	}
 	#speak {
-		background-image: url(../icons/speak.svg);
 		width: 25px;
 		height: 25px;
 		background-size: 25px 25px;
 	}
 	#speak-inactive {
-		background-image: url(../icons/speak-inactive.svg);
 		width: 25px;
 		height: 25px;
 		background-size: 25px 25px;

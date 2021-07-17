@@ -99,7 +99,10 @@
 			<div id="editor-area"></div>
 			<div id="icons-flex">
 				<div :id="recordIconId" @click="onRecord"></div>
-				<div id="play" @click="playAudio"></div>
+				<div id="playIconFlex">
+					<div :id="playIconId" @click="playAudio"></div>
+					<div v-if="isPlaying" id="stop-play" @click="stopAudio"></div>
+				</div>
 				<div id="speak"></div>
 			</div>
 		</div>
