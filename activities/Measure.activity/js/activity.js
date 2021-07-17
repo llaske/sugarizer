@@ -27,6 +27,8 @@ var app = new Vue({
 		fftSize: 4096,
 		freqDomainData: [],
 		num_of_samples_freq: 4096,
+		existing_instance_time_data: [],
+		existing_instance_freq_data: [],
 		fullscreen: false,
 		time_int_arr: [],
 		invert_waveform: false,
@@ -150,6 +152,7 @@ var app = new Vue({
 		A0: 27.5,
 		TWELTHROOT2: 1.05946309435929,
 		C8: 4186.01,
+		existing_instance: false,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -367,7 +370,7 @@ var app = new Vue({
 			var samples = (this.time_domain) ? this.num_of_samples_time : this.num_of_samples_freq;
 
 			var start = 0;
-			var sliceWidth = this.canvas.width * 1.0 / samples;
+			var sliceWidth = this.canvas.width * 1.0 / (samples-1);
 			var is_trig = false;
 
 			if ((!this.time_domain) && this.draw_note) {
@@ -470,7 +473,7 @@ var app = new Vue({
 						}
 					}
 				}
-				sliceWidth = this.canvas.width * 1.0 / (samples - start + 1);
+				sliceWidth = this.canvas.width * 1.0 / (samples - start);
 				x += sliceWidth;
 				canvasCtx.moveTo(0, this.canvas.height/2);
 			}
@@ -618,13 +621,8 @@ var app = new Vue({
 			this.setZoomSlider();
 			this.ZoomInOut();
 		},
-		invertWaveform: function() {
+		invertWaveform_change_button: function() {
 
-			// function to switch between invert and normal waveform
-
-			if(!this.time_domain) {
-				return;
-			}
 			this.invert_waveform = !this.invert_waveform;
 			if (this.invert_waveform) {
 				document.getElementById("invert-on-button").style.display = "initial";
@@ -636,6 +634,15 @@ var app = new Vue({
 				document.getElementById("invert-off-button").style.display = "initial";
 				document.getElementById("waveformStatus").innerText = 'Normal';
 			}
+		},
+		invertWaveform: function() {
+
+			// function to switch between invert and normal waveform
+
+			if(!this.time_domain) {
+				return;
+			}
+			this.invertWaveform_change_button();
 			this.drawWaveform();
 		},
 		decreaseAmp: function() {
@@ -879,11 +886,6 @@ var app = new Vue({
 			this.log_data.push({...this.log_session_obj})
 			this.setInterval_id = null;
 		},
-		onActivityStop: function() {
-			if (this.setInterval_id) {
-				this.stopRecord();
-			}
-		},
 		captureImage: function() {
 			var mimetype = 'image/jpeg';
 			var inputData = this.canvas.toDataURL(mimetype, 1);
@@ -1044,19 +1046,103 @@ var app = new Vue({
 			var freq = this.A0 * Math.pow(this.TWELTHROOT2, res);
 			document.getElementById("tuning-freq").value = freq.toFixed(3);
 		},
+		onActivityStop: function () {
+			if (this.setInterval_id) {
+				this.stopRecord();
+			}
+
+			var time_data = [];
+			var freq_data = [];
+			for(var i=0;i<this.fftSize;i++) {
+				time_data.push(this.timeDomainData[i]);
+				freq_data.push(this.freqDomainData[i]);
+			}
+
+			var context = {
+				time_domain: this.time_domain,
+				time_div: this.time_div,
+				freq_div: this.freq_div,
+				play: this.play,
+				num_of_samples_time: this.num_of_samples_time,
+				num_of_samples_freq: this.num_of_samples_freq,
+				timeDomainData: time_data,
+				freqDomainData: freq_data,
+				amp_slider_val: document.getElementById('ampSlider').value,
+				invert_waveform: this.invert_waveform,
+				trigEdge: this.trigEdge
+			};
+			this.$refs.SugarJournal.saveData(context);
+		},
+		onJournalNewInstance: function () {
+			console.log("New instance");
+		},
+
+		onJournalDataLoaded: function (data, metadata) {
+			console.log("Existing instance");
+
+			this.time_domain = data.time_domain;
+			this.time_div = data.time_div;
+			this.freq_div = data.freq_div;
+			this.setZoomSlider();
+			this.play = !data.play;
+			this.playOrPause();
+			this.num_of_samples_time = data.num_of_samples_time;
+			this.num_of_samples_freq = data.num_of_samples_freq;
+			this.existing_instance_time_data = data.timeDomainData;
+			this.existing_instance_freq_data = data.freqDomainData;
+			document.getElementById('ampSlider').value = data.amp_slider_val;
+			this.ampSettings();
+			this.invert_waveform = !data.invert_waveform;
+			this.invertWaveform_change_button();
+			this.trigEdge = data.trigEdge - 1;
+			this.triggeringEdge();
+
+			this.existing_instance = true;
+
+			// specially for firefox
+			if(this.timeDomainData.length > 0) {
+				this.initTimeAndFreqDataForExisiting();
+			}
+		},
+
+		onJournalLoadError: function (error) {
+			console.log("Error loading from journal");
+		},
+		initTimeAndFreqDataForExisiting: function() {
+			if (!this.play) {
+				this.freqDomainData = [];
+				for (var i = 0; i < this.fftSize; i++) {
+					this.timeDomainData[i] = this.existing_instance_time_data[i];
+					this.freqDomainData.push(this.existing_instance_freq_data[i]);
+				}
+				this.drawWaveform();
+			}
+
+			this.time_domain = !this.time_domain;
+			this.TimeOrFreq();
+
+			this.existing_instance = false;
+		},
+
 		onAudioInput: function(e) {
 
-			// This function executes whenever stream from microphone is received (only for cordova) 
+			// This function executes whenever stream from microphone is received (only for cordova)
+
+			if(this.existing_instance) {
+				this.initTimeAndFreqDataForExisiting();
+			}
+ 
 			if (!this.play) return;
 
 			this.timeDomainData = e.data;
 
-			if(this.time_domain) {
+			if (this.time_domain) {
 				this.calcTimeDomainData()
 			}
 			else {
 				this.calcFreqDomainData()
 			}
+
 		},
 		onDeviceReady: function() {
 
@@ -1068,6 +1154,7 @@ var app = new Vue({
 				bufferSize: 4096,
 				streamToWebAudio: false
 			});
+
 		}
 	},
 	mounted() {
@@ -1085,14 +1172,21 @@ var app = new Vue({
 
 					this.webAudio_mediaStreamSource = stream;
 
-					if (this.time_domain) {
-						this.setTimeDomain()
+					if(!this.play && this.existing_instance) {
+						for(var i=0;i<this.fftSize;i++) {
+							this.timeDomainData[i] = this.existing_instance_time_data[i];
+							this.freqDomainData[i] = this.existing_instance_freq_data[i];
+						}
 					}
-					else {
-						this.setFreqDomain()
-					}
+
+					this.time_domain = !this.time_domain;
+					this.TimeOrFreq();
+
 				})
-				.catch((err) => alert('Please allow microphone access'))
+				.catch((err) => {
+					console.log(err);
+					alert("Please allow microphone access")
+				})
 		}
 	}
 });
