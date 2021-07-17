@@ -1873,6 +1873,18 @@ body {
 	width: 8%;
 }
 
+.aboutserver-consent {
+	margin-left: 278px !important;
+	margin-top: 30px !important;
+}
+
+.aboutserver-consentmessage {
+	display: inline-block;
+	margin-left: 10px;
+	vertical-align: bottom;
+	width: 460px;
+}
+
 .privacy-statscheckbox {
 	position: relative;
 	margin-left: 30px !important;
