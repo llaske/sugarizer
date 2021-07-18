@@ -784,6 +784,9 @@ enyo.kind({
 	modal: true,
 	floating: true,
 	autoDismiss: false,
+	published: {
+		standalone: false
+	},
 	components: [
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "cloud-settings.svg"}},
@@ -845,6 +848,9 @@ enyo.kind({
 			this.$.textusername.addClass("rtl-10");
 			this.$.textusermessage.addClass("rtl-10");
 			this.$.next.addClass("rtl-10");
+		}
+		if (this.standalone) {
+			app.noresize = true;
 		}
 
 		this.step = 0;
@@ -953,13 +959,21 @@ enyo.kind({
 			preferences.setServer(null);
 		}
 		this.hide();
-		this.owner.show();
+		if (!this.standalone) {
+			this.owner.show();
+		} else {
+			app.noresize = false;
+		}
 	},
 
 	ok: function() {
 		if (!this.hasChanged() || (this.$.connected.getNodeProperty("checked") && this.step != 3)) {
 			this.hide();
-			this.owner.show();
+			if (!this.standalone) {
+				this.owner.show();
+			} else {
+				app.noresize = false;
+			}
 			return;
 		}
 		this.$.warningbox.setShowing(true);

@@ -814,7 +814,7 @@ enyo.kind({
 				return;
 			}
 		}
-		var otherview = app.$.otherview.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
+		var otherview = app.$.otherview.createComponent({kind: "Sugar.DialogServer", standalone: true}, {owner:this});
 		otherview.show();
 	},
 
