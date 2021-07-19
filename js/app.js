@@ -50,8 +50,13 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 				callback(true);
 			},
 			function() {
-				console.log("WARNING: Can't read network user settings");
-				callback(false);
+				var token = preferences.getToken();
+				if (token && token.expired) {
+					callback(true);
+				} else {
+					console.log("WARNING: Can't read network user settings");
+					callback(false);
+				}
 			}
 		);
 	};
