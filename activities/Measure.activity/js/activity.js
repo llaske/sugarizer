@@ -687,10 +687,19 @@ var app = new Vue({
 					csvContent += session.mode + ';';
 					csvContent += session.date + ';';
 
-					csvContent += this.log_interval + ";";
+					csvContent += session.interval.split(' ')[0] + ";";
 
 					csvContent += j + ';' + session.data[j] + '\n';
 				}
+				if (data_size == 0) {
+					csvContent += i + ';';
+					csvContent += session.mode + ';';
+					csvContent += session.date + ';';
+
+					csvContent += session.interval.split(' ')[0] + ";";
+
+					csvContent += j + ';' + '-' + '\n';
+				} 
 				i += 1;
 			}
 
@@ -770,11 +779,11 @@ var app = new Vue({
 						doc.text(x, y, this.SugarL10n.get("Session") + ": " + i);
 						doc.setFontStyle("normal");
 						doc.text(this.SugarL10n.get("Mode") + ":     " + session.mode, x, y + 14);
-						if (this.log_interval == 300) {
+						if (session.interval == "300 second") {
 							doc.text(this.SugarL10n.get("Interval") + ":   5" + " " + this.SugarL10n.get("Minutes_other"), x, y + 21);
 						}
 						else {
-							doc.text(this.SugarL10n.get("Interval") + ":   " + this.log_interval + ' ' + this.SugarL10n.get("Second"), x, y + 21);
+							doc.text(this.SugarL10n.get("Interval") + ":   " + session.interval.split(' ')[0] + ' ' + this.SugarL10n.get("Second"), x, y + 21);
 						}
 						doc.text(this.SugarL10n.get("Date") + ":       " + session.date, x, y + 28);
 						y = y + 42;
@@ -839,7 +848,9 @@ var app = new Vue({
 
 		},
 		logInterval: function(e) {
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
 			this.log_interval = e.secondVal;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
 		},
 		getSessionDate: function(){
 			var d = new Date()
@@ -1069,7 +1080,9 @@ var app = new Vue({
 				freqDomainData: freq_data,
 				amp_slider_val: document.getElementById('ampSlider').value,
 				invert_waveform: this.invert_waveform,
-				trigEdge: this.trigEdge
+				trigEdge: this.trigEdge,
+				log_data: this.log_data,
+				log_interval: this.log_interval
 			};
 			this.$refs.SugarJournal.saveData(context);
 		},
@@ -1097,6 +1110,10 @@ var app = new Vue({
 			this.trigEdge = data.trigEdge - 1;
 			this.triggeringEdge();
 
+			this.log_data = data.log_data;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
+			this.log_interval = data.log_interval;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
 			this.existing_instance = true;
 
 			// specially for firefox
