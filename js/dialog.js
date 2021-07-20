@@ -1077,6 +1077,7 @@ enyo.kind({
 				that.step++;
 				that.displayStep();
 				that.networkId = loginResponse.user._id;
+				that.networkColor = loginResponse.user.color;
 				preferences.setToken({'x_key': that.networkId, 'access_token': loginResponse.token});
 				preferences.setPrivateJournal(loginResponse.user.private_journal);
 				preferences.setSharedJournal(loginResponse.user.shared_journal);
@@ -1110,6 +1111,7 @@ enyo.kind({
 		preferences.setConnected(nowconnected);
 		if (nowconnected) {
 			preferences.setNetworkId(this.networkId);
+			historic.addUser({name: preferences.getName(), color: util.getColorIndex(this.networkColor), server: preferences.getServer()});
 		} else {
 			preferences.setNetworkId(null);
 			preferences.setServer(null);
