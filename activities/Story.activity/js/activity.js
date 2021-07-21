@@ -504,6 +504,11 @@ var app = new Vue({
 			this.playIconId = "play";
 			this.isPlaying = false;
 		},
+		speakStory: function(){
+			if (this.editor.container.innerText == "") return;
+			var text = this.editor.container.innerText;
+			this.$refs.SugarSpeak.speech(text);
+		},
 		onStop: function() {
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();

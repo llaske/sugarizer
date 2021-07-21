@@ -103,19 +103,21 @@
 					<div :id="playIconId" @click="playAudio"></div>
 					<div v-if="isPlaying" id="stop-play" @click="stopAudio"></div>
 				</div>
-				<div id="speak"></div>
+				<div id="speak" @click="speakStory"></div>
 			</div>
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
-		<sugar-popup ref="SugarPopup"></sugar-popup> 
+		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-speak ref="SugarSpeak"></sugar-speak> 
 	</div>
 
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarSpeak.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 
