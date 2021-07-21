@@ -136,7 +136,7 @@ var app = new Vue({
 		note_index: -2,
 		note_freq: 0,
 		instrument_name: 'none',
-		note_name: 'all', // used only for instrument other than none for highlighting
+		note_name: 'all', // used only for instrument other than none (for highlighting)
 		notes_arr: ['A', 'A♯/B♭', 'B', 'C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭',
 			'G', 'G♯/A♭'],
 		colors: ['#B20008', '#00588C', '#F8E800', '#7F00BF', '#4BFF3A', '#FFA109',
@@ -153,6 +153,7 @@ var app = new Vue({
 		TWELTHROOT2: 1.05946309435929,
 		C8: 4186.01,
 		existing_instance: false,
+		existing_instrument_settings: {},
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -941,16 +942,17 @@ var app = new Vue({
 			}
 			this.drawWaveform();
 		},
-		selectInstrument: function(e) {
-			if(this.instrument_name == 'none') {
+		selectInstrument: function(e) {	
+			if (this.instrument_name == 'none') {
 				document.getElementById("none").style.backgroundColor = '';
 			}
 			else {
 				document.getElementById(`${this.instrument_name}_instrument`).style.backgroundColor = '';
 			}
+
 			this.instrument_name = e.instrument_name;
 
-			if(this.instrument_name == 'none') {
+			if (this.instrument_name == 'none') {
 				document.getElementById("none").style.backgroundColor = 'darkgray';
 				this.draw_note = false;
 				this.note_index = -2;
@@ -1082,7 +1084,19 @@ var app = new Vue({
 				invert_waveform: this.invert_waveform,
 				trigEdge: this.trigEdge,
 				log_data: this.log_data,
-				log_interval: this.log_interval
+				log_interval: this.log_interval,
+				instrument_name: this.instrument_name,
+				existing_instrument_settings: {
+					instrument_name: this.instrument_name,
+					note_index: this.note_index,
+					note_freq: this.note_freq,
+					note_name: this.note_name,
+					freq_input_note_index: this.freq_input_note_index,
+					freq_input_octave: this.freq_input_octave,
+					show_harmonics: this.show_harmonics,
+					show_tuning_line: this.show_tuning_line,
+					tuning_freq_value: document.getElementById("tuning-freq").value
+				}
 			};
 			this.$refs.SugarJournal.saveData(context);
 		},
@@ -1114,18 +1128,23 @@ var app = new Vue({
 			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
 			this.log_interval = data.log_interval;
 			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+
+			this.existing_instrument_settings = data.existing_instrument_settings;
+
 			this.existing_instance = true;
 
 			// specially for firefox
 			if(this.timeDomainData.length > 0) {
-				this.initTimeAndFreqDataForExisiting();
+				this.initDataForExisiting();
 			}
 		},
 
 		onJournalLoadError: function (error) {
 			console.log("Error loading from journal");
 		},
-		initTimeAndFreqDataForExisiting: function() {
+		initDataForExisiting: function() {
+
+			// this function handles existing instance data for firefox and mobile devices.
 			if (!this.play) {
 				this.freqDomainData = [];
 				for (var i = 0; i < this.fftSize; i++) {
@@ -1134,6 +1153,25 @@ var app = new Vue({
 				}
 				this.drawWaveform();
 			}
+
+			var existing_time_domain = this.time_domain;
+			var obj = this.existing_instrument_settings;
+			if (obj.instrument_name == 'none') {
+				document.getElementById("none").click();
+				this.setNote(obj.freq_input_note_index);
+				this.setOctave(obj.freq_input_octave);
+			}
+			else {
+				document.getElementById(`${obj.instrument_name}_instrument`).click();
+				this.drawNote(obj.note_index, obj.note_freq, obj.note_name);
+				this.show_harmonics = !obj.show_harmonics;
+				this.handleHarmonics();
+			}
+			document.getElementById("tuning-freq").value = obj.tuning_freq_value;
+			this.show_tuning_line = !obj.show_tuning_line;
+			this.showTuningLine();
+
+			this.time_domain = existing_time_domain;
 
 			this.time_domain = !this.time_domain;
 			this.TimeOrFreq();
@@ -1146,7 +1184,7 @@ var app = new Vue({
 			// This function executes whenever stream from microphone is received (only for cordova)
 
 			if(this.existing_instance) {
-				this.initTimeAndFreqDataForExisiting();
+				this.initDataForExisiting();
 			}
  
 			if (!this.play) return;
@@ -1195,7 +1233,27 @@ var app = new Vue({
 							this.freqDomainData[i] = this.existing_instance_freq_data[i];
 						}
 					}
+					if (this.existing_instance) {
+						var existing_time_domain = this.time_domain;
+						var obj = this.existing_instrument_settings;
+						if(obj.instrument_name == 'none') {
+							document.getElementById("none").click();
+							this.setNote(obj.freq_input_note_index);
+							this.setOctave(obj.freq_input_octave);
+						}
+						else {
+							document.getElementById(`${obj.instrument_name}_instrument`).click();
+							this.drawNote(obj.note_index, obj.note_freq, obj.note_name);
+							this.show_harmonics = !obj.show_harmonics;
+							this.handleHarmonics();
+						}
+						document.getElementById("tuning-freq").value = obj.tuning_freq_value;
+						this.show_tuning_line = !obj.show_tuning_line;
+						this.showTuningLine();
 
+						this.time_domain = existing_time_domain;
+					}
+					
 					this.time_domain = !this.time_domain;
 					this.TimeOrFreq();
 
