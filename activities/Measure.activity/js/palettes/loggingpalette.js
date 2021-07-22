@@ -9,7 +9,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
             `
             <div id="interval-0.1" class="palette-item">1/10 second</div>
             <div id="interval-1" class="palette-item">1 second</div>
-            <div id="interval-30" class="palette-item">30 seconds</div>
+            <div id="interval-30" class="palette-item">30 second</div>
             <div id="interval-300" class="palette-item">5 minutes</div>
         `;
 

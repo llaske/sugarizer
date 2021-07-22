@@ -230,6 +230,10 @@ var app = new Vue({
 			document.getElementById("tuning-line-off-button").title = this.SugarL10n.get("HideTuningLine");
 			document.getElementById("play-note-button").title = this.SugarL10n.get("playTitle");
 			document.getElementById("stop-note-button").title = this.SugarL10n.get("stopTitle");
+			document.getElementById("interval-0.1").innerText = this.SugarL10n.get("IntervalSecond", { interval: "1/10" });
+			document.getElementById("interval-1").innerText = this.SugarL10n.get("IntervalSecond", { interval: 1 });
+			document.getElementById("interval-30").innerText = this.SugarL10n.get("IntervalSecond", { interval: 30 });
+			document.getElementById("interval-300").innerText = this.SugarL10n.get("IntervalMinute", { interval: 5 });
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -688,7 +692,7 @@ var app = new Vue({
 					csvContent += session.mode + ';';
 					csvContent += session.date + ';';
 
-					csvContent += session.interval.split(' ')[0] + ";";
+					csvContent += session.interval + ";";
 
 					csvContent += j + ';' + session.data[j] + '\n';
 				}
@@ -697,7 +701,7 @@ var app = new Vue({
 					csvContent += session.mode + ';';
 					csvContent += session.date + ';';
 
-					csvContent += session.interval.split(' ')[0] + ";";
+					csvContent += session.interval + ";";
 
 					csvContent += j + ';' + '-' + '\n';
 				} 
@@ -780,11 +784,11 @@ var app = new Vue({
 						doc.text(x, y, this.SugarL10n.get("Session") + ": " + i);
 						doc.setFontStyle("normal");
 						doc.text(this.SugarL10n.get("Mode") + ":     " + session.mode, x, y + 14);
-						if (session.interval == "300 second") {
-							doc.text(this.SugarL10n.get("Interval") + ":   5" + " " + this.SugarL10n.get("Minutes_other"), x, y + 21);
+						if (session.interval == 300) {
+							doc.text(this.SugarL10n.get("Interval") + ":   " + this.SugarL10n.get("IntervalMinute", { interval: 5 }), x, y + 21);
 						}
 						else {
-							doc.text(this.SugarL10n.get("Interval") + ":   " + session.interval.split(' ')[0] + ' ' + this.SugarL10n.get("Second"), x, y + 21);
+							doc.text(this.SugarL10n.get("Interval") + ":   " + this.SugarL10n.get("IntervalSecond", { interval: session.interval }), x, y + 21);
 						}
 						doc.text(this.SugarL10n.get("Date") + ":       " + session.date, x, y + 28);
 						y = y + 42;
@@ -865,7 +869,7 @@ var app = new Vue({
 			document.getElementById("record-on-button").style.display = "initial";
 			document.getElementById("logging-interval-button").disabled = true;
 			this.$root.$refs.SugarPopup.log(this.SugarL10n.get("recordingStarted"))
-			this.log_session_obj.interval = '' + this.log_interval + ' second'
+			this.log_session_obj.interval = this.log_interval
 			this.log_session_obj.date = this.getSessionDate();
 			this.log_session_obj.data = []
 			if(this.time_domain) {
