@@ -434,13 +434,34 @@ p {
 	background-repeat: no-repeat;
 }
 
-@media only screen and (max-width: 908px) {
+ @media only screen and (max-width: 908px) {
+	#logging-interval-button {
+		display: none;
+	}
+	#record-off-button {
+		display: none;
+	}
+	#export-button {
+		display: none;
+	}
+	#afterLoggingSplitbar {
+		display: none !important;
+	}
+}
+
+@media only screen and (max-width: 722px) {
+	#capture-image-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 664px) {
 	#tuning-palette-button {
 		display: none;
 	}
 }
 
-@media only screen and (max-width: 851px) {
+@media only screen and (max-width: 606px) {
 	#afterTuningSplitbar {
 		visibility: hidden;
 	}
@@ -451,12 +472,6 @@ p {
 		display: none;
 	}
 	#octave-select-button {
-		display: none;
-	}
-}
-
-@media only screen and (max-width: 679px) {
-	#capture-image-button {
 		display: none;
 	}
 }
