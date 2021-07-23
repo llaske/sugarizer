@@ -211,9 +211,13 @@ var app = new Vue({
 			}
 		},
 		openImage: function(index){
+			if (this.grid){
+				this.gridEditorContent = this.editor.getContents();
+			}
 			this.grid=false;
 			this.activeImageIndex = index;
 			this.activeImage = this.images[this.activeImageIndex];
+			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 			this.modeId="single-mode";
 			if (index === 0){
 				this.previousBtnId = "previous-btn-inactive";
