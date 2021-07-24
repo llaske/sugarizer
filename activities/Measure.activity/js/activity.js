@@ -12,6 +12,7 @@ var app = new Vue({
 	data: {
 		currentenv: null,
 		SugarL10n: null,
+		SugarPresence: null,
 		canvas: '',
 		context: '',
 		analyser: '',
@@ -154,6 +155,8 @@ var app = new Vue({
 		C8: 4186.01,
 		existing_instance: false,
 		existing_instrument_settings: {},
+		shared_instance: false,
+		shared_mode_initialised: false,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -534,17 +537,8 @@ var app = new Vue({
 				document.getElementById("pause-button").style.display = "initial";
 			}
 		},
-		TimeOrFreq: function() {
-
-			// Switch between Time and Frequency Domain
-
-			if(this.setInterval_id) {
-				this.stopRecord()
-			}
-
-			this.time_domain = !this.time_domain;
-
-			if(this.time_domain) {
+		TimeOrFreq_switch: function() {
+			if (this.time_domain) {
 				if (this.show_harmonics) {
 					this.harmonics_button_display();
 				}
@@ -572,6 +566,29 @@ var app = new Vue({
 					this.setFreqDomain();
 				}
 			}
+		},
+		TimeOrFreq: function() {
+
+			// Switch between Time and Frequency Domain
+
+			if(this.setInterval_id) {
+				this.stopRecord()
+			}
+
+			this.time_domain = !this.time_domain;
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTimeOrFreq',
+						data: this.time_domain
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
+
+			this.TimeOrFreq_switch();
 		},
 		setZoomSlider: function () {
 			var slider = document.getElementById("zoomSlider");
@@ -605,6 +622,20 @@ var app = new Vue({
 				this.calcFreqDomainData();
 				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
 			}
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateZoomSettings',
+						data: {
+							time_div: this.time_div,
+							freq_div: this.freq_div
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		decrementZoom: function() {
 			if (this.time_domain) {
@@ -615,6 +646,20 @@ var app = new Vue({
 			}
 			this.setZoomSlider();
 			this.ZoomInOut();
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateZoomSettings',
+						data: {
+							time_div: this.time_div,
+							freq_div: this.freq_div
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		incrementZoom: function() {
 			if(this.time_domain) {
@@ -625,6 +670,20 @@ var app = new Vue({
 			}
 			this.setZoomSlider();
 			this.ZoomInOut();
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateZoomSettings',
+						data: {
+							time_div: this.time_div,
+							freq_div: this.freq_div
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		invertWaveform_change_button: function() {
 
@@ -649,21 +708,65 @@ var app = new Vue({
 			}
 			this.invertWaveform_change_button();
 			this.drawWaveform();
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateWaveformInversion',
+						data: this.invert_waveform
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		decreaseAmp: function() {
 			var val = parseInt(document.getElementById("ampSlider").value);
 			document.getElementById("ampSlider").value = val - 1;
 			this.ampSettings();
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateAmplitude',
+						data: document.getElementById("ampSlider").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		increaseAmp: function() {
 			var val = parseInt(document.getElementById("ampSlider").value);
 			document.getElementById("ampSlider").value = val + 1;
 			this.ampSettings();
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateAmplitude',
+						data: document.getElementById("ampSlider").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		ampSettings: function () { 
 			var slider_val = parseInt(document.getElementById("ampSlider").value);
 			this.amp_value = 0.1*slider_val;
 			this.drawWaveform();
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateAmplitude',
+						data: document.getElementById("ampSlider").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		exportFile: function(e) {
 			var format = e.format;
@@ -945,6 +1048,17 @@ var app = new Vue({
 				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("None");
 			}
 			this.drawWaveform();
+
+			if (this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTriggeringEdge',
+						data: this.trigEdge
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		selectInstrument: function(e) {	
 			if (this.instrument_name == 'none') {
@@ -1063,14 +1177,11 @@ var app = new Vue({
 			var freq = this.A0 * Math.pow(this.TWELTHROOT2, res);
 			document.getElementById("tuning-freq").value = freq.toFixed(3);
 		},
-		onActivityStop: function () {
-			if (this.setInterval_id) {
-				this.stopRecord();
-			}
+		getActivityData: function() {
 
 			var time_data = [];
 			var freq_data = [];
-			for(var i=0;i<this.fftSize;i++) {
+			for (var i = 0; i < this.fftSize; i++) {
 				time_data.push(this.timeDomainData[i]);
 				freq_data.push(this.freqDomainData[i]);
 			}
@@ -1102,6 +1213,15 @@ var app = new Vue({
 					tuning_freq_value: document.getElementById("tuning-freq").value
 				}
 			};
+
+			return context;
+		},
+		onActivityStop: function () {
+			if (this.setInterval_id) {
+				this.stopRecord();
+			}
+
+			var context = this.getActivityData();
 			this.$refs.SugarJournal.saveData(context);
 		},
 		onJournalNewInstance: function () {
@@ -1146,18 +1266,7 @@ var app = new Vue({
 		onJournalLoadError: function (error) {
 			console.log("Error loading from journal");
 		},
-		initDataForExisiting: function() {
-
-			// this function handles existing instance data for firefox and mobile devices.
-			if (!this.play) {
-				this.freqDomainData = [];
-				for (var i = 0; i < this.fftSize; i++) {
-					this.timeDomainData[i] = this.existing_instance_time_data[i];
-					this.freqDomainData.push(this.existing_instance_freq_data[i]);
-				}
-				this.drawWaveform();
-			}
-
+		setInstrumentSettingsFromData: function() {
 			var existing_time_domain = this.time_domain;
 			var obj = this.existing_instrument_settings;
 			if (obj.instrument_name == 'none') {
@@ -1176,19 +1285,135 @@ var app = new Vue({
 			this.showTuningLine();
 
 			this.time_domain = existing_time_domain;
+			this.shared_mode_initialised = true;
+		},
+		initDataForExisiting: function() {
 
+			// this function handles existing instance data for firefox and mobile devices.
+			if (!this.play) {
+				this.freqDomainData = [];
+				for (var i = 0; i < this.fftSize; i++) {
+					this.timeDomainData[i] = this.existing_instance_time_data[i];
+					this.freqDomainData.push(this.existing_instance_freq_data[i]);
+				}
+				this.drawWaveform();
+			}
+
+			this.setInstrumentSettingsFromData();
 			this.time_domain = !this.time_domain;
 			this.TimeOrFreq();
 
 			this.existing_instance = false;
 		},
+		initSharedInstance: function (data) {
+			this.time_domain = data.time_domain;
+			this.time_div = data.time_div;
+			this.freq_div = data.freq_div;
+			this.setZoomSlider();
+			this.num_of_samples_time = data.num_of_samples_time;
+			this.num_of_samples_freq = data.num_of_samples_freq;
+			document.getElementById('ampSlider').value = data.amp_slider_val;
+			this.ampSettings();
+			this.invert_waveform = !data.invert_waveform;
+			this.invertWaveform_change_button();
+			this.trigEdge = data.trigEdge - 1;
+			this.triggeringEdge();
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
+			this.log_interval = data.log_interval;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+			this.existing_instrument_settings = data.existing_instrument_settings;
 
+			this.shared_instance = true;
+			if (this.timeDomainData.length > 0) {
+				this.setInstrumentSettingsFromData();
+				this.time_domain = !data.time_domain;
+				this.TimeOrFreq();
+				this.shared_instance = false;
+			}
+		},
+		onJournalSharedInstance: function () {
+			console.log("Shared instance");
+		},
+		onNetworkDataReceived(msg) {
+			// Handles the data-received event
+
+			switch (msg.content.action) {
+				case 'init':
+					{
+						this.initSharedInstance(msg.content.data);
+						break;
+					}
+				case 'UpdateTimeOrFreq': 
+					{
+						this.time_domain = msg.content.data;
+						this.TimeOrFreq_switch();
+						break;
+					}
+				case 'UpdateZoomSettings':
+					{
+						this.time_div = msg.content.data.time_div,
+						this.freq_div = msg.content.data.freq_div
+						this.setZoomSlider();
+						this.shared_mode_initialised = false;
+						this.ZoomInOut();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateAmplitude':
+					{
+						document.getElementById("ampSlider").value = msg.content.data;
+						this.shared_mode_initialised = false;
+						this.ampSettings();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateWaveformInversion':
+					{
+						this.invert_waveform = !msg.content.data;
+						this.shared_mode_initialised = false;
+						this.invertWaveform();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateTriggeringEdge':
+					{
+						this.trigEdge = msg.content.data - 1;
+						this.shared_mode_initialised = false;
+						this.triggeringEdge();
+						this.shared_mode_initialised = true;
+						break;
+					}
+			}
+		},
+
+		onNetworkUserChanged(msg) {
+			// Handles the user-changed event
+
+			if (this.SugarPresence.isHost) {
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'init',
+						data: this.getActivityData()
+					}
+				});
+				this.shared_mode_initialised = true;
+			}
+
+		},
 		onAudioInput: function(e) {
 
 			// This function executes whenever stream from microphone is received (only for cordova)
 
 			if(this.existing_instance) {
 				this.initDataForExisiting();
+			}
+
+			if(this.shared_instance) {
+				this.setInstrumentSettingsFromData();
+				this.time_domain = !data.time_domain;
+				this.TimeOrFreq();
+				this.shared_instance = false;
 			}
  
 			if (!this.play) return;
@@ -1218,6 +1443,7 @@ var app = new Vue({
 	},
 	mounted() {
 		this.SugarL10n = this.$refs.SugarL10n;
+		this.SugarPresence = this.$refs.SugarPresence;
 		this.canvas = document.getElementById("mainCanvas");
 		if (window.cordova || window.PhoneGap) {
 			document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -1237,27 +1463,12 @@ var app = new Vue({
 							this.freqDomainData[i] = this.existing_instance_freq_data[i];
 						}
 					}
-					if (this.existing_instance) {
-						var existing_time_domain = this.time_domain;
-						var obj = this.existing_instrument_settings;
-						if(obj.instrument_name == 'none') {
-							document.getElementById("none").click();
-							this.setNote(obj.freq_input_note_index);
-							this.setOctave(obj.freq_input_octave);
-						}
-						else {
-							document.getElementById(`${obj.instrument_name}_instrument`).click();
-							this.drawNote(obj.note_index, obj.note_freq, obj.note_name);
-							this.show_harmonics = !obj.show_harmonics;
-							this.handleHarmonics();
-						}
-						document.getElementById("tuning-freq").value = obj.tuning_freq_value;
-						this.show_tuning_line = !obj.show_tuning_line;
-						this.showTuningLine();
 
-						this.time_domain = existing_time_domain;
+					if (this.existing_instance || this.shared_instance) {
+						this.setInstrumentSettingsFromData();
 					}
 					
+					this.shared_instance = false;
 					this.time_domain = !this.time_domain;
 					this.TimeOrFreq();
 
