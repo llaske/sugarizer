@@ -509,8 +509,7 @@ var app = new Vue({
 			this.isPlaying = false;
 		},
 		speakStory: function(){
-			if (this.editor.container.innerText == "") return;
-			var text = this.editor.container.innerText;
+			var text = this.editor.getText();
 			this.$refs.SugarSpeak.speech(text);
 		},
 		onStop: function() {
