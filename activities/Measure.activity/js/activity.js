@@ -577,7 +577,7 @@ var app = new Vue({
 
 			this.time_domain = !this.time_domain;
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -623,7 +623,7 @@ var app = new Vue({
 				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
 			}
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -647,7 +647,7 @@ var app = new Vue({
 			this.setZoomSlider();
 			this.ZoomInOut();
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -671,7 +671,7 @@ var app = new Vue({
 			this.setZoomSlider();
 			this.ZoomInOut();
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -709,7 +709,7 @@ var app = new Vue({
 			this.invertWaveform_change_button();
 			this.drawWaveform();
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -725,7 +725,7 @@ var app = new Vue({
 			document.getElementById("ampSlider").value = val - 1;
 			this.ampSettings();
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -741,7 +741,7 @@ var app = new Vue({
 			document.getElementById("ampSlider").value = val + 1;
 			this.ampSettings();
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -757,7 +757,7 @@ var app = new Vue({
 			this.amp_value = 0.1*slider_val;
 			this.drawWaveform();
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -959,6 +959,17 @@ var app = new Vue({
 			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
 			this.log_interval = e.secondVal;
 			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateLogInterval',
+						data: this.log_interval
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		getSessionDate: function(){
 			var d = new Date()
@@ -1049,7 +1060,7 @@ var app = new Vue({
 			}
 			this.drawWaveform();
 
-			if (this.shared_mode_initialised) {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
 					content: {
@@ -1088,6 +1099,25 @@ var app = new Vue({
 			}
 
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateInstrument',
+						data: {
+							instrument_name: e.instrument_name,
+							freq_input_note_index: this.freq_input_note_index,
+							freq_input_octave: this.freq_input_octave,
+							note_idx: this.note_index,
+							note_freq: this.note_freq,
+							note_name: this.note_name,
+							show_harmonics: this.show_harmonics
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		drawNote: function(note_idx, freq, note_key) {
 			document.getElementById(`${this.instrument_name}_note_${this.note_name}`).style.backgroundColor = '';
@@ -1100,6 +1130,21 @@ var app = new Vue({
 				this.TimeOrFreq();
 			}
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateNoteForNotNone',
+						data: {
+							note_idx: this.note_index,
+							note_freq: this.note_freq,
+							note_name: this.note_name
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		harmonics_button_display: function() {
 			this.show_harmonics = !this.show_harmonics;
@@ -1118,6 +1163,17 @@ var app = new Vue({
 			}
 			this.harmonics_button_display();
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateHarmonics',
+						data: this.show_harmonics
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		tuning_line_button_display: function() {
 			this.show_tuning_line = !this.show_tuning_line;
@@ -1138,6 +1194,20 @@ var app = new Vue({
 			}
 			this.tuning_line_button_display();
 			this.drawWaveform();
+			
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTuningLineDisplay',
+						data: {
+							show_tuning_line: this.show_tuning_line,
+							tuning_freq_value: document.getElementById("tuning-freq").value
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 
 		},
 		playStopNote: function() {
@@ -1165,12 +1235,46 @@ var app = new Vue({
 			this.freq_input_note_index = idx;
 			document.getElementById(`note_${this.freq_input_note_index}`).style.backgroundColor = 'darkgray';
 			this.updateFreqInput();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateNoteForNone',
+						data: this.freq_input_note_index
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		setOctave: function(val) {
 			document.getElementById(`octave_${this.freq_input_octave}`).style.backgroundColor = '';
 			this.freq_input_octave = val;
 			document.getElementById(`octave_${this.freq_input_octave}`).style.backgroundColor = 'darkgray';
 			this.updateFreqInput();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateOctave',
+						data: this.freq_input_octave
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
+		},
+		tuningFreqInputUpdate: function() {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTuningFrequency',
+						data: document.getElementById("tuning-freq").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		updateFreqInput: function() {
 			var res = this.freq_input_octave * 12 + this.freq_input_note_index;
@@ -1380,6 +1484,87 @@ var app = new Vue({
 						this.trigEdge = msg.content.data - 1;
 						this.shared_mode_initialised = false;
 						this.triggeringEdge();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateLogInterval':
+					{
+						document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
+						this.log_interval = msg.content.data;
+						document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+						break;
+					}
+				case 'UpdateInstrument':
+					{
+						this.shared_mode_initialised = false;
+						var existing_time_domain = this.time_domain;
+						var obj = msg.content.data;
+						if (obj.instrument_name == 'none') {
+							document.getElementById("none").click();
+							this.setNote(obj.freq_input_note_index);
+							this.setOctave(obj.freq_input_octave);
+						}
+						else {
+							document.getElementById(`${obj.instrument_name}_instrument`).click();
+							this.drawNote(obj.note_idx, obj.note_freq, obj.note_name);
+							this.show_harmonics = !obj.show_harmonics;
+							this.handleHarmonics();
+						}
+
+						this.time_domain = existing_time_domain;
+						this.TimeOrFreq_switch();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateNoteForNone':
+					{
+						this.shared_mode_initialised = false;
+						if(this.instrument_name == 'none') {
+							this.setNote(msg.content.data);
+						}
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateOctave':
+					{
+						this.shared_mode_initialised = false;
+						this.setOctave(msg.content.data);
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateNoteForNotNone':
+					{
+						this.shared_mode_initialised = false;
+						var msg_data = msg.content.data;
+						if(this.instrument_name != 'none') {
+							this.drawNote(msg_data.note_idx, msg_data.note_freq, msg_data.note_name);
+						}
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateHarmonics':
+					{
+						this.shared_mode_initialised = false;
+						this.show_harmonics = !msg.content.data;
+						this.harmonics_button_display();
+						this.drawWaveform();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateTuningFrequency':
+					{
+						this.shared_mode_initialised = false;
+						document.getElementById("tuning-freq").value = msg.content.data;
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateTuningLineDisplay':
+					{
+						this.shared_mode_initialised = false;
+						document.getElementById("tuning-freq").value = msg.content.data.tuning_freq_value;
+						this.show_tuning_line = !msg.content.data.show_tuning_line;
+						this.showTuningLine();
+						this.drawWaveform();
 						this.shared_mode_initialised = true;
 						break;
 					}
