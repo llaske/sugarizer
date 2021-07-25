@@ -434,48 +434,6 @@ p {
 	background-repeat: no-repeat;
 }
 
- @media only screen and (max-width: 908px) {
-	#logging-interval-button {
-		display: none;
-	}
-	#record-off-button {
-		display: none;
-	}
-	#export-button {
-		display: none;
-	}
-	#afterLoggingSplitbar {
-		display: none !important;
-	}
-}
-
-@media only screen and (max-width: 722px) {
-	#capture-image-button {
-		display: none;
-	}
-}
-
-@media only screen and (max-width: 664px) {
-	#tuning-palette-button {
-		display: none;
-	}
-}
-
-@media only screen and (max-width: 606px) {
-	#afterTuningSplitbar {
-		visibility: hidden;
-	}
-	#instrument-select-button {
-		display: none;
-	}
-	#note-select-button {
-		display: none;
-	}
-	#octave-select-button {
-		display: none;
-	}
-}
-
 #main-toolbar #network-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
@@ -508,4 +466,46 @@ p {
 	background-size: contain;
 	border: 0;
 	border-radius: 5.5px;
+}
+
+@media only screen and (max-width: 967px) {
+	#logging-interval-button {
+		display: none;
+	}
+	#record-off-button {
+		display: none;
+	}
+	#export-button {
+		display: none;
+	}
+	#afterLoggingSplitbar {
+		display: none !important;
+	}
+}
+
+@media only screen and (max-width: 780px) {
+	#capture-image-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 721px) {
+	#tuning-palette-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 663px) {
+	#afterTuningSplitbar {
+		visibility: hidden;
+	}
+	#instrument-select-button {
+		display: none;
+	}
+	#note-select-button {
+		display: none;
+	}
+	#octave-select-button {
+		display: none;
+	}
 }
