@@ -18,7 +18,7 @@ enyo.kind({
 				{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 				{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
 				{name: "security", kind: "Sugar.DialogSettingsItem", ontap: "securityClicked", icon: {directory: "icons", icon: "login-icon.svg"}, showing: false},
-				{name: "privacy", kind: "Sugar.DialogSettingsItem", ontap: "privacyClicked", icon: {directory: "icons", icon: "privacy.svg"}, showing: false},
+				{name: "privacy", kind: "Sugar.DialogSettingsItem", ontap: "privacyClicked", icon: {directory: "icons", icon: "privacy.svg"}},
 				{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
 				{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
 				{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
@@ -39,7 +39,6 @@ enyo.kind({
 		this.$.aboutserver.setText(l10n.get("Server"));
 		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
 			this.$.security.setShowing(true);
-			this.$.privacy.setShowing(true);
 		}
 		if (window.sugarizerOS) {
 			sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
@@ -1171,12 +1170,21 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
+		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancelRemove", onRestart: "confirmRemove"},
 		{name: "content", components: [
 			{name: "stats", kind: "Input", type: "checkbox", classes: "toggle privacy-statscheckbox"},
 			{name: "textstats", content: "xxx", classes: "privacy-statsmessage"},
 			{content: ""},
 			{name: "sync", kind: "Input", type: "checkbox", classes: "toggle privacy-synccheckbox"},
 			{name: "textsync", content: "xxx", classes: "privacy-syncmessage"},
+			{content: ""},
+			{name: "remove", kind: "Input", type: "checkbox", classes: "toggle privacy-removecheckbox", ontap: "showRemove"},
+			{name: "textremove", content: "xxx", classes: "privacy-removemessage"},
+			{components: [
+				{name: "removelocal", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "module-about_my_computer.svg"}, classes: "privacy-removelocalbutton", ontap: "removeLocalAccount", showing: false},
+				{name: "removeremote", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "cloud-settings.svg"}, classes: "privacy-removeremotebutton", ontap: "removeRemoteAccount", showing: false},
+			]},
+			{name: "warningmessage", content: "xxx", classes: "privacy-warningmessage", showing: false}
 		]}
 	],
 
@@ -1186,12 +1194,23 @@ enyo.kind({
 		this.$.text.setContent(l10n.get("MyPrivacy"));
 		this.$.textstats.setContent(l10n.get("PrivacyStats"));
 		this.$.textsync.setContent(l10n.get("PrivacySync"));
+		this.$.textremove.setContent(l10n.get("PrivacyRemove"));
+		this.$.removelocal.setText(l10n.get("PrivacyRemoveLocal"));
+		this.$.removeremote.setText(l10n.get("PrivacyRemoveRemote"));
+		this.$.warningmessage.setContent(l10n.get("AllDataWillBeLost"));
 		this.initstats = preferences.getOptions("stats");
 		this.initsync = preferences.getOptions("sync");
+		this.removelocal = true;
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.textstats.addClass("rtl-10");
 			this.$.textsync.addClass("rtl-10");
+		}
+		if (util.getClientType() == constant.appType && !preferences.isConnected()) {
+			this.$.stats.setShowing(false);
+			this.$.sync.setShowing(false);
+			this.$.textstats.setShowing(false);
+			this.$.textsync.setShowing(false);
 		}
 	},
 
@@ -1227,6 +1246,75 @@ enyo.kind({
 			preferences.saveToServer(myserver, null, null);
 		}
 		util.restartApp();
+	},
+
+	showRemove: function() {
+		if (util.getClientType() != constant.webAppType) {
+			this.$.removelocal.setShowing(!this.$.remove.getNodeProperty("checked"));
+		}
+		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
+			this.$.removeremote.setShowing(!this.$.remove.getNodeProperty("checked"));
+		}
+	},
+
+	removeLocalAccount: function() {
+		this.$.warningmessage.setShowing(true);
+		this.$.warningbox.setShowing(true);
+		this.$.remove.setDisabled(true);
+		this.removelocal = true;
+	},
+
+	removeRemoteAccount: function() {
+		this.$.warningmessage.setShowing(true);
+		this.$.warningbox.setShowing(true);
+		this.$.remove.setDisabled(true);
+		this.removelocal = false;
+	},
+
+	cancelRemove: function() {
+		this.hide();
+		this.owner.show();
+	},
+
+	confirmRemove: function() {
+		this.hide();
+		historic.removeUser({name: preferences.getName(), server: preferences.getServer()});
+		if (this.removelocal) {
+			util.cleanDatastore(null, function() {
+				util.restartApp();
+			});
+		} else {
+			var that = this;
+			var networkId = preferences.getNetworkId();
+			if (util.getClientType() == constant.appType) {
+				preferences.setConnected(false);
+				preferences.setNetworkId(null);
+				preferences.save();
+			}
+			myserver.deleteUser(
+				networkId,
+				function(inSender, inResponse) {
+					if (util.getClientType() == constant.appType) {
+						preferences.setServer(null);
+						preferences.save();
+						util.restartApp();
+					} else {
+						util.cleanDatastore(null, function() {
+							util.restartApp();
+						});
+					}
+				},
+				function(response, error) {
+					if (util.getClientType() == constant.appType) {
+						preferences.setServer(null);
+						preferences.save();
+					}
+					humane.log(l10n.get("ServerError", {code: error}));
+					that.hide();
+					that.owner.show();
+				}
+			);
+		}
 	},
 
 	// Utility

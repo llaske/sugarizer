@@ -1916,6 +1916,49 @@ body {
 	display: inline-block;
 }
 
+.privacy-removecheckbox {
+	position: relative;
+	margin-left: 30px !important;
+	margin-top: 40px !important;
+}
+
+.privacy-removemessage {
+	position: relative;
+	margin-left: 10px;
+	margin-top: 20px;
+	vertical-align: bottom;
+	color: black;
+	height: 24px;
+	display: inline-block;
+}
+
+.privacy-removelocalbutton {
+	margin-left: 70px;
+	margin-top: 10px;
+	width: 240px;
+	display: inline-block;
+}
+
+.privacy-removeremotebutton {
+	margin-left: 70px;
+	margin-top: 10px;
+	width: 240px;
+	display: inline-block;
+}
+
+.privacy-warningmessage {
+	position: absolute;
+	color: #808080;
+	background-image: url(../icons/emblem-warning.svg);
+	background-repeat: no-repeat;
+	background-position: left;
+	background-size: 15px 15px;
+	left: 20px;
+	bottom: 20px;
+	width: 300px;
+	padding-left: 20px;
+}
+
 .cloud-empty {
 	position: absolute;
 	background-image: url(../icons/cloud-warning.svg);
