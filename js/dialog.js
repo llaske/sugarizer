@@ -1178,7 +1178,7 @@ enyo.kind({
 			{name: "sync", kind: "Input", type: "checkbox", classes: "toggle privacy-synccheckbox"},
 			{name: "textsync", content: "xxx", classes: "privacy-syncmessage"},
 			{content: ""},
-			{name: "remove", kind: "Input", type: "checkbox", classes: "toggle privacy-removecheckbox", ontap: "showRemove"},
+			{name: "remove", kind: "Input", type: "checkbox", classes: "toggle privacy-removecheckbox", onchange: "showRemove"},
 			{name: "textremove", content: "xxx", classes: "privacy-removemessage"},
 			{components: [
 				{name: "removelocal", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "module-about_my_computer.svg"}, classes: "privacy-removelocalbutton", ontap: "removeLocalAccount", showing: false},
@@ -1250,10 +1250,10 @@ enyo.kind({
 
 	showRemove: function() {
 		if (util.getClientType() != constant.webAppType) {
-			this.$.removelocal.setShowing(!this.$.remove.getNodeProperty("checked"));
+			this.$.removelocal.setShowing(this.$.remove.getNodeProperty("checked"));
 		}
 		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
-			this.$.removeremote.setShowing(!this.$.remove.getNodeProperty("checked"));
+			this.$.removeremote.setShowing(this.$.remove.getNodeProperty("checked"));
 		}
 	},
 
