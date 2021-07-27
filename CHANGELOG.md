@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Cookie consent screen
+- Delete account buttons in privacy settings
 
 ### Changed
 - Refactor activities and preferences loading
