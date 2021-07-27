@@ -174,7 +174,9 @@ var app = new Vue({
 			stringSelectInstrument: '',
 			stringSelectNote: '',
 			stringSelectOctave: '',
-			stringTuningSettings: ''
+			stringTuningSettings: '',
+			stringTutoExplainTitle: '',
+			stringTutoExplainContent: ''
 		}
 	},
 	methods: {
@@ -1585,6 +1587,87 @@ var app = new Vue({
 				this.shared_mode_initialised = true;
 			}
 
+		},
+		onHelp: function () {
+			var steps = [
+				{
+					onNext: function (tourType) {
+						if(!app.time_domain) {
+							app.TimeOrFreq();
+						}
+					},
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: this.l10n.stringTutoExplainTitle,
+					content: this.l10n.stringTutoExplainContent
+				},
+				{
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+					},
+					element: "#time-domain-button",
+					placement: "bottom",
+					title: "Time Domain",
+					content: "It draws a graph of microphone input versus time, the input is on the vertical axis and time is on the horizontal axis. Try by speaking something!"
+				},
+				{
+					onShow: function (tourType) {
+						if(app.time_domain) {
+							app.TimeOrFreq();
+						}
+					},
+					element: "#freq-domain-button",
+					placement: "bottom",
+					title: "Frequency Domain",
+					content: "It draws a graph of microphone input versus frequency, the input is on the vertical axis and frequency is on the horizontal axis. You can change between time and frequency mode by clicking this button. Try by speaking something!"
+				},
+				{
+					onPrev: function(tourType) {
+						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
+							document.getElementById("zoom-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
+							document.getElementById("zoom-button").click();
+						}
+						document.getElementById("zoomSlider").value = "45";
+						app.ZoomInOut();
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
+							document.getElementById("zoom-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[0],
+					placement: "bottom",
+					title: "Zoom Settings",
+					content: "You can increase or decrease scale of time and frequency either by using sliders or buttons"
+				},
+				{
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
+							document.getElementById("zoom-button").click();
+						}
+						document.getElementById("zoomSlider").value = "0";
+						app.ZoomInOut();
+					},
+					element: document.getElementById("zoomSlider"),
+					placement: "bottom",
+					title: "Lowest zoom value",
+					content: "Now the slider is at lowest zoom value, scale of graph now changed to 1 division = 0.05 ms"
+				}
+			];
+			this.$refs.SugarTutorial.show(steps);
 		},
 		onAudioInput: function(e) {
 

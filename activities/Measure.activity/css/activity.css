@@ -468,6 +468,10 @@ p {
 	border-radius: 5.5px;
 }
 
+#main-toolbar #help-button  {
+	background-image: url("../icons/help.svg");
+}
+
 @media only screen and (max-width: 967px) {
 	#logging-interval-button {
 		display: none;
