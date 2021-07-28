@@ -188,7 +188,13 @@ var app = new Vue({
 			stringTutoWaveformInversionTitle: '',
 			stringTutoWaveformInversionContent: '',
 			stringTutoTriggeringEdgeTitle: '',
-			stringTutoTriggeringEdgeContent: ''
+			stringTutoTriggeringEdgeContent: '',
+			stringTutoLoggingIntervalTitle: '',
+			stringTutoLoggingIntervalContent: '',
+			stringTutoStartStopTitle: '',
+			stringTutoStartStopContent: '',
+			stringTutoExportLoggingTitle: '',
+			stringTutoExportLoggingContent: ''
 		}
 	},
 	methods: {
@@ -1704,6 +1710,59 @@ var app = new Vue({
 					placement: "left",
 					title: this.l10n.stringTutoTriggeringEdgeTitle,
 					content: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
+							document.getElementById("logging-interval-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[2].style.visibility == "hidden") {
+							document.getElementById("logging-interval-button").click();
+						}
+					},
+					onNext: function(tourType) {
+						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
+							document.getElementById("logging-interval-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[2],
+					placement: "bottom",
+					title: this.l10n.stringTutoLoggingIntervalTitle,
+					content: this.l10n.stringTutoLoggingIntervalContent
+				},
+				{
+					onShow: function(tourType) {
+						if (app.setInterval_id) {
+							app.stopRecord();
+						}
+					},
+					element: "#record-off-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoStartStopTitle,
+					content: this.tutorialGifContent('start_stop_recording_demo.gif', this.l10n.stringTutoStartStopContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
+							document.getElementById("export-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[3].style.visibility == "hidden") {
+							document.getElementById("export-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
+							document.getElementById("export-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[3],
+					placement: "bottom",
+					title: this.l10n.stringTutoExportLoggingTitle,
+					content: this.l10n.stringTutoExportLoggingContent
 				}
 			];
 			this.$refs.SugarTutorial.show(steps);
