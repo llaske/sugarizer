@@ -585,10 +585,10 @@ enyo.kind({
 		};
 		myserver.loginUser(user, function(loginSender, loginResponse) {
 			preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
+			preferences.setNetworkId(loginResponse.user._id);
 			myserver.getUser(
 				loginResponse.user._id,
 				function(inSender, inResponse) {
-					preferences.setNetworkId(inResponse._id);
 					preferences.setPrivateJournal(inResponse.private_journal);
 					preferences.setSharedJournal(inResponse.shared_journal);
 					preferences.setConnected(true);
