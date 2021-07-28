@@ -176,7 +176,19 @@ var app = new Vue({
 			stringSelectOctave: '',
 			stringTuningSettings: '',
 			stringTutoExplainTitle: '',
-			stringTutoExplainContent: ''
+			stringTutoExplainContent: '',
+			stringTutoTimeFreqTitle: '',
+			stringTutoTimeFreqContent: '',
+			stringTutoZoomSettingsTitle: '',
+			stringTutoZoomSettingsContent: '',
+			stringTutoPlayPauseTitle: '',
+			stringTutoPlayPauseContent: '',
+			stringTutoAmplitudeTitle: '',
+			stringTutoAmplitudeContent: '',
+			stringTutoWaveformInversionTitle: '',
+			stringTutoWaveformInversionContent: '',
+			stringTutoTriggeringEdgeTitle: '',
+			stringTutoTriggeringEdgeContent: ''
 		}
 	},
 	methods: {
@@ -1588,6 +1600,9 @@ var app = new Vue({
 			}
 
 		},
+		tutorialGifContent: function(img_src, content) {
+			return `<div><img src='js/tutorial_gifs/${img_src}' style='width: 100%;height: 100%;'><p>` + content + "</p></div>";
+		},
 		onHelp: function () {
 			var steps = [
 				{
@@ -1603,26 +1618,10 @@ var app = new Vue({
 					content: this.l10n.stringTutoExplainContent
 				},
 				{
-					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
-					},
 					element: "#time-domain-button",
 					placement: "bottom",
-					title: "Time Domain",
-					content: "It draws a graph of microphone input versus time, the input is on the vertical axis and time is on the horizontal axis. Try by speaking something!"
-				},
-				{
-					onShow: function (tourType) {
-						if(app.time_domain) {
-							app.TimeOrFreq();
-						}
-					},
-					element: "#freq-domain-button",
-					placement: "bottom",
-					title: "Frequency Domain",
-					content: "It draws a graph of microphone input versus frequency, the input is on the vertical axis and frequency is on the horizontal axis. You can change between time and frequency mode by clicking this button. Try by speaking something!"
+					title: this.l10n.stringTutoTimeFreqTitle,
+					content: this.tutorialGifContent('time_freq_switch_demo.gif',this.l10n.stringTutoTimeFreqContent)
 				},
 				{
 					onPrev: function(tourType) {
@@ -1637,8 +1636,6 @@ var app = new Vue({
 						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
 							document.getElementById("zoom-button").click();
 						}
-						document.getElementById("zoomSlider").value = "45";
-						app.ZoomInOut();
 					},
 					onNext: function (tourType) {
 						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
@@ -1647,24 +1644,66 @@ var app = new Vue({
 					},
 					element: document.getElementsByClassName("wrapper")[0],
 					placement: "bottom",
-					title: "Zoom Settings",
-					content: "You can increase or decrease scale of time and frequency either by using sliders or buttons"
+					title: this.l10n.stringTutoZoomSettingsTitle,
+					content: this.tutorialGifContent('zoom_settings_demo.gif', this.l10n.stringTutoZoomSettingsContent)
+				},
+				{
+					element: "#play-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayPauseTitle,
+					content: this.tutorialGifContent('play_pause_demo.gif', this.l10n.stringTutoPlayPauseContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					element: "#amplitudeSettings",
+					placement: "left",
+					title: this.l10n.stringTutoAmplitudeTitle,
+					content: this.tutorialGifContent('amplitude_demo.gif', this.l10n.stringTutoAmplitudeContent)
 				},
 				{
 					onShow: function (tourType) {
 						if (!app.time_domain) {
 							app.TimeOrFreq();
 						}
-						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
-							document.getElementById("zoom-button").click();
+						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+							document.getElementById("settings-button").click();
 						}
-						document.getElementById("zoomSlider").value = "0";
-						app.ZoomInOut();
 					},
-					element: document.getElementById("zoomSlider"),
-					placement: "bottom",
-					title: "Lowest zoom value",
-					content: "Now the slider is at lowest zoom value, scale of graph now changed to 1 division = 0.05 ms"
+					element: "#waveformInversionSettings",
+					placement: "left",
+					title: this.l10n.stringTutoWaveformInversionTitle,
+					content: this.tutorialGifContent('waveform_invert_demo.gif', this.l10n.stringTutoWaveformInversionContent)
+				},
+				{
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					element: "#triggeringEdgeSettings",
+					placement: "left",
+					title: this.l10n.stringTutoTriggeringEdgeTitle,
+					content: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
 				}
 			];
 			this.$refs.SugarTutorial.show(steps);
