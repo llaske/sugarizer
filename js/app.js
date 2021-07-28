@@ -54,8 +54,9 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 				if (token && token.expired) {
 					callback(true);
 				} else {
-					console.log("WARNING: Can't read network user settings");
-					callback(false);
+					preferences.setToken({...token, expired: true});
+					console.log("WARNING: Can't read network user settings, force token expiration");
+					callback(true);
 				}
 			}
 		);
