@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Refactor activities and preferences loading
 - Refactor browser and device detection
+- Force token expiration when a local account is connected and server unavailable
 - Enhancement in multiplayer mode of Memorize activity #795
 - Position of scrollbar in listview is saved #945
 
