@@ -40,7 +40,13 @@ var app = new Vue({
 		fontColor: null,
 		backgroundColor: null,
 		fontSelected: null,
-		fontSize:null
+		fontSize:null,
+		SugarPresence: null,
+		cursors: null,
+		myid: null
+	},
+	mounted() {
+		this.SugarPresence = this.$refs.SugarPresence;
 	},
 	methods: {
 		initialized: function () {
@@ -132,14 +138,54 @@ var app = new Vue({
 			xhr.send();
 		},
 		loadEditor: function(){
+			Quill.register('modules/cursors', QuillCursors);
 			var container = document.getElementById('editor-area');
 			var editor = new Quill(container, {
 				modules: {
-				  toolbar: '.toolbar-container'
+				  toolbar: '.toolbar-container',
+				  cursors: true
 				},
+				cursors: {
+					transformOnTextChange: true,
+				}
 			  });
 			editor.format('size', '24px');
+			const cursors = editor.getModule('cursors');
+			const Delta =  Quill.import('delta');
+			var that = this;
+			editor.on('text-change', function(delta, oldDelta, source) {
+				// Executes on text or formatting changes
+				if (source=='user' && that.SugarPresence && that.SugarPresence.isShared()){
+					var range = that.editor.getSelection();
+					that.SugarPresence.sendMessage({
+						user: that.SugarPresence.getUserInfo(),
+						content: {
+							action: 'typing',
+							data: delta,
+							range: range,
+							grid:that.grid,
+							activeImageIndex: that.activeImageIndex,
+							allText: editor.getContents()
+						}
+					});
+				}
+			});
+			editor.on('selection-change', function(range, oldRange, source) {
+				// Executes when user selection changes
+				if (range) {
+						that.SugarPresence.isShared() && that.SugarPresence.sendMessage({
+							user: that.SugarPresence.getUserInfo(),
+							content: {
+								action: 'selection',
+								range: range,
+								grid:that.grid,
+								activeImageIndex: that.activeImageIndex
+							}
+						});
+				}
+			});
 			this.editor = editor;
+			this.cursors = cursors;
 		},
 		updateEditor: function(){
 			this.fontColor != null && this.editor.format('color',this.fontColor);
@@ -152,6 +198,7 @@ var app = new Vue({
 		},
 		toggleMode: function(){
 			this.currentTime = 0;
+			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
@@ -169,8 +216,21 @@ var app = new Vue({
 				this.grid=true;
 				this.modeId="grid-mode";
 			}
+			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'toggleMode',
+						grid: this.grid,
+						gridEditorContent: JSON.stringify(this.gridEditorContent),
+						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+						activeImageIndex: this.activeImageIndex
+					}
+				})
+			}
 		},
 		previousImage: function () {
+			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.activeImageIndex === 0){
 				return;
 			}
@@ -181,11 +241,22 @@ var app = new Vue({
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
+			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'updateImage',
+						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+						activeImageIndex: this.activeImageIndex
+					}
+				})
+			}
 			if (this.activeImageIndex === 0){
 				this.previousBtnId = "previous-btn-inactive";
 			}
 		},
 		nextImage: function () {
+			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.activeImageIndex === this.images.length-1){
 				return;
 			}
@@ -199,6 +270,16 @@ var app = new Vue({
 			if (this.activeImageIndex === this.images.length-1){
 				this.nextBtnId = "next-btn-inactive"; 
 			}	
+			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'updateImage',
+						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+						activeImageIndex: this.activeImageIndex
+					}
+				})
+			}
 		},
 		loaded: function () {
 			this.imageLoaded++;
@@ -211,6 +292,7 @@ var app = new Vue({
 			}
 		},
 		openImage: function(index){
+			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 			}
@@ -219,6 +301,18 @@ var app = new Vue({
 			this.activeImage = this.images[this.activeImageIndex];
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 			this.modeId="single-mode";
+			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'toggleMode',
+						grid: this.grid,
+						gridEditorContent: JSON.stringify(this.gridEditorContent),
+						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+						activeImageIndex: this.activeImageIndex
+					}
+				})
+			}
 			if (index === 0){
 				this.previousBtnId = "previous-btn-inactive";
 				this.nextBtnId = "next-btn";
@@ -333,8 +427,121 @@ var app = new Vue({
 		onJournalLoadError: function(error) {
 			console.log("Error loading from journal");
 		},
+		onJournalSharedInstance: function() {
+			console.log("Shared instance");
+		},
+		onNetworkDataReceived: function(msg){
+			var that = this;
+			switch (msg.content.action) {
+				case 'init':
+					console.log("init action", msg.content.data);
+					const data = msg.content.data;
+					this.grid = data.grid;
+					this.imageLoaders();
+					this.images = data.images;
+					this.imageCount = data.imageCount;
+					this.gridEditorContent = JSON.parse(data.gridEditorContent);
+					this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
+					this.previousBtnId = "previous-btn-inactive";
+					this.nextBtnId = "next-btn-inactive"; 
+					if (data.grid){
+						that.editor.setContents(that.gridEditorContent);
+					} else {
+						this.activeImageIndex = data.activeImageIndex;
+						this.activeImage = this.images[data.activeImageIndex];
+						this.isLoaded=true;
+						for (var i=0; i<this.imageCount; i++){
+							clearInterval(this.intervalIds[i]);
+						}
+						that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
+						this.modeId="single-mode";
+					}
+					var getallcursors = msg.content.allcursors;
+					for(var i = 0 ; i < getallcursors.length ; i++){
+						if(getallcursors[i].id!=that.myid){
+							that.cursors.createCursor(getallcursors[i].id, getallcursors[i].name,getallcursors[i].color) ;
+							that.cursors.moveCursor(getallcursors[i].id, getallcursors[i].range) ;
+						}
+					}
+					that.cursors.update();
+					break;
+				case 'typing':
+					this.editor.updateContents(msg.content.data);
+					break;
+				case 'selection':
+					setTimeout(function() {that.cursors.moveCursor(msg.user.networkId,msg.content.range)} , 5);
+					break;
+				case 'toggleMode':
+					this.grid = msg.content.grid;
+					this.gridEditorContent = JSON.parse(msg.content.gridEditorContent);
+					this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
+					if(msg.content.grid){
+						this.modeId="grid-mode";
+						this.editor.setContents(this.gridEditorContent);
+					} else {
+						this.activeImageIndex = msg.content.activeImageIndex;
+						this.activeImage = this.images[this.activeImageIndex];
+						this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+						this.modeId="single-mode";
+					}
+					break;
+				case 'updateImage':
+					this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
+					this.activeImageIndex = msg.content.activeImageIndex;
+					this.activeImage = this.images[this.activeImageIndex];
+					this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+					break;
+			}
+		},
+		onNetworkUserChanged: function(msg){
+			var mycursor = {};
+			var that = this;
+			// Handling only by host
+			if (this.SugarPresence.isHost) {
+				if (this.grid){
+					this.gridEditorContent = this.editor.getContents();
+				} else {
+					this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+				}
+				console.log("onNetworkUserChanged",that.editor);
+				var range = that.editor.getSelection();
+				mycursor.range = range;
+				this.cursors.createCursor(this.SugarPresence.presence.userInfo.networkId,this.SugarPresence.presence.userInfo.name, this.SugarPresence.presence.userInfo.colorvalue.stroke);
+				var allcursors = that.cursors.cursors();
+	
+				var context = {
+					grid: this.grid,
+					images: this.images,
+					imageCount: this.imageCount,
+					activeImageIndex: this.activeImageIndex,
+					gridEditorContent: JSON.stringify(this.gridEditorContent),
+					singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+				};
+				that.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'init',
+						data: context,
+						allcursors: allcursors
+					}
+				});
+				mycursor.range = null;
+			}
+			if (!this.myid){
+				this.myid = msg.user.networkId;
+			}
+			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
+			if (msg.move==1){
+				var c = this.cursors.createCursor(msg.user.networkId, userName, msg.user.colorvalue.stroke);
+				if(this.myid==msg.user.networkId) {mycursor=c;}
+			}
+			if (msg.move == -1){
+				this.cursors.removeCursor(msg.user.networkId);
+			}
+		},
 		onRecord: function(error){
 			var t = this;
+			if (this.SugarPresence.isShared()) return;
 			if (this.isPlaying) return;
 			if (window.cordova || window.PhoneGap){
 				// Using Cordova

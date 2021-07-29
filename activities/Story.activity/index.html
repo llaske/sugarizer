@@ -29,7 +29,15 @@
 	<div id="app">
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
-
+			<sugar-toolitem 
+				id="network-button" 
+				title="Network"
+				palette-file="sugar-web/graphics/presencepalette" 
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="SugarPresence.onShared"
+				v-if="SugarPresence"
+				></sugar-toolitem>
 			<!-- Add more buttons here -->
 			<!-- <sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem> -->
 			<!-- <sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem> -->
@@ -108,7 +116,8 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
-		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-speak ref="SugarSpeak"></sugar-speak> 
 	</div>
@@ -118,6 +127,7 @@
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
 	<script src="js/components/SugarSpeak.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 

@@ -336,6 +336,10 @@ p {
 	width: 90px;
 	justify-content: space-between;
 }
+/* Edit cursor font size */
+.ql-cursor .ql-cursor-flag {
+	font-size: 16px;
+}
 /* Font Styling */
 
 .ql-font-arial {
