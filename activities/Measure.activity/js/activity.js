@@ -194,7 +194,23 @@ var app = new Vue({
 			stringTutoStartStopTitle: '',
 			stringTutoStartStopContent: '',
 			stringTutoExportLoggingTitle: '',
-			stringTutoExportLoggingContent: ''
+			stringTutoExportLoggingContent: '',
+			stringTutoInstrumentSelectTitle: '',
+			stringTutoInstrumentSelectContent: '',
+			stringTutoNoteSelectTitle: '',
+			stringTutoNoteSelectContent: '',
+			stringTutoOctaveSelectTitle: '',
+			stringTutoOctaveSelectContent: '',
+			stringTutoShowHarmonicsTitle: '',
+			stringTutoShowHarmonicsContent: '',
+			stringTutoTuningFreqInputTitle: '',
+			stringTutoTuningFreqInputContent: '',
+			stringTutoTuningLineTitle: '',
+			stringTutoTuningLineContent: '',
+			stringTutoPlayStopNoteTitle: '',
+			stringTutoPlayStopNoteContent: '',
+			stringTutoCaptureWaveformTitle: '',
+			stringTutoCaptureWaveformContent: ''
 		}
 	},
 	methods: {
@@ -1763,6 +1779,146 @@ var app = new Vue({
 					placement: "bottom",
 					title: this.l10n.stringTutoExportLoggingTitle,
 					content: this.l10n.stringTutoExportLoggingContent
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
+							document.getElementById("instrument-select-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[4].style.visibility == "hidden") {
+							document.getElementById("instrument-select-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
+							document.getElementById("instrument-select-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[4],
+					placement: "left",
+					title: this.l10n.stringTutoInstrumentSelectTitle,
+					content: this.l10n.stringTutoInstrumentSelectContent
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
+							document.getElementById("note-select-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[5].style.visibility == "hidden") {
+							document.getElementById("note-select-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
+							document.getElementById("note-select-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[5],
+					placement: "left",
+					title: this.l10n.stringTutoNoteSelectTitle,
+					content: this.tutorialGifContent('select_note_demo.gif', this.l10n.stringTutoNoteSelectContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
+							document.getElementById("octave-select-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[6].style.visibility == "hidden") {
+							document.getElementById("octave-select-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
+							document.getElementById("octave-select-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[6],
+					placement: "left",
+					title: this.l10n.stringTutoOctaveSelectTitle,
+					content: this.tutorialGifContent('select_octave_demo.gif', this.l10n.stringTutoOctaveSelectContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+						if (app.show_harmonics) {
+							app.handleHarmonics();
+						}
+					},
+					element: "#harmonics-off-button",
+					placement: "left",
+					title: this.l10n.stringTutoShowHarmonicsTitle,
+					content: this.tutorialGifContent('show_harmonics_demo.gif', this.l10n.stringTutoShowHarmonicsContent)
+				},
+				{
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+						if (app.time_domain) {
+							app.TimeOrFreq();
+						}
+					},
+					element: "#tuning-freq",
+					placement: "bottom",
+					title: this.l10n.stringTutoTuningFreqInputTitle,
+					content: this.l10n.stringTutoTuningFreqInputContent
+				},
+				{
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+
+						if(app.time_domain) {
+							app.TimeOrFreq();
+						}
+
+						if(app.show_tuning_line) {
+							app.showTuningLine();
+						}
+					},
+					element: "#tuning-line-off-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoTuningLineTitle,
+					content: this.tutorialGifContent('show_tuning_line_demo.gif', this.l10n.stringTutoTuningLineContent)
+				},
+				{
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+						if(app.play_note) {
+							app.playStopNote();
+						}
+					},
+					onNext: function(tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
+					element: "#stop-note-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayStopNoteTitle,
+					content: this.l10n.stringTutoPlayStopNoteContent
+				},
+				{
+					element: "#capture-image-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoCaptureWaveformTitle,
+					content: this.l10n.stringTutoCaptureWaveformContent
 				}
 			];
 			this.$refs.SugarTutorial.show(steps);
