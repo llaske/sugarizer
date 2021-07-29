@@ -472,14 +472,26 @@ p {
 	background-image: url("../icons/help.svg");
 }
 
-@media only screen and (max-width: 967px) {
+@media only screen and (max-width: 1019px) {
+	#capture-image-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 960px) {
+	#export-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 903px) {
 	#logging-interval-button {
 		display: none;
 	}
+}
+
+@media only screen and (max-width: 845px) {
 	#record-off-button {
-		display: none;
-	}
-	#export-button {
 		display: none;
 	}
 	#afterLoggingSplitbar {
@@ -487,22 +499,17 @@ p {
 	}
 }
 
-@media only screen and (max-width: 780px) {
-	#capture-image-button {
-		display: none;
+@media only screen and (max-width: 774px) {
+	
+	#afterTuningSplitbar {
+		visibility: hidden;
 	}
-}
-
-@media only screen and (max-width: 721px) {
 	#tuning-palette-button {
 		display: none;
 	}
 }
 
-@media only screen and (max-width: 663px) {
-	#afterTuningSplitbar {
-		visibility: hidden;
-	}
+@media only screen and (max-width: 718px) {
 	#instrument-select-button {
 		display: none;
 	}
