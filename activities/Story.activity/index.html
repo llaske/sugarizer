@@ -111,7 +111,7 @@
 					<div :id="playIconId" @click="playAudio"></div>
 					<div v-if="isPlaying" id="stop-play" @click="stopAudio"></div>
 				</div>
-				<div id="speak" @click="speakStory"></div>
+				<div :id="speakIconId" @click="speakStory"></div>
 			</div>
 		</div>
 
