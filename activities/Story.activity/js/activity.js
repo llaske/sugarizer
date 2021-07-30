@@ -216,6 +216,7 @@ var app = new Vue({
 				this.grid=true;
 				this.modeId="grid-mode";
 			}
+			this.editor.setSelection(this.editor.getText().length);
 			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
 				this.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
@@ -241,6 +242,7 @@ var app = new Vue({
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
+			this.editor.setSelection(this.editor.getText().length);
 			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
 				this.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
@@ -267,6 +269,7 @@ var app = new Vue({
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
+			this.editor.setSelection(this.editor.getText().length);
 			if (this.activeImageIndex === this.images.length-1){
 				this.nextBtnId = "next-btn-inactive"; 
 			}	
@@ -423,6 +426,7 @@ var app = new Vue({
 					this.previousBtnId = "previous-btn-inactive";
 				}
 			}
+			this.editor.setSelection(this.editor.getText().length);
 		},
 		onJournalLoadError: function(error) {
 			console.log("Error loading from journal");
@@ -434,7 +438,6 @@ var app = new Vue({
 			var that = this;
 			switch (msg.content.action) {
 				case 'init':
-					console.log("init action", msg.content.data);
 					const data = msg.content.data;
 					this.grid = data.grid;
 					this.imageLoaders();
@@ -456,6 +459,7 @@ var app = new Vue({
 						that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
 						this.modeId="single-mode";
 					}
+					this.editor.setSelection(this.editor.getText().length);
 					var getallcursors = msg.content.allcursors;
 					for(var i = 0 ; i < getallcursors.length ; i++){
 						if(getallcursors[i].id!=that.myid){
@@ -484,12 +488,14 @@ var app = new Vue({
 						this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 						this.modeId="single-mode";
 					}
+					this.editor.setSelection(this.editor.getText().length);
 					break;
 				case 'updateImage':
 					this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
 					this.activeImageIndex = msg.content.activeImageIndex;
 					this.activeImage = this.images[this.activeImageIndex];
 					this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+					this.editor.setSelection(this.editor.getText().length);
 					break;
 			}
 		},
@@ -503,7 +509,6 @@ var app = new Vue({
 				} else {
 					this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 				}
-				console.log("onNetworkUserChanged",that.editor);
 				var range = that.editor.getSelection();
 				mycursor.range = range;
 				this.cursors.createCursor(this.SugarPresence.presence.userInfo.networkId,this.SugarPresence.presence.userInfo.name, this.SugarPresence.presence.userInfo.colorvalue.stroke);
