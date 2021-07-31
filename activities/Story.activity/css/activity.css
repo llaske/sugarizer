@@ -89,11 +89,18 @@ p {
 #main-toolbar #format-text-button {
 	background-image: url(../icons/format-text.svg);
 }
+#main-toolbar #size-palette {
+	background-image: url(../icons/size.svg);
+}
 #main-toolbar #font-button {
 	background-image: url(../icons/font-text.svg);
 }
 #main-toolbar #export-sound {
 	background-image: url(../icons/save-sound.svg);
+}
+.palette .wrapper {
+    min-width: 10px;
+    padding: 5px;
 }
 /* Format text palette */
 #format-text-buttons {
@@ -128,6 +135,32 @@ p {
 	width: 40px;
 	height: 40px;
 }
+/* Size Palette */
+#size-buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 3px;	
+}
+#size-buttons button {
+	background-color: transparent;
+	border: none;
+}
+#size-buttons button:hover {
+	background-color: #808080;
+}
+#size-buttons .palette-item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#size-buttons .palette-item img {
+	width: 40px;
+	height: 40px;
+	padding: 3px;
+	margin-right: 5px;
+}
+
 /* Color Palette */
 .colorpalette {
 	z-index: 20;

@@ -378,6 +378,24 @@ var app = new Vue({
 				this.nextBtnId = "next-btn";
 			}
 		},
+		onGridSizeChange: function(e){
+			if (this.SugarPresence.isShared()) return;
+			this.grid = true;
+			this.modeId = "grid-mode";
+			this.activeImage= "";
+			this.activeImageIndex= 0;
+			this.imageCount = e.count;
+			this.gridAudioRecord= null;
+			this.singleAudioRecords= [];
+			this.singleEditorsContent = [];
+			this.gridEditorContent=null;
+			for (var i=0; i<this.imageCount; i++){
+				this.singleEditorsContent.push(null);
+			}
+			this.editor.setContents(this.gridEditorContent);
+			this.imageLoaders();
+			this.loadImages();
+		},
 		increaseFont: function(){
 			var currentSize = this.editor.getFormat();
 			var that = this;
@@ -448,7 +466,6 @@ var app = new Vue({
 		},
 		onJournalDataLoaded: function (data, metadata) {
 			console.log("Existing instance");
-			
 			this.grid = data.grid;
 			this.imageLoaders();
 			this.images = data.images;
@@ -459,6 +476,12 @@ var app = new Vue({
 			this.fontSize = data.fontSize;
 			this.gridAudioRecord = data.gridAudioRecord;
 			this.singleAudioRecords = data.singleAudioRecords;
+			this.isLoaded = true;
+			this.activeImage = this.images[this.activeImageIndex];
+			for (var i=0; i<9; i++){
+				clearInterval(this.intervalIds[i]);
+			}
+			
 			if(data.grid){	
 				this.grid=true;
 				this.editor.setContents(this.gridEditorContent);
@@ -469,12 +492,7 @@ var app = new Vue({
 					this.playIconId = "play-inactive"
 				}
 			} else {
-				this.activeImage = this.images[this.activeImageIndex];
 				this.grid = false;
-				this.isLoaded = true;
-				for (var i=0; i<this.imageCount; i++){
-					clearInterval(this.intervalIds[i]);
-				}
 				this.editor.setContents(this.singleEditorsContent[0]);
 				this.updateEditor();
 				this.modeId="single-mode";
@@ -513,15 +531,15 @@ var app = new Vue({
 					this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
 					this.previousBtnId = "previous-btn-inactive";
 					this.nextBtnId = "next-btn-inactive"; 
+					this.isLoaded=true;
+						for (var i=0; i<this.imageCount; i++){
+							clearInterval(this.intervalIds[i]);
+						}
 					if (data.grid){
 						that.editor.setContents(that.gridEditorContent);
 					} else {
 						this.activeImageIndex = data.activeImageIndex;
 						this.activeImage = this.images[data.activeImageIndex];
-						this.isLoaded=true;
-						for (var i=0; i<this.imageCount; i++){
-							clearInterval(this.intervalIds[i]);
-						}
 						that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
 						this.modeId="single-mode";
 					}

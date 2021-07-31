@@ -42,6 +42,14 @@
 			<!-- <sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem> -->
 			<!-- <sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem> -->
 			<sugar-toolitem :id="modeId" title="Toggle Mode" @click='toggleMode'></sugar-toolitem>
+			<sugar-toolitem 
+				id="size-palette" 
+				title="Grid Size" 
+				palette-file="js/palettes/sizePalette.js"
+				palette-class="SizePalette"
+				palette-event="grid-size-selected"
+				v-on:grid-size-selected = "onGridSizeChange"
+			></sugar-toolitem>
 			<sugar-toolitem
 				id="foreground-color-button"
 				title="Foreground Color"	
