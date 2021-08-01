@@ -15,7 +15,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
                 <button id="play-note-button" class="toolbutton" onclick="app.playStopNote()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
                 <button id="stop-note-button" class="toolbutton" onclick="app.playStopNote()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
                 <hr>
-                <input id="tuning-freq" type="text" value="440.0" style="width: 100px;margin-left: 10%;"/>
+                <input id="tuning-freq" type="text" value="440.0" oninput="app.tuningFreqInputUpdate()" style="width: 100px;margin-left: 10%;"/>
             </div>
         `;
 

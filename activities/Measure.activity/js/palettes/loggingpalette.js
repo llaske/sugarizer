@@ -7,10 +7,10 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var template =
             `
-            <div id="time-one" class="palette-item">1/10 second</div>
-            <div id="time-two" class="palette-item">1 second</div>
-            <div id="time-three" class="palette-item">30 seconds</div>
-            <div id="time-four" class="palette-item">5 minutes</div>
+            <div id="interval-0.1" class="palette-item">1/10 second</div>
+            <div id="interval-1" class="palette-item">1 second</div>
+            <div id="interval-30" class="palette-item">30 second</div>
+            <div id="interval-300" class="palette-item">5 minutes</div>
         `;
 
         var containerElem = document.createElement('div');
@@ -22,22 +22,24 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var that = this;
 
-        document.getElementById("time-one").addEventListener('click', function (event) {
+        document.getElementById("interval-0.1").style.backgroundColor = 'darkgray';
+
+        document.getElementById("interval-0.1").addEventListener('click', function (event) {
             that.logIntervalEvent.secondVal = 0.1;
             that.getPalette().dispatchEvent(that.logIntervalEvent);
             that.popDown();
         });
-        document.getElementById("time-two").addEventListener('click', function (event) {
+        document.getElementById("interval-1").addEventListener('click', function (event) {
             that.logIntervalEvent.secondVal = 1;
             that.getPalette().dispatchEvent(that.logIntervalEvent);
             that.popDown();
         });
-        document.getElementById("time-three").addEventListener('click', function (event) {
+        document.getElementById("interval-30").addEventListener('click', function (event) {
             that.logIntervalEvent.secondVal = 30;
             that.getPalette().dispatchEvent(that.logIntervalEvent);
             that.popDown();
         });
-        document.getElementById("time-four").addEventListener('click', function (event) {
+        document.getElementById("interval-300").addEventListener('click', function (event) {
             that.logIntervalEvent.secondVal = 300;
             that.getPalette().dispatchEvent(that.logIntervalEvent);
             that.popDown();

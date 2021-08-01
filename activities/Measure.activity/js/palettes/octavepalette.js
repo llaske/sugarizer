@@ -20,6 +20,8 @@ define(["sugar-web/graphics/palette"], function (palette) {
         containerElem.innerHTML = template;
         this.setContent([containerElem]);
 
+        document.getElementById(`octave_${app.freq_input_octave}`).style.backgroundColor = 'darkgray';
+
         var that = this;
 
         for (var i=0;i<9;i++) {

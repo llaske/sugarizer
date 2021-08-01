@@ -12,8 +12,11 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 	<script src="lib/vue.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script src="lib/jspdf.min.js"></script>
 	<script src="lib/Tone.js"></script>
 	<script>if (window.module) module = window.module;</script>
@@ -27,6 +30,16 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 
 			<!-- Add more buttons here -->
+			<sugar-toolitem 
+				id="network-button" 
+				title="Network" 
+				palette-file="sugar-web/graphics/presencepalette"
+				palette-class="PresencePalette"
+				palette-event="shared"
+				v-on:shared="SugarPresence.onShared"
+				v-if="SugarPresence"
+			>
+			</sugar-toolitem>
 			<div class="splitbar"></div>
 			<sugar-toolitem 
 				id="time-domain-button" 
@@ -88,7 +101,7 @@
 				palette-event="export-file"
 				v-on:export-file="exportFile"
 			></sugar-toolitem>
-			<div class="splitbar"></div>
+			<div id="afterLoggingSplitbar" class="splitbar"></div>
 			<sugar-toolitem 
 				id="instrument-select-button" 
 				v-bind:title="l10n.stringSelectInstrument" 
@@ -140,6 +153,7 @@
 				class="pull-right"
 				v-on:click="fullscreenOrUnfullscreen"
 			></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<canvas id="mainCanvas"></canvas>
@@ -156,10 +170,18 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
-		<sugar-journal ref="SugarJournal"></sugar-journal>
+		<sugar-journal 
+			ref="SugarJournal"
+			v-on:journal-data-loaded="onJournalDataLoaded"
+			v-on:journal-load-error="onJournalLoadError"
+			v-on:journal-new-instance="onJournalNewInstance"
+			v-on:journal-shared-instance="onJournalSharedInstance"
+		></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
+		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-icon ref="SugarIcon"></sugar-icon>
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 	</div>
 
 	<script src="js/components/SugarActivity.js"></script>
@@ -167,7 +189,9 @@
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
+	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarIcon.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
 	<script src="js/fft.js"></script>
 	<script src="js/activity.js"></script>
 </body>

@@ -23,6 +23,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var that = this;
 
+        document.getElementById("none").style.backgroundColor = 'darkgray';
         document.getElementById("none").addEventListener('click', function (event) {
             document.getElementById("octave-select-button").style.display = "initial";
             that.SelectInstrumentEvent.instrument_name = 'none';

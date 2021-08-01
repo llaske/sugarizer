@@ -27,6 +27,8 @@ define(["sugar-web/graphics/palette"], function (palette) {
         this.SelectNoteEvent = document.createEvent('CustomEvent');
         this.SelectNoteEvent.initCustomEvent('select-note', true, true, { note: 0 });
 
+        document.getElementById(`note_${app.freq_input_note_index}`).style.backgroundColor = 'darkgray';
+
         var that = this;
 
         for (var i = 0; i < len; i++) {
@@ -41,6 +43,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
         if(document.getElementById("none")) {
 
             document.getElementById("none").addEventListener('click', function (event) {
+
                 template = "";
                 for (var i = 0; i < len; i++) {
                     template += `
@@ -48,6 +51,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
                 `;
                 }
                 containerElem.innerHTML = template;
+                document.getElementById(`note_${app.freq_input_note_index}`).style.backgroundColor = 'darkgray';
                 for (var i = 0; i < len; i++) {
                     (function (index) {
                         document.getElementById(`note_${index}`).addEventListener('click', function (e) {
@@ -74,15 +78,17 @@ define(["sugar-web/graphics/palette"], function (palette) {
                 j++;
             }
             containerElem.innerHTML = template;
+            app.note_name = 'all';
+            document.getElementById(`${instrument}_note_all`).style.backgroundColor = 'darkgray';
             document.getElementById(`${instrument}_note_all`).addEventListener('click', function (e) {
-                window.app.drawNote(-1, 0);
+                window.app.drawNote(-1, 0, 'all');
                 that.popDown();
             })
             j = 0;
             for (var i in app.instrument_data[instrument]['notes']) {
                 (function (index, key) {
                     document.getElementById(`${instrument}_note_${key}`).addEventListener('click', function (e) {
-                        window.app.drawNote(index, app.instrument_data[instrument]['notes'][key]);
+                        window.app.drawNote(index, app.instrument_data[instrument]['notes'][key], key);
                         that.popDown();
                     })
                 })(j, i)

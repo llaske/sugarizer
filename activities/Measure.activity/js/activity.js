@@ -12,6 +12,7 @@ var app = new Vue({
 	data: {
 		currentenv: null,
 		SugarL10n: null,
+		SugarPresence: null,
 		canvas: '',
 		context: '',
 		analyser: '',
@@ -27,6 +28,8 @@ var app = new Vue({
 		fftSize: 4096,
 		freqDomainData: [],
 		num_of_samples_freq: 4096,
+		existing_instance_time_data: [],
+		existing_instance_freq_data: [],
 		fullscreen: false,
 		time_int_arr: [],
 		invert_waveform: false,
@@ -134,6 +137,7 @@ var app = new Vue({
 		note_index: -2,
 		note_freq: 0,
 		instrument_name: 'none',
+		note_name: 'all', // used only for instrument other than none (for highlighting)
 		notes_arr: ['A', 'A♯/B♭', 'B', 'C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭',
 			'G', 'G♯/A♭'],
 		colors: ['#B20008', '#00588C', '#F8E800', '#7F00BF', '#4BFF3A', '#FFA109',
@@ -149,6 +153,10 @@ var app = new Vue({
 		A0: 27.5,
 		TWELTHROOT2: 1.05946309435929,
 		C8: 4186.01,
+		existing_instance: false,
+		existing_instrument_settings: {},
+		shared_instance: false,
+		shared_mode_initialised: false,
 		l10n: {
 			stringPlay: '',
 			stringPause: '',
@@ -166,7 +174,43 @@ var app = new Vue({
 			stringSelectInstrument: '',
 			stringSelectNote: '',
 			stringSelectOctave: '',
-			stringTuningSettings: ''
+			stringTuningSettings: '',
+			stringTutoExplainTitle: '',
+			stringTutoExplainContent: '',
+			stringTutoTimeFreqTitle: '',
+			stringTutoTimeFreqContent: '',
+			stringTutoZoomSettingsTitle: '',
+			stringTutoZoomSettingsContent: '',
+			stringTutoPlayPauseTitle: '',
+			stringTutoPlayPauseContent: '',
+			stringTutoAmplitudeTitle: '',
+			stringTutoAmplitudeContent: '',
+			stringTutoWaveformInversionTitle: '',
+			stringTutoWaveformInversionContent: '',
+			stringTutoTriggeringEdgeTitle: '',
+			stringTutoTriggeringEdgeContent: '',
+			stringTutoLoggingIntervalTitle: '',
+			stringTutoLoggingIntervalContent: '',
+			stringTutoStartStopTitle: '',
+			stringTutoStartStopContent: '',
+			stringTutoExportLoggingTitle: '',
+			stringTutoExportLoggingContent: '',
+			stringTutoInstrumentSelectTitle: '',
+			stringTutoInstrumentSelectContent: '',
+			stringTutoNoteSelectTitle: '',
+			stringTutoNoteSelectContent: '',
+			stringTutoOctaveSelectTitle: '',
+			stringTutoOctaveSelectContent: '',
+			stringTutoShowHarmonicsTitle: '',
+			stringTutoShowHarmonicsContent: '',
+			stringTutoTuningFreqInputTitle: '',
+			stringTutoTuningFreqInputContent: '',
+			stringTutoTuningLineTitle: '',
+			stringTutoTuningLineContent: '',
+			stringTutoPlayStopNoteTitle: '',
+			stringTutoPlayStopNoteContent: '',
+			stringTutoCaptureWaveformTitle: '',
+			stringTutoCaptureWaveformContent: ''
 		}
 	},
 	methods: {
@@ -205,6 +249,15 @@ var app = new Vue({
 			document.getElementById("triggering-edge-rising-button").title = this.SugarL10n.get("RisingEdge");
 			document.getElementById("triggering-edge-falling-button").title = this.SugarL10n.get("FallingEdge");
 			document.getElementById("TriggeringEdgeTitle").innerText = this.SugarL10n.get("TriggeringEdge");
+			if(this.trigEdge == 0) {
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("None");
+			}
+			else if(this.trigEdge == 1) {
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("RisingEdge");
+			}
+			else {
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("FallingEdge");
+			}
 			for (var instrument in app.instrument_data) {
 				document.getElementById(`${instrument}_instrument`).innerText = this.SugarL10n.get(instrument);
 			}
@@ -216,6 +269,10 @@ var app = new Vue({
 			document.getElementById("tuning-line-off-button").title = this.SugarL10n.get("HideTuningLine");
 			document.getElementById("play-note-button").title = this.SugarL10n.get("playTitle");
 			document.getElementById("stop-note-button").title = this.SugarL10n.get("stopTitle");
+			document.getElementById("interval-0.1").innerText = this.SugarL10n.get("IntervalSecond", { interval: "1/10" });
+			document.getElementById("interval-1").innerText = this.SugarL10n.get("IntervalSecond", { interval: 1 });
+			document.getElementById("interval-30").innerText = this.SugarL10n.get("IntervalSecond", { interval: 30 });
+			document.getElementById("interval-300").innerText = this.SugarL10n.get("IntervalMinute", { interval: 5 });
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
@@ -357,7 +414,7 @@ var app = new Vue({
 			var samples = (this.time_domain) ? this.num_of_samples_time : this.num_of_samples_freq;
 
 			var start = 0;
-			var sliceWidth = this.canvas.width * 1.0 / samples;
+			var sliceWidth = this.canvas.width * 1.0 / (samples-1);
 			var is_trig = false;
 
 			if ((!this.time_domain) && this.draw_note) {
@@ -460,7 +517,7 @@ var app = new Vue({
 						}
 					}
 				}
-				sliceWidth = this.canvas.width * 1.0 / (samples - start + 1);
+				sliceWidth = this.canvas.width * 1.0 / (samples - start);
 				x += sliceWidth;
 				canvasCtx.moveTo(0, this.canvas.height/2);
 			}
@@ -516,17 +573,8 @@ var app = new Vue({
 				document.getElementById("pause-button").style.display = "initial";
 			}
 		},
-		TimeOrFreq: function() {
-
-			// Switch between Time and Frequency Domain
-
-			if(this.setInterval_id) {
-				this.stopRecord()
-			}
-
-			this.time_domain = !this.time_domain;
-
-			if(this.time_domain) {
+		TimeOrFreq_switch: function() {
+			if (this.time_domain) {
 				if (this.show_harmonics) {
 					this.harmonics_button_display();
 				}
@@ -554,6 +602,29 @@ var app = new Vue({
 					this.setFreqDomain();
 				}
 			}
+		},
+		TimeOrFreq: function() {
+
+			// Switch between Time and Frequency Domain
+
+			if(this.setInterval_id) {
+				this.stopRecord()
+			}
+
+			this.time_domain = !this.time_domain;
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTimeOrFreq',
+						data: this.time_domain
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
+
+			this.TimeOrFreq_switch();
 		},
 		setZoomSlider: function () {
 			var slider = document.getElementById("zoomSlider");
@@ -587,6 +658,20 @@ var app = new Vue({
 				this.calcFreqDomainData();
 				document.getElementById("scaleValue").innerText = this.freq_div + ' Hz';
 			}
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateZoomSettings',
+						data: {
+							time_div: this.time_div,
+							freq_div: this.freq_div
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		decrementZoom: function() {
 			if (this.time_domain) {
@@ -597,6 +682,20 @@ var app = new Vue({
 			}
 			this.setZoomSlider();
 			this.ZoomInOut();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateZoomSettings',
+						data: {
+							time_div: this.time_div,
+							freq_div: this.freq_div
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		incrementZoom: function() {
 			if(this.time_domain) {
@@ -607,14 +706,23 @@ var app = new Vue({
 			}
 			this.setZoomSlider();
 			this.ZoomInOut();
-		},
-		invertWaveform: function() {
 
-			// function to switch between invert and normal waveform
-
-			if(!this.time_domain) {
-				return;
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateZoomSettings',
+						data: {
+							time_div: this.time_div,
+							freq_div: this.freq_div
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
 			}
+		},
+		invertWaveform_change_button: function() {
+
 			this.invert_waveform = !this.invert_waveform;
 			if (this.invert_waveform) {
 				document.getElementById("invert-on-button").style.display = "initial";
@@ -626,22 +734,75 @@ var app = new Vue({
 				document.getElementById("invert-off-button").style.display = "initial";
 				document.getElementById("waveformStatus").innerText = 'Normal';
 			}
+		},
+		invertWaveform: function() {
+
+			// function to switch between invert and normal waveform
+
+			if(!this.time_domain) {
+				return;
+			}
+			this.invertWaveform_change_button();
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateWaveformInversion',
+						data: this.invert_waveform
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		decreaseAmp: function() {
 			var val = parseInt(document.getElementById("ampSlider").value);
 			document.getElementById("ampSlider").value = val - 1;
 			this.ampSettings();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateAmplitude',
+						data: document.getElementById("ampSlider").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		increaseAmp: function() {
 			var val = parseInt(document.getElementById("ampSlider").value);
 			document.getElementById("ampSlider").value = val + 1;
 			this.ampSettings();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateAmplitude',
+						data: document.getElementById("ampSlider").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		ampSettings: function () { 
 			var slider_val = parseInt(document.getElementById("ampSlider").value);
 			this.amp_value = 0.1*slider_val;
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateAmplitude',
+						data: document.getElementById("ampSlider").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		exportFile: function(e) {
 			var format = e.format;
@@ -670,10 +831,19 @@ var app = new Vue({
 					csvContent += session.mode + ';';
 					csvContent += session.date + ';';
 
-					csvContent += this.log_interval + ";";
+					csvContent += session.interval + ";";
 
 					csvContent += j + ';' + session.data[j] + '\n';
 				}
+				if (data_size == 0) {
+					csvContent += i + ';';
+					csvContent += session.mode + ';';
+					csvContent += session.date + ';';
+
+					csvContent += session.interval + ";";
+
+					csvContent += j + ';' + '-' + '\n';
+				} 
 				i += 1;
 			}
 
@@ -753,11 +923,11 @@ var app = new Vue({
 						doc.text(x, y, this.SugarL10n.get("Session") + ": " + i);
 						doc.setFontStyle("normal");
 						doc.text(this.SugarL10n.get("Mode") + ":     " + session.mode, x, y + 14);
-						if (this.log_interval == 300) {
-							doc.text(this.SugarL10n.get("Interval") + ":   5" + " " + this.SugarL10n.get("Minutes_other"), x, y + 21);
+						if (session.interval == 300) {
+							doc.text(this.SugarL10n.get("Interval") + ":   " + this.SugarL10n.get("IntervalMinute", { interval: 5 }), x, y + 21);
 						}
 						else {
-							doc.text(this.SugarL10n.get("Interval") + ":   " + this.log_interval + ' ' + this.SugarL10n.get("Second"), x, y + 21);
+							doc.text(this.SugarL10n.get("Interval") + ":   " + this.SugarL10n.get("IntervalSecond", { interval: session.interval }), x, y + 21);
 						}
 						doc.text(this.SugarL10n.get("Date") + ":       " + session.date, x, y + 28);
 						y = y + 42;
@@ -822,7 +992,20 @@ var app = new Vue({
 
 		},
 		logInterval: function(e) {
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
 			this.log_interval = e.secondVal;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateLogInterval',
+						data: this.log_interval
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		getSessionDate: function(){
 			var d = new Date()
@@ -836,7 +1019,7 @@ var app = new Vue({
 			document.getElementById("record-on-button").style.display = "initial";
 			document.getElementById("logging-interval-button").disabled = true;
 			this.$root.$refs.SugarPopup.log(this.SugarL10n.get("recordingStarted"))
-			this.log_session_obj.interval = '' + this.log_interval + ' second'
+			this.log_session_obj.interval = this.log_interval
 			this.log_session_obj.date = this.getSessionDate();
 			this.log_session_obj.data = []
 			if(this.time_domain) {
@@ -869,11 +1052,6 @@ var app = new Vue({
 			this.log_data.push({...this.log_session_obj})
 			this.setInterval_id = null;
 		},
-		onActivityStop: function() {
-			if (this.setInterval_id) {
-				this.stopRecord();
-			}
-		},
 		captureImage: function() {
 			var mimetype = 'image/jpeg';
 			var inputData = this.canvas.toDataURL(mimetype, 1);
@@ -902,28 +1080,51 @@ var app = new Vue({
 				document.getElementById("triggering-edge-none-button").style.display = "none";
 				document.getElementById("triggering-edge-rising-button").style.display = "initial";
 				document.getElementById("triggering-edge-falling-button").style.display = "none";
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("RisingEdge");
 			}
 			else if(this.trigEdge == 2) {
 				document.getElementById("triggering-edge-none-button").style.display = "none";
 				document.getElementById("triggering-edge-rising-button").style.display = "none";
 				document.getElementById("triggering-edge-falling-button").style.display = "initial";
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("FallingEdge");
 			}
 			else {
 				document.getElementById("triggering-edge-none-button").style.display = "initial";
 				document.getElementById("triggering-edge-rising-button").style.display = "none";
 				document.getElementById("triggering-edge-falling-button").style.display = "none";
+				document.getElementById("TrigEdgeType").innerText = this.SugarL10n.get("None");
 			}
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTriggeringEdge',
+						data: this.trigEdge
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
-		selectInstrument: function(e) {
+		selectInstrument: function(e) {	
+			if (this.instrument_name == 'none') {
+				document.getElementById("none").style.backgroundColor = '';
+			}
+			else {
+				document.getElementById(`${this.instrument_name}_instrument`).style.backgroundColor = '';
+			}
+
 			this.instrument_name = e.instrument_name;
 
-			if(this.instrument_name == 'none') {
+			if (this.instrument_name == 'none') {
+				document.getElementById("none").style.backgroundColor = 'darkgray';
 				this.draw_note = false;
 				this.note_index = -2;
 				this.note_freq = 0;
 			}
 			else {
+				document.getElementById(`${this.instrument_name}_instrument`).style.backgroundColor = 'darkgray';
 				this.draw_note = true;
 				this.note_index = -1;
 				this.note_freq = 0;
@@ -934,15 +1135,52 @@ var app = new Vue({
 			}
 
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateInstrument',
+						data: {
+							instrument_name: e.instrument_name,
+							freq_input_note_index: this.freq_input_note_index,
+							freq_input_octave: this.freq_input_octave,
+							note_idx: this.note_index,
+							note_freq: this.note_freq,
+							note_name: this.note_name,
+							show_harmonics: this.show_harmonics
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
-		drawNote: function(note_idx, freq) {
+		drawNote: function(note_idx, freq, note_key) {
+			document.getElementById(`${this.instrument_name}_note_${this.note_name}`).style.backgroundColor = '';
+			document.getElementById(`${this.instrument_name}_note_${note_key}`).style.backgroundColor = 'darkgray';
 			this.draw_note = true;
 			this.note_index = note_idx;
 			this.note_freq = freq;
+			this.note_name = note_key;
 			if (this.time_domain) {
 				this.TimeOrFreq();
 			}
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateNoteForNotNone',
+						data: {
+							note_idx: this.note_index,
+							note_freq: this.note_freq,
+							note_name: this.note_name
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		harmonics_button_display: function() {
 			this.show_harmonics = !this.show_harmonics;
@@ -961,6 +1199,17 @@ var app = new Vue({
 			}
 			this.harmonics_button_display();
 			this.drawWaveform();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateHarmonics',
+						data: this.show_harmonics
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		tuning_line_button_display: function() {
 			this.show_tuning_line = !this.show_tuning_line;
@@ -981,6 +1230,20 @@ var app = new Vue({
 			}
 			this.tuning_line_button_display();
 			this.drawWaveform();
+			
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTuningLineDisplay',
+						data: {
+							show_tuning_line: this.show_tuning_line,
+							tuning_freq_value: document.getElementById("tuning-freq").value
+						}
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 
 		},
 		playStopNote: function() {
@@ -1004,31 +1267,688 @@ var app = new Vue({
 			}
 		},
 		setNote: function(idx){
+			document.getElementById(`note_${this.freq_input_note_index}`).style.backgroundColor = '';
 			this.freq_input_note_index = idx;
+			document.getElementById(`note_${this.freq_input_note_index}`).style.backgroundColor = 'darkgray';
 			this.updateFreqInput();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateNoteForNone',
+						data: this.freq_input_note_index
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		setOctave: function(val) {
+			document.getElementById(`octave_${this.freq_input_octave}`).style.backgroundColor = '';
 			this.freq_input_octave = val;
+			document.getElementById(`octave_${this.freq_input_octave}`).style.backgroundColor = 'darkgray';
 			this.updateFreqInput();
+
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateOctave',
+						data: this.freq_input_octave
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
+		},
+		tuningFreqInputUpdate: function() {
+			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
+				var message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'UpdateTuningFrequency',
+						data: document.getElementById("tuning-freq").value
+					}
+				}
+				this.SugarPresence.sendMessage(message);
+			}
 		},
 		updateFreqInput: function() {
 			var res = this.freq_input_octave * 12 + this.freq_input_note_index;
 			var freq = this.A0 * Math.pow(this.TWELTHROOT2, res);
 			document.getElementById("tuning-freq").value = freq.toFixed(3);
 		},
+		getActivityData: function() {
+
+			var time_data = [];
+			var freq_data = [];
+			for (var i = 0; i < this.fftSize; i++) {
+				time_data.push(this.timeDomainData[i]);
+				freq_data.push(this.freqDomainData[i]);
+			}
+
+			var context = {
+				time_domain: this.time_domain,
+				time_div: this.time_div,
+				freq_div: this.freq_div,
+				play: this.play,
+				num_of_samples_time: this.num_of_samples_time,
+				num_of_samples_freq: this.num_of_samples_freq,
+				timeDomainData: time_data,
+				freqDomainData: freq_data,
+				amp_slider_val: document.getElementById('ampSlider').value,
+				invert_waveform: this.invert_waveform,
+				trigEdge: this.trigEdge,
+				log_data: this.log_data,
+				log_interval: this.log_interval,
+				instrument_name: this.instrument_name,
+				existing_instrument_settings: {
+					instrument_name: this.instrument_name,
+					note_index: this.note_index,
+					note_freq: this.note_freq,
+					note_name: this.note_name,
+					freq_input_note_index: this.freq_input_note_index,
+					freq_input_octave: this.freq_input_octave,
+					show_harmonics: this.show_harmonics,
+					show_tuning_line: this.show_tuning_line,
+					tuning_freq_value: document.getElementById("tuning-freq").value
+				}
+			};
+
+			return context;
+		},
+		onActivityStop: function () {
+			if (this.setInterval_id) {
+				this.stopRecord();
+			}
+
+			var context = this.getActivityData();
+			this.$refs.SugarJournal.saveData(context);
+		},
+		onJournalNewInstance: function () {
+			console.log("New instance");
+		},
+
+		onJournalDataLoaded: function (data, metadata) {
+			console.log("Existing instance");
+
+			this.time_domain = data.time_domain;
+			this.time_div = data.time_div;
+			this.freq_div = data.freq_div;
+			this.setZoomSlider();
+			this.play = !data.play;
+			this.playOrPause();
+			this.num_of_samples_time = data.num_of_samples_time;
+			this.num_of_samples_freq = data.num_of_samples_freq;
+			this.existing_instance_time_data = data.timeDomainData;
+			this.existing_instance_freq_data = data.freqDomainData;
+			document.getElementById('ampSlider').value = data.amp_slider_val;
+			this.ampSettings();
+			this.invert_waveform = !data.invert_waveform;
+			this.invertWaveform_change_button();
+			this.trigEdge = data.trigEdge - 1;
+			this.triggeringEdge();
+
+			this.log_data = data.log_data;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
+			this.log_interval = data.log_interval;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+
+			this.existing_instrument_settings = data.existing_instrument_settings;
+
+			this.existing_instance = true;
+
+			// specially for firefox
+			if(this.timeDomainData.length > 0) {
+				this.initDataForExisiting();
+			}
+		},
+
+		onJournalLoadError: function (error) {
+			console.log("Error loading from journal");
+		},
+		setInstrumentSettingsFromData: function() {
+			var existing_time_domain = this.time_domain;
+			var obj = this.existing_instrument_settings;
+			if (obj.instrument_name == 'none') {
+				document.getElementById("none").click();
+				this.setNote(obj.freq_input_note_index);
+				this.setOctave(obj.freq_input_octave);
+			}
+			else {
+				document.getElementById(`${obj.instrument_name}_instrument`).click();
+				this.drawNote(obj.note_index, obj.note_freq, obj.note_name);
+				this.show_harmonics = !obj.show_harmonics;
+				this.handleHarmonics();
+			}
+			document.getElementById("tuning-freq").value = obj.tuning_freq_value;
+			this.show_tuning_line = !obj.show_tuning_line;
+			this.showTuningLine();
+
+			this.time_domain = existing_time_domain;
+			this.shared_mode_initialised = true;
+		},
+		initDataForExisiting: function() {
+
+			// this function handles existing instance data for firefox and mobile devices.
+			if (!this.play) {
+				this.freqDomainData = [];
+				for (var i = 0; i < this.fftSize; i++) {
+					this.timeDomainData[i] = this.existing_instance_time_data[i];
+					this.freqDomainData.push(this.existing_instance_freq_data[i]);
+				}
+				this.drawWaveform();
+			}
+
+			this.setInstrumentSettingsFromData();
+			this.time_domain = !this.time_domain;
+			this.TimeOrFreq();
+
+			this.existing_instance = false;
+		},
+		initSharedInstance: function (data) {
+			this.time_domain = data.time_domain;
+			this.time_div = data.time_div;
+			this.freq_div = data.freq_div;
+			this.setZoomSlider();
+			this.num_of_samples_time = data.num_of_samples_time;
+			this.num_of_samples_freq = data.num_of_samples_freq;
+			document.getElementById('ampSlider').value = data.amp_slider_val;
+			this.ampSettings();
+			this.invert_waveform = !data.invert_waveform;
+			this.invertWaveform_change_button();
+			this.trigEdge = data.trigEdge - 1;
+			this.triggeringEdge();
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
+			this.log_interval = data.log_interval;
+			document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+			this.existing_instrument_settings = data.existing_instrument_settings;
+
+			this.shared_instance = true;
+			if (this.timeDomainData.length > 0) {
+				this.setInstrumentSettingsFromData();
+				this.time_domain = !data.time_domain;
+				this.TimeOrFreq();
+				this.shared_instance = false;
+			}
+		},
+		onJournalSharedInstance: function () {
+			console.log("Shared instance");
+		},
+		onNetworkDataReceived(msg) {
+			// Handles the data-received event
+
+			switch (msg.content.action) {
+				case 'init':
+					{
+						this.initSharedInstance(msg.content.data);
+						break;
+					}
+				case 'UpdateTimeOrFreq': 
+					{
+						this.time_domain = msg.content.data;
+						this.TimeOrFreq_switch();
+						break;
+					}
+				case 'UpdateZoomSettings':
+					{
+						this.time_div = msg.content.data.time_div,
+						this.freq_div = msg.content.data.freq_div
+						this.setZoomSlider();
+						this.shared_mode_initialised = false;
+						this.ZoomInOut();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateAmplitude':
+					{
+						document.getElementById("ampSlider").value = msg.content.data;
+						this.shared_mode_initialised = false;
+						this.ampSettings();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateWaveformInversion':
+					{
+						this.invert_waveform = !msg.content.data;
+						this.shared_mode_initialised = false;
+						this.invertWaveform();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateTriggeringEdge':
+					{
+						this.trigEdge = msg.content.data - 1;
+						this.shared_mode_initialised = false;
+						this.triggeringEdge();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateLogInterval':
+					{
+						document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "";
+						this.log_interval = msg.content.data;
+						document.getElementById(`interval-${this.log_interval}`).style.backgroundColor = "darkgray";
+						break;
+					}
+				case 'UpdateInstrument':
+					{
+						this.shared_mode_initialised = false;
+						var existing_time_domain = this.time_domain;
+						var obj = msg.content.data;
+						if (obj.instrument_name == 'none') {
+							document.getElementById("none").click();
+							this.setNote(obj.freq_input_note_index);
+							this.setOctave(obj.freq_input_octave);
+						}
+						else {
+							document.getElementById(`${obj.instrument_name}_instrument`).click();
+							this.drawNote(obj.note_idx, obj.note_freq, obj.note_name);
+							this.show_harmonics = !obj.show_harmonics;
+							this.handleHarmonics();
+						}
+
+						this.time_domain = existing_time_domain;
+						this.TimeOrFreq_switch();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateNoteForNone':
+					{
+						this.shared_mode_initialised = false;
+						if(this.instrument_name == 'none') {
+							this.setNote(msg.content.data);
+						}
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateOctave':
+					{
+						this.shared_mode_initialised = false;
+						this.setOctave(msg.content.data);
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateNoteForNotNone':
+					{
+						this.shared_mode_initialised = false;
+						var msg_data = msg.content.data;
+						if(this.instrument_name != 'none') {
+							this.drawNote(msg_data.note_idx, msg_data.note_freq, msg_data.note_name);
+						}
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateHarmonics':
+					{
+						this.shared_mode_initialised = false;
+						this.show_harmonics = !msg.content.data;
+						this.harmonics_button_display();
+						this.drawWaveform();
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateTuningFrequency':
+					{
+						this.shared_mode_initialised = false;
+						document.getElementById("tuning-freq").value = msg.content.data;
+						this.shared_mode_initialised = true;
+						break;
+					}
+				case 'UpdateTuningLineDisplay':
+					{
+						this.shared_mode_initialised = false;
+						document.getElementById("tuning-freq").value = msg.content.data.tuning_freq_value;
+						this.show_tuning_line = !msg.content.data.show_tuning_line;
+						this.showTuningLine();
+						this.drawWaveform();
+						this.shared_mode_initialised = true;
+						break;
+					}
+			}
+		},
+
+		onNetworkUserChanged(msg) {
+			// Handles the user-changed event
+
+			if (this.SugarPresence.isHost) {
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'init',
+						data: this.getActivityData()
+					}
+				});
+				this.shared_mode_initialised = true;
+			}
+
+		},
+		tutorialGifContent: function(img_src, content) {
+			return `<div><img src='js/tutorial_gifs/${img_src}' style='width: 100%;height: 100%;'><p>` + content + "</p></div>";
+		},
+		onHelp: function () {
+			var steps = [
+				{
+					onNext: function (tourType) {
+						if(!app.time_domain) {
+							app.TimeOrFreq();
+						}
+					},
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: this.l10n.stringTutoExplainTitle,
+					content: this.l10n.stringTutoExplainContent
+				},
+				{
+					element: "#time-domain-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoTimeFreqTitle,
+					content: this.tutorialGifContent('time_freq_switch_demo.gif',this.l10n.stringTutoTimeFreqContent)
+				},
+				{
+					onPrev: function(tourType) {
+						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
+							document.getElementById("zoom-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
+							document.getElementById("zoom-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
+							document.getElementById("zoom-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[0],
+					placement: "bottom",
+					title: this.l10n.stringTutoZoomSettingsTitle,
+					content: this.tutorialGifContent('zoom_settings_demo.gif', this.l10n.stringTutoZoomSettingsContent)
+				},
+				{
+					element: "#play-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayPauseTitle,
+					content: this.tutorialGifContent('play_pause_demo.gif', this.l10n.stringTutoPlayPauseContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					element: "#amplitudeSettings",
+					placement: "left",
+					title: this.l10n.stringTutoAmplitudeTitle,
+					content: this.tutorialGifContent('amplitude_demo.gif', this.l10n.stringTutoAmplitudeContent)
+				},
+				{
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					element: "#waveformInversionSettings",
+					placement: "left",
+					title: this.l10n.stringTutoWaveformInversionTitle,
+					content: this.tutorialGifContent('waveform_invert_demo.gif', this.l10n.stringTutoWaveformInversionContent)
+				},
+				{
+					onShow: function (tourType) {
+						if (!app.time_domain) {
+							app.TimeOrFreq();
+						}
+						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+							document.getElementById("settings-button").click();
+						}
+					},
+					element: "#triggeringEdgeSettings",
+					placement: "left",
+					title: this.l10n.stringTutoTriggeringEdgeTitle,
+					content: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
+							document.getElementById("logging-interval-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[2].style.visibility == "hidden") {
+							document.getElementById("logging-interval-button").click();
+						}
+					},
+					onNext: function(tourType) {
+						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
+							document.getElementById("logging-interval-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[2],
+					placement: "bottom",
+					title: this.l10n.stringTutoLoggingIntervalTitle,
+					content: this.l10n.stringTutoLoggingIntervalContent
+				},
+				{
+					onShow: function(tourType) {
+						if (app.setInterval_id) {
+							app.stopRecord();
+						}
+					},
+					element: "#record-off-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoStartStopTitle,
+					content: this.tutorialGifContent('start_stop_recording_demo.gif', this.l10n.stringTutoStartStopContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
+							document.getElementById("export-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[3].style.visibility == "hidden") {
+							document.getElementById("export-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
+							document.getElementById("export-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[3],
+					placement: "bottom",
+					title: this.l10n.stringTutoExportLoggingTitle,
+					content: this.l10n.stringTutoExportLoggingContent
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
+							document.getElementById("instrument-select-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[4].style.visibility == "hidden") {
+							document.getElementById("instrument-select-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
+							document.getElementById("instrument-select-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[4],
+					placement: "left",
+					title: this.l10n.stringTutoInstrumentSelectTitle,
+					content: this.l10n.stringTutoInstrumentSelectContent
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
+							document.getElementById("note-select-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[5].style.visibility == "hidden") {
+							document.getElementById("note-select-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
+							document.getElementById("note-select-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[5],
+					placement: "left",
+					title: this.l10n.stringTutoNoteSelectTitle,
+					content: this.tutorialGifContent('select_note_demo.gif', this.l10n.stringTutoNoteSelectContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
+							document.getElementById("octave-select-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[6].style.visibility == "hidden") {
+							document.getElementById("octave-select-button").click();
+						}
+					},
+					onNext: function (tourType) {
+						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
+							document.getElementById("octave-select-button").click();
+						}
+					},
+					element: document.getElementsByClassName("wrapper")[6],
+					placement: "left",
+					title: this.l10n.stringTutoOctaveSelectTitle,
+					content: this.tutorialGifContent('select_octave_demo.gif', this.l10n.stringTutoOctaveSelectContent)
+				},
+				{
+					onPrev: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+						if (app.show_harmonics) {
+							app.handleHarmonics();
+						}
+					},
+					element: "#harmonics-off-button",
+					placement: "left",
+					title: this.l10n.stringTutoShowHarmonicsTitle,
+					content: this.tutorialGifContent('show_harmonics_demo.gif', this.l10n.stringTutoShowHarmonicsContent)
+				},
+				{
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+						if (app.time_domain) {
+							app.TimeOrFreq();
+						}
+					},
+					element: "#tuning-freq",
+					placement: "bottom",
+					title: this.l10n.stringTutoTuningFreqInputTitle,
+					content: this.l10n.stringTutoTuningFreqInputContent
+				},
+				{
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+
+						if(app.time_domain) {
+							app.TimeOrFreq();
+						}
+
+						if(app.show_tuning_line) {
+							app.showTuningLine();
+						}
+					},
+					element: "#tuning-line-off-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoTuningLineTitle,
+					content: this.tutorialGifContent('show_tuning_line_demo.gif', this.l10n.stringTutoTuningLineContent)
+				},
+				{
+					onShow: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
+						}
+						if(app.play_note) {
+							app.playStopNote();
+						}
+					},
+					onNext: function(tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
+					element: "#stop-note-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoPlayStopNoteTitle,
+					content: this.l10n.stringTutoPlayStopNoteContent
+				},
+				{
+					element: "#capture-image-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoCaptureWaveformTitle,
+					content: this.l10n.stringTutoCaptureWaveformContent
+				}
+			];
+			this.$refs.SugarTutorial.show(steps);
+		},
 		onAudioInput: function(e) {
 
-			// This function executes whenever stream from microphone is received (only for cordova) 
+			// This function executes whenever stream from microphone is received (only for cordova)
+
+			if(this.existing_instance) {
+				this.initDataForExisiting();
+			}
+
+			if(this.shared_instance) {
+				this.setInstrumentSettingsFromData();
+				this.time_domain = !data.time_domain;
+				this.TimeOrFreq();
+				this.shared_instance = false;
+			}
+ 
 			if (!this.play) return;
 
 			this.timeDomainData = e.data;
 
-			if(this.time_domain) {
+			if (this.time_domain) {
 				this.calcTimeDomainData()
 			}
 			else {
 				this.calcFreqDomainData()
 			}
+
 		},
 		onDeviceReady: function() {
 
@@ -1040,10 +1960,12 @@ var app = new Vue({
 				bufferSize: 4096,
 				streamToWebAudio: false
 			});
+
 		}
 	},
 	mounted() {
 		this.SugarL10n = this.$refs.SugarL10n;
+		this.SugarPresence = this.$refs.SugarPresence;
 		this.canvas = document.getElementById("mainCanvas");
 		if (window.cordova || window.PhoneGap) {
 			document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -1057,14 +1979,26 @@ var app = new Vue({
 
 					this.webAudio_mediaStreamSource = stream;
 
-					if (this.time_domain) {
-						this.setTimeDomain()
+					if(!this.play && this.existing_instance) {
+						for(var i=0;i<this.fftSize;i++) {
+							this.timeDomainData[i] = this.existing_instance_time_data[i];
+							this.freqDomainData[i] = this.existing_instance_freq_data[i];
+						}
 					}
-					else {
-						this.setFreqDomain()
+
+					if (this.existing_instance || this.shared_instance) {
+						this.setInstrumentSettingsFromData();
 					}
+					
+					this.shared_instance = false;
+					this.time_domain = !this.time_domain;
+					this.TimeOrFreq();
+
 				})
-				.catch((err) => alert('Please allow microphone access'))
+				.catch((err) => {
+					console.log(err);
+					alert("Please allow microphone access")
+				})
 		}
 	}
 });

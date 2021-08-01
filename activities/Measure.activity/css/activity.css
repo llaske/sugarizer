@@ -434,16 +434,82 @@ p {
 	background-repeat: no-repeat;
 }
 
-@media only screen and (max-width: 908px) {
+#main-toolbar #network-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#private-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
+#shared-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
+#main-toolbar #help-button  {
+	background-image: url("../icons/help.svg");
+}
+
+@media only screen and (max-width: 1019px) {
+	#capture-image-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 960px) {
+	#export-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 903px) {
+	#logging-interval-button {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 845px) {
+	#record-off-button {
+		display: none;
+	}
+	#afterLoggingSplitbar {
+		display: none !important;
+	}
+}
+
+@media only screen and (max-width: 774px) {
+	
+	#afterTuningSplitbar {
+		visibility: hidden;
+	}
 	#tuning-palette-button {
 		display: none;
 	}
 }
 
-@media only screen and (max-width: 851px) {
-	#afterTuningSplitbar {
-		visibility: hidden;
-	}
+@media only screen and (max-width: 718px) {
 	#instrument-select-button {
 		display: none;
 	}
@@ -451,12 +517,6 @@ p {
 		display: none;
 	}
 	#octave-select-button {
-		display: none;
-	}
-}
-
-@media only screen and (max-width: 679px) {
-	#capture-image-button {
 		display: none;
 	}
 }
