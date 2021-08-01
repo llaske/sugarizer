@@ -44,7 +44,9 @@ var app = new Vue({
 		fontSize:null,
 		SugarPresence: null,
 		cursors: null,
-		myid: null
+		myid: null,
+		connectedPlayers: [],
+		isHost: false
 	},
 	mounted() {
 		this.SugarPresence = this.$refs.SugarPresence;
@@ -529,6 +531,7 @@ var app = new Vue({
 					this.imageCount = data.imageCount;
 					this.gridEditorContent = JSON.parse(data.gridEditorContent);
 					this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
+					this.connectedPlayers = data.connectedPlayers;
 					this.previousBtnId = "previous-btn-inactive";
 					this.nextBtnId = "next-btn-inactive"; 
 					this.isLoaded=true;
@@ -596,6 +599,9 @@ var app = new Vue({
 						this.speakIconId = "speak-inactive";
 					}
 					break;
+				case 'update-players':
+					this.connectedPlayers = msg.content.connectedPlayers
+					
 			}
 		},
 		onNetworkUserChanged: function(msg){
@@ -612,7 +618,10 @@ var app = new Vue({
 				mycursor.range = range;
 				this.cursors.createCursor(this.SugarPresence.presence.userInfo.networkId,this.SugarPresence.presence.userInfo.name, this.SugarPresence.presence.userInfo.colorvalue.stroke);
 				var allcursors = that.cursors.cursors();
-	
+				if (!this.isHost){
+					that.connectedPlayers.push(this.SugarPresence.presence.userInfo);
+				}
+				this.isHost = true;
 				var context = {
 					grid: this.grid,
 					images: this.images,
@@ -636,11 +645,41 @@ var app = new Vue({
 			}
 			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 			if (msg.move==1){
+				that.connectedPlayers.push(msg.user);
 				var c = this.cursors.createCursor(msg.user.networkId, userName, msg.user.colorvalue.stroke);
 				if(this.myid==msg.user.networkId) {mycursor=c;}
 			}
 			if (msg.move == -1){
+				if (msg.user.networkId === that.connectedPlayers[0].networkId){
+					that.$refs.SugarPopup.log(that.connectedPlayers[1].name + " is the new host");
+				}
+				var tempPlayer =  that.connectedPlayers.filter((user) => {
+					return user.networkId != msg.user.networkId
+				});
+				that.connectedPlayers = tempPlayer;
+				that.SugarPresence.isHost = that.connectedPlayers[0].networkId === that.SugarPresence.getUserInfo().networkId ? true : false;
 				this.cursors.removeCursor(msg.user.networkId);
+			}
+			if (this.SugarPresence.isHost){
+				if (!this.grid){
+					if (this.activeImageIndex === 0){
+						this.previousBtnId = "previous-btn-inactive";
+						this.nextBtnId = "next-btn"; 
+					} else if (this.activeImageIndex === this.images.length-1){
+						this.nextBtnId = "next-btn-inactive"; 
+						this.previousBtnId = "previous-btn"
+					} else {
+						this.previousBtnId = "previous-btn"
+						this.nextBtnId = "next-btn"; 
+					}
+				}
+				this.SugarPresence.sendMessage({
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: 'update-players',
+						connectedPlayers: this.connectedPlayers
+					}
+				});
 			}
 		},
 		onRecord: function(error){
