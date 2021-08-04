@@ -1,3 +1,8 @@
+@font-face {
+	font-family: Graphecrit;
+	src: url('../fonts/graphecrit.ttf');
+}
+
 #main-toolbar #activity-button {
 	background-image: url(../activity/activity-icon.svg);
 	outline: none;
@@ -169,6 +174,12 @@ body {
 	background-position: center center;
 	margin-right: 5px;
 	cursor: pointer;
+}
+
+.template-item-text {
+	position: absolute;
+	display: inline;
+	font-family: Graphecrit;
 }
 
 .template-item-remove {
