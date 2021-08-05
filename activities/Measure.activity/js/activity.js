@@ -1623,7 +1623,7 @@ var app = new Vue({
 
 		},
 		tutorialGifContent: function(img_src, content) {
-			return `<div><img src='js/tutorial_gifs/${img_src}' style='width: 100%;height: 100%;'><p>` + content + "</p></div>";
+			return `<div><img src='docs/${img_src}' style='width: 100%;height: 100%;'><p>` + content + "</p></div>";
 		},
 		onHelp: function () {
 			var steps = [
@@ -1757,7 +1757,7 @@ var app = new Vue({
 					element: "#record-off-button",
 					placement: "bottom",
 					title: this.l10n.stringTutoStartStopTitle,
-					content: this.tutorialGifContent('start_stop_recording_demo.gif', this.l10n.stringTutoStartStopContent)
+					content: this.l10n.stringTutoStartStopContent
 				},
 				{
 					onPrev: function (tourType) {
@@ -1841,7 +1841,7 @@ var app = new Vue({
 					element: document.getElementsByClassName("wrapper")[6],
 					placement: "left",
 					title: this.l10n.stringTutoOctaveSelectTitle,
-					content: this.tutorialGifContent('select_octave_demo.gif', this.l10n.stringTutoOctaveSelectContent)
+					content: this.l10n.stringTutoOctaveSelectContent
 				},
 				{
 					onPrev: function (tourType) {
