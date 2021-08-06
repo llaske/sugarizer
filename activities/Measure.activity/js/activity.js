@@ -1628,11 +1628,6 @@ var app = new Vue({
 		onHelp: function () {
 			var steps = [
 				{
-					onNext: function (tourType) {
-						if(!app.time_domain) {
-							app.TimeOrFreq();
-						}
-					},
 					element: "",
 					orphan: true,
 					placement: "bottom",
@@ -1652,9 +1647,6 @@ var app = new Vue({
 						}
 					},
 					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
 						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
 							document.getElementById("zoom-button").click();
 						}
@@ -1682,9 +1674,6 @@ var app = new Vue({
 						}
 					},
 					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
 						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
@@ -1696,9 +1685,6 @@ var app = new Vue({
 				},
 				{
 					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
 						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
@@ -1710,9 +1696,6 @@ var app = new Vue({
 				},
 				{
 					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
 						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
@@ -1867,9 +1850,6 @@ var app = new Vue({
 						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
-						if (app.time_domain) {
-							app.TimeOrFreq();
-						}
 					},
 					element: "#tuning-freq",
 					placement: "bottom",
@@ -1882,9 +1862,6 @@ var app = new Vue({
 							document.getElementById("tuning-palette-button").click();
 						}
 
-						if(app.time_domain) {
-							app.TimeOrFreq();
-						}
 
 						if(app.show_tuning_line) {
 							app.showTuningLine();
