@@ -1641,6 +1641,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('time_freq_switch_demo.gif',this.l10n.stringTutoTimeFreqContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
+							document.getElementById("zoom-button").click();
+						}
+					},
 					onPrev: function(tourType) {
 						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
 							document.getElementById("zoom-button").click();
@@ -1668,6 +1673,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('play_pause_demo.gif', this.l10n.stringTutoPlayPauseContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+							document.getElementById("settings-button").click();
+						}
+					},
 					onPrev: function (tourType) {
 						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
 							document.getElementById("settings-button").click();
@@ -1684,6 +1694,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('amplitude_demo.gif', this.l10n.stringTutoAmplitudeContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+							document.getElementById("settings-button").click();
+						}
+					},
 					onShow: function (tourType) {
 						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
@@ -1695,6 +1710,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('waveform_invert_demo.gif', this.l10n.stringTutoWaveformInversionContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+							document.getElementById("settings-button").click();
+						}
+					},
 					onShow: function (tourType) {
 						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
@@ -1711,6 +1731,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
+							document.getElementById("logging-interval-button").click();
+						}
+					},
 					onPrev: function (tourType) {
 						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
 							document.getElementById("logging-interval-button").click();
@@ -1743,6 +1768,11 @@ var app = new Vue({
 					content: this.l10n.stringTutoStartStopContent
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
+							document.getElementById("export-button").click();
+						}
+					},
 					onPrev: function (tourType) {
 						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
 							document.getElementById("export-button").click();
@@ -1764,6 +1794,11 @@ var app = new Vue({
 					content: this.l10n.stringTutoExportLoggingContent
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
+							document.getElementById("instrument-select-button").click();
+						}
+					},
 					onPrev: function (tourType) {
 						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
 							document.getElementById("instrument-select-button").click();
@@ -1785,6 +1820,11 @@ var app = new Vue({
 					content: this.l10n.stringTutoInstrumentSelectContent
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
+							document.getElementById("note-select-button").click();
+						}
+					},
 					onPrev: function (tourType) {
 						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
 							document.getElementById("note-select-button").click();
@@ -1806,6 +1846,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('select_note_demo.gif', this.l10n.stringTutoNoteSelectContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
+							document.getElementById("octave-select-button").click();
+						}
+					},
 					onPrev: function (tourType) {
 						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
 							document.getElementById("octave-select-button").click();
@@ -1827,6 +1872,11 @@ var app = new Vue({
 					content: this.l10n.stringTutoOctaveSelectContent
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
 					onPrev: function (tourType) {
 						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
 							document.getElementById("tuning-palette-button").click();
@@ -1846,6 +1896,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('show_harmonics_demo.gif', this.l10n.stringTutoShowHarmonicsContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
 					onShow: function (tourType) {
 						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
@@ -1857,6 +1912,11 @@ var app = new Vue({
 					content: this.l10n.stringTutoTuningFreqInputContent
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
 					onShow: function (tourType) {
 						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
@@ -1873,6 +1933,11 @@ var app = new Vue({
 					content: this.tutorialGifContent('show_tuning_line_demo.gif', this.l10n.stringTutoTuningLineContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
 					onShow: function (tourType) {
 						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
