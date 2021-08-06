@@ -98,6 +98,9 @@ p {
 #main-toolbar #export-sound {
 	background-image: url(../icons/save-sound.svg);
 }
+#main-toolbar #export-palette {
+	background-image: url(../icons/file-export.svg);
+}
 .palette .wrapper {
     min-width: 10px;
     padding: 5px;
@@ -161,6 +164,30 @@ p {
 	margin-right: 5px;
 }
 
+/* Export Palette */
+#export-buttons {
+	display: flex;
+	align-items: center;
+	margin: 3px;	
+}
+#export-buttons button {
+	background-color: transparent;
+	border: none;
+}
+#export-buttons button:hover {
+	background-color: #808080;
+}
+#export-buttons .palette-item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#export-buttons .palette-item img {
+	width: 40px;
+	height: 40px;
+	padding: 3px;
+	margin-right: 5px;
+}
 /* Color Palette */
 .colorpalette {
 	z-index: 20;

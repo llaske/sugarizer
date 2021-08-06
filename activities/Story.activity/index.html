@@ -18,8 +18,11 @@
 	<script src="lib/quill/quill.min.js"></script>
 	<script src="lib/quill/modules/image-resize.min.js"></script>
 	<script src="lib/quill/editor.js"></script>
+	<script src="lib/export-to-PDF/jspdf.min.js"></script>
+	<script src="lib/export-to-PDF/html2canvas.js"></script>
 	<script src="lib/recordrtc.js"></script>
 	<script src="../../cordova.js"></script>
+	<script src="lib/odt.js"></script>
 	<script src="lib/vue.min.js"></script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="../../cordova.js"></script>
@@ -84,6 +87,14 @@
 			></sugar-toolitem>
 			<sugar-toolitem id="increase-font" title="Increase font size" @click='increaseFont'></sugar-toolitem>
 			<sugar-toolitem id="decrease-font" title="Decrease font size" @click='decreaseFont'></sugar-toolitem>
+			<sugar-toolitem 
+				id="export-palette" 
+				title="Export Story" 
+				palette-file="js/palettes/exportPalette.js"
+				palette-class="ExportPalette"
+				palette-event="export-story-selected"
+				v-on:export-story-selected = "onExport"
+			></sugar-toolitem>
 			<sugar-toolitem id="export-sound" title="Export as Sound" @click='exportRecord'></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
