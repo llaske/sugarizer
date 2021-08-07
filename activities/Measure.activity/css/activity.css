@@ -504,7 +504,7 @@ p {
 	#afterTuningSplitbar {
 		visibility: hidden;
 	}
-	#tuning-palette-button {
+	#help-button {
 		display: none;
 	}
 }
