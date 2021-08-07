@@ -21,6 +21,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
         }
 
         var containerElem = document.createElement('div');
+        containerElem.setAttribute("id", "notePalette");
         containerElem.innerHTML = template;
         this.setContent([containerElem]);
 

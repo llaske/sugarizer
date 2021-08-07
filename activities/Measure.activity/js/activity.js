@@ -193,8 +193,10 @@ var app = new Vue({
 			stringTutoLoggingIntervalContent: '',
 			stringTutoStartStopTitle: '',
 			stringTutoStartStopContent: '',
-			stringTutoExportLoggingTitle: '',
-			stringTutoExportLoggingContent: '',
+			stringTutoExportLoggingPDFTitle: '',
+			stringTutoExportLoggingPDFContent: '',
+			stringTutoExportLoggingCSVTitle: '',
+			stringTutoExportLoggingCSVContent: '',
 			stringTutoInstrumentSelectTitle: '',
 			stringTutoInstrumentSelectContent: '',
 			stringTutoNoteSelectTitle: '',
@@ -1642,26 +1644,16 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
-							document.getElementById("zoom-button").click();
-						}
-					},
-					onPrev: function(tourType) {
-						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
+						if (document.getElementById("zoomSettingsPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("zoom-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
+						if (document.getElementById("zoomSettingsPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("zoom-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
-							document.getElementById("zoom-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[0],
+					element: "#zoomSettingsPalette",
 					placement: "bottom",
 					title: this.l10n.stringTutoZoomSettingsTitle,
 					content: this.tutorialGifContent('zoom_settings_demo.gif', this.l10n.stringTutoZoomSettingsContent)
@@ -1674,17 +1666,12 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
-							document.getElementById("settings-button").click();
-						}
-					},
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "visible") {
 							document.getElementById("settings-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
 					},
@@ -1695,12 +1682,12 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "visible") {
 							document.getElementById("settings-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
 					},
@@ -1711,17 +1698,12 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "visible") {
 							document.getElementById("settings-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
-							document.getElementById("settings-button").click();
-						}
-					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
 					},
@@ -1732,26 +1714,16 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
-							document.getElementById("logging-interval-button").click();
-						}
-					},
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
+						if (document.getElementById("loggingPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("logging-interval-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[2].style.visibility == "hidden") {
+						if (document.getElementById("loggingPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("logging-interval-button").click();
 						}
 					},
-					onNext: function(tourType) {
-						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
-							document.getElementById("logging-interval-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[2],
+					element: "#loggingPalette",
 					placement: "bottom",
 					title: this.l10n.stringTutoLoggingIntervalTitle,
 					content: this.l10n.stringTutoLoggingIntervalContent
@@ -1769,121 +1741,92 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
-							document.getElementById("export-button").click();
-						}
-					},
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "visible") {
 							document.getElementById("export-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[3].style.visibility == "hidden") {
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "hidden") {
 							document.getElementById("export-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
-							document.getElementById("export-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[3],
+					element: "#csv-export",
 					placement: "bottom",
-					title: this.l10n.stringTutoExportLoggingTitle,
-					content: this.l10n.stringTutoExportLoggingContent
+					title: this.l10n.stringTutoExportLoggingCSVTitle,
+					content: this.l10n.stringTutoExportLoggingCSVContent
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
-							document.getElementById("instrument-select-button").click();
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "visible") {
+							document.getElementById("export-button").click();
 						}
 					},
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
+					onShow: function (tourType) {
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "hidden") {
+							document.getElementById("export-button").click();
+						}
+					},
+					element: "#pdf-export",
+					placement: "bottom",
+					title: this.l10n.stringTutoExportLoggingPDFTitle,
+					content: this.l10n.stringTutoExportLoggingPDFContent
+				},
+				{
+					onHide: function (tourType) {
+						if (document.getElementById("instrumentPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("instrument-select-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[4].style.visibility == "hidden") {
+						if (document.getElementById("instrumentPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("instrument-select-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
-							document.getElementById("instrument-select-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[4],
+					element: "#instrumentPalette",
 					placement: "left",
 					title: this.l10n.stringTutoInstrumentSelectTitle,
 					content: this.l10n.stringTutoInstrumentSelectContent
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
-							document.getElementById("note-select-button").click();
-						}
-					},
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
+						if (document.getElementById("notePalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("note-select-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[5].style.visibility == "hidden") {
+						if (document.getElementById("notePalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("note-select-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
-							document.getElementById("note-select-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[5],
+					element: "#notePalette",
 					placement: "left",
 					title: this.l10n.stringTutoNoteSelectTitle,
 					content: this.tutorialGifContent('select_note_demo.gif', this.l10n.stringTutoNoteSelectContent)
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
-							document.getElementById("octave-select-button").click();
-						}
-					},
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
+						if (document.getElementById("octavePalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("octave-select-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[6].style.visibility == "hidden") {
+						if (document.getElementById("octavePalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("octave-select-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
-							document.getElementById("octave-select-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[6],
+					element: "#octavePalette",
 					placement: "left",
 					title: this.l10n.stringTutoOctaveSelectTitle,
 					content: this.l10n.stringTutoOctaveSelectContent
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
-							document.getElementById("tuning-palette-button").click();
-						}
-					},
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
 						if (app.show_harmonics) {
@@ -1897,12 +1840,12 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
 					},
@@ -1913,12 +1856,12 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
 
@@ -1934,21 +1877,16 @@ var app = new Vue({
 				},
 				{
 					onHide: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
 						if(app.play_note) {
 							app.playStopNote();
-						}
-					},
-					onNext: function(tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
-							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					element: "#stop-note-button",
