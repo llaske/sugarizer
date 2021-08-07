@@ -14,6 +14,7 @@ var app = new Vue({
 		grid: true,
 		modeId: "grid-mode",
 		images: [],
+		imagesURL:[],
 		activeImage: "",
 		activeImageIndex: 0,
 		previousBtnId: null,
@@ -69,6 +70,7 @@ var app = new Vue({
 			for (var i=0; i<this.imageCount; i++){
 				this.singleEditorsContent.push(null);
 				this.singleAudioRecords.push(null);
+				this.imagesURL.push(null);
 			}
 			this.loadEditor();			
 		},
@@ -328,12 +330,38 @@ var app = new Vue({
 			}
 		},
 		loaded: function () {
+			var that = this;
 			this.imageLoaded++;
 			if (this.imageLoaded === this.imageCount ){
 				this.isLoaded = true;
 				this.activeImage = this.images[this.activeImageIndex];
 				for (var i=0; i<this.imageCount; i++){
 					clearInterval(this.intervalIds[i]);
+				}
+
+			function toDataURL(src, id) {
+				var img = new Image();
+				img.crossOrigin = 'Anonymous';
+				img.onload = function() {
+					var canvas = document.createElement('CANVAS');
+					var ctx = canvas.getContext('2d');
+					var dataURL;
+					canvas.height = this.naturalHeight;
+					canvas.width = this.naturalWidth;
+					ctx.drawImage(this, 0, 0);
+					dataURL = canvas.toDataURL('image/png');
+					that.imagesURL[id] =dataURL;
+				};
+				img.src = src;
+				if (img.complete || img.complete === undefined) {
+					img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+					img.src = src;
+				}
+			}
+			var i=0;
+				while(i<this.imageCount){
+					toDataURL(`${that.getUrlImg(that.images[i])}`, i)
+					i++;
 				}
 			}
 		},
@@ -456,7 +484,133 @@ var app = new Vue({
 			this.backgroundColor = e.detail.color;
 			this.editor.format('background-color',this.backgroundColor);
 		},
+		onExport: function(e){
+			var that = this;
+			switch (e.fileType) {
+				case 'txt':
+					var title = document.getElementById("title").value;
+					var mimetype = 'text/plain';
+					var inputData = this.editor.getText();
+					var mode = this.grid ? "Grid Mode" : "Single Mode (Image " + (this.activeImageIndex+1) + ")" ;
+					var metadata = {
+						mimetype: mimetype,
+						title: title +" in " + mode +".txt",
+						activity: "",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+					this.$refs.SugarJournal.createEntry(inputData, metadata);
+					this.$refs.SugarPopup.log("Export to txt done");
+					break;
+				case 'pdf':
+					var title = document.getElementById("title").value;
+					this.editor.scrollingContainer.style.overflowY = 'visible';
+					var h = this.editor.scrollingContainer.offsetHeight;
+					this.editor.scrollingContainer.style.height="auto";
+					this.editor.scrollingContainer.scrollTop=0;
+					var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
+					html2canvas(ele).then(function(canvasImgs){
+						var imgs = canvasImgs.toDataURL('image/png');
+						html2canvas(that.editor.scrollingContainer).then(function(canvas){
+							that.editor.scrollingContainer.style.height = h;
+							that.editor.scrollingContainer.style.overflowY = 'auto';
+							var imgData = canvas.toDataURL('image/png');
+							var imgWidth = 210;
+							var pageHeight = 295;
+							var imgHeight = canvas.height*imgWidth / canvas.width;
+							var heightLeft = imgHeight;
+							var doc = new jsPDF('p', 'mm' , '',true);
+							doc.addImage(imgs, 'PNG', 55, 20, 100, 100, '', 'FAST');
+							var position = 120;
+							doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
+							heightLeft -= (pageHeight-120);
+							while (heightLeft >= 0) {
+								position = heightLeft - imgHeight;
+								doc.addPage();
+								doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
+								heightLeft -= pageHeight;
+							}
+							var inputData = doc.output('dataurlstring');
+							var mimetype = 'application/pdf';
+							var mode = that.grid ? "Grid Mode" : "Single Mode (Image " + (that.activeImageIndex+1) + ")" ;
+							var metadata = {
+								mimetype: mimetype,
+								title: title +" in " + mode +".pdf",
+								activity: "",
+								timestamp: new Date().getTime(),
+								creation_time: new Date().getTime(),
+								file_size: 0
+							};
+							that.$refs.SugarJournal.createEntry(inputData, metadata);
+							that.$refs.SugarPopup.log("Export to PDF done");
+						})
+					})
+					break;
+				case 'doc':
+					var title = document.getElementById("title").value;
+					var content = this.editor.root.innerHTML;
+					var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+					"xmlns:w='urn:schemas-microsoft-com:office:word' "+
+					"xmlns='http://www.w3.org/TR/REC-html40'>"+
+					"<head><meta charset='utf-8'></head><body>";
+					var image="";
+					if (that.grid){
+						for (var i=0; i<that.imageCount/3; i++){
+							image+= `
+							<div>
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i)%3]} />
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+1)%3]} />
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+2)%3]} />
+							</div>`;
+						}
+					} else { 
+						image = `<img style="display:block; margin:auto" src=${that.imagesURL[that.activeImageIndex]} />`
+					}
+					var footer = "</body></html>"
+					var sourceHTML = header+image+content+footer;
+					var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
+					var mimetype = 'application/msword';
+					var mode = this.grid ? "Grid Mode" : "Single Mode (Image " + (this.activeImageIndex+1) + ")" ;
+					var metadata = {
+						mimetype: mimetype,
+						title: title +" in " + mode +".doc",
+						activity: "",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+					this.$refs.SugarJournal.createEntry(inputData, metadata);
+					this.$refs.SugarPopup.log("Export to Doc done");
+					break;
+				case 'odt':
+					var data = document.getElementsByClassName("ql-editor");
+					var para = document.createElement("p");
+					var img = document.createElement("IMG");
+					img.setAttribute("src", that.imagesURL[0]);
+					para.appendChild(img);
+					var xmlImg = traverse(para);
 
+					var xml = traverse(data[0]);
+					var mimetype = 'application/vnd.oasis.opendocument.text';
+					var title = document.getElementById("title").value;
+					var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xmlImg )));
+					var mode = this.grid ? "Grid Mode" : "Single Mode (Image " + (this.activeImageIndex+1) + ")" ;
+					var metadata = {
+						mimetype: mimetype,
+						title: title +" in " + mode +".odt",
+						activity: "",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+					this.$refs.SugarJournal.createEntry(inputData, metadata);
+					this.$refs.SugarPopup.log("Export to odt done");
+					break;
+				default:
+					break;
+			}
+		},
 		onJournalNewInstance: function() {
 			console.log("New instance");
 			for (var i=0; i<this.imageCount; i++){
@@ -478,6 +632,7 @@ var app = new Vue({
 			this.fontSize = data.fontSize;
 			this.gridAudioRecord = data.gridAudioRecord;
 			this.singleAudioRecords = data.singleAudioRecords;
+			this.imagesURL = JSON.parse(data.imagesURL);
 			this.isLoaded = true;
 			this.activeImage = this.images[this.activeImageIndex];
 			for (var i=0; i<9; i++){
@@ -532,6 +687,7 @@ var app = new Vue({
 					this.gridEditorContent = JSON.parse(data.gridEditorContent);
 					this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
 					this.connectedPlayers = data.connectedPlayers;
+					this.imagesURL = JSON.parse(data.imagesURL);
 					this.previousBtnId = "previous-btn-inactive";
 					this.nextBtnId = "next-btn-inactive"; 
 					this.isLoaded=true;
@@ -629,6 +785,7 @@ var app = new Vue({
 					activeImageIndex: this.activeImageIndex,
 					gridEditorContent: JSON.stringify(this.gridEditorContent),
 					singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+					imagesURL: JSON.stringify(this.imagesURL)
 				};
 				that.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
@@ -919,7 +1076,8 @@ var app = new Vue({
 				fontSelected: this.fontSelected,
 				fontSize:this.fontSize,
 				gridAudioRecord: this.gridAudioRecord,
-				singleAudioRecords: this.singleAudioRecords
+				singleAudioRecords: this.singleAudioRecords,
+				imagesURL: JSON.stringify(this.imagesURL)
 			};
 			this.$refs.SugarJournal.saveData(context);
 		}
