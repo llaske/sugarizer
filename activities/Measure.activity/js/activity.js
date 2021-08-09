@@ -630,6 +630,9 @@ var app = new Vue({
 		},
 		setZoomSlider: function () {
 			var slider = document.getElementById("zoomSlider");
+			if(slider == null) {
+				return;
+			}
 			if (this.time_domain) {
 				slider.min = "0";
 				slider.max = "95";
