@@ -20,6 +20,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
         `;
 
         var containerElem = document.createElement('div');
+        containerElem.setAttribute("id", "tuningPalette");
         containerElem.innerHTML = template;
         this.setContent([containerElem]);
     };

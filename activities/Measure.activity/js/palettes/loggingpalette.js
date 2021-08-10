@@ -7,10 +7,12 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var template =
             `
-            <div id="interval-0.1" class="palette-item">1/10 second</div>
-            <div id="interval-1" class="palette-item">1 second</div>
-            <div id="interval-30" class="palette-item">30 second</div>
-            <div id="interval-300" class="palette-item">5 minutes</div>
+            <div id="loggingPalette">
+                <div id="interval-0.1" class="palette-item">1/10 second</div>
+                <div id="interval-1" class="palette-item">1 second</div>
+                <div id="interval-30" class="palette-item">30 second</div>
+                <div id="interval-300" class="palette-item">5 minutes</div>
+            </div>
         `;
 
         var containerElem = document.createElement('div');

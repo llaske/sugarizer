@@ -15,6 +15,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
         }
 
         var containerElem = document.createElement('div');
+        containerElem.setAttribute("id", "instrumentPalette");
         containerElem.innerHTML = template;
         this.setContent([containerElem]);
 

@@ -193,8 +193,10 @@ var app = new Vue({
 			stringTutoLoggingIntervalContent: '',
 			stringTutoStartStopTitle: '',
 			stringTutoStartStopContent: '',
-			stringTutoExportLoggingTitle: '',
-			stringTutoExportLoggingContent: '',
+			stringTutoExportLoggingPDFTitle: '',
+			stringTutoExportLoggingPDFContent: '',
+			stringTutoExportLoggingCSVTitle: '',
+			stringTutoExportLoggingCSVContent: '',
 			stringTutoInstrumentSelectTitle: '',
 			stringTutoInstrumentSelectContent: '',
 			stringTutoNoteSelectTitle: '',
@@ -628,6 +630,9 @@ var app = new Vue({
 		},
 		setZoomSlider: function () {
 			var slider = document.getElementById("zoomSlider");
+			if(slider == null) {
+				return;
+			}
 			if (this.time_domain) {
 				slider.min = "0";
 				slider.max = "95";
@@ -1628,11 +1633,6 @@ var app = new Vue({
 		onHelp: function () {
 			var steps = [
 				{
-					onNext: function (tourType) {
-						if(!app.time_domain) {
-							app.TimeOrFreq();
-						}
-					},
 					element: "",
 					orphan: true,
 					placement: "bottom",
@@ -1646,25 +1646,17 @@ var app = new Vue({
 					content: this.tutorialGifContent('time_freq_switch_demo.gif',this.l10n.stringTutoTimeFreqContent)
 				},
 				{
-					onPrev: function(tourType) {
-						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("zoomSettingsPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("zoom-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
-						if (document.getElementsByClassName("palette")[0].style.visibility == "hidden") {
+						if (document.getElementById("zoomSettingsPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("zoom-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[0].style.visibility == "visible") {
-							document.getElementById("zoom-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[0],
+					element: "#zoomSettingsPalette",
 					placement: "bottom",
 					title: this.l10n.stringTutoZoomSettingsTitle,
 					content: this.tutorialGifContent('zoom_settings_demo.gif', this.l10n.stringTutoZoomSettingsContent)
@@ -1676,16 +1668,13 @@ var app = new Vue({
 					content: this.tutorialGifContent('play_pause_demo.gif', this.l10n.stringTutoPlayPauseContent)
 				},
 				{
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "visible") {
 							document.getElementById("settings-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
-						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
 					},
@@ -1695,11 +1684,13 @@ var app = new Vue({
 					content: this.tutorialGifContent('amplitude_demo.gif', this.l10n.stringTutoAmplitudeContent)
 				},
 				{
-					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
+					onHide: function (tourType) {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "visible") {
+							document.getElementById("settings-button").click();
 						}
-						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+					},
+					onShow: function (tourType) {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
 					},
@@ -1709,16 +1700,13 @@ var app = new Vue({
 					content: this.tutorialGifContent('waveform_invert_demo.gif', this.l10n.stringTutoWaveformInversionContent)
 				},
 				{
-					onShow: function (tourType) {
-						if (!app.time_domain) {
-							app.TimeOrFreq();
-						}
-						if (document.getElementsByClassName("palette")[1].style.visibility == "hidden") {
+					onHide: function (tourType) {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "visible") {
 							document.getElementById("settings-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[1].style.visibility == "visible") {
+					onShow: function (tourType) {
+						if (document.getElementById("amplitudeSettings").offsetParent.style.visibility == "hidden") {
 							document.getElementById("settings-button").click();
 						}
 					},
@@ -1728,22 +1716,17 @@ var app = new Vue({
 					content: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
 				},
 				{
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("loggingPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("logging-interval-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[2].style.visibility == "hidden") {
+						if (document.getElementById("loggingPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("logging-interval-button").click();
 						}
 					},
-					onNext: function(tourType) {
-						if (document.getElementsByClassName("palette")[2].style.visibility == "visible") {
-							document.getElementById("logging-interval-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[2],
+					element: "#loggingPalette",
 					placement: "bottom",
 					title: this.l10n.stringTutoLoggingIntervalTitle,
 					content: this.l10n.stringTutoLoggingIntervalContent
@@ -1760,97 +1743,93 @@ var app = new Vue({
 					content: this.l10n.stringTutoStartStopContent
 				},
 				{
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "visible") {
 							document.getElementById("export-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[3].style.visibility == "hidden") {
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "hidden") {
 							document.getElementById("export-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[3].style.visibility == "visible") {
-							document.getElementById("export-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[3],
+					element: "#csv-export",
 					placement: "bottom",
-					title: this.l10n.stringTutoExportLoggingTitle,
-					content: this.l10n.stringTutoExportLoggingContent
+					title: this.l10n.stringTutoExportLoggingCSVTitle,
+					content: this.l10n.stringTutoExportLoggingCSVContent
 				},
 				{
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "visible") {
+							document.getElementById("export-button").click();
+						}
+					},
+					onShow: function (tourType) {
+						if (document.getElementById("export-formats").offsetParent.style.visibility == "hidden") {
+							document.getElementById("export-button").click();
+						}
+					},
+					element: "#pdf-export",
+					placement: "bottom",
+					title: this.l10n.stringTutoExportLoggingPDFTitle,
+					content: this.l10n.stringTutoExportLoggingPDFContent
+				},
+				{
+					onHide: function (tourType) {
+						if (document.getElementById("instrumentPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("instrument-select-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[4].style.visibility == "hidden") {
+						if (document.getElementById("instrumentPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("instrument-select-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[4].style.visibility == "visible") {
-							document.getElementById("instrument-select-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[4],
+					element: "#instrumentPalette",
 					placement: "left",
 					title: this.l10n.stringTutoInstrumentSelectTitle,
 					content: this.l10n.stringTutoInstrumentSelectContent
 				},
 				{
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("notePalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("note-select-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[5].style.visibility == "hidden") {
+						if (document.getElementById("notePalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("note-select-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[5].style.visibility == "visible") {
-							document.getElementById("note-select-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[5],
+					element: "#notePalette",
 					placement: "left",
 					title: this.l10n.stringTutoNoteSelectTitle,
 					content: this.tutorialGifContent('select_note_demo.gif', this.l10n.stringTutoNoteSelectContent)
 				},
 				{
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("octavePalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("octave-select-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[6].style.visibility == "hidden") {
+						if (document.getElementById("octavePalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("octave-select-button").click();
 						}
 					},
-					onNext: function (tourType) {
-						if (document.getElementsByClassName("palette")[6].style.visibility == "visible") {
-							document.getElementById("octave-select-button").click();
-						}
-					},
-					element: document.getElementsByClassName("wrapper")[6],
+					element: "#octavePalette",
 					placement: "left",
 					title: this.l10n.stringTutoOctaveSelectTitle,
 					content: this.l10n.stringTutoOctaveSelectContent
 				},
 				{
-					onPrev: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
+					onHide: function (tourType) {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
 						if (app.show_harmonics) {
@@ -1863,12 +1842,14 @@ var app = new Vue({
 					content: this.tutorialGifContent('show_harmonics_demo.gif', this.l10n.stringTutoShowHarmonicsContent)
 				},
 				{
-					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+					onHide: function (tourType) {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("tuning-palette-button").click();
 						}
-						if (app.time_domain) {
-							app.TimeOrFreq();
+					},
+					onShow: function (tourType) {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
+							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					element: "#tuning-freq",
@@ -1877,14 +1858,16 @@ var app = new Vue({
 					content: this.l10n.stringTutoTuningFreqInputContent
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
 
-						if(app.time_domain) {
-							app.TimeOrFreq();
-						}
 
 						if(app.show_tuning_line) {
 							app.showTuningLine();
@@ -1896,17 +1879,17 @@ var app = new Vue({
 					content: this.tutorialGifContent('show_tuning_line_demo.gif', this.l10n.stringTutoTuningLineContent)
 				},
 				{
+					onHide: function (tourType) {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "visible") {
+							document.getElementById("tuning-palette-button").click();
+						}
+					},
 					onShow: function (tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "hidden") {
+						if (document.getElementById("tuningPalette").offsetParent.style.visibility == "hidden") {
 							document.getElementById("tuning-palette-button").click();
 						}
 						if(app.play_note) {
 							app.playStopNote();
-						}
-					},
-					onNext: function(tourType) {
-						if (document.getElementsByClassName("palette")[7].style.visibility == "visible") {
-							document.getElementById("tuning-palette-button").click();
 						}
 					},
 					element: "#stop-note-button",

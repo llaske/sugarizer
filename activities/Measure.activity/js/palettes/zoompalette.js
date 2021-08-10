@@ -7,7 +7,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var template = 
         `
-            <div style="margin: 10px;">
+            <div id="zoomSettingsPalette" style="margin: 10px;">
                 <button id="zoom-in-button" class="toolbutton" onclick="app.decrementZoom()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
                 <input id="zoomSlider" class="multiplatformInputSlider" type="range" min="0" max="95" step="0.00001" value="0.0005" oninput="app.ZoomInOut()" style="width:100px;vertical-align: top;margin-top: 10%;">
                 <button id="zoom-out-button" class="toolbutton" onclick="app.incrementZoom()" style="border-radius: 10px;height: 55px;width: 55px;"></button>
