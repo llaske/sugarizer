@@ -584,28 +584,41 @@ var app = new Vue({
 					this.$refs.SugarPopup.log("Export to Doc done");
 					break;
 				case 'odt':
-					var data = document.getElementsByClassName("ql-editor");
-					var para = document.createElement("p");
-					var img = document.createElement("IMG");
-					img.setAttribute("src", that.imagesURL[0]);
-					para.appendChild(img);
-					var xmlImg = traverse(para);
-
-					var xml = traverse(data[0]);
-					var mimetype = 'application/vnd.oasis.opendocument.text';
-					var title = document.getElementById("title").value;
-					var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xmlImg )));
-					var mode = this.grid ? "Grid Mode" : "Single Mode (Image " + (this.activeImageIndex+1) + ")" ;
-					var metadata = {
-						mimetype: mimetype,
-						title: title +" in " + mode +".odt",
-						activity: "",
-						timestamp: new Date().getTime(),
-						creation_time: new Date().getTime(),
-						file_size: 0
-					};
-					this.$refs.SugarJournal.createEntry(inputData, metadata);
-					this.$refs.SugarPopup.log("Export to odt done");
+					var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
+					html2canvas(ele, {
+						scale: 3
+					}).then(function(canvasImgs){
+						var imgs = canvasImgs.toDataURL('image/png');
+						console.log("img src", imgs);
+						var el= document.getElementById('editor-area');
+						el= el.cloneNode(true);
+						el.getElementsByTagName('div')[0];
+						var tempEditor = el.getElementsByTagName('div')[0];
+						var par = document.createElement("p");
+						var imgEle = document.createElement("IMG");
+						imgEle.setAttribute("src", imgs);
+						imgEle.setAttribute("height", 500);
+						imgEle.setAttribute("width", 500);
+						par.appendChild(imgEle);
+						tempEditor.insertBefore(par, tempEditor.childNodes[0]);
+						console.log(tempEditor);
+						var xml = traverse(tempEditor);
+						var mimetype = 'application/vnd.oasis.opendocument.text';
+						var title = document.getElementById("title").value;
+						var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
+						var mode = that.grid ? "Grid Mode" : "Single Mode (Image " + (that.activeImageIndex+1) + ")" ;
+						var metadata = {
+							mimetype: mimetype,
+							title: title +" in " + mode +".odt",
+							activity: "",
+							timestamp: new Date().getTime(),
+							creation_time: new Date().getTime(),
+							file_size: 0
+						};
+						that.$refs.SugarJournal.createEntry(inputData, metadata);
+						that.$refs.SugarPopup.log("Export to odt done");
+						resetXML();
+					})
 					break;
 				default:
 					break;
