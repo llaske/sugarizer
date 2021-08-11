@@ -585,11 +585,8 @@ var app = new Vue({
 					break;
 				case 'odt':
 					var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
-					html2canvas(ele, {
-						scale: 3
-					}).then(function(canvasImgs){
+					html2canvas(ele).then(function(canvasImgs){
 						var imgs = canvasImgs.toDataURL('image/png');
-						console.log("img src", imgs);
 						var el= document.getElementById('editor-area');
 						el= el.cloneNode(true);
 						el.getElementsByTagName('div')[0];
@@ -597,11 +594,8 @@ var app = new Vue({
 						var par = document.createElement("p");
 						var imgEle = document.createElement("IMG");
 						imgEle.setAttribute("src", imgs);
-						imgEle.setAttribute("height", 500);
-						imgEle.setAttribute("width", 500);
 						par.appendChild(imgEle);
 						tempEditor.insertBefore(par, tempEditor.childNodes[0]);
-						console.log(tempEditor);
 						var xml = traverse(tempEditor);
 						var mimetype = 'application/vnd.oasis.opendocument.text';
 						var title = document.getElementById("title").value;

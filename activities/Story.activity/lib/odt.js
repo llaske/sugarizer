@@ -21,8 +21,8 @@
         }
         if(childnodes[i].tagName){
             if(childnodes[i].tagName == 'IMG'){
-                var width = childnodes[i].clientWidth*0.0264;
-                var h = childnodes[i].clientHeight*0.0264;
+                var width = 13.2;
+                var h = 13.2;
                 var testStr = childnodes[i];
                 var src = testStr.src;
                 var splitStr = src.substring(src.indexOf(',') + 1);
