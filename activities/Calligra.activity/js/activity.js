@@ -152,7 +152,8 @@ var app = new Vue({
 			var vm = this;
 			var index = -1;
 			for (var i = 0 ; i < vm.currentTemplate.images.length ; i++) {
-				if (vm.currentTemplate.images[i] == item) {
+				if (item.image && vm.currentTemplate.images[i].image == item.image ||
+					item.text && vm.currentTemplate.images[i].text == item.text) {
 					index = i;
 					break;
 				}
@@ -162,7 +163,7 @@ var app = new Vue({
 				index = 0;
 			}
 			return vm.currentTemplate.images[index];
-			
+
 		},
 
 		onZoom: function(item) {
