@@ -34,7 +34,7 @@
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
 			<sugar-toolitem 
 				id="network-button" 
-				title="Network"
+				v-bind:title="l10n.stringNetwork"
 				palette-file="sugar-web/graphics/presencepalette" 
 				palette-class="PresencePalette"
 				palette-event="shared"
@@ -47,7 +47,7 @@
 			<sugar-toolitem :id="modeId" title="Toggle Mode" @click='toggleMode'></sugar-toolitem>
 			<sugar-toolitem 
 				id="size-palette" 
-				title="Grid Size" 
+				v-bind:title="l10n.stringGridSize" 
 				palette-file="js/palettes/sizePalette.js"
 				palette-class="SizePalette"
 				palette-event="grid-size-selected"
@@ -55,7 +55,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="foreground-color-button"
-				title="Foreground Color"	
+				v-bind:title="l10n.stringForegroundColor"	
 				palette-file="js/palettes/ForegroundColorPalette.js"
 				palette-class="ColorPalette"
 				palette-event="color-change"
@@ -63,7 +63,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="background-color-button"
-				title="Background Color"	
+				v-bind:title="l10n.stringBackgroundColor"	
 				palette-file="js/palettes/BackgroundColorPalette.js"
 				palette-class="ColorPalette"
 				palette-event="color-change"
@@ -71,7 +71,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem 
 				id="format-text-button" 
-				title="Format text" 
+				v-bind:title="l10n.stringFormatText" 
 				palette-file="js/palettes/formatTextPalette.js"
 				palette-class="FormatTextPalette"
 				palette-event="format-text-selected"
@@ -79,26 +79,26 @@
 			></sugar-toolitem>
 			<sugar-toolitem 
 				id="font-button" 
-				title="Choose Font" 
+				v-bind:title="l10n.stringChooseFont" 
 				palette-file="js/palettes/fontPalette.js"
 				palette-class="FontPalette"
 				palette-event="font-updated"
 				v-on:font-updated = "onFontChange"
 			></sugar-toolitem>
-			<sugar-toolitem id="increase-font" title="Increase font size" @click='increaseFont'></sugar-toolitem>
-			<sugar-toolitem id="decrease-font" title="Decrease font size" @click='decreaseFont'></sugar-toolitem>
+			<sugar-toolitem id="increase-font" v-bind:title="l10n.stringIncreaseFont" @click='increaseFont'></sugar-toolitem>
+			<sugar-toolitem id="decrease-font" v-bind:title="l10n.stringDecreaseFont" @click='decreaseFont'></sugar-toolitem>
 			<sugar-toolitem 
 				id="export-palette" 
-				title="Export Story" 
+				v-bind:title="l10n.stringExportStory" 
 				palette-file="js/palettes/exportPalette.js"
 				palette-class="ExportPalette"
 				palette-event="export-story-selected"
 				v-on:export-story-selected = "onExport"
 			></sugar-toolitem>
-			<sugar-toolitem id="export-sound" title="Export as Sound" @click='exportRecord'></sugar-toolitem>
+			<sugar-toolitem id="export-sound" v-bind:title="l10n.stringExportAsSound" @click='exportRecord'></sugar-toolitem>
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
-			<sugar-toolitem id="stop-button" title="Stop" @click="onStop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="stop-button" v-bind:title="l10n.stringStop" @click="onStop" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<!-- Image Section -->
@@ -135,12 +135,14 @@
 		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-speak ref="SugarSpeak"></sugar-speak> 
 	</div>
 
+	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/SugarJournal.js"></script>
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>

@@ -11,6 +11,7 @@ var app = new Vue({
 	el: '#app',
 	data: {
 		environment: null,
+		SugarL10n: null,
 		grid: true,
 		modeId: "grid-mode",
 		images: [],
@@ -47,10 +48,25 @@ var app = new Vue({
 		cursors: null,
 		myid: null,
 		connectedPlayers: [],
-		isHost: false
+		isHost: false,
+		l10n: {
+			stringNetwork:'',
+			stringToggleMode: '',
+			stringGridSize: '',
+			stringForegroundColor: '',
+			stringBackgroundColor: '',
+			stringFormatText: '',
+			stringChooseFont: '',
+			stringIncreaseFont: '',
+			stringDecreaseFont: '',
+			stringExportStory: '',
+			stringExportAsSound: '',
+			stringStop: ''
+		}
 	},
 	mounted() {
 		this.SugarPresence = this.$refs.SugarPresence;
+		this.SugarL10n = this.$refs.SugarL10n;
 	},
 	methods: {
 		initialized: function () {
@@ -73,6 +89,9 @@ var app = new Vue({
 				this.imagesURL.push(null);
 			}
 			this.loadEditor();			
+		},
+		localized: function(){
+			this.SugarL10n.localize(this.l10n);
 		},
 		imageLoaders: function(){
 			function getRandomInt (min, max) {
@@ -501,7 +520,7 @@ var app = new Vue({
 						file_size: 0
 					};
 					this.$refs.SugarJournal.createEntry(inputData, metadata);
-					this.$refs.SugarPopup.log("Export to txt done");
+					this.$refs.SugarPopup.log(that.SugarL10n.get("ExportToTxt"));
 					break;
 				case 'pdf':
 					var title = document.getElementById("title").value;
@@ -543,7 +562,7 @@ var app = new Vue({
 								file_size: 0
 							};
 							that.$refs.SugarJournal.createEntry(inputData, metadata);
-							that.$refs.SugarPopup.log("Export to PDF done");
+							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));
 						})
 					})
 					break;
@@ -581,7 +600,7 @@ var app = new Vue({
 						file_size: 0
 					};
 					this.$refs.SugarJournal.createEntry(inputData, metadata);
-					this.$refs.SugarPopup.log("Export to Doc done");
+					this.$refs.SugarPopup.log(that.SugarL10n.get("ExportToDoc"));
 					break;
 				case 'odt':
 					var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
@@ -610,7 +629,7 @@ var app = new Vue({
 							file_size: 0
 						};
 						that.$refs.SugarJournal.createEntry(inputData, metadata);
-						that.$refs.SugarPopup.log("Export to odt done");
+						that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
 						resetXML();
 					})
 					break;
@@ -950,7 +969,7 @@ var app = new Vue({
 						file_size: 0 
 					};
 					t.$refs.SugarJournal.createEntry(dataURL, metadata);
-					t.$refs.SugarPopup.log("Grid Mode Audio exported")
+					t.$refs.SugarPopup.log(that.SugarL10n.get("GridModeAudioExported"))
 				}
 			} else {
 				if (t.singleAudioRecords[t.activeImageIndex] != null){
@@ -965,7 +984,7 @@ var app = new Vue({
 						file_size: 0
 					};
 					t.$refs.SugarJournal.createEntry(dataURL, metadata);
-					t.$refs.SugarPopup.log("Single Mode Audio exported")
+					t.$refs.SugarPopup.log(that.SugarL10n.get("SingleModeAudioExported"))
 				}
 			}
 		},	
