@@ -52,7 +52,7 @@ var Player = {
 					if (!overflow) { opt = i }
 				}
 				vm.fontSize = opt;
-				let fontZoom = (opt-50)/65;
+				let fontZoom = (opt-50)/64; // 50px is the standard size
 				vm.zoomMult = 1+fontZoom;
 			}
 			vm.zoom = (vm.size/vm.imageSize)*vm.zoomMult;
@@ -126,7 +126,7 @@ var Player = {
 				let shifts = [];
 				for (let i = 0 ; i < items.length ; i++) {
 					// Add each letter starting point shifted depending previous letter
-					let localshift = 2-minmax[i].min;
+					let localshift = 3-minmax[i].min;
 					shift += (i == 0 ? 0 : minmax[i-1].max-minmax[i-1].min);
 					shifts.push(shift+localshift);
 					for (let j = 0 ; j < items[i].starts.length ; j++) {
@@ -337,7 +337,7 @@ var Player = {
 
 		startDemoMode: function() {
 			var vm = this;
-			var timeout = 70;
+			var timeout = 70/(vm.isText?vm.item.text.length:1);
 			vm.mode = 'show';
 			var step = function() {
 				// Draw a segment of path
@@ -402,7 +402,7 @@ var Player = {
 				var line = vm.current.strokes[vm.current.start][vm.current.stroke];
 				vm.moveCursor({x: vm.zoom*line.x0, y: vm.zoom*line.y0});
 				vm.setCursorVisibility(true);
-				vm.current.timeout = setTimeout(step, timeout);
+				vm.current.timeout = setTimeout(step, 100);
 			}
 		},
 
