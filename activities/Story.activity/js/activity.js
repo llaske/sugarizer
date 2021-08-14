@@ -176,7 +176,14 @@ var app = new Vue({
 					data  = JSON.parse(xhr.response);
 					for (var i=0; i<that.imageCount; i++){
 						var img = data[Math.floor(Math.random() *  data.length)].code;
-						var imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/database/"+img+".png");
+						var imgCheck;
+						if (img.includes("lower_")){
+							imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"0.png");
+						} else if (img.includes("upper_")){
+							imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"1.png");
+						} else {
+							imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/database/"+img+".png");
+						}
 						if (imgs.indexOf(img)===-1 && imgCheck==true){
 							imgs.push(img);
 						} else {
@@ -260,7 +267,13 @@ var app = new Vue({
 			this.fontSize !=null ? this.editor.format('size', this.fontSize) : this.editor.format('size', '24px');
 		},
 		getUrlImg: function(img){
-			return '../Abecedarium.activity/images/database/'+ img + '.png';
+			if (img.includes("lower")){
+				return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '0.png';
+			} else if (img.includes("upper")){
+				return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '1.png';
+			} else {
+				return '../Abecedarium.activity/images/database/'+ img + '.png';
+			}
 		},
 		toggleMode: function(){
 			this.currentTime = 0;
