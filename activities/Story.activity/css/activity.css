@@ -90,7 +90,8 @@ p {
 	background-image: url(../icons/format-text.svg);
 }
 #main-toolbar #size-palette {
-	background-image: url(../icons/size.svg);
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
 }
 #main-toolbar #font-button {
 	background-image: url(../icons/font-text.svg);
@@ -154,6 +155,7 @@ p {
 }
 #size-buttons button:hover {
 	background-color: #808080;
+	border-radius: 1px !important;
 }
 #size-buttons .palette-item {
 	display: flex;
@@ -179,6 +181,7 @@ p {
 }
 #export-buttons button:hover {
 	background-color: #808080;
+	border-radius: 1px !important;
 }
 #export-buttons .palette-item {
 	display: flex;

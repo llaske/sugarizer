@@ -6,9 +6,9 @@ define(["sugar-web/graphics/palette", "text!activity/palettes/sizePalette.html"]
         palette.Palette.call(this, invoker, primaryText);
 
         this.getPalette().id = "size-palette";
-		var containerElem = document.createElement('div');
-		containerElem.innerHTML = template;
-		this.setContent([containerElem]);
+        var containerElem = document.createElement('div');
+        containerElem.innerHTML = template;
+        this.setContent([containerElem]);
 
         this.gridSizeSelectedEvent = document.createEvent('CustomEvent');
         this.gridSizeSelectedEvent.initCustomEvent('grid-size-selected', true, true, {});
@@ -20,18 +20,18 @@ define(["sugar-web/graphics/palette", "text!activity/palettes/sizePalette.html"]
 	var addEventListener = function(type, listener, useCapture) {
 		return this.getPalette().addEventListener(type, listener, useCapture);
 	};
-    var addEventListenerForGridSize = function (that, customEvent) {
-        let buttons = document.getElementById('size-buttons').children;
-        for (var i = 0; i < buttons.length; i++) {
-            let style = buttons[i].title;
-            buttons[i].addEventListener('click', function(event) {
-              that.gridSizeSelectedEvent.count = style;
-              that.getPalette().dispatchEvent(customEvent);
-              that.popDown();
-            });
-          }
+  var addEventListenerForGridSize = function (that, customEvent) {
+      let buttons = document.getElementById('size-buttons').children;
+      for (var i = 0; i < buttons.length; i++) {
+          let style = buttons[i].title;
+          buttons[i].addEventListener('click', function(event) {
+            that.gridSizeSelectedEvent.count = style;
+            that.getPalette().dispatchEvent(customEvent);
+            that.popDown();
+          });
         }
-    sizePalette.SizePalette.prototype = Object.create(palette.Palette.prototype, {
+      }
+  sizePalette.SizePalette.prototype = Object.create(palette.Palette.prototype, {
 		addEventListener: {
 			value: addEventListener,
 			enumerable: true,
