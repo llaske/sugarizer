@@ -61,7 +61,44 @@ var app = new Vue({
 			stringDecreaseFont: '',
 			stringExportStory: '',
 			stringExportAsSound: '',
-			stringStop: ''
+			stringStop: '',
+			stringTutoPrev: '',
+			stringTutoNext: '',
+			stringTutoEnd: '',
+			stringTutoExplainTitle: '',
+			stringTutoExplainContent: '',
+			stringTutoNetworkTitle:'',
+			stringTutoNetworkContent:'',
+			stringTutoToggleModeTitle: '',
+			stringTutoToggleModeContent: '',
+			stringTutoGridSizeTitle: '',
+			stringTutoGridSizeContent: '',
+			stringTutoForegroundColorTitle: '',
+			stringTutoForegroundColorContent: '',
+			stringTutoBackgroundColorTitle: '',
+			stringTutoBackgroundColorContent: '',
+			stringTutoFormatTextTitle: '',
+			stringTutoFormatTextContent: '',
+			stringTutoChooseFontTitle: '',
+			stringTutoChooseFontContent: '',
+			stringTutoIncreaseFontTitle: '',
+			stringTutoIncreaseFontContent: '',
+			stringTutoDecreaseFontTitle: '',
+			stringTutoDecreaseFontContent: '',
+			stringTutoExportStoryTitle: '',
+			stringTutoExportStoryContent: '',
+			stringTutoExportSoundTitle: '',
+			stringTutoExportSoundContent: '',
+			stringTutoRecordTitle: '',
+			stringTutoRecordContent: '',
+			stringTutoPlayTitle: '',
+			stringTutoPlayContent: '',
+			stringTutoSpeakTitle: '',
+			stringTutoSpeakContent: '',
+			stringTutoNextImageTitle: '',
+			stringTutoNextImageContent: '',
+			stringTutoPrevImageTitle: '',
+			stringTutoPrevImageContent: ''
 		}
 	},
 	mounted() {
@@ -1086,6 +1123,116 @@ var app = new Vue({
 			if (this.isPlaying) return;
 			var text = this.editor.getText();
 			this.$refs.SugarSpeak.speech(text);
+		},
+		onHelp: function(){
+			var steps =[
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: this.l10n.stringTutoExplainTitle,
+					content: this.l10n.stringTutoExplainContent
+				},
+				{
+					element: "#network-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoNetworkTitle,
+					content: this.l10n.stringTutoNetworkContent
+				},
+				{
+					element: "#grid-mode, #single-mode",
+					placement: "bottom",
+					title: this.l10n.stringTutoToggleModeTitle,
+					content: this.l10n.stringTutoToggleModeContent
+				},
+				{
+					element: "#size-palette",
+					placement: "bottom",
+					title: this.l10n.stringTutoGridSizeTitle,
+					content: this.l10n.stringTutoGridSizeContent
+				},
+				{
+					element: "#foreground-color-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoForegroundColorTitle,
+					content: this.l10n.stringTutoForegroundColorContent
+				},
+				{
+					element: "#background-color-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoBackgroundColorTitle,
+					content: this.l10n.stringTutoBackgroundColorContent
+				},
+				{
+					element: "#format-text-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoFormatTextTitle,
+					content: this.l10n.stringTutoFormatTextContent
+				},
+				{
+					element: "#font-button",
+					placement: "bottom",
+					title: this.l10n.stringTutoChooseFontTitle,
+					content: this.l10n.stringTutoChooseFontContent
+				},
+				{
+					element: "#increase-font",
+					placement: "bottom",
+					title: this.l10n.stringTutoIncreaseFontTitle,
+					content: this.l10n.stringTutoIncreaseFontContent
+				},
+				{
+					element: "#decrease-font",
+					placement: "bottom",
+					title: this.l10n.stringTutoDecreaseFontTitle,
+					content: this.l10n.stringTutoDecreaseFontContent
+				},
+				{
+					element: "#export-palette",
+					placement: "bottom",
+					title: this.l10n.stringTutoExportStoryTitle,
+					content: this.l10n.stringTutoExportStoryContent
+				},
+				{
+					element: "#export-sound",
+					placement: "bottom",
+					title: this.l10n.stringTutoExportSoundTitle,
+					content: this.l10n.stringTutoExportSoundContent
+				},
+				{
+					element: "#record, #record-start",
+					placement: "left",
+					title: this.l10n.stringTutoRecordTitle,
+					content: this.l10n.stringTutoRecordContent
+				},
+				{
+					element: "#play, #play-inactive",
+					placement: "left",
+					title: this.l10n.stringTutoPlayTitle,
+					content: this.l10n.stringTutoPlayContent
+				},
+				{
+					element: "#speak-inactive, #speak",
+					placement: "left",
+					title: this.l10n.stringTutoSpeakTitle,
+					content: this.l10n.stringTutoSpeakContent
+				},
+				{
+					element: "#next-btn",
+					placement: "left",
+					title: this.l10n.stringTutoNextImageTitle,
+					content: this.l10n.stringTutoNextImageContent
+				},
+				{
+					element: "#previous-btn",
+					placement: "left",
+					title: this.l10n.stringTutoPrevImageTitle,
+					content: this.l10n.stringTutoPrevImageContent
+				}
+				
+
+			];
+			this.$refs.SugarTutorial.show(steps);
 		},
 		onStop: function() {
 			if (this.grid){

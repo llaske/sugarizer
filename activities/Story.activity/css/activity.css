@@ -101,6 +101,9 @@ p {
 #main-toolbar #export-palette {
 	background-image: url(../icons/file-export.svg);
 }
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+}
 .palette .wrapper {
     min-width: 10px;
     padding: 5px;

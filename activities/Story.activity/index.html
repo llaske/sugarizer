@@ -12,8 +12,13 @@
 	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
+	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
 	<link rel="stylesheet" href="css/quill/quill.core.css">
 	<link rel="stylesheet" href="css/libnotify.css">
+	<script src="lib/vue.min.js"></script>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script src="lib/quill/quill-cursors.js"></script>
 	<script src="lib/quill/quill.min.js"></script>
 	<script src="lib/quill/modules/image-resize.min.js"></script>
@@ -23,7 +28,7 @@
 	<script src="lib/recordrtc.js"></script>
 	<script src="../../cordova.js"></script>
 	<script src="lib/odt.js"></script>
-	<script src="lib/vue.min.js"></script>
+	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="../../cordova.js"></script>
 </head>
@@ -99,6 +104,7 @@
 
 			<!-- Toolitems with class="pull-right" will be right aligned -->
 			<sugar-toolitem id="stop-button" v-bind:title="l10n.stringStop" @click="onStop" class="pull-right"></sugar-toolitem>
+			<sugar-toolitem id="help-button" title="Tutorial" @click="onHelp" class="pull-right"></sugar-toolitem>
 		</sugar-toolbar>
 
 		<!-- Image Section -->
@@ -140,6 +146,7 @@
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
 		<sugar-speak ref="SugarSpeak"></sugar-speak> 
+		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 	</div>
 
 	<script src="js/components/SugarL10n.js"></script>
@@ -147,8 +154,9 @@
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
-	<script src="js/components/SugarSpeak.js"></script>
+	<script src="js/components/SugarSpeak.js"></script>	
 	<script src="js/components/SugarPresence.js"></script>
+	<script src="js/components/SugarTutorial.js"></script>
 	<script src="js/activity.js"></script>
 </body>
 
