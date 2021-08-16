@@ -151,7 +151,7 @@ var app = new Vue({
 				})(i);
 			}
 		},
-		loadImages: function(){
+		loadImages: function(callback){
 			var xhr = new XMLHttpRequest();
 			var imgs = [];
 			var that = this;
@@ -198,6 +198,7 @@ var app = new Vue({
 							clearInterval(that.intervalIds[i]);
 						}
 					}
+					callback();
 			};
 			xhr.onerror = function(err){
 				console.log("Error: ", xhr.statusText);
@@ -478,6 +479,7 @@ var app = new Vue({
 			}
 		},
 		onGridSizeChange: function(e){
+			var that = this;
 			if (this.SugarPresence.isShared()) return;
 			this.grid = true;
 			this.modeId = "grid-mode";
@@ -494,7 +496,32 @@ var app = new Vue({
 			}
 			this.editor.setContents(this.gridEditorContent);
 			this.imageLoaders();
-			this.loadImages();
+			this.loadImages(() => {
+				function toDataURL(src, id) {
+					var img = new Image();
+					img.crossOrigin = 'Anonymous';
+					img.onload = function() {
+						var canvas = document.createElement('CANVAS');
+						var ctx = canvas.getContext('2d');
+						var dataURL;
+						canvas.height = this.naturalHeight;
+						canvas.width = this.naturalWidth;
+						ctx.drawImage(this, 0, 0);
+						dataURL = canvas.toDataURL('image/png');
+						that.imagesURL[id] =dataURL;
+					};
+					img.src = src;
+					if (img.complete || img.complete === undefined) {
+						img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+						img.src = src;
+					}
+				}
+				var imgcnt=0;
+				while(imgcnt<this.imageCount){
+					toDataURL(`${that.getUrlImg(that.images[imgcnt])}`, imgcnt)
+					imgcnt++;
+				}
+			});
 		},
 		increaseFont: function(){
 			var currentSize = this.editor.getFormat();
@@ -562,15 +589,19 @@ var app = new Vue({
 				case 'txt':
 					var title = document.getElementById("title").value;
 					var mimetype = 'text/plain';
-					var inputData;
+					var inputData="";
 					if (this.grid){
 						inputData = this.editor.getText();
 					} else {
 						for (var i=0; i<that.imageCount; i++){
 							tempeditor.setContents(that.singleEditorsContent[i]);
 							var text = tempeditor.getText();
-							if (text.length > 1){
-								inputData+=tempeditor.getText();
+							if (i==that.activeImageIndex && that.editor.getText().length>1){
+								inputData+=that.editor.getText();
+							} else {
+								if (text.length > 1){
+										inputData+=tempeditor.getText();
+								}
 							}
 						}
 					}
@@ -646,17 +677,29 @@ var app = new Vue({
 							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+2)%3]} />
 							</div>`;
 						}
+						image+=content;
 					} else { 
-						image = `<img style="display:block; margin:auto" src=${that.imagesURL[that.activeImageIndex]} />`
+						for (var i=0; i<that.imageCount; i++){
+							tempeditor.setContents(that.singleEditorsContent[i]);
+							var text = tempeditor.root.innerHTML;
+							if (i==that.activeImageIndex && that.editor.root.innerHTML.length>11){
+								image+= `<img style="display:block; margin:auto" src=${that.imagesURL[i]} />`
+								image+=that.editor.root.innerHTML;
+							} else {
+								if (text.length > 11){
+									image+= `<img style="display:block; margin:auto" src=${that.imagesURL[i]} />`
+									image+=text;
+								}
+							}
+						}
 					}
 					var footer = "</body></html>"
-					var sourceHTML = header+image+content+footer;
+					var sourceHTML = header + image + footer;
 					var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
 					var mimetype = 'application/msword';
-					var mode = this.grid ? "Grid Mode" : "Single Mode (Image " + (this.activeImageIndex+1) + ")" ;
 					var metadata = {
 						mimetype: mimetype,
-						title: title +" in " + mode +".doc",
+						title: title + ".doc",
 						activity: "",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
@@ -708,7 +751,7 @@ var app = new Vue({
 			this.imageLoaders();
 			var that = this;
 			document.getElementById("size-palette").style.background = "url(icons/3X3.svg)";
-			window.setTimeout(function(){that.loadImages()},910);
+			window.setTimeout(function(){that.loadImages(() => {})},910);
 		},
 		onJournalDataLoaded: function (data, metadata) {
 			console.log("Existing instance");
