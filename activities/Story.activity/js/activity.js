@@ -556,15 +556,27 @@ var app = new Vue({
 		},
 		onExport: function(e){
 			var that = this;
+			var tempdiv = document.createElement('div');
+			var tempeditor = new Quill(tempdiv,{});
 			switch (e.fileType) {
 				case 'txt':
 					var title = document.getElementById("title").value;
 					var mimetype = 'text/plain';
-					var inputData = this.editor.getText();
-					var mode = this.grid ? "Grid Mode" : "Single Mode (Image " + (this.activeImageIndex+1) + ")" ;
+					var inputData;
+					if (this.grid){
+						inputData = this.editor.getText();
+					} else {
+						for (var i=0; i<that.imageCount; i++){
+							tempeditor.setContents(that.singleEditorsContent[i]);
+							var text = tempeditor.getText();
+							if (text.length > 1){
+								inputData+=tempeditor.getText();
+							}
+						}
+					}
 					var metadata = {
 						mimetype: mimetype,
-						title: title +" in " + mode +".txt",
+						title: title+".txt",
 						activity: "",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
