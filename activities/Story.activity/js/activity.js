@@ -484,7 +484,7 @@ var app = new Vue({
 			this.activeImage= "";
 			this.activeImageIndex= 0;
 			this.imageCount = e.count;
-			document.getElementById('size-palette').style.background = `url(icons/${e.count/3}X3.svg)`;
+			document.getElementById("size-palette").style.background = "url(icons/"+(e.count/3)+"X3.svg)";
 			this.gridAudioRecord= null;
 			this.singleAudioRecords= [];
 			this.singleEditorsContent = [];
@@ -695,7 +695,7 @@ var app = new Vue({
 			}
 			this.imageLoaders();
 			var that = this;
-			document.getElementById('size-palette').style.background = "url(icons/3X3.svg)";
+			document.getElementById("size-palette").style.background = "url(icons/3X3.svg)";
 			window.setTimeout(function(){that.loadImages()},910);
 		},
 		onJournalDataLoaded: function (data, metadata) {
@@ -712,7 +712,7 @@ var app = new Vue({
 			this.singleAudioRecords = data.singleAudioRecords;
 			this.imagesURL = JSON.parse(data.imagesURL);
 			this.isLoaded = true;
-			document.getElementById('size-palette').style.background = `url(icons/${data.imageCount/3}X3.svg)`;
+			document.getElementById("size-palette").style.background = "url(icons/"+data.imageCount/3+"X3.svg)";
 			this.activeImage = this.images[this.activeImageIndex];
 			for (var i=0; i<9; i++){
 				clearInterval(this.intervalIds[i]);

@@ -90,6 +90,7 @@ p {
 	background-image: url(../icons/format-text.svg);
 }
 #main-toolbar #size-palette {
+	z-index: 5;
     background-size: contain !important;
     background-repeat: no-repeat !important;
 }
