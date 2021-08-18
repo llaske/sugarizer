@@ -114,12 +114,11 @@ var app = new Vue({
 			if (this.activeImageIndex===0){
 				this.previousBtnId = "previous-btn-inactive";
 				this.nextBtnId = "next-btn"; 
-			} else if (this.activeImageIndex===this.image.length - 1){
+			} else if (this.activeImageIndex===this.imageCount - 1){
 				this.previousBtnId = "previous-btn";
 				this.nextBtnId = "next-btn-inactive"; 
 			}
 			this.recordIconId = "record";
-			// document.getElementById('grid-mode').classList.add("active");
 			for (var i=0; i<this.imageCount; i++){
 				this.singleEditorsContent.push(null);
 				this.singleAudioRecords.push(null);
@@ -244,20 +243,20 @@ var app = new Vue({
 					});
 				}
 			});
-			editor.on('selection-change', function(range, oldRange, source) {
-				// Executes when user selection changes
-				if (range) {
-						that.SugarPresence.isShared() && that.SugarPresence.sendMessage({
-							user: that.SugarPresence.getUserInfo(),
-							content: {
-								action: 'selection',
-								range: range,
-								grid:that.grid,
-								activeImageIndex: that.activeImageIndex
-							}
-						});
-				}
-			});
+			// editor.on('selection-change', function(range, oldRange, source) {
+			// 	// Executes when user selection changes
+			// 	if (range) {
+			// 			that.SugarPresence.isShared() && that.SugarPresence.sendMessage({
+			// 				user: that.SugarPresence.getUserInfo(),
+			// 				content: {
+			// 					action: 'selection',
+			// 					range: range,
+			// 					grid:that.grid,
+			// 					activeImageIndex: that.activeImageIndex
+			// 				}
+			// 			});
+			// 	}
+			// });
 			this.editor = editor;
 			this.cursors = cursors;
 		},
@@ -278,7 +277,7 @@ var app = new Vue({
 		},
 		toggleMode: function(){
 			this.currentTime = 0;
-			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
+			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
@@ -312,21 +311,21 @@ var app = new Vue({
 				this.speakIconId = "speak-inactive";
 			}
 			this.editor.setSelection(this.editor.getText().length);
-			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'toggleMode',
-						grid: this.grid,
-						gridEditorContent: JSON.stringify(this.gridEditorContent),
-						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-						activeImageIndex: this.activeImageIndex
-					}
-				})
-			}
+			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+			// 	this.SugarPresence.sendMessage({
+			// 		user: this.SugarPresence.getUserInfo(),
+			// 		content: {
+			// 			action: 'toggleMode',
+			// 			grid: this.grid,
+			// 			gridEditorContent: JSON.stringify(this.gridEditorContent),
+			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+			// 			activeImageIndex: this.activeImageIndex
+			// 		}
+			// 	})
+			// }
 		},
 		previousImage: function () {
-			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
+			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.activeImageIndex === 0){
 				return;
 			}
@@ -338,16 +337,16 @@ var app = new Vue({
 			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
 			this.editor.setSelection(this.editor.getText().length);
-			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'updateImage',
-						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-						activeImageIndex: this.activeImageIndex
-					}
-				})
-			}
+			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+			// 	this.SugarPresence.sendMessage({
+			// 		user: this.SugarPresence.getUserInfo(),
+			// 		content: {
+			// 			action: 'updateImage',
+			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+			// 			activeImageIndex: this.activeImageIndex
+			// 		}
+			// 	})
+			// }
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
@@ -363,7 +362,7 @@ var app = new Vue({
 			}
 		},
 		nextImage: function () {
-			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
+			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.activeImageIndex === this.images.length-1){
 				return;
 			}
@@ -388,16 +387,16 @@ var app = new Vue({
 			if (this.activeImageIndex === this.images.length-1){
 				this.nextBtnId = "next-btn-inactive"; 
 			}	
-			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'updateImage',
-						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-						activeImageIndex: this.activeImageIndex
-					}
-				})
-			}
+			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+			// 	this.SugarPresence.sendMessage({
+			// 		user: this.SugarPresence.getUserInfo(),
+			// 		content: {
+			// 			action: 'updateImage',
+			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+			// 			activeImageIndex: this.activeImageIndex
+			// 		}
+			// 	})
+			// }
 		},
 		loaded: function () {
 			var that = this;
@@ -436,7 +435,7 @@ var app = new Vue({
 			}
 		},
 		openImage: function(index){
-			if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
+			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 			}
@@ -445,18 +444,18 @@ var app = new Vue({
 			this.activeImage = this.images[this.activeImageIndex];
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 			this.modeId="single-mode";
-			if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: 'toggleMode',
-						grid: this.grid,
-						gridEditorContent: JSON.stringify(this.gridEditorContent),
-						singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-						activeImageIndex: this.activeImageIndex
-					}
-				})
-			}
+			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
+			// 	this.SugarPresence.sendMessage({
+			// 		user: this.SugarPresence.getUserInfo(),
+			// 		content: {
+			// 			action: 'toggleMode',
+			// 			grid: this.grid,
+			// 			gridEditorContent: JSON.stringify(this.gridEditorContent),
+			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+			// 			activeImageIndex: this.activeImageIndex
+			// 		}
+			// 	})
+			// }
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
@@ -855,14 +854,27 @@ var app = new Vue({
 					const data = msg.content.data;
 					this.grid = data.grid;
 					this.imageLoaders();
+					document.getElementById("size-palette").style.background = "url(icons/"+(data.imageCount/3)+"X3.svg)";
 					this.images = data.images;
 					this.imageCount = data.imageCount;
 					this.gridEditorContent = JSON.parse(data.gridEditorContent);
 					this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
 					this.connectedPlayers = data.connectedPlayers;
 					this.imagesURL = JSON.parse(data.imagesURL);
-					this.previousBtnId = "previous-btn-inactive";
-					this.nextBtnId = "next-btn-inactive"; 
+					this.activeImageIndex = data.activeImageIndex;
+					this.activeImage = this.images[data.activeImageIndex];
+					// this.previousBtnId = "previous-btn-inactive";
+					// this.nextBtnId = "next-btn-inactive"; 
+					if (this.activeImageIndex===0){
+						this.previousBtnId = "previous-btn-inactive";
+						this.nextBtnId = "next-btn"; 
+					} else if (this.activeImageIndex===this.imageCount - 1){
+						this.previousBtnId = "previous-btn";
+						this.nextBtnId = "next-btn-inactive"; 
+					} else {
+						this.nextBtnId = "next-btn"; 
+						this.previousBtnId = "previous-btn";
+					}
 					this.isLoaded=true;
 						for (var i=0; i<this.imageCount; i++){
 							clearInterval(this.intervalIds[i]);
@@ -870,64 +882,79 @@ var app = new Vue({
 					if (data.grid){
 						that.editor.setContents(that.gridEditorContent);
 					} else {
-						this.activeImageIndex = data.activeImageIndex;
 						this.activeImage = this.images[data.activeImageIndex];
 						that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
 						this.modeId="single-mode";
 					}
 					this.editor.setSelection(this.editor.getText().length);
-					var getallcursors = msg.content.allcursors;
-					for(var i = 0 ; i < getallcursors.length ; i++){
-						if(getallcursors[i].id!=that.myid){
-							that.cursors.createCursor(getallcursors[i].id, getallcursors[i].name,getallcursors[i].color) ;
-							that.cursors.moveCursor(getallcursors[i].id, getallcursors[i].range) ;
-						}
-					}
-					that.cursors.update();
+					// var getallcursors = msg.content.allcursors;
+					// for(var i = 0 ; i < getallcursors.length ; i++){
+					// 	if(getallcursors[i].id!=that.myid){
+					// 		that.cursors.createCursor(getallcursors[i].id, getallcursors[i].name,getallcursors[i].color) ;
+					// 		that.cursors.moveCursor(getallcursors[i].id, getallcursors[i].range) ;
+					// 	}
+					// }
+					// that.cursors.update();
 					break;
 				case 'typing':
-					this.editor.updateContents(msg.content.data);
-					if (this.editor.getText().length>1){ 
-						this.speakIconId = "speak"
-					} else {
-						this.speakIconId = "speak-inactive";
-					}
-					break;
-				case 'selection':
-					setTimeout(function() {that.cursors.moveCursor(msg.user.networkId,msg.content.range)} , 5);
-					break;
-				case 'toggleMode':
-					this.grid = msg.content.grid;
-					this.gridEditorContent = JSON.parse(msg.content.gridEditorContent);
-					this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
 					if(msg.content.grid){
-						this.modeId="grid-mode";
-						this.editor.setContents(this.gridEditorContent);
+						if (that.grid){
+							that.editor.updateContents(msg.content.data);
+						} else {
+							that.gridEditorContent = msg.content.allText;
+						}
 					} else {
-						this.activeImageIndex = msg.content.activeImageIndex;
-						this.activeImage = this.images[this.activeImageIndex];
-						this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-						this.modeId="single-mode";
+						if (that.grid){
+							that.singleEditorsContent[msg.content.activeImageIndex] = msg.content.allText;
+						} else {
+							if (that.activeImageIndex == msg.content.activeImageIndex){
+								that.editor.updateContents(msg.content.data);
+							} else {
+								that.singleEditorsContent[msg.content.activeImageIndex] = msg.content.allText;
+							}
+						}
 					}
 					if (this.editor.getText().length>1){ 
 						this.speakIconId = "speak"
 					} else {
 						this.speakIconId = "speak-inactive";
 					}
-					this.editor.setSelection(this.editor.getText().length);
 					break;
-				case 'updateImage':
-					this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
-					this.activeImageIndex = msg.content.activeImageIndex;
-					this.activeImage = this.images[this.activeImageIndex];
-					this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-					this.editor.setSelection(this.editor.getText().length);
-					if (this.editor.getText().length>1){ 
-						this.speakIconId = "speak"
-					} else {
-						this.speakIconId = "speak-inactive";
-					}
-					break;
+				// case 'selection':
+				// 	setTimeout(function() {that.cursors.moveCursor(msg.user.networkId,msg.content.range)} , 5);
+				// 	break;
+				// case 'toggleMode':
+				// 	this.grid = msg.content.grid;
+				// 	this.gridEditorContent = JSON.parse(msg.content.gridEditorContent);
+				// 	this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
+				// 	if(msg.content.grid){
+				// 		this.modeId="grid-mode";
+				// 		this.editor.setContents(this.gridEditorContent);
+				// 	} else {
+				// 		this.activeImageIndex = msg.content.activeImageIndex;
+				// 		this.activeImage = this.images[this.activeImageIndex];
+				// 		this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+				// 		this.modeId="single-mode";
+				// 	}
+				// 	if (this.editor.getText().length>1){ 
+				// 		this.speakIconId = "speak"
+				// 	} else {
+				// 		this.speakIconId = "speak-inactive";
+				// 	}
+				// 	this.editor.setSelection(this.editor.getText().length);
+				// 	break;
+				// case 'updateImage':
+				// 	this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
+				// 	this.activeImageIndex = msg.content.activeImageIndex;
+				// 	this.activeImage = this.images[this.activeImageIndex];
+				// 	this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
+				// 	this.editor.setSelection(this.editor.getText().length);
+				// 	if (this.editor.getText().length>1){ 
+				// 		this.speakIconId = "speak"
+				// 	} else {
+				// 		this.speakIconId = "speak-inactive";
+				// 	}
+				// 	break;
 				case 'update-players':
 					this.connectedPlayers = msg.content.connectedPlayers
 					
@@ -1070,7 +1097,6 @@ var app = new Vue({
 					that.recordIconId="record";
 						that.recordRTC.stopRecording(function () {
 							that.recordRTC.getDataURL(function (dataURL) {
-								// setTimeout(function () {
 									t.playIconId = "play";
 									if (that.grid){
 										that.gridAudioRecord = dataURL;
@@ -1078,7 +1104,6 @@ var app = new Vue({
 										that.singleAudioRecords[that.activeImageIndex]=dataURL;
 									}
 									if (that.mediaStream.stop) that.mediaStream.stop();
-								// }, 500);
 							}, false);
 						});
 				} else {
