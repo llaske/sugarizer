@@ -69,6 +69,14 @@ var Player = {
 			return style;
 		},
 
+		init: function() {
+			var vm =this;
+			vm.initComponent(function() {
+				vm.onLoad();
+				vm.startDemoMode();
+			});
+		},
+
 		initComponent: function(then) {
 			var vm = this;
 			if (vm.item.image) {
@@ -464,22 +472,15 @@ var Player = {
 			app.displayTemplateView();
 		},
 		nextItem: function () {
-			// When Try Next button is clicked
 			var vm = this;
 			vm.item = app.nextItem(vm.item);
-			vm.initComponent(function() {
-				vm.onLoad();
-				vm.startDemoMode();
-			});
+			vm.init();
 		}
 	},
 
 	mounted: function() {
 		var vm = this;
-		vm.initComponent(function() {
-			vm.onLoad();
-			vm.startDemoMode();
-		});
+		vm.init();
 	},
 
 	beforeDestroy: function() {
