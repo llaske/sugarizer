@@ -709,35 +709,74 @@ var app = new Vue({
 					this.$refs.SugarPopup.log(that.SugarL10n.get("ExportToDoc"));
 					break;
 				case 'odt':
-					var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
-					html2canvas(ele).then(function(canvasImgs){
-						var imgs = canvasImgs.toDataURL('image/png');
-						var el= document.getElementById('editor-area');
-						el= el.cloneNode(true);
-						el.getElementsByTagName('div')[0];
-						var tempEditor = el.getElementsByTagName('div')[0];
-						var par = document.createElement("p");
-						var imgEle = document.createElement("IMG");
-						imgEle.setAttribute("src", imgs);
-						par.appendChild(imgEle);
-						tempEditor.insertBefore(par, tempEditor.childNodes[0]);
-						var xml = traverse(tempEditor);
+					if (this.grid){
+						var ele = document.getElementById("display-grid");
+						html2canvas(ele).then(function(canvasImgs){
+							var imgs = canvasImgs.toDataURL('image/png');
+							var el= document.getElementById('editor-area');
+							el= el.cloneNode(true);
+							el.getElementsByTagName('div')[0];
+							var tempEditor = el.getElementsByTagName('div')[0];
+							var par = document.createElement("p");
+							var imgEle = document.createElement("IMG");
+							imgEle.setAttribute("src", imgs);
+							par.appendChild(imgEle);
+							tempEditor.insertBefore(par, tempEditor.childNodes[0]);
+							var xml = traverse(tempEditor);
+							var mimetype = 'application/vnd.oasis.opendocument.text';
+							var title = document.getElementById("title").value;
+							var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
+							var metadata = {
+								mimetype: mimetype,
+								title: title+".odt",
+								activity: "",
+								timestamp: new Date().getTime(),
+								creation_time: new Date().getTime(),
+								file_size: 0
+							};
+							that.$refs.SugarJournal.createEntry(inputData, metadata);
+							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
+							resetXML();
+						})
+					} else {
+						that.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+						var tempActiveImage = this.activeImageIndex;
+						var divEle =document.createElement('div')
+						for (var i=0; i<that.imageCount; i++){
+							that.activeImageIndex = i;
+							that.editor.setContents(that.singleEditorsContent[i]);
+							if (that.editor.getText().length>1){
+								var el= document.getElementById('editor-area');
+								el= el.cloneNode(true);
+								el.getElementsByTagName('div')[0];
+								var tempEditor = el.getElementsByTagName('div')[0];
+								var par = document.createElement("p");
+								var imgEle = document.createElement("IMG");
+								imgEle.height = '500px';
+								imgEle.setAttribute("src", that.imagesURL[i]);
+								par.appendChild(imgEle);
+								tempEditor.insertBefore(par, tempEditor.childNodes[0]);
+								divEle.append(...tempEditor.childNodes);
+							}
+						}
+						that.activeImageIndex = tempActiveImage;
+						that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
+						var xml = traverse(divEle);
 						var mimetype = 'application/vnd.oasis.opendocument.text';
 						var title = document.getElementById("title").value;
 						var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
-						var mode = that.grid ? "Grid Mode" : "Single Mode (Image " + (that.activeImageIndex+1) + ")" ;
 						var metadata = {
 							mimetype: mimetype,
-							title: title +" in " + mode +".odt",
+							title: title +".odt",
 							activity: "",
 							timestamp: new Date().getTime(),
 							creation_time: new Date().getTime(),
 							file_size: 0
 						};
+						resetXML();
 						that.$refs.SugarJournal.createEntry(inputData, metadata);
 						that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
-						resetXML();
-					})
+					}
 					break;
 				default:
 					break;
