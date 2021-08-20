@@ -505,4 +505,13 @@ p {
 		height: 25px;
 		background-size: 25px 25px;
 	}
+	#format-text-button {
+		display: none;
+	}
+	#font-button {
+		display: none;
+	}
+	#export-buttons {
+		flex-direction: column;
+	}	
 }
