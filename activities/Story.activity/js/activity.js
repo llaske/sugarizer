@@ -584,6 +584,11 @@ var app = new Vue({
 			var that = this;
 			var tempdiv = document.createElement('div');
 			var tempeditor = new Quill(tempdiv,{});
+			if (this.grid){
+				this.gridEditorContent = this.editor.getContents();
+			} else {
+				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+			}
 			switch (e.fileType) {
 				case 'txt':
 					var title = document.getElementById("title").value;
@@ -617,38 +622,102 @@ var app = new Vue({
 					break;
 				case 'pdf':
 					var title = document.getElementById("title").value;
-					this.editor.scrollingContainer.style.overflowY = 'visible';
-					var h = this.editor.scrollingContainer.offsetHeight;
-					this.editor.scrollingContainer.style.height="auto";
-					this.editor.scrollingContainer.scrollTop=0;
-					var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
-					html2canvas(ele).then(function(canvasImgs){
-						var imgs = canvasImgs.toDataURL('image/png');
-						html2canvas(that.editor.scrollingContainer).then(function(canvas){
-							that.editor.scrollingContainer.style.height = h;
-							that.editor.scrollingContainer.style.overflowY = 'auto';
-							var imgData = canvas.toDataURL('image/png');
-							var imgWidth = 210;
-							var pageHeight = 295;
-							var imgHeight = canvas.height*imgWidth / canvas.width;
-							var heightLeft = imgHeight;
+					if (this.grid){
+						this.editor.scrollingContainer.style.overflowY = 'visible';
+						var h = this.editor.scrollingContainer.offsetHeight;
+						this.editor.scrollingContainer.style.height="auto";
+						this.editor.scrollingContainer.scrollTop=0;
+						var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
+						html2canvas(ele).then(function(canvasImgs){
+							var imgs = canvasImgs.toDataURL('image/png');
+							html2canvas(that.editor.scrollingContainer).then(function(canvas){
+								that.editor.scrollingContainer.style.height = h;
+								that.editor.scrollingContainer.style.overflowY = 'auto';
+								var imgData = canvas.toDataURL('image/png');
+								var imgWidth = 210;
+								var pageHeight = 295;
+								var imgHeight = canvas.height*imgWidth / canvas.width;
+								var heightLeft = imgHeight;
+								var doc = new jsPDF('p', 'mm' , '',true);
+								if (that.imageCount==3){
+									doc.addImage(imgs, 'PNG', 55, 20, 100, 40, '', 'FAST');
+									doc.addImage(imgData, 'PNG', 0, 60, imgWidth, imgHeight-10, '' , 'FAST');
+								} else if (that.imageCount==6){
+									doc.addImage(imgs, 'PNG', 55, 20, 100, 70, '', 'FAST');
+									doc.addImage(imgData, 'PNG', 0, 90, imgWidth, imgHeight-10, '' , 'FAST');
+								} else {
+									doc.addImage(imgs, 'PNG', 55, 20, 100, 100, '', 'FAST');
+									doc.addImage(imgData, 'PNG', 0, 120, imgWidth, imgHeight-10, '' , 'FAST');
+								}
+								var position = 120;
+								heightLeft -= (pageHeight-120);
+								while (heightLeft >= 0) {
+									position = heightLeft - imgHeight;
+									doc.addPage();
+									doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
+									heightLeft -= pageHeight;
+								}
+								var inputData = doc.output('dataurlstring');
+								var mimetype = 'application/pdf';
+								var metadata = {
+									mimetype: mimetype,
+									title: title +".pdf",
+									activity: "",
+									timestamp: new Date().getTime(),
+									creation_time: new Date().getTime(),
+									file_size: 0
+								};
+								that.$refs.SugarJournal.createEntry(inputData, metadata);
+								that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));
+							})
+						})
+					} else {
+						var tempActiveImage = this.activeImageIndex;
+						that.activeImageIndex = 0;
+						that.activeImage = that.images[0];
+						that.editor.setContents(that.singleEditorsContent[0]);
+						async function generatePdf(){
 							var doc = new jsPDF('p', 'mm' , '',true);
-							doc.addImage(imgs, 'PNG', 55, 20, 100, 100, '', 'FAST');
-							var position = 120;
-							doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
-							heightLeft -= (pageHeight-120);
-							while (heightLeft >= 0) {
-								position = heightLeft - imgHeight;
-								doc.addPage();
-								doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
-								heightLeft -= pageHeight;
+							for (let i=0; i<=that.imageCount; i++){
+								await html2canvas(document.getElementById("display-single")).then(function(canvasImgs){
+									if (i<that.imageCount){
+										if (i<that.imageCount-1){
+											that.activeImageIndex = i+1;
+											that.activeImage = that.images[i+1];
+										}
+										that.editor.setContents(that.singleEditorsContent[i]);
+									}
+									that.editor.scrollingContainer.style.overflowY = 'visible';
+									var h = that.editor.scrollingContainer.offsetHeight;
+									that.editor.scrollingContainer.style.height="auto";
+									that.editor.scrollingContainer.scrollTop=0;
+									html2canvas(that.editor.scrollingContainer).then(function(canvas){
+										that.editor.scrollingContainer.style.height = h;
+										that.editor.scrollingContainer.style.overflowY = 'auto';
+										var imgData = canvas.toDataURL('image/png');
+										var imgWidth = 210;
+										var pageHeight = 295;
+										var imgHeight = canvas.height*imgWidth / canvas.width;
+										var heightLeft = imgHeight;
+										var position = 120;
+										doc.addImage(canvasImgs.toDataURL('image/png'), 'PNG', 55, 10, 100, 100, '', 'FAST');
+										doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
+										heightLeft -= (pageHeight-120);
+										while (heightLeft >= 0) {
+											position = heightLeft - imgHeight;
+											doc.addPage();
+											doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
+											heightLeft -= pageHeight;
+										}
+										if (i<that.imageCount-1) doc.addPage();
+									})
+								});
 							}
 							var inputData = doc.output('dataurlstring');
 							var mimetype = 'application/pdf';
-							var mode = that.grid ? "Grid Mode" : "Single Mode (Image " + (that.activeImageIndex+1) + ")" ;
 							var metadata = {
 								mimetype: mimetype,
-								title: title +" in " + mode +".pdf",
+								title: title +".pdf",
 								activity: "",
 								timestamp: new Date().getTime(),
 								creation_time: new Date().getTime(),
@@ -656,8 +725,12 @@ var app = new Vue({
 							};
 							that.$refs.SugarJournal.createEntry(inputData, metadata);
 							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));
-						})
-					})
+							that.activeImageIndex= tempActiveImage;
+							that.activeImage = that.images[tempActiveImage];
+							that.editor.setContents(that.singleEditorsContent[tempActiveImage]);
+						}
+						setTimeout(generatePdf, 200);
+					}
 					break;
 				case 'doc':
 					var title = document.getElementById("title").value;
