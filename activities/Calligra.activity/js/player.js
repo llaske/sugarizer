@@ -102,11 +102,14 @@ var Player = {
 				var items = [];
 				for (let i = 0 ; i < vm.item.text.length ; i++) {
 					var letter = vm.item.text[i];
+					var needlow = (letter=='b'||letter=='o'||letter=='v'||letter=='w')&&(i!=vm.item.text.length-1);
+					var needhigh = (letter=='e')&&(i!=0);
 					for (let j = 0 ; j < app.currentLibrary.length ; j++ ) {
 						for (let k = 0 ; k < app.currentLibrary[j].images.length ; k++) {
 							var item = app.currentLibrary[j].images[k];
-							if (letter == item.letter) {
+							if (letter == item.letter && (!needlow || item.low) && (!needhigh || item.high)) {
 								items.push(item);
+								break;
 							}
 						}
 					}

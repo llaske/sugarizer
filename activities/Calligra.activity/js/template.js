@@ -49,7 +49,7 @@ var TemplateViewer = {
 	template: `
 		<div class="row">
 		<template v-if="template">
-			<template-item v-for="(item,i) in template.images" :key="item.image"
+			<template-item v-for="(item,i) in visibleImages" :key="item.image"
 				v-bind:ref="'item'+(i++)"
 				v-bind:image="item.image"
 				v-bind:text="item.text"
@@ -63,6 +63,13 @@ var TemplateViewer = {
 	data: function() {
 		return {
 			editMode: false
+		}
+	},
+	computed: {
+		visibleImages: function() {
+			return this.template.images.filter(function(item) {
+				return item.visible!=false;
+			});
 		}
 	},
 	methods: {
