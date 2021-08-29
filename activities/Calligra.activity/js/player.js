@@ -131,10 +131,14 @@ var Player = {
 							newMin = Math.min(start.path[k].x, newMin);
 						}
 					}
+					if (items[i].letter == 'j' && i > 0) {
+						newMin = Math.min(items[i].starts[0].x); // For letter j the minim is start of letter because leg is before
+					}
 					minmax.push({max: newMax, min:newMin});
 				}
 				let shift = 0;
 				let shifts = [];
+				let points = [];
 				for (let i = 0 ; i < items.length ; i++) {
 					// Add each letter starting point shifted depending previous letter
 					let localshift = 3-minmax[i].min;
@@ -146,8 +150,15 @@ var Player = {
 						for (var k = 0 ; k < start.path.length ; k++) {
 							start.path[k].x += shift+localshift;
 						}
-						vm.starts.push(start);
+						if ((items[i].letter == 'i' || items[i].letter == 'j') && j == items[i].starts.length-1) {
+							points.push(start); // Add point for i and j at end
+						} else {
+							vm.starts.push(start);
+						}
 					}
+				}
+				if (points.length > 0) {
+					Array.prototype.push.apply(vm.starts, points);
 				}
 
 				// Load all images
