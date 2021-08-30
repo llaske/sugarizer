@@ -16,6 +16,7 @@ var app = new Vue({
 		modeId: "grid-mode",
 		images: [],
 		imagesURL:[],
+		gridImageURL: null,
 		activeImage: "",
 		activeImageIndex: 0,
 		previousBtnId: null,
@@ -277,8 +278,16 @@ var app = new Vue({
 		},
 		toggleMode: function(){
 			this.currentTime = 0;
+			var that = this;
 			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.grid){
+				if (this.gridImageURL==null && document.getElementById("display-grid")!=null){
+					var ele = document.getElementById("display-grid");
+					html2canvas(ele).then(function(canvas){
+						var img = canvas.toDataURL('image/png');
+						that.gridImageURL = img;
+					})
+				}
 				this.gridEditorContent = this.editor.getContents();
 				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 				this.updateEditor();
@@ -432,6 +441,14 @@ var app = new Vue({
 					toDataURL(`${that.getUrlImg(that.images[i])}`, i)
 					i++;
 				}
+
+				if (document.getElementById("display-grid")!=null){
+					var ele = document.getElementById("display-grid");
+					html2canvas(ele).then(function(canvas){
+						var img = canvas.toDataURL('image/png');
+						that.gridImageURL = img;
+					})
+				}
 			}
 		},
 		openImage: function(index){
@@ -520,6 +537,15 @@ var app = new Vue({
 					toDataURL(`${that.getUrlImg(that.images[imgcnt])}`, imgcnt)
 					imgcnt++;
 				}
+				setTimeout(()=>{
+					if (document.getElementById("display-grid")!=null){
+						var ele = document.getElementById("display-grid");
+						html2canvas(ele).then(function(canvas){
+							var img = canvas.toDataURL('image/png');
+							that.gridImageURL = img;
+						})
+					}
+				}, 100)
 			});
 		},
 		increaseFont: function(){
@@ -594,18 +620,19 @@ var app = new Vue({
 					var title = document.getElementById("title").value;
 					var mimetype = 'text/plain';
 					var inputData="";
-					if (this.grid){
-						inputData = this.editor.getText();
-					} else {
-						for (var i=0; i<that.imageCount; i++){
-							tempeditor.setContents(that.singleEditorsContent[i]);
-							var text = tempeditor.getText();
-							if (i==that.activeImageIndex && that.editor.getText().length>1){
-								inputData+=that.editor.getText();
-							} else {
-								if (text.length > 1){
-										inputData+=tempeditor.getText();
-								}
+					tempeditor.setContents(that.gridEditorContent);
+					var text = tempeditor.getText();
+					if (text.length > 1){
+						inputData+=tempeditor.getText();
+					}
+					for (var i=0; i<that.imageCount; i++){
+						tempeditor.setContents(that.singleEditorsContent[i]);
+						var text = tempeditor.getText();
+						if (i==that.activeImageIndex && that.editor.getText().length>1){
+							inputData+=that.editor.getText();
+						} else {
+							if (text.length > 1){
+									inputData+=tempeditor.getText();
 							}
 						}
 					}
@@ -622,62 +649,18 @@ var app = new Vue({
 					break;
 				case 'pdf':
 					var title = document.getElementById("title").value;
-					if (this.grid){
-						this.editor.scrollingContainer.style.overflowY = 'visible';
-						var h = this.editor.scrollingContainer.offsetHeight;
-						this.editor.scrollingContainer.style.height="auto";
-						this.editor.scrollingContainer.scrollTop=0;
-						var ele = this.grid ? document.getElementById("display-grid"): document.getElementById("display-single"); 
-						html2canvas(ele).then(function(canvasImgs){
-							var imgs = canvasImgs.toDataURL('image/png');
-							html2canvas(that.editor.scrollingContainer).then(function(canvas){
-								that.editor.scrollingContainer.style.height = h;
-								that.editor.scrollingContainer.style.overflowY = 'auto';
-								var imgData = canvas.toDataURL('image/png');
-								var imgWidth = 210;
-								var pageHeight = 295;
-								var imgHeight = canvas.height*imgWidth / canvas.width;
-								var heightLeft = imgHeight;
-								var doc = new jsPDF('p', 'mm' , '',true);
-								if (that.imageCount==3){
-									doc.addImage(imgs, 'PNG', 55, 20, 100, 40, '', 'FAST');
-									doc.addImage(imgData, 'PNG', 0, 60, imgWidth, imgHeight-10, '' , 'FAST');
-								} else if (that.imageCount==6){
-									doc.addImage(imgs, 'PNG', 55, 20, 100, 70, '', 'FAST');
-									doc.addImage(imgData, 'PNG', 0, 90, imgWidth, imgHeight-10, '' , 'FAST');
-								} else {
-									doc.addImage(imgs, 'PNG', 55, 20, 100, 100, '', 'FAST');
-									doc.addImage(imgData, 'PNG', 0, 120, imgWidth, imgHeight-10, '' , 'FAST');
-								}
-								var position = 120;
-								heightLeft -= (pageHeight-120);
-								while (heightLeft >= 0) {
-									position = heightLeft - imgHeight;
-									doc.addPage();
-									doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
-									heightLeft -= pageHeight;
-								}
-								var inputData = doc.output('dataurlstring');
-								var mimetype = 'application/pdf';
-								var metadata = {
-									mimetype: mimetype,
-									title: title +".pdf",
-									activity: "",
-									timestamp: new Date().getTime(),
-									creation_time: new Date().getTime(),
-									file_size: 0
-								};
-								that.$refs.SugarJournal.createEntry(inputData, metadata);
-								that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));
-							})
-						})
-					} else {
-						var tempActiveImage = this.activeImageIndex;
-						that.activeImageIndex = 0;
-						that.activeImage = that.images[0];
-						that.editor.setContents(that.singleEditorsContent[0]);
+					// if (this.grid){
+
+					var tempActiveImage = this.activeImageIndex;
+					var tempMode = this.grid;
+					this.grid = true;
+					that.editor.setContents(that.gridEditorContent);
+					var doc = new jsPDF('p', 'mm' , '',true);
+
+	
+					// } else {
 						async function generatePdf(){
-							var doc = new jsPDF('p', 'mm' , '',true);
+							// var doc = new jsPDF('p', 'mm' , '',true);
 							for (let i=0; i<=that.imageCount; i++){
 								await html2canvas(document.getElementById("display-single")).then(function(canvasImgs){
 									if (i<that.imageCount){
@@ -700,16 +683,18 @@ var app = new Vue({
 										var imgHeight = canvas.height*imgWidth / canvas.width;
 										var heightLeft = imgHeight;
 										var position = 120;
-										doc.addImage(canvasImgs.toDataURL('image/png'), 'PNG', 55, 10, 100, 100, '', 'FAST');
-										doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
-										heightLeft -= (pageHeight-120);
-										while (heightLeft >= 0) {
-											position = heightLeft - imgHeight;
+										if (that.editor.getText().length>1){
 											doc.addPage();
-											doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
-											heightLeft -= pageHeight;
+											doc.addImage(canvasImgs.toDataURL('image/png'), 'PNG', 55, 10, 100, 100, '', 'FAST');
+											doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
+											heightLeft -= (pageHeight-120);
+											while (heightLeft >= 0) {
+												position = heightLeft - imgHeight;
+												doc.addPage();
+												doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
+												heightLeft -= pageHeight;
+											}
 										}
-										if (i<that.imageCount-1) doc.addPage();
 									})
 								});
 							}
@@ -724,13 +709,80 @@ var app = new Vue({
 								file_size: 0
 							};
 							that.$refs.SugarJournal.createEntry(inputData, metadata);
-							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));
-							that.activeImageIndex= tempActiveImage;
-							that.activeImage = that.images[tempActiveImage];
-							that.editor.setContents(that.singleEditorsContent[tempActiveImage]);
+							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));						
+							that.grid = tempMode;
+							if (tempMode){
+								that.activeImageIndex = tempActiveImage;
+								that.editor.setContents(that.gridEditorContent);
+							} else {
+								that.activeImageIndex = tempActiveImage;
+								that.activeImage = that.images[tempActiveImage];
+								that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
+							}
 						}
-						setTimeout(generatePdf, 200);
-					}
+
+						async function generatePdfGrid(){
+							that.editor.scrollingContainer.style.overflowY = 'visible';
+							var h = that.editor.scrollingContainer.offsetHeight;
+							that.editor.scrollingContainer.style.height="auto";
+							that.editor.scrollingContainer.scrollTop=0;
+							var ele = document.getElementById("display-grid"); 
+							await html2canvas(ele).then(function(canvasImgs){
+								var imgs = canvasImgs.toDataURL('image/png');
+								html2canvas(that.editor.scrollingContainer).then(function(canvas){
+									that.editor.scrollingContainer.style.height = h;
+									that.editor.scrollingContainer.style.overflowY = 'auto';
+									var imgData = canvas.toDataURL('image/png');
+									var imgWidth = 210;
+									var pageHeight = 295;
+									var imgHeight = canvas.height*imgWidth / canvas.width;
+									var heightLeft = imgHeight;
+									if (that.editor.getText().length>1){
+										if (that.imageCount==3){
+											doc.addImage(imgs, 'PNG', 55, 20, 100, 40, '', 'FAST');
+											doc.addImage(imgData, 'PNG', 0, 60, imgWidth, imgHeight-10, '' , 'FAST');
+										} else if (that.imageCount==6){
+											doc.addImage(imgs, 'PNG', 55, 20, 100, 70, '', 'FAST');
+											doc.addImage(imgData, 'PNG', 0, 90, imgWidth, imgHeight-10, '' , 'FAST');
+										} else {
+											doc.addImage(imgs, 'PNG', 55, 20, 100, 100, '', 'FAST');
+											doc.addImage(imgData, 'PNG', 0, 120, imgWidth, imgHeight-10, '' , 'FAST');
+										}
+										var position = 120;
+										heightLeft -= (pageHeight-120);
+										while (heightLeft >= 0) {
+											position = heightLeft - imgHeight;
+											doc.addPage();
+											doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
+											heightLeft -= pageHeight;
+										}
+										// doc.addPage();
+									}
+									// var inputData = doc.output('dataurlstring');
+									// var mimetype = 'application/pdf';
+									// var metadata = {
+									// 	mimetype: mimetype,
+									// 	title: title +".pdf",
+									// 	activity: "",
+									// 	timestamp: new Date().getTime(),
+									// 	creation_time: new Date().getTime(),
+									// 	file_size: 0
+									// };
+									// that.$refs.SugarJournal.createEntry(inputData, metadata);
+									// that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));
+								})
+							})
+
+							that.activeImageIndex = 0;
+							that.activeImage = that.images[0];
+							that.editor.setContents(that.singleEditorsContent[0]);
+							that.grid = false;
+							setTimeout(generatePdf, 200);
+						}
+
+						setTimeout(generatePdfGrid, 200);
+
+					// }
 					break;
 				case 'doc':
 					var title = document.getElementById("title").value;
@@ -740,17 +792,21 @@ var app = new Vue({
 					"xmlns='http://www.w3.org/TR/REC-html40'>"+
 					"<head><meta charset='utf-8'></head><body>";
 					var image="";
-					if (that.grid){
-						for (var i=0; i<that.imageCount/3; i++){
-							image+= `
-							<div>
-							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i)%3]} />
-							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+1)%3]} />
-							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+2)%3]} />
-							</div>`;
+					// if (that.grid){
+						tempeditor.setContents(that.gridEditorContent);
+						var text = tempeditor.root.innerHTML;
+						if (text.length > 11){
+							for (var i=0; i<that.imageCount/3; i++){
+								image+= `
+								<div>
+								<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i)%3]} />
+								<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+1)%3]} />
+								<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+2)%3]} />
+								</div>`;
+							}
+							image+=text;
 						}
-						image+=content;
-					} else { 
+					// } else { 
 						for (var i=0; i<that.imageCount; i++){
 							tempeditor.setContents(that.singleEditorsContent[i]);
 							var text = tempeditor.root.innerHTML;
@@ -764,7 +820,7 @@ var app = new Vue({
 								}
 							}
 						}
-					}
+					// }
 					var footer = "</body></html>"
 					var sourceHTML = header + image + footer;
 					var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
@@ -781,39 +837,57 @@ var app = new Vue({
 					this.$refs.SugarPopup.log(that.SugarL10n.get("ExportToDoc"));
 					break;
 				case 'odt':
-					if (this.grid){
-						var ele = document.getElementById("display-grid");
-						html2canvas(ele).then(function(canvasImgs){
-							var imgs = canvasImgs.toDataURL('image/png');
-							var el= document.getElementById('editor-area');
-							el= el.cloneNode(true);
-							el.getElementsByTagName('div')[0];
-							var tempEditor = el.getElementsByTagName('div')[0];
-							var par = document.createElement("p");
-							var imgEle = document.createElement("IMG");
-							imgEle.setAttribute("src", imgs);
-							par.appendChild(imgEle);
-							tempEditor.insertBefore(par, tempEditor.childNodes[0]);
-							var xml = traverse(tempEditor);
-							var mimetype = 'application/vnd.oasis.opendocument.text';
-							var title = document.getElementById("title").value;
-							var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
-							var metadata = {
-								mimetype: mimetype,
-								title: title+".odt",
-								activity: "",
-								timestamp: new Date().getTime(),
-								creation_time: new Date().getTime(),
-								file_size: 0
-							};
-							that.$refs.SugarJournal.createEntry(inputData, metadata);
-							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
-							resetXML();
-						})
-					} else {
-						that.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
+					// if (this.grid){
+					// 	var ele = document.getElementById("display-grid");
+					// 	html2canvas(ele).then(function(canvasImgs){
+					// 		var imgs = canvasImgs.toDataURL('image/png');
+					// 		var el= document.getElementById('editor-area');
+					// 		el= el.cloneNode(true);
+					// 		el.getElementsByTagName('div')[0];
+					// 		var tempEditor = el.getElementsByTagName('div')[0];
+					// 		var par = document.createElement("p");
+					// 		var imgEle = document.createElement("IMG");
+					// 		imgEle.setAttribute("src", imgs);
+					// 		par.appendChild(imgEle);
+					// 		tempEditor.insertBefore(par, tempEditor.childNodes[0]);
+					// 		var xml = traverse(tempEditor);
+					// 		var mimetype = 'application/vnd.oasis.opendocument.text';
+					// 		var title = document.getElementById("title").value;
+					// 		var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
+					// 		var metadata = {
+					// 			mimetype: mimetype,
+					// 			title: title+".odt",
+					// 			activity: "",
+					// 			timestamp: new Date().getTime(),
+					// 			creation_time: new Date().getTime(),
+					// 			file_size: 0
+					// 		};
+					// 		that.$refs.SugarJournal.createEntry(inputData, metadata);
+					// 		that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
+					// 		resetXML();
+					// 	})
+					// } else {
+						// that.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 						var tempActiveImage = this.activeImageIndex;
+						var tempMode = this.grid;
+						this.grid = false;
+
 						var divEle =document.createElement('div')
+						that.editor.setContents(that.gridEditorContent);
+
+						if (that.editor.getText().length > 1){
+								var el= document.getElementById('editor-area');
+								el= el.cloneNode(true);
+								el.getElementsByTagName('div')[0];
+								var tempEditor = el.getElementsByTagName('div')[0];
+								var par = document.createElement("p");
+								var imgEle = document.createElement("IMG");
+								imgEle.height = '100px';
+								imgEle.setAttribute("src", that.gridImageURL);
+								par.appendChild(imgEle);
+								tempEditor.insertBefore(par, tempEditor.childNodes[0]);
+								divEle.append(...tempEditor.childNodes);
+						}
 						for (var i=0; i<that.imageCount; i++){
 							that.activeImageIndex = i;
 							that.editor.setContents(that.singleEditorsContent[i]);
@@ -831,8 +905,14 @@ var app = new Vue({
 								divEle.append(...tempEditor.childNodes);
 							}
 						}
-						that.activeImageIndex = tempActiveImage;
-						that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
+						that.grid = tempMode;
+						if (tempMode){
+							that.activeImageIndex = tempActiveImage;
+							that.editor.setContents(that.gridEditorContent);
+						} else {
+							that.activeImageIndex = tempActiveImage;
+							that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
+						}
 						var xml = traverse(divEle);
 						var mimetype = 'application/vnd.oasis.opendocument.text';
 						var title = document.getElementById("title").value;
@@ -848,7 +928,7 @@ var app = new Vue({
 						resetXML();
 						that.$refs.SugarJournal.createEntry(inputData, metadata);
 						that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
-					}
+					// }
 					break;
 				default:
 					break;
@@ -877,6 +957,7 @@ var app = new Vue({
 			this.gridAudioRecord = data.gridAudioRecord;
 			this.singleAudioRecords = data.singleAudioRecords;
 			this.imagesURL = JSON.parse(data.imagesURL);
+			this.gridImageURL = data.gridImageURL;
 			this.isLoaded = true;
 			document.getElementById("size-palette").style.background = "url(icons/"+data.imageCount/3+"X3.svg)";
 			this.activeImage = this.images[this.activeImageIndex];
@@ -934,6 +1015,7 @@ var app = new Vue({
 					this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
 					this.connectedPlayers = data.connectedPlayers;
 					this.imagesURL = JSON.parse(data.imagesURL);
+					this.gridImageURL = data.gridImageURL;
 					this.activeImageIndex = data.activeImageIndex;
 					this.activeImage = this.images[data.activeImageIndex];
 					// this.previousBtnId = "previous-btn-inactive";
@@ -1058,7 +1140,8 @@ var app = new Vue({
 					activeImageIndex: this.activeImageIndex,
 					gridEditorContent: JSON.stringify(this.gridEditorContent),
 					singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-					imagesURL: JSON.stringify(this.imagesURL)
+					imagesURL: JSON.stringify(this.imagesURL),
+					gridImageURL: this.gridImageURL
 				};
 				that.SugarPresence.sendMessage({
 					user: this.SugarPresence.getUserInfo(),
@@ -1458,7 +1541,8 @@ var app = new Vue({
 				fontSize:this.fontSize,
 				gridAudioRecord: this.gridAudioRecord,
 				singleAudioRecords: this.singleAudioRecords,
-				imagesURL: JSON.stringify(this.imagesURL)
+				imagesURL: JSON.stringify(this.imagesURL),
+				gridImageURL: this.gridImageURL
 			};
 			this.$refs.SugarJournal.saveData(context);
 		}
