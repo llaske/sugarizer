@@ -19,7 +19,24 @@ var app = new Vue({
 		currentLibrary: null,
 		currentTemplate: null,
 		currentItem: null,
-		color: {stroke:'#00000', fill:'#ffffff'}
+		color: {stroke:'#00000', fill:'#ffffff'},
+		l10n: {
+			stringWord0: '',
+			stringWord1: '',
+			stringWord2: '',
+			stringWord3: '',
+			stringWord4: '',
+			stringWord5: '',
+			stringWord6: '',
+			stringWord7: '',
+			stringWord8: '',
+			stringWord9: '',
+			stringWord10: '',
+			stringWord11: '',
+			stringWord12: '',
+			stringWord13: '',
+			stringWord14: ''
+		}
 	},
 
 	created: function() {
@@ -75,6 +92,27 @@ var app = new Vue({
 	methods: {
 
 		localized: function() {
+			// Initialize word list
+			var vm = this;
+			requirejs(["sugar-web/env"], function(env) {
+				env.getEnvironment(function(err, environment) {
+					var iuser = environment.user.name;
+					var images = [];
+					var user = '';
+					for (let i = 0 ; i < iuser.length ; i++) {
+						if (vm.validateText(iuser[i])) {
+							user += iuser[i];
+						}
+					}
+					if (user.length) {
+						images.push({text: user});
+					}
+					for (let i = 0 ; i < 15 ; i++) {
+						images.push({text: app.$refs.localization.get("Word"+i)});
+					}
+					defaultTemplates[2].images = images;
+				});
+			});
 			this.$refs.toolbar.localized(this.$refs.localization);
 			this.$refs.tutorial.localized(this.$refs.localization);
 		},
@@ -374,7 +412,7 @@ var app = new Vue({
 				});
 			};
 			setInputFilter(input, function(value) {
-				return /^[A-Za-z0-9]*$/.test(value);
+				return vm.validateText(value);
 			});
 		},
 		insertPopupClosed: function(result) {
@@ -384,6 +422,9 @@ var app = new Vue({
 				this.$refs.inserttextpopup.data.callback(null);
 			}
 			this.$refs.inserttextpopup.destroy();
+		},
+		validateText: function(value) {
+			return /^[A-Za-z]*$/.test(value);
 		}
 	}
 });

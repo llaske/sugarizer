@@ -72,19 +72,7 @@ var defaultTemplates = [
 	{
 		name: "template-word",
 		images: [
-			{text: "abc"},
-			{text: "word"},
-			{text: "the"},
-			{text: "sugarizer"},
-			{text: "today"},
-			{text: "yesterday"},
-			{text: "okay"},
-			{text: "yes"},
-			{text: "soon"},
-			{text: "Lionel"},
-			{text: "NASA"},
-			{text: "sugarlabs"},
-			{text: "hypochondriac"}
+			// Fill at startup with localized words
 		]
 	},
 	{
