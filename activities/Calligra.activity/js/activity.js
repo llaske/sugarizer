@@ -304,7 +304,7 @@ var app = new Vue({
 			options.fullscreenbutton = vm.$refs.toolbar.$refs.fullscreen.$el;
 			options.settingsbutton = vm.$refs.toolbar.$refs.settings.$el;
 			if (vm.currentView === TemplateViewer) {
-				options.insertimagebutton = vm.$refs.toolbar.$refs.insertimage.$el;
+				options.insertimagebutton = (vm.currentTemplate.name!="template-word"?vm.$refs.toolbar.$refs.insertimage.$el:vm.$refs.toolbar.$refs.inserttext.$el);
 				if (vm.currentTemplate && vm.currentTemplate.images && vm.currentTemplate.images[0]) {
 					options.item = vm.$refs.view.$refs.item0[0].$el;
 				}
