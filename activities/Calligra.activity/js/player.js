@@ -22,6 +22,7 @@ var Player = {
 			starts: [],
 			current: { start: -1, stroke: -1, strokes: [], index: -1, cursor: {x: 0, y: 0}, timeout: null },
 			zoomMult: 1,
+			computed: false,
 			mode: '',
 			drawing: false,
 			isText: false
@@ -41,7 +42,7 @@ var Player = {
 			letter.width = vm.isText ? vm.size*1.5 : vm.size;
 			letter.height = vm.size;
 			letter.style.marginLeft = (vm.isText ? 0 : (size.width-vm.size)/2-50) + "px";
-			if (vm.isText) {
+			if (vm.isText && !vm.computed) {
 				// Compute optimal font size to fill the word rectangle
 				var rect = {width: 100, height: 100};
 				var overflow = false;
@@ -54,6 +55,7 @@ var Player = {
 				vm.fontSize = opt;
 				let fontZoom = (opt-50)/64; // 50px is the standard size
 				vm.zoomMult = 1+fontZoom;
+				vm.computed = true;
 			}
 			vm.zoom = (vm.size/vm.imageSize)*vm.zoomMult;
 			vm.size *= vm.zoomMult;
@@ -71,6 +73,7 @@ var Player = {
 
 		init: function() {
 			var vm =this;
+			vm.computed = false;
 			vm.initComponent(function() {
 				vm.onLoad();
 				vm.startDemoMode();
