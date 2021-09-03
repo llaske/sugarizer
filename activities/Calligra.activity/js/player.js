@@ -3,7 +3,8 @@ var Player = {
 	template: `
 		<div>
 			<div id="back" class="editor-goback" v-on:click="goBack()"></div>
-			<img id="miniletter" class="editor-miniletter" v-bind:src="item.image"></img>
+			<img id="miniletter" class="editor-miniletter" v-bind:src="item.image" v-bind:style="{visibility:item.image?'visible':'hidden'}"></img>
+			<div id="miniword" class="editor-miniword" v-bind:style="computeStyle()">{{item.text}}</div>
 			<div id="area" class="editor-area">
 				<canvas id="letter"></canvas>
 			</div>
@@ -16,11 +17,15 @@ var Player = {
 		return {
 			size: -1,
 			imageSize: -1,
+			fontSize: 6,
 			zoom: -1,
+			starts: [],
 			current: { start: -1, stroke: -1, strokes: [], index: -1, cursor: {x: 0, y: 0}, timeout: null },
 			zoomMult: 1,
+			computed: false,
 			mode: '',
-			drawing: false
+			drawing: false,
+			isText: false
 		}
 	},
 	methods: {
@@ -33,14 +38,147 @@ var Player = {
 			var size = { width: body_width, height: body_height };
 			vm.size = Math.min(size.width, size.height);
 			var letter = document.getElementById("letter");
-			letter.width = vm.size;
+			vm.isText = vm.item.text;
+			letter.width = vm.isText ? vm.size*1.5 : vm.size;
 			letter.height = vm.size;
-			letter.style.marginLeft = (size.width-vm.size)/2-50 + "px";
+			letter.style.marginLeft = (vm.isText ? 0 : (size.width-vm.size)/2-50) + "px";
+			if (vm.isText && !vm.computed) {
+				// Compute optimal font size to fill the word rectangle
+				var rect = {width: 100, height: 100};
+				var overflow = false;
+				var opt = 6;
+				for (var i = opt ; i<300 && !overflow ; i++) {
+					let size = getTextSize(this.item.text, i+"px Arial"); // HACK: Should be Graphecrit but can't wait to load it
+					overflow = size.width > rect.width || 2*size.height > rect.height;
+					if (!overflow) { opt = i }
+				}
+				vm.fontSize = opt;
+				let fontZoom = (opt-50)/64; // 50px is the standard size
+				vm.zoomMult = 1+fontZoom;
+				vm.computed = true;
+			}
 			vm.zoom = (vm.size/vm.imageSize)*vm.zoomMult;
 			vm.size *= vm.zoomMult;
 
 			// Draw
 			this.draw();
+		},
+
+		computeStyle: function() {
+			var style = {};
+			style.visibility = this.item.text?'visible':'hidden';
+			style.fontSize = this.fontSize+'px';
+			return style;
+		},
+
+		init: function() {
+			var vm =this;
+			vm.computed = false;
+			vm.initComponent(function() {
+				vm.onLoad();
+				vm.startDemoMode();
+			});
+		},
+
+		initComponent: function(then) {
+			var vm = this;
+			if (vm.item.image) {
+				// Add start points for the item
+				vm.starts = [];
+				for (var i = 0 ; i < vm.item.starts.length ; i++) {
+					vm.starts.push(vm.item.starts[i]);
+				}
+
+				// Load item image
+				var imageObj = new Image();
+				imageObj.onload = function() {
+					vm.imageSize = imageObj.width;
+					if (then) {
+						let images = [];
+						images.push({image:imageObj, x: 0, y: 0});
+						then(images);
+					}
+				};
+				imageObj.src = vm.item.image;
+			} else if (vm.item.text) {
+				// Identify items for each letter
+				var items = [];
+				for (let i = 0 ; i < vm.item.text.length ; i++) {
+					var letter = vm.item.text[i];
+					var needlow = (letter=='b'||letter=='o'||letter=='v'||letter=='w')&&(i!=vm.item.text.length-1);
+					var needhigh = (letter=='e')&&(i!=0);
+					for (let j = 0 ; j < app.currentLibrary.length ; j++ ) {
+						for (let k = 0 ; k < app.currentLibrary[j].images.length ; k++) {
+							var item = app.currentLibrary[j].images[k];
+							if (letter == item.letter && (!needlow || item.low) && (!needhigh || item.high)) {
+								items.push(item);
+								break;
+							}
+						}
+					}
+				}
+
+				// Add start point for each letter
+				vm.starts = [];
+				let minmax = [];
+				for (let i = 0 ; i < items.length ; i++) {
+					// Compute real size of letter using leftmost and rightmost point
+					let newMax = 0;
+					let newMin = Number.MAX_VALUE;
+					for (let j = 0 ; j < items[i].starts.length ; j++) {
+						let start = items[i].starts[j];
+						newMax = Math.max(start.x, newMax);
+						newMin = Math.min(start.x, newMin);
+						for (var k = 0 ; k < start.path.length ; k++) {;
+							newMax = Math.max(start.path[k].x, newMax);
+							newMin = Math.min(start.path[k].x, newMin);
+						}
+					}
+					if (items[i].letter == 'j' && i > 0) {
+						newMin = Math.min(items[i].starts[0].x); // For letter j the minim is start of letter because leg is before
+					}
+					minmax.push({max: newMax, min:newMin});
+				}
+				let shift = 0;
+				let shifts = [];
+				let points = [];
+				for (let i = 0 ; i < items.length ; i++) {
+					// Add each letter starting point shifted depending previous letter
+					let localshift = 3-minmax[i].min;
+					shift += (i == 0 ? 0 : minmax[i-1].max-minmax[i-1].min);
+					shifts.push(shift+localshift);
+					for (let j = 0 ; j < items[i].starts.length ; j++) {
+						let start = JSON.parse(JSON.stringify(items[i].starts[j])); // HACK: Duplicate objects and arrays
+						start.x += shift+localshift;
+						for (var k = 0 ; k < start.path.length ; k++) {
+							start.path[k].x += shift+localshift;
+						}
+						if ((items[i].letter == 'i' || items[i].letter == 'j') && j == items[i].starts.length-1) {
+							points.push(start); // Add point for i and j at end
+						} else {
+							vm.starts.push(start);
+						}
+					}
+				}
+				if (points.length > 0) {
+					Array.prototype.push.apply(vm.starts, points);
+				}
+
+				// Load all images
+				let waitfor = items.length;
+				let images = [];
+				for (let i = 0 ; i < items.length ; i++) {
+					let imageObj = new Image();
+					images.push({image:imageObj, x:shifts[i], y: 0});
+					imageObj.onload = function() {
+						if (--waitfor == 0) {
+							vm.imageSize = imageObj.width;
+							then(images)
+						}
+					};
+					imageObj.src = items[i].image;
+				}
+			}
 		},
 
 		initEvent: function() {
@@ -111,26 +249,32 @@ var Player = {
 			var vm = this;
 			var letter = document.getElementById("letter");
 			var context = letter.getContext('2d');
-			context.clearRect(0, 0, vm.size, vm.size);
-			var imageObj = new Image();
-			imageObj.onload = function() {
+			context.clearRect(0, 0, vm.zoom*(vm.isText?letter.width:vm.imageSize), vm.size);
+			vm.initComponent(function(images) {
 				// Draw lines
 				vm.drawLines();
 
-				// Draw letter
-				context.drawImage(imageObj, 0, 0, vm.size, vm.size);
+				// Draw letters images
+				if (images) {
+					for (let i = 0 ; i < images.length ; i++) {
+						let image = images[i];
+						if (vm.isText) {
+							context.drawImage(image.image, vm.zoom*image.x, vm.zoom*image.y, vm.size, vm.size);
+						} else {
+							context.drawImage(image.image, 0, 0, vm.size, vm.size);
+						}
+					}
+				}
 
 				// Draw current drawing
 				if (vm.mode == 'input' && vm.current.strokes.length) {
 					vm.drawStoke();
 				}
-			};
-			imageObj.src = vm.item.image;
+			});
 		},
 
 		drawLines: function() {
-			if (app.$refs.toolbar.$refs.lines.isActive)
-			{
+			if (app.$refs.toolbar.$refs.lines.isActive) {
 				var vm = this;
 				var letter = document.getElementById("letter");
 				var context = letter.getContext('2d');
@@ -140,7 +284,7 @@ var Player = {
 				for (var i = 0 ; i < linesY.length ; i++) {
 					context.beginPath();
 					context.moveTo(vm.zoom*0, vm.zoom*linesY[i]);
-					context.lineTo(vm.zoom*208,vm.zoom*linesY[i]);
+					context.lineTo(vm.zoom*(vm.isText?letter.width:vm.imageSize),vm.zoom*linesY[i]);
 					context.stroke();
 				}
 			}
@@ -185,17 +329,17 @@ var Player = {
 
 		handleMouseMove: function(x, y) {
 			var vm = this;
-			var target = (vm.item.starts[vm.current.start].path.length?vm.item.starts[vm.current.start].path[vm.current.index]:vm.item.starts[vm.current.start]);
+			var target = (vm.starts[vm.current.start].path.length?vm.starts[vm.current.start].path[vm.current.index]:vm.starts[vm.current.start]);
 			vm.moveCursor({x:vm.zoom*target.x, y: vm.zoom*target.y});
 			var distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
 			if (distance <= 5) {
 				vm.current.strokes[vm.current.start].push({x: target.x, y: target.y});
 				vm.drawStoke();
 				vm.current.index++;
-				if (vm.current.index >= vm.item.starts[vm.current.start].path.length) {
+				if (vm.current.index >= vm.starts[vm.current.start].path.length) {
 					vm.current.start++;
 					vm.current.index = 0;
-					if (vm.current.start >= vm.item.starts.length) {
+					if (vm.current.start >= vm.starts.length) {
 						vm.mode = 'end';
 						vm.setCursorVisibility(false);
 						setTimeout(function(){
@@ -207,7 +351,7 @@ var Player = {
 						 }, 500);
 
 					} else {
-						var lines = [{x: vm.item.starts[vm.current.start].x, y:vm.item.starts[vm.current.start].y}];
+						var lines = [{x: vm.starts[vm.current.start].x, y:vm.starts[vm.current.start].y}];
 						vm.moveCursor({x: vm.zoom*lines[0].x, y: vm.zoom*lines[0].y});
 						vm.current.strokes.push(lines);
 						vm.drawStoke();
@@ -218,10 +362,11 @@ var Player = {
 
 		startDemoMode: function() {
 			var vm = this;
-			var timeout = 70;
+			var timeout = 70/(vm.isText?vm.item.text.length:1);
 			vm.mode = 'show';
 			var step = function() {
 				// Draw a segment of path
+				if (!vm.current || !vm.current.strokes || !vm.current.strokes[vm.current.start] || !vm.current.strokes[vm.current.start][vm.current.stroke]) { return; }
 				var line = vm.current.strokes[vm.current.start][vm.current.stroke];
 				var letter = document.getElementById("letter");
 				if (!letter) {
@@ -250,27 +395,27 @@ var Player = {
 							// End of draw, start input mode
 							vm.startInputMode();
 							vm.current.timeout = null;
-						}, 700);
+						}, timeout*10);
 					}
 				} else {
 					vm.current.timeout = setTimeout(step, timeout);
 				}
 			}
-			if (vm.item.starts && vm.item.starts[0].path.length) {
+			if (vm.starts && vm.starts[0].path.length) {
 				// Create lines set to draw letter
 				vm.current.start = 0;
 				vm.current.stroke = 0;
 				vm.current.strokes = [];
-				for (var i = 0 ; i < vm.item.starts.length ; i++) {
-					if (!vm.item.starts[i].path) {
+				for (var i = 0 ; i < vm.starts.length ; i++) {
+					if (!vm.starts[i].path) {
 						continue;
 					}
 					var lines = [];
-					var path = vm.item.starts[i].path;
-					if (!vm.item.starts[i].path.length) {
-						lines.push({x0: vm.item.starts[i].x, y0: vm.item.starts[i].y, x1: vm.item.starts[i].x, y1: vm.item.starts[i].y})
+					var path = vm.starts[i].path;
+					if (!vm.starts[i].path.length) {
+						lines.push({x0: vm.starts[i].x, y0: vm.starts[i].y, x1: vm.starts[i].x, y1: vm.starts[i].y})
 					} else {
-						lines.push({x0: vm.item.starts[i].x, y0: vm.item.starts[i].y, x1: path[0].x, y1: path[0].y})
+						lines.push({x0: vm.starts[i].x, y0: vm.starts[i].y, x1: path[0].x, y1: path[0].y})
 					}
 					for (var j = 0 ; j < path.length ; j++) {
 						if (j+1 < path.length) {
@@ -282,7 +427,7 @@ var Player = {
 				var line = vm.current.strokes[vm.current.start][vm.current.stroke];
 				vm.moveCursor({x: vm.zoom*line.x0, y: vm.zoom*line.y0});
 				vm.setCursorVisibility(true);
-				vm.current.timeout = setTimeout(step, timeout);
+				vm.current.timeout = setTimeout(step, 100);
 			}
 		},
 
@@ -293,8 +438,8 @@ var Player = {
 			vm.current.stroke = 0;
 			vm.current.index = 0;
 			vm.current.strokes = [];
-			if (vm.item.starts && vm.item.starts.length) {
-				var lines = [{x: vm.item.starts[0].x, y:vm.item.starts[0].y}];
+			if (vm.starts && vm.starts.length) {
+				var lines = [{x: vm.starts[0].x, y:vm.starts[0].y}];
 				vm.moveCursor({x: vm.zoom*lines[0].x, y: vm.zoom*lines[0].y});
 				vm.setCursorVisibility(true)
 				vm.current.strokes.push(lines);
@@ -344,31 +489,15 @@ var Player = {
 			app.displayTemplateView();
 		},
 		nextItem: function () {
-			// When Try Next button is clicked
 			var vm = this;
 			vm.item = app.nextItem(vm.item);
-			var imageObj = new Image();
-			imageObj.onload = function() {
-				vm.imageSize = imageObj.width;
-
-				vm.onLoad();
-				vm.startDemoMode();
-			};
-			imageObj.src = vm.item.image;
-
+			vm.init();
 		}
 	},
 
 	mounted: function() {
 		var vm = this;
-		var imageObj = new Image();
-		imageObj.onload = function() {
-			vm.imageSize = imageObj.width;
-
-			vm.onLoad();
-			vm.startDemoMode();
-		};
-		imageObj.src = vm.item.image;
+		vm.init();
 	},
 
 	beforeDestroy: function() {
