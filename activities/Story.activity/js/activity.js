@@ -441,14 +441,15 @@ var app = new Vue({
 					toDataURL(`${that.getUrlImg(that.images[i])}`, i)
 					i++;
 				}
-
-				if (document.getElementById("display-grid")!=null){
-					var ele = document.getElementById("display-grid");
-					html2canvas(ele).then(function(canvas){
-						var img = canvas.toDataURL('image/png');
-						that.gridImageURL = img;
-					})
-				}
+				setTimeout(()=>{
+					if (document.getElementById("display-grid")!=null){
+						var ele = document.getElementById("display-grid");
+						html2canvas(ele).then(function(canvas){
+							var img = canvas.toDataURL('image/png');
+							that.gridImageURL = img;
+						})
+					}
+				}, 100)
 			}
 		},
 		openImage: function(index){
