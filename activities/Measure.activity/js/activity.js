@@ -189,6 +189,8 @@ var app = new Vue({
 			stringTutoWaveformInversionContent: '',
 			stringTutoTriggeringEdgeTitle: '',
 			stringTutoTriggeringEdgeContent: '',
+			stringTutoLoggingExplainTitle: '',
+			stringTutoLoggingExplainContent: '',
 			stringTutoLoggingIntervalTitle: '',
 			stringTutoLoggingIntervalContent: '',
 			stringTutoStartStopTitle: '',
@@ -197,6 +199,8 @@ var app = new Vue({
 			stringTutoExportLoggingPDFContent: '',
 			stringTutoExportLoggingCSVTitle: '',
 			stringTutoExportLoggingCSVContent: '',
+			stringTutoInstrumentExplainTitle: '',
+			stringTutoInstrumentExplainContent: '',
 			stringTutoInstrumentSelectTitle: '',
 			stringTutoInstrumentSelectContent: '',
 			stringTutoNoteSelectTitle: '',
@@ -1716,6 +1720,13 @@ var app = new Vue({
 					content: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
 				},
 				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: this.l10n.stringTutoLoggingExplainTitle,
+					content: this.l10n.stringTutoLoggingExplainContent
+				},
+				{
 					onHide: function (tourType) {
 						if (document.getElementById("loggingPalette").offsetParent.style.visibility == "visible") {
 							document.getElementById("logging-interval-button").click();
@@ -1773,6 +1784,13 @@ var app = new Vue({
 					placement: "bottom",
 					title: this.l10n.stringTutoExportLoggingPDFTitle,
 					content: this.l10n.stringTutoExportLoggingPDFContent
+				},
+				{
+					element: "",
+					orphan: true,
+					placement: "bottom",
+					title: this.l10n.stringTutoInstrumentExplainTitle,
+					content: this.l10n.stringTutoInstrumentExplainContent
 				},
 				{
 					onHide: function (tourType) {
