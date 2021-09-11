@@ -1632,7 +1632,7 @@ var app = new Vue({
 
 		},
 		tutorialGifContent: function(img_src, content) {
-			return `<div><img src='docs/${img_src}' style='width: 100%;height: 100%;'><p>` + content + "</p></div>";
+			return `<div><img src='tutorial_gifs/${img_src}' style='width: 100%;height: 100%;'><p>` + content + "</p></div>";
 		},
 		onHelp: function () {
 			var steps = [
