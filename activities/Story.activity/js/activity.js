@@ -651,7 +651,7 @@ var app = new Vue({
 				case 'pdf':
 					var title = document.getElementById("title").value;
 					// if (this.grid){
-
+					document.getElementById("spinner-container").style.display = "block";
 					var tempActiveImage = this.activeImageIndex;
 					var tempMode = this.grid;
 					this.grid = true;
@@ -710,6 +710,7 @@ var app = new Vue({
 								file_size: 0
 							};
 							that.$refs.SugarJournal.createEntry(inputData, metadata);
+							document.getElementById("spinner-container").style.display = "none";
 							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));						
 							that.grid = tempMode;
 							if (tempMode){

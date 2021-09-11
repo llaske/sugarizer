@@ -72,6 +72,22 @@ p {
 	border-radius: 5.5px;
 }
 
+#spinner-container {
+	position: absolute;
+	height: 90vh;
+	width: 100vw;
+	background-color: white;
+	z-index: 2;
+}
+
+#spinner {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 8%;
+}
+
 /* Buttons added */
 
 #main-toolbar #grid-mode {
