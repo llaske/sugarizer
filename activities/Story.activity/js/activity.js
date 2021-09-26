@@ -32,7 +32,7 @@ var app = new Vue({
 		playIconId: "play-inactive",
 		speakIconId: "speak-inactive",
 		currentTime: 0,
-		imageCount: 9,	//update with Image slider
+		imageCount: 9,
 		imageLoaded: 0,
 		intervalIds: [],
 		colors: null,
@@ -102,10 +102,12 @@ var app = new Vue({
 			stringTutoPrevImageContent: ''
 		}
 	},
+
 	mounted() {
 		this.SugarPresence = this.$refs.SugarPresence;
 		this.SugarL10n = this.$refs.SugarL10n;
 	},
+
 	methods: {
 		initialized: function () {
 			// Sugarizer initialized
@@ -127,16 +129,18 @@ var app = new Vue({
 			}
 			this.loadEditor();			
 		},
+
 		localized: function(){
 			this.SugarL10n.localize(this.l10n);
 		},
+
 		imageLoaders: function(){
+			const that = this;
 			function getRandomInt (min, max) {
 				min = Math.ceil(min);
 				max = Math.floor(max);
 				return Math.floor(Math.random() * (max - min + 1)) + min;
 			}
-			const that = this;
 			function getColor(){
 				return that.colors[getRandomInt(0,2)];
 			}
@@ -151,6 +155,7 @@ var app = new Vue({
 				})(i);
 			}
 		},
+
 		loadImages: function(callback){
 			var xhr = new XMLHttpRequest();
 			var imgs = [];
@@ -207,6 +212,7 @@ var app = new Vue({
 			xhr.open("GET", source);
 			xhr.send();
 		},
+
 		loadEditor: function(){
 			Quill.register('modules/cursors', QuillCursors);
 			var container = document.getElementById('editor-area');
@@ -223,6 +229,7 @@ var app = new Vue({
 			const cursors = editor.getModule('cursors');
 			const Delta =  Quill.import('delta');
 			var that = this;
+
 			editor.on('text-change', function(delta, oldDelta, source) {
 				// Executes on text or formatting changes
 				if (editor.getText().length>1){ 
@@ -245,29 +252,17 @@ var app = new Vue({
 					});
 				}
 			});
-			// editor.on('selection-change', function(range, oldRange, source) {
-			// 	// Executes when user selection changes
-			// 	if (range) {
-			// 			that.SugarPresence.isShared() && that.SugarPresence.sendMessage({
-			// 				user: that.SugarPresence.getUserInfo(),
-			// 				content: {
-			// 					action: 'selection',
-			// 					range: range,
-			// 					grid:that.grid,
-			// 					activeImageIndex: that.activeImageIndex
-			// 				}
-			// 			});
-			// 	}
-			// });
 			this.editor = editor;
 			this.cursors = cursors;
 		},
+
 		updateEditor: function(){
 			this.fontColor != null && this.editor.format('color',this.fontColor);
 			this.backgroundColor!=null && this.editor.format('background-color',this.backgroundColor);
 			this.fontSelected !=null &&	this.editor.format('font', this.fontSelected);
 			this.fontSize !=null ? this.editor.format('size', this.fontSize) : this.editor.format('size', '24px');
 		},
+		
 		getUrlImg: function(img){
 			if (img.includes("lower")){
 				return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '0.png';
@@ -277,6 +272,7 @@ var app = new Vue({
 				return '../Abecedarium.activity/images/database/'+ img + '.png';
 			}
 		},
+
 		toggleMode: function(){
 			this.currentTime = 0;
 			var that = this;
@@ -314,6 +310,7 @@ var app = new Vue({
 					this.playIconId = "play-inactive"
 				}
 			}
+
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
@@ -321,21 +318,9 @@ var app = new Vue({
 			}
 			this.editor.setSelection(this.editor.getText().length);
 			this.storeData();
-			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-			// 	this.SugarPresence.sendMessage({
-			// 		user: this.SugarPresence.getUserInfo(),
-			// 		content: {
-			// 			action: 'toggleMode',
-			// 			grid: this.grid,
-			// 			gridEditorContent: JSON.stringify(this.gridEditorContent),
-			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-			// 			activeImageIndex: this.activeImageIndex
-			// 		}
-			// 	})
-			// }
 		},
+
 		previousImage: function () {
-			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.activeImageIndex === 0){
 				return;
 			}
@@ -347,22 +332,14 @@ var app = new Vue({
 			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
 			this.editor.setSelection(this.editor.getText().length);
-			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-			// 	this.SugarPresence.sendMessage({
-			// 		user: this.SugarPresence.getUserInfo(),
-			// 		content: {
-			// 			action: 'updateImage',
-			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-			// 			activeImageIndex: this.activeImageIndex
-			// 		}
-			// 	})
-			// }
 			this.storeData();
+
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
 				this.speakIconId = "speak-inactive";
 			}
+
 			if (this.singleAudioRecords[this.activeImageIndex]!=null){
 				this.playIconId = "play"
 			} else {
@@ -372,8 +349,8 @@ var app = new Vue({
 				this.previousBtnId = "previous-btn-inactive";
 			}
 		},
+
 		nextImage: function () {
-			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.activeImageIndex === this.images.length-1){
 				return;
 			}
@@ -386,11 +363,13 @@ var app = new Vue({
 			this.activeImage = this.images[this.activeImageIndex];
 			this.editor.setSelection(this.editor.getText().length);
 			this.storeData();
+
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
 				this.speakIconId = "speak-inactive";
 			}
+
 			if (this.singleAudioRecords[this.activeImageIndex]!=null){
 				this.playIconId = "play"
 			} else {
@@ -399,17 +378,8 @@ var app = new Vue({
 			if (this.activeImageIndex === this.images.length-1){
 				this.nextBtnId = "next-btn-inactive"; 
 			}	
-			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-			// 	this.SugarPresence.sendMessage({
-			// 		user: this.SugarPresence.getUserInfo(),
-			// 		content: {
-			// 			action: 'updateImage',
-			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-			// 			activeImageIndex: this.activeImageIndex
-			// 		}
-			// 	})
-			// }
 		},
+		
 		loaded: function () {
 			var that = this;
 			this.imageLoaded++;
@@ -420,6 +390,7 @@ var app = new Vue({
 					clearInterval(this.intervalIds[i]);
 				}
 			this.storeData();
+
 			function toDataURL(src, id) {
 				var img = new Image();
 				img.crossOrigin = 'Anonymous';
@@ -439,6 +410,7 @@ var app = new Vue({
 					img.src = src;
 				}
 			}
+
 			var i=0;
 				while(i<this.imageCount){
 					toDataURL(`${that.getUrlImg(that.images[i])}`, i)
@@ -455,8 +427,8 @@ var app = new Vue({
 				}, 100)
 			}
 		},
+
 		openImage: function(index){
-			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 			}
@@ -465,29 +437,20 @@ var app = new Vue({
 			this.activeImage = this.images[this.activeImageIndex];
 			this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 			this.modeId="single-mode";
-			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
-			// 	this.SugarPresence.sendMessage({
-			// 		user: this.SugarPresence.getUserInfo(),
-			// 		content: {
-			// 			action: 'toggleMode',
-			// 			grid: this.grid,
-			// 			gridEditorContent: JSON.stringify(this.gridEditorContent),
-			// 			singleEditorsContent: JSON.stringify(this.singleEditorsContent),
-			// 			activeImageIndex: this.activeImageIndex
-			// 		}
-			// 	})
-			// }
 			this.storeData();
+
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
 				this.speakIconId = "speak-inactive";
 			}
+
 			if (this.singleAudioRecords[this.activeImageIndex]!=null){
 				this.playIconId = "play"
 			} else {
 				this.playIconId = "play-inactive"
 			}
+
 			if (index === 0){
 				this.previousBtnId = "previous-btn-inactive";
 				this.nextBtnId = "next-btn";
@@ -499,6 +462,7 @@ var app = new Vue({
 				this.nextBtnId = "next-btn";
 			}
 		},
+
 		onGridSizeChange: function(e){
 			var that = this;
 			if (this.SugarPresence.isShared()) return;
@@ -517,6 +481,7 @@ var app = new Vue({
 			}
 			this.editor.setContents(this.gridEditorContent);
 			this.imageLoaders();
+			
 			this.loadImages(() => {
 				function toDataURL(src, id) {
 					var img = new Image();
@@ -554,9 +519,11 @@ var app = new Vue({
 				}, 100)
 			});
 		},
+
 		increaseFont: function(){
 			var currentSize = this.editor.getFormat();
 			var that = this;
+
 			if(currentSize.size==null){
 				var index = that.sizes.indexOf('24px');
 				that.editor.format('size',that.sizes[index+1]);
@@ -570,6 +537,7 @@ var app = new Vue({
 				}
 			}
 		},
+
 		decreaseFont: function(){
 			var currentSize = this.editor.getFormat();
 			var that = this;
@@ -588,9 +556,11 @@ var app = new Vue({
 				}
 			}
 		},
+
 		onFormatText: function(e){
 			this.editor.focus()
 		},
+
 		onFontChange: function(e){
 			var newfont = e.font;
 			if(newfont=="Arial") newfont="arial";
@@ -604,14 +574,17 @@ var app = new Vue({
 			this.fontSelected = newfont;
 			this.editor.focus()
 		},
+
 		onForegroundColorChange: function(e){
 			this.fontColor = e.detail.color;
 			this.editor.format('color',this.fontColor);
 		},
+
 		onBackgroundColorChange: function(e){
 			this.backgroundColor = e.detail.color;
 			this.editor.format('background-color',this.backgroundColor);
 		},
+
 		onExport: function(e){
 			var that = this;
 			var tempdiv = document.createElement('div');
@@ -622,6 +595,7 @@ var app = new Vue({
 				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			}
 			this.storeData();
+
 			switch (e.fileType) {
 				case 'txt':
 					var title = document.getElementById("title").value;
@@ -654,9 +628,9 @@ var app = new Vue({
 					this.$refs.SugarJournal.createEntry(inputData, metadata);
 					this.$refs.SugarPopup.log(that.SugarL10n.get("ExportToTxt"));
 					break;
+
 				case 'pdf':
 					var title = document.getElementById("title").value;
-					// if (this.grid){
 					document.getElementById("spinner-container").style.display = "block";
 					var tempActiveImage = this.activeImageIndex;
 					var tempMode = this.grid;
@@ -664,79 +638,20 @@ var app = new Vue({
 					that.editor.setContents(that.gridEditorContent);
 					var doc = new jsPDF('p', 'mm' , '',true);
 
-	
-					// } else {
-						async function generatePdf(){
-							// var doc = new jsPDF('p', 'mm' , '',true);
-							for (let i=0; i<=that.imageCount; i++){
-								await html2canvas(document.getElementById("display-single")).then(function(canvasImgs){
-									if (i<that.imageCount){
-										if (i<that.imageCount-1){
-											that.activeImageIndex = i+1;
-											that.activeImage = that.images[i+1];
-										}
-										that.editor.setContents(that.singleEditorsContent[i]);
+					async function generatePdf(){
+						for (let i=0; i<=that.imageCount; i++){
+							await html2canvas(document.getElementById("display-single")).then(function(canvasImgs){
+								if (i<that.imageCount){
+									if (i<that.imageCount-1){
+										that.activeImageIndex = i+1;
+										that.activeImage = that.images[i+1];
 									}
-									that.editor.scrollingContainer.style.overflowY = 'visible';
-									var h = that.editor.scrollingContainer.offsetHeight;
-									that.editor.scrollingContainer.style.height="auto";
-									that.editor.scrollingContainer.scrollTop=0;
-									html2canvas(that.editor.scrollingContainer).then(function(canvas){
-										that.editor.scrollingContainer.style.height = h;
-										that.editor.scrollingContainer.style.overflowY = 'auto';
-										var imgData = canvas.toDataURL('image/png');
-										var imgWidth = 210;
-										var pageHeight = 295;
-										var imgHeight = canvas.height*imgWidth / canvas.width;
-										var heightLeft = imgHeight;
-										var position = 120;
-										if (that.editor.getText().length>1){
-											doc.addPage();
-											doc.addImage(canvasImgs.toDataURL('image/png'), 'PNG', 55, 10, 100, 100, '', 'FAST');
-											doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
-											heightLeft -= (pageHeight-120);
-											while (heightLeft >= 0) {
-												position = heightLeft - imgHeight;
-												doc.addPage();
-												doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
-												heightLeft -= pageHeight;
-											}
-										}
-									})
-								});
-							}
-							var inputData = doc.output('dataurlstring');
-							var mimetype = 'application/pdf';
-							var metadata = {
-								mimetype: mimetype,
-								title: title +".pdf",
-								activity: "",
-								timestamp: new Date().getTime(),
-								creation_time: new Date().getTime(),
-								file_size: 0
-							};
-							that.$refs.SugarJournal.createEntry(inputData, metadata);
-							document.getElementById("spinner-container").style.display = "none";
-							that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));						
-							that.grid = tempMode;
-							if (tempMode){
-								that.activeImageIndex = tempActiveImage;
-								that.editor.setContents(that.gridEditorContent);
-							} else {
-								that.activeImageIndex = tempActiveImage;
-								that.activeImage = that.images[tempActiveImage];
-								that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
-							}
-						}
-
-						async function generatePdfGrid(){
-							that.editor.scrollingContainer.style.overflowY = 'visible';
-							var h = that.editor.scrollingContainer.offsetHeight;
-							that.editor.scrollingContainer.style.height="auto";
-							that.editor.scrollingContainer.scrollTop=0;
-							var ele = document.getElementById("display-grid"); 
-							await html2canvas(ele).then(function(canvasImgs){
-								var imgs = canvasImgs.toDataURL('image/png');
+									that.editor.setContents(that.singleEditorsContent[i]);
+								}
+								that.editor.scrollingContainer.style.overflowY = 'visible';
+								var h = that.editor.scrollingContainer.offsetHeight;
+								that.editor.scrollingContainer.style.height="auto";
+								that.editor.scrollingContainer.scrollTop=0;
 								html2canvas(that.editor.scrollingContainer).then(function(canvas){
 									that.editor.scrollingContainer.style.height = h;
 									that.editor.scrollingContainer.style.overflowY = 'auto';
@@ -745,18 +660,11 @@ var app = new Vue({
 									var pageHeight = 295;
 									var imgHeight = canvas.height*imgWidth / canvas.width;
 									var heightLeft = imgHeight;
+									var position = 120;
 									if (that.editor.getText().length>1){
-										if (that.imageCount==3){
-											doc.addImage(imgs, 'PNG', 55, 20, 100, 40, '', 'FAST');
-											doc.addImage(imgData, 'PNG', 0, 60, imgWidth, imgHeight-10, '' , 'FAST');
-										} else if (that.imageCount==6){
-											doc.addImage(imgs, 'PNG', 55, 20, 100, 70, '', 'FAST');
-											doc.addImage(imgData, 'PNG', 0, 90, imgWidth, imgHeight-10, '' , 'FAST');
-										} else {
-											doc.addImage(imgs, 'PNG', 55, 20, 100, 100, '', 'FAST');
-											doc.addImage(imgData, 'PNG', 0, 120, imgWidth, imgHeight-10, '' , 'FAST');
-										}
-										var position = 120;
+										doc.addPage();
+										doc.addImage(canvasImgs.toDataURL('image/png'), 'PNG', 55, 10, 100, 100, '', 'FAST');
+										doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
 										heightLeft -= (pageHeight-120);
 										while (heightLeft >= 0) {
 											position = heightLeft - imgHeight;
@@ -764,34 +672,83 @@ var app = new Vue({
 											doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
 											heightLeft -= pageHeight;
 										}
-										// doc.addPage();
 									}
-									// var inputData = doc.output('dataurlstring');
-									// var mimetype = 'application/pdf';
-									// var metadata = {
-									// 	mimetype: mimetype,
-									// 	title: title +".pdf",
-									// 	activity: "",
-									// 	timestamp: new Date().getTime(),
-									// 	creation_time: new Date().getTime(),
-									// 	file_size: 0
-									// };
-									// that.$refs.SugarJournal.createEntry(inputData, metadata);
-									// that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));
 								})
-							})
-
-							that.activeImageIndex = 0;
-							that.activeImage = that.images[0];
-							that.editor.setContents(that.singleEditorsContent[0]);
-							that.grid = false;
-							setTimeout(generatePdf, 200);
+							});
 						}
+						var inputData = doc.output('dataurlstring');
+						var mimetype = 'application/pdf';
+						var metadata = {
+							mimetype: mimetype,
+							title: title +".pdf",
+							activity: "",
+							timestamp: new Date().getTime(),
+							creation_time: new Date().getTime(),
+							file_size: 0
+						};
+						that.$refs.SugarJournal.createEntry(inputData, metadata);
+						document.getElementById("spinner-container").style.display = "none";
+						that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToPdf"));						
+						that.grid = tempMode;
+						if (tempMode){
+							that.activeImageIndex = tempActiveImage;
+							that.editor.setContents(that.gridEditorContent);
+						} else {
+							that.activeImageIndex = tempActiveImage;
+							that.activeImage = that.images[tempActiveImage];
+							that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
+						}
+					}
 
-						setTimeout(generatePdfGrid, 200);
+					async function generatePdfGrid(){
+						that.editor.scrollingContainer.style.overflowY = 'visible';
+						var h = that.editor.scrollingContainer.offsetHeight;
+						that.editor.scrollingContainer.style.height="auto";
+						that.editor.scrollingContainer.scrollTop=0;
+						var ele = document.getElementById("display-grid"); 
+						await html2canvas(ele).then(function(canvasImgs){
+							var imgs = canvasImgs.toDataURL('image/png');
+							html2canvas(that.editor.scrollingContainer).then(function(canvas){
+								that.editor.scrollingContainer.style.height = h;
+								that.editor.scrollingContainer.style.overflowY = 'auto';
+								var imgData = canvas.toDataURL('image/png');
+								var imgWidth = 210;
+								var pageHeight = 295;
+								var imgHeight = canvas.height*imgWidth / canvas.width;
+								var heightLeft = imgHeight;
+								if (that.editor.getText().length>1){
+									if (that.imageCount==3){
+										doc.addImage(imgs, 'PNG', 55, 20, 100, 40, '', 'FAST');
+										doc.addImage(imgData, 'PNG', 0, 60, imgWidth, imgHeight-10, '' , 'FAST');
+									} else if (that.imageCount==6){
+										doc.addImage(imgs, 'PNG', 55, 20, 100, 70, '', 'FAST');
+										doc.addImage(imgData, 'PNG', 0, 90, imgWidth, imgHeight-10, '' , 'FAST');
+									} else {
+										doc.addImage(imgs, 'PNG', 55, 20, 100, 100, '', 'FAST');
+										doc.addImage(imgData, 'PNG', 0, 120, imgWidth, imgHeight-10, '' , 'FAST');
+									}
+									var position = 120;
+									heightLeft -= (pageHeight-120);
+									while (heightLeft >= 0) {
+										position = heightLeft - imgHeight;
+										doc.addPage();
+										doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
+										heightLeft -= pageHeight;
+									}
+								}
+							})
+						})
 
-					// }
+						that.activeImageIndex = 0;
+						that.activeImage = that.images[0];
+						that.editor.setContents(that.singleEditorsContent[0]);
+						that.grid = false;
+						setTimeout(generatePdf, 200);
+					}
+
+					setTimeout(generatePdfGrid, 200);
 					break;
+
 				case 'doc':
 					var title = document.getElementById("title").value;
 					var content = this.editor.root.innerHTML;
@@ -800,35 +757,32 @@ var app = new Vue({
 					"xmlns='http://www.w3.org/TR/REC-html40'>"+
 					"<head><meta charset='utf-8'></head><body>";
 					var image="";
-					// if (that.grid){
-						tempeditor.setContents(that.gridEditorContent);
+					tempeditor.setContents(that.gridEditorContent);
+					var text = tempeditor.root.innerHTML;
+					if (text.length > 11){
+						for (var i=0; i<that.imageCount/3; i++){
+							image+= `
+							<div>
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i)%3]} />
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+1)%3]} />
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+2)%3]} />
+							</div>`;
+						}
+						image+=text;
+					}
+					for (var i=0; i<that.imageCount; i++){
+						tempeditor.setContents(that.singleEditorsContent[i]);
 						var text = tempeditor.root.innerHTML;
-						if (text.length > 11){
-							for (var i=0; i<that.imageCount/3; i++){
-								image+= `
-								<div>
-								<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i)%3]} />
-								<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+1)%3]} />
-								<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+2)%3]} />
-								</div>`;
-							}
-							image+=text;
-						}
-					// } else { 
-						for (var i=0; i<that.imageCount; i++){
-							tempeditor.setContents(that.singleEditorsContent[i]);
-							var text = tempeditor.root.innerHTML;
-							if (i==that.activeImageIndex && that.editor.root.innerHTML.length>11){
+						if (i==that.activeImageIndex && that.editor.root.innerHTML.length>11){
+							image+= `<img style="display:block; margin:auto" src=${that.imagesURL[i]} />`
+							image+=that.editor.root.innerHTML;
+						} else {
+							if (text.length > 11){
 								image+= `<img style="display:block; margin:auto" src=${that.imagesURL[i]} />`
-								image+=that.editor.root.innerHTML;
-							} else {
-								if (text.length > 11){
-									image+= `<img style="display:block; margin:auto" src=${that.imagesURL[i]} />`
-									image+=text;
-								}
+								image+=text;
 							}
 						}
-					// }
+					}
 					var footer = "</body></html>"
 					var sourceHTML = header + image + footer;
 					var inputData = 'data:application/vnd.ms-word;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( sourceHTML )));
@@ -844,104 +798,79 @@ var app = new Vue({
 					this.$refs.SugarJournal.createEntry(inputData, metadata);
 					this.$refs.SugarPopup.log(that.SugarL10n.get("ExportToDoc"));
 					break;
+
 				case 'odt':
-					// if (this.grid){
-					// 	var ele = document.getElementById("display-grid");
-					// 	html2canvas(ele).then(function(canvasImgs){
-					// 		var imgs = canvasImgs.toDataURL('image/png');
-					// 		var el= document.getElementById('editor-area');
-					// 		el= el.cloneNode(true);
-					// 		el.getElementsByTagName('div')[0];
-					// 		var tempEditor = el.getElementsByTagName('div')[0];
-					// 		var par = document.createElement("p");
-					// 		var imgEle = document.createElement("IMG");
-					// 		imgEle.setAttribute("src", imgs);
-					// 		par.appendChild(imgEle);
-					// 		tempEditor.insertBefore(par, tempEditor.childNodes[0]);
-					// 		var xml = traverse(tempEditor);
-					// 		var mimetype = 'application/vnd.oasis.opendocument.text';
-					// 		var title = document.getElementById("title").value;
-					// 		var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
-					// 		var metadata = {
-					// 			mimetype: mimetype,
-					// 			title: title+".odt",
-					// 			activity: "",
-					// 			timestamp: new Date().getTime(),
-					// 			creation_time: new Date().getTime(),
-					// 			file_size: 0
-					// 		};
-					// 		that.$refs.SugarJournal.createEntry(inputData, metadata);
-					// 		that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
-					// 		resetXML();
-					// 	})
-					// } else {
-						// that.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
-						var tempActiveImage = this.activeImageIndex;
-						var tempMode = this.grid;
-						this.grid = false;
+					var tempActiveImage = this.activeImageIndex;
+					var tempMode = this.grid;
+					this.grid = false;
 
-						var divEle =document.createElement('div')
+					var divEle =document.createElement('div')
+					that.editor.setContents(that.gridEditorContent);
+
+					if (that.editor.getText().length > 1){
+							var el= document.getElementById('editor-area');
+							el= el.cloneNode(true);
+							el.getElementsByTagName('div')[0];
+							var tempEditor = el.getElementsByTagName('div')[0];
+							var par = document.createElement("p");
+							var imgEle = document.createElement("IMG");
+							imgEle.height = '100px';
+							imgEle.setAttribute("src", that.gridImageURL);
+							par.appendChild(imgEle);
+							tempEditor.insertBefore(par, tempEditor.childNodes[0]);
+							divEle.append(...tempEditor.childNodes);
+					}
+
+					for (var i=0; i<that.imageCount; i++){
+						that.activeImageIndex = i;
+						that.editor.setContents(that.singleEditorsContent[i]);
+						if (that.editor.getText().length>1){
+							var el= document.getElementById('editor-area');
+							el= el.cloneNode(true);
+							el.getElementsByTagName('div')[0];
+							var tempEditor = el.getElementsByTagName('div')[0];
+							var par = document.createElement("p");
+							var imgEle = document.createElement("IMG");
+							imgEle.height = '500px';
+							imgEle.setAttribute("src", that.imagesURL[i]);
+							par.appendChild(imgEle);
+							tempEditor.insertBefore(par, tempEditor.childNodes[0]);
+							divEle.append(...tempEditor.childNodes);
+						}
+					}
+
+					that.grid = tempMode;
+					if (tempMode){
+						that.activeImageIndex = tempActiveImage;
 						that.editor.setContents(that.gridEditorContent);
+					} else {
+						that.activeImageIndex = tempActiveImage;
+						that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
+					}
 
-						if (that.editor.getText().length > 1){
-								var el= document.getElementById('editor-area');
-								el= el.cloneNode(true);
-								el.getElementsByTagName('div')[0];
-								var tempEditor = el.getElementsByTagName('div')[0];
-								var par = document.createElement("p");
-								var imgEle = document.createElement("IMG");
-								imgEle.height = '100px';
-								imgEle.setAttribute("src", that.gridImageURL);
-								par.appendChild(imgEle);
-								tempEditor.insertBefore(par, tempEditor.childNodes[0]);
-								divEle.append(...tempEditor.childNodes);
-						}
-						for (var i=0; i<that.imageCount; i++){
-							that.activeImageIndex = i;
-							that.editor.setContents(that.singleEditorsContent[i]);
-							if (that.editor.getText().length>1){
-								var el= document.getElementById('editor-area');
-								el= el.cloneNode(true);
-								el.getElementsByTagName('div')[0];
-								var tempEditor = el.getElementsByTagName('div')[0];
-								var par = document.createElement("p");
-								var imgEle = document.createElement("IMG");
-								imgEle.height = '500px';
-								imgEle.setAttribute("src", that.imagesURL[i]);
-								par.appendChild(imgEle);
-								tempEditor.insertBefore(par, tempEditor.childNodes[0]);
-								divEle.append(...tempEditor.childNodes);
-							}
-						}
-						that.grid = tempMode;
-						if (tempMode){
-							that.activeImageIndex = tempActiveImage;
-							that.editor.setContents(that.gridEditorContent);
-						} else {
-							that.activeImageIndex = tempActiveImage;
-							that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
-						}
-						var xml = traverse(divEle);
-						var mimetype = 'application/vnd.oasis.opendocument.text';
-						var title = document.getElementById("title").value;
-						var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
-						var metadata = {
-							mimetype: mimetype,
-							title: title +".odt",
-							activity: "",
-							timestamp: new Date().getTime(),
-							creation_time: new Date().getTime(),
-							file_size: 0
-						};
-						resetXML();
-						that.$refs.SugarJournal.createEntry(inputData, metadata);
-						that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
-					// }
+					var xml = traverse(divEle);
+					var mimetype = 'application/vnd.oasis.opendocument.text';
+					var title = document.getElementById("title").value;
+					var inputData = 'data:application/vnd.oasis.opendocument.text;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent( xml )));
+					var metadata = {
+						mimetype: mimetype,
+						title: title +".odt",
+						activity: "",
+						timestamp: new Date().getTime(),
+						creation_time: new Date().getTime(),
+						file_size: 0
+					};
+					resetXML();
+
+					that.$refs.SugarJournal.createEntry(inputData, metadata);
+					that.$refs.SugarPopup.log(that.SugarL10n.get("ExportToOdt"));
 					break;
+
 				default:
 					break;
 			}
 		},
+
 		onJournalNewInstance: function() {
 			console.log("New instance");
 			for (var i=0; i<this.imageCount; i++){
@@ -952,6 +881,7 @@ var app = new Vue({
 			document.getElementById("size-palette").style.background = "url(icons/3X3.svg)";
 			window.setTimeout(function(){that.loadImages(() => {})},910);
 		},
+
 		onJournalDataLoaded: function (data, metadata) {
 			console.log("Existing instance");
 			this.grid = data.grid;
@@ -969,6 +899,7 @@ var app = new Vue({
 			this.isLoaded = true;
 			document.getElementById("size-palette").style.background = "url(icons/"+data.imageCount/3+"X3.svg)";
 			this.activeImage = this.images[this.activeImageIndex];
+
 			for (var i=0; i<9; i++){
 				clearInterval(this.intervalIds[i]);
 			}
@@ -996,6 +927,7 @@ var app = new Vue({
 					this.playIconId = "play-inactive"
 				}
 			}
+
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
@@ -1003,15 +935,19 @@ var app = new Vue({
 			}
 			this.editor.setSelection(this.editor.getText().length);
 		},
+
 		onJournalLoadError: function(error) {
 			console.log("Error loading from journal");
 		},
+
 		onJournalSharedInstance: function() {
 			console.log("Shared instance");
 		},
+		
 		onNetworkDataReceived: function(msg){
 			var that = this;
 			switch (msg.content.action) {
+
 				case 'init':
 					const data = msg.content.data;
 					this.grid = data.grid;
@@ -1026,8 +962,7 @@ var app = new Vue({
 					this.gridImageURL = data.gridImageURL;
 					this.activeImageIndex = data.activeImageIndex;
 					this.activeImage = this.images[data.activeImageIndex];
-					// this.previousBtnId = "previous-btn-inactive";
-					// this.nextBtnId = "next-btn-inactive"; 
+
 					if (this.activeImageIndex===0){
 						this.previousBtnId = "previous-btn-inactive";
 						this.nextBtnId = "next-btn"; 
@@ -1039,9 +974,10 @@ var app = new Vue({
 						this.previousBtnId = "previous-btn";
 					}
 					this.isLoaded=true;
-						for (var i=0; i<this.imageCount; i++){
-							clearInterval(this.intervalIds[i]);
-						}
+					for (var i=0; i<this.imageCount; i++){
+						clearInterval(this.intervalIds[i]);
+					}
+
 					if (data.grid){
 						that.editor.setContents(that.gridEditorContent);
 					} else {
@@ -1051,15 +987,8 @@ var app = new Vue({
 					}
 					this.editor.setSelection(this.editor.getText().length);
 					this.storeData();
-					// var getallcursors = msg.content.allcursors;
-					// for(var i = 0 ; i < getallcursors.length ; i++){
-					// 	if(getallcursors[i].id!=that.myid){
-					// 		that.cursors.createCursor(getallcursors[i].id, getallcursors[i].name,getallcursors[i].color) ;
-					// 		that.cursors.moveCursor(getallcursors[i].id, getallcursors[i].range) ;
-					// 	}
-					// }
-					// that.cursors.update();
 					break;
+
 				case 'typing':
 					if(msg.content.grid){
 						if (that.grid){
@@ -1078,52 +1007,19 @@ var app = new Vue({
 							}
 						}
 					}
+
 					if (this.editor.getText().length>1){ 
 						this.speakIconId = "speak"
 					} else {
 						this.speakIconId = "speak-inactive";
 					}
 					break;
-				// case 'selection':
-				// 	setTimeout(function() {that.cursors.moveCursor(msg.user.networkId,msg.content.range)} , 5);
-				// 	break;
-				// case 'toggleMode':
-				// 	this.grid = msg.content.grid;
-				// 	this.gridEditorContent = JSON.parse(msg.content.gridEditorContent);
-				// 	this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
-				// 	if(msg.content.grid){
-				// 		this.modeId="grid-mode";
-				// 		this.editor.setContents(this.gridEditorContent);
-				// 	} else {
-				// 		this.activeImageIndex = msg.content.activeImageIndex;
-				// 		this.activeImage = this.images[this.activeImageIndex];
-				// 		this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-				// 		this.modeId="single-mode";
-				// 	}
-				// 	if (this.editor.getText().length>1){ 
-				// 		this.speakIconId = "speak"
-				// 	} else {
-				// 		this.speakIconId = "speak-inactive";
-				// 	}
-				// 	this.editor.setSelection(this.editor.getText().length);
-				// 	break;
-				// case 'updateImage':
-				// 	this.singleEditorsContent = JSON.parse(msg.content.singleEditorsContent);
-				// 	this.activeImageIndex = msg.content.activeImageIndex;
-				// 	this.activeImage = this.images[this.activeImageIndex];
-				// 	this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
-				// 	this.editor.setSelection(this.editor.getText().length);
-				// 	if (this.editor.getText().length>1){ 
-				// 		this.speakIconId = "speak"
-				// 	} else {
-				// 		this.speakIconId = "speak-inactive";
-				// 	}
-				// 	break;
+
 				case 'update-players':
 					this.connectedPlayers = msg.content.connectedPlayers
-					
 			}
 		},
+
 		onNetworkUserChanged: function(msg){
 			var mycursor = {};
 			var that = this;
@@ -1142,6 +1038,7 @@ var app = new Vue({
 					that.connectedPlayers.push(this.SugarPresence.presence.userInfo);
 				}
 				this.isHost = true;
+				
 				var context = {
 					grid: this.grid,
 					images: this.images,
@@ -1162,9 +1059,11 @@ var app = new Vue({
 				});
 				mycursor.range = null;
 			}
+
 			if (!this.myid){
 				this.myid = msg.user.networkId;
 			}
+
 			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 			if (msg.move==1){
 				that.connectedPlayers.push(msg.user);
@@ -1182,6 +1081,7 @@ var app = new Vue({
 				that.SugarPresence.isHost = that.connectedPlayers[0].networkId === that.SugarPresence.getUserInfo().networkId ? true : false;
 				this.cursors.removeCursor(msg.user.networkId);
 			}
+
 			if (this.SugarPresence.isHost){
 				if (!this.grid){
 					if (this.activeImageIndex === 0){
@@ -1204,6 +1104,7 @@ var app = new Vue({
 				});
 			}
 		},
+
 		onRecord: function(error){
 			var t = this;
 			if (this.SugarPresence.isShared()) return;
@@ -1220,10 +1121,6 @@ var app = new Vue({
 						path = path.replace("file:/", "file:///");
 						window.resolveLocalFileSystemURL(path, function (entry) {
 							entry.file(function (file) {
-								// if (file.size / 1000000 > 2) {
-								// 	displayAlertMessage("File is too big");
-								// 	return;
-								// }
 								var reader = new FileReader();
 								reader.onloadend = function (evt) {
 									t.playIconId = "play"
@@ -1291,6 +1188,7 @@ var app = new Vue({
 				}
 			}
 		},
+
 		exportRecord: function(){
 			var t = this;
 			if (this.grid){
@@ -1325,10 +1223,12 @@ var app = new Vue({
 				}
 			}
 		},	
+
 		playAudio: function(){
 			var that = this;
 			if (this.recording) return;
 			if (this.grid && this.gridAudioRecord != null){
+
 				if (!that.isPlaying){
 					var audio = document.createElement("audio");	
 					that.audio = audio;
@@ -1340,7 +1240,6 @@ var app = new Vue({
 						that.audio.currentTime = that.currentTime;
 					}
 					audio.onended = function(){
-						// that.playIconId = "play";
 						if (that.grid){
 							if (that.gridAudioRecord!=null){
 								that.playIconId = "play"
@@ -1375,7 +1274,6 @@ var app = new Vue({
 						that.audio.currentTime = that.currentTime;
 					}
 					audio.onended = function(){
-						// that.playIconId = "play";
 						if (that.grid){
 							if (that.gridAudioRecord!=null){
 								that.playIconId = "play"
@@ -1400,6 +1298,7 @@ var app = new Vue({
 				}
 			}
 		},
+
 		stopAudio: function(){
 			this.currentTime = 0;
 			this.audio.pause();
@@ -1416,14 +1315,15 @@ var app = new Vue({
 					this.playIconId = "play-inactive"
 				}
 			}
-			// this.playIconId = "play";
 			this.isPlaying = false;
 		},
+
 		speakStory: function(){
 			if (this.isPlaying) return;
 			var text = this.editor.getText();
 			this.$refs.SugarSpeak.speech(text);
 		},
+
 		onHelp: function(){
 			var steps =[
 				{
@@ -1534,6 +1434,7 @@ var app = new Vue({
 			];
 			this.$refs.SugarTutorial.show(steps);
 		},
+		
 		storeData: function() {
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
@@ -1555,6 +1456,7 @@ var app = new Vue({
 			};
 			this.$refs.SugarJournal.saveData(context);
 		},
+		
 		onStop: function() {
 			this.storeData();
 		}
