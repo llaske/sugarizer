@@ -197,6 +197,7 @@ var app = new Vue({
 						for (var i=0; i<that.imageCount; i++){
 							clearInterval(that.intervalIds[i]);
 						}
+						that.storeData();
 					}
 					callback();
 			};
@@ -279,7 +280,6 @@ var app = new Vue({
 		toggleMode: function(){
 			this.currentTime = 0;
 			var that = this;
-			// if (this.SugarPresence.isShared() && !this.SugarPresence.isHost) return;
 			if (this.grid){
 				if (this.gridImageURL==null && document.getElementById("display-grid")!=null){
 					var ele = document.getElementById("display-grid");
@@ -320,6 +320,7 @@ var app = new Vue({
 				this.speakIconId = "speak-inactive";
 			}
 			this.editor.setSelection(this.editor.getText().length);
+			this.storeData();
 			// if (this.SugarPresence.isShared() && this.SugarPresence.isHost){
 			// 	this.SugarPresence.sendMessage({
 			// 		user: this.SugarPresence.getUserInfo(),
@@ -356,6 +357,7 @@ var app = new Vue({
 			// 		}
 			// 	})
 			// }
+			this.storeData();
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
@@ -383,6 +385,7 @@ var app = new Vue({
 			this.updateEditor();
 			this.activeImage = this.images[this.activeImageIndex];
 			this.editor.setSelection(this.editor.getText().length);
+			this.storeData();
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
@@ -416,7 +419,7 @@ var app = new Vue({
 				for (var i=0; i<this.imageCount; i++){
 					clearInterval(this.intervalIds[i]);
 				}
-
+			this.storeData();
 			function toDataURL(src, id) {
 				var img = new Image();
 				img.crossOrigin = 'Anonymous';
@@ -474,6 +477,7 @@ var app = new Vue({
 			// 		}
 			// 	})
 			// }
+			this.storeData();
 			if (this.editor.getText().length>1){ 
 				this.speakIconId = "speak"
 			} else {
@@ -539,6 +543,7 @@ var app = new Vue({
 					imgcnt++;
 				}
 				setTimeout(()=>{
+					that.storeData();
 					if (document.getElementById("display-grid")!=null){
 						var ele = document.getElementById("display-grid");
 						html2canvas(ele).then(function(canvas){
@@ -616,6 +621,7 @@ var app = new Vue({
 			} else {
 				this.singleEditorsContent[this.activeImageIndex]= this.editor.getContents();
 			}
+			this.storeData();
 			switch (e.fileType) {
 				case 'txt':
 					var title = document.getElementById("title").value;
@@ -1044,6 +1050,7 @@ var app = new Vue({
 						this.modeId="single-mode";
 					}
 					this.editor.setSelection(this.editor.getText().length);
+					this.storeData();
 					// var getallcursors = msg.content.allcursors;
 					// for(var i = 0 ; i < getallcursors.length ; i++){
 					// 	if(getallcursors[i].id!=that.myid){
@@ -1527,7 +1534,7 @@ var app = new Vue({
 			];
 			this.$refs.SugarTutorial.show(steps);
 		},
-		onStop: function() {
+		storeData: function() {
 			if (this.grid){
 				this.gridEditorContent = this.editor.getContents();
 			} else {
@@ -1547,6 +1554,9 @@ var app = new Vue({
 				gridImageURL: this.gridImageURL
 			};
 			this.$refs.SugarJournal.saveData(context);
+		},
+		onStop: function() {
+			this.storeData();
 		}
 	}
 });
