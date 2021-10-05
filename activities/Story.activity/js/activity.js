@@ -706,6 +706,7 @@ var app = new Vue({
 						that.editor.scrollingContainer.style.height="auto";
 						that.editor.scrollingContainer.scrollTop=0;
 						var ele = document.getElementById("display-grid"); 
+						var textlen = that.editor.getText().length
 						await html2canvas(ele).then(function(canvasImgs){
 							var imgs = canvasImgs.toDataURL('image/png');
 							html2canvas(that.editor.scrollingContainer).then(function(canvas){
@@ -716,7 +717,7 @@ var app = new Vue({
 								var pageHeight = 295;
 								var imgHeight = canvas.height*imgWidth / canvas.width;
 								var heightLeft = imgHeight;
-								if (that.editor.getText().length>1){
+								if (textlen>1){
 									if (that.imageCount==3){
 										doc.addImage(imgs, 'PNG', 55, 20, 100, 40, '', 'FAST');
 										doc.addImage(imgData, 'PNG', 0, 60, imgWidth, imgHeight-10, '' , 'FAST');
@@ -1106,7 +1107,7 @@ var app = new Vue({
 		},
 
 		onRecord: function(error){
-			var t = this;
+			var that = this;
 			if (this.SugarPresence.isShared()) return;
 			if (this.isPlaying) return;
 			if (window.cordova || window.PhoneGap){
@@ -1123,11 +1124,11 @@ var app = new Vue({
 							entry.file(function (file) {
 								var reader = new FileReader();
 								reader.onloadend = function (evt) {
-									t.playIconId = "play"
-									if (t.grid){
-										t.gridAudioRecord = evt.target.result;
+									that.playIconId = "play"
+									if (that.grid){
+										that.gridAudioRecord = evt.target.result;
 									} else {
-										t.singleAudioRecords[t.activeImageIndex]=evt.target.result;
+										that.singleAudioRecords[that.activeImageIndex]=evt.target.result;
 									}
 								};
 								reader.readAsDataURL(file);
@@ -1153,13 +1154,12 @@ var app = new Vue({
 				}			
 			} else {
 				// Using recordRTC For web
-				var that = this;
 				if (that.recording){
 					that.recording = false;
 					that.recordIconId="record";
 						that.recordRTC.stopRecording(function () {
 							that.recordRTC.getDataURL(function (dataURL) {
-									t.playIconId = "play";
+									that.playIconId = "play";
 									if (that.grid){
 										that.gridAudioRecord = dataURL;
 									} else {
@@ -1190,36 +1190,36 @@ var app = new Vue({
 		},
 
 		exportRecord: function(){
-			var t = this;
+			var that = this;
 			if (this.grid){
-				if (t.gridAudioRecord != null){
-					var dataURL = t.gridAudioRecord;
+				if (that.gridAudioRecord != null){
+					var dataURL = that.gridAudioRecord;
 					var mimetype = dataURL.split(";")[0].split(":")[1];
 					var metadata = {
 						mimetype: mimetype,
-						title: "Story by "+ t.environment.user.name + " in Grid Mode",
+						title: "Story by "+ that.environment.user.name + " in Grid Mode",
 						activity: "org.olpcfrance.MediaViewerActivity",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
 						file_size: 0 
 					};
-					t.$refs.SugarJournal.createEntry(dataURL, metadata);
-					t.$refs.SugarPopup.log(that.SugarL10n.get("GridModeAudioExported"))
+					that.$refs.SugarJournal.createEntry(dataURL, metadata);
+					that.$refs.SugarPopup.log(that.SugarL10n.get("GridModeAudioExported"))
 				}
 			} else {
-				if (t.singleAudioRecords[t.activeImageIndex] != null){
-					var dataURL = t.singleAudioRecords[t.activeImageIndex];
+				if (that.singleAudioRecords[that.activeImageIndex] != null){
+					var dataURL = that.singleAudioRecords[that.activeImageIndex];
 					var mimetype = dataURL.split(";")[0].split(":")[1];
 					var metadata = {
 						mimetype: mimetype,
-						title: "Story by "+ t.environment.user.name + " for Image " + (t.activeImageIndex+1),
+						title: "Story by "+ that.environment.user.name + " for Image " + (that.activeImageIndex+1),
 						activity: "org.olpcfrance.MediaViewerActivity",
 						timestamp: new Date().getTime(),
 						creation_time: new Date().getTime(),
 						file_size: 0
 					};
-					t.$refs.SugarJournal.createEntry(dataURL, metadata);
-					t.$refs.SugarPopup.log(that.SugarL10n.get("SingleModeAudioExported"))
+					that.$refs.SugarJournal.createEntry(dataURL, metadata);
+					that.$refs.SugarPopup.log(that.SugarL10n.get("SingleModeAudioExported"))
 				}
 			}
 		},	
