@@ -893,6 +893,7 @@ var app = new Vue({
 			this.singleEditorsContent = JSON.parse(data.singleEditorsContent);
 			this.fontSelected = data.fontSelected;
 			this.fontSize = data.fontSize;
+			this.activeImageIndex = data.activeImageIndex;
 			this.gridAudioRecord = data.gridAudioRecord;
 			this.singleAudioRecords = data.singleAudioRecords;
 			this.imagesURL = JSON.parse(data.imagesURL);
@@ -916,11 +917,18 @@ var app = new Vue({
 				}
 			} else {
 				this.grid = false;
-				this.editor.setContents(this.singleEditorsContent[0]);
+				this.editor.setContents(this.singleEditorsContent[this.activeImageIndex]);
 				this.updateEditor();
 				this.modeId="single-mode";
-				if (this.activeImageIndex === 0){
+				if (this.activeImageIndex===0){
 					this.previousBtnId = "previous-btn-inactive";
+					this.nextBtnId = "next-btn"; 
+				} else if (this.activeImageIndex===this.imageCount - 1){
+					this.previousBtnId = "previous-btn";
+					this.nextBtnId = "next-btn-inactive"; 
+				} else {
+					this.nextBtnId = "next-btn"; 
+					this.previousBtnId = "previous-btn";
 				}
 				if (this.singleAudioRecords[this.activeImageIndex]!=null){
 					this.playIconId = "play"
@@ -1447,6 +1455,7 @@ var app = new Vue({
 				imageCount: this.imageCount,
 				gridEditorContent: JSON.stringify(this.gridEditorContent),
 				singleEditorsContent: JSON.stringify(this.singleEditorsContent),
+				activeImageIndex: this.activeImageIndex,
 				fontSelected: this.fontSelected,
 				fontSize:this.fontSize,
 				gridAudioRecord: this.gridAudioRecord,
