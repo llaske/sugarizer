@@ -1067,7 +1067,7 @@ var app = new Vue({
 			var metadata = {
 				mimetype: mimetype,
 				title: "Measure Waveform Image",
-				activity: "org.olpcfrance.Measure",
+				activity: "org.olpcfrance.MediaViewerActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
 				file_size: 0
