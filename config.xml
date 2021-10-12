@@ -50,6 +50,7 @@
 	<plugin name="cordova-plugin-vibration" spec="3.1.1" />
 	<plugin name="cordova-plugin-whitelist" spec="1.3.4" />
 	<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
+	<plugin name="cordova-plugin-audioinput" spec="1.0.2" />
 
 	<!-- &SugarizerOS
 	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />
