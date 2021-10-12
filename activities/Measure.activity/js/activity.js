@@ -65,7 +65,7 @@ var app = new Vue({
 				}
 			},
 			viola: {
-				notes: { 
+				notes: {
 					'C2': 130.813,
 					'G2': 195.998,
 					'D3': 293.665,
@@ -267,6 +267,7 @@ var app = new Vue({
 			for (var instrument in app.instrument_data) {
 				document.getElementById(`${instrument}_instrument`).innerText = this.SugarL10n.get(instrument);
 			}
+			document.getElementById('none').innerText = this.SugarL10n.get("None");
 			var len = this.notes_arr.length;
 			for (var i = 0; i < len; i++) {
 				document.getElementById(`note_${i}`).innerText = this.SugarL10n.get(this.notes_arr[i]);
@@ -282,7 +283,7 @@ var app = new Vue({
 			this.SugarL10n.localize(this.l10n);
 		},
 		init: function() {
-			
+
 			this.canvas.width = window.innerWidth;
 			this.canvas.height = window.innerHeight - 55 - (document.getElementById("axisScale").clientHeight);
 
@@ -415,7 +416,7 @@ var app = new Vue({
 			canvasCtx.strokeStyle = 'red';
 
 			canvasCtx.beginPath();
-			
+
 			var x = 0;
 			var samples = (this.time_domain) ? this.num_of_samples_time : this.num_of_samples_freq;
 
@@ -797,7 +798,7 @@ var app = new Vue({
 				this.SugarPresence.sendMessage(message);
 			}
 		},
-		ampSettings: function () { 
+		ampSettings: function () {
 			var slider_val = parseInt(document.getElementById("ampSlider").value);
 			this.amp_value = 0.1*slider_val;
 			this.drawWaveform();
@@ -852,7 +853,7 @@ var app = new Vue({
 					csvContent += session.interval + ";";
 
 					csvContent += j + ';' + '-' + '\n';
-				} 
+				}
 				i += 1;
 			}
 
@@ -923,7 +924,7 @@ var app = new Vue({
 					var i = 1;
 					var pageHeight = 285;
 					for (var session of this.log_data) {
-						
+
 						doc.addPage();
 						y = 15;
 
@@ -982,7 +983,7 @@ var app = new Vue({
 						y += 7;
 						i += 1;
 					}
-					
+
 					metadata = {
 						mimetype: 'application/pdf',
 						title: this.SugarL10n.get("MeasureLoggingBy", { name: vm.currentenv.user.name }) + ".pdf",
@@ -1066,7 +1067,7 @@ var app = new Vue({
 			var inputData = this.canvas.toDataURL(mimetype, 1);
 			var metadata = {
 				mimetype: mimetype,
-				title: "Measure Waveform Image",
+				title: this.SugarL10n.get("WaveformImage"),
 				activity: "org.olpcfrance.MediaViewerActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -1116,7 +1117,7 @@ var app = new Vue({
 				this.SugarPresence.sendMessage(message);
 			}
 		},
-		selectInstrument: function(e) {	
+		selectInstrument: function(e) {
 			if (this.instrument_name == 'none') {
 				document.getElementById("none").style.backgroundColor = '';
 			}
@@ -1239,7 +1240,7 @@ var app = new Vue({
 			}
 			this.tuning_line_button_display();
 			this.drawWaveform();
-			
+
 			if (this.SugarPresence.isShared() && this.shared_mode_initialised) {
 				var message = {
 					user: this.SugarPresence.getUserInfo(),
@@ -1492,7 +1493,7 @@ var app = new Vue({
 						this.initSharedInstance(msg.content.data);
 						break;
 					}
-				case 'UpdateTimeOrFreq': 
+				case 'UpdateTimeOrFreq':
 					{
 						this.time_domain = msg.content.data;
 						this.TimeOrFreq_switch();
@@ -1938,7 +1939,7 @@ var app = new Vue({
 				this.TimeOrFreq();
 				this.shared_instance = false;
 			}
- 
+
 			if (!this.play) return;
 
 			this.timeDomainData = e.data;
@@ -1990,7 +1991,7 @@ var app = new Vue({
 					if (this.existing_instance || this.shared_instance) {
 						this.setInstrumentSettingsFromData();
 					}
-					
+
 					this.shared_instance = false;
 					this.time_domain = !this.time_domain;
 					this.TimeOrFreq();
