@@ -11,7 +11,7 @@
   "description": "A taste of Sugar on any device",
   "license": "Apache-2.0",
   "dependencies": {
-    "electron": "~9.4.0",
+    "electron": "~11.5.0",
     "ini": "~1.3.6",
     "requirejs": "~2.3.5",
     "tmp": "~0.1.0"
@@ -24,9 +24,9 @@
   },
   "build": {
     "appId": "org.olpc-france.sugarizer",
-    "copyright": "Copyright © 2013-2020, Lionel Laské, Sugar Labs Inc. and Contributors",
+    "copyright": "Copyright © 2013-2021, Lionel Laské, Sugar Labs Inc. and Contributors",
     "productName": "Sugarizer",
-    "electronVersion": "9.4.0",
+    "electronVersion": "11.5.0",
     "mac": {
       "category": "public.app-category.education"
     },
