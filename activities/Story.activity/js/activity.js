@@ -12,6 +12,8 @@ var app = new Vue({
 	data: {
 		environment: null,
 		SugarL10n: null,
+		isConnected: null,
+		db_url: null,
 		grid: true,
 		modeId: "grid-mode",
 		images: [],
@@ -111,6 +113,7 @@ var app = new Vue({
 	methods: {
 		initialized: function () {
 			// Sugarizer initialized
+			var that = this;
 			var environment = this.$refs.SugarActivity.getEnvironment();	
 			this.environment = environment;
 			this.colors = [environment.user.colorvalue.fill, environment.user.colorvalue.stroke, '#FFFFFF'];
@@ -127,6 +130,21 @@ var app = new Vue({
 				this.singleAudioRecords.push(null);
 				this.imagesURL.push(null);
 			}
+
+			var src = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/database/_ping.png";
+			this.isConnected = this.checkFileExists(src);
+
+			var xhr = new XMLHttpRequest();
+			var source = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/database/db_url.json";
+			xhr.onload = function(){
+				var data = JSON.parse(xhr.response);
+				that.db_url = data;
+			}
+			xhr.onerror = function(err){
+				console.log("Error: ", xhr.statusText);
+			};
+			xhr.open("GET", source);
+			xhr.send();
 			this.loadEditor();			
 		},
 
@@ -156,38 +174,49 @@ var app = new Vue({
 			}
 		},
 
+		checkFileExists: function(urlToFile){
+			try {	
+				var req = new XMLHttpRequest();
+				req.open('HEAD', urlToFile, false);
+				req.send();
+				if (req.status === 200 || req.response != ""){
+					return true;
+				} else {
+					return false;
+				}	
+			} catch (error) {
+				return false;
+			}
+		},
+
 		loadImages: function(callback){
 			var xhr = new XMLHttpRequest();
 			var imgs = [];
 			var that = this;
 			var source = document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/database/db_meta.json";
-		
-			function checkFileExists (urlToFile) {
-				try {
-					var req = new XMLHttpRequest();
-					req.open('HEAD', urlToFile, false);
-					req.send();
-					if (req.status === 200 || req.response != ""){
-						return true;
-					} else {
-						return false;
-					}	
-				} catch (error) {
-					return false;
-				}
-			}
+
 			xhr.onload = function(){
 					var data;
 					data  = JSON.parse(xhr.response);
 					for (var i=0; i<that.imageCount; i++){
 						var img = data[Math.floor(Math.random() *  data.length)].code;
 						var imgCheck;
-						if (img.includes("lower_")){
-							imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"0.png");
-						} else if (img.includes("upper_")){
-							imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"1.png");
+						if (that.isConnected){
+							if (img.includes("lower_")){
+								imgCheck = that.checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"0.png");
+							} else if (img.includes("upper_")){
+								imgCheck = that.checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"1.png");
+							} else {
+								imgCheck = that.checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/database/"+img+".png");
+							}
 						} else {
-							imgCheck = checkFileExists(document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/database/"+img+".png");
+							if (img.includes("lower_")){
+								imgCheck = that.checkFileExists(that.db_url + "images/letters/"+img.toLowerCase()[6]+"0.png");
+							} else if (img.includes("upper_")){
+								imgCheck = that.checkFileExists(that.db_url + "images/letters/"+img.toLowerCase()[6]+"1.png");
+							} else {
+								imgCheck = that.checkFileExists(that.db_url + "images/database/"+img+".png");
+							}
 						}
 						if (imgs.indexOf(img)===-1 && imgCheck==true){
 							imgs.push(img);
@@ -264,12 +293,22 @@ var app = new Vue({
 		},
 		
 		getUrlImg: function(img){
-			if (img.includes("lower")){
-				return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '0.png';
-			} else if (img.includes("upper")){
-				return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '1.png';
+			if (this.isConnected){
+				if (img.includes("lower")){
+					return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '0.png';
+				} else if (img.includes("upper")){
+					return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '1.png';
+				} else {
+					return '../Abecedarium.activity/images/database/'+ img + '.png';
+				}
 			} else {
-				return '../Abecedarium.activity/images/database/'+ img + '.png';
+				if (img.includes("lower")){
+					return this.db_url + 'images/letters/'+ img.toLowerCase()[6] + '0.png';
+				} else if (img.includes("upper")){
+					return this.db_url + 'images/letters/'+ img.toLowerCase()[6] + '1.png';
+				} else {
+					return this.db_url + 'images/database/'+ img + '.png';
+				}
 			}
 		},
 
