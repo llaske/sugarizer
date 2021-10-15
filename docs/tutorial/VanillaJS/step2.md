@@ -101,7 +101,7 @@ Here is an extract of the result:
 	</g>
 </svg>
 ```
-To update the activity icon, replace also the content of `activity/activity-icon.svg` by the content of the `pawn-icon.svg` file.
+To update the activity icon, replace also the content of `activity/activity-icon.svg` by the content of the `../icons/pawn-icon.svg` file in `css/activity.css`.
 
 Let's run again our activity. Now, we have a beautiful pawn icon.
 
