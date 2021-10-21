@@ -341,6 +341,20 @@ body {
 	background-color: lightgray;
 }
 
+.player-debug-target {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	visibility: hidden;
+}
+
+.player-debug-position {
+	position: absolute;
+	bottom: 22px;
+	left: 5px;
+	visibility: hidden;
+}
+
 .player-restart {
 	position: absolute;
 	top: 70px;
