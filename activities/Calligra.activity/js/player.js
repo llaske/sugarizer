@@ -11,6 +11,8 @@ var Player = {
 			<button id="player-restart" class="player-restart"></button>
 			<button id="player-next-letter" class="player-next" v-on:click="nextItem()"></button>
 			<div id="cursor" class="player-cursor"></div>
+			<div id="debugpos" class="player-debug-position">X: 0 / Y: 0</div>
+			<div id="debugtarget" class="player-debug-target">CX: 0 / CY: 0</div>
 		</div>`,
 	props: ['item'],
 	data: function() {
@@ -25,6 +27,9 @@ var Player = {
 			computed: false,
 			mode: '',
 			drawing: false,
+			debug: false,
+			precision: 5,
+			angleTolerance: 0.7,
 			isText: false
 		}
 	},
@@ -189,6 +194,12 @@ var Player = {
 				vm.startDemoMode();
 			});
 
+			// Debug information
+			if (vm.debug) {
+				document.getElementById("debugpos").style.visibility = "visible";
+				document.getElementById("debugtarget").style.visibility = "visible";
+			}
+
 			// Register mouse/touch on letter event
 			var downEvent = "mousedown";
 			var moveEvent = "mousemove"
@@ -207,6 +218,8 @@ var Player = {
 				}
 				if (touchScreen) {
 					e = e.touches[0];
+					vm.precision = 8000 / window.innerHeight; // Precision depend of screen size
+					vm.angleTolerance = 1.4;
 				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
 				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
@@ -330,9 +343,17 @@ var Player = {
 		handleMouseMove: function(x, y) {
 			var vm = this;
 			var target = (vm.starts[vm.current.start].path.length?vm.starts[vm.current.start].path[vm.current.index]:vm.starts[vm.current.start]);
+			if (vm.debug) {
+				document.getElementById("debugpos").innerText = "X: "+x+" / Y: "+y;
+				document.getElementById("debugtarget").innerText = "CX: "+target.x+" / CY: "+target.y;
+			}
 			vm.moveCursor({x:vm.zoom*target.x, y: vm.zoom*target.y});
 			var distance = Math.sqrt(Math.pow(x-target.x,2)+Math.pow(y-target.y,2));
-			if (distance <= 5) {
+			var ptarget = vm.current.index > 0 ? vm.starts[vm.current.start].path[vm.current.index-1] : target;
+			var vtotarget = {x:x-ptarget.x, y:y-ptarget.y};
+			var vtoprev = {x:target.x-ptarget.x, y:target.y-ptarget.y};
+			var diff = Math.abs(Math.atan(vtoprev.y/vtoprev.x)-Math.atan(vtotarget.y/vtotarget.x));
+			if (distance <= vm.precision && (diff < vm.angleTolerance || Number.isNaN(diff)) ) {
 				vm.current.strokes[vm.current.start].push({x: target.x, y: target.y});
 				vm.drawStoke();
 				vm.current.index++;
@@ -402,6 +423,9 @@ var Player = {
 				}
 			}
 			if (vm.starts && vm.starts[0].path.length) {
+				// Clear stroke before draw
+				vm.draw();
+
 				// Create lines set to draw letter
 				vm.current.start = 0;
 				vm.current.stroke = 0;
