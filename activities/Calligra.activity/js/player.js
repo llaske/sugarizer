@@ -193,7 +193,7 @@ var Player = {
 			restart.addEventListener("click", function(e) {
 				vm.startDemoMode();
 			});
-			
+
 			// Debug information
 			if (vm.debug) {
 				document.getElementById("debugpos").style.visibility = "visible";
@@ -218,7 +218,7 @@ var Player = {
 				}
 				if (touchScreen) {
 					e = e.touches[0];
-					vm.precision = 20;
+					vm.precision = 8000 / window.innerHeight; // Precision depend of screen size
 					vm.angleTolerance = 1.4;
 				}
 				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
