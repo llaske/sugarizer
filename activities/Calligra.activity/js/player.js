@@ -423,6 +423,9 @@ var Player = {
 				}
 			}
 			if (vm.starts && vm.starts[0].path.length) {
+				// Clear stroke before draw
+				vm.draw();
+
 				// Create lines set to draw letter
 				vm.current.start = 0;
 				vm.current.stroke = 0;
