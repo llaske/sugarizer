@@ -203,7 +203,11 @@ var app = new Vue({
 			if (index === vm.currentTemplate.images.length) {
 				index = 0;
 			}
-			return vm.currentTemplate.images[index];
+			var next = vm.currentTemplate.images[index];
+			if (next.visible === false) {
+				return vm.nextItem(next);
+			}
+			return next;
 
 		},
 
