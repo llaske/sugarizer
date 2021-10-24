@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Calculate activity outputs incorrect error message if variable is changed in function #798
 - Popup to connect local user freeze on Android/iOS
 - Calligra touch responsiveness is really bad on smartphone #955
+- Journal updates on favorite and name are not synchronized
 
 
 ## [1.5.0] - 2021-04-27
