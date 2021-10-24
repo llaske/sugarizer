@@ -281,6 +281,9 @@ enyo.kind({
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
 		ds.save();
+		if (preferences.isConnected() && preferences.getOptions("sync")) {
+			app.otherview.syncJournal();
+		}
 		inEvent.dispatchTarget.container.setColorized(this.journal[inEvent.index].metadata.keep == 1);
 		inEvent.dispatchTarget.container.render();
 	},
@@ -853,12 +856,18 @@ enyo.kind({
 				activities.loadEntries();
 				app.journal = that.journal;
 				app.redraw();
+
+				// Sync journal
+				if (preferences.isConnected() && preferences.getOptions("sync")) {
+					app.otherview.syncJournal();
+				}
 			}
 
 			// Update remote journal
 			else {
 				// Update metadata
 				metadata.title = newtitle;
+				metadata.timestamp = new Date().getTime();
 
 				// Update remote journal
 				var journalId = (that.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
@@ -867,6 +876,11 @@ enyo.kind({
 				myserver.putJournalEntry(journalId, objectId, dataentry,
 					function() {
 						that.loadRemoteJournal(journalId);
+
+						// Sync journal
+						if (preferences.isConnected() && preferences.getOptions("sync")) {
+							app.otherview.syncJournal();
+						}
 					},
 					function() {
 						console.log("WARNING: Error updating journal "+journalId);
