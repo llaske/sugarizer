@@ -695,6 +695,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.timer = null;
 		this.step = 0;
+		this.pong = false;
 		app.noresize = true;
 	},
 
@@ -868,5 +869,49 @@ enyo.kind({
 			list.push({networkId: "nxx"+i, name: contribs[i], colorvalue: color});
 		}
 		return list;
+	},
+
+	// Pong activity icons
+	startPong: function(home) {
+		this.pong = true;
+		var items = [];
+		var imax = 30;
+		var imin = -30;
+		var randvalue = function(min,max) { return Math.floor(Math.random() * (max - min + 1) ) + min };
+		var controls = home.$.desktop.getControls();
+		//controls.push(home.$.owner);
+		//controls.push(home.$.journal);
+		enyo.forEach(controls, function(item) {
+			item.setDisabled(false);
+			items.push({
+				ctrl: item,
+				ix: randvalue(imin, imax),
+				iy: randvalue(imin, imax),
+				size: parseInt(item.getComputedStyleValue("width"),10)
+			});
+		});
+		var dim = util.getCanvasCenter();
+		var that = this;
+		var step = function() {
+			if (!that.pong) {
+				return;
+			}
+			for (var i = 0 ; i < items.length ; i++) {
+				var item = items[i];
+				var x = parseInt(item.ctrl.getComputedStyleValue("margin-left"),10);
+				var y = parseInt(item.ctrl.getComputedStyleValue("margin-top"),10);
+				x += item.ix;
+				if (x <= 0 || x+item.size >= dim.dx-item.size/2) { item.ix = -item.ix; }
+				y += item.iy;
+				if (y <= item.size/2 || y+item.size >= dim.dy-item.size/2) { item.iy = -item.iy; }
+				item.ctrl.applyStyle("margin-left", x+"px");
+				item.ctrl.applyStyle("margin-top", y+"px");
+			}
+			setTimeout(step, 200);
+		};
+		setTimeout(step, 200);
+	},
+	stopPong: function() {
+		this.pong = false;
 	}
 });
