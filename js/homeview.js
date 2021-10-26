@@ -695,7 +695,7 @@ enyo.kind({
 
 		// In list view display only matching activities
 		if (this.currentView == constant.listView) {
-			this.otherview.setActivities(preferences.getByName(filter));
+			this.otherview.setActivities(activities.getByName(filter));
 		}
 	}
 });
