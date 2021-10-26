@@ -50,6 +50,7 @@ enyo.kind({
 		this.restrictedModeInfo = { start: 0 };
 		util.hideNativeToolbar();
 		this.tutorialActivity = null;
+		this.eeMode = null;
 
 		// Load and sort journal
 		this.loadJournal();
@@ -674,6 +675,18 @@ enyo.kind({
 	// Filter activities handling
 	filterActivities: function() {
 		var filter = toolbar.getSearchText().toLowerCase();
+
+		// EE mode pong
+		var currentcolor = preferences.getColor();
+		if (this.currentView == constant.radialView && currentcolor.stroke == "#00A0FF" && currentcolor.fill == "#F8E800" && toolbar.getSearchText() == "Launch Sugarizer Pong!") {
+			this.eeMode = new Sugar.EE({mode: 4});
+			this.eeMode.startPong(this);
+			return;
+		}
+		if (this.eeMode) {
+			this.eeMode.stopPong();
+			this.draw();
+		}
 
 		// In radial view, just disable activities
 		enyo.forEach(this.$.desktop.getControls(), function(item) {
