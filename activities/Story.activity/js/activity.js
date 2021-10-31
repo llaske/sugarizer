@@ -537,6 +537,7 @@ var app = new Vue({
 			this.singleAudioRecords= [];
 			this.singleEditorsContent = [];
 			this.gridEditorContent=null;
+			this.images = [];
 			for (var i=0; i<this.imageCount; i++){
 				this.singleEditorsContent.push(null);
 			}
