@@ -250,7 +250,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 924px) {
+@media only screen and (min-width: 981px) {
   #sub-script {
     display: inline-block;
   }
@@ -259,7 +259,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 1033px) {
+@media only screen and (min-width: 1081px) {
   #edit-undo {
     display: inline-block;
   }
@@ -268,7 +268,7 @@ body {
   }
 }
 
-@media only screen and (min-width: 1081px) {
+@media only screen and (min-width: 870px) {
   #export {
     display: inline-block;
   }
