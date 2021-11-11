@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Popup to connect local user freeze on Android/iOS
 - Calligra touch responsiveness is really bad on smartphone #955
 - Journal updates on favorite and name are not synchronized
+- Impossible to open PDF on iOS #967
 
 
 ## [1.5.0] - 2021-04-27
