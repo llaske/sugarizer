@@ -35,7 +35,17 @@ Then go to "platforms/ios/Sugarizer/Plugins/cordova-plugin-file-transfer/" direc
 
 ![CDVFileTransfer comment](https://user-images.githubusercontent.com/42293606/121804587-bc20e380-cc64-11eb-9843-ffc6e2a9624e.JPG)
     
-Select the simulator device and press Build button.
+Then go to "platforms/ios/CordovaLib/Classes/Private/Plugins/CDVWebViewEngine/" directory and open "CDVWebViewEngine.m" file. Add following lines after line 205:
+
+    WKWebView* wkWebView = [[WKWebView alloc] initWithFrame:self.engineWebView.frame configuration:configuration];
+    // add begin
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
+    if (@available(iOS 11.0, *)) {
+        [wkWebView.scrollView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    }
+    #endif
+    // add end
+    wkWebView.UIDelegate = self.uiDelegate;
 
 ![play](https://user-images.githubusercontent.com/42293606/121804642-0904ba00-cc65-11eb-8df8-d79798e0fba8.JPG)
 
