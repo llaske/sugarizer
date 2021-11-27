@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Calligra touch responsiveness is really bad on smartphone #955
 - Journal updates on favorite and name are not synchronized
 - Impossible to open PDF on iOS #967
+- Screen doesn't use the full size on iPhone X #968 
 
 
 ## [1.5.0] - 2021-04-27
