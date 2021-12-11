@@ -3,8 +3,8 @@
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
-		version   = "1.5.0"
-		android-versionCode = "15000">
+		version   = "1.6.0"
+		android-versionCode = "16000">
 	<name>Sugarizer</name>
 
 	<description>
