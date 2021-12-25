@@ -37,10 +37,10 @@
 	<div id="app">
 		<sugar-toolbar ref="SugarToolbar">
 			<sugar-toolitem id="activity-button"></sugar-toolitem>
-			<sugar-toolitem 
-				id="network-button" 
+			<sugar-toolitem
+				id="network-button"
 				v-bind:title="l10n.stringNetwork"
-				palette-file="sugar-web/graphics/presencepalette" 
+				palette-file="sugar-web/graphics/presencepalette"
 				palette-class="PresencePalette"
 				palette-event="shared"
 				v-on:shared="SugarPresence.onShared"
@@ -49,10 +49,10 @@
 			<!-- Add more buttons here -->
 			<!-- <sugar-toolitem id="grid-mode" title="Grid Mode" @click='gridImageMode'></sugar-toolitem> -->
 			<!-- <sugar-toolitem id="single-mode" title="Single Mode" @click='singleImageMode'></sugar-toolitem> -->
-			<sugar-toolitem :id="modeId" title="Toggle Mode" @click='toggleMode'></sugar-toolitem>
-			<sugar-toolitem 
-				id="size-palette" 
-				v-bind:title="l10n.stringGridSize" 
+			<sugar-toolitem :id="modeId" v-bind:title="l10n.stringToggleMode" @click='toggleMode'></sugar-toolitem>
+			<sugar-toolitem
+				id="size-palette"
+				v-bind:title="l10n.stringGridSize"
 				palette-file="js/palettes/sizePalette.js"
 				palette-class="SizePalette"
 				palette-event="grid-size-selected"
@@ -60,7 +60,7 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="foreground-color-button"
-				v-bind:title="l10n.stringForegroundColor"	
+				v-bind:title="l10n.stringForegroundColor"
 				palette-file="js/palettes/ForegroundColorPalette.js"
 				palette-class="ColorPalette"
 				palette-event="color-change"
@@ -68,23 +68,23 @@
 			></sugar-toolitem>
 			<sugar-toolitem
 				id="background-color-button"
-				v-bind:title="l10n.stringBackgroundColor"	
+				v-bind:title="l10n.stringBackgroundColor"
 				palette-file="js/palettes/BackgroundColorPalette.js"
 				palette-class="ColorPalette"
 				palette-event="color-change"
 				v-on:color-change="onBackgroundColorChange"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="format-text-button" 
-				v-bind:title="l10n.stringFormatText" 
+			<sugar-toolitem
+				id="format-text-button"
+				v-bind:title="l10n.stringFormatText"
 				palette-file="js/palettes/formatTextPalette.js"
 				palette-class="FormatTextPalette"
 				palette-event="format-text-selected"
 				v-on:format-text-selected = "onFormatText"
 			></sugar-toolitem>
-			<sugar-toolitem 
-				id="font-button" 
-				v-bind:title="l10n.stringChooseFont" 
+			<sugar-toolitem
+				id="font-button"
+				v-bind:title="l10n.stringChooseFont"
 				palette-file="js/palettes/fontPalette.js"
 				palette-class="FontPalette"
 				palette-event="font-updated"
@@ -92,9 +92,9 @@
 			></sugar-toolitem>
 			<sugar-toolitem id="increase-font" v-bind:title="l10n.stringIncreaseFont" @click='increaseFont'></sugar-toolitem>
 			<sugar-toolitem id="decrease-font" v-bind:title="l10n.stringDecreaseFont" @click='decreaseFont'></sugar-toolitem>
-			<sugar-toolitem 
-				id="export-palette" 
-				v-bind:title="l10n.stringExportStory" 
+			<sugar-toolitem
+				id="export-palette"
+				v-bind:title="l10n.stringExportStory"
 				palette-file="js/palettes/exportPalette.js"
 				palette-class="ExportPalette"
 				palette-event="export-story-selected"
@@ -149,7 +149,7 @@
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
 		<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
-		<sugar-speak ref="SugarSpeak"></sugar-speak> 
+		<sugar-speak ref="SugarSpeak"></sugar-speak>
 		<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 	</div>
 
@@ -158,7 +158,7 @@
 	<script src="js/components/SugarActivity.js"></script>
 	<script src="js/components/SugarToolbar.js"></script>
 	<script src="js/components/SugarPopup.js"></script>
-	<script src="js/components/SugarSpeak.js"></script>	
+	<script src="js/components/SugarSpeak.js"></script>
 	<script src="js/components/SugarPresence.js"></script>
 	<script src="js/components/SugarTutorial.js"></script>
 	<script src="js/activity.js"></script>
