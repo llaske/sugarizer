@@ -700,44 +700,48 @@ var app = new Vue({
 					that.editor.setContents(that.gridEditorContent);
 					var doc = new jsPDF('p', 'mm' , '',true);
 
-					async function generatePdf(){
-						for (let i=0; i<=that.imageCount; i++){
-							await html2canvas(document.getElementById("display-single")).then(function(canvasImgs){
-								if (i<that.imageCount){
-									if (i<that.imageCount-1){
-										that.activeImageIndex = i+1;
-										that.activeImage = that.images[i+1];
-									}
-									that.editor.setContents(that.singleEditorsContent[i]);
-								}
-								that.editor.scrollingContainer.style.overflowY = 'visible';
-								var h = that.editor.scrollingContainer.offsetHeight;
-								that.editor.scrollingContainer.style.height="auto";
-								that.editor.scrollingContainer.scrollTop=0;
-								html2canvas(that.editor.scrollingContainer).then(function(canvas){
-									that.editor.scrollingContainer.style.height = h;
-									that.editor.scrollingContainer.style.overflowY = 'auto';
-									var imgData = canvas.toDataURL('image/png');
-									var imgWidth = 210;
-									var pageHeight = 295;
-									var imgHeight = canvas.height*imgWidth / canvas.width;
-									var heightLeft = imgHeight;
-									var position = 120;
-									if (that.editor.getText().length>1){
+					function generateOnePdf(i) {
+						html2canvas(document.getElementById("display-single")).then(function(canvasImgs){
+							if (i<that.imageCount-1){
+								that.activeImageIndex = i+1;
+								that.activeImage = that.images[i+1];
+							}
+							that.editor.setContents(that.singleEditorsContent[i]);
+							that.editor.scrollingContainer.style.overflowY = 'visible';
+							var h = that.editor.scrollingContainer.offsetHeight;
+							that.editor.scrollingContainer.style.height="auto";
+							that.editor.scrollingContainer.scrollTop=0;
+							html2canvas(that.editor.scrollingContainer).then(function(canvas){
+								that.editor.scrollingContainer.style.height = h;
+								that.editor.scrollingContainer.style.overflowY = 'auto';
+								var imgData = canvas.toDataURL('image/png');
+								var imgWidth = 210;
+								var pageHeight = 295;
+								var imgHeight = canvas.height*imgWidth / canvas.width;
+								var heightLeft = imgHeight;
+								var position = 120;
+								if (that.editor.getText().length>1){
+									doc.addPage();
+									doc.addImage(canvasImgs.toDataURL('image/png'), 'PNG', 55, 10, 100, 100, '', 'FAST');
+									doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
+									heightLeft -= (pageHeight-120);
+									while (heightLeft >= 0) {
+										position = heightLeft - imgHeight;
 										doc.addPage();
-										doc.addImage(canvasImgs.toDataURL('image/png'), 'PNG', 55, 10, 100, 100, '', 'FAST');
-										doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10, '' , 'FAST');
-										heightLeft -= (pageHeight-120);
-										while (heightLeft >= 0) {
-											position = heightLeft - imgHeight;
-											doc.addPage();
-											doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
-											heightLeft -= pageHeight;
-										}
+										doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight-10 , '' , 'FAST');
+										heightLeft -= pageHeight;
 									}
-								})
-							});
-						}
+								}
+								if (i!=that.imageCount-1) {
+									generateOnePdf(i+1);
+								} else {
+									generateEndPdf();
+								}
+							})
+						});
+					}
+					
+					function generateEndPdf() {
 						var inputData = doc.output('dataurlstring');
 						var mimetype = 'application/pdf';
 						var metadata = {
@@ -760,6 +764,10 @@ var app = new Vue({
 							that.activeImage = that.images[tempActiveImage];
 							that.editor.setContents(that.singleEditorsContent[that.activeImageIndex]);
 						}
+					}
+					
+					function generatePdf(){
+						generateOnePdf(0)
 					}
 
 					async function generatePdfGrid(){
