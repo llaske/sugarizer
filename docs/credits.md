@@ -28,6 +28,7 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Falabracman, Chess, MindMath, Tangram by Prakash Ujjwal
 * Fraction, Curriculum, Vote by Dhruv Misra
 * Implode, Measure by Sarthak Gupta
+* Story by Saurabh Gupta
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra, Xmas Lights, Dollar Street by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
