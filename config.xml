@@ -4,7 +4,7 @@
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
 		version   = "1.6.0"
-		android-versionCode = "16000">
+		android-versionCode = "16002">
 	<name>Sugarizer</name>
 
 	<description>
@@ -28,8 +28,8 @@
 	<allow-navigation href="*" />
 
 	<preference name="android-minSdkVersion" value="22" />
-	<preference name="android-targetSdkVersion" value="29" />
-	<preference name="android-compileSdkVersion" value="29" />
+	<preference name="android-targetSdkVersion" value="30" />
+	<preference name="android-compileSdkVersion" value="30" />
 
 	<engine name="android" spec="9.0.0" />
 	<plugin name="cordova-plugin-inappbrowser" spec="5.0.0" />
