@@ -38,7 +38,7 @@ var Player = {
 			// Compute optimal size for letter
 			var vm = this;
 			var body = document.getElementById("canvas") || document.getElementById("body");
-			var body_height = body.offsetHeight-50;
+			var body_height = body.offsetHeight-100;
 			var body_width = body.offsetWidth-50;
 			var size = { width: body_width, height: body_height };
 			vm.size = Math.min(size.width, size.height);

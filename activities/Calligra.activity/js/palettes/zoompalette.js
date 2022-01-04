@@ -45,7 +45,7 @@ define(['sugar-web/graphics/palette','mustache'], function(palette, mustache) {
 				if (this == buttons[j]) break;
 				that.zoomEvent.detail.zoom = j;
 				that.getPalette().dispatchEvent(that.zoomEvent);
-				if (j == 1) that.popDown();
+				that.popDown();
 			});
 		}
 		popDownOnButtonClick({
