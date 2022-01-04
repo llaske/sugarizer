@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:31:57 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:23:04 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,1498 +16,1498 @@ msgstr ""
 #: SecondsAgo
 msgctxt "SecondsAgo"
 msgid "Seconds ago"
-msgstr ""
+msgstr "Seconds ago"
 
 #. Do not translate {{time}}
 #: Ago
 msgctxt "Ago"
 msgid "{{time}} ago"
-msgstr ""
+msgstr "{{time}} ago"
 
 #: Minutes_one
 msgctxt "Minutes_one"
 msgid "minute"
-msgstr ""
+msgstr "minute"
 
 #: Minutes_other
 msgctxt "Minutes_other"
 msgid "minutes"
-msgstr ""
+msgstr "minutes"
 
 #: Hours_one
 msgctxt "Hours_one"
 msgid "hour"
-msgstr ""
+msgstr "hour"
 
 #: Hours_other
 msgctxt "Hours_other"
 msgid "hours"
-msgstr ""
+msgstr "hours"
 
 #: Days_one
 msgctxt "Days_one"
 msgid "day"
-msgstr ""
+msgstr "day"
 
 #: Days_other
 msgctxt "Days_other"
 msgid "days"
-msgstr ""
+msgstr "days"
 
 #: Weeks_one
 msgctxt "Weeks_one"
 msgid "week"
-msgstr ""
+msgstr "week"
 
 #: Weeks_other
 msgctxt "Weeks_other"
 msgid "weeks"
-msgstr ""
+msgstr "weeks"
 
 #: Months_one
 msgctxt "Months_one"
 msgid "month"
-msgstr ""
+msgstr "month"
 
 #: Months_other
 msgctxt "Months_other"
 msgid "months"
-msgstr ""
+msgstr "months"
 
 #: Years_one
 msgctxt "Years_one"
 msgid "year"
-msgstr ""
+msgstr "year"
 
 #: Years_other
 msgctxt "Years_other"
 msgid "years"
-msgstr ""
+msgstr "years"
 
 #: Anytime
 msgctxt "Anytime"
 msgid "Anytime"
-msgstr ""
+msgstr "Anytime"
 
 #: Today
 msgctxt "Today"
 msgid "Today"
-msgstr ""
+msgstr "Today"
 
 #: SinceYesterday
 msgctxt "SinceYesterday"
 msgid "Since yesterday"
-msgstr ""
+msgstr "Since yesterday"
 
 #: PastWeek
 msgctxt "PastWeek"
 msgid "Past week"
-msgstr ""
+msgstr "Past week"
 
 #: PastMonth
 msgctxt "PastMonth"
 msgid "Past month"
-msgstr ""
+msgstr "Past month"
 
 #: PastYear
 msgctxt "PastYear"
 msgid "Past year"
-msgstr ""
+msgstr "Past year"
 
 #. Do not translate {{name}}
 #: UserJoined
 msgctxt "UserJoined"
 msgid "{{name}} joined"
-msgstr ""
+msgstr "{{name}} joined"
 
 #. Do not translate {{name}}
 #: UserLeft
 msgctxt "UserLeft"
 msgid "{{name}} left"
-msgstr ""
+msgstr "{{name}} left"
 
 #: Network
 msgctxt "Network"
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: View
 msgctxt "View"
 msgid "Play/Setting View"
-msgstr ""
+msgstr "Play/Setting View"
 
 #: Random
 msgctxt "Random"
 msgid "Random"
-msgstr ""
+msgstr "Random"
 
 #: Timer
 msgctxt "Timer"
 msgid "Timer"
-msgstr ""
+msgstr "Timer"
 
 #: DifficultyLevel
 msgctxt "DifficultyLevel"
 msgid "Difficulty Level"
-msgstr ""
+msgstr "Difficulty Level"
 
 #: Category
 msgctxt "Category"
 msgid "Tangrams Category"
-msgstr ""
+msgstr "Tangrams Category"
 
 #: NewCategory
 msgctxt "NewCategory"
 msgid "Create new category"
-msgstr ""
+msgstr "Create new category"
 
 #: Hint
 msgctxt "Hint"
 msgid "Hint"
-msgstr ""
+msgstr "Hint"
 
 #: Tutorial
 msgctxt "Tutorial"
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr ""
+msgstr "Fullscreen"
 
 #: Unfullscreen
 msgctxt "Unfullscreen"
 msgid "Unfullscreen"
-msgstr ""
+msgstr "Unfullscreen"
 
 #: Stop
 msgctxt "Stop"
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: HintsUsed
 msgctxt "HintsUsed"
 msgid "Hints Used"
-msgstr ""
+msgstr "Hints Used"
 
 #: Score
 msgctxt "Score"
 msgid "Score"
-msgstr ""
+msgstr "Score"
 
 #: TotalScore
 msgctxt "TotalScore"
 msgid "Total Score:"
-msgstr ""
+msgstr "Total Score:"
 
 #: TotalTime
 msgctxt "TotalTime"
 msgid "Total Time:"
-msgstr ""
+msgstr "Total Time:"
 
 #: NewTitle
 msgctxt "NewTitle"
 msgid "New Category"
-msgstr ""
+msgstr "New Category"
 
 #: Confirm
 msgctxt "Confirm"
 msgid "Confirm"
-msgstr ""
+msgstr "Confirm"
 
 #: Cancel
 msgctxt "Cancel"
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 #: Title
 msgctxt "Title"
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 #: Rank
 msgctxt "Rank"
 msgid "Rank"
-msgstr ""
+msgstr "Rank"
 
 #: User
 msgctxt "User"
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: NoTimer
 msgctxt "NoTimer"
 msgid "No Timer"
-msgstr ""
+msgstr "No Timer"
 
 #: EasyLevel
 msgctxt "EasyLevel"
 msgid "Easy Level"
-msgstr ""
+msgstr "Easy Level"
 
 #: MediumLevel
 msgctxt "MediumLevel"
 msgid "Medium Level"
-msgstr ""
+msgstr "Medium Level"
 
 #: Easy
 msgctxt "Easy"
 msgid "Easy"
-msgstr ""
+msgstr "Easy"
 
 #: Hard
 msgctxt "Hard"
 msgid "Hard"
-msgstr ""
+msgstr "Hard"
 
 #: ValidPuzzle
 msgctxt "ValidPuzzle"
 msgid "Valid Puzzle"
-msgstr ""
+msgstr "Valid Puzzle"
 
 #: InvalidShape
 msgctxt "InvalidShape"
 msgid "Invalid Shape"
-msgstr ""
+msgstr "Invalid Shape"
 
 #: InvalidName
 msgctxt "InvalidName"
 msgid "Invalid Name"
-msgstr ""
+msgstr "Invalid Name"
 
 #: TangramDifficulty
 msgctxt "TangramDifficulty"
 msgid "Tangram Difficulty"
-msgstr ""
+msgstr "Tangram Difficulty"
 
 #: MyTangram
 msgctxt "MyTangram"
 msgid "My Tangram"
-msgstr ""
+msgstr "My Tangram"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Tangram Activity"
-msgstr ""
+msgstr "Tangram Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Tangram Activity. Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes"
-msgstr ""
+msgstr "Welcome into the Tangram Activity. Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes"
 
 #: TutoAboutTitle
 msgctxt "TutoAboutTitle"
 msgid "Game modes"
-msgstr ""
+msgstr "Game modes"
 
 #: TutoAboutContent
 msgctxt "TutoAboutContent"
 msgid "You can play the game in single player or multi player mode. In Single player mode, you have an option to enable/disable timer while in multi player mode, the timer is always enabled. When timer is disabled, you will have one puzzle or question per game, while when timer is enabled, you will have more than one puzzle or question per game"
-msgstr ""
+msgstr "You can play the game in single player or multi player mode. In Single player mode, you have an option to enable/disable timer while in multi player mode, the timer is always enabled. When timer is disabled, you will have one puzzle or question per game, while when timer is enabled, you will have more than one puzzle or question per game"
 
 #: TutoEachPuzzleTitle
 msgctxt "TutoEachPuzzleTitle"
 msgid "Puzzle"
-msgstr ""
+msgstr "Puzzle"
 
 #: TutoEachPuzzleContent
 msgctxt "TutoEachPuzzleContent"
 msgid "In Each Puzzle or question, you will be given a target shape or tangram. Using the 7 pieces ( can only be used once each and should be non-overlapping ) you have to form the target shape"
-msgstr ""
+msgstr "In Each Puzzle or question, you will be given a target shape or tangram. Using the 7 pieces ( can only be used once each and should be non-overlapping ) you have to form the target shape"
 
 #: TutoTangramCategoryTitle
 msgctxt "TutoTangramCategoryTitle"
 msgid "Tangram Category"
-msgstr ""
+msgstr "Tangram Category"
 
 #: TutoTangramCategoryContent
 msgctxt "TutoTangramCategoryContent"
 msgid "These are the various categories you choose for the tangrams you want to solve"
-msgstr ""
+msgstr "These are the various categories you choose for the tangrams you want to solve"
 
 #: TutoBoardTitle
 msgctxt "TutoBoardTitle"
 msgid "Board"
-msgstr ""
+msgstr "Board"
 
 #: TutoBoardContent
 msgctxt "TutoBoardContent"
-msgid "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px"
-msgstr ""
+msgid "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/drag.svg\"><span>You can drag and drop the piece to move it.</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/click.svg\"><span>You can click or tap on the piece to rotate it.</span></div></div>"
+msgstr "This your game board. You have your 7 tans or pieces here and also your target shape. <div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/drag.svg\"><span>You can drag and drop the piece to move it.</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/click.svg\"><span>You can click or tap on the piece to rotate it.</span></div></div>"
 
 #: TutoKeyBoardTitle
 msgctxt "TutoKeyBoardTitle"
 msgid "KeyBoard Controls"
-msgstr ""
+msgstr "KeyBoard Controls"
 
 #: TutoKeyBoardContent
 msgctxt "TutoKeyBoardContent"
-msgid "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px"
-msgstr ""
+msgid "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/enter.svg\"><span>Select or Deselct Tans</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/arrows.svg\"><span>Move Tans</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/shift.svg\"><span>Rotate Tans</span></div></div>"
+msgstr "You can control tans using keyboard also.<div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/enter.svg\"><span>Select or Deselct Tans</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/arrows.svg\"><span>Move Tans</span></div><div class=\"tutNumbersRow\"><img style=\"width:50px;height:50px\" src=\"icons/shift.svg\"><span>Rotate Tans</span></div></div>"
 
 #: TutoRefreshTitle
 msgctxt "TutoRefreshTitle"
 msgid "Refesh"
-msgstr ""
+msgstr "Refesh"
 
 #: TutoRefreshContent
 msgctxt "TutoRefreshContent"
 msgid "Click to Refresh the game tans position and move them back to their initial positions"
-msgstr ""
+msgstr "Click to Refresh the game tans position and move them back to their initial positions"
 
 #: TutoPassTitle
 msgctxt "TutoPassTitle"
 msgid "Pass"
-msgstr ""
+msgstr "Pass"
 
 #: TutoPassContent
 msgctxt "TutoPassContent"
 msgid "If you are unable to solve the puzzle you can pass the current puzzle and move to another one"
-msgstr ""
+msgstr "If you are unable to solve the puzzle you can pass the current puzzle and move to another one"
 
 #: TutoSettingViewTitle
 msgctxt "TutoSettingViewTitle"
 msgid "Setting View"
-msgstr ""
+msgstr "Setting View"
 
 #: TutoSettingViewContent
 msgctxt "TutoSettingViewContent"
 msgid "You can Edit / Delete the particular tangram puzzle or category from the list. You can also create new tangram Puzzle or category and add the same to your puzzle set"
-msgstr ""
+msgstr "You can Edit / Delete the particular tangram puzzle or category from the list. You can also create new tangram Puzzle or category and add the same to your puzzle set"
 
 #: TutoScoreTitle
 msgctxt "TutoScoreTitle"
 msgid "Score"
-msgstr ""
+msgstr "Score"
 
 #: TutoScoreContent
 msgctxt "TutoScoreContent"
-msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold"
-msgstr ""
+msgid "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold;border:black solid\">score = A+max(0,15-B/4)+C+D-E</div>"
+msgstr "If you solve the puzzle, you will get the calculated score. You should try to maximize the score. It will depend upon:<br><div style=\"font-weight:bold\">A. Points on Solving Puzzle</div><div style=\"font-weight:bold\">B. Time Taken</div>If you solve the puzzle under 1 min, You will get bonus (depending upon time taken to solve the puzzle).So the quicker the you solve the puzzle, the higher the score will be.<div style=\"font-weight:bold\">C. Tangram Puzzle Difficulty</div><div>Tangrams puzzles can be easy or hard depending upon the number of outer outlines points of the tangram</div><div style=\"font-weight:bold\">D. Game Difficulty</div><div>Game Difficulty can Be Easy or Medium i.e filled or unfilled target puzzle</div><div style=\"font-weight:bold\">E. Number of Hints Used</div><div>Less hints taken gives more Score</div><div style=\"font-weight:bold;border:black solid\">score = A+max(0,15-B/4)+C+D-E</div>"
 
 #: TutoHintTitle
 msgctxt "TutoHintTitle"
 msgid "Hint"
-msgstr ""
+msgstr "Hint"
 
 #: TutoHintContent
 msgctxt "TutoHintContent"
 msgid "Click this to get a hint from the computer. WARNING!! There will be a penalty on using hint. If you use hints for all six or seven tans then you will get 0 score"
-msgstr ""
+msgstr "Click this to get a hint from the computer. WARNING!! There will be a penalty on using hint. If you use hints for all six or seven tans then you will get 0 score"
 
 #: TutoLevelTitle
 msgctxt "TutoLevelTitle"
 msgid "Difficulty Level"
-msgstr ""
+msgstr "Difficulty Level"
 
 #: TutoLevelContent
 msgctxt "TutoLevelContent"
 msgid "Choose the Difficulty level. There are two Levels:- Easy where All the outlines and inner outlines of all the tans would be visible and Medium where only silhouette of the target tangram would be visible"
-msgstr ""
+msgstr "Choose the Difficulty level. There are two Levels:- Easy where All the outlines and inner outlines of all the tans would be visible and Medium where only silhouette of the target tangram would be visible"
 
 #: TutoTimerTitle
 msgctxt "TutoTimerTitle"
 msgid "Timer"
-msgstr ""
+msgstr "Timer"
 
 #: TutoTimerContent
 msgctxt "TutoTimerContent"
 msgid "Choose Timer. You can disable/enable the timer here"
-msgstr ""
+msgstr "Choose Timer. You can disable/enable the timer here"
 
 #: TutoGameActionsTitle
 msgctxt "TutoGameActionsTitle"
 msgid "Game Actions"
-msgstr ""
+msgstr "Game Actions"
 
 #: TutoGameActionsContent
 msgctxt "TutoGameActionsContent"
 msgid "Here you have Game Actions buttons like \"Restart\", \"Pass\", \"Refresh\". \"Refresh\" will move back all of  your tans to initial positions"
-msgstr ""
+msgstr "Here you have Game Actions buttons like \"Restart\", \"Pass\", \"Refresh\". \"Refresh\" will move back all of  your tans to initial positions"
 
 #: TutoViewTitle
 msgctxt "TutoViewTitle"
 msgid "View"
-msgstr ""
+msgstr "View"
 
 #: TutoViewContent
 msgctxt "TutoViewContent"
 msgid "Click To Change The view i.e. Play/Setting view"
-msgstr ""
+msgstr "Click To Change The view i.e. Play/Setting view"
 
 #: TutoRandomPlayTitle
 msgctxt "TutoRandomPlayTitle"
 msgid "Random Play"
-msgstr ""
+msgstr "Random Play"
 
 #: TutoRandomPlayContent
 msgctxt "TutoRandomPlayContent"
 msgid "Click To Play With Random Tangrams"
-msgstr ""
+msgstr "Click To Play With Random Tangrams"
 
 #: TutoRandomButtonTitle
 msgctxt "TutoRandomButtonTitle"
 msgid "Random Tangrams"
-msgstr ""
+msgstr "Random Tangrams"
 
 #: TutoRandomButtonContent
 msgctxt "TutoRandomButtonContent"
 msgid "Click To Generate Random Tangrams"
-msgstr ""
+msgstr "Click To Generate Random Tangrams"
 
 #: TutoValidPuzzleIndicatorTitle
 msgctxt "TutoValidPuzzleIndicatorTitle"
 msgid "Valid Puzzle Indicator"
-msgstr ""
+msgstr "Valid Puzzle Indicator"
 
 #: TutoValidPuzzleIndicatorContent
 msgctxt "TutoValidPuzzleIndicatorContent"
 msgid "This will indicate if the puzzle you created is valid or invalid"
-msgstr ""
+msgstr "This will indicate if the puzzle you created is valid or invalid"
 
 #: TutoResultTitle
 msgctxt "TutoResultTitle"
 msgid "Results screen"
-msgstr ""
+msgstr "Results screen"
 
 #: TutoResultContent
 msgctxt "TutoResultContent"
 msgid "On this screen you can see Solutions of the puzzles you have attempted in Timer Mode"
-msgstr ""
+msgstr "On this screen you can see Solutions of the puzzles you have attempted in Timer Mode"
 
 #: TutoTangramCardTitle
 msgctxt "TutoTangramCardTitle"
 msgid "Puzzle Card"
-msgstr ""
+msgstr "Puzzle Card"
 
 #: TutoTangramCardContent
 msgctxt "TutoTangramCardContent"
 msgid "Each Card will show you the info about the puzzle you have encountered in the game.If You have solved the puzzle then you will see your solution of the puzzle otherwise you will see computer's solution"
-msgstr ""
+msgstr "Each Card will show you the info about the puzzle you have encountered in the game.If You have solved the puzzle then you will see your solution of the puzzle otherwise you will see computer's solution"
 
 #: TutoClockInfoTitle
 msgctxt "TutoClockInfoTitle"
 msgid "Time taken"
-msgstr ""
+msgstr "Time taken"
 
 #: TutoClockInfoContent
 msgctxt "TutoClockInfoContent"
 msgid "This will show the time taken to solve the particular puzzle"
-msgstr ""
+msgstr "This will show the time taken to solve the particular puzzle"
 
 #: TutoScoreInfoTitle
 msgctxt "TutoScoreInfoTitle"
 msgid "Score"
-msgstr ""
+msgstr "Score"
 
 #: TutoScoreInfoContent
 msgctxt "TutoScoreInfoContent"
 msgid "This will show the score you got in the particular puzzle"
-msgstr ""
+msgstr "This will show the score you got in the particular puzzle"
 
 #: TutoRestartTitle
 msgctxt "TutoRestartTitle"
 msgid "Restart"
-msgstr ""
+msgstr "Restart"
 
 #: TutoRestartContent
 msgctxt "TutoRestartContent"
 msgid "Click here to restart the game"
-msgstr ""
+msgstr "Click here to restart the game"
 
 #: TutoPaginationTitle
 msgctxt "TutoPaginationTitle"
 msgid "Pagination"
-msgstr ""
+msgstr "Pagination"
 
 #: TutoPaginationContent
 msgctxt "TutoPaginationContent"
 msgid "This will show the puzzle number you are at and the total puzzles you have attempted. You can move to next/previous puzzles by the controls given"
-msgstr ""
+msgstr "This will show the puzzle number you are at and the total puzzles you have attempted. You can move to next/previous puzzles by the controls given"
 
 #: TutoLeaderboardPaginationTitle
 msgctxt "TutoLeaderboardPaginationTitle"
 msgid "Pagination"
-msgstr ""
+msgstr "Pagination"
 
 #: TutoLeaderboardPaginationContent
 msgctxt "TutoLeaderboardPaginationContent"
 msgid "This will show the page number of the leaderboard rankings you are at. You can move to next/previous rankings by the controls given"
-msgstr ""
+msgstr "This will show the page number of the leaderboard rankings you are at. You can move to next/previous rankings by the controls given"
 
 #: TutoLeaderboardMainTitle
 msgctxt "TutoLeaderboardMainTitle"
 msgid "Leaderboard screen"
-msgstr ""
+msgstr "Leaderboard screen"
 
 #: TutoLeaderboardMainContent
 msgctxt "TutoLeaderboardMainContent"
 msgid "Here you can see the rankings and score of the users competiting with you"
-msgstr ""
+msgstr "Here you can see the rankings and score of the users competiting with you"
 
 #: TutoGoBackTitle
 msgctxt "TutoGoBackTitle"
 msgid "Go Back"
-msgstr ""
+msgstr "Go Back"
 
 #: TutoGoBackContent
 msgctxt "TutoGoBackContent"
 msgid "Go Back"
-msgstr ""
+msgstr "Go Back"
 
 #: TutoPlayViewTitle
 msgctxt "TutoPlayViewTitle"
 msgid "Play View"
-msgstr ""
+msgstr "Play View"
 
 #: TutoPlayViewContent
 msgctxt "TutoPlayViewContent"
 msgid "You can click on any puzzle to solve the same"
-msgstr ""
+msgstr "You can click on any puzzle to solve the same"
 
 #: TutoNewCategoryTitle
 msgctxt "TutoNewCategoryTitle"
 msgid "New Category"
-msgstr ""
+msgstr "New Category"
 
 #: TutoNewCategoryContent
 msgctxt "TutoNewCategoryContent"
 msgid "Click here to Create New Category"
-msgstr ""
+msgstr "Click here to Create New Category"
 
 #: TutoBoardEditorTitle
 msgctxt "TutoBoardEditorTitle"
 msgid "Editor board"
-msgstr ""
+msgstr "Editor board"
 
 #: TutoBoardEditorContent
 msgctxt "TutoBoardEditorContent"
 msgid "This is the Editor board where you can arrange the pieces together to form a Valid tangram"
-msgstr ""
+msgstr "This is the Editor board where you can arrange the pieces together to form a Valid tangram"
 
 #: TutoValidPuzzleTitle
 msgctxt "TutoValidPuzzleTitle"
 msgid "Valid Puzzle"
-msgstr ""
+msgstr "Valid Puzzle"
 
 #: TutoValidPuzzleContent
 msgctxt "TutoValidPuzzleContent"
 msgid "For a puzzle to be a valid puzzle:<br>1) No any two tans or pieces should be overlapped to each other.<br>2) Every tan should be connected or joined to atleast one other tan<br>3) The width and height of the tangram created should not be more than the width and height of the square box present on the board<br>4) Tangram Name should not be empty"
-msgstr ""
+msgstr "For a puzzle to be a valid puzzle:<br>1) No any two tans or pieces should be overlapped to each other.<br>2) Every tan should be connected or joined to atleast one other tan<br>3) The width and height of the tangram created should not be more than the width and height of the square box present on the board<br>4) Tangram Name should not be empty"
 
 #: TutoCategoryNameTitle
 msgctxt "TutoCategoryNameTitle"
 msgid "Category Name"
-msgstr ""
+msgstr "Category Name"
 
 #: TutoCategoryNameContent
 msgctxt "TutoCategoryNameContent"
 msgid "Enter the name of your new category"
-msgstr ""
+msgstr "Enter the name of your new category"
 
 #: TutoNewPuzzleTitle
 msgctxt "TutoNewPuzzleTitle"
 msgid "New Puzzle"
-msgstr ""
+msgstr "New Puzzle"
 
 #: TutoNewPuzzleContent
 msgctxt "TutoNewPuzzleContent"
 msgid "Click here to create new tangram puzzle"
-msgstr ""
+msgstr "Click here to create new tangram puzzle"
 
 #: TutoEditPuzzleTitle
 msgctxt "TutoEditPuzzleTitle"
 msgid "Edit Puzzle"
-msgstr ""
+msgstr "Edit Puzzle"
 
 #: TutoEditPuzzleContent
 msgctxt "TutoEditPuzzleContent"
 msgid "Click here to edit the particular puzzle"
-msgstr ""
+msgstr "Click here to edit the particular puzzle"
 
 #: TutoDeletePuzzleTitle
 msgctxt "TutoDeletePuzzleTitle"
 msgid "Delete Puzzle"
-msgstr ""
+msgstr "Delete Puzzle"
 
 #: TutoDeletePuzzleContent
 msgctxt "TutoDeletePuzzleContent"
 msgid "Click here to delete the particular puzzle"
-msgstr ""
+msgstr "Click here to delete the particular puzzle"
 
 #: TutoEditCategoryTitle
 msgctxt "TutoEditCategoryTitle"
 msgid "Edit Category"
-msgstr ""
+msgstr "Edit Category"
 
 #: TutoEditCategoryContent
 msgctxt "TutoEditCategoryContent"
 msgid "Click here to Edit current Category"
-msgstr ""
+msgstr "Click here to Edit current Category"
 
 #: TutoDeleteCategoryTitle
 msgctxt "TutoDeleteCategoryTitle"
 msgid "Delete Category"
-msgstr ""
+msgstr "Delete Category"
 
 #: TutoDeleteCategoryContent
 msgctxt "TutoDeleteCategoryContent"
 msgid "Click here to Delete the current category and all of its puzzles"
-msgstr ""
+msgstr "Click here to Delete the current category and all of its puzzles"
 
 #: DataAnimals
 msgctxt "DataAnimals"
 msgid "Animals"
-msgstr ""
+msgstr "Animals"
 
 #: DataLetters,Numbers,Signs
 msgctxt "DataLetters,Numbers,Signs"
 msgid "Letters, Numbers, Signs"
-msgstr ""
+msgstr "Letters, Numbers, Signs"
 
 #: DataPeople
 msgctxt "DataPeople"
 msgid "People"
-msgstr ""
+msgstr "People"
 
 #: DataGeometrical
 msgctxt "DataGeometrical"
 msgid "Geometrical"
-msgstr ""
+msgstr "Geometrical"
 
 #: DataUsualObjects
 msgctxt "DataUsualObjects"
 msgid "Usual Objects"
-msgstr ""
+msgstr "Usual Objects"
 
 #: DataBoats
 msgctxt "DataBoats"
 msgid "Boats"
-msgstr ""
+msgstr "Boats"
 
 #: DataMiscellaneous
 msgctxt "DataMiscellaneous"
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Miscellaneous"
 
 #: DataRandom
 msgctxt "DataRandom"
 msgid "Random"
-msgstr ""
+msgstr "Random"
 
 #: Dataswan
 msgctxt "Dataswan"
 msgid "swan"
-msgstr ""
+msgstr "swan"
 
 #: DataCat
 msgctxt "DataCat"
 msgid "Cat"
-msgstr ""
+msgstr "Cat"
 
 #: DataBird
 msgctxt "DataBird"
 msgid "Bird"
-msgstr ""
+msgstr "Bird"
 
 #: DataCrow2
 msgctxt "DataCrow2"
 msgid "Crow 2"
-msgstr ""
+msgstr "Crow 2"
 
 #: DataRabbit
 msgctxt "DataRabbit"
 msgid "Rabbit"
-msgstr ""
+msgstr "Rabbit"
 
 #: DataHorse
 msgctxt "DataHorse"
 msgid "Horse"
-msgstr ""
+msgstr "Horse"
 
 #: DataCamel
 msgctxt "DataCamel"
 msgid "Camel"
-msgstr ""
+msgstr "Camel"
 
 #: DataWhale
 msgctxt "DataWhale"
 msgid "Whale"
-msgstr ""
+msgstr "Whale"
 
 #: DataVulture
 msgctxt "DataVulture"
 msgid "Vulture"
-msgstr ""
+msgstr "Vulture"
 
 #: DataCatLying
 msgctxt "DataCatLying"
 msgid "Cat Lying"
-msgstr ""
+msgstr "Cat Lying"
 
 #: DataKangaroo
 msgctxt "DataKangaroo"
 msgid "Kangaroo"
-msgstr ""
+msgstr "Kangaroo"
 
 #: DataCrow
 msgctxt "DataCrow"
 msgid "Crow"
-msgstr ""
+msgstr "Crow"
 
 #: DataMoonfish
 msgctxt "DataMoonfish"
 msgid "Moonfish"
-msgstr ""
+msgstr "Moonfish"
 
 #: DataBear
 msgctxt "DataBear"
 msgid "Bear"
-msgstr ""
+msgstr "Bear"
 
 #: DataSparrow
 msgctxt "DataSparrow"
 msgid "Sparrow"
-msgstr ""
+msgstr "Sparrow"
 
 #: DataDog
 msgctxt "DataDog"
 msgid "Dog"
-msgstr ""
+msgstr "Dog"
 
 #: DataTurtle
 msgctxt "DataTurtle"
 msgid "Turtle"
-msgstr ""
+msgstr "Turtle"
 
 #: DataPigeon
 msgctxt "DataPigeon"
 msgid "Pigeon"
-msgstr ""
+msgstr "Pigeon"
 
 #: DataCrab
 msgctxt "DataCrab"
 msgid "Crab"
-msgstr ""
+msgstr "Crab"
 
 #: DataRat
 msgctxt "DataRat"
 msgid "Rat"
-msgstr ""
+msgstr "Rat"
 
 #: DataButterfly
 msgctxt "DataButterfly"
 msgid "Butterfly"
-msgstr ""
+msgstr "Butterfly"
 
 #: DataElephant
 msgctxt "DataElephant"
 msgid "Elephant"
-msgstr ""
+msgstr "Elephant"
 
 #: DataTurkey
 msgctxt "DataTurkey"
 msgid "Turkey"
-msgstr ""
+msgstr "Turkey"
 
 #: DataHeron
 msgctxt "DataHeron"
 msgid "Heron"
-msgstr ""
+msgstr "Heron"
 
 #: DataLetterA
 msgctxt "DataLetterA"
 msgid "Letter A"
-msgstr ""
+msgstr "Letter A"
 
 #: DataLetterB
 msgctxt "DataLetterB"
 msgid "Letter B"
-msgstr ""
+msgstr "Letter B"
 
 #: DataLetterC
 msgctxt "DataLetterC"
 msgid "Letter C"
-msgstr ""
+msgstr "Letter C"
 
 #: DataLetterD
 msgctxt "DataLetterD"
 msgid "Letter D"
-msgstr ""
+msgstr "Letter D"
 
 #: DataLetterE
 msgctxt "DataLetterE"
 msgid "Letter E"
-msgstr ""
+msgstr "Letter E"
 
 #: DataLetterF
 msgctxt "DataLetterF"
 msgid "Letter F"
-msgstr ""
+msgstr "Letter F"
 
 #: DataLetterG
 msgctxt "DataLetterG"
 msgid "Letter G"
-msgstr ""
+msgstr "Letter G"
 
 #: DataLetterH
 msgctxt "DataLetterH"
 msgid "Letter H"
-msgstr ""
+msgstr "Letter H"
 
 #: DataLetterI
 msgctxt "DataLetterI"
 msgid "Letter I"
-msgstr ""
+msgstr "Letter I"
 
 #: DataLetterJ
 msgctxt "DataLetterJ"
 msgid "Letter J"
-msgstr ""
+msgstr "Letter J"
 
 #: DataLetterK
 msgctxt "DataLetterK"
 msgid "Letter K"
-msgstr ""
+msgstr "Letter K"
 
 #: DataLetterL
 msgctxt "DataLetterL"
 msgid "Letter L"
-msgstr ""
+msgstr "Letter L"
 
 #: DataLetterM
 msgctxt "DataLetterM"
 msgid "Letter M"
-msgstr ""
+msgstr "Letter M"
 
 #: DataLetterN
 msgctxt "DataLetterN"
 msgid "Letter N"
-msgstr ""
+msgstr "Letter N"
 
 #: DataLetterO
 msgctxt "DataLetterO"
 msgid "Letter O"
-msgstr ""
+msgstr "Letter O"
 
 #: DataLetterP
 msgctxt "DataLetterP"
 msgid "Letter P"
-msgstr ""
+msgstr "Letter P"
 
 #: DataLetterQ
 msgctxt "DataLetterQ"
 msgid "Letter Q"
-msgstr ""
+msgstr "Letter Q"
 
 #: DataLetterR
 msgctxt "DataLetterR"
 msgid "Letter R"
-msgstr ""
+msgstr "Letter R"
 
 #: DataLetterS
 msgctxt "DataLetterS"
 msgid "Letter S"
-msgstr ""
+msgstr "Letter S"
 
 #: DataLetterT
 msgctxt "DataLetterT"
 msgid "Letter T"
-msgstr ""
+msgstr "Letter T"
 
 #: DataLetterU
 msgctxt "DataLetterU"
 msgid "Letter U"
-msgstr ""
+msgstr "Letter U"
 
 #: DataLetterV
 msgctxt "DataLetterV"
 msgid "Letter V"
-msgstr ""
+msgstr "Letter V"
 
 #: DataLetterW
 msgctxt "DataLetterW"
 msgid "Letter W"
-msgstr ""
+msgstr "Letter W"
 
 #: DataLetterX
 msgctxt "DataLetterX"
 msgid "Letter X"
-msgstr ""
+msgstr "Letter X"
 
 #: DataLetterY
 msgctxt "DataLetterY"
 msgid "Letter Y"
-msgstr ""
+msgstr "Letter Y"
 
 #: DataLetterZ
 msgctxt "DataLetterZ"
 msgid "Letter Z"
-msgstr ""
+msgstr "Letter Z"
 
 #: DataOne
 msgctxt "DataOne"
 msgid "One"
-msgstr ""
+msgstr "One"
 
 #: DataTwo
 msgctxt "DataTwo"
 msgid "Two"
-msgstr ""
+msgstr "Two"
 
 #: DataThree
 msgctxt "DataThree"
 msgid "Three"
-msgstr ""
+msgstr "Three"
 
 #: DataFour
 msgctxt "DataFour"
 msgid "Four"
-msgstr ""
+msgstr "Four"
 
 #: DataFive
 msgctxt "DataFive"
 msgid "Five"
-msgstr ""
+msgstr "Five"
 
 #: DataSix
 msgctxt "DataSix"
 msgid "Six"
-msgstr ""
+msgstr "Six"
 
 #: DataSeven
 msgctxt "DataSeven"
 msgid "Seven"
-msgstr ""
+msgstr "Seven"
 
 #: DataEight
 msgctxt "DataEight"
 msgid "Eight"
-msgstr ""
+msgstr "Eight"
 
 #: DataNine
 msgctxt "DataNine"
 msgid "Nine"
-msgstr ""
+msgstr "Nine"
 
 #: DataZero
 msgctxt "DataZero"
 msgid "Zero"
-msgstr ""
+msgstr "Zero"
 
 #: DataArrow
 msgctxt "DataArrow"
 msgid "Arrow"
-msgstr ""
+msgstr "Arrow"
 
 #: DataArrow2
 msgctxt "DataArrow2"
 msgid "Arrow 2"
-msgstr ""
+msgstr "Arrow 2"
 
 #: DataTripleArrow
 msgctxt "DataTripleArrow"
 msgid "Triple Arrow"
-msgstr ""
+msgstr "Triple Arrow"
 
 #: DataDoubleArrow
 msgctxt "DataDoubleArrow"
 msgid "Double Arrow"
-msgstr ""
+msgstr "Double Arrow"
 
 #: DataSkater
 msgctxt "DataSkater"
 msgid "Skater"
-msgstr ""
+msgstr "Skater"
 
 #: DataOffering
 msgctxt "DataOffering"
 msgid "Offering"
-msgstr ""
+msgstr "Offering"
 
 #: DataBeSitting
 msgctxt "DataBeSitting"
 msgid "Be Sitting"
-msgstr ""
+msgstr "Be Sitting"
 
 #: DataDriver
 msgctxt "DataDriver"
 msgid "Driver"
-msgstr ""
+msgstr "Driver"
 
 #: DataWaiter
 msgctxt "DataWaiter"
 msgid "Waiter"
-msgstr ""
+msgstr "Waiter"
 
 #: DataGoalkeeper
 msgctxt "DataGoalkeeper"
 msgid "Goal keeper"
-msgstr ""
+msgstr "Goal keeper"
 
 #: DataLady
 msgctxt "DataLady"
 msgid "Lady"
-msgstr ""
+msgstr "Lady"
 
 #: DataJump
 msgctxt "DataJump"
 msgid "Jump"
-msgstr ""
+msgstr "Jump"
 
 #: DataDayDreamer
 msgctxt "DataDayDreamer"
 msgid "Day Dreamer"
-msgstr ""
+msgstr "Day Dreamer"
 
 #: DataRunner
 msgctxt "DataRunner"
 msgid "Runner"
-msgstr ""
+msgstr "Runner"
 
 #: DataNurse
 msgctxt "DataNurse"
 msgid "Nurse"
-msgstr ""
+msgstr "Nurse"
 
 #: DataKicking
 msgctxt "DataKicking"
 msgid "Kicking"
-msgstr ""
+msgstr "Kicking"
 
 #: DataAngler
 msgctxt "DataAngler"
 msgid "Angler"
-msgstr ""
+msgstr "Angler"
 
 #: DataSprinter
 msgctxt "DataSprinter"
 msgid "Sprinter"
-msgstr ""
+msgstr "Sprinter"
 
 #: DataDancer
 msgctxt "DataDancer"
 msgid "Dancer"
-msgstr ""
+msgstr "Dancer"
 
 #: DataHorseRider
 msgctxt "DataHorseRider"
 msgid "Horse Rider"
-msgstr ""
+msgstr "Horse Rider"
 
 #: DataSitting
 msgctxt "DataSitting"
 msgid "Sitting"
-msgstr ""
+msgstr "Sitting"
 
 #: DataSoccer
 msgctxt "DataSoccer"
 msgid "Soccer"
-msgstr ""
+msgstr "Soccer"
 
 #: DataAcrobat
 msgctxt "DataAcrobat"
 msgid "Acrobat"
-msgstr ""
+msgstr "Acrobat"
 
 #: DataJockey
 msgctxt "DataJockey"
 msgid "Jockey"
-msgstr ""
+msgstr "Jockey"
 
 #: DataFreeflyer
 msgctxt "DataFreeflyer"
 msgid "Freeflyer"
-msgstr ""
+msgstr "Freeflyer"
 
 #: Datasquare
 msgctxt "Datasquare"
 msgid "square"
-msgstr ""
+msgstr "square"
 
 #: DataHexagon
 msgctxt "DataHexagon"
 msgid "Hexagon"
-msgstr ""
+msgstr "Hexagon"
 
 #: DataTrapezoid
 msgctxt "DataTrapezoid"
 msgid "Trapezoid"
-msgstr ""
+msgstr "Trapezoid"
 
 #: DataIncompleteParallelogram
 msgctxt "DataIncompleteParallelogram"
 msgid "Incomplete Parallelogram"
-msgstr ""
+msgstr "Incomplete Parallelogram"
 
 #: DataParallelogram
 msgctxt "DataParallelogram"
 msgid "Parallelogram"
-msgstr ""
+msgstr "Parallelogram"
 
 #: DataDataConcavePolygon
 msgctxt "DataDataConcavePolygon"
 msgid "Concave Polygon"
-msgstr ""
+msgstr "Concave Polygon"
 
 #: DataTriangle
 msgctxt "DataTriangle"
 msgid "Triangle"
-msgstr ""
+msgstr "Triangle"
 
 #: DataIncompleteTriangle2
 msgctxt "DataIncompleteTriangle2"
 msgid "Incomplete Triangle2"
-msgstr ""
+msgstr "Incomplete Triangle2"
 
 #: DataIncompleterectangle
 msgctxt "DataIncompleterectangle"
 msgid "Incomplete rectangle"
-msgstr ""
+msgstr "Incomplete rectangle"
 
 #: DataPentagon
 msgctxt "DataPentagon"
 msgid "Pentagon"
-msgstr ""
+msgstr "Pentagon"
 
 #: DataIncompleteSquare
 msgctxt "DataIncompleteSquare"
 msgid "Incomplete Square"
-msgstr ""
+msgstr "Incomplete Square"
 
 #: DataOctagon
 msgctxt "DataOctagon"
 msgid "Octagon"
-msgstr ""
+msgstr "Octagon"
 
 #: DataPentagon2
 msgctxt "DataPentagon2"
 msgid "Pentagon 2"
-msgstr ""
+msgstr "Pentagon 2"
 
 #: DataHexagon2
 msgctxt "DataHexagon2"
 msgid "Hexagon 2"
-msgstr ""
+msgstr "Hexagon 2"
 
 #: DataIncompleteSquare2
 msgctxt "DataIncompleteSquare2"
 msgid "Incomplete Square 2"
-msgstr ""
+msgstr "Incomplete Square 2"
 
 #: DataIncompleteSquare3
 msgctxt "DataIncompleteSquare3"
 msgid "Incomplete Square 3"
-msgstr ""
+msgstr "Incomplete Square 3"
 
 #: DataIncompleteSquare4
 msgctxt "DataIncompleteSquare4"
 msgid "Incomplete Square 4"
-msgstr ""
+msgstr "Incomplete Square 4"
 
 #: DataIncompleteSquare5
 msgctxt "DataIncompleteSquare5"
 msgid "Incomplete Square 5"
-msgstr ""
+msgstr "Incomplete Square 5"
 
 #: DataIncompleteSquare6
 msgctxt "DataIncompleteSquare6"
 msgid "Incomplete Square 6"
-msgstr ""
+msgstr "Incomplete Square 6"
 
 #: DataIncompleteTriangle
 msgctxt "DataIncompleteTriangle"
 msgid "Incomplete Triangle"
-msgstr ""
+msgstr "Incomplete Triangle"
 
 #: DataIncompleteTriangle3
 msgctxt "DataIncompleteTriangle3"
 msgid "Incomplete Triangle 3"
-msgstr ""
+msgstr "Incomplete Triangle 3"
 
 #: DataShirt
 msgctxt "DataShirt"
 msgid "Shirt"
-msgstr ""
+msgstr "Shirt"
 
 #: DataCandle
 msgctxt "DataCandle"
 msgid "Candle"
-msgstr ""
+msgstr "Candle"
 
 #: DataTeapot
 msgctxt "DataTeapot"
 msgid "Teapot"
-msgstr ""
+msgstr "Teapot"
 
 #: DataIron
 msgctxt "DataIron"
 msgid "Iron"
-msgstr ""
+msgstr "Iron"
 
 #: DataShoe
 msgctxt "DataShoe"
 msgid "Shoe"
-msgstr ""
+msgstr "Shoe"
 
 #: DataKey
 msgctxt "DataKey"
 msgid "Key"
-msgstr ""
+msgstr "Key"
 
 #: DataPinwheel
 msgctxt "DataPinwheel"
 msgid "Pinwheel"
-msgstr ""
+msgstr "Pinwheel"
 
 #: DataSpanner
 msgctxt "DataSpanner"
 msgid "Spanner"
-msgstr ""
+msgstr "Spanner"
 
 #: DataUrn
 msgctxt "DataUrn"
 msgid "Urn"
-msgstr ""
+msgstr "Urn"
 
 #: DataWaterPistol
 msgctxt "DataWaterPistol"
 msgid "Water Pistol"
-msgstr ""
+msgstr "Water Pistol"
 
 #: DataBowl
 msgctxt "DataBowl"
 msgid "Bowl"
-msgstr ""
+msgstr "Bowl"
 
 #: DataDagger
 msgctxt "DataDagger"
 msgid "Dagger"
-msgstr ""
+msgstr "Dagger"
 
 #: DataChair
 msgctxt "DataChair"
 msgid "Chair"
-msgstr ""
+msgstr "Chair"
 
 #: DataWrench
 msgctxt "DataWrench"
 msgid "Wrench"
-msgstr ""
+msgstr "Wrench"
 
 #: DataWateringCan
 msgctxt "DataWateringCan"
 msgid "Watering Can"
-msgstr ""
+msgstr "Watering Can"
 
 #: DataBoot
 msgctxt "DataBoot"
 msgid "Boot"
-msgstr ""
+msgstr "Boot"
 
 #: DataTrowel
 msgctxt "DataTrowel"
 msgid "Trowel"
-msgstr ""
+msgstr "Trowel"
 
 #: DataVase
 msgctxt "DataVase"
 msgid "Vase"
-msgstr ""
+msgstr "Vase"
 
 #: DataCrown
 msgctxt "DataCrown"
 msgid "Crown"
-msgstr ""
+msgstr "Crown"
 
 #: DataLaboratoryFlask
 msgctxt "DataLaboratoryFlask"
 msgid "Laboratory Flask"
-msgstr ""
+msgstr "Laboratory Flask"
 
 #: DataKettle
 msgctxt "DataKettle"
 msgid "Kettle"
-msgstr ""
+msgstr "Kettle"
 
 #: DataHelmet
 msgctxt "DataHelmet"
 msgid "Helmet"
-msgstr ""
+msgstr "Helmet"
 
 #: DataGlass
 msgctxt "DataGlass"
 msgid "Glass"
-msgstr ""
+msgstr "Glass"
 
 #: DataSchooner
 msgctxt "DataSchooner"
 msgid "Schooner"
-msgstr ""
+msgstr "Schooner"
 
 #: DataSampan
 msgctxt "DataSampan"
 msgid "Sampan"
-msgstr ""
+msgstr "Sampan"
 
 #: DataTugboat
 msgctxt "DataTugboat"
 msgid "Tugboat"
-msgstr ""
+msgstr "Tugboat"
 
 #: DataTrawler
 msgctxt "DataTrawler"
 msgid "Trawler"
-msgstr ""
+msgstr "Trawler"
 
 #: DataSubmarine
 msgctxt "DataSubmarine"
 msgid "Submarine"
-msgstr ""
+msgstr "Submarine"
 
 #: DataDestroyer
 msgctxt "DataDestroyer"
 msgid "Destroyer"
-msgstr ""
+msgstr "Destroyer"
 
 #: DataBarge
 msgctxt "DataBarge"
 msgid "Barge"
-msgstr ""
+msgstr "Barge"
 
 #: DataAirboat
 msgctxt "DataAirboat"
 msgid "Airboat"
-msgstr ""
+msgstr "Airboat"
 
 #: DataGundalow
 msgctxt "DataGundalow"
 msgid "Gundalow"
-msgstr ""
+msgstr "Gundalow"
 
 #: DataOilTanker
 msgctxt "DataOilTanker"
 msgid "Oil Tanker"
-msgstr ""
+msgstr "Oil Tanker"
 
 #: DataCoble
 msgctxt "DataCoble"
 msgid "Coble"
-msgstr ""
+msgstr "Coble"
 
 #: DataCabinCruiser
 msgctxt "DataCabinCruiser"
 msgid "Cabin Cruiser"
-msgstr ""
+msgstr "Cabin Cruiser"
 
 #: DataNarrowboat
 msgctxt "DataNarrowboat"
 msgid "Narrowboat"
-msgstr ""
+msgstr "Narrowboat"
 
 #: DataFishingBoat
 msgctxt "DataFishingBoat"
 msgid "Fishing Boat"
-msgstr ""
+msgstr "Fishing Boat"
 
 #: DataRunabout
 msgctxt "DataRunabout"
 msgid "Runabout"
-msgstr ""
+msgstr "Runabout"
 
 #: DataPagoda
 msgctxt "DataPagoda"
 msgid "Pagoda"
-msgstr ""
+msgstr "Pagoda"
 
 #: DataMountain
 msgctxt "DataMountain"
 msgid "Mountain"
-msgstr ""
+msgstr "Mountain"
 
 #: DataPlane
 msgctxt "DataPlane"
 msgid "Plane"
-msgstr ""
+msgstr "Plane"
 
 #: Datahelicopter
 msgctxt "Datahelicopter"
 msgid "helicopter"
-msgstr ""
+msgstr "helicopter"
 
 #: DataHeart
 msgctxt "DataHeart"
 msgid "Heart"
-msgstr ""
+msgstr "Heart"
 
 #: DataApple
 msgctxt "DataApple"
 msgid "Apple"
-msgstr ""
+msgstr "Apple"
 
 #: DataHelicopter3
 msgctxt "DataHelicopter3"
 msgid "Helicopter 3"
-msgstr ""
+msgstr "Helicopter 3"
 
 #: DataStairway
 msgctxt "DataStairway"
 msgid "Stairway"
-msgstr ""
+msgstr "Stairway"
 
 #: DataHelicopter2
 msgctxt "DataHelicopter2"
 msgid "Helicopter 2"
-msgstr ""
+msgstr "Helicopter 2"
 
 #: DataStar
 msgctxt "DataStar"
 msgid "Star"
-msgstr ""
+msgstr "Star"
 
 #: DataIgloo
 msgctxt "DataIgloo"
 msgid "Igloo"
-msgstr ""
+msgstr "Igloo"
 
 #: DataBridge
 msgctxt "DataBridge"
 msgid "Bridge"
-msgstr ""
+msgstr "Bridge"
 
 #: DataGateway
 msgctxt "DataGateway"
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: DataMusicalNote
 msgctxt "DataMusicalNote"
 msgid "Musical Note"
-msgstr ""
+msgstr "Musical Note"
 
 #: DataTree
 msgctxt "DataTree"
 msgid "Tree"
-msgstr ""
+msgstr "Tree"
 
 #: DataShoppingCart
 msgctxt "DataShoppingCart"
 msgid "Shopping Cart"
-msgstr ""
+msgstr "Shopping Cart"
 

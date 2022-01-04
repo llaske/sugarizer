@@ -35,7 +35,7 @@ To run **Sugarizer Application on iOS**, download it on [Apple Store](https://it
 ![](images/applestore.png)
 
 To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
-The Sugarizer desktop application has three possible arguments:
+The Sugarizer desktop application has four possible arguments:
 
 * `--window` to open Sugarizer in a window (instead of fullscreen)
 * `--debug` to open Sugarizer with the debug console
@@ -202,10 +202,15 @@ To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRep
 
 Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
+For Android:
+
 A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allow you to create the Android packaging without any Android knowledge.
 
 If you want to build it yourself, you could adapt the [source code](https://github.com/llaske/sugarizer-apkbuilder/blob/master/src/make_android.sh) of this tool.
 
+For iOS:
+
+Refer [this](docs/ios/ios_doc.md) documentation for building sugarizer for iOS.
 
 # Reduce package size
 

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:33:19 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Fri May 07 2021 23:17:04 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,8 +32,8 @@ msgstr "Write est un traitement de texte avec lequel vous pouvez <strong>taper</
 
 #: Writefeatures
 msgctxt "Writefeatures"
-msgid "You can also play with <span style=\"color:rgb(255, 0, 0)"
-msgstr "Vous pouvez aussi jouer avec les <span style =\"color:rgb(255, 0, 0)\""
+msgid "You can also play with <span style=\"color:rgb(255, 0, 0);\">colors</span> , <span style=\"color:rgb(0, 255, 0);\">fonts</span> and <span style=\"color:rgb(0, 0, 255);\">images</span> and share your experience with your friends"
+msgstr "Vous pouvez aussi jouer avec les <span style =\"color:rgb(255, 0, 0)\";>couleurs</span>, <span style =\"color:rgb(0, 255, 0);\">fontes</span>, intégrer des <span style =\"color:rgb(0, 0, 255);\">images</span> et partager vos réalisations avec vos amis."
 
 #: Enjoy
 msgctxt "Enjoy"

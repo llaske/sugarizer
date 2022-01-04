@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:34:00 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:25:33 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,363 +16,363 @@ msgstr ""
 #: Play
 msgctxt "Play"
 msgid "Play"
-msgstr ""
+msgstr "Play"
 
 #: Pause
 msgctxt "Pause"
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr ""
+msgstr "Fullscreen"
 
 #: Unfullscreen
 msgctxt "Unfullscreen"
 msgid "Unfullscreen"
-msgstr ""
+msgstr "Unfullscreen"
 
 #: Zoom
 msgctxt "Zoom"
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: Speed
 msgctxt "Speed"
 msgid "Speed"
-msgstr ""
+msgstr "Speed"
 
 #: Text
 msgctxt "Text"
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: Settings
 msgctxt "Settings"
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: DragIcons
 msgctxt "DragIcons"
 msgid "Drag icons here to create your pattern:"
-msgstr ""
+msgstr "Drag icons here to create your pattern:"
 
 #: DragColors
 msgctxt "DragColors"
 msgid "Drag colors here to create your pattern:"
-msgstr ""
+msgstr "Drag colors here to create your pattern:"
 
 #: EmptyIcon
 msgctxt "EmptyIcon"
 msgid "Use all activities icons"
-msgstr ""
+msgstr "Use all activities icons"
 
 #: EmptyColor
 msgctxt "EmptyColor"
 msgid "Use all colors"
-msgstr ""
+msgstr "Use all colors"
 
 #: Templates
 msgctxt "Templates"
 msgid "Templates"
-msgstr ""
+msgstr "Templates"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoGridWelcomeTitle
 msgctxt "TutoGridWelcomeTitle"
 msgid "Xmas Lights Activity"
-msgstr ""
+msgstr "Xmas Lights Activity"
 
 #: TutoGridWelcomeContent
 msgctxt "TutoGridWelcomeContent"
 msgid "Welcome in Xmas Lights activity. This activity will allow creation of nice blinking Christmas lights using Sugarizer icons and colors"
-msgstr ""
+msgstr "Welcome in Xmas Lights activity. This activity will allow creation of nice blinking Christmas lights using Sugarizer icons and colors"
 
 #: TutoGridBoardTitle
 msgctxt "TutoGridBoardTitle"
 msgid "Board"
-msgstr ""
+msgstr "Board"
 
 #: TutoGridBoardContent
 msgctxt "TutoGridBoardContent"
 msgid "This is the board where lights are display, you could fully control what is display here and which animation is use"
-msgstr ""
+msgstr "This is the board where lights are display, you could fully control what is display here and which animation is use"
 
 #: TutoGridTemplateButtonTitle
 msgctxt "TutoGridTemplateButtonTitle"
 msgid "Templates"
-msgstr ""
+msgstr "Templates"
 
 #: TutoGridTemplateButtonContent
 msgctxt "TutoGridTemplateButtonContent"
 msgid "Click here to choose one of sample Christmas lights. You will be able to fully customize it"
-msgstr ""
+msgstr "Click here to choose one of sample Christmas lights. You will be able to fully customize it"
 
 #: TutoGridPlayButtonTitle
 msgctxt "TutoGridPlayButtonTitle"
 msgid "Play/Pause"
-msgstr ""
+msgstr "Play/Pause"
 
 #: TutoGridPlayButtonContent
 msgctxt "TutoGridPlayButtonContent"
 msgid "Click here to stop or restart blinking"
-msgstr ""
+msgstr "Click here to stop or restart blinking"
 
 #: TutoGridSettingsButtonTitle
 msgctxt "TutoGridSettingsButtonTitle"
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: TutoGridSettingsButtonContent
 msgctxt "TutoGridSettingsButtonContent"
 msgid "This will open the edit view. In this view you will be able to edit icons and colors used"
-msgstr ""
+msgstr "This will open the edit view. In this view you will be able to edit icons and colors used"
 
 #: TutoGridSpeedButtonTitle
 msgctxt "TutoGridSpeedButtonTitle"
 msgid "Speed control"
-msgstr ""
+msgstr "Speed control"
 
 #: TutoGridSpeedButtonContent
 msgctxt "TutoGridSpeedButtonContent"
 msgid "Click here to make blinking faster or slower"
-msgstr ""
+msgstr "Click here to make blinking faster or slower"
 
 #: TutoGridTextButtonTitle
 msgctxt "TutoGridTextButtonTitle"
 msgid "Text control"
-msgstr ""
+msgstr "Text control"
 
 #: TutoGridTextButtonContent
 msgctxt "TutoGridTextButtonContent"
 msgid "Click here to change text displayed and change text characteristics (color, style, size)"
-msgstr ""
+msgstr "Click here to change text displayed and change text characteristics (color, style, size)"
 
 #: TutoGridZoomButtonTitle
 msgctxt "TutoGridZoomButtonTitle"
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: TutoGridZoomButtonContent
 msgctxt "TutoGridZoomButtonContent"
 msgid "This menu let you change icons size in the board"
-msgstr ""
+msgstr "This menu let you change icons size in the board"
 
 #: TutoGridNetworkButtonTitle
 msgctxt "TutoGridNetworkButtonTitle"
 msgid "Network Button"
-msgstr ""
+msgstr "Network Button"
 
 #: TutoGridNetworkButtonContent
 msgctxt "TutoGridNetworkButtonContent"
 msgid "This button will share the activity so other users can then join and update your light"
-msgstr ""
+msgstr "This button will share the activity so other users can then join and update your light"
 
 #: TutoDetailWelcomeTitle
 msgctxt "TutoDetailWelcomeTitle"
 msgid "Edit screen"
-msgstr ""
+msgstr "Edit screen"
 
 #: TutoDetailWelcomeContent
 msgctxt "TutoDetailWelcomeContent"
 msgid "On this screen you will be able to customize icons and colors. To the left are tools to change icons, to the right are tools to change colors"
-msgstr ""
+msgstr "On this screen you will be able to customize icons and colors. To the left are tools to change icons, to the right are tools to change colors"
 
 #: TutoDetailDropIconTitle
 msgctxt "TutoDetailDropIconTitle"
 msgid "Icon pattern"
-msgstr ""
+msgstr "Icon pattern"
 
 #: TutoDetailDropIconContent
 msgctxt "TutoDetailDropIconContent"
 msgid "In this zone you can define the icons pattern use to draw your light. Drop and arrange here list of icons you want to use. Let this zone empty to use all icons"
-msgstr ""
+msgstr "In this zone you can define the icons pattern use to draw your light. Drop and arrange here list of icons you want to use. Let this zone empty to use all icons"
 
 #: TutoDetailDragIconTitle
 msgctxt "TutoDetailDragIconTitle"
 msgid "Icons set"
-msgstr ""
+msgstr "Icons set"
 
 #: TutoDetailDragIconContent
 msgctxt "TutoDetailDragIconContent"
 msgid "Here are all icons you could use in your pattern. Drag and drop in the pattern, icons you want to use. The special Dice icon mean: choose randomly one icon"
-msgstr ""
+msgstr "Here are all icons you could use in your pattern. Drag and drop in the pattern, icons you want to use. The special Dice icon mean: choose randomly one icon"
 
 #: TutoDetailDeleteIconTitle
 msgctxt "TutoDetailDeleteIconTitle"
 msgid "Clean pattern"
-msgstr ""
+msgstr "Clean pattern"
 
 #: TutoDetailDeleteIconContent
 msgctxt "TutoDetailDeleteIconContent"
 msgid "Click here to remove all icons in the pattern"
-msgstr ""
+msgstr "Click here to remove all icons in the pattern"
 
 #: TutoDetailDropColorTitle
 msgctxt "TutoDetailDropColorTitle"
 msgid "Color pattern"
-msgstr ""
+msgstr "Color pattern"
 
 #: TutoDetailDropColorContent
 msgctxt "TutoDetailDropColorContent"
 msgid "In this zone you can define the colors pattern use to draw your light. Drop and arrange here list of colors you want to use. Let this zone empty to use all colors"
-msgstr ""
+msgstr "In this zone you can define the colors pattern use to draw your light. Drop and arrange here list of colors you want to use. Let this zone empty to use all colors"
 
 #: TutoDetailDragColorTitle
 msgctxt "TutoDetailDragColorTitle"
 msgid "Colors set"
-msgstr ""
+msgstr "Colors set"
 
 #: TutoDetailDragColorContent
 msgctxt "TutoDetailDragColorContent"
 msgid "Here are all colors you could use in your pattern. Drag and drop in the pattern, colors you want to use. The special Dice icon mean: choose randomly one color"
-msgstr ""
+msgstr "Here are all colors you could use in your pattern. Drag and drop in the pattern, colors you want to use. The special Dice icon mean: choose randomly one color"
 
 #: TutoDetailDeleteColorTitle
 msgctxt "TutoDetailDeleteColorTitle"
 msgid "Clean pattern"
-msgstr ""
+msgstr "Clean pattern"
 
 #: TutoDetailDeleteColorContent
 msgctxt "TutoDetailDeleteColorContent"
 msgid "Click here to remove all colors in the pattern"
-msgstr ""
+msgstr "Click here to remove all colors in the pattern"
 
 #: TutoDetailGridButtonTitle
 msgctxt "TutoDetailGridButtonTitle"
 msgid "Go back"
-msgstr ""
+msgstr "Go back"
 
 #: TutoDetailGridButtonContent
 msgctxt "TutoDetailGridButtonContent"
 msgid "Click here to go back to the light screen to see change"
-msgstr ""
+msgstr "Click here to go back to the light screen to see change"
 
 #: SecondsAgo
 msgctxt "SecondsAgo"
 msgid "Seconds ago"
-msgstr ""
+msgstr "Seconds ago"
 
 #. Do not translate {{time}}
 #: Ago
 msgctxt "Ago"
 msgid "{{time}} ago"
-msgstr ""
+msgstr "{{time}} ago"
 
 #: Minutes_one
 msgctxt "Minutes_one"
 msgid "minute"
-msgstr ""
+msgstr "minute"
 
 #: Minutes_other
 msgctxt "Minutes_other"
 msgid "minutes"
-msgstr ""
+msgstr "minutes"
 
 #: Hours_one
 msgctxt "Hours_one"
 msgid "hour"
-msgstr ""
+msgstr "hour"
 
 #: Hours_other
 msgctxt "Hours_other"
 msgid "hours"
-msgstr ""
+msgstr "hours"
 
 #: Days_one
 msgctxt "Days_one"
 msgid "day"
-msgstr ""
+msgstr "day"
 
 #: Days_other
 msgctxt "Days_other"
 msgid "days"
-msgstr ""
+msgstr "days"
 
 #: Weeks_one
 msgctxt "Weeks_one"
 msgid "week"
-msgstr ""
+msgstr "week"
 
 #: Weeks_other
 msgctxt "Weeks_other"
 msgid "weeks"
-msgstr ""
+msgstr "weeks"
 
 #: Months_one
 msgctxt "Months_one"
 msgid "month"
-msgstr ""
+msgstr "month"
 
 #: Months_other
 msgctxt "Months_other"
 msgid "months"
-msgstr ""
+msgstr "months"
 
 #: Years_one
 msgctxt "Years_one"
 msgid "year"
-msgstr ""
+msgstr "year"
 
 #: Years_other
 msgctxt "Years_other"
 msgid "years"
-msgstr ""
+msgstr "years"
 
 #: Anytime
 msgctxt "Anytime"
 msgid "Anytime"
-msgstr ""
+msgstr "Anytime"
 
 #: Today
 msgctxt "Today"
 msgid "Today"
-msgstr ""
+msgstr "Today"
 
 #: SinceYesterday
 msgctxt "SinceYesterday"
 msgid "Since yesterday"
-msgstr ""
+msgstr "Since yesterday"
 
 #: PastWeek
 msgctxt "PastWeek"
 msgid "Past week"
-msgstr ""
+msgstr "Past week"
 
 #: PastMonth
 msgctxt "PastMonth"
 msgid "Past month"
-msgstr ""
+msgstr "Past month"
 
 #: PastYear
 msgctxt "PastYear"
 msgid "Past year"
-msgstr ""
+msgstr "Past year"
 
 #. Do not translate {{name}}
 #: UserJoined
 msgctxt "UserJoined"
 msgid "{{name}} joined"
-msgstr ""
+msgstr "{{name}} joined"
 
 #. Do not translate {{name}}
 #: UserLeft
 msgctxt "UserLeft"
 msgid "{{name}} left"
-msgstr ""
+msgstr "{{name}} left"
 

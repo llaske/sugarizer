@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:12:25 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 09:51:06 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -363,8 +363,8 @@ msgstr "I understand and tell a story (narrative)"
 
 #: DefaultSkillSet0Category2
 msgctxt "DefaultSkillSet0Category2"
-msgid "Discovery of writing"
-msgstr "Discovery of writing"
+msgid "Discovery of writing; relationship between oral and written"
+msgstr "Discovery of writing; relationship between oral and written"
 
 #: DefaultSkillSet0Category2Skill0
 msgctxt "DefaultSkillSet0Category2Skill0"
@@ -773,8 +773,8 @@ msgstr "I can compare lots of objects by counting or not"
 
 #: DefaultSkillSet0Category14
 msgctxt "DefaultSkillSet0Category14"
-msgid "Small problems of composition and decomposition of numbers (ex: 3 is 2 and 1"
-msgstr "Small problems of composition and decomposition of numbers (ex: 3 is 2 and 1"
+msgid "Small problems of composition and decomposition of numbers (ex: 3 is 2 and 1; 1 and still 2)"
+msgstr "Small problems of composition and decomposition of numbers (ex: 3 is 2 and 1; 1 and still 2)"
 
 #: DefaultSkillSet0Category14Skill0
 msgctxt "DefaultSkillSet0Category14Skill0"
@@ -1803,8 +1803,8 @@ msgstr "Understand how verbs are formed and spell the most common verb forms"
 
 #: DefaultSkillSet2Category3Skill5
 msgctxt "DefaultSkillSet2Category3Skill5"
-msgid "Identify relationships between words, between words and their context of use"
-msgstr "Identify relationships between words, between words and their context of use"
+msgid "Identify relationships between words, between words and their context of use; use it to better understand"
+msgstr "Identify relationships between words, between words and their context of use; use it to better understand"
 
 #: DefaultSkillSet2Category3Skill6
 msgctxt "DefaultSkillSet2Category3Skill6"
@@ -1988,8 +1988,8 @@ msgstr "Implement an individual or collective artistic project"
 
 #: DefaultSkillSet2Category10Skill2
 msgctxt "DefaultSkillSet2Category10Skill2"
-msgid "Express yourself, analyze your practice, that of your peers"
-msgstr "Express yourself, analyze your practice, that of your peers"
+msgid "Express yourself, analyze your practice, that of your peers; establish a relationship with that of artists, open up to otherness"
+msgstr "Express yourself, analyze your practice, that of your peers; establish a relationship with that of artists, open up to otherness"
 
 #: DefaultSkillSet2Category10Skill3
 msgctxt "DefaultSkillSet2Category10Skill3"

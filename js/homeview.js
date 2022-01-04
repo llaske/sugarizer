@@ -17,6 +17,8 @@ var humane;
 var tutorial;
 var stats;
 var autosync;
+var historic;
+var activities;
 
 
 
@@ -29,8 +31,7 @@ enyo.kind({
 		{name: "journal", kind: "Sugar.Icon", size: constant.sizeJournal, ontap: "showJournal", classes: "journal-icon", showing: false},
 		{name: "desktop", showing: true, onresize: "resize", components: []},
 		{name: "otherview", showing: true, components: []},
-		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
-		{name: "activities", kind: "enyo.WebService", onResponse: "queryActivitiesResponse", onError: "queryActivitiesFail"}
+		{name: "activityPopup", kind: "Sugar.Popup", showing: false}
 	],
 
 	// Constructor
@@ -49,37 +50,47 @@ enyo.kind({
 		this.restrictedModeInfo = { start: 0 };
 		util.hideNativeToolbar();
 		this.tutorialActivity = null;
+		this.eeMode = null;
 
 		// Load and sort journal
 		this.loadJournal();
 		this.isJournalFull = false;
 		this.testJournalSize();
 
-		// Call activities list service
-		if (util.getClientType() == constant.webAppType) {
-			this.$.activities.setUrl(myserver.getActivitiesUrl());
-			myserver.getActivities(enyo.bind(this, "queryActivitiesResponse"), enyo.bind(this, "queryActivitiesFail"));
-		} else {
-			this.$.activities.setUrl(constant.staticInitActivitiesURL);
-			this.$.activities.send();
-		}
-
 		// Check change on preferences from server
+		var that = this;
 		var isConnected = preferences.isConnected();
-		this.getToolbar().showServerWarning(!isConnected);
+		if (that.getToolbar() && that.getToolbar().showServerWarning) {
+			that.getToolbar().showServerWarning(!isConnected);
+		}
 		if (isConnected) {
-			var that = this;
 			this.connectToServer(function(success) {
 				if (that.getToolbar() && that.getToolbar().showServerWarning) {
 					that.getToolbar().showServerWarning(!success);
 				}
+				that.init();
 			});
 		} else {
 			util.updateFavicon();
+			that.init();
+		}
+
+		// Init SugarizerOS
+		if (window.sugarizerOS){
+			sugarizerOS.isWifiEnabled(function(value){
+				if (value != 0) {
+					sugarizerOS.scanWifi();
+				}
+			});
+			sugarizerOS.popupTimer = 0;
+			if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName &&
+			!sugarizerOS.isSetup){
+				that.doResetLauncher();
+				sugarizerOS.putInt("IS_SETUP", 1);
+			}
 		}
 
 		// Launch tutorial at first launch
-		var that = this;
 		window.setTimeout(function() {
 			if (isFirstLaunch) {
 				that.getToolbar().startTutorial();
@@ -108,64 +119,6 @@ enyo.kind({
 		});
 	},
 
-	// Init activities service response, redraw screen
-	queryActivitiesResponse: function(inSender, inResponse) {
-		// No activities at start
-		var currentList = preferences.getActivities();
-		if (currentList == null || currentList.length == 0) {
-			// Just copy the activities from the service
-			preferences.setActivities(inResponse.data);
-			preferences.save();
-		} else {
-			// Update with new activities
-			if (preferences.updateActivities(inResponse.data)) {
-				preferences.save();
-			}
-		}
-		preferences.updateEntries();
-
-		// If we are in the SugarizerOS environment, load the android apps into activities
-		if (window.sugarizerOS){
-			var t = this;
-			sugarizerOS.isAppCacheReady(function(response) {
-				if (!response.ready) {
-					var loading = humane.create({timeout: 5000, baseCls: "humane-libnotify"});
-					loading.log(l10n.get("Loading"));
-				}
-			});
-			sugarizerOS.initActivitiesPreferences(function(){t.init();});
-			sugarizerOS.isWifiEnabled(function(value){
-				if (value != 0) {
-					sugarizerOS.scanWifi();
-				}
-			});
-			sugarizerOS.popupTimer = 0;
-			if (sugarizerOS.launches == 2 && sugarizerOS.launcherPackageName != sugarizerOS.packageName &&
-			!sugarizerOS.isSetup){
-				this.doResetLauncher();
-				sugarizerOS.putInt("IS_SETUP", 1);
-			}
-		}
-		else {
-			this.init();
-		}
-	},
-
-	// Error on init activities
-	queryActivitiesFail: function(inSender, inError) {
-		// Dynamic don't work try static list
-		if (this.$.activities.getUrl().indexOf(constant.dynamicInitActivitiesURL) != -1) {
-			console.log("WARNING: Backoffice not responding, use static list");
-			this.$.activities.setUrl(constant.staticInitActivitiesURL);
-			this.$.activities.send();
-		}
-
-		// Unable to load
-		else {
-			console.log("Error loading init activities");
-		}
-	},
-
 	// Try to connect to the server: update preferences, sync journal, ...
 	connectToServer: function(callback) {
 		var networkId = preferences.getNetworkId();
@@ -176,8 +129,8 @@ enyo.kind({
 				var changed = preferences.merge(inResponse);
 				util.updateFavicon();
 				if (changed) {
-					preferences.save();
-					util.restartApp();
+					that.draw();
+					that.render();
 				} else if (that.currentView == constant.journalView) {
 					that.otherview.updateNetworkBar();
 				}
@@ -215,7 +168,7 @@ enyo.kind({
 						if (locale && !error) {
 							that.loadJournal();
 							that.testJournalSize();
-							preferences.updateEntries();
+							activities.loadEntries();
 							that.draw();
 							that.render();
 						}
@@ -247,9 +200,10 @@ enyo.kind({
 
 	// Init desktop
 	init: function() {
-		this.currentView = constant.radialView;
 		if (preferences.getView()) {
 			this.showView(preferences.getView());
+		} else {
+			this.currentView = constant.radialView;
 		}
 		this.draw();
 	},
@@ -285,7 +239,7 @@ enyo.kind({
 		this.$.journal.setShowing(this.currentView == constant.radialView);
 
 		// Compute ring size and shape
-		var activitiesList = preferences.getFavoritesActivities();
+		var activitiesList = activities.getFavorites();
 		var activitiesCount = activitiesList.length;
 		var activitiesIndex = 0;
 		var radiusx, radiusy, base_angle, spiralMode, restrictedMode;
@@ -402,7 +356,7 @@ enyo.kind({
 	},
 
 	hasRoomForSpiral: function(canvas_center, icon_size, spiralPositions) {
-		var activitiesList = preferences.getFavoritesActivities();
+		var activitiesList = activities.getFavorites();
 		var activitiesCount = activitiesList.length;
 		var radiusx = icon_size*constant.iconSpacingFactor*constant.ringInitSpaceFactor;
 		var icon_spacing = Math.sqrt(Math.pow(icon_size,2) * 2) * constant.spiralInitSpaceFactor;
@@ -480,7 +434,7 @@ enyo.kind({
 			util.setToolbar(this.getToolbar());
 			var filter = toolbar.getSearchText().toLowerCase();
 			toolbar.setActiveView(constant.listView);
-			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DesktopListView", activities: preferences.getActivitiesByName(filter)});
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.DesktopListView", activities: activities.getByName(filter)});
 		}
 
 		// Show journal
@@ -574,7 +528,7 @@ enyo.kind({
 		if (window.sugarizerOS && isNative) {
 			sugarizerOS.popupTimer = new Date();
 			this.loadJournal();
-			preferences.updateEntries();
+			activities.loadEntries();
 			this.draw();
 		}
 	},
@@ -670,7 +624,7 @@ enyo.kind({
 			action: enyo.bind(this, "doLogoff"),
 			data: null
 		});
-		if (enyo.platform.electron || constant.noServerMode) {
+		if (util.platform.electron || constant.noServerMode) {
 			items.push({
 				icon: {directory: "lib/sugar-web/graphics/icons/actions", icon: "activity-stop.svg"},
 				colorized: false,
@@ -722,6 +676,18 @@ enyo.kind({
 	filterActivities: function() {
 		var filter = toolbar.getSearchText().toLowerCase();
 
+		// EE mode pong
+		var currentcolor = preferences.getColor();
+		if (this.currentView == constant.radialView && currentcolor.stroke == "#00A0FF" && currentcolor.fill == "#F8E800" && toolbar.getSearchText() == "Launch Sugarizer Pong!") {
+			this.eeMode = new Sugar.EE({mode: 4});
+			this.eeMode.startPong(this);
+			return;
+		}
+		if (this.eeMode) {
+			this.eeMode.stopPong();
+			this.draw();
+		}
+
 		// In radial view, just disable activities
 		enyo.forEach(this.$.desktop.getControls(), function(item) {
 			item.setDisabled(item.icon.name.toLowerCase().indexOf(filter) == -1 && filter.length != 0);
@@ -729,7 +695,7 @@ enyo.kind({
 
 		// In list view display only matching activities
 		if (this.currentView == constant.listView) {
-			this.otherview.setActivities(preferences.getActivitiesByName(filter));
+			this.otherview.setActivities(activities.getByName(filter));
 		}
 	}
 });
@@ -861,7 +827,7 @@ enyo.kind({
 				return;
 			}
 		}
-		var otherview = app.$.otherview.createComponent({kind: "Sugar.DialogServer"}, {owner:this});
+		var otherview = app.$.otherview.createComponent({kind: "Sugar.DialogServer", standalone: true}, {owner:this});
 		otherview.show();
 	},
 

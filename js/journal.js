@@ -161,7 +161,7 @@ enyo.kind({
 		var canvas_center = util.getCanvasCenter();
 		var footer_size = this.$.footer.getShowing() ? 55 : 0;   // HACK: 55 is the footer height
 		this.smallTime = (canvas_center.dx < 660);
-		var android_gap = (enyo.platform.android ? 3 : 0);
+		var android_gap = (util.platform.android ? 3 : 0);
 		this.$.content.applyStyle("height", (canvas_center.dy-footer_size-android_gap)+"px");
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
 		var margintop = (canvas_center.y-constant.sizeEmpty/4-80);
@@ -225,8 +225,8 @@ enyo.kind({
 		if (entry.metadata.buddy_color) {
 			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
 		}
-		var activityIcon = preferences.getActivity(entry.metadata.activity);
-		if (activityIcon == preferences.genericActivity) {
+		var activityIcon = activities.getById(entry.metadata.activity);
+		if (activities.isGeneric(activityIcon)) {
 			if (entry.metadata.mimetype == "text/plain") {
 				activityIcon = {directory: "icons", icon: "application-x-txt.svg"};
 			} else if (entry.metadata.mimetype == "application/pdf") {
@@ -281,6 +281,9 @@ enyo.kind({
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
 		ds.save();
+		if (preferences.isConnected() && preferences.getOptions("sync")) {
+			app.otherview.syncJournal();
+		}
 		inEvent.dispatchTarget.container.setColorized(this.journal[inEvent.index].metadata.keep == 1);
 		inEvent.dispatchTarget.container.render();
 	},
@@ -372,7 +375,7 @@ enyo.kind({
 			toProcess.push(this.journal[selection[i]]);
 		}
 		var that = this;
-		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && enyo.platform.electron);
+		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && util.platform.electron);
 		if (!isMultiple) {
 			humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
 		}
@@ -411,8 +414,8 @@ enyo.kind({
 	},
 	runCurrentActivity: function(activity) {
 		// Generic activity type, try to open as a document
-		var activityInstance = preferences.getActivity(activity.metadata.activity);
-		if (activityInstance == preferences.genericActivity) {
+		var activityInstance = activities.getById(activity.metadata.activity);
+		if (activities.isGeneric(activityInstance)) {
 			if (activity.metadata.mimetype == "application/pdf") {
 				var that = this;
 				this.loadEntry(activity, function(err, metadata, text) {
@@ -553,7 +556,7 @@ enyo.kind({
 			colorized: false,
 			name: l10n.get("RestartActivity"),
 			action: enyo.bind(this, "runCurrentActivity"),
-			disable: (preferences.getActivity(entry.metadata.activity) == preferences.genericActivity && entry.metadata.mimetype != "application/pdf"),
+			disable: (activities.isGeneric(activities.getById(entry.metadata.activity)) && entry.metadata.mimetype != "application/pdf"),
 			data: [entry, null]
 		});
 		items.push({
@@ -786,7 +789,7 @@ enyo.kind({
 				this.loadLocalJournal();
 
 				// Refresh home screen: activity menu, journal content
-				preferences.updateEntries();
+				activities.loadEntries();
 				app.journal = this.journal;
 				app.redraw();
 			}
@@ -850,15 +853,21 @@ enyo.kind({
 				that.loadLocalJournal();
 
 				// Refresh home screen: activity menu, journal content
-				preferences.updateEntries();
+				activities.loadEntries();
 				app.journal = that.journal;
 				app.redraw();
+
+				// Sync journal
+				if (preferences.isConnected() && preferences.getOptions("sync")) {
+					app.otherview.syncJournal();
+				}
 			}
 
 			// Update remote journal
 			else {
 				// Update metadata
 				metadata.title = newtitle;
+				metadata.timestamp = new Date().getTime();
 
 				// Update remote journal
 				var journalId = (that.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
@@ -867,6 +876,11 @@ enyo.kind({
 				myserver.putJournalEntry(journalId, objectId, dataentry,
 					function() {
 						that.loadRemoteJournal(journalId);
+
+						// Sync journal
+						if (preferences.isConnected() && preferences.getOptions("sync")) {
+							app.otherview.syncJournal();
+						}
 					},
 					function() {
 						console.log("WARNING: Error updating journal "+journalId);
@@ -918,7 +932,7 @@ enyo.kind({
 				if (locale && that.journalType == constant.journalLocal) {
 					that.loadLocalJournal();
 					app.journal = that.journal;
-					preferences.updateEntries();
+					activities.loadEntries();
 					app.draw();
 				}
 				// Remote has changed, update display
@@ -983,7 +997,7 @@ enyo.kind({
 		this.typeselected = 0;
 		this.dateselected = 0;
 		this.sortfield = 0;
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
 			this.createComponent({name: "file", kind: "Input", type: "file", showing: false, onchange: "fileSelected"}, {owner: this});
 		}
 	},
@@ -1028,12 +1042,12 @@ enyo.kind({
 			{kind: "Sugar.Icon", icon: {directory: "icons", icon: "application-x-generic.svg"}, x: 5, y: 3, size: constant.iconSizeFavorite},
 			{classes: "item-name", content: l10n.get("AllType")}
 		], ontap: "tapLine"});
-		var activities = preferences.getActivities();
+		var activitiesList = activities.get();
 		var unsortedItems = [];
-		for(var i = 0 ; i < activities.length ; i++) {
+		for(var i = 0 ; i < activitiesList.length ; i++) {
 			unsortedItems.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
-				{kind: "Sugar.Icon", icon: activities[i], x: 5, y: 3, size: constant.iconSizeFavorite},
-				{classes: "item-name", content: activities[i].name}
+				{kind: "Sugar.Icon", icon: activitiesList[i], x: 5, y: 3, size: constant.iconSizeFavorite},
+				{classes: "item-name", content: activitiesList[i].name}
 			], ontap: "tapLine"});
 		}
 		unsortedItems.sort(function(a,b) {
@@ -1077,11 +1091,11 @@ enyo.kind({
 	},
 
 	tapLine: function(e, s) {
-		var activities = preferences.getActivities();
-		var generic = {directory: "icons", icon: "application-x-generic.svg"};
+		var activitiesList = activities.get();
+		var generic = activities.genericActivity();
 		this.typeselected = e.getId();
-		this.$.typepalette.setIcon((this.typeselected == 0 ? generic : activities[this.typeselected-1]));
-		this.$.typepalette.setText((this.typeselected == 0 ? l10n.get("AllType") : activities[this.typeselected-1].name));
+		this.$.typepalette.setIcon((this.typeselected == 0 ? generic : activitiesList[this.typeselected-1]));
+		this.$.typepalette.setText((this.typeselected == 0 ? l10n.get("AllType") : activitiesList[this.typeselected-1].name));
 		this.filterEntries();
 		this.$.typepalette.switchPalette(app.otherview);
 	},
@@ -1165,7 +1179,7 @@ enyo.kind({
 	},
 
 	fromDeviceSelected: function() {
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
 			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
@@ -1227,7 +1241,7 @@ enyo.kind({
 		var text = this.$.journalsearch.getText();
 		var favorite = this.$.favoritebutton.getColorized() ? true : undefined;
 		var selected = this.typeselected;
-		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
+		var typeselected = (selected <= 0 ? undefined : activities.get()[selected-1].id);
 		selected = this.dateselected;
 		var timeselected = (selected <= 0 ? undefined : util.getDateRange(selected).min);
 		var filtertext = 'q=' + text;

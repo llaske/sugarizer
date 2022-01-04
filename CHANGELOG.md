@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2022-01-04
+### Added
+- Measure activity
+- Story activity
+- Support for word writing in Calligra activity
+- Cookie consent screen
+- Delete account buttons in privacy settings
+
+### Changed
+- Refactor activities and preferences loading
+- Refactor browser and device detection
+- Force token expiration when a local account is connected and server unavailable
+- Enhancement in multiplayer mode of Memorize activity #795
+- Position of scrollbar in listview is saved #945
+
+### Fixed
+- Name and XO visible even after removing in Memorize Activity #794
+- Calculate activity outputs incorrect error message if variable is changed in function #798
+- Popup to connect local user freeze on Android/iOS
+- Calligra touch responsiveness is really bad on smartphone #955
+- Journal updates on favorite and name are not synchronized
+- Impossible to open PDF on iOS #967
+- Screen doesn't use the full size on iPhone X #968
+
+
 ## [1.5.0] - 2021-04-27
 ### Added
 - DollarStreet activity

@@ -1,22 +1,25 @@
 #. extracted from ../locale.ini
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:34:00 GMT+0200 (heure d’été d’Europe centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: Sun Apr 11 2021 11:34:00 GMT+0200 (heure d’été d’Europe "
+"centrale)\n"
+"PO-Revision-Date: 2021-04-11 14:41+0000\n"
+"Last-Translator: Alberto Gómez Herrera <aghtranslation@gmail.com>\n"
+"Language-Team: Spanish <http://translate.sugarizer.org/projects/sugarizer"
+"/activity-xmas/es/>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: Play
 msgctxt "Play"
 msgid "Play"
-msgstr "Play"
+msgstr "Jugar"
 
 #: Pause
 msgctxt "Pause"
@@ -26,12 +29,12 @@ msgstr "Pause"
 #: Fullscreen
 msgctxt "Fullscreen"
 msgid "Fullscreen"
-msgstr "Fullscreen"
+msgstr "Pantalla completa"
 
 #: Unfullscreen
 msgctxt "Unfullscreen"
 msgid "Unfullscreen"
-msgstr "Unfullscreen"
+msgstr "Modo ventana"
 
 #: Zoom
 msgctxt "Zoom"
@@ -41,117 +44,125 @@ msgstr "Zoom"
 #: Speed
 msgctxt "Speed"
 msgid "Speed"
-msgstr "Speed"
+msgstr "Velocidad"
 
 #: Text
 msgctxt "Text"
 msgid "Text"
-msgstr "Text"
+msgstr "Texto"
 
 #: Settings
 msgctxt "Settings"
 msgid "Settings"
-msgstr "Settings"
+msgstr "Ajustes"
 
 #: DragIcons
 msgctxt "DragIcons"
 msgid "Drag icons here to create your pattern:"
-msgstr "Drag icons here to create your pattern:"
+msgstr "Arrastra aquí los iconos para crear tu patrón:"
 
 #: DragColors
 msgctxt "DragColors"
 msgid "Drag colors here to create your pattern:"
-msgstr "Drag colors here to create your pattern:"
+msgstr "Arrastra aquí los colores para crear tu patrón:"
 
 #: EmptyIcon
 msgctxt "EmptyIcon"
 msgid "Use all activities icons"
-msgstr "Use all activities icons"
+msgstr "Usar todos los iconos"
 
 #: EmptyColor
 msgctxt "EmptyColor"
 msgid "Use all colors"
-msgstr "Use all colors"
+msgstr "Usar todos los colores"
 
 #: Templates
 msgctxt "Templates"
 msgid "Templates"
-msgstr "Templates"
+msgstr "Plantillas"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr "Prev"
+msgstr "Ant"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr "Next"
+msgstr "Sig"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr "End"
+msgstr "Fin"
 
 #: TutoGridWelcomeTitle
 msgctxt "TutoGridWelcomeTitle"
 msgid "Xmas Lights Activity"
-msgstr "Xmas Lights Activity"
+msgstr "Actividad \"Xmas Lights\""
 
 #: TutoGridWelcomeContent
 msgctxt "TutoGridWelcomeContent"
 msgid "Welcome in Xmas Lights activity. This activity will allow creation of nice blinking Christmas lights using Sugarizer icons and colors"
-msgstr "Welcome in Xmas Lights activity. This activity will allow creation of nice blinking Christmas lights using Sugarizer icons and colors"
+msgstr ""
+"Bienvenido a la actividad \"Xmas Lights\". En esta actividad, el alumno "
+"creará unas bonitas luces de Navidad usando iconos y colores de Sugarizer"
 
 #: TutoGridBoardTitle
 msgctxt "TutoGridBoardTitle"
 msgid "Board"
-msgstr "Board"
+msgstr "Tablero"
 
 #: TutoGridBoardContent
 msgctxt "TutoGridBoardContent"
 msgid "This is the board where lights are display, you could fully control what is display here and which animation is use"
-msgstr "This is the board where lights are display, you could fully control what is display here and which animation is use"
+msgstr ""
+"Este es el lugar donde se mostrarán las luces. Puedes controlar todo lo que "
+"se muestra y las animaciones que se usan aquí"
 
 #: TutoGridTemplateButtonTitle
 msgctxt "TutoGridTemplateButtonTitle"
 msgid "Templates"
-msgstr "Templates"
+msgstr "Plantillas"
 
 #: TutoGridTemplateButtonContent
 msgctxt "TutoGridTemplateButtonContent"
 msgid "Click here to choose one of sample Christmas lights. You will be able to fully customize it"
-msgstr "Click here to choose one of sample Christmas lights. You will be able to fully customize it"
+msgstr ""
+"Haz clic aquí para escoger una muestra de luces de Navidad. Luego podrás "
+"personalizarla a tu gusto"
 
 #: TutoGridPlayButtonTitle
 msgctxt "TutoGridPlayButtonTitle"
 msgid "Play/Pause"
-msgstr "Play/Pause"
+msgstr "Jugar/Pausar"
 
 #: TutoGridPlayButtonContent
 msgctxt "TutoGridPlayButtonContent"
 msgid "Click here to stop or restart blinking"
-msgstr "Click here to stop or restart blinking"
+msgstr "Haz clic aquí para detener o reiniciar el parpadeo de las luces"
 
 #: TutoGridSettingsButtonTitle
 msgctxt "TutoGridSettingsButtonTitle"
 msgid "Edit"
-msgstr "Edit"
+msgstr "Editar"
 
 #: TutoGridSettingsButtonContent
 msgctxt "TutoGridSettingsButtonContent"
 msgid "This will open the edit view. In this view you will be able to edit icons and colors used"
-msgstr "This will open the edit view. In this view you will be able to edit icons and colors used"
+msgstr ""
+"Este botón abrirá la vista de edición. En este modo, podrás editas los "
+"iconos y los colores empleados"
 
 #: TutoGridSpeedButtonTitle
 msgctxt "TutoGridSpeedButtonTitle"
 msgid "Speed control"
-msgstr "Speed control"
+msgstr "Control de velocidad"
 
 #: TutoGridSpeedButtonContent
 msgctxt "TutoGridSpeedButtonContent"
 msgid "Click here to make blinking faster or slower"
-msgstr "Click here to make blinking faster or slower"
+msgstr "Haz clic aquí para que las luces parpadeen más rápido o más lento"
 
 #: TutoGridTextButtonTitle
 msgctxt "TutoGridTextButtonTitle"
@@ -161,7 +172,9 @@ msgstr "Text control"
 #: TutoGridTextButtonContent
 msgctxt "TutoGridTextButtonContent"
 msgid "Click here to change text displayed and change text characteristics (color, style, size)"
-msgstr "Click here to change text displayed and change text characteristics (color, style, size)"
+msgstr ""
+"Haz clic aquí para cambiar el texto mostrado y sus ajustes (color, fuente, "
+"tamaño)"
 
 #: TutoGridZoomButtonTitle
 msgctxt "TutoGridZoomButtonTitle"
@@ -171,37 +184,45 @@ msgstr "Zoom"
 #: TutoGridZoomButtonContent
 msgctxt "TutoGridZoomButtonContent"
 msgid "This menu let you change icons size in the board"
-msgstr "This menu let you change icons size in the board"
+msgstr "Este menú te permitirá cambiar el tamaño de los iconos en el tablero"
 
 #: TutoGridNetworkButtonTitle
 msgctxt "TutoGridNetworkButtonTitle"
 msgid "Network Button"
-msgstr "Network Button"
+msgstr "Compartir"
 
 #: TutoGridNetworkButtonContent
 msgctxt "TutoGridNetworkButtonContent"
 msgid "This button will share the activity so other users can then join and update your light"
-msgstr "This button will share the activity so other users can then join and update your light"
+msgstr ""
+"Este botón te permitirá compartir la actividad para que otros usuarios "
+"puedan unirse y actualizar tus luces"
 
 #: TutoDetailWelcomeTitle
 msgctxt "TutoDetailWelcomeTitle"
 msgid "Edit screen"
-msgstr "Edit screen"
+msgstr "Editar"
 
 #: TutoDetailWelcomeContent
 msgctxt "TutoDetailWelcomeContent"
 msgid "On this screen you will be able to customize icons and colors. To the left are tools to change icons, to the right are tools to change colors"
-msgstr "On this screen you will be able to customize icons and colors. To the left are tools to change icons, to the right are tools to change colors"
+msgstr ""
+"En esta pantalla, podrás personalizar los iconos y los colores. A la "
+"izquierda, puedes ver las herramientas para cambiar los iconos, y a la "
+"derecha las herramientas para cambiar los colores"
 
 #: TutoDetailDropIconTitle
 msgctxt "TutoDetailDropIconTitle"
 msgid "Icon pattern"
-msgstr "Icon pattern"
+msgstr "Patrón de iconos"
 
 #: TutoDetailDropIconContent
 msgctxt "TutoDetailDropIconContent"
 msgid "In this zone you can define the icons pattern use to draw your light. Drop and arrange here list of icons you want to use. Let this zone empty to use all icons"
-msgstr "In this zone you can define the icons pattern use to draw your light. Drop and arrange here list of icons you want to use. Let this zone empty to use all icons"
+msgstr ""
+"Aquí podrás definir el patrón de iconos que quieres usar para dibujar tus "
+"luces. Coloca y distribuye aquí la lista de los iconos que quieres usar. Si "
+"dejas esta zona vacía, se usarán todos los iconos"
 
 #: TutoDetailDragIconTitle
 msgctxt "TutoDetailDragIconTitle"
@@ -211,68 +232,77 @@ msgstr "Icons set"
 #: TutoDetailDragIconContent
 msgctxt "TutoDetailDragIconContent"
 msgid "Here are all icons you could use in your pattern. Drag and drop in the pattern, icons you want to use. The special Dice icon mean: choose randomly one icon"
-msgstr "Here are all icons you could use in your pattern. Drag and drop in the pattern, icons you want to use. The special Dice icon mean: choose randomly one icon"
+msgstr ""
+"Aquí están todos los iconos que puedes usar para tus patrones. Arrastra y "
+"suelta los iconos que quieres usar en tu patrón. El icono especial \"Dado\" "
+"escogerá un icono aleatorio"
 
 #: TutoDetailDeleteIconTitle
 msgctxt "TutoDetailDeleteIconTitle"
 msgid "Clean pattern"
-msgstr "Clean pattern"
+msgstr "Borrar patrón"
 
 #: TutoDetailDeleteIconContent
 msgctxt "TutoDetailDeleteIconContent"
 msgid "Click here to remove all icons in the pattern"
-msgstr "Click here to remove all icons in the pattern"
+msgstr "Haz clic aquí para eliminar todos los iconos del patrón"
 
 #: TutoDetailDropColorTitle
 msgctxt "TutoDetailDropColorTitle"
 msgid "Color pattern"
-msgstr "Color pattern"
+msgstr "Patrón de color"
 
 #: TutoDetailDropColorContent
 msgctxt "TutoDetailDropColorContent"
 msgid "In this zone you can define the colors pattern use to draw your light. Drop and arrange here list of colors you want to use. Let this zone empty to use all colors"
-msgstr "In this zone you can define the colors pattern use to draw your light. Drop and arrange here list of colors you want to use. Let this zone empty to use all colors"
+msgstr ""
+"Aquí podrás definir los patrones de colores que quieras usar para dibujar "
+"tus luces. Coloca y organiza aquí la lista de los colores que quieras usar. "
+"Deja esta zona en blanco para usar todos los colores"
 
 #: TutoDetailDragColorTitle
 msgctxt "TutoDetailDragColorTitle"
 msgid "Colors set"
-msgstr "Colors set"
+msgstr "Conjunto de colores"
 
 #: TutoDetailDragColorContent
 msgctxt "TutoDetailDragColorContent"
 msgid "Here are all colors you could use in your pattern. Drag and drop in the pattern, colors you want to use. The special Dice icon mean: choose randomly one color"
-msgstr "Here are all colors you could use in your pattern. Drag and drop in the pattern, colors you want to use. The special Dice icon mean: choose randomly one color"
+msgstr ""
+"Aquí están todos los colores que puedes usar en tu patrón. Arrastra y coloca "
+"los colores que te gusten en tu patrón. El icono especial \"Dado\" escogerá "
+"un color aleatorio"
 
 #: TutoDetailDeleteColorTitle
 msgctxt "TutoDetailDeleteColorTitle"
 msgid "Clean pattern"
-msgstr "Clean pattern"
+msgstr "Borrar patrón"
 
 #: TutoDetailDeleteColorContent
 msgctxt "TutoDetailDeleteColorContent"
 msgid "Click here to remove all colors in the pattern"
-msgstr "Click here to remove all colors in the pattern"
+msgstr "Haz clic aquí para eliminar todos los colores del patrón"
 
 #: TutoDetailGridButtonTitle
 msgctxt "TutoDetailGridButtonTitle"
 msgid "Go back"
-msgstr "Go back"
+msgstr "Volver"
 
 #: TutoDetailGridButtonContent
 msgctxt "TutoDetailGridButtonContent"
 msgid "Click here to go back to the light screen to see change"
-msgstr "Click here to go back to the light screen to see change"
+msgstr "Haz clic aquí para volver a la pantalla con las luces y ver tus cambios"
 
 #: SecondsAgo
 msgctxt "SecondsAgo"
 msgid "Seconds ago"
-msgstr "Segundos atrás"
+msgstr "Hace unos segundos"
 
 #. Do not translate {{time}}
 #: Ago
 msgctxt "Ago"
 msgid "{{time}} ago"
-msgstr "{{time}} atrás"
+msgstr "Hace {{time}}"
 
 #: Minutes_one
 msgctxt "Minutes_one"
@@ -368,11 +398,10 @@ msgstr "El año pasado"
 #: UserJoined
 msgctxt "UserJoined"
 msgid "{{name}} joined"
-msgstr "{{name}} joined"
+msgstr "{{name}} se ha unido"
 
 #. Do not translate {{name}}
 #: UserLeft
 msgctxt "UserLeft"
 msgid "{{name}} left"
-msgstr "{{name}} left"
-
+msgstr "{{name}} se ha desconectado"

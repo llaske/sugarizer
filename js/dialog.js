@@ -18,7 +18,7 @@ enyo.kind({
 				{name: "computer", kind: "Sugar.DialogSettingsItem", ontap: "computerClicked", text: "Computer", icon: {directory: "icons", icon: "module-about_my_computer.svg"}},
 				{name: "aboutserver", kind: "Sugar.DialogSettingsItem", ontap: "serverClicked", text: "Server", icon: {directory: "icons", icon: "cloud-settings.svg"}},
 				{name: "security", kind: "Sugar.DialogSettingsItem", ontap: "securityClicked", icon: {directory: "icons", icon: "login-icon.svg"}, showing: false},
-				{name: "privacy", kind: "Sugar.DialogSettingsItem", ontap: "privacyClicked", icon: {directory: "icons", icon: "privacy.svg"}, showing: false},
+				{name: "privacy", kind: "Sugar.DialogSettingsItem", ontap: "privacyClicked", icon: {directory: "icons", icon: "privacy.svg"}},
 				{name: "language", kind: "Sugar.DialogSettingsItem", ontap: "languageClicked", text: "Language", icon: {directory: "icons", icon: "module-language.svg"}},
 				{name: "androidSettings", kind: "Sugar.DialogSettingsItem", ontap: "androidSettingsClicked", text: "AndroidSettings", icon: {directory: "icons", icon: "android-preferences.svg"}, showing: false},
 				{name: "resetLauncher", kind: "Sugar.DialogSettingsItem", ontap: "resetLauncherPopup", text: "ResetLauncher", icon: {directory: "icons", icon: "launcher-icon.svg"}, showing: false}
@@ -39,7 +39,6 @@ enyo.kind({
 		this.$.aboutserver.setText(l10n.get("Server"));
 		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
 			this.$.security.setShowing(true);
-			this.$.privacy.setShowing(true);
 		}
 		if (window.sugarizerOS) {
 			sugarizerOS.getLauncherPackageName(function(value) {sugarizerOS.launcherPackageName = value;});
@@ -675,7 +674,7 @@ enyo.kind({
 			{name: "reinittext", showing: false, content: "xxx", classes: "computer-reinit"},
 			{classes: "computer-line"},
 			{name: "copyright", content: "xxx", classes: "computer-copyright"},
-			{content: "© 2013-2021 Lionel Laské, Sugar Labs Inc and&nbsp;", allowHtml: true, classes: "computer-contributor"},
+			{content: "© 2013-2022 Lionel Laské, Sugar Labs Inc and&nbsp;", allowHtml: true, classes: "computer-contributor"},
 			{content: "contributors", classes: "computer-contributor-link", allowHtml: true, ontap: "viewContributors"},
 			{name: "license", content: "xxx", classes: "computer-licence"},
 			{name: "licenseplus", content: "xxx", classes: "computer-licence"},
@@ -784,6 +783,9 @@ enyo.kind({
 	modal: true,
 	floating: true,
 	autoDismiss: false,
+	published: {
+		standalone: false
+	},
 	components: [
 		{name: "toolbar", classes: "toolbar", components: [
 			{name: "icon", kind: "Sugar.Icon", x: 6, y: 6, classes: "module-icon", size: constant.sizeToolbar, icon: {directory: "icons", icon: "cloud-settings.svg"}},
@@ -806,8 +808,10 @@ enyo.kind({
 			{name: "serverdescriptionvalue", classes: "aboutserver-descriptionvalue"},
 			{components:[
 				{name: "textusername", content: "xxx", classes: "aboutserver-userlabel"},
-				{name: "username", kind: "Input", classes: "aboutserver-username", oninput: "changed"}
+				{name: "username", kind: "Input", classes: "aboutserver-username", disabled: true}
 			]},
+			{name: "consent", kind: "Input", type: "checkbox", classes: "toggle aboutserver-consent", onchange: "switchConsent"},
+			{name: "textconsent", content: "xxx", classes: "aboutserver-consentmessage", allowHtml: true},
 			{name: "passwordmessage", classes: "aboutserver-passwordmessage"},
 			{name: "password", kind: "Sugar.Password", classes: "aboutserver-password", onEnter: "next"},
 			{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "aboutserver-rightbutton", ontap: "next"},
@@ -825,6 +829,7 @@ enyo.kind({
 		this.$.serversettingsname.setContent(l10n.get("ServerName"));
 		this.$.serverdescription.setContent(l10n.get("ServerDescription"));
 		this.$.textusername.setContent(l10n.get("UserId"));
+		this.$.textconsent.setContent(l10n.get("CheckboxCookieConsent",{url: "#"}));
 		this.$.next.setText(l10n.get("Next"));
 		this.currentserver = preferences.getServer();
 		this.initconnected = preferences.isConnected();
@@ -832,6 +837,8 @@ enyo.kind({
 		this.initusername = preferences.getName();
 		this.networkId = null;
 		this.forbidcheck = false;
+		this.createmode = false;
+		this.wait4consent = false;
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.textconnected.addClass("rtl-10");
@@ -840,6 +847,9 @@ enyo.kind({
 			this.$.textusername.addClass("rtl-10");
 			this.$.textusermessage.addClass("rtl-10");
 			this.$.next.addClass("rtl-10");
+		}
+		if (this.standalone) {
+			app.noresize = true;
 		}
 
 		this.step = 0;
@@ -892,6 +902,8 @@ enyo.kind({
 			vtextusername = false,
 			vusername = false,
 			vnext = false,
+			vconsent = false,
+			vtextconsent = false,
 			vpasswordmessage = false,
 			vpassword = false;
 		if (this.step == 0) {
@@ -900,7 +912,7 @@ enyo.kind({
 		} else if (this.step == 1) {
 			this.$.servername.setValue(constant.defaultServer);
 			vtextservername = vservername = vnext = true;
-			vserverqr = (enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
+			vserverqr = (util.platform.ios || util.platform.android);
 		} else if (this.step == 2) {
 			vpasswordmessage = vpassword = vnext = true;
 			if (preferences.getToken() && preferences.getToken().expired) {
@@ -915,6 +927,10 @@ enyo.kind({
 			this.$.serverdescriptionvalue.setContent(this.currentserver.description);
 			this.$.servername.setDisabled(true);
 			vtextservername = vserversettingsname = vserverdescription = vtextservername = vservername = vserversettingsvalue = vserverdescriptionvalue = vtextusername = vusername = true;
+			if (this.wait4consent = (this.createmode && this.currentserver.options["consent-need"])) {
+				vconsent = vtextconsent = true;
+				this.$.textconsent.setContent(l10n.get("CheckboxCookieConsent",{url: this.currentserver.options["policy-url"]+"?lang="+preferences.getLanguage() || "#"}));
+			}
 		}
 		this.$.textservername.setShowing(vtextservername);
 		this.$.serversettingsname.setShowing(vserversettingsname);
@@ -927,6 +943,8 @@ enyo.kind({
 		this.$.textusername.setShowing(vtextusername);
 		this.$.username.setShowing(vusername);
 		this.$.next.setShowing(vnext);
+		this.$.consent.setShowing(vconsent);
+		this.$.textconsent.setShowing(vtextconsent);
 		this.$.passwordmessage.setShowing(vpasswordmessage);
 		this.$.password.setShowing(vpassword);
 		if (vpassword) {
@@ -940,13 +958,21 @@ enyo.kind({
 			preferences.setServer(null);
 		}
 		this.hide();
-		this.owner.show();
+		if (!this.standalone) {
+			this.owner.show();
+		} else {
+			app.noresize = false;
+		}
 	},
 
 	ok: function() {
 		if (!this.hasChanged() || (this.$.connected.getNodeProperty("checked") && this.step != 3)) {
 			this.hide();
-			this.owner.show();
+			if (!this.standalone) {
+				this.owner.show();
+			} else {
+				app.noresize = false;
+			}
 			return;
 		}
 		this.$.warningbox.setShowing(true);
@@ -968,6 +994,14 @@ enyo.kind({
 			this.step++;
 			this.displayStep();
 		}
+	},
+
+	switchConsent: function() {
+		var consent = this.$.consent.getNodeProperty("checked");
+		this.$.warningmessage.setContent(l10n.get(consent?"ChangesRequireRestart":"CheckboxToConsent"));
+		this.$.warningbox.setShowing(consent);
+		this.$.okbutton.setDisabled(consent);
+		this.$.cancelbutton.setDisabled(consent);
 	},
 
 	next: function() {
@@ -1014,11 +1048,13 @@ enyo.kind({
 					options: { sync: preferences.getOptions("sync"), stats: preferences.getOptions("stats") }
 				},
 				function(inSender, inResponse) {
+					that.createmode = true;
 					that.login();
 				},
 				function(response, error) {
 					// User already exist, try to login instead
 					if (error == 22) {
+						that.createmode = false;
 						that.login();
 					} else {
 						that.$.warningmessage.setContent(l10n.get("ServerError", {code: error}));
@@ -1040,15 +1076,20 @@ enyo.kind({
 				that.step++;
 				that.displayStep();
 				that.networkId = loginResponse.user._id;
+				that.networkColor = loginResponse.user.color;
 				preferences.setToken({'x_key': that.networkId, 'access_token': loginResponse.token});
 				preferences.setPrivateJournal(loginResponse.user.private_journal);
 				preferences.setSharedJournal(loginResponse.user.shared_journal);
-				that.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
-				that.$.warningmessage.setShowing(true);
 				that.$.spinner.setShowing(false);
-				that.$.warningbox.setShowing(true);
-				that.$.okbutton.setDisabled(true);
-				that.$.cancelbutton.setDisabled(true);
+				if (that.wait4consent) {
+					that.$.warningmessage.setContent(l10n.get("CheckboxToConsent"));
+				} else {
+					that.$.warningmessage.setContent(l10n.get("ChangesRequireRestart"));
+					that.$.warningbox.setShowing(true);
+					that.$.okbutton.setDisabled(true);
+					that.$.cancelbutton.setDisabled(true);
+				}
+				that.$.warningmessage.setShowing(true);
 			},
 			function(response, error) {
 				// Login error, retry
@@ -1069,6 +1110,7 @@ enyo.kind({
 		preferences.setConnected(nowconnected);
 		if (nowconnected) {
 			preferences.setNetworkId(this.networkId);
+			historic.addUser({name: preferences.getName(), color: util.getColorIndex(this.networkColor), server: preferences.getServer()});
 		} else {
 			preferences.setNetworkId(null);
 			preferences.setServer(null);
@@ -1128,12 +1170,21 @@ enyo.kind({
 			{name: "cancelbutton", kind: "Button", classes: "toolbutton module-cancel-button", ontap: "cancel"},
 			{name: "okbutton", kind: "Button", classes: "toolbutton module-ok-button", ontap: "ok"}
 		]},
+		{name: "warningbox", kind: "Sugar.DialogSettingsWarningBox", showing: false, onCancel: "cancelRemove", onRestart: "confirmRemove"},
 		{name: "content", components: [
 			{name: "stats", kind: "Input", type: "checkbox", classes: "toggle privacy-statscheckbox"},
 			{name: "textstats", content: "xxx", classes: "privacy-statsmessage"},
 			{content: ""},
 			{name: "sync", kind: "Input", type: "checkbox", classes: "toggle privacy-synccheckbox"},
 			{name: "textsync", content: "xxx", classes: "privacy-syncmessage"},
+			{content: ""},
+			{name: "remove", kind: "Input", type: "checkbox", classes: "toggle privacy-removecheckbox", onchange: "showRemove"},
+			{name: "textremove", content: "xxx", classes: "privacy-removemessage"},
+			{components: [
+				{name: "removelocal", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "module-about_my_computer.svg"}, classes: "privacy-removelocalbutton", ontap: "removeLocalAccount", showing: false},
+				{name: "removeremote", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "cloud-settings.svg"}, classes: "privacy-removeremotebutton", ontap: "removeRemoteAccount", showing: false},
+			]},
+			{name: "warningmessage", content: "xxx", classes: "privacy-warningmessage", showing: false}
 		]}
 	],
 
@@ -1143,12 +1194,23 @@ enyo.kind({
 		this.$.text.setContent(l10n.get("MyPrivacy"));
 		this.$.textstats.setContent(l10n.get("PrivacyStats"));
 		this.$.textsync.setContent(l10n.get("PrivacySync"));
+		this.$.textremove.setContent(l10n.get("PrivacyRemove"));
+		this.$.removelocal.setText(l10n.get("PrivacyRemoveLocal"));
+		this.$.removeremote.setText(l10n.get("PrivacyRemoveRemote"));
+		this.$.warningmessage.setContent(l10n.get("AllDataWillBeLost"));
 		this.initstats = preferences.getOptions("stats");
 		this.initsync = preferences.getOptions("sync");
+		this.removelocal = true;
 		if (l10n.language.direction == "rtl") {
 			this.$.text.addClass("rtl-10");
 			this.$.textstats.addClass("rtl-10");
 			this.$.textsync.addClass("rtl-10");
+		}
+		if (util.getClientType() == constant.appType && !preferences.isConnected()) {
+			this.$.stats.setShowing(false);
+			this.$.sync.setShowing(false);
+			this.$.textstats.setShowing(false);
+			this.$.textsync.setShowing(false);
 		}
 	},
 
@@ -1184,6 +1246,75 @@ enyo.kind({
 			preferences.saveToServer(myserver, null, null);
 		}
 		util.restartApp();
+	},
+
+	showRemove: function() {
+		if (util.getClientType() != constant.webAppType) {
+			this.$.removelocal.setShowing(this.$.remove.getNodeProperty("checked"));
+		}
+		if (util.getClientType() == constant.webAppType || preferences.isConnected()) {
+			this.$.removeremote.setShowing(this.$.remove.getNodeProperty("checked"));
+		}
+	},
+
+	removeLocalAccount: function() {
+		this.$.warningmessage.setShowing(true);
+		this.$.warningbox.setShowing(true);
+		this.$.remove.setDisabled(true);
+		this.removelocal = true;
+	},
+
+	removeRemoteAccount: function() {
+		this.$.warningmessage.setShowing(true);
+		this.$.warningbox.setShowing(true);
+		this.$.remove.setDisabled(true);
+		this.removelocal = false;
+	},
+
+	cancelRemove: function() {
+		this.hide();
+		this.owner.show();
+	},
+
+	confirmRemove: function() {
+		this.hide();
+		historic.removeUser({name: preferences.getName(), server: preferences.getServer()});
+		if (this.removelocal) {
+			util.cleanDatastore(null, function() {
+				util.restartApp();
+			});
+		} else {
+			var that = this;
+			var networkId = preferences.getNetworkId();
+			if (util.getClientType() == constant.appType) {
+				preferences.setConnected(false);
+				preferences.setNetworkId(null);
+				preferences.save();
+			}
+			myserver.deleteUser(
+				networkId,
+				function(inSender, inResponse) {
+					if (util.getClientType() == constant.appType) {
+						preferences.setServer(null);
+						preferences.save();
+						util.restartApp();
+					} else {
+						util.cleanDatastore(null, function() {
+							util.restartApp();
+						});
+					}
+				},
+				function(response, error) {
+					if (util.getClientType() == constant.appType) {
+						preferences.setServer(null);
+						preferences.save();
+					}
+					humane.log(l10n.get("ServerError", {code: error}));
+					that.hide();
+					that.owner.show();
+				}
+			);
+		}
 	},
 
 	// Utility

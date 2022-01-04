@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:14:13 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:04:05 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,525 +16,525 @@ msgstr ""
 #: Play
 msgctxt "Play"
 msgid "Play"
-msgstr ""
+msgstr "Play"
 
 #: Credits
 msgctxt "Credits"
 msgid "Credits"
-msgstr ""
+msgstr "Credits"
 
 #: Settings
 msgctxt "Settings"
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 #: Quit
 msgctxt "Quit"
 msgid "Quit"
-msgstr ""
+msgstr "Quit"
 
 #: Word
 msgctxt "Word"
 msgid "Word"
-msgstr ""
+msgstr "Word"
 
 #: Dictionary
 msgctxt "Dictionary"
 msgid "Dictionary"
-msgstr ""
+msgstr "Dictionary"
 
 #: Add
 msgctxt "Add"
 msgid "Add"
-msgstr ""
+msgstr "Add"
 
 #: DeleteAll
 msgctxt "DeleteAll"
 msgid "DeleteAll"
-msgstr ""
+msgstr "DeleteAll"
 
 #: Save
 msgctxt "Save"
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: Reset
 msgctxt "Reset"
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: Return
 msgctxt "Return"
 msgid "Return"
-msgstr ""
+msgstr "Return"
 
 #: Yes
 msgctxt "Yes"
 msgid "Yes"
-msgstr ""
+msgstr "Yes"
 
 #: Thanks
 msgctxt "Thanks"
 msgid "Thanks"
-msgstr ""
+msgstr "Thanks"
 
 #: favor
 msgctxt "favor"
 msgid "Please"
-msgstr ""
+msgstr "Please"
 
 #: Day
 msgctxt "Day"
 msgid "Day"
-msgstr ""
+msgstr "Day"
 
 #: Afternoon
 msgctxt "Afternoon"
 msgid "Afternoon"
-msgstr ""
+msgstr "Afternoon"
 
 #: Night
 msgctxt "Night"
 msgid "Night"
-msgstr ""
+msgstr "Night"
 
 #: Goodbye
 msgctxt "Goodbye"
 msgid "Goodbye"
-msgstr ""
+msgstr "Goodbye"
 
 #: Woman
 msgctxt "Woman"
 msgid "Woman"
-msgstr ""
+msgstr "Woman"
 
 #: Museum
 msgctxt "Museum"
 msgid "Museum"
-msgstr ""
+msgstr "Museum"
 
 #: Bank
 msgctxt "Bank"
 msgid "Bank"
-msgstr ""
+msgstr "Bank"
 
 #: Hospital
 msgctxt "Hospital"
 msgid "Hospital"
-msgstr ""
+msgstr "Hospital"
 
 #: Pharmacy
 msgctxt "Pharmacy"
 msgid "Pharmacy"
-msgstr ""
+msgstr "Pharmacy"
 
 #: Store
 msgctxt "Store"
 msgid "Store"
-msgstr ""
+msgstr "Store"
 
 #: restaurant
 msgctxt "restaurant"
 msgid "restaurant"
-msgstr ""
+msgstr "restaurant"
 
 #: Church
 msgctxt "Church"
 msgid "Church"
-msgstr ""
+msgstr "Church"
 
 #: WC
 msgctxt "WC"
 msgid "WC"
-msgstr ""
+msgstr "WC"
 
 #: Beach
 msgctxt "Beach"
 msgid "Beach"
-msgstr ""
+msgstr "Beach"
 
 #: Street
 msgctxt "Street"
 msgid "Street"
-msgstr ""
+msgstr "Street"
 
 #: Pool
 msgctxt "Pool"
 msgid "Pool"
-msgstr ""
+msgstr "Pool"
 
 #: Omnibus
 msgctxt "Omnibus"
 msgid "Omnibus"
-msgstr ""
+msgstr "Omnibus"
 
 #: Airport
 msgctxt "Airport"
 msgid "Airport"
-msgstr ""
+msgstr "Airport"
 
 #: Train
 msgctxt "Train"
 msgid "Train"
-msgstr ""
+msgstr "Train"
 
 #: Taxi
 msgctxt "Taxi"
 msgid "Taxi"
-msgstr ""
+msgstr "Taxi"
 
 #: Car
 msgctxt "Car"
 msgid "Car"
-msgstr ""
+msgstr "Car"
 
 #: Parking
 msgctxt "Parking"
 msgid "Parking"
-msgstr ""
+msgstr "Parking"
 
 #: Match
 msgctxt "Match"
 msgid "Match"
-msgstr ""
+msgstr "Match"
 
 #: Arrival
 msgctxt "Arrival"
 msgid "Arrival"
-msgstr ""
+msgstr "Arrival"
 
 #: Money
 msgctxt "Money"
 msgid "Money"
-msgstr ""
+msgstr "Money"
 
 #: Coins
 msgctxt "Coins"
 msgid "Coins"
-msgstr ""
+msgstr "Coins"
 
 #: Rate
 msgctxt "Rate"
 msgid "Rate"
-msgstr ""
+msgstr "Rate"
 
 #: Receipt
 msgctxt "Receipt"
 msgid "Receipt"
-msgstr ""
+msgstr "Receipt"
 
 #: expensive
 msgctxt "expensive"
 msgid "expensive"
-msgstr ""
+msgstr "expensive"
 
 #: Cheap
 msgctxt "Cheap"
 msgid "Cheap"
-msgstr ""
+msgstr "Cheap"
 
 #: Open
 msgctxt "Open"
 msgid "Open"
-msgstr ""
+msgstr "Open"
 
 #: Closed
 msgctxt "Closed"
 msgid "Closed"
-msgstr ""
+msgstr "Closed"
 
 #: Postcard
 msgctxt "Postcard"
 msgid "Postcard"
-msgstr ""
+msgstr "Postcard"
 
 #: Stamps
 msgctxt "Stamps"
 msgid "Stamps"
-msgstr ""
+msgstr "Stamps"
 
 #: Spring
 msgctxt "Spring"
 msgid "Spring"
-msgstr ""
+msgstr "Spring"
 
 #: Summer
 msgctxt "Summer"
 msgid "Summer"
-msgstr ""
+msgstr "Summer"
 
 #: Autumn
 msgctxt "Autumn"
 msgid "Autumn"
-msgstr ""
+msgstr "Autumn"
 
 #: Winter
 msgctxt "Winter"
 msgid "Winter"
-msgstr ""
+msgstr "Winter"
 
 #: Coffee
 msgctxt "Coffee"
 msgid "Coffee"
-msgstr ""
+msgstr "Coffee"
 
 #: Dinner
 msgctxt "Dinner"
 msgid "Jantar"
-msgstr ""
+msgstr "Jantar"
 
 #: Account
 msgctxt "Account"
 msgid "Account"
-msgstr ""
+msgstr "Account"
 
 #: Napkin
 msgctxt "Napkin"
 msgid "Napkin"
-msgstr ""
+msgstr "Napkin"
 
 #: Cup
 msgctxt "Cup"
 msgid "Cup"
-msgstr ""
+msgstr "Cup"
 
 #: Dish
 msgctxt "Dish"
 msgid "Dish"
-msgstr ""
+msgstr "Dish"
 
 #: Fork
 msgctxt "Fork"
 msgid "Fork"
-msgstr ""
+msgstr "Fork"
 
 #: Knife
 msgctxt "Knife"
 msgid "Knife"
-msgstr ""
+msgstr "Knife"
 
 #: Spoon
 msgctxt "Spoon"
 msgid "Spoon"
-msgstr ""
+msgstr "Spoon"
 
 #: Table
 msgctxt "Table"
 msgid "Table"
-msgstr ""
+msgstr "Table"
 
 #: Chair
 msgctxt "Chair"
 msgid "Chair"
-msgstr ""
+msgstr "Chair"
 
 #: Left
 msgctxt "Left"
 msgid "Left"
-msgstr ""
+msgstr "Left"
 
 #: Right
 msgctxt "Right"
 msgid "Right"
-msgstr ""
+msgstr "Right"
 
 #: Front
 msgctxt "Front"
 msgid "Front"
-msgstr ""
+msgstr "Front"
 
 #: Up
 msgctxt "Up"
 msgid "Up"
-msgstr ""
+msgstr "Up"
 
 #: Low
 msgctxt "Low"
 msgid "Low"
-msgstr ""
+msgstr "Low"
 
 #: Far
 msgctxt "Far"
 msgid "Far"
-msgstr ""
+msgstr "Far"
 
 #: Near
 msgctxt "Near"
 msgid "Near"
-msgstr ""
+msgstr "Near"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Rules"
-msgstr ""
+msgstr "Rules"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Collect the letters of the target word shown in top left in correct order. Warning: you have to move without getting drowned in ponds!"
-msgstr ""
+msgstr "Collect the letters of the target word shown in top left in correct order. Warning: you have to move without getting drowned in ponds!"
 
 #: TutoHomeTitle
 msgctxt "TutoHomeTitle"
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #: TutoHomeContent
 msgctxt "TutoHomeContent"
 msgid "Click Play to start the game, click Settings to customize the list of words"
-msgstr ""
+msgstr "Click Play to start the game, click Settings to customize the list of words"
 
 #: TutoWelcomeTitle
 msgctxt "TutoWelcomeTitle"
 msgid "Falabracman activity"
-msgstr ""
+msgstr "Falabracman activity"
 
 #: TutoWelcomeContent
 msgctxt "TutoWelcomeContent"
 msgid "Welcome in the Falabracman activity. Falabracman is an addictive game where you should collect letter to build words"
-msgstr ""
+msgstr "Welcome in the Falabracman activity. Falabracman is an addictive game where you should collect letter to build words"
 
 #: TutoRestartTitle
 msgctxt "TutoRestartTitle"
 msgid "Go to Home"
-msgstr ""
+msgstr "Go to Home"
 
 #: TutoRestartContent
 msgctxt "TutoRestartContent"
 msgid "Click here to go back to home and restart the game"
-msgstr ""
+msgstr "Click here to go back to home and restart the game"
 
 #: TutoGameTitle
 msgctxt "TutoGameTitle"
 msgid "Move"
-msgstr ""
+msgstr "Move"
 
 #: TutoGameContent
 msgctxt "TutoGameContent"
 msgid "Use keyboard arrows or drag mouse in a direction to move the falabracman. Falabracman can only move in four directions i.e. NORTH, EAST, WEST, SOUTH"
-msgstr ""
+msgstr "Use keyboard arrows or drag mouse in a direction to move the falabracman. Falabracman can only move in four directions i.e. NORTH, EAST, WEST, SOUTH"
 
 #: TutoSettingTitle
 msgctxt "TutoSettingTitle"
 msgid "Dictionary Settings"
-msgstr ""
+msgstr "Dictionary Settings"
 
 #: TutoSettingContent
 msgctxt "TutoSettingContent"
 msgid "In this screen, you can make your own custom dictionary of words"
-msgstr ""
+msgstr "In this screen, you can make your own custom dictionary of words"
 
 #: TutoDictTitle
 msgctxt "TutoDictTitle"
 msgid "Words"
-msgstr ""
+msgstr "Words"
 
 #: TutoDictContent
 msgctxt "TutoDictContent"
 msgid "Here the current list of words in the dictionary. You could filter this list by typing text in the word-bar"
-msgstr ""
+msgstr "Here the current list of words in the dictionary. You could filter this list by typing text in the word-bar"
 
 #: TutoWordInputTitle
 msgctxt "TutoWordInputTitle"
 msgid "Word-Bar"
-msgstr ""
+msgstr "Word-Bar"
 
 #: TutoWordInputContent
 msgctxt "TutoWordInputContent"
 msgid "Enter the word which you want to search or add or delete or edit"
-msgstr ""
+msgstr "Enter the word which you want to search or add or delete or edit"
 
 #: TutoAddWordTitle
 msgctxt "TutoAddWordTitle"
 msgid "Add word"
-msgstr ""
+msgstr "Add word"
 
 #: TutoAddWordContent
 msgctxt "TutoAddWordContent"
 msgid "Click this button to add word you have entered in your word-bar"
-msgstr ""
+msgstr "Click this button to add word you have entered in your word-bar"
 
 #: TutoDeleteAllWordsTitle
 msgctxt "TutoDeleteAllWordsTitle"
 msgid "Delete All"
-msgstr ""
+msgstr "Delete All"
 
 #: TutoDeleteAllWordsContent
 msgctxt "TutoDeleteAllWordsContent"
 msgid "Click this button to delete all words. Only one default word will be there after this"
-msgstr ""
+msgstr "Click this button to delete all words. Only one default word will be there after this"
 
 #: TutoSaveDictTitle
 msgctxt "TutoSaveDictTitle"
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 #: TutoSaveDictContent
 msgctxt "TutoSaveDictContent"
 msgid "Click this button to save changes you have made. Without clicking this button your changes will get lost"
-msgstr ""
+msgstr "Click this button to save changes you have made. Without clicking this button your changes will get lost"
 
 #: TutoResetDictTitle
 msgctxt "TutoResetDictTitle"
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #: TutoResetDictContent
 msgctxt "TutoResetDictContent"
 msgid "Click this button to reset the dictionary to the default one"
-msgstr ""
+msgstr "Click this button to reset the dictionary to the default one"
 
 #: TutoReturnTitle
 msgctxt "TutoReturnTitle"
 msgid "Return"
-msgstr ""
+msgstr "Return"
 
 #: TutoReturnContent
 msgctxt "TutoReturnContent"
 msgid "Click this button to Return to Home Screen"
-msgstr ""
+msgstr "Click this button to Return to Home Screen"
 
 #: TutoAddStepTitle
 msgctxt "TutoAddStepTitle"
 msgid "Steps To Add new Word"
-msgstr ""
+msgstr "Steps To Add new Word"
 
 #: TutoAddStepContent
 msgctxt "TutoAddStepContent"
 msgid "(1) Enter the word in word-bar (2) Click Add (3) Click Save"
-msgstr ""
+msgstr "(1) Enter the word in word-bar (2) Click Add (3) Click Save"
 
 #: TutoDeleteStepTitle
 msgctxt "TutoDeleteStepTitle"
 msgid "Steps To Delete an existing Word"
-msgstr ""
+msgstr "Steps To Delete an existing Word"
 
 #: TutoDeleteStepContent
 msgctxt "TutoDeleteStepContent"
 msgid "(1) Enter the word in word-bar (2) Click the delete icon in dictionary section (3) Click Save"
-msgstr ""
+msgstr "(1) Enter the word in word-bar (2) Click the delete icon in dictionary section (3) Click Save"
 
 #: TutoEditStepTitle
 msgctxt "TutoEditStepTitle"
 msgid "Steps To Edit an existing Word"
-msgstr ""
+msgstr "Steps To Edit an existing Word"
 
 #: TutoEditStepContent
 msgctxt "TutoEditStepContent"
 msgid "(1) Enter the word in word-bar (2) Click the edit icon in dictionary section (3) Write the new edited word in word-bar (4) Click 'okay icon (5) Click Save"
-msgstr ""
+msgstr "(1) Enter the word in word-bar (2) Click the edit icon in dictionary section (3) Write the new edited word in word-bar (4) Click 'okay icon (5) Click Save"
 

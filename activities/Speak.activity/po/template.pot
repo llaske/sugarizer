@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:30:33 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sat May 08 2021 22:20:49 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,291 +16,291 @@ msgstr ""
 #: SavedTalk
 msgctxt "SavedTalk"
 msgid "Saved Talk"
-msgstr ""
+msgstr "Saved Talk"
 
 #. Do not translate {{name}}
 #: TypeSomething
 msgctxt "TypeSomething"
 msgid "Hello {{name}}. Please Type something."
-msgstr ""
+msgstr "Hello {{name}}. Please Type something."
 
 #: Sleepy
 msgctxt "Sleepy"
 msgid "I'm sleepy"
-msgstr ""
+msgstr "I'm sleepy"
 
 #: Language
 msgctxt "Language"
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #: Speech
 msgctxt "Speech"
 msgid "Speech"
-msgstr ""
+msgstr "Speech"
 
 #: Face
 msgctxt "Face"
 msgid "Face"
-msgstr ""
+msgstr "Face"
 
 #: TypeSomethingToHear
 msgctxt "TypeSomethingToHear"
 msgid "Type something to hear it"
-msgstr ""
+msgstr "Type something to hear it"
 
 #: AskRobot
 msgctxt "AskRobot"
 msgid "Ask robot any questions"
-msgstr ""
+msgstr "Ask robot any questions"
 
 #: VoiceChat
 msgctxt "VoiceChat"
 msgid "Voice chat"
-msgstr ""
+msgstr "Voice chat"
 
 #: ratelabel
 msgctxt "ratelabel"
 msgid "Rate:"
-msgstr ""
+msgstr "Rate:"
 
 #: pitchlabel
 msgctxt "pitchlabel"
 msgid "Pitch:"
-msgstr ""
+msgstr "Pitch:"
 
 #: eyesnumber
 msgctxt "eyesnumber"
 msgid "Eyes number:"
-msgstr ""
+msgstr "Eyes number:"
 
 #: eyes
 msgctxt "eyes"
 msgid "Round"
-msgstr ""
+msgstr "Round"
 
 #: glasses
 msgctxt "glasses"
 msgid "Glasses"
-msgstr ""
+msgstr "Glasses"
 
 #: speak
 msgctxt "speak"
 msgid "Speak"
-msgstr ""
+msgstr "Speak"
 
 #: langen
 msgctxt "langen"
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: langca
 msgctxt "langca"
 msgid "Catalan"
-msgstr ""
+msgstr "Catalan"
 
 #: langcs
 msgctxt "langcs"
 msgid "Czech"
-msgstr ""
+msgstr "Czech"
 
 #: langde
 msgctxt "langde"
 msgid "German"
-msgstr ""
+msgstr "German"
 
 #: langel
 msgctxt "langel"
 msgid "Greek"
-msgstr ""
+msgstr "Greek"
 
 #: langes
 msgctxt "langes"
 msgid "Spanish"
-msgstr ""
+msgstr "Spanish"
 
 #: langeo
 msgctxt "langeo"
 msgid "Esperanto"
-msgstr ""
+msgstr "Esperanto"
 
 #: langfi
 msgctxt "langfi"
 msgid "Finnish"
-msgstr ""
+msgstr "Finnish"
 
 #: langfr
 msgctxt "langfr"
 msgid "French"
-msgstr ""
+msgstr "French"
 
 #: langhu
 msgctxt "langhu"
 msgid "Hungarian"
-msgstr ""
+msgstr "Hungarian"
 
 #: langit
 msgctxt "langit"
 msgid "Italian"
-msgstr ""
+msgstr "Italian"
 
 #: langkn
 msgctxt "langkn"
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #: langla
 msgctxt "langla"
 msgid "Latin"
-msgstr ""
+msgstr "Latin"
 
 #: langlv
 msgctxt "langlv"
 msgid "Latvian"
-msgstr ""
+msgstr "Latvian"
 
 #: langnl
 msgctxt "langnl"
 msgid "Dutch"
-msgstr ""
+msgstr "Dutch"
 
 #: langpl
 msgctxt "langpl"
 msgid "Polish"
-msgstr ""
+msgstr "Polish"
 
 #: langpt
 msgctxt "langpt"
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguese"
 
 #: langro
 msgctxt "langro"
 msgid "Romanian"
-msgstr ""
+msgstr "Romanian"
 
 #: langsk
 msgctxt "langsk"
 msgid "Slovak"
-msgstr ""
+msgstr "Slovak"
 
 #: langsv
 msgctxt "langsv"
 msgid "Swedish"
-msgstr ""
+msgstr "Swedish"
 
 #: langtr
 msgctxt "langtr"
 msgid "Turkish"
-msgstr ""
+msgstr "Turkish"
 
 #: langzh
 msgctxt "langzh"
 msgid "Chinese"
-msgstr ""
+msgstr "Chinese"
 
 #: TutoPrev
 msgctxt "TutoPrev"
 msgid "Prev"
-msgstr ""
+msgstr "Prev"
 
 #: TutoNext
 msgctxt "TutoNext"
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: TutoEnd
 msgctxt "TutoEnd"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: TutoExplainTitle
 msgctxt "TutoExplainTitle"
 msgid "Speak Activity"
-msgstr ""
+msgstr "Speak Activity"
 
 #: TutoExplainContent
 msgctxt "TutoExplainContent"
 msgid "Welcome into the Speak activity. Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer"
-msgstr ""
+msgstr "Welcome into the Speak activity. Speak is talking face. Anything you type will be spoken aloud using the speech synthesizer"
 
 #: TutoReadTitle
 msgctxt "TutoReadTitle"
 msgid "Reading"
-msgstr ""
+msgstr "Reading"
 
 #: TutoReadContent
 msgctxt "TutoReadContent"
 msgid "Click here to enter \"Reading\" mode. Type something to hear it"
-msgstr ""
+msgstr "Click here to enter \"Reading\" mode. Type something to hear it"
 
 #: TutoQuestionTitle
 msgctxt "TutoQuestionTitle"
 msgid "Questions"
-msgstr ""
+msgstr "Questions"
 
 #: TutoQuestionContent
 msgctxt "TutoQuestionContent"
 msgid "Click here to enter \"Question\" mode. Ask robot any questions (available soon)"
-msgstr ""
+msgstr "Click here to enter \"Question\" mode. Ask robot any questions (available soon)"
 
 #: TutoVoiceTitle
 msgctxt "TutoVoiceTitle"
 msgid "Voice Chat"
-msgstr ""
+msgstr "Voice Chat"
 
 #: TutoVoiceContent
 msgctxt "TutoVoiceContent"
 msgid "Click here to enter \"Voice chat\" mode. There you can talk with the robot (available soon)"
-msgstr ""
+msgstr "Click here to enter \"Voice chat\" mode. There you can talk with the robot (available soon)"
 
 #: TutoLanguageTitle
 msgctxt "TutoLanguageTitle"
 msgid "Language"
-msgstr ""
+msgstr "Language"
 
 #: TutoLanguageContent
 msgctxt "TutoLanguageContent"
 msgid "Click here to change language. It's important to set the right language to be sure to have the right pronounciation"
-msgstr ""
+msgstr "Click here to change language. It's important to set the right language to be sure to have the right pronounciation"
 
 #: TutoSpeechTitle
 msgctxt "TutoSpeechTitle"
 msgid "Speech"
-msgstr ""
+msgstr "Speech"
 
 #: TutoSpeechContent
 msgctxt "TutoSpeechContent"
 msgid "Click here to change speech parameters, such as rate and pitch"
-msgstr ""
+msgstr "Click here to change speech parameters, such as rate and pitch"
 
 #: TutoFaceTitle
 msgctxt "TutoFaceTitle"
 msgid "Face"
-msgstr ""
+msgstr "Face"
 
 #: TutoFaceContent
 msgctxt "TutoFaceContent"
 msgid "Click here to change the look of the face. For example eyes shape and count"
-msgstr ""
+msgstr "Click here to change the look of the face. For example eyes shape and count"
 
 #: TutoTextTitle
 msgctxt "TutoTextTitle"
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: TutoTextContent
 msgctxt "TutoTextContent"
 msgid "Type here the text to speech. Click on the right arrow to launch the speech"
-msgstr ""
+msgstr "Type here the text to speech. Click on the right arrow to launch the speech"
 
 #: TutoHistoryTitle
 msgctxt "TutoHistoryTitle"
 msgid "History"
-msgstr ""
+msgstr "History"
 
 #: TutoHistoryContent
 msgctxt "TutoHistoryContent"
 msgid "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
-msgstr ""
+msgstr "Click here to see previous text spoken. You can also click on them to let them appear in the text box"
 

@@ -1,3 +1,8 @@
+@font-face {
+	font-family: Graphecrit;
+	src: url('../fonts/graphecrit.ttf');
+}
+
 #main-toolbar #activity-button {
 	background-image: url(../activity/activity-icon.svg);
 	outline: none;
@@ -57,6 +62,10 @@ button:disabled {
 
 #main-toolbar #insertimage-button {
 	background-image: url(../icons/insert-image.svg);
+}
+
+#main-toolbar #inserttext-button {
+	background-image: url(../icons/insert-text.svg);
 }
 
 #main-toolbar #zoom-button {
@@ -171,6 +180,12 @@ body {
 	cursor: pointer;
 }
 
+.template-item-text {
+	position: absolute;
+	display: inline;
+	font-family: Graphecrit;
+}
+
 .template-item-remove {
 	position: absolute;
 	top: 10px;
@@ -201,26 +216,6 @@ body {
 	width: 100px;
 	z-index: 5;
 	visibility: hidden;
-}
-
-.popup-input {
-	border-radius: 22px;
-	height: 30px;
-	width: 400px;
-	background-color: #e5e5e5;
-	padding-left: 10px;
-	padding-right: 10px;
-	font-size: 10pt;
-	display: inline-block;
-}
-
-.popup-label {
-	color: #808080;
-	margin-bottom: 5px;
-	display: inline-block;
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 10px;
 }
 
 .editor-area {
@@ -257,6 +252,17 @@ body {
 	 position: absolute;
 	 top: 80px;
 	 left: 0px;
+}
+
+.editor-miniword {
+	 width: 100px;
+	 height: 100px;
+	 position: absolute;
+	 top: 80px;
+	 left: 0px;
+	 font-family: Graphecrit;
+	 vertical-align: middle;
+	 text-align: center;
 }
 
 .editor-start {
@@ -333,6 +339,20 @@ body {
 
 .editor-removepath:disabled {
 	background-color: lightgray;
+}
+
+.player-debug-target {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	visibility: hidden;
+}
+
+.player-debug-position {
+	position: absolute;
+	bottom: 22px;
+	left: 5px;
+	visibility: hidden;
 }
 
 .player-restart {
@@ -510,4 +530,25 @@ body {
 
 #search-text {
 	color: black;
+}
+
+#popup-container {
+	margin-left: 9px;
+	margin-top: 7px;
+}
+
+.popup-input {
+	text-indent: 4px;
+	border-radius: 22px;
+	height: 100px;
+	width: 400px;
+	background-color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-family: Graphecrit;
+	font-size: 78px;
+	display: inline-block;
+	border-style: inset;
+	border-width: 2px;
+	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
 }
