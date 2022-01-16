@@ -13,6 +13,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 		document.getElementById("main-toolbar").replaceChild(stopButton, oldStopButton);
 
 		// Handle Stop click
+		window.onbeforeunload = null;
 		stopButton.addEventListener('click', function (event) {
 			document.getElementById("myBlocks").addEventListener('click', function (event) {
 				console.log("writing...");
@@ -24,10 +25,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 					} else {
 						console.log("write failed.");
 					}
-					window.onbeforeunload = null;
-					window.setTimeout(function() {
-						activity.close();
-					}, 500);
+					activity.close();
 				});
 			});
 			var found = false;
@@ -47,15 +45,10 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "sugar-web/env"], 
 				activity.getDatastoreObject().loadAsText(function(error, metadata, data){
 					if (error==null && data!=null){
 						var found = false;
-						var spanFound = null;
 						for (var i = 0; i < document.body.getElementsByTagName("span").length; i++){
 							var spanElement = document.getElementsByTagName("span")[i];
 							if (spanElement.innerHTML == "Load from Sugarizer"){
 								document.getElementById("myBlocks").value = data;
-								spanFound = spanElement;
-								setTimeout(function() {
-									spanFound.click();
-								}, 500);
 								found = true;
 								break;
 							}
