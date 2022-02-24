@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Scratch instructions are not localized #970
+- Wrong arrow icon in Exerciser activity #748
 
 
 ## [1.6.0] - 2022-01-04
