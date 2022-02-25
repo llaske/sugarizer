@@ -259,6 +259,8 @@ enyo.kind({
 			} else {
 				restrictedMode = true; spiralMode = false;
 				activitiesCount = parseInt(circumference/icon_padding)-1;
+				if(activitiesCount>21)
+				activitiesCount=21;
 				this.restrictedModeInfo.count = activitiesCount;
 				this.restrictedModeInfo.length = activitiesList.length;
 				base_angle = (PI2/parseFloat(activitiesCount+1));
