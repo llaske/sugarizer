@@ -249,7 +249,7 @@ enyo.kind({
 		var spiralPositions = [];
 		if ((circumference/activitiesList.length) >= constant.iconSpacingFactor*icon_padding) {
 			spiralMode = restrictedMode = false;
-			base_angle = (PI2/parseFloat(activitiesList.length));
+			base_angle = (PI2/parseFloat(activitiesList.length));                           
 		} else {
 			if (this.hasRoomForSpiral(canvas_center, icon_size, spiralPositions)) {
 				spiralMode = true; restrictedMode = false;
@@ -258,9 +258,10 @@ enyo.kind({
 				base_angle = PI2/activitiesCount;
 			} else {
 				restrictedMode = true; spiralMode = false;
-				activitiesCount = parseInt(circumference/icon_padding)-1;
-				if(activitiesCount>21)
-				activitiesCount=21;
+				activitiesCount = parseInt(circumference/icon_padding);
+				while((circumference/activitiesCount) <= 1.35*constant.iconSpacingFactor*icon_padding){    
+					activitiesCount--;
+				}
 				this.restrictedModeInfo.count = activitiesCount;
 				this.restrictedModeInfo.length = activitiesList.length;
 				base_angle = (PI2/parseFloat(activitiesCount+1));
