@@ -258,9 +258,9 @@ textarea {
   #help-button {
     visibility: hidden;
   }
-  /* .calc-container {
+  .calc-container {
     width: fit-content !important;
-  } */
+  }
  
 }
 
