@@ -96,7 +96,6 @@ textarea {
 .calc-container {
  overflow-y: auto;
  max-height: 92vh;
- 
 }
 .calcbutton {
   height: 50px;
@@ -259,9 +258,8 @@ textarea {
     visibility: hidden;
   }
   .calc-container {
-    width: fit-content !important;
+    width: 100vw !important;
   }
- 
 }
 
 @media only screen and (min-width:770px) {
