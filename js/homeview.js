@@ -259,7 +259,7 @@ enyo.kind({
 			} else {
 				restrictedMode = true; spiralMode = false;
 				activitiesCount = parseInt(circumference/icon_padding);
-				while((circumference/activitiesCount) <= 1.35*constant.iconSpacingFactor*icon_padding){    
+				while((circumference/activitiesCount) <= 1.18*constant.iconSpacingFactor*icon_padding){    
 					activitiesCount--;
 				}
 				this.restrictedModeInfo.count = activitiesCount;
