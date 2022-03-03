@@ -1,6 +1,6 @@
 #body {
 	overflow-x: hidden;
-    overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 .toolbar {
   height: auto;
@@ -73,11 +73,14 @@ textarea {
   color: #000 !important;
 }
 #results-zone {
-  display: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .result {
   font-size: 300% !important;
   margin-bottom: 5px;
+  width:auto;
 }
 #label-input {
   padding-top:3px !important;
@@ -90,10 +93,6 @@ textarea {
   padding-left:7px !important;
   height: 50px !important;
   font-size: 200% !important;
-}
-calc-container {
- overflow-y: auto;
- max-height: 92vh;
 }
 .calcbutton {
   height: 50px;
@@ -237,6 +236,14 @@ calc-container {
   border: 2px solid #808080;
 }
 
+.main-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 @media only screen and (min-width:780px) {
   #output-digits-palette {
     display: inline-block !important;
@@ -256,46 +263,47 @@ calc-container {
     visibility: hidden;
   }
 }
+@media only screen and (max-width:767px) {
+  .main-content-2{
+    width: 100vw;
+  }
+}
 @media only screen and (min-width:770px) {
   .calcbutton {
-    height: 100px;
+    height: 90px;
   }
   .calcbutton-large {
-    height: 100px;
-  }
-  .calc-container {
-    width: fit-content !important;
-    width: 100vw !important;
+    height: 90px;
   }
   #results-zone {
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 
 }
 @media only screen and (min-width:1000px) {
   .calcbutton {
-    height: 120px;
+    height: 95px;
   }
   .calcbutton-large {
-    height: 120px;
+    height: 95px;
   }
   #results-zone {
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 }
 @media only screen and (min-width:1200px) {
   .calcbutton {
-    height: 120px;
+    height: 95px;
   }
   .calcbutton-large {
-    height: 120px;
+    height: 95px;
   }
   #results-zone {
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 }
 .nanoModal {
-  top: 3% !important;
+  top: 10% !important;
   min-width: 10px !important;
 }
 
@@ -306,5 +314,4 @@ calc-container {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
