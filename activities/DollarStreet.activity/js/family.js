@@ -10,12 +10,12 @@ var Family = {
 				<div class="family-image-container" v-on:click="showImage(place)">
 					<img :src="place.images.full512" class="family-image"/>
 				</div>
-				<div id="family-description" class="family-description">
+			</div>
+			<div id="family-description" class="family-description">
 					<div class="family-income">{{formattedIncome}}</div><div class="family-bymonth">{{"/"+app.$refs.SugarL10n.get("Months_one")}}</div>
 					<div class="family-name">{{capitalizeName}}, {{place.country.name}}</div>
 					<div class="family-content">{{""}}</div>
 				</div>
-			</div>
 			<div id="family-things" class="family-things">
 				<div class="flex-container">
 					<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place)"></street-place>
@@ -71,7 +71,7 @@ var Family = {
 		computeSize: function() {
 			let body = document.getElementById("body");
 			let small = (body.offsetWidth<750);
-			document.getElementById("family-description").style.width = (body.offsetWidth - (small?256:512) - 100 - 19)+"px";
+			document.getElementById("family-description").style.width = (body.offsetWidth - (small?256:512) - 50 - 15)+"%";
 			document.getElementById("family-things").style.height = (body.offsetHeight - (small?170:341) - 20 - (app.$refs.SugarToolbar&&app.$refs.SugarToolbar.isHidden()?0:55))+"px";
 		},
 

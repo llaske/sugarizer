@@ -494,14 +494,13 @@ div[slider] > input[type=range]::-ms-tooltip {
 
 .family-description {
 	display: inline-block;
-	margin-left: 10px;
+	margin-left:80px;
 	margin-top: 10px;
 	margin-right: 10px;
 	vertical-align: top;
 	margin-top: 10px;
 	height: 341px;
 	width: 400px;
-	overflow: auto;
 }
 
 .family-image {
