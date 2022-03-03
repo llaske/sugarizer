@@ -241,10 +241,10 @@ var CalculateApp = {
     CalculateApp.data.windowHeight = getWindowHeight();
     CalculateApp.data.windowWidth = getWindowWidth();
 
-    setTimeout(function() {
-      CalculateApp.elements.resultsZoneDiv.style.height = CalculateApp.elements.calcInputDiv.clientHeight + "px";
-      CalculateApp.elements.resultsZoneDiv.style.display = "block";
-    }, 300);
+    // setTimeout(function() {
+    //   CalculateApp.elements.resultsZoneDiv.style.height = CalculateApp.elements.calcInputDiv.clientHeight + "px";
+    //   CalculateApp.elements.resultsZoneDiv.style.display = "block";
+    // }, 300);
   },
 
   /* Focus only if computer */
