@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Scratch instructions are not localized #970
 - Wrong arrow icon in Exerciser activity #748
 - Improve calculator screen responsivity #982
+- Overlap hover effect in circular mode view #974
 
 
 ## [1.6.0] - 2022-01-04
