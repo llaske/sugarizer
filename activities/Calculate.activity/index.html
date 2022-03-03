@@ -20,7 +20,8 @@
   <script type="text/javascript" src="../../cordova.js"></script>
 </head>
 
-<body id="body" style="background-color:#fff; color:#fff; height:100%; margin:0;">
+
+<body id="body">
   <div id="main-toolbar" class="toolbar">
     <button class="toolbutton" id="activity-button" title="My Activity"></button>
     <button class="toolbutton" id="trigo-palette" data-l10n-id="trigo" title="Select Trigonometric Function"></button>
@@ -32,13 +33,14 @@
     <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
     <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
   </div>
+
   <button class="toolbutton pull-right" id="unfullscreen-button" title="UnFullscreen"></button>
-   <div class="bootstrap-container-fluid" >
-    <div class="bootstrap-row-fluid calc-container">
-      <div id="calc-input-div" class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
-        <div style="padding:5px;">
-          <input placeholder="Label" id="label-input" type="text" style="color:#000; width:100%; padding:2px; font-size:150%;">
-          <input placeholder="Calcul" id="calc-input" type="text" style="margin-top:5px; color:#000; width:100%; padding:2px; font-size:150%;">
+
+  <div class="bootstrap-container-fluid main-content" >
+    <div id="calc-input-div" class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+        <div class="main-content-2" style="padding:5px;">
+          <input placeholder="Label" id="label-input" type="text" style="color:#000; width:100%; padding:2px; font-size:150%;text-align: center;">
+          <input placeholder="Calculate" id="calc-input" type="text" style="margin-top:5px; color:#000; width:100%; padding:2px; font-size:150%;text-align: center;">
 
           <div class="bootstrap-container-fluid" style="margin-top:5px;">
             <div class="col-xs-2 aligncenter">
@@ -109,14 +111,14 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div id="results-zone" class="col-xs-12 col-sm-5 -md-5  col-lg-5 " style="padding:2px; "></div>
     </div>
   </div>
-  <div id="modal" style="display:none; color:#000 ">
+
+  <div id="results-zone"></div>
+
+  <div id="modal">
     <div id="plot"></div>
   </div>
-</body>
 
+</body>
 </html>
