@@ -456,6 +456,9 @@ p {
   }
 
 @media screen and (max-width: 767px){
+	body{
+		overflow: hidden;
+	}
 	#editor-area  {
 		max-width: 80vw;
 	}
