@@ -100,9 +100,9 @@ function calcInputKeyUp(event) {
 
 /* Generation of the error box */
 function getErrorTemplate() {
-  return "<div class='result' style='overflow:hidden; margin-top:3px;padding:5px; font-size: 140%; color:#fff; border:5px solid " + CalculateApp.data.buddyColor.stroke + "; background-color:" + CalculateApp.data.buddyColor.fill + "; '> \
-  {{#label}}<span>{{ label }}</span> <br/> {{/label}}\
-  <span>{{ calculation }}</span> <br/> \
+  return "<div class='result' style='overflow:hidden; margin:5px;padding:5px; font-size: 120%; color:#fff; border-radius: 25px; border:5px solid " + CalculateApp.data.buddyColor.stroke + "; background-color:" + CalculateApp.data.buddyColor.fill + "; '> \
+  {{#label}}<span>{{ label }}</span>  {{/label}}\
+  <span style='float:right;'>{{ calculation }}</span> <br>\
   <b style='float:right;'>{{error}}</b> \
   <div style='clear:both;'></div> \
   </div>";
@@ -110,19 +110,19 @@ function getErrorTemplate() {
 
 /* Generation of the result box */
 function getResultTemplate() {
-  return "<div class='result' style='overflow:hidden; margin-top:3px;padding:5px; font-size: 140%; color:#fff; border:5px solid " + CalculateApp.data.buddyColor.stroke + "; background-color:" + CalculateApp.data.buddyColor.fill + "; '> \
-  {{#label}}<span>{{ label }}</span> <br/> {{/label}}\
-  <span>{{ calculation }}</span> <br/> \
-  <b style='float:right;'>{{result}}</b> \
+  return "<div class='result' style='overflow:hidden; margin:5px;padding:5px; font-size: 140%; color:#fff; border-radius: 25px; border:5px solid" + CalculateApp.data.buddyColor.stroke + "; background-color:" + CalculateApp.data.buddyColor.fill + "; '> \
+  {{#label}}<span>{{ label }}</span>  {{/label}}\
+  <span style='float:right;'>{{ calculation }}</span> <br>\
+  <b style='float:right;'> = {{result}}</b> \
   <div style='clear:both;'></div> \
   </div>";
 }
 
 /* Generation of the result box */
 function getGraphTemplate() {
-  return "<div class='result' style='overflow:hidden; margin-top:3px;padding:5px; font-size: 140%; color:#fff; border:5px solid " + CalculateApp.data.buddyColor.stroke + "; background-color:" + CalculateApp.data.buddyColor.fill + "; '> \
-  {{#label}}<span>{{ label }}</span> <br/> {{/label}}\
-  <span>{{ calculation }}</span> <br/> \
+  return "<div class='result' style='overflow:hidden; margin:5px;;padding:5px; font-size: 140%; color:#fff; border-radius: 25px; border:5px solid " + CalculateApp.data.buddyColor.stroke + "; background-color:" + CalculateApp.data.buddyColor.fill + "; '> \
+  {{#label}}<span>{{ label }}</span>  {{/label}}\
+  <span style='float:right;'>{{ calculation }}</span> <br>\
   <button value='{{calculation}}' style='background:none; border-radius:0px; float:right; border:0px; margin:3px; width:55px; height:55px; background-image: url(icons/plot.svg)'></button>\
   <div style='clear:both;'></div> \
   </div>";
