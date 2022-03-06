@@ -64,12 +64,10 @@ enyo.kind({
 		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudallbutton.hasNode(), preferences.getColor(), function() {});
 
-		///////////
 		this.$.cloudallbutton.setNodeProperty("title", l10n.get("Shared"));
 		this.$.cloudonebutton.setNodeProperty("title", l10n.get("Private"));
 		this.$.journalbutton.setNodeProperty("title", l10n.get("Journal"));
 
-		///////////
 		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
 		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
 		this.$.pagedown.setNodeProperty("title", l10n.get("Next"));
@@ -1027,12 +1025,10 @@ enyo.kind({
 		this.$.copydevicebutton.setNodeProperty("title", l10n.get("CopyToDevice"));
 		this.$.duplicatebutton.setNodeProperty("title", l10n.get("Duplicate"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
-		////////////
 		this.$.typepalette.setNodeProperty("title",l10n.get("FilterByType"));
 		this.$.datepalette.setNodeProperty("title",l10n.get("FilterByTime"));
 		this.$.sortpalette.setNodeProperty("title",l10n.get("Sort"));
 		this.$.fromdevicebutton.setNodeProperty("title",l10n.get("CopyFromDevice"));
-		////////////
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
 
