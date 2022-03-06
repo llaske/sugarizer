@@ -991,7 +991,7 @@ enyo.kind({
 		{name: "datepalette", kind: "Sugar.Palette", ontap: "showDatePalette", icon: {directory: "icons", icon: "view-created.svg"}, size: constant.iconSizeList, classes: "journal-filterdate-palette", contentsClasses: "journal-filterdate-content", contents: []},
 		{name: "sortpalette", kind: "Sugar.Palette", ontap: "showSortPalette", icon: {directory: "icons", icon: "view-lastedit.svg"}, size: constant.iconSizeList, classes: "journal-sort-palette", contentsClasses: "journal-sort-content", contents: []},
 		{name: "split3", classes: "splitbar journal-split split3"},
-		{name: "fromdevicebutton", kind: "Sugar.Icon", x: 0, y: 0, icon: {directory: "icons", icon: "copy-from-device.svg"}, classes: "journal-fromdevice", size: constant.iconSizeList, ontap: "fromDeviceSelected"},
+		{name: "fromdevicebutton", kind: "Sugar.Icon", x: 0, y: 0, icon: {directory: "icons", icon: "copy-from-device.svg"}, classes: "journal-fromdevice", title:"CopyFromDevice", size: constant.iconSizeList, ontap: "fromDeviceSelected"},
 		{name: "split4", classes: "splitbar journal-split split4"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button-journal", title:"Help", ontap: "startTutorial"}
 	],
@@ -1031,6 +1031,7 @@ enyo.kind({
 		this.$.typepalette.setNodeProperty("title",l10n.get("FilterByType"));
 		this.$.datepalette.setNodeProperty("title",l10n.get("FilterByTime"));
 		this.$.sortpalette.setNodeProperty("title",l10n.get("Sort"));
+		this.$.fromdevicebutton.setNodeProperty("title",l10n.get("CopyFromDevice"));
 		////////////
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
