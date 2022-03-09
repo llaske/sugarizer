@@ -122,9 +122,16 @@ data: {
 ```
 ***NOTE:*** *The string id's inside the object should be prefixed by the word "string". For example in this case we want the string for `AddPawn`, so in the object we will write `stringAddPawn: ''`.*
 
-We can localize this object by calling the `localize` method: 
+We can localize this object by calling the `localize` method in the mounted hook like this: 
 ```js
-this.SugarL10n.localize(this.l10n);
+this.SugarL10n = this.$refs.SugarL10n;
+
+let vm = this;
+	if (this.$root.$refs.SugarL10n) {
+		this.$root.$refs.SugarL10n.$on('localized', function () {
+			vm.$root.$refs.SugarL10n.localize(vm.l10n);
+		});
+	}
 ```
 
 Let's bind this to the title of add-button in `index.html`:
@@ -145,7 +152,6 @@ initialized: function () {
 // Handles localized event
 localized: function () {
 	this.displayText = this.SugarL10n.get("Hello", { name: this.currentenv.user.name });
-	this.SugarL10n.localize(this.l10n);
 },
 ```
 
