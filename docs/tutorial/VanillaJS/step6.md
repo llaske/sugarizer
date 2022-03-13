@@ -191,7 +191,7 @@ env.getEnvironment(function(err, environment) {
 	// Set current language to Sugarizer
 	...
 
-	// Load from datatore
+	// Load from datastore
 	if (!environment.objectId) {
 		...
 	}
