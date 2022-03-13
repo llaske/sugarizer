@@ -25,9 +25,9 @@ enyo.kind({
 			{name: "activityPopup", kind: "Sugar.Popup", showing: false}
 		]},
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
-			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal"},
-			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
-			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"},
+			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", ontap: "showLocalJournal"},
+			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", ontap: "showPrivateCloud"},
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", ontap: "showSharedCloud"},
 			{name: "syncgear", classes: "sync-button sync-gear sync-gear-journal", showing: false},
 			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button sync-journal", title:"Sync", ontap: "syncJournal"},
 			{name: "pageup", kind: "Button", classes: "toolbutton page-up", showing: false, title:"Previous", ontap: "pagePrevious"},
@@ -63,6 +63,10 @@ enyo.kind({
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudallbutton.hasNode(), preferences.getColor(), function() {});
+
+		this.$.cloudallbutton.setNodeProperty("title", l10n.get("Shared"));
+		this.$.cloudonebutton.setNodeProperty("title", l10n.get("Private"));
+		this.$.journalbutton.setNodeProperty("title", l10n.get("Journal"));
 
 		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
 		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
@@ -985,7 +989,7 @@ enyo.kind({
 		{name: "datepalette", kind: "Sugar.Palette", ontap: "showDatePalette", icon: {directory: "icons", icon: "view-created.svg"}, size: constant.iconSizeList, classes: "journal-filterdate-palette", contentsClasses: "journal-filterdate-content", contents: []},
 		{name: "sortpalette", kind: "Sugar.Palette", ontap: "showSortPalette", icon: {directory: "icons", icon: "view-lastedit.svg"}, size: constant.iconSizeList, classes: "journal-sort-palette", contentsClasses: "journal-sort-content", contents: []},
 		{name: "split3", classes: "splitbar journal-split split3"},
-		{name: "fromdevicebutton", kind: "Sugar.Icon", x: 0, y: 0, icon: {directory: "icons", icon: "copy-from-device.svg"}, classes: "journal-fromdevice", size: constant.iconSizeList, ontap: "fromDeviceSelected"},
+		{name: "fromdevicebutton", kind: "Sugar.Icon", x: 0, y: 0, icon: {directory: "icons", icon: "copy-from-device.svg"}, classes: "journal-fromdevice", title:"CopyFromDevice", size: constant.iconSizeList, ontap: "fromDeviceSelected"},
 		{name: "split4", classes: "splitbar journal-split split4"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button-journal", title:"Help", ontap: "startTutorial"}
 	],
@@ -1021,6 +1025,10 @@ enyo.kind({
 		this.$.copydevicebutton.setNodeProperty("title", l10n.get("CopyToDevice"));
 		this.$.duplicatebutton.setNodeProperty("title", l10n.get("Duplicate"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
+		this.$.typepalette.setNodeProperty("title",l10n.get("FilterByType"));
+		this.$.datepalette.setNodeProperty("title",l10n.get("FilterByTime"));
+		this.$.sortpalette.setNodeProperty("title",l10n.get("Sort"));
+		this.$.fromdevicebutton.setNodeProperty("title",l10n.get("CopyFromDevice"));
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
 
