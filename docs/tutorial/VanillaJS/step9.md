@@ -57,7 +57,7 @@ The button is here. That's a good start.
 
 ## Integrate Bootstrap tour components
 
-Sugarizer relys on the [Bootstrap tour library](http://bootstraptour.com/) to produce the UI for the tutorial. 
+Sugarizer relies on the [Bootstrap tour library](http://bootstraptour.com/) to produce the UI for the tutorial. 
 
 **Bootstrap tour** is a set of components - based on the famous [Boostrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/) libraries - dedicated to build interactive tutorial. It could be integrated into web pages that already use Bootstrap/jQuery but is also usable standalone for web pages that don't use them (like in our case).
 

@@ -126,7 +126,7 @@ Replace these few lines by the following:
 	<h1>{{ displayText }}</h1>
 </div>
 ```
-We'll have a `div` and heading inside it to show the welcome message dynamicaaly using a reactive Vue.js data property `displayText`.
+We'll have a `div` and heading inside it to show the welcome message dynamically using a reactive Vue.js data property `displayText`.
 
 Now, let's study the file `js/activity.js`. It's really the heart of your new activity. The current implementation is:
 ```js
