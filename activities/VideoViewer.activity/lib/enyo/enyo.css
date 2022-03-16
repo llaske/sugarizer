@@ -210,6 +210,8 @@ body .enyo-fullscreen {
 
 .enyo-popup {
 	position: absolute;
+	height: 83vh;
+	top:75px;
 	z-index: 10;
 }
 
