@@ -29,57 +29,58 @@ Vue.component("dollarstreet-api", {
 		// Initialize
 		initialize: function() {
 			let vm = this;
-
 			return new Promise(function(resolve, reject) {
+				getStreetPlacesFn()
+				resolve();
 				// Find matching language
-				_dsAPIGet(dsLanguages).then(function(result) {
-					requirejs(["sugar-web/env"], function(env) {
-						env.getEnvironment(function(err, environment) {
-							// Set language
-							var defaultLanguage = navigator.language;
-							var language = environment.user ? environment.user.language : defaultLanguage;
-							for (let i = 0 ; i < result.length ; i++) {
-								if (result[i].code.indexOf(language) == 0) {
-									vm.language = result[i].code;
-									break;
-								}
-							}
+				// _dsAPIGet(dsLanguages).then(function(result) {
+				// 	requirejs(["sugar-web/env"], function(env) {
+				// 		env.getEnvironment(function(err, environment) {
+				// 			// Set language
+				// 			var defaultLanguage = navigator.language;
+				// 			var language = environment.user ? environment.user.language : defaultLanguage;
+				// 			for (let i = 0 ; i < result.length ; i++) {
+				// 				if (result[i].code.indexOf(language) == 0) {
+				// 					vm.language = result[i].code;
+				// 					break;
+				// 				}
+				// 			}
 
-							// Initialize data set
-							Promise.all([
-								_dsAPIGet(dsLanguage+vm.language),
-								_dsAPIGet(dsStreetSettings),
-								_dsAPIGet(dsRegions+vm.language),
-								_dsAPIGet(dsThings+vm.language),
-							]).then(function (results) {
-								// Retrieve all data sets
-								vm.l10n = results[0];
-								vm.streetSettings = results[1];
-								vm.regions = results[2];
-								vm.things = results[3].otherThings;
-								vm.familyThing = results[3].thing;
-								vm.popularThings = results[3].popularThings;
+				// 			// Initialize data set
+				// 			Promise.all([
+				// 				_dsAPIGet(dsLanguage+vm.language),
+				// 				_dsAPIGet(dsStreetSettings),
+				// 				_dsAPIGet(dsRegions+vm.language),
+				// 				_dsAPIGet(dsThings+vm.language),
+				// 			]).then(function (results) {
+				// 				// Retrieve all data sets
+				// 				vm.l10n = results[0];
+				// 				vm.streetSettings = results[1];
+				// 				vm.regions = results[2];
+				// 				vm.things = results[3].otherThings;
+				// 				vm.familyThing = results[3].thing;
+				// 				vm.popularThings = results[3].popularThings;
 
-								// Load icons for things
-								let iconsLoad = [];
-								for (let i = 0 ; i < vm.things.length ; i++) {
-									let thing = vm.things[i];
-									iconsLoad.push(_loadIcon(thing.icon));
-								}
-								Promise.all(iconsLoad).then(function (results) {
-									for (let i = 0 ; i < vm.things.length ; i++) {
-										vm.things[i].svg = results[i];
-									}
-									resolve();
-								});
-							}).catch(function(error) {
-								reject();
-							});
-						});
-					});
-				}).catch(function(error) {
-					reject();
-				});
+				// 				// Load icons for things
+				// 				let iconsLoad = [];
+				// 				for (let i = 0 ; i < vm.things.length ; i++) {
+				// 					let thing = vm.things[i];
+				// 					iconsLoad.push(_loadIcon(thing.icon));
+				// 				}
+				// 				Promise.all(iconsLoad).then(function (results) {
+				// 					for (let i = 0 ; i < vm.things.length ; i++) {
+				// 						vm.things[i].svg = results[i];
+				// 					}
+				// 					resolve();
+				// 				});
+				// 			}).catch(function(error) {
+				// 				reject();
+				// 			});
+				// 		});
+				// 	});
+				// }).catch(function(error) {
+				// 	reject();
+				// });
 			});
 		},
 
@@ -144,6 +145,7 @@ Vue.component("dollarstreet-api", {
 		// Get street places
 		getStreetPlaces: function(topic="families", regions=null, imin=0, imax=0) {
 			let vm = this;
+			console.log("getStreetPlaces", topic, regions, imin, imax);
 
 			// HACK: Need to force en description to be returned by the API
 			let language = vm.language;
@@ -246,5 +248,34 @@ function _loadIcon(url) {
 		}).catch(function(error) {
 			reject(error);
  		});
+	});
+}
+
+function getStreetPlacesFn(topic="families", regions=null, imin=0, imax=0) {
+	let vm = this;
+	console.log("getStreetPlaces", topic, regions, imin, imax);
+
+	// HACK: Need to force en description to be returned by the API
+	let language = vm.language;
+	if (language == "en") {
+		language = "cs";
+	}
+	return new Promise(function(resolve, reject) {
+		let region = regions ? "&regions=" + regions : "";
+		let min = imin ? "&min=" + imin : "";
+		let max = imax ? "&max=" + imax : "";
+		axios.get(dsApi+dsFamilies+language+"&topic="+topic+region+min+max).then(function(response) {
+			let initialStreets = response.data.hits["4"];
+			let streets = [];
+			for (let i = 0 ; i < initialStreets.length ; i++) {
+				let place = initialStreets[i];
+				if (!place.media_type || place.media_type != "video") {
+					streets.push(place);
+				}
+			}
+			resolve(streets);
+		}).catch(function(error) {
+			reject(error);
+		});
 	});
 }

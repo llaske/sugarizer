@@ -23,8 +23,8 @@ var app = new Vue({
 		currentPlace: null,
 		currentThing: "families",
 		currentRegion: null,
-		currentMinIncome: 0,
-		currentMaxIncome: 0,
+		currentMinIncome: 25,
+		currentMaxIncome: 20000,
 		placeSize: 2,
 		timerId: null,
 		timerData: null,
@@ -135,9 +135,11 @@ var app = new Vue({
 		// Income range selected
 		onIncomeChanged: function(event) {
 			let vm = this;
+			// console.log(vm);
 			if (vm.timerId) {
 				clearTimeout(vm.timerId);
 			}
+			console.log(event.detail);
 			vm.timerId = setTimeout(function() {
 				vm.currentMinIncome = event.detail.min;
 				vm.currentMaxIncome = event.detail.max;
@@ -185,8 +187,8 @@ var app = new Vue({
 			this.$refs.api.initialize().then(function() {
 				console.log("Dollar Street API connected");
 				let settings = vm.$refs.api.getStreetSettings();
-				vm.currentMinIncome = data.currentMinIncome;
-				vm.currentMaxIncome = data.currentMaxIncome;
+				vm.currentMinIncome = 25;
+				vm.currentMaxIncome = 20000;
 				vm.currentThing = data.currentThing;
 				vm.currentRegion = data.currentRegion;
 				vm.displayThings();
@@ -203,8 +205,8 @@ var app = new Vue({
 			this.$refs.api.initialize().then(function() {
 				console.log("Dollar Street API connected");
 				let settings = vm.$refs.api.getStreetSettings();
-				vm.currentMinIncome = settings.poor;
-				vm.currentMaxIncome = settings.rich;
+				vm.currentMinIncome = 25;
+				vm.currentMaxIncome = 20000;
 				vm.displayThings();
 				vm.updateVisibility();
 			}).catch(function() {

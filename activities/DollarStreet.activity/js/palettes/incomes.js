@@ -19,18 +19,18 @@ define(['sugar-web/graphics/palette',"text!activity/palettes/incomes.html"], fun
 		let maxrange = children[5];
 		minrange.addEventListener('input', function(e) {
 			let settings = app.$refs.api.getStreetSettings();
-			let rangeincome = (settings.rich - settings.poor)/100.0;
+			let rangeincome = (20000 - 25)/100.0;
 			_computeMinRange(minrange);
-			that.incomeEvent.detail.min = (minrange.value == 0 ? settings.poor : settings.poor+minrange.value*rangeincome);
-			that.incomeEvent.detail.max = (maxrange.value == 100 ? settings.rich : maxrange.value*rangeincome);
+			that.incomeEvent.detail.min = (minrange.value == 0 ? 25 : 25+minrange.value*rangeincome);
+			that.incomeEvent.detail.max = (maxrange.value == 100 ? 20000 : maxrange.value*rangeincome);
 			that.getPalette().dispatchEvent(that.incomeEvent);
 		});
 		maxrange.addEventListener('input', function(e) {
 			let settings = app.$refs.api.getStreetSettings();
-			let rangeincome = (settings.rich - settings.poor)/100.0;
+			let rangeincome = (20000 - 25)/100.0;
 			_computeMaxRange(maxrange);
-			that.incomeEvent.detail.min = (minrange.value == 0 ? settings.poor : settings.poor+minrange.value*rangeincome);
-			that.incomeEvent.detail.max = (maxrange.value == 100 ? settings.rich : maxrange.value*rangeincome);
+			that.incomeEvent.detail.min = (minrange.value == 0 ? 25 : 25+minrange.value*rangeincome);
+			that.incomeEvent.detail.max = (maxrange.value == 100 ? 20000 : maxrange.value*rangeincome);
 			that.getPalette().dispatchEvent(that.incomeEvent);
 		});
 
@@ -41,8 +41,8 @@ define(['sugar-web/graphics/palette',"text!activity/palettes/incomes.html"], fun
 
 		invoker.addEventListener('click', function(e) {
 			let settings = app.$refs.api.getStreetSettings();
-			let rangeincome = (settings.rich - settings.poor)/100.0;
-			let currentmin = (app.currentMinIncome-settings.poor)/rangeincome;
+			let rangeincome = (20000 - 25)/100.0;
+			let currentmin = (app.currentMinIncome-25)/rangeincome;
 			let currentmax = app.currentMaxIncome/rangeincome;
 			_initSlider(currentmin, currentmax, app.$refs.SugarActivity.getEnvironment().user.colorvalue.stroke);
 		});
@@ -72,8 +72,8 @@ function _computeMinRange(minrange) {
 	children[5].style.left=value+'%';
 	children[7].style.left=value+'%';
 	let settings = app.$refs.api.getStreetSettings();
-	let rangeincome = (settings.rich - settings.poor)/100.0;
-	let newvalue = (minrange.value == 0 ? settings.poor : settings.poor+minrange.value*rangeincome);
+	let rangeincome = (20000 - 25)/100.0;
+	let newvalue = (minrange.value == 0 ? 25 : 25+minrange.value*rangeincome);
 	document.getElementById("slider-min").innerHTML = _formatIncome(newvalue);
 }
 
@@ -85,13 +85,14 @@ function _computeMaxRange(maxrange) {
 	children[5].style.right=(100-value)+'%';
 	children[9].style.left=value+'%';
 	let settings = app.$refs.api.getStreetSettings();
-	let rangeincome = (settings.rich - settings.poor)/100.0;
-	let newvalue = (maxrange.value == 100 ? settings.rich : maxrange.value*rangeincome);
+	let rangeincome = (20000 - 25)/100.0;
+	let newvalue = (maxrange.value == 100 ? 20000 : maxrange.value*rangeincome);
 	document.getElementById("slider-max").innerHTML = _formatIncome(newvalue);
 }
 
 function _initSlider(mymin, mymax, color) {
 	let children = document.getElementById("slider-incomes").childNodes;
+	console.log(children);
 	children[1].childNodes[7].style.left = mymin+"%";
 	children[3].value = mymin;
 	children[1].childNodes[9].style.left = mymax+"%";

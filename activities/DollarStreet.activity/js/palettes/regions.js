@@ -92,7 +92,7 @@ define(["sugar-web/graphics/palette"], function(palette) {
 					}
 				}
 			}
-			document.getElementById("pregion0").innerHTML = app.$refs.api.getL10n("THE_WORLD");
+			// document.getElementById("pregion0").innerHTML = app.$refs.api.getL10n("THE_WORLD");
 			for (let i = 0 ; i < regions.length ; i++) {
 				if (regions[i].code == app.currentRegion) {
 					that.buttons[i].style.background = "rgb(127, 127, 127)";
