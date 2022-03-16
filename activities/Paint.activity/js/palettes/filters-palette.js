@@ -77,7 +77,7 @@ define([
     this.filtersChangeEvent.initCustomEvent('filtersChange', true, true, {
       'filters': 'icons/size-1.svg'
     });
-    this.template = '<tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button value="{{value}}" style="height:55px; width:55px; background-image: url({{ filters }}); background-repeat: no-repeat; background-position: center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody>';
+    this.template = '<tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button value="{{value}}" title="{{ value }}" style="height:55px; width:55px; background-image: url({{ filters }}); background-repeat: no-repeat; background-position: center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody>';
     var filterssElem = document.createElement('table');
     filterssElem.className = 'filterss';
     var filterssData = {
