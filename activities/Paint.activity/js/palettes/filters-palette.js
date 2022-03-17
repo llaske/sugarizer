@@ -77,7 +77,7 @@ define([
     this.filtersChangeEvent.initCustomEvent('filtersChange', true, true, {
       'filters': 'icons/size-1.svg'
     });
-    this.template = '<tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button value="{{value}}" title="{{title}}" style="height:55px; width:55px; background-image: url({{ filters }}); background-repeat: no-repeat; background-position: center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody>';
+    this.template = '<tbody>' + '{{#rows}}' + '<tr>' + '{{#.}}' + '<td>' + '<button value="{{value}}" data-l10n-id="{{l10nid}}" title="{{title}}" style="height:55px; width:55px; background-image: url({{ filters }}); background-repeat: no-repeat; background-position: center; "></button>' + '</td>' + '{{/.}}' + '</tr>' + '{{/rows}}' + '</tbody>';
     var filterssElem = document.createElement('table');
     filterssElem.className = 'filterss';
     var filterssData = {
@@ -85,10 +85,12 @@ define([
         [{
           filters: 'icons/effect-grayscale.svg',
           title: 'Grayscale',
+          l10nid: 'grayscale',
           value: 'grayscale'
         }, {
           filters: 'icons/invert-colors.svg',
           title: 'Color inversion',
+          l10nid: 'invert',
           value: 'invert'
         }]
       ]
