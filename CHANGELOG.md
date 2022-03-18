@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improve calculator screen responsivity #982
 - Overlap hover effect in circular mode view #974
 - No Tooltip on home page and journal page #913
+- Localize and detail tooltip in Paint activity #1004 
 
 
 ## [1.6.0] - 2022-01-04
