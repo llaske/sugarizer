@@ -8,6 +8,7 @@
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
     <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
           href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+          <link rel="prefetch" type="application/l10n" href="locale.ini" />
     <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
           href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 
@@ -18,8 +19,8 @@
 
 <body>
 <div id="main-toolbar" class="toolbar">
-    <button class="toolbutton" id="activity-button" title="My Activity"></button>
-    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    <button class="toolbutton" id="activity-button" data-l10n-id="activity" title="My Activity"></button>
+    <button class="toolbutton pull-right" id="stop-button" data-l10n-id="stop" title="Stop"></button>
 </div>
 
 
@@ -43,6 +44,10 @@
 <div id="media" style="text-align: center;">
 
 </div>
+<div class="EmptyMessage" style="text-align: center; padding: 300px 100px;">
+    <img src="activity/activity-icon.svg" />
+    <p id="emptytext" data-l10n-id="emptytext"></p>
+  </div>
 </body>
 
 </html>
