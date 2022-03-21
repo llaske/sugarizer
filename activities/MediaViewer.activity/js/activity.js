@@ -1,5 +1,5 @@
 /* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity", "sugar-web/env", "webl10n"], function (activity, env, webl10n) {
 
     requirejs(['domReady!', 'sugar-web/datastore'], function (doc, datastore) {
         activity.setup();
@@ -44,6 +44,18 @@ define(["sugar-web/activity/activity"], function (activity) {
             });
         }, 1000);
     });
+    env.getEnvironment(function(err, environment) {
+        currentenv = environment;
+        // Set current language to Sugarizer
+        var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+        var language = environment.user ? environment.user.language : defaultLanguage;
+        webl10n.language.code = language;
+    });
+    window.addEventListener("localized", function() {
+        document.getElementById("emptytext").innerHTML = webl10n.get("empty-text");
+        document.getElementById("activity-button").title = webl10n.get("activity");
+        document.getElementById("stop-button").title = webl10n.get("stop");
+    })
 });
 
 function displayAudio(data) {
