@@ -272,14 +272,16 @@ body {
 
 .box {
 	position: absolute;
-	top: 48%;
+	top: 38%;
 	left: 0%;
 	border-width: 2px;
 	border-style: dashed;
 	border-color: white;
-	width: 99%;
-	height: 45%;
+	width: 93%;
+	height: 32%;
 	z-index: 1;
+	padding: 5% 2% 5% 1%;
+	margin: 2%;
 }
 
 .box-dragging {
