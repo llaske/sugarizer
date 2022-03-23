@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Localize and detail tooltip in Paint activity #1004
 - Off-center pictures in Abecedarium Activity #1001
 - Generate QRCode with enter in QRCode activity #1007
+- Implode Activity: fix Warning message button alignment #1025
 
 
 ## [1.6.0] - 2022-01-04
