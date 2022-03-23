@@ -48,6 +48,7 @@ let app = new Vue({
 			stringFractionBounceActivity: '',
 			stringTemplate: '',
 			stringRestart: '',
+			stringStop: '',
 			stringHelp: '',
 			stringPlay: '',
 			stringPause: '',
