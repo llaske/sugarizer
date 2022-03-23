@@ -179,7 +179,12 @@
 }
 
 /**Planet List on Homepage**/
-
+#planets-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .planets{
   display: inline-block;
   height: 250px;
