@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Off-center pictures in Abecedarium Activity #1001
 - Generate QRCode with enter in QRCode activity #1007
 - Implode Activity: fix Warning message button alignment #1025
+- Hover effect to Planet Activity #1029
 
 
 ## [1.6.0] - 2022-01-04
