@@ -122,6 +122,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		document.getElementById("generate-button").addEventListener('click', function() {
 			generateCode(userText.value);
 		});
+		document.getElementById('input-box').addEventListener('keyup', function (event) {
+                        event.preventDefault()
+                        if (event.keyCode === 13) {document.getElementById('generate-button').click()}
+		});
 
 		// Handle text scan
 		var codeScanned = function(code) {
