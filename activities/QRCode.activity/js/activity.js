@@ -110,12 +110,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 			document.getElementById("user-text").placeholder = webL10n.get("Text");
 		});
 
-		var input = document.getElementById("user-text");
-		input.addEventListener("keyup", function (event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-				generateCode(userText.value);
-			}
+		document.getElementById('input-box').addEventListener('keyup', function (event) {
+                        event.preventDefault()
+                        if (event.keyCode === 13) {document.getElementById('generate-button').click()}
 		});
 
 		// Handle text change
