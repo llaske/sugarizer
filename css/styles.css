@@ -805,6 +805,7 @@ body {
 
 .icon-button-text {
 	margin-top: 10px;
+	width:inherit;
 	padding-left: 38px;
 	padding-right: 38px;
 	color: white;
