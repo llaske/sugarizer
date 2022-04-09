@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Implode Activity: fix Warning message button alignment #1025
 - Hover effect to Planet Activity #1029
 - Fraction jump tutorial navigation text issue #1035
+- Some button text is not in centre with the icon #1052
 
 
 ## [1.6.0] - 2022-01-04
