@@ -146,6 +146,7 @@ p {
 	width: 65px;
 	height: 65px;
 	cursor: pointer;
+  z-index: 3;
 }
 
 #spinner {
@@ -357,6 +358,8 @@ p {
   font-size: 10pt;
   box-sizing: initial;
   min-width: 70px;
+  position: absolute;
+  z-index: 4;
 }
 
 .palette *, ::after, ::before {
