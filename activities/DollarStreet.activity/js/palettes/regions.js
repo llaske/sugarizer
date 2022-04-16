@@ -9,7 +9,7 @@ define(["sugar-web/graphics/palette"], function(palette) {
 		{name: "Africa", image: "africa.svg", code: "af"},
 		{name: "Asia", image: "asia.svg", code: "as"},
 		{name: "Europe", image: "europe.svg", code: "eu"},
-		{name: "The Americas", image: "americas.svg", code: "am"},
+		{name: "TheAmericas", image: "americas.svg", code: "am"},
 	]
 
 	regionpalette.RegionPalette = function(invoker, primaryText) {
@@ -82,17 +82,9 @@ define(["sugar-web/graphics/palette"], function(palette) {
 		}
 
 		invoker.addEventListener('click', function(e) {
-			let apiregions = app.$refs.api.getRegions();
-			for (let i = 0 ; i < apiregions.length ; i++) {
-				let region = apiregions[i];
-				for (let j = 0 ; j < regions.length ; j++) {
-					if (regions[j].name == region.originRegionName)  {
-						document.getElementById("pregion"+j).innerHTML = region.region;
-						break;
-					}
-				}
+			for (let j = 0 ; j < regions.length ; j++) {
+				document.getElementById("pregion"+j).innerHTML = app.l10n["string"+regions[j].name];
 			}
-			document.getElementById("pregion0").innerHTML = app.$refs.api.getL10n("THE_WORLD");
 			for (let i = 0 ; i < regions.length ; i++) {
 				if (regions[i].code == app.currentRegion) {
 					that.buttons[i].style.background = "rgb(127, 127, 127)";
