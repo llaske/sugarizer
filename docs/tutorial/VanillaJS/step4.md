@@ -185,6 +185,7 @@ We load the string - in the data parameter -, we parse it to an object and we se
 if (!environment.objectId) {
 	console.log("New instance");
 } else {
+	activity.setup(environment.objectId) //need to setup activity with objectId
 	activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 		if (error==null && data!=null) {
 			pawns = JSON.parse(data);
