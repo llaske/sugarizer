@@ -515,25 +515,42 @@ enyo.kind({
 		len = this.activities.length;
 		var userIconsInActivities = [];
 		for (var i = 0 ; i < len ; i++) {
-			// Unknown activity, ignoe
+			// Unknown activity, ignore
 			 var currentActivity = this.activities[i];
 			 var activityInfo = activities.getById(currentActivity.activityId);
 			 if (activities.isGeneric(activityInfo)) {
 				continue;
 			}
-
-			// Add activity icon
-			var icon = {
-				kind: "Sugar.Icon",
-				icon: {directory: activityInfo.directory, icon: activityInfo.icon},
-				size: constant.sizeNeighbor,
-				colorized: true,
-				colorizedColor: currentActivity.colorvalue,
-				ontap: "joinSharedActivity",
-				popupShow: enyo.bind(this, "showActivityPopup"),
-				popupHide: enyo.bind(this, "hideActivityPopup"),
-				data: {shared: currentActivity, activity: activityInfo}
-			};
+			// Add activity icon based on available space
+			var icon;
+			if (!(activityInfo.name in constant.maxPlayerCount) ||
+				(activityInfo.name in constant.maxPlayerCount && 
+				currentActivity.users.length < constant.maxPlayerCount[activityInfo.name])) {
+					icon = {
+						kind: "Sugar.Icon",
+						icon: {directory: activityInfo.directory, icon: activityInfo.icon},
+						size: constant.sizeNeighbor,
+						colorized: true,
+						colorizedColor: currentActivity.colorvalue,
+						ontap: "joinSharedActivity",
+						popupShow: enyo.bind(this, "showActivityPopup"),
+						popupHide: enyo.bind(this, "hideActivityPopup"),
+						data: {shared: currentActivity, activity: activityInfo}
+					};
+			} else {
+				icon = {
+					kind: "Sugar.Icon",
+					icon: {directory: activityInfo.directory, icon: activityInfo.icon},
+					size: constant.sizeNeighbor,
+					colorized: true,
+					colorizedColor: currentActivity.colorvalue,
+					ontap: "",
+					popupShow: enyo.bind(this, "hideActivityPopup"),
+					popupHide: enyo.bind(this, "hideActivityPopup"),
+					data: {shared: currentActivity, activity: activityInfo}
+				};
+			}
+			
 
 			// Add childs
 			var childIcons = [];

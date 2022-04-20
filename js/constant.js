@@ -87,6 +87,10 @@ constant.maxPopupHistory = 5;
 
 constant.maxCollisionTry = 20;
 
+constant.maxPlayerCount = {
+	"Chess": 2,
+}
+
 constant.wifiUpdateTime = 20000;
 
 constant.maxUserHistory = 3;
