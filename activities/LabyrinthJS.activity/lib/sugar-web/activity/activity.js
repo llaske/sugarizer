@@ -58,6 +58,8 @@ define(["webL10n",
         var activityPalette = new activitypalette.ActivityPalette(
             activityButton, datastoreObject);
 
+        document.getElementById("activity-palette").style.zIndex = "3";
+
         // Colorize the activity icon.
         activity.getXOColor(function (error, colors) {
             icon.colorize(activityButton, colors);
