@@ -350,6 +350,10 @@ body {
   overflow-y: hidden;
 }
 
+#activity-palette {
+  z-index: 3;
+}
+
 @media screen and (max-width: 905px) {
  .splitbar {
    visibility: hidden;
