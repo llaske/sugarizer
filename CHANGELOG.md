@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Some button text is not in centre with the icon #1052
 - Dollar street activity not loading #985
 - Overlapping of "activity-palette" with "back-button" in Tangran and Curriculum activity #1055
-- Settings of Falabracman activity was overlapping with activity palette
-#1060
+- Settings of Falabracman activity was overlapping with activity palette #1060
+- Overlapping of "activity-palette" in LabyrinthJS.activity #1073
 
 
 ## [1.6.0] - 2022-01-04
