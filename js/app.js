@@ -72,6 +72,9 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 			callback();
 		}).catch(function(error) {
 			console.log("Error loading init activities");
+			util.cleanDatastore(null, function() {
+				util.restartApp();
+			});
 		});
 	};
 
