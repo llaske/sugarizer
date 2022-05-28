@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Overlapping of "activity-palette" with "back-button" in Tangran and Curriculum activity #1055
 - Settings of Falabracman activity was overlapping with activity palette #1060
 - Overlapping of "activity-palette" in LabyrinthJS.activity #1073
+- Blank screen after using Sugarizer Server Dashboard #1079
 
 
 ## [1.6.0] - 2022-01-04
