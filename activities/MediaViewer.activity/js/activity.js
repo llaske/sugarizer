@@ -8,20 +8,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "webL10n"], function (ac
             return;
         }
 
-        var currentenv;
-        env.getEnvironment(function(err, environment){
-			currentenv = environment;
-        
-            // Set current language to Sugarizer
-            var currentLang = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18.getUILanguage() : navigator.language;
-			var language = environment.user ? environment.user.language : currentLang;
-			l10n.language.code = language;
-
-            window.addEventListener("localized", function() {
-                document.getElementById("emptytext").innerHTML = '<p>'+ l10n.get("EmptyText") +'<p>';
-            });
-        });
-
         var loadingSvg = document.getElementById("loading-svg");
         loadingSvg.style.width = document.body.clientWidth + "px";
         loadingSvg.style.height = document.body.clientHeight + "px";
@@ -57,6 +43,16 @@ define(["sugar-web/activity/activity", "sugar-web/env", "webL10n"], function (ac
 
             });
         }, 1000);
+    });
+    env.getEnvironment(function(err, environment){
+        // Set current language to Sugarizer
+        var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+        var language = environment.user ? environment.user.language : defaultLanguage;
+        l10n.language.code = language;
+    });
+
+    window.addEventListener("localized", function() {
+        document.getElementById("emptytext").innerHTML = '<p>'+ l10n.get("EmptyText") +'<p>';
     });
 });
 
