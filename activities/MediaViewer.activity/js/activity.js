@@ -1,5 +1,5 @@
 /* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity"], function (activity) {
+define(["sugar-web/activity/activity", "sugar-web/env", "webL10n"], function (activity, env, l10n) {
 
     requirejs(['domReady!', 'sugar-web/datastore'], function (doc, datastore) {
         activity.setup();
@@ -7,6 +7,20 @@ define(["sugar-web/activity/activity"], function (activity) {
         if (!(window.top && window.top.sugar && window.top.sugar.environment && window.top.sugar.environment.objectId)) {
             return;
         }
+
+        var currentenv;
+        env.getEnvironment(function(err, environment){
+			currentenv = environment;
+        
+            // Set current language to Sugarizer
+            var currentLang = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : currentLang;
+			l10n.language.code = language;
+
+            window.addEventListener("localized", function() {
+                document.getElementById("emptytext").innerHTML = '<p>'+ l10n.get("EmptyText") +'<p>';
+            });
+        });
 
         var loadingSvg = document.getElementById("loading-svg");
         loadingSvg.style.width = document.body.clientWidth + "px";
@@ -27,7 +41,7 @@ define(["sugar-web/activity/activity"], function (activity) {
                 if (data == null || !metadata || !metadata.mimetype) {
                     return;
                 }
-
+                document.getElementById("EmptyMessage").style.display = "none";
                 var mimetype = metadata.mimetype;
                 var type = mimetype.split("/")[0];
 
