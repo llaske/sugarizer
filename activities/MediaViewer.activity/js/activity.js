@@ -4,6 +4,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "webL10n"], function (ac
     requirejs(['domReady!', 'sugar-web/datastore'], function (doc, datastore) {
         activity.setup();
 
+        env.getEnvironment(function(err, environment){
+            // Set current language to Sugarizer
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            l10n.language.code = language;
+        });
+    
+        window.addEventListener("localized", function() {
+            document.getElementById("emptytext").innerHTML = '<p>'+ l10n.get("EmptyText") +'<p>';
+        });
+        
         if (!(window.top && window.top.sugar && window.top.sugar.environment && window.top.sugar.environment.objectId)) {
             return;
         }
@@ -43,16 +54,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "webL10n"], function (ac
 
             });
         }, 1000);
-    });
-    env.getEnvironment(function(err, environment){
-        // Set current language to Sugarizer
-        var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-        var language = environment.user ? environment.user.language : defaultLanguage;
-        l10n.language.code = language;
-    });
-
-    window.addEventListener("localized", function() {
-        document.getElementById("emptytext").innerHTML = '<p>'+ l10n.get("EmptyText") +'<p>';
     });
 });
 
