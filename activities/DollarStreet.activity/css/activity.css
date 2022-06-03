@@ -601,6 +601,33 @@ div[slider] > input[type=range]::-ms-tooltip {
 	visibility: hidden;
 }
 
+.place-left {
+	position: absolute;
+	width: 50px;
+	top: 50%;
+	left: 0px;
+	height: 50px;
+	background-image: url(../icons/go-previous.svg);
+	cursor:default;
+}
+
+.place-left:hover {
+	background-image: url(../icons/go-previous-sel.svg);
+}
+
+.place-right {
+	position: absolute;
+	height: 50px;
+	right: 2px;
+	top: 50%;
+	width: 50px;
+	background-image: url(../icons/go-next.svg);
+}
+
+.place-right:hover {
+	background-image: url(../icons/go-next-sel.svg);
+}
+
 #popup-container {
 	width: 100%;
 	height: 100%;
