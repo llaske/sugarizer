@@ -169,27 +169,31 @@ var _all_things=null;
 function previousPlace(){
 	if(_current_index==0)
 	{
-		_current_index=_all_things.length-1;
+		app.$refs.family.$refs.imageDialog.close();
 	}
 	else
+	{
 		_current_index=_current_index-1;
-	let index=_current_index;
-
-	app.$refs.family.$refs.imageDialog.close();
-	app.$refs.family.showImageCarousel(index);
+		let index=_current_index;
+	
+		app.$refs.family.$refs.imageDialog.close();
+		app.$refs.family.showImageCarousel(index);
+	}
 }
 
 function nextPlace(){
 	if(_current_index==_all_things.length-1)
 	{
-		_current_index=0;
+		app.$refs.family.$refs.imageDialog.close();
 	}
 	else
+	{
 		_current_index=_current_index+1;
-	let index=_current_index;
-	
-	app.$refs.family.showImageCarousel(index);
-	app.$refs.family.$refs.imageDialog.close();
+		let index=_current_index;
+		
+		app.$refs.family.showImageCarousel(index);
+		app.$refs.family.$refs.imageDialog.close();
+	}
 }
 
 // Export popup
