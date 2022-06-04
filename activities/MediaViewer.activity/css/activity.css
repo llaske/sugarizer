@@ -10,3 +10,7 @@ body {
     position:absolute;
     display: none;
 }
+
+#EmptyMessage {
+    margin: auto;
+}
