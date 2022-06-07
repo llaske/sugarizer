@@ -18,6 +18,7 @@ var Popup = {
 				})
 				.afterClose(function(modal) {
 					vm.$emit("after-close", vm.result);
+					vm.destroy();
 				})
 				.show();
 			});

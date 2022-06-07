@@ -167,33 +167,29 @@ function _capitalize(name) {
 var _current_index=null;
 var _all_things=null;
 function previousPlace(){
-	if(_current_index==0)
-	{
-		app.$refs.family.$refs.imageDialog.close();
+	if(_current_index==_all_things.length-1) {
+		document.getElementById('right').style.visibility="visible";
 	}
-	else
-	{
-		_current_index=_current_index-1;
-		let index=_current_index;
-	
-		app.$refs.family.$refs.imageDialog.close();
-		app.$refs.family.showImageCarousel(index);
+	_current_index=_current_index-1;
+	let index=_current_index;
+	let image=_all_things[index].images.full2048;
+	if(index==0) {
+		document.getElementById('left').style.visibility="hidden";
 	}
+	document.getElementById('popup-image').style.backgroundImage="url("+image+")";
 }
 
 function nextPlace(){
-	if(_current_index==_all_things.length-1)
-	{
-		app.$refs.family.$refs.imageDialog.close();
+	if(_current_index==0) {
+		document.getElementById('left').style.visibility="visible";
 	}
-	else
-	{
-		_current_index=_current_index+1;
-		let index=_current_index;
-		
-		app.$refs.family.showImageCarousel(index);
-		app.$refs.family.$refs.imageDialog.close();
+	_current_index=_current_index+1;
+	let index=_current_index;
+	let image=_all_things[index].images.full2048;
+	if(index==_all_things.length-1) {
+		document.getElementById('right').style.visibility="hidden";
 	}
+	document.getElementById('popup-image').style.backgroundImage="url("+image+")";
 }
 
 // Export popup
