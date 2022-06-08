@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Blank screen after using Sugarizer Server Dashboard #1079
 - Planet type is not localized in Planets activity #1076
 - Displaying message when MediaViewer activity is empty #1003
+- Add Previous/Next button in DollarStreet activity to navigate in images #1075
 
 
 ## [1.6.0] - 2022-01-04
