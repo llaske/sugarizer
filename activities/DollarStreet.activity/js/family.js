@@ -18,7 +18,7 @@ var Family = {
 			</div>
 			<div id="family-things" class="family-things">
 				<div class="flex-container">
-					<street-place ref="things" v-for="(place,index) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImageCarousel(index)"></street-place>
+					<street-place ref="things" v-for="(place,index) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place,index)"></street-place>
 				</div>
 				<img id="family-spinner" src="images/spinner-light.gif"/>
 			</div>
@@ -84,46 +84,10 @@ var Family = {
 			}, 0);
 		},
 
-		showImage: function(place) {
+		showImage: function(place, index=-1) {
 			let image = place.images.full2048;
 			_place_to_export = place;
-			let titleClose = app.$refs.SugarL10n.get("Close");
-			this.$refs.imageDialog.show({
-				content: `
-					<div id='popup-container'>
-						<div id="popup-image" class="popup-image" style="background-image:url(`+image+`)"/>
-						</div>
-						<img id="export-image" class="popup-hidden-image" src="`+image+`"/>
-						<div id="popup-export" onclick="_image_export()"></div>
-						<div class="popup-credit">Photo DollarStreet - licensed under CC BY 4.0</div>
-					</div>`,
-				closeHtml: "",
-				closeStyles: {
-					outline: "none",
-					backgroundImage: "url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)",
-					backgroundSize: "contain",
-					width: "40px",
-					height: "40px",
-					position: "absolute",
-					top: "5px",
-					right: "5px"
-				},
-				modalStyles: {
-					backgroundColor: "white",
-					maxHeight: "90%",
-					height: "90%",
-					width: "90%",
-					maxWidth: "90%"
-				}
-			});
-		},
-
-		showImageCarousel: function(index) {
-			let things=_all_things;
-			let image = things[index].images.full2048;
-			_place_to_export = things[index];
 			_current_index=index;
-
 			let titleClose = app.$refs.SugarL10n.get("Close");
 			this.$refs.imageDialog.show({
 				content: `
@@ -132,8 +96,8 @@ var Family = {
 						</div>
 						<img id="export-image" class="popup-hidden-image" src="`+image+`"/>
 						<div id="popup-export" onclick="_image_export()"></div>
-						<div id="left" class="place-left" onclick="previousPlace()"></div>
-						<div id="right" class="place-right" onclick="nextPlace()"></div>
+						<div id="left" class="place-left" onclick="previousPlace()" style="visibility: hidden;"></div>
+						<div id="right" class="place-right" onclick="nextPlace()" style="visibility: hidden;"></div>
 						<div class="popup-credit">Photo DollarStreet - licensed under CC BY 4.0</div>
 					</div>`,
 				closeHtml: "",
