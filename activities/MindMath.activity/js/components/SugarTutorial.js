@@ -19,7 +19,6 @@ Vue.component('sugar-tutorial', {
 	},
 	methods: {
 		show: function (steps) {
-			console.log(steps);
 			introJs().setOptions({
 				tooltipClass: 'customTooltip',
 				steps: steps,
