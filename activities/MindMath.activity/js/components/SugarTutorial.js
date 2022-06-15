@@ -22,6 +22,10 @@ Vue.component('sugar-tutorial', {
 			introJs().setOptions({
 				tooltipClass: 'customTooltip',
 				steps: steps,
+				prevLabel: this.l10n.stringTutoPrev,
+				nextLabel: this.l10n.stringTutoNext,
+				exitOnOverlayClick: false,
+				nextToDone: false,
 				showBullets: false
 			  }).start();
 		}

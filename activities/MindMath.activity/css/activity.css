@@ -439,6 +439,7 @@ body {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
 	border-radius: 6px !important;
 	padding: 2px 1px !important;
+  font-size: 14px !important;
 }
 
 .introjs-helperLayer{
@@ -527,6 +528,7 @@ body {
 .customTooltip .introjs-disabled {
 	color: black !important;
   border: 0px;
+  opacity: .65;
 }
 
 .customTooltip .introjs-disabled:focus {
