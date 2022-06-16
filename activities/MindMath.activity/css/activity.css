@@ -463,6 +463,10 @@ body {
 	font-weight: 800;
 }
 
+.customTooltip .introjs-tooltiptext {
+  line-height: 1.42857143;
+}
+
 .customTooltip .introjs-skipbutton {
 	float: right;
 	cursor: pointer;
