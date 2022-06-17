@@ -1146,7 +1146,6 @@ var app = new Vue({
         ];
       } else if (vm.currentScreen === 'result') {
         steps = [{
-            element: ".default",
             title: this.l10n.stringTutoResultTitle,
             intro: this.l10n.stringTutoResultContent
           },
@@ -1189,12 +1188,10 @@ var app = new Vue({
         ];
       } else if (vm.currentScreen === 'game') {
         steps = [{
-            element: ".default",
             title: this.l10n.stringTutoExplainTitle,
             intro: this.l10n.stringTutoExplainContent
           },
           {
-            element: ".default",
             title: this.l10n.stringTutoEachPuzzleTitle,
             intro: this.l10n.stringTutoEachPuzzleContent
           },
@@ -1223,12 +1220,10 @@ var app = new Vue({
             intro: this.l10n.stringTutoSlotsContent
           },
           {
-            element: ".default",
             title: this.l10n.stringTutoHowToPlayTitle,
             intro: this.l10n.stringTutoHowToPlayContent
           },
           {
-            element: ".default",
             title: this.l10n.stringTutoAboutTitle,
             intro: this.l10n.stringTutoAboutContent
           },
@@ -1239,7 +1234,6 @@ var app = new Vue({
             intro: this.l10n.stringTutoGameActionsContent
           },
           {
-            element: ".default",
             title: this.l10n.stringTutoScoreTitle,
             intro: this.l10n.stringTutoScoreContent
           },
@@ -1280,20 +1274,18 @@ var app = new Vue({
             intro: this.l10n.stringTutoRedoContent
           },
           {
-            element: ".default",
             title: this.l10n.stringTutoUselessOpsTitle,
             intro: this.l10n.stringTutoUselessOpsContent
           },
         ];
       } else {
         steps = [{
-          element: ".default",
           title: this.l10n.stringTutoExplainTitle,
           intro: this.l10n.stringTutoExplainContent
         }, ];
       }
       steps= steps.filter(function (obj) {
-        return $(obj.element).length || obj.element == ".default";
+        return $(obj.element).length || !('element' in obj);
      });
       this.$refs.SugarTutorial.show(steps);
     },
