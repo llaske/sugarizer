@@ -91,6 +91,10 @@ textarea {
   height: 50px !important;
   font-size: 200% !important;
 }
+calc-container {
+ overflow-y: auto;
+ max-height: 92vh;
+}
 .calcbutton {
   height: 50px;
   padding: 8%;
@@ -258,6 +262,10 @@ textarea {
   }
   .calcbutton-large {
     height: 100px;
+  }
+  .calc-container {
+    width: fit-content !important;
+    width: 100vw !important;
   }
   #results-zone {
     overflow-y: scroll;

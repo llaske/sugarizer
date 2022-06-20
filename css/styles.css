@@ -13,7 +13,7 @@ input {
 
 #canvas {
 	background-color: white;
-	overflow-y: hidden;
+	overflow: hidden;
 }
 
 body {
@@ -804,7 +804,8 @@ body {
 }
 
 .icon-button-text {
-	margin-top: 7px;
+	margin-top: 10px;
+	width:inherit;
 	padding-left: 38px;
 	padding-right: 38px;
 	color: white;

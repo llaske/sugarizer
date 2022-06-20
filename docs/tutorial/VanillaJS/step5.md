@@ -162,6 +162,6 @@ Let's test it. Change the Sugarizer language to French and let's see the result.
 
 ![](../../images/tutorial_step5_2.png)
 
-The welcome message and the button placeholder is now in French. The played message works too.
+The welcome message and the button placeholder are now in French. The played message works too.
 
 [Go to next step](step6.md)

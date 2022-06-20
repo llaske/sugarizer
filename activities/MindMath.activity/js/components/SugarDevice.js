@@ -1,4 +1,4 @@
-Vue.component('sugar-device', {
+app.component('sugar-device', {
 	/*html*/
 	template: `<div style="display: none">{{ watchId }}</div>`,
 	data: function () {

@@ -7,14 +7,14 @@ requirejs.config({
 });
 
 // Vue main app
-var app = new Vue({
-  el: '#app',
+const app = Vue.createApp({
+  // el: '#app',
   components: {
     'game': Game,
     'result': Result,
     'leaderboard': Leaderboard,
   },
-  data: function() {
+  data() {
     return {
       currentScreen: "",
       strokeColor: '#f0d9b5',
@@ -142,7 +142,7 @@ var app = new Vue({
       }
     }
   },
-  mounted: function() {
+  mounted() {
     var vm = this;
     vm.SugarPresence = vm.$refs.SugarPresence;
     vm.SugarL10n = vm.$refs.SugarL10n;
@@ -1314,3 +1314,16 @@ var app = new Vue({
 
   }
 });
+
+app.mount('#app');
+app
+  .component('sugar-toolitem',SugarToolitem)
+  .component('sugar-toolbar',SugarToolbar)
+  .component('sugar-icon',SugarIcon)
+  .component('sugar-activity',SugarActivity)
+  .component('sugar-popup',SugarPopup)
+  .component('sugar-journal',SugarJournal)
+  .component('sugar-localization',SugarLocalization)
+  .component('sugar-presence',SugarPresence)
+  .component('sugar-tutorial',SugarTutorial)
+console.log(app);

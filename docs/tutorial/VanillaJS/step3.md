@@ -56,7 +56,7 @@ Let's run the activity.
 
 ![](../../images/tutorial_step3_2.png)
 
-The new toolbar button is now here. Click on it. Of course, nothing happens thought there is no logic beside. It's our next step.
+The new toolbar button is now here. Click on it. Of course, nothing happens though there is no logic beside. It's our next step.
 
 
 ## Add the event

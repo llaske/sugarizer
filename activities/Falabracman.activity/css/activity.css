@@ -56,7 +56,6 @@ body {
   font-size: 20px;
   position: absolute;
   visibility: hidden;
-  z-index: 5;
 }
 
 #main-toolbar #help-button {

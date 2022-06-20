@@ -12,6 +12,8 @@ define(["sugar-web/graphics/palette"], function(palette) {
 		{name: "Thing5", svg: "", index: 4},
 		{name: "Thing6", svg: "", index: 5},
 		{name: "Thing7", svg: "", index: 6},
+		{name: "Thing8", svg: "", index: 7},
+		{name: "Thing9", svg: "", index: 8},
 	]
 
 	thingpalette.ThingPalette = function(invoker, primaryText) {
@@ -77,7 +79,7 @@ define(["sugar-web/graphics/palette"], function(palette) {
 			let apithings = app.$refs.api.getPopularThings();
 			for (let i = 0 ; i < apithings.length ; i++) {
 				let thing = apithings[i];
-				document.getElementById("pthinglabel"+i).innerHTML = thing.plural;
+				document.getElementById("pthinglabel"+i).innerHTML = app.l10n["string"+thing.plural];
 				let icon = app.$refs.api.getThingByTopic(thing.originPlural);
 				if (icon) {
 					document.getElementById("pthingimg"+i).innerHTML = icon.svg;

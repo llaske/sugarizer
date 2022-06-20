@@ -1,12 +1,12 @@
 As all Open Source software, contributions to Sugarizer are welcome.
 
-A good way to start to contribute is testing and trying Sugarizer to find some issues. If you find one, don't be shy, submit your issue [here](https://github.com/llaske/Sugarizer/issues) by giving the maximum information on it, specifically detailed steps to reproduce it. We will check your issue and ask your more information if needed.
+A good way to start to contribute is testing and trying Sugarizer to find some issues. If you find one, don't be shy, submit your issue [here](https://github.com/llaske/Sugarizer/issues) by giving the maximum information on it, specifically detailed steps to reproduce it. We will check your issue and ask you more information if needed.
 
-If you're a developper, the best way to start is to read the [architecture](docs/architecture.md) then to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
+If you're a developer, the best way to start is to read the [architecture](docs/architecture.md) then to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
 
-When you think you're ready, you could try to fix some existing issues [here](https://github.com/llaske/Sugarizer/issues). If you find a fix, send a Pull Request, we will be please to review it.
+When you think you're ready, you could try to fix some existing issues [here](https://github.com/llaske/Sugarizer/issues). If you find a fix, send a Pull Request, we will be pleased to review it.
 
-Note than the **master** branch of the repository is for released/stable version, the **dev** branch is for development.
+Note that the **master** branch of the repository is for released/stable version, the **dev** branch is for development.
 
 So to send your Pull Request:
 

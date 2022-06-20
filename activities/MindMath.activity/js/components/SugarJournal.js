@@ -1,4 +1,4 @@
-Vue.component('sugar-journal', {
+const SugarJournal= {
 	data: function () {
 		return {
 			activity: null,
@@ -78,4 +78,4 @@ Vue.component('sugar-journal', {
 			});
 		}
 	}
-});
+};

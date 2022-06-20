@@ -1,4 +1,4 @@
-Vue.component('sugar-activity', {
+const SugarActivity= {
 	name: 'SugarActivity',
 	data: function() {
 		return {
@@ -26,4 +26,4 @@ Vue.component('sugar-activity', {
 			return this.environment;
 		}
 	}
-})
+}
