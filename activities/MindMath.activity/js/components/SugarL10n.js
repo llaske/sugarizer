@@ -1,5 +1,5 @@
 // Localization component
-Vue.component('sugar-localization', {
+const SugarLocalization={
 	template: '<div/>',
 	data: function () {
 		return {
@@ -129,4 +129,4 @@ Vue.component('sugar-localization', {
 			return this.get("Ago", { time: time_period });
 		}
 	}
-});
+};

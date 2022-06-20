@@ -1,5 +1,5 @@
 // Tutorial component based on bootstrap tour
-Vue.component('sugar-tutorial', {
+const SugarTutorial= {
 	data: function () {
 		return {
 			l10n: {
@@ -59,4 +59,4 @@ Vue.component('sugar-tutorial', {
 			tour.start(true);
 		}
 	}
-});
+};
