@@ -53,40 +53,34 @@ Let's run the activity to test the result.
 The button is here. That's a good start.
 
 
-## Integrate Bootstrap tour components
+## Integrate IntroJs tour components
 
-Sugarizer relies on the [Bootstrap tour library](http://bootstraptour.com/) to produce the UI for the tutorial. 
+Sugarizer relies on the [IntroJs library](https://introjs.com/) to produce the UI for the tutorial. 
 
-**Bootstrap tour** is a set of components - based on the famous [Bootstrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/) libraries - dedicated to build interactive tutorial. It could be integrated into web pages that already use Bootstrap/jQuery but is also usable standalone for web pages that don't use them (like in our case).
+**Intro.js** is a lightweight JavaScript library for creating step-by-step and powerful customer onboarding tours. Intro.js doesn't have any dependencies. All we need to do is add the JS and CSS file.
 
 Let's see how to integrate it in Pawn activity.
 
-The Vue.js Activity Template already contains the required bootstrap tour standalone and jQuery JavaScript libraries. 
+The Vue.js Activity Template already contains the required introJs JavaScript libraries. 
 
-> In case you need to download them again, you can find the `bootstrap-tour-standalone.min.css` file [here](../../download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](../../download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](../../download/jquery.min.js). Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the two others files should be copied in the `lib` directory.
+> In case you need to download them again, you can find the `introjs.css` and `intro.js` files [here](https://www.jsdelivr.com/package/npm/intro.js). Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the other one should be copied in the `lib` directory.
 
 We're now going to reference these files from our `index.html` file. Update the file like that:
 ```html
 ...
 <link rel="stylesheet" href="css/activity.css">
 
-<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
-<script src="lib/vue.min.js"></script>
-<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-<script src="lib/jquery.min.js"></script>
-<script src="lib/bootstrap-tour-standalone.min.js"></script>
-<script>if (window.module) module = window.module;</script>
+<link rel="stylesheet" href="css/introjs.css">
+<script src="lib/intro.js"></script>
 <script src="lib/require.js"></script>
 ...
 ```
 The main change is to add the link on the CSS file and integrate the libraries into the scripts part. 
 
-Note that we've done script integration around `if (typeof module ...)` and `if (window.module)` testing. It's related to an [incompatibility between Electron and jQuery](https://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined). You don't have to worry about that.
-
 
 ## Display the tutorial
 
-Only a few Javascript lines are needed to display a tutorial with Bootstrap tour. And as you might have guessed, we have a component for this too! Not only does it handle the displaying of steps but also has the Sugar UI so you don't have to worry about setting up Bootstrap tour or styling. Awesome!
+Only a few Javascript lines are needed to display a tutorial with introJs tour. And as you might have guessed, we have a component for this too! Not only does it handle the displaying of steps but also has the Sugar UI so you don't have to worry about setting up Bootstrap tour or styling. Awesome!
 
 So, let's create a new Javascript file `lib/tutorial.js` to handle everything related to the tutorial.
 ```html
@@ -96,6 +90,8 @@ So, let's create a new Javascript file `lib/tutorial.js` to handle everything re
 	<!-- After all script loads -->
 	<script src="js/components/SugarTutorial.js"></script>
 ```
+
+## Localize the tutorial
 
 First, let's add text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the Step 5, update your `locale.ini` file to define new resource strings:
 ```ini
@@ -133,23 +129,20 @@ Let's also create the click handler method for help-button:
 onHelp: function () {
 	var steps = [
 		{
-			element: "",
-			orphan: true,
-			placement: "bottom",
 			title: this.l10n.stringTutoExplainTitle,
-			content: this.l10n.stringTutoExplainContent
+			intro: this.l10n.stringTutoExplainContent
 		},
 		{
 			element: "#add-button",
-			placement: "right",
+			position: "right",
 			title: this.l10n.stringTutoAddTitle,
-			content: this.l10n.stringTutoAddContent
+			intro: this.l10n.stringTutoAddContent
 		},
 		{
 			element: "#insert-button",
-			placement: "bottom",
+			position: "bottom",
 			title: this.l10n.stringTutoBackgroundTitle,
-			content: this.l10n.stringTutoBackgroundContent
+			intro: this.l10n.stringTutoBackgroundContent
 		}
 	];
 	this.$refs.SugarTutorial.show(steps);
