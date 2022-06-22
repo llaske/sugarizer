@@ -1285,7 +1285,7 @@ var app = new Vue({
         }, ];
       }
       steps= steps.filter(function (obj) {
-        return $(obj.element).length || !('element' in obj);
+        return ($(obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none') || !('element' in obj);
      });
       this.$refs.SugarTutorial.show(steps);
     },
