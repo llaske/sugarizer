@@ -145,10 +145,14 @@ onHelp: function () {
 			intro: this.l10n.stringTutoBackgroundContent
 		}
 	];
+	steps= steps.filter(function (obj) {
+        return ($(obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none') || !('element' in obj);
+    });
 	this.$refs.SugarTutorial.show(steps);
 },
 ```
 We've first defined an array with steps (i.e. dialogs) for the tutorial. Here we've chosen a dialog box to present the activity, then two dialog box to explain the role of "Add" and "Insert Image" buttons. Now as you observe individual steps, we are passing in the localized strings from the `l10n` object.
+Here, we are also ensuring that if any element we are targeting for steps, then it should be present or should be visible to display our step.
 
 In the end, we just call `show()` method of the `SugarTutorial` passing in the steps.
 

@@ -110,6 +110,9 @@ define([], function () {
 				intro: "Click here to choose a new background for the board."
 			}
 		];
+    steps= steps.filter(function (obj) {
+        return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');
+    });
 		introJs().setOptions({
 			steps: steps,
 		}).start();
@@ -124,6 +127,7 @@ Since Step 2, you should now be familiar with the structure of this file. It def
 The `start` method contains all the stuff to call introJs library. 
 
 We've first defined an array with steps (i.e. dialogs) for the tutorial. Here we've chosen a dialog box to present the activity, then two dialog box to explain the role of "Add" and "Insert Image" buttons.
+Here, we are also ensuring that if any element we are targeting for steps, then it should be present or should be visible to display our step.
 
 Then we've called the `setOptions()` function, exposed by the introJs library. Finally, we've called the  `start()` method on this object to display the tutorial.
 
