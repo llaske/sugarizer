@@ -213,6 +213,7 @@ We need also to define custom CSS class `customTooltip` used here. To do that, a
 }
 
 .customTooltip .introjs-tooltiptext {
+  color: #000000;
   line-height: 1.42857143;
 }
 

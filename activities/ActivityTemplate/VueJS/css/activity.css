@@ -108,6 +108,7 @@ p {
 }
 
 .customTooltip .introjs-tooltiptext {
+	color: #000000;
 	line-height: 1.42857143;
 }
 
