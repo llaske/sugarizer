@@ -63,7 +63,7 @@ Let's see how to integrate it in Pawn activity.
 
 The Vue.js Activity Template already contains the required introJs JavaScript libraries. 
 
-> In case you need to download them again, you can find the `introjs.css` and `intro.js` files [here](https://www.jsdelivr.com/package/npm/intro.js). Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the other one should be copied in the `lib` directory.
+> In case you need to download them again, You could find the `introjs.css` file [here](../../download/introjs.css) and the `intro.js` file [here](../../download/intro.js). Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the other one should be copied in the `lib` directory.
 
 We're now going to reference these files from our `index.html` file. Update the file like that:
 ```html
@@ -97,7 +97,6 @@ First, let's add text to localize. We need to translate title and content for ea
 ```ini
 TutoPrev=Prev
 TutoNext=Next
-TutoEnd=End
 TutoExplainTitle=Pawn Activity
 TutoExplainContent=Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.
 TutoAddTitle=Add pawn
@@ -145,14 +144,10 @@ onHelp: function () {
 			intro: this.l10n.stringTutoBackgroundContent
 		}
 	];
-	steps= steps.filter(function (obj) {
-        return ($(obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none') || !('element' in obj);
-    });
 	this.$refs.SugarTutorial.show(steps);
 },
 ```
 We've first defined an array with steps (i.e. dialogs) for the tutorial. Here we've chosen a dialog box to present the activity, then two dialog box to explain the role of "Add" and "Insert Image" buttons. Now as you observe individual steps, we are passing in the localized strings from the `l10n` object.
-Here, we are also ensuring that if any element we are targeting for steps, then it should be present or should be visible to display our step.
 
 In the end, we just call `show()` method of the `SugarTutorial` passing in the steps.
 

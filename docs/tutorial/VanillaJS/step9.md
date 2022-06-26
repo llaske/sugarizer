@@ -63,7 +63,7 @@ Sugarizer relies on the [IntroJs library](https://introjs.com/) to produce the U
 
 Let's see how to integrate it in Pawn activity.
 
-First download the introJs JavaScript libraries. You could find the `introjs.css` and `intro.js` files [here](https://www.jsdelivr.com/package/npm/intro.js).
+First download the introJs JavaScript libraries. You could find the `introjs.css` file [here](../../download/introjs.css) and the `intro.js` file [here](../../download/intro.js).
 
 Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the other one should be copied in the `lib` directory.
 
@@ -310,7 +310,6 @@ So let's first prepare text to localize. We need to translate title and content 
 ```
 TutoPrev=Prev
 TutoNext=Next
-TutoEnd=End
 TutoExplainTitle=Pawn Activity
 TutoExplainContent=Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.
 TutoAddTitle=Add pawn
