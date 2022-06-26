@@ -1284,9 +1284,7 @@ var app = new Vue({
           intro: this.l10n.stringTutoExplainContent
         }, ];
       }
-      steps= steps.filter(function (obj) {
-        return ($(obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none') || !('element' in obj);
-     });
+
       this.$refs.SugarTutorial.show(steps);
     },
 
