@@ -31,7 +31,7 @@ const SugarToolitem= {
 	},
 	created: function () {
 		// v-visible="condition" (Use this with palettes to avoid errors)
-		Vue.directive('visible', function (el, binding) {
+		app.directive('visible', function (el, binding) {
 			el.style.visibility = !!binding.value ? 'visible' : 'hidden';
 		});
 	},

@@ -197,8 +197,8 @@ var Game = {
       var vm = this;
       if (vm.currentSelectedNums.nums.length != 0) {
         vm.currentSelectedOp = null;
-        vm.$set(vm.currentSelectedNums, 'numIndex1', null);
-        vm.$set(vm.currentSelectedNums, 'numIndex2', null);
+        vm.currentSelectedNums['numIndex1'] = null;
+        vm.currentSelectedNums['numIndex2'] = null;
         vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
         if (vm.currentSelectedNums.nums.length != 0) {
           vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
@@ -211,10 +211,10 @@ var Game = {
       if (vm.currentSelectedNums.numIndex1 === index) {
         //deselecting
         if (vm.currentSelectedNums.numIndex2 != null) {
-          vm.$set(vm.currentSelectedNums, 'numIndex1', vm.currentSelectedNums.numIndex2);
-          vm.$set(vm.currentSelectedNums, 'numIndex2', null);
+          vm.currentSelectedNums['numIndex1'] = vm.currentSelectedNums.numIndex2l;
+          vm.currentSelectedNums['numIndex2'] = null;
         } else {
-          vm.$set(vm.currentSelectedNums, 'numIndex1', null);
+          vm.currentSelectedNums['numIndex1'] = null;
         }
         vm.currentSelectedOp = null;
         vm.currentSelectedNums.nums = removeEntryFromArray(vm.currentSelectedNums.nums, 0);
@@ -225,20 +225,20 @@ var Game = {
         return;
       } else if (vm.currentSelectedNums.nums.length === 0) {
         var at = 0;
-        vm.$set(vm.currentSelectedNums.nums, at, vm.inputNumbers[index]);
-        vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
+        vm.currentSelectedNums.nums[at] = vm.inputNumbers[index];
+        vm.currentSelectedNums['numIndex' + (at + 1)] = index;
       } else {
         var at = 1;
         if (vm.currentSelectedOp !== null) {
           if (vm.checkOperation(vm.currentSelectedNums.nums[0], vm.inputNumbers[index], vm.operators[vm.currentSelectedOp]).valid) {
-            vm.$set(vm.currentSelectedNums.nums, at, vm.inputNumbers[index]);
-            vm.$set(vm.currentSelectedNums, 'numIndex' + (at + 1), index);
+            vm.currentSelectedNums.nums[at] = vm.inputNumbers[index];
+            vm.currentSelectedNums['numIndex' + (at + 1)] = index;
             vm.computeOperation();
           }
         } else {
           vm.deselect();
-          vm.$set(vm.currentSelectedNums.nums, 0, vm.inputNumbers[index]);
-          vm.$set(vm.currentSelectedNums, 'numIndex1', index);
+          vm.currentSelectedNums.nums[0] = vm.inputNumbers[index];
+          vm.currentSelectedNums['numIndex1'] = index;
         }
       }
     },

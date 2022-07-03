@@ -1,4 +1,4 @@
-app.component('sugar-device', {
+const SugarDevice= {
 	/*html*/
 	template: `<div style="display: none">{{ watchId }}</div>`,
 	data: function () {
@@ -131,4 +131,4 @@ app.component('sugar-device', {
 	beforeDestroy: function () {
 		navigator.accelerometer.clearWatch(this.watchId);
 	}
-});
+};
