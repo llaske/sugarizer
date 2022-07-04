@@ -211,7 +211,7 @@ var Game = {
       if (vm.currentSelectedNums.numIndex1 === index) {
         //deselecting
         if (vm.currentSelectedNums.numIndex2 != null) {
-          vm.currentSelectedNums['numIndex1'] = vm.currentSelectedNums.numIndex2l;
+          vm.currentSelectedNums['numIndex1'] = vm.currentSelectedNums.numIndex2;
           vm.currentSelectedNums['numIndex2'] = null;
         } else {
           vm.currentSelectedNums['numIndex1'] = null;
