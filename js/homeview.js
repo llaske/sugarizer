@@ -507,7 +507,7 @@ enyo.kind({
 	runActivity: function(activity) {
 		// Run the last activity instance in the context
 		util.vibrate();
-		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
+		var help = activity.id == tutorial.activityId;
 		preferences.runActivity(activity, undefined, null, null, help);
 		this.postRunActivity(activity.isNative);
 	},
