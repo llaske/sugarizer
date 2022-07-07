@@ -8,7 +8,6 @@ requirejs.config({
 
 // Vue main app
 const app = Vue.createApp({
-  // el: '#app',
   components: {
     'game': Game,
     'result': Result,
@@ -26,7 +25,7 @@ const app = Vue.createApp({
     'sugar-popup': SugarPopup,
     'sugar-icon': SugarIcon
   },
-  data() {
+  data: function() {
     return {
       currentScreen: "",
       strokeColor: '#f0d9b5',
@@ -154,7 +153,7 @@ const app = Vue.createApp({
       }
     }
   },
-  mounted() {
+  mounted: function() {
     var vm = this;
     vm.SugarPresence = vm.$refs.SugarPresence;
     vm.SugarL10n = vm.$refs.SugarL10n;
@@ -1328,4 +1327,3 @@ const app = Vue.createApp({
 });
 
 app.mount('#app');
-console.log(app);
