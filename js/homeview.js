@@ -355,6 +355,9 @@ enyo.kind({
 		if (this.noresize) {
 			return;
 		}
+		if (tutorial.isLaunched()) {
+			tutorial.stop();
+		}
 		this.redraw();
 	},
 
