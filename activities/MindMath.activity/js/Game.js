@@ -40,7 +40,7 @@ var Game = {
           <div class="list-numbers">
             <inputNumber
               v-for="(number,index) in inputNumbers"
-              v-on:click.native="onSelectNumber(index)"
+              v-on:click="onSelectNumber(index)"
               class="btn-number"
               v-bind:class="{
                 'selected-num': index === currentSelectedNums.numIndex1 || index === currentSelectedNums.numIndex2,
@@ -129,16 +129,13 @@ var Game = {
       },
       currentSelectedOp: null,
       compulsoryOpUsed: false,
-      l10n: {
-        stringScore: ''
-      }
     };
   },
   created: function() {
     var vm = this;
     window.addEventListener('resize', vm.resize);
   },
-  destroyed: function() {
+  unmounted: function() {
     var vm = this;
     window.removeEventListener("resize", vm.resize);
   },
@@ -147,10 +144,13 @@ var Game = {
     vm.resize();
   },
   watch: {
-    slots: function(newVal) {
-      var vm = this;
-      //deselecting
-      vm.deselect();
+    slots: {
+      handler(){
+        var vm = this;
+        //deselecting
+        vm.deselect();
+      },
+      deep: true
     },
     qNo: function() {
       var vm = this;
@@ -160,11 +160,6 @@ var Game = {
     }
   },
   methods: {
-    localized: function() {
-      console.log("game");
-      this.SugarL10n.localize(this.l10n);
-    },
-
     resize: function() {
       var vm = this;
       var toolbarElem = document.getElementById("main-toolbar");

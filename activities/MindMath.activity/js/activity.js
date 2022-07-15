@@ -155,7 +155,7 @@ const app = Vue.createApp({
   },
   mounted: function() {
     var vm = this;
-    vm.SugarPresence = vm.$refs.SugarPresence;
+    // vm.SugarPresence = vm.$refs.SugarPresence;
     vm.SugarL10n = vm.$refs.SugarL10n;
     vm.sugarPopup = vm.$refs.SugarPopup;
     vm.SugarJournal = vm.$refs.SugarJournal;
@@ -197,20 +197,26 @@ const app = Vue.createApp({
       }
     },
 
-    slots: function() {
-      var vm = this;
-      vm.updateUselessOperations();
-      vm.updateCompulsoryOpsRem();
-      //close hintPalette
-      vm.$refs.hintPalette.paletteObject.popDown();
-      vm.generateHint();
+    slots: {
+      handler() {
+        var vm = this;
+        vm.updateUselessOperations();
+        vm.updateCompulsoryOpsRem();
+        //close hintPalette
+        vm.$refs.hintPalette.paletteObject.popDown();
+        vm.generateHint();
+      },
+      deep: true
     },
 
-    compulsoryOps: function() {
-      var vm = this;
-      vm.updateUselessOperations();
-      vm.updateCompulsoryOpsRem();
-      vm.generateHint();
+    compulsoryOps: {
+      handler() {
+        var vm = this;
+        vm.updateUselessOperations();
+        vm.updateCompulsoryOpsRem();
+        vm.generateHint();
+      },
+      deep: true
     },
 
     qNo: function() {
@@ -250,13 +256,16 @@ const app = Vue.createApp({
       }
     },
 
-    playersPlaying: function() {
-      var vm = this;
-      if (vm.playersPlaying.length === 0 && vm.SugarPresence.isHost) {
-        vm.disabled = false;
-      } else {
-        vm.disabled = true;
-      }
+    playersPlaying: {
+      handler() {
+        var vm = this;
+        if (vm.playersPlaying.length === 0 && vm.SugarPresence.isHost) {
+          vm.disabled = false;
+        } else {
+          vm.disabled = true;
+        }
+      },
+      deep: true
     }
   },
 
@@ -669,7 +678,7 @@ const app = Vue.createApp({
 
         vm.currentScreen = "result";
       } else {
-        if (vm.SugarPresence.isHost) {
+        if (vm.SugarPresence && vm.SugarPresence.isHost) {
           vm.onMultiplayerGameStarted(true)
         }
         //change currentScreen
