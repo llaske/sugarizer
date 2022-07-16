@@ -8,8 +8,8 @@ const dsThings = "data/things.json";
 const dsFamilies = "search/families?featuredOnly=false&pageSize=1000&lng=";
 
 // Main component
-Vue.component("dollarstreet-api", {
-	name: "DollarStreetAPI",
+const DollarStreetAPI={
+	render() {},
 	data: function() {
 		return {
 			language: "en",
@@ -195,7 +195,7 @@ Vue.component("dollarstreet-api", {
 			});
 		}
 	}
-});
+};
 
 // Do a GET call to a route
 function _dsAPIGet(route) {

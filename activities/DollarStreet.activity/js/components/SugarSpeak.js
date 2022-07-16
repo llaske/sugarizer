@@ -1,5 +1,5 @@
 // Speak component based on Speak activity
-Vue.component('sugar-speak', {
+const SugarSpeak={
 	template: `
 		<script src="../Speak.activity/mespeak.js" type="text/javascript"></script>
 	`,
@@ -40,4 +40,4 @@ Vue.component('sugar-speak', {
 			});
 		}
 	}
-});
+};

@@ -1,5 +1,5 @@
 // Toolbar item
-Vue.component('sugar-toolitem', {
+const SugarToolitem= {
 	template: `
 		<div class="splitbar" v-if="splitbar"/>
 		<button 
@@ -9,7 +9,6 @@ Vue.component('sugar-toolitem', {
 			:class="{ active: active }"
 			:style="{ backgroundImage: icon ? 'url('+ icon +')' : '' }"
 			v-bind="$attrs" 
-			v-on="$listeners" 
 			:disabled="disabled" 
 		></button>
 	`,
@@ -29,11 +28,11 @@ Vue.component('sugar-toolitem', {
 			paletteObject: null
 		}
 	},
-	created: function () {
-		// v-visible="condition" (Use this with palettes to avoid errors)
-		Vue.directive('visible', function (el, binding) {
+	directives: {
+		visible: function (el, binding) {
+			// v-visible="condition" (Use this with palettes to avoid errors)
 			el.style.visibility = !!binding.value ? 'visible' : 'hidden';
-		});
+		}
 	},
 	mounted: function () {
 		// Create palette if present
@@ -49,10 +48,10 @@ Vue.component('sugar-toolitem', {
 			});
 		}
 	}
-});
+};
 
 // Toolbar component
-Vue.component('sugar-toolbar', {
+const SugarToolbar= {
 	template: `
 		<div id="main-toolbar" class="toolbar" v-bind:class="{ hidden: hidden }">
 			<slot></slot>
@@ -78,4 +77,4 @@ Vue.component('sugar-toolbar', {
 			this.hidden = false;
 		},
 	}
-});
+};

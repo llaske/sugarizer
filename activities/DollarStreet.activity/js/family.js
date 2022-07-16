@@ -2,7 +2,7 @@
 
 // Size images : full512: 512×341, full1024:1024×683, full2048:2048×1365
 
-var Family = {
+const Family={
 	template: `
 		<div class="family-detail">
 			<div>
@@ -11,7 +11,7 @@ var Family = {
 					<img :src="place.images.full512" class="family-image"/>
 				</div>
 				<div id="family-description" class="family-description">
-					<div class="family-income">{{formattedIncome}}</div><div class="family-bymonth">{{"/"+app.$refs.SugarL10n.get("Months_one")}}</div>
+					<div class="family-income">{{formattedIncome}}</div><div class="family-bymonth">{{"/"+this.$root.$refs.SugarL10n.get("Months_one")}}</div>
 					<div class="family-name">{{capitalizeName}}, {{place.country.name}}</div>
 					<div class="family-content">{{""}}</div>
 				</div>
@@ -30,11 +30,11 @@ var Family = {
 		'popup': Popup
 	},
 	props: {
-		place: { type: Object },
-		things: { type: Array, default: [] }
+		place: { type: Object }
 	},
 	data: function() {
 		return {
+			things: []
 		};
 	},
 	mounted: function() {
@@ -49,7 +49,7 @@ var Family = {
 				places.push(things[i]);
 			}
 			spinner.style.visibility = "hidden";
-			vm.things = places;
+			vm.things.push(...places);
 			setTimeout(function() {
 				let things = vm.$refs.things;
 				if (!things) { return; }
@@ -162,7 +162,7 @@ var _place_to_export = null;
 function _image_export() {
 	// Get name
 	let place = _place_to_export;
-	let thing = app.$refs.api.getThingByTopic(place.topics[0]);
+	let thing = app.$refs.api.getThingByTopic(place.topics[0].id);
 	let name = _capitalize(place.place.slug) + " - " + thing.thingName;
 
 	// Get image into a canvas

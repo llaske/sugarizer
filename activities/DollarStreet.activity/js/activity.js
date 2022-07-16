@@ -7,83 +7,95 @@ requirejs.config({
 });
 
 // Constants
-const viewList = 1;
-const viewDetail = 2;
+;
 
 // Vue main app
-var app = new Vue({
-	el: '#app',
+const vueapp = Vue.createApp({
 	components: {
 		'street-place': StreetPlace,
-		'family-detail': Family
+		'family-detail': Family,
+		'dollarstreet-api': DollarStreetAPI,
+		'sugar-activity': SugarActivity,
+		'sugar-toolitem': SugarToolitem,
+		'sugar-toolbar': SugarToolbar,
+		'sugar-journal': SugarJournal,
+		'sugar-localization': SugarLocalization,
+		'sugar-presence': SugarPresence,
+		'sugar-tutorial': SugarTutorial,
+		'sugar-popup': SugarPopup,
+		'sugar-icon': SugarIcon
 	},
-	data: {
-		places: [],
-		currentView: viewList,
-		currentPlace: null,
-		currentThing: "families",
-		currentRegion: null,
-		currentMinIncome: 0,
-		currentMaxIncome: 0,
-		placeSize: 2,
-		timerId: null,
-		timerData: null,
-		scroll: {top: 0, left: 0},
-		SugarL10n: null,
-		l10n: {
-			stringIncomePalette: '',
-			stringWorldButton: '',
-			stringFamilyButton: '',
-			stringThingsButton: '',
-			stringClose: '',
-			stringImageExported: '',
-			stringNoDescription: '',
-			stringNoMatchingPlace: '',
-			stringWorld: '',
-			stringAsia: '',
-			stringEurope: '',
-			stringAfrica: '',
-			stringTheAmericas: '',
-			stringbedrooms: '',
-			stringfloors: '',
-			stringhands: '',
-			stringpets: '',
-			stringtoilets: '',
-			stringteeth: '',
-			stringtoys: '',
-			stringhomes: '',
-			stringstoves: '',
-			stringTutoListWelcomeTitle: '',
-			stringTutoListWelcomeContent: '',
-			stringTutoListIncomeTitle: '',
-			stringTutoListIncomeContent: '',
-			stringTutoListFamilyTitle: '',
-			stringTutoListFamilyContent: '',
-			stringTutoListThingsTitle: '',
-			stringTutoListThingsContent: '',
-			stringTutoListRegionTitle: '',
-			stringTutoListRegionContent: '',
-			stringTutoListPlaceTitle: '',
-			stringTutoListPlaceContent: '',
-			stringTutoDetailViewTitle: '',
-			stringTutoDetailViewContent: '',
-			stringTutoDetailImageTitle: '',
-			stringTutoDetailImageContent: '',
-			stringTutoDetailDescriptionTitle: '',
-			stringTutoDetailDescriptionContent: '',
-			stringTutoDetailThingsTitle: '',
-			stringTutoDetailThingsContent: '',
-			stringTutoDetailBackTitle: '',
-			stringTutoDetailBackContent: ''
+	data() {
+		return {
+			viewList: 1,
+			viewDetail: 2,
+			places: [],
+			currentView: 1,
+			currentPlace: null,
+			currentThing: "families",
+			currentRegion: null,
+			currentMinIncome: 0,
+			currentMaxIncome: 0,
+			placeSize: 2,
+			timerId: null,
+			timerData: null,
+			scroll: {top: 0, left: 0},
+			SugarL10n: null,
+			l10n: {
+				stringIncomePalette: '',
+				stringWorldButton: '',
+				stringFamilyButton: '',
+				stringThingsButton: '',
+				stringClose: '',
+				stringImageExported: '',
+				stringNoDescription: '',
+				stringNoMatchingPlace: '',
+				stringWorld: '',
+				stringAsia: '',
+				stringEurope: '',
+				stringAfrica: '',
+				stringTheAmericas: '',
+				stringbedrooms: '',
+				stringfloors: '',
+				stringhands: '',
+				stringpets: '',
+				stringtoilets: '',
+				stringteeth: '',
+				stringtoys: '',
+				stringhomes: '',
+				stringstoves: '',
+				stringTutoListWelcomeTitle: '',
+				stringTutoListWelcomeContent: '',
+				stringTutoListIncomeTitle: '',
+				stringTutoListIncomeContent: '',
+				stringTutoListFamilyTitle: '',
+				stringTutoListFamilyContent: '',
+				stringTutoListThingsTitle: '',
+				stringTutoListThingsContent: '',
+				stringTutoListRegionTitle: '',
+				stringTutoListRegionContent: '',
+				stringTutoListPlaceTitle: '',
+				stringTutoListPlaceContent: '',
+				stringTutoDetailViewTitle: '',
+				stringTutoDetailViewContent: '',
+				stringTutoDetailImageTitle: '',
+				stringTutoDetailImageContent: '',
+				stringTutoDetailDescriptionTitle: '',
+				stringTutoDetailDescriptionContent: '',
+				stringTutoDetailThingsTitle: '',
+				stringTutoDetailThingsContent: '',
+				stringTutoDetailBackTitle: '',
+				stringTutoDetailBackContent: ''
+			}
 		}
 	},
 	created() {
-		let vm = this;
-		vm.computeSize();
-		window.addEventListener("resize", vm.computeSize);
 	},
 	mounted: function() {
-		this.SugarL10n = this.$refs.SugarL10n;
+		let vm = this;
+		vm.SugarL10n = vm.$refs.SugarL10n;
+		vm.computeSize();
+		window.addEventListener("resize", vm.computeSize);
 	},
 	updated: function() {
 		this.updateVisibility();
@@ -163,7 +175,7 @@ var app = new Vue({
 		// Place clicked
 		onPlaceClicked: function(place) {
 			let vm = this;
-			vm.currentView = viewDetail;
+			vm.currentView = vm.viewDetail;
 			vm.currentPlace = place;
 			let scroll = document.getElementById("content");
 			vm.scroll = {left: scroll.scrollLeft, top: scroll.scrollTop};
@@ -172,7 +184,7 @@ var app = new Vue({
 		// Back button on family clicked, go back to list
 		onBackClicked: function(place) {
 			let vm = this;
-			vm.currentView = viewList;
+			vm.currentView = vm.viewList;
 			vm.currentPlace = null;
 			setTimeout(function() {
 				let scroll = document.getElementById("content");
@@ -234,7 +246,7 @@ var app = new Vue({
 			let steps = [];
 			let classplaces = document.getElementsByClassName("place-padding");
 			let placeelement = classplaces && classplaces[0] ? classplaces[0] : "";
-			if (vm.currentView == viewList) {
+			if (vm.currentView == vm.viewList) {
 				steps = steps.concat([
 					{
 						element: "",
@@ -316,7 +328,7 @@ var app = new Vue({
 		// Update screen visibility
 		updateVisibility: function() {
 			let vm = this;
-			if (vm.currentView == viewDetail) {
+			if (vm.currentView == vm.viewDetail) {
 				return;
 			}
 			for (let i = 0 ; i < vm.places.length ; i++) {
@@ -334,7 +346,7 @@ var app = new Vue({
 			let available = (body.offsetHeight-(vm.$refs.SugarToolbar&&vm.$refs.SugarToolbar.isHidden()?0:55));
 			let content = document.getElementById("content");
 			content.style.height = available+"px";
-			if (vm.currentView==viewList) {
+			if (vm.currentView==vm.viewList) {
 				vm.placeSize = (body.offsetWidth < 700 || body.offsetHeight < 700) ? 1 : 2;
 				for (let i = 0 ; i < vm.places.length ; i++) {
 					let place = vm.$refs.places[i];
@@ -349,3 +361,5 @@ var app = new Vue({
 		}
 	}
 });
+
+const app = vueapp.mount('#app');

@@ -1,4 +1,5 @@
-Vue.component('sugar-popup', {
+const SugarPopup={
+	render() {},
 	data: function () {
 		return {
 			humane: null
@@ -15,4 +16,4 @@ Vue.component('sugar-popup', {
 			this.humane.log(text);
 		}
 	}
-});
+};
