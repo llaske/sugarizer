@@ -1,4 +1,4 @@
-Vue.component('sugar-activity', {
+const SugarActivity= {
 	name: 'SugarActivity',
 	data: function() {
 		return {
@@ -6,7 +6,7 @@ Vue.component('sugar-activity', {
 			environment: null
 		}
 	},
-	mounted() {
+	mounted: function() {
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 			vm.activity = activity;
@@ -26,4 +26,4 @@ Vue.component('sugar-activity', {
 			return this.environment;
 		}
 	}
-})
+}

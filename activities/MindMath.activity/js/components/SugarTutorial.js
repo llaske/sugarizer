@@ -1,5 +1,5 @@
-// Tutorial component based on introJs tour
-Vue.component('sugar-tutorial', {
+// Tutorial component based on bootstrap tour
+const SugarTutorial= {
 	data: function () {
 		return {
 			l10n: {
@@ -11,11 +11,15 @@ Vue.component('sugar-tutorial', {
 	},
 	mounted() {
 		let vm = this;
-		if (this.$root.$refs.SugarL10n) {
-			this.$root.$refs.SugarL10n.$on('localized', function () {
-				vm.$root.$refs.SugarL10n.localize(vm.l10n);
-			});
+		var localizeCheck = function() {
+			var SugarL10n = vm.$root.$refs.SugarL10n;
+			if (SugarL10n.activityInitialized) {
+				SugarL10n.localize(vm.l10n)
+			} else {
+				window.setTimeout(localizeCheck, 100);
+			}
 		}
+		window.setTimeout(localizeCheck, 100);
 	},
 	methods: {
 		show: function (steps) {
@@ -33,4 +37,4 @@ Vue.component('sugar-tutorial', {
 			  }).start();
 		}
 	}
-});
+};

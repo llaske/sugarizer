@@ -1,5 +1,5 @@
 // Localization component
-Vue.component('sugar-localization', {
+const SugarLocalization={
 	template: '<div/>',
 	data: function () {
 		return {
@@ -51,12 +51,15 @@ Vue.component('sugar-localization', {
 				});
 			});
 			//Activity initialization check
-			var SugarActivity = vm.$root.$children.find(function (child) {
-				return child.$options.name == 'SugarActivity';
-			});
-			SugarActivity.$on('initialized', function () {
+			var activityCheck = function() {
+				var SugarActivity = vm.$root.$refs.SugarActivity;
+				if (SugarActivity.getEnvironment()) {
 				vm.activityInitialized = true;
-			});
+				} else {
+					window.setTimeout(activityCheck, 100);
+				}
+			}
+			window.setTimeout(activityCheck, 100);
 		}
 	},
 	methods: {
@@ -129,4 +132,4 @@ Vue.component('sugar-localization', {
 			return this.get("Ago", { time: time_period });
 		}
 	}
-});
+};

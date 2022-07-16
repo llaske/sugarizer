@@ -7,12 +7,23 @@ requirejs.config({
 });
 
 // Vue main app
-var app = new Vue({
-  el: '#app',
+const app = Vue.createApp({
   components: {
     'game': Game,
     'result': Result,
     'leaderboard': Leaderboard,
+    'slots': Slots,
+    'clock': Clock,
+    'sugar-activity': SugarActivity,
+    'input-number': InputNumber,
+    'sugar-toolitem': SugarToolitem,
+    'sugar-toolbar': SugarToolbar,
+    'sugar-journal': SugarJournal,
+    'sugar-localization': SugarLocalization,
+    'sugar-presence': SugarPresence,
+    'sugar-tutorial': SugarTutorial,
+    'sugar-popup': SugarPopup,
+    'sugar-icon': SugarIcon
   },
   data: function() {
     return {
@@ -144,7 +155,7 @@ var app = new Vue({
   },
   mounted: function() {
     var vm = this;
-    vm.SugarPresence = vm.$refs.SugarPresence;
+    // vm.SugarPresence = vm.$refs.SugarPresence;
     vm.SugarL10n = vm.$refs.SugarL10n;
     vm.sugarPopup = vm.$refs.SugarPopup;
     vm.SugarJournal = vm.$refs.SugarJournal;
@@ -186,20 +197,26 @@ var app = new Vue({
       }
     },
 
-    slots: function() {
-      var vm = this;
-      vm.updateUselessOperations();
-      vm.updateCompulsoryOpsRem();
-      //close hintPalette
-      vm.$refs.hintPalette.paletteObject.popDown();
-      vm.generateHint();
+    slots: {
+      handler() {
+        var vm = this;
+        vm.updateUselessOperations();
+        vm.updateCompulsoryOpsRem();
+        //close hintPalette
+        vm.$refs.hintPalette.paletteObject.popDown();
+        vm.generateHint();
+      },
+      deep: true
     },
 
-    compulsoryOps: function() {
-      var vm = this;
-      vm.updateUselessOperations();
-      vm.updateCompulsoryOpsRem();
-      vm.generateHint();
+    compulsoryOps: {
+      handler() {
+        var vm = this;
+        vm.updateUselessOperations();
+        vm.updateCompulsoryOpsRem();
+        vm.generateHint();
+      },
+      deep: true
     },
 
     qNo: function() {
@@ -239,13 +256,16 @@ var app = new Vue({
       }
     },
 
-    playersPlaying: function() {
-      var vm = this;
-      if (vm.playersPlaying.length === 0 && vm.SugarPresence.isHost) {
-        vm.disabled = false;
-      } else {
-        vm.disabled = true;
-      }
+    playersPlaying: {
+      handler() {
+        var vm = this;
+        if (vm.playersPlaying.length === 0 && vm.SugarPresence.isHost) {
+          vm.disabled = false;
+        } else {
+          vm.disabled = true;
+        }
+      },
+      deep: true
     }
   },
 
@@ -279,8 +299,8 @@ var app = new Vue({
 
     startClock: function() {
       var vm = this;
-      vm.$set(vm.clock, 'time', vm.clock.initial);
-      vm.$set(vm.clock, 'active', true);
+      vm.clock['time'] = vm.clock.initial;
+      vm.clock['active'] = true;
       if (vm.timer === null) {
         vm.tick();
       }
@@ -292,7 +312,7 @@ var app = new Vue({
         clearInterval(vm.timer);
       }
       vm.timer = null;
-      vm.$set(vm.clock, 'active', false);
+      vm.clock['active'] = false;
     },
 
     pulseEffect: function() {
@@ -346,9 +366,9 @@ var app = new Vue({
         }
         for (var i = 0; i < vm.slots[vm.qNo].length; i++) {
           if (slotsGood[i] !== 1) {
-            vm.$set(vm.slots[vm.qNo][i], 'useless', true);
+            vm.slots[vm.qNo][i]['useless'] = true;
           } else {
-            vm.$set(vm.slots[vm.qNo][i], 'useless', false);
+            vm.slots[vm.qNo][i]['useless'] = false;
           }
         }
       }
@@ -446,7 +466,7 @@ var app = new Vue({
       vm.next = [];
       vm.prev = [];
       vm.noOfHintsUsed = [];
-      vm.$set(vm.clock, 'time', vm.clock.initial);
+      vm.clock['time'] = vm.clock.initial;
       if (!joined) {
         vm.generateQuestionSet();
       }
@@ -460,8 +480,8 @@ var app = new Vue({
 
       if (vm.mode === 'non-timer') {
         vm.mode = 'timer'
-        vm.$set(vm.clock, 'initial', 2 * 60);
-        vm.$set(vm.clock, 'type', 1);
+        vm.clock['initial'] = 2 * 60;
+        vm.clock['type'] = 1;
         vm.selectTimerItem(vm.clock.type);
       }
       var compulsoryOps = vm.compulsoryOps.filter(function() {
@@ -562,7 +582,7 @@ var app = new Vue({
       } else {
         //go to next question in question set for timer mode
         vm.qNo++;
-        vm.$set(vm.slots, vm.qNo, []);
+        vm.slots[vm.qNo] = [];
         //update inputNumbers
         vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
         vm.inputNumbersTypes = [0, 0, 0, 0, 0];
@@ -591,11 +611,11 @@ var app = new Vue({
       vm.timer = setInterval(function() {
         if (vm.clock.active) {
           if (vm.mode === 'timer') {
-            vm.$set(vm.clock, 'time', vm.clock.time - 1);
+            vm.clock['time'] = vm.clock.time - 1;
             if (vm.clock.time <= 0) {
               //end game
               vm.stopClock();
-              vm.$set(vm.slots, vm.qNo, []);
+              vm.slots[vm.qNo] = [];
               vm.score += 0;
               vm.scores.push(0)
               vm.pushTimeTaken();
@@ -608,7 +628,7 @@ var app = new Vue({
               if (vm.multiplayer) {
                 for (var i = 0; i < vm.playersAll.length; i++) {
                   if (vm.playersAll[i].user.networkId === vm.currentenv.user.networkId && vm.playersAll[i].score === null) {
-                    vm.$set(vm.playersAll[i], 'score', vm.score);
+                    vm.playersAll[i]['score'] = vm.score;
                     break;
                   }
                 }
@@ -636,7 +656,7 @@ var app = new Vue({
               }
             }
           } else {
-            vm.$set(vm.clock, 'time', vm.clock.time + 1);
+            vm.clock['time'] = vm.clock.time + 1;
           }
         }
       }, 1000);
@@ -646,7 +666,7 @@ var app = new Vue({
       var vm = this;
       if (vm.currentScreen === 'game') {
         vm.stopClock();
-        vm.$set(vm.slots, vm.qNo, []);
+        vm.slots[vm.qNo] = [];
         vm.score += 0;
         vm.scores.push(0)
         vm.pushTimeTaken();
@@ -658,7 +678,7 @@ var app = new Vue({
 
         vm.currentScreen = "result";
       } else {
-        if (vm.SugarPresence.isHost) {
+        if (vm.SugarPresence && vm.SugarPresence.isHost) {
           vm.onMultiplayerGameStarted(true)
         }
         //change currentScreen
@@ -689,9 +709,9 @@ var app = new Vue({
         } else {
           vm.pulseEffect();
           //go to next question in question set for timer mode
-          vm.$set(vm.slots, vm.qNo, []);
+          vm.slots[vm.qNo] = [];
           vm.qNo++;
-          vm.$set(vm.slots, vm.qNo, []);
+          vm.slots[vm.qNo] = [];
           //update inputNumbers
           vm.inputNumbers = vm.questions[vm.qNo].inputNumbers;
           vm.inputNumbersTypes = [0, 0, 0, 0, 0];
@@ -782,23 +802,23 @@ var app = new Vue({
       switch (evt.index) {
         case 0:
           vm.mode = 'non-timer';
-          vm.$set(vm.clock, 'initial', 0);
-          vm.$set(vm.clock, 'type', 0);
+          vm.clock['initial'] = 0;
+          vm.clock['type'] = 0;
           break;
         case 1:
           vm.mode = 'timer';
-          vm.$set(vm.clock, 'initial', 2 * 60);
-          vm.$set(vm.clock, 'type', 1);
+          vm.clock['initial'] = 2 * 60;
+          vm.clock['type'] = 1;
           break;
         case 2:
           vm.mode = 'timer';
-          vm.$set(vm.clock, 'initial', 5 * 60);
-          vm.$set(vm.clock, 'type', 2);
+          vm.clock['initial'] = 5 * 60;
+          vm.clock['type'] = 2;
           break;
         case 3:
           vm.mode = 'timer'
-          vm.$set(vm.clock, 'initial', 10 * 60);
-          vm.$set(vm.clock, 'type', 3);
+          vm.clock['initial'] = 10 * 60;
+          vm.clock['type'] = 3;
           break;
       }
       vm.selectTimerItem(evt.index);
@@ -984,8 +1004,8 @@ var app = new Vue({
             vm.level = data.level;
             vm.compulsoryOps = data.compulsoryOps;
             vm.mode = 'timer';
-            vm.$set(vm.clock, 'type', data.clockType);
-            vm.$set(vm.clock, 'initial', data.clockInitial);
+            vm.clock['type'] = data.clockType;
+            vm.clock['initial'] = data.clockInitial;
             if (!vm.clock.active) {
               vm.startClock();
             }
@@ -1011,7 +1031,7 @@ var app = new Vue({
           var data = msg.content.data;
           for (var i = 0; i < vm.playersAll.length; i++) {
             if (vm.playersAll[i].user.networkId === msg.user.networkId && vm.playersAll[i].score === null) {
-              vm.$set(vm.playersAll[i], 'score', data.score);
+              vm.playersAll[i]['score'] = data.score;
               break;
             }
           }
@@ -1107,7 +1127,7 @@ var app = new Vue({
 
         for (var i = 0; i < vm.playersAll.length; i++) {
           if (vm.playersAll[i].user.networkId === msg.user.networkId && vm.playersAll[i].score === null) {
-            vm.$set(vm.playersAll[i], 'score', 0);
+            vm.playersAll[i]['score'] = 0;
             break;
           }
         }
@@ -1290,3 +1310,5 @@ var app = new Vue({
 
   }
 });
+
+app.mount('#app');

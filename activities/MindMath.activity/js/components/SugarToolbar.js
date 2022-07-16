@@ -1,5 +1,5 @@
 // Toolbar item
-Vue.component('sugar-toolitem', {
+const SugarToolitem= {
 	template: `
 		<div class="splitbar" v-if="splitbar"/>
 		<button 
@@ -31,7 +31,7 @@ Vue.component('sugar-toolitem', {
 	},
 	created: function () {
 		// v-visible="condition" (Use this with palettes to avoid errors)
-		Vue.directive('visible', function (el, binding) {
+		app.directive('visible', function (el, binding) {
 			el.style.visibility = !!binding.value ? 'visible' : 'hidden';
 		});
 	},
@@ -49,10 +49,10 @@ Vue.component('sugar-toolitem', {
 			});
 		}
 	}
-});
+};
 
 // Toolbar component
-Vue.component('sugar-toolbar', {
+const SugarToolbar={
 	template: `
 		<div id="main-toolbar" class="toolbar" v-bind:class="{ hidden: hidden }">
 			<slot></slot>
@@ -78,4 +78,4 @@ Vue.component('sugar-toolbar', {
 			this.hidden = false;
 		},
 	}
-});
+};
