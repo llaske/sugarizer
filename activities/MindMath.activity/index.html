@@ -89,7 +89,7 @@
 			<sugar-toolitem id="help-button" v-bind:title="l10n.stringTutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
 		</sugar-toolbar>
 		<div id="app-content">
-			<transition name="fade" id="app-content" mode="out-in">
+			<transition name="fade" mode="out-in">
 				<component
 					v-bind:is="currentScreen"
 					v-bind:time="clock.time"
