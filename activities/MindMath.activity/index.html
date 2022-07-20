@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css"/>
 	<link rel="stylesheet" href="css/libnotify.css"/>
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-	<script src="lib/vue.min.js"></script>
+	<script src="https://unpkg.com/vue@3"></script>
 	<script src="lib/jquery.min.js"></script>
 	<script src="lib/bootstrap-tour-standalone.min.js"></script>
 	<script>if (window.module) module = window.module;</script>
@@ -121,8 +121,8 @@
 					v-on:see-leaderboard="currentScreen = 'leaderboard'"
 					v-on:go-to-result="currentScreen = 'result'"
 				></component>
-		</transition>
-	</div>
+			</transition>
+		</div>
 
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-popup ref="SugarPopup"></sugar-popup>
