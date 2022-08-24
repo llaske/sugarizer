@@ -1096,8 +1096,6 @@ enyo.kind({
 	},
 
 	filterAssignment: function() {
-		//show assignment list
-		console.log("Hwllow")
 		this.$.assignmentbutton.setColorized(!this.$.assignmentbutton.getColorized());
 		this.$.assignmentbutton.render();
 		this.filterEntries();
