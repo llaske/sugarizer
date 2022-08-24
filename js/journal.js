@@ -983,6 +983,7 @@ enyo.kind({
 		{name: "split2", showing: false, classes: "splitbar"},
 		{name: "selectcount", showing: false, classes: "journal-selectcount"},
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
+		{name: "assignmentbutton", kind: "Sugar.Icon", classes: "journal-filter-assignment", x: 0, y: 4, icon: {directory: "icons", icon: "assignment.svg"}, size: constant.iconSizeList, ontap: "filterAssignment"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", ontap: "gotoDesktop"},
 		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filtertype-palette", contentsClasses: "journal-filtertype-content", contents: []},
@@ -1093,6 +1094,15 @@ enyo.kind({
 		this.$.favoritebutton.render();
 		this.filterEntries();
 	},
+
+	filterAssignment: function() {
+		//show assignment list
+		console.log("Hwllow")
+		this.$.assignmentbutton.setColorized(!this.$.assignmentbutton.getColorized());
+		this.$.assignmentbutton.render();
+		this.filterEntries();
+	},
+
 
 	showTypePalette: function() {
 		this.$.typepalette.switchPalette(app.otherview);
@@ -1219,6 +1229,11 @@ enyo.kind({
 			util.loadFile(files[i], function(file, err, metadata, text) {
 				if (err) {
 					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
+					return;
+				}
+				if(metadata.assignmentId){
+					//show error
+					humane.log(l10n.get("ErrorLoadingFile1",{file:file}));
 					return;
 				}
 				metadata.timestamp = new Date().getTime();

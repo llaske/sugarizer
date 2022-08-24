@@ -719,6 +719,7 @@ enyo.kind({
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
 		{name: "syncbutton", classes: "sync-button sync-home sync-gear sync-gear-home", showing: false},
 		{name: "offlinebutton", kind: "Button", classes: "toolbutton offline-button", title:"Not connected", ontap: "doServerSettings", showing: false},
+		{name: "showAssignments", kind: "Button", classes: "toolbutton assignment-button ", title:"Assignments", ontap:"showJournal",},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -759,6 +760,11 @@ enyo.kind({
 
 	setSearchText: function(value) {
 		this.$.searchtext.setText(value);
+	},
+	// Display journal
+	showJournal: function() {
+		//open journal view
+		app.showView(constant.journalView);
 	},
 
 	// Handle active button

@@ -105,6 +105,13 @@ body {
 	left: 430px;
 }
 
+.assignment-button {
+	background-image: url(../icons/assignment.svg);
+	position: absolute !important;
+	top: 0px;
+	left: 650px;
+}
+
 .help-button-journal {
 	background-image: url(../icons/help.svg);
 	position: relative;
@@ -424,6 +431,10 @@ body {
 
 .journal-filter-favorite {
 	left: 421px;
+}
+
+.journal-filter-assignment {
+	left: 921px;
 }
 
 .journal-filter-text {
@@ -2257,6 +2268,10 @@ body {
 		left: 280px;
 	}
 
+	.assignment-button{
+		left: 280px;
+	}
+
 	.sync-home {
 		left: 340px;
 	}
@@ -2279,6 +2294,10 @@ body {
 
 	.journal-filter-favorite {
 		left: 270px;
+	}
+
+	.journal-filter-assignment {
+		left: 370px;
 	}
 
 	.journal-filter-time {
