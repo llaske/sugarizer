@@ -1405,107 +1405,107 @@ var app = new Vue({
 		onHelp: function(){
 			var steps =[
 				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
+					// element: "",
+					// orphan: true,
+					// position: "bottom",
 					title: this.l10n.stringTutoExplainTitle,
-					content: this.l10n.stringTutoExplainContent
+					intro: this.l10n.stringTutoExplainContent
 				},
 				{
 					element: "#network-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoNetworkTitle,
-					content: this.l10n.stringTutoNetworkContent
+					intro: this.l10n.stringTutoNetworkContent
 				},
 				{
 					element: "#grid-mode, #single-mode",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoToggleModeTitle,
-					content: this.l10n.stringTutoToggleModeContent
+					intro: this.l10n.stringTutoToggleModeContent
 				},
 				{
 					element: "#size-palette",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoGridSizeTitle,
-					content: this.l10n.stringTutoGridSizeContent
+					intro: this.l10n.stringTutoGridSizeContent
 				},
 				{
 					element: "#foreground-color-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoForegroundColorTitle,
-					content: this.l10n.stringTutoForegroundColorContent
+					intro: this.l10n.stringTutoForegroundColorContent
 				},
 				{
 					element: "#background-color-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoBackgroundColorTitle,
-					content: this.l10n.stringTutoBackgroundColorContent
+					intro: this.l10n.stringTutoBackgroundColorContent
 				},
 				{
 					element: "#format-text-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoFormatTextTitle,
-					content: this.l10n.stringTutoFormatTextContent
+					intro: this.l10n.stringTutoFormatTextContent
 				},
 				{
 					element: "#font-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoChooseFontTitle,
-					content: this.l10n.stringTutoChooseFontContent
+					intro: this.l10n.stringTutoChooseFontContent
 				},
 				{
 					element: "#increase-font",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoIncreaseFontTitle,
-					content: this.l10n.stringTutoIncreaseFontContent
+					intro: this.l10n.stringTutoIncreaseFontContent
 				},
 				{
 					element: "#decrease-font",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoDecreaseFontTitle,
-					content: this.l10n.stringTutoDecreaseFontContent
+					intro: this.l10n.stringTutoDecreaseFontContent
 				},
 				{
 					element: "#export-palette",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoExportStoryTitle,
-					content: this.l10n.stringTutoExportStoryContent
+					intro: this.l10n.stringTutoExportStoryContent
 				},
 				{
 					element: "#export-sound",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoExportSoundTitle,
-					content: this.l10n.stringTutoExportSoundContent
+					intro: this.l10n.stringTutoExportSoundContent
 				},
 				{
 					element: "#record, #record-start",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoRecordTitle,
-					content: this.l10n.stringTutoRecordContent
+					intro: this.l10n.stringTutoRecordContent
 				},
 				{
 					element: "#play, #play-inactive",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoPlayTitle,
-					content: this.l10n.stringTutoPlayContent
+					intro: this.l10n.stringTutoPlayContent
 				},
 				{
 					element: "#speak-inactive, #speak",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoSpeakTitle,
-					content: this.l10n.stringTutoSpeakContent
+					intro: this.l10n.stringTutoSpeakContent
 				},
 				{
 					element: "#next-btn",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoNextImageTitle,
-					content: this.l10n.stringTutoNextImageContent
+					intro: this.l10n.stringTutoNextImageContent
 				},
 				{
 					element: "#previous-btn",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoPrevImageTitle,
-					content: this.l10n.stringTutoPrevImageContent
+					intro: this.l10n.stringTutoPrevImageContent
 				}
 				
 
