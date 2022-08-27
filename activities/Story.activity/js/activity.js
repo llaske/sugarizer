@@ -1405,9 +1405,6 @@ var app = new Vue({
 		onHelp: function(){
 			var steps =[
 				{
-					// element: "",
-					// orphan: true,
-					// position: "bottom",
 					title: this.l10n.stringTutoExplainTitle,
 					intro: this.l10n.stringTutoExplainContent
 				},
