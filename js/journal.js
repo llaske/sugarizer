@@ -296,8 +296,6 @@ enyo.kind({
 
 	// Switch favorite value for clicked line
 	switchFavorite: function(inSender, inEvent) {
-		console.log("switchFavorite");
-		console.log({g:this.journal[inEvent.index]});
 		var objectId = this.journal[inEvent.index].objectId;
 		var keep = this.journal[inEvent.index].metadata.keep;
 		if (keep === undefined) {
@@ -646,15 +644,8 @@ enyo.kind({
 	},
 
 	//instructions Popup
-	showInstructionsPopup: function(icon) {
+	showInstructionsPopup: function() {
 		//create popup
-		if (!icon.owner) {
-			return;
-		}
-		var activity = icon.icon; // HACK: activity is stored as an icon
-		var entry = icon;
-		var title = null;
-		console.log(entry);
 		
 		this.$.instructionsPopup.setHeader({
 			icon: {directory: "icons", icon: "instructions-icon.svg"},
@@ -674,10 +665,7 @@ enyo.kind({
 		this.$.instructionsPopup.showPopup();
 	},
 	hideInstructionsPopup: function() {
-		
 		this.$.instructionsPopup.hidePopup();
-		// this.$.instructionsPopup.setMargin({left: 0, top: 0});
-
 	},
 
 	hideActivityPopup: function(icon) {
@@ -746,10 +734,8 @@ enyo.kind({
 
 	// Duplicate locale entry
 	duplicateEntry: function(entry, multiple) {
-		console.log("Enter f");
 		var that = this;
 		if(entry.metadata.assignmentId) {
-			console.log("Enter");
 			humane.log(l10n.get("CannotDuplicateAssignment"));
 			return;
 		}
@@ -1283,7 +1269,6 @@ enyo.kind({
 				}
 				if(metadata.assignmentId){
 					//show error
-					console.log("Hello");
 					humane.log(l10n.get("ErrorLoadingFile1",{file:file}));
 					return;
 				}
