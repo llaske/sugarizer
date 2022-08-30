@@ -112,6 +112,18 @@ body {
 	left: 650px;
 }
 
+.assignment-count {
+	background-color: #ff0000;
+	border-radius: 50%;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: larger;
+	color: white;
+	position: absolute !important;
+	top: -10px;
+	left: 683px;
+}
+
 .help-button-journal {
 	background-image: url(../icons/help.svg);
 	position: relative;
@@ -437,6 +449,19 @@ body {
 	left: 921px;
 }
 
+.journal-assignment {
+	left: 721px;
+}
+
+.assignment-instructions {
+	left: 821px;
+}
+
+.assignment-submit {
+	left: 921px;
+}
+
+
 .journal-filter-text {
 	position: relative;
 	width: 350px;
@@ -665,6 +690,16 @@ body {
 	font-size: 14px;
 	background-color: white;
 	z-index: 2;
+}
+
+.assignment-dueDate {
+	position: absolute;
+    right: 300px;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: white;
+    z-index: 2;
 }
 
 .journal-goright {
@@ -2299,6 +2334,21 @@ body {
 	.journal-filter-assignment {
 		left: 370px;
 	}
+
+	.journal-assignment {
+		left: 421px;
+	}
+
+	.assignment-instructions {
+		left: 521px;
+	}
+
+	.assignment-submit {
+		left: 621px;
+	}
+
+	
+	
 
 	.journal-filter-time {
 		visibility: hidden;

@@ -100,12 +100,19 @@ enyo.kind({
 
 	// Load and sort journal
 	loadJournal: function() {
+		this.loadAssignment();
 		this.journal = datastore.find();
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
 		});
 	},
 
+	loadAssignment: function() {
+		this.showAssignments = datastore.find();
+		this.showAssignments = this.showAssignments.filter(function(entry) {
+			return entry.metadata.assignmentId != undefined;
+		});
+	},
 	// Test Journal size to ensure it's not full
 	testJournalSize: function() {
 		this.isJournalFull = false;
@@ -484,6 +491,9 @@ enyo.kind({
 		if (this.journal.length > 0) {
 			this.$.journal.colorize(preferences.getColor());
 		}
+		if(this.showAssignments.length > 0){
+			this.getToolbar().$.assignmentCount.setContent(this.showAssignments.length);
+		}
 		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
 			humane.log(l10n.get("JournalAlmostFull"));
 			this.isJournalFull = false;
@@ -720,6 +730,7 @@ enyo.kind({
 		{name: "syncbutton", classes: "sync-button sync-home sync-gear sync-gear-home", showing: false},
 		{name: "offlinebutton", kind: "Button", classes: "toolbutton offline-button", title:"Not connected", ontap: "doServerSettings", showing: false},
 		{name: "showAssignments", kind: "Button", classes: "toolbutton assignment-button ", title:"Assignments", ontap:"showJournal",},
+		{name: "assignmentCount", tag:"p", classes: " assignment-count ", title:"count",},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -730,7 +741,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.needRedraw = false;
 	},
-
 	rendered: function() {
 		this.inherited(arguments);
 		this.localize();
@@ -766,7 +776,6 @@ enyo.kind({
 		//open journal view
 		app.showView(constant.journalView);
 	},
-
 	// Handle active button
 	setActiveView: function(view) {
 		if (view == constant.radialView) {
