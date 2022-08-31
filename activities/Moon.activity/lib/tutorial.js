@@ -1,96 +1,67 @@
 define(["webL10n"], function (l10n) {
 	var tutorial = {};
-
+	
 	tutorial.start = function() {
 		var steps = [
 			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
 				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent"),
+				intro: l10n.get("TutoExplainContent"),
 			},
 			{
 				element: "#activity-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoActivityButtonTitle"),
-				content: l10n.get("TutoActivityButtonContent"),
+				intro: l10n.get("TutoActivityButtonContent"),
 			},
 			{
 				element: "#toggle-grid-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoToggleGridButtonTitle"),
-				content: l10n.get("TutoToggleGridButtonContent"),
+				intro: l10n.get("TutoToggleGridButtonContent"),
 			},
 			{
 				element: "#toggle-hemisphere-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoToggleHemisphereButtonTitle"),
-				content: l10n.get("TutoToggleHemisphereButtonContent"),
+				intro: l10n.get("TutoToggleHemisphereButtonContent"),
 			},
 			{
 				element: "#save-image-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoSaveImageButtonTitle"),
-				content: l10n.get("TutoSaveImageButtonContent"),
+				intro: l10n.get("TutoSaveImageButtonContent"),
 			},
 			{
 				element: "#fullscreen-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoFullScreenButtonTitle"),
-				content: l10n.get("TutoFullScreenButtonContent"),
+				intro: l10n.get("TutoFullScreenButtonContent"),
 			},
 			{
 				element: "#panel-left",
 				title: l10n.get("TutoPanelLeftTitle"),
-				content: l10n.get("TutoPanelLeftContent"),
+				intro: l10n.get("TutoPanelLeftContent"),
 			},
 			{
 				element: "#stop-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoStopButtonTitle"),
-				content: l10n.get("TutoStopButtonContent"),
+				intro: l10n.get("TutoStopButtonContent"),
 			},
 		];
-		var tour = new Tour({
-			template: "\
-			<div class='popover tour'>\
-				<div class='arrow'></div>\
-				<h3 class='popover-title tutorial-title'></h3>\
-				<div class='popover-content'></div>\
-				<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-					<div class='tutorial-prev-icon icon-button' data-role='prev'>\
-						<div class='tutorial-prev-icon1 web-activity'>\
-							<div class='tutorial-prev-icon2 web-activity-icon'></div>\
-							<div class='tutorial-prev-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
-					</div>\
-					<span data-role='separator' style='margin: 4px'>|</span>\
-					<div class='tutorial-next-icon icon-button' data-role='next'>\
-						<div class='tutorial-next-icon1 web-activity'>\
-							<div class='tutorial-next-icon2 web-activity-icon'></div>\
-							<div class='tutorial-next-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
-					</div>\
-					<div class='tutorial-end-icon icon-button' data-role='end'>\
-						<div class='tutorial-end-icon1 web-activity'>\
-							<div class='tutorial-end-icon2 web-activity-icon'></div>\
-							<div class='tutorial-end-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
-					</div>\
-				</div>\
-			</div>",
-			storage: false,
-			backdrop: true,
-			steps: steps
-		});
-		tour.init();
-		tour.start(true);
 
-	};
+		steps = steps.filter((obj) =>  !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none'));
+		introJs().setOptions({
+			tooltipClass: 'customTooltip',
+			steps: steps,
+			prevLabel: l10n.get("TutoPrev"),
+			nextLabel: l10n.get("TutoNext"),
+			exitOnOverlayClick: false,
+			nextToDone: false,
+			showBullets: false
+		}).start();
+	}
 
+	
 	return tutorial;
 });
