@@ -51,7 +51,6 @@ function initGui() {
 
 /* When onResize, update the attributes width and height used by paperJS */
 function onResize() {
-  return;
   var canvas = PaintApp.elements.canvas;
   try {
     var image = canvas.toDataURL();
@@ -61,9 +60,6 @@ function onResize() {
 
   PaintApp.elements.canvas.style.height = parseInt(window.innerHeight) - 55 + "px";
   PaintApp.elements.canvas.style.width = parseInt(window.innerWidth) + "px";
-
-  PaintApp.elements.canvas.setAttribute("width", PaintApp.elements.canvas.getBoundingClientRect().width);
-  PaintApp.elements.canvas.setAttribute("height", parseInt(window.innerHeight) - 55);
 
   var ctx = canvas.getContext('2d');
   var img = new Image();
