@@ -59,6 +59,7 @@ constant.loginURL = "/auth/login/";
 constant.signupURL = "/auth/signup/";
 constant.initNetworkURL = "/api/v1/users/";
 constant.sendCloudURL = "/api/v1/journal/";
+constant.submitAssignment = "/api/v1/assignments/deliveries/submit/";
 constant.statsURL = "/api/v1/stats/";
 constant.filterJournalURL = "/filter/";
 constant.filterFieldURL = "/field/";

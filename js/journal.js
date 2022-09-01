@@ -20,7 +20,7 @@ enyo.kind({
 					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},
 					{name: "assignmentButton", kind: "Sugar.Icon", showing:false, classes: "journal-assignment", colorized: true, x: 0, y: 4, icon: {directory: "icons", icon: "assignment.svg"}, size: constant.iconSizeList},
 					{name: "assignmentInstructions", kind: "Sugar.Icon", showing:false, classes: "assignment-instructions",  x: 0, y: 4, icon: {directory: "icons", icon: "instructions-icon.svg"}, size: constant.iconSizeList},
-					{name: "submitAssignment", kind: "Sugar.Icon", showing:false, classes: "assignment-submit",  x: 0, y: 4, icon: {directory: "icons", icon: "submit-assignment.svg"}, size: constant.iconSizeList},
+					{name: "submitAssignment", kind: "Sugar.Icon", showing:false, classes: "assignment-submit",  x: 0, y: 4, icon: {directory: "icons", icon: "submit-assignment.svg"}, size: constant.iconSizeList },
 					{name: "assignmentDueDate", classes: "assignment-dueDate"},
 
 					{name: "time", classes: "journal-time"},
@@ -253,6 +253,9 @@ enyo.kind({
 		if (entry.metadata.assignmentId) {
 			inEvent.item.$.assignmentButton.setShowing(true);
 			inEvent.item.$.assignmentInstructions.setShowing(true);
+			if(entry.metadata.isSubmitted === false) {
+				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			}
 			inEvent.item.$.submitAssignment.setShowing(true);
 			inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.dueDate, 2, this.smallTime));
 			var dueDate =  "Due Date : " + entry.metadata.dueDate;
@@ -276,8 +279,7 @@ enyo.kind({
 		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
-	
-		inEvent.item.$.assignmentInstructions.setPopupShow(enyo.bind(this, "showInstructionsPopup"));
+		inEvent.item.$.assignmentInstructions.setPopupShow(enyo.bind(this, "showInstructionsPopup",inEvent));
 		inEvent.item.$.assignmentInstructions.setPopupHide(enyo.bind(this, "hideInstructionsPopup"));
 		inEvent.item.$.activity.setData(entry);
 		if (l10n.language.direction == "rtl") {
@@ -492,6 +494,8 @@ enyo.kind({
 				sort = '-creation_time';
 			} else if (sortfield == 2) {
 				sort = '-textsize';
+			}else if(sortfield == 3){
+				sort = '-dueDate';
 			}
 			var request = {
 				typeactivity: typeactivity,
@@ -499,6 +503,7 @@ enyo.kind({
 				stime: (timeperiod !== undefined ? timeperiod : undefined),
 				favorite: favorite,
 				assignment: assignment,
+				dueDate: dueDate,
 				field: constant.fieldMetadata,
 				limit: constant.pageJournalSize,
 				sort: sort,
@@ -543,6 +548,8 @@ enyo.kind({
 				return parseInt(e1.metadata.creation_time) - parseInt(e0.metadata.creation_time);
 			} else if (sortfield == 2) {
 				return parseInt(e1.metadata.textsize || 0) - parseInt(e0.metadata.textsize || 0);
+			} else if(sortfield == 3){
+				return parseInt(e1.metadata.dueDate) - parseInt(e0.metadata.dueDate);
 			} else {
 				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
 			}
@@ -554,6 +561,33 @@ enyo.kind({
 		this.toolbar.removeFilter();
 		this.filterEntries("", undefined, undefined, undefined, undefined, undefined);
 	},
+	
+	submitAssignment: function(inSender, inEvent) {
+		var entry = this.journal[inEvent.index]; //copy
+		console.log({f:entry.metadata});
+		if(entry.metadata.isSubmitted == true) {
+			humane.log("This assignment has already been submitted");
+			return;
+		}
+		entry.metadata.isSubmitted = true;
+
+		var that = this;
+		var ds = new datastore.DatastoreObject(entry.objectId);
+		ds.setMetadata(entry.metadata);
+		ds.save(function() {
+			console.log("Assignment submitted");
+			that.journalChanged();
+		});
+		
+		myserver.postAssignment(entry.metadata.assignmentId, entry.objectId,
+			function(inSender, inResponse) {
+				humane.log("Assignment submitted");
+			} , function(inSender, inResponse) {
+				humane.log("Error submitting assignment"); 
+		});
+		
+	},
+
 
 	// Activity popup
 	showActivityPopup: function(icon) {
@@ -644,9 +678,9 @@ enyo.kind({
 	},
 
 	//instructions Popup
-	showInstructionsPopup: function() {
+	showInstructionsPopup: function(inEvent) {
 		//create popup
-		
+		var entry = this.journal[inEvent.index]
 		this.$.instructionsPopup.setHeader({
 			icon: {directory: "icons", icon: "instructions-icon.svg"},
 			colorized: false,
@@ -655,17 +689,25 @@ enyo.kind({
 			action: enyo.bind(this, "hideInstructionsPopup")
 		});
 		var items = [];
-		// this.$.instructionsPopup.setItems(items);
+
 		items.push({
-			name: "THees is is insgaafhaf affhudhfuhdsufihsdf suif sdufhgudshf sdfg sdgfsdujf sdfsdf sdfuisdfg sdfgsdf sdfs fsdgf sdf",
+			name: entry.metadata.instructions, 
 			action: enyo.bind(this, "hideInstructionsPopup"),
 			
 		});
 		this.$.instructionsPopup.setFooter(items);
 		this.$.instructionsPopup.showPopup();
 	},
+
 	hideInstructionsPopup: function() {
+		if(!this.$.instructionsPopup) {
+			return true;
+		}
+		if(this.$.instructionsPopup.cursorIsInside()) {
+			return false;
+		}
 		this.$.instructionsPopup.hidePopup();
+		return true;
 	},
 
 	hideActivityPopup: function(icon) {
@@ -1133,7 +1175,7 @@ enyo.kind({
 		this.$.typepalette.setItems(items);
 
 		// Set sort selectbox content
-		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}];
+		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}, {text: l10n.get("SortByDueDate"), icon:"view-size.svg"},];
 		var items = [];
 		this.$.sortpalette.setHeader(l10n.get("SortDisplay"));
 		for(var i = 0 ; i < this.sorts.length ; i++) {
@@ -1195,6 +1237,7 @@ enyo.kind({
 
 	tapSort: function(e, s) {
 		this.sortfield = e.getId()-1;
+		console.log({e:this.sortfield})
 		this.$.sortpalette.setIcon({directory: "icons", icon: this.sorts[this.sortfield].icon});
 		this.filterEntries();
 		this.$.sortpalette.switchPalette(app.otherview);
