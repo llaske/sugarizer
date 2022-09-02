@@ -76,6 +76,9 @@ enyo.kind({
 		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
 		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
 		this.$.pagedown.setNodeProperty("title", l10n.get("Next"));
+		if (constant.viewNames[app.getView()] === "assignment_view") {
+			this.getToolbar().filterAssignment();
+		}
 		this.journalChanged();
 	},
 

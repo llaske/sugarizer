@@ -460,6 +460,12 @@ enyo.kind({
 			util.setToolbar(this.otherview.getToolbar());
 		}
 
+		//show assignment_view
+		else if (newView == constant.assignmentView) {
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
+			util.setToolbar(this.otherview.getToolbar());
+		}
+
 		// Show neighborhood
 		else if (newView == constant.neighborhoodView) {
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.NeighborhoodView"});
@@ -774,7 +780,7 @@ enyo.kind({
 	// Display journal
 	showJournal: function() {
 		//open journal view
-		app.showView(constant.journalView);
+		app.showView(constant.assignmentView);
 	},
 	// Handle active button
 	setActiveView: function(view) {

@@ -26,7 +26,8 @@ constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
 constant.neighborhoodView = 3;
-constant.viewNames = ['home_view', 'list_view', 'journal_view', 'neighborhood_view'];
+constant.assignmentView = 4;
+constant.viewNames = ['home_view', 'list_view', 'journal_view', 'neighborhood_view', 'assignment_view'];
 
 constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;
