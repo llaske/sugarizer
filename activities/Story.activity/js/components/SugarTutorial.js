@@ -5,7 +5,6 @@ Vue.component("sugar-tutorial", {
       l10n: {
         stringTutoPrev: "Prev",
         stringTutoNext: "Next",
-        stringTutoEnd: "End",
       },
     };
   },
