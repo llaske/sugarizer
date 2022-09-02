@@ -18,6 +18,14 @@ Vue.component("sugar-tutorial", {
   },
   methods: {
     show: function (steps) {
+      steps = steps.filter(function (obj) {
+        return (
+          !("element" in obj) ||
+          (obj.element.length &&
+            document.querySelector(obj.element) &&
+            document.querySelector(obj.element).style.display != "none")
+        );
+      });
       introJs()
         .setOptions({
           tooltipClass: "customTooltip",
