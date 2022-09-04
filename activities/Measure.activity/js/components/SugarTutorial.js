@@ -28,6 +28,17 @@ Vue.component('sugar-tutorial', {
 				exitOnOverlyClick: false,
 				nextToDone: false,
 				showBullets: false
+			}).onchange((element) => {
+				const step = steps.find((step) => step.element === `#${element.id}`);
+				if(step && step.onShow){
+					step.onShow();
+				}
+			}).onbeforechange((element) => {
+				const previousStepIndex = steps.indexOf(steps.find((step) => step.element === `#${element.id}`)) - 1;
+				const previousStep = steps[previousStepIndex];
+				if(previousStep && previousStep.onHide){
+					previousStep.onHide();
+				}
 			}).start();
 		}
 	}
