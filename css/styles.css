@@ -696,10 +696,9 @@ body {
 	position: absolute;
     right: 300px;
     margin-top: 15px;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
-    background-color: white;
-    z-index: 2;
+    
 }
 
 .journal-goright {
