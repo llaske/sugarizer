@@ -864,6 +864,7 @@ enyo.kind({
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		tutorial.setElement("showAssignments", this.$.showAssignments.getAttribute("id"));
 		tutorial.setElement("offlinebutton", this.$.offlinebutton.getAttribute("id"));
 		if (app.otherview && app.otherview.beforeHelp) {
 			app.otherview.beforeHelp();

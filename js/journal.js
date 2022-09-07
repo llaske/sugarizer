@@ -261,7 +261,7 @@ enyo.kind({
 			}
 			inEvent.item.$.submitAssignment.setShowing(true);
 			inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.dueDate, 2, this.smallTime));
-			var dueDate =  "Due Date : " + entry.metadata.dueDate;
+			var dueDate =  "Due Date : " + new Date(entry.metadata.dueDate *1000).toLocaleDateString() + " " + new Date(entry.metadata.dueDate *1000).toLocaleTimeString();
 			inEvent.item.$.assignmentDueDate.setContent(dueDate);
 			
 		} else {
@@ -296,6 +296,10 @@ enyo.kind({
 			tutorial.setElement("titleitem", inEvent.item.$.title.getAttribute("id"));
 			tutorial.setElement("timeitem", inEvent.item.$.time.getAttribute("id"));
 			tutorial.setElement("favoriteitem", inEvent.item.$.favorite.getAttribute("id"));
+			tutorial.setElement("assignment", inEvent.item.$.assignmentButton.getAttribute("id"));
+			tutorial.setElement("instructions", inEvent.item.$.assignmentInstructions.getAttribute("id"));
+			tutorial.setElement("submit", inEvent.item.$.submitAssignment.getAttribute("id"));
+			tutorial.setElement("dueDate", inEvent.item.$.assignmentDueDate.getAttribute("id"));
 		}
 	},
 
@@ -1122,6 +1126,7 @@ enyo.kind({
 	localize: function() {
 		// Localize items
 		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.assignmentbutton.setNodeProperty("title", l10n.get("FilterAssignment"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.unselallbutton.setNodeProperty("title", l10n.get("UnselectAll"));
@@ -1458,6 +1463,7 @@ enyo.kind({
 
 	startTutorial: function() {
 		tutorial.setElement("favoritebutton", this.$.favoritebutton.getAttribute("id"));
+		tutorial.setElement("assignmentbutton", this.$.assignmentbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.journalsearch.getAttribute("id"));
 		tutorial.setElement("typeselect", this.$.typepalette.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.datepalette.getAttribute("id"));
