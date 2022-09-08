@@ -446,7 +446,7 @@ body {
 }
 
 .journal-filter-assignment {
-	left: 921px;
+	left: 480px;
 }
 
 .journal-assignment {
@@ -610,7 +610,7 @@ body {
 
 .journal-filtertype-palette {
 	display: inline-block;
-	margin-left: 70px;
+	margin-left: 120px;
 	vertical-align: middle;
 }
 
@@ -2303,7 +2303,10 @@ body {
 	}
 
 	.assignment-button{
-		left: 280px;
+		left: 450px;
+	}
+	.assignment-count {
+		left: 485px;
 	}
 
 	.sync-home {
@@ -2331,26 +2334,57 @@ body {
 	}
 
 	.journal-filter-assignment {
-		left: 370px;
+		left: 330px;
 	}
 
-	.journal-assignment {
-		left: 421px;
+	/* .journal-assignment {
+		visibility: hidden;
 	}
 
 	.assignment-instructions {
-		left: 521px;
-	}
+		visibility: hidden;
+	} */
 
 	.assignment-submit {
-		left: 621px;
+		left: 310px;
 	}
 
-	
-	
+	.assignment-dueDate {
+		right:140px;
+		left: 395px;
+	}
 
 	.journal-filter-time {
 		visibility: hidden;
+	}
+}
+@media screen and (min-width: 762px) and (max-width: 944px) {
+	.assignment-dueDate {
+		left: 522px;
+	}
+	.assignment-instructions {
+		visibility: hidden;
+	}
+	.assignment-submit {
+		left: 448px;
+	}
+}
+@media screen and (min-width: 944px) and (max-width: 1435px) {
+	.journal-assignment {
+		left: 438px;
+	}
+	
+	.assignment-instructions {
+		left: 520px;
+	}
+
+	.assignment-submit {
+		left: 610px; 
+	}
+
+	.assignment-dueDate {
+		left: 677px;
+		right: 112px;
 	}
 }
 @media screen and (max-width: 635px) {
@@ -2396,6 +2430,10 @@ body {
 	.help-button-journal {
 		visibility: hidden;
 	}
+
+	.assignment-button-journal {
+		left:200px;
+	}
 }
 @media screen and (max-width: 650px) {
 	.help-button {
@@ -2437,6 +2475,20 @@ body {
 		visibility: hidden;
 	}
 	.page-down {
+		visibility: hidden;
+	}
+}
+@media screen and (max-width: 944px) {
+	.journal-assignment {
+		left: 380px;
+	}
+	
+	.assignment-instructions {
+		visibility: hidden;
+	}
+}
+@media screen and (max-width: 762px) {
+	.journal-assignment {
 		visibility: hidden;
 	}
 }
