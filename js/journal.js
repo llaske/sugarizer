@@ -260,10 +260,31 @@ enyo.kind({
 				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
 			}
 			inEvent.item.$.submitAssignment.setShowing(true);
-			inEvent.item.$.time.setContent(util.timestampToElapsedString(entry.metadata.dueDate, 2, this.smallTime));
-			var dueDate =  "Due Date : " + new Date(entry.metadata.dueDate *1000).toLocaleDateString() + " " + new Date(entry.metadata.dueDate *1000).toLocaleTimeString();
-			inEvent.item.$.assignmentDueDate.setContent(dueDate);
-			
+			//find current date.
+			var currentDate = new Date();
+			var difference = new Date(entry.metadata.dueDate).getTime() - currentDate.getTime();
+			var days = Math.floor(difference / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.ceil((difference % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+			if(days > 0) {
+				if(days == 1) {
+					inEvent.item.$.assignmentDueDate.setContent("Expected in " + days + " day " + hours + " hours");
+				} else {
+					inEvent.item.$.assignmentDueDate.setContent("Expected in " + days + " days " + hours + " hours");
+				}
+			} else if(hours > 0) {
+				inEvent.item.$.assignmentDueDate.setContent("Expected in " + hours + " hours");
+			} else if(minutes > 0) {
+				inEvent.item.$.assignmentDueDate.setContent("Expected in " + minutes + " minutes");
+			} else if(seconds > 0) {
+				inEvent.item.$.assignmentDueDate.setContent("Expected in " + seconds + " seconds");
+			} else{
+				inEvent.item.$.assignmentDueDate.setContent("Due date passed");
+			} 
+			if(entry.metadata.isSubmitted === true) {
+				inEvent.item.$.assignmentDueDate.setContent("Submitted on " + util.timestampToElapsedString(entry.metadata.submissionDate),2);
+			}
 		} else {
 			inEvent.item.$.assignmentButton.setShowing(false);
 			inEvent.item.$.assignmentInstructions.setShowing(false);
@@ -571,28 +592,25 @@ enyo.kind({
 	
 	submitAssignment: function(inSender, inEvent) {
 		var entry = this.journal[inEvent.index]; //copy
-		console.log({f:entry.metadata});
 		if(entry.metadata.isSubmitted == true) {
 			humane.log("This assignment has already been submitted");
 			return;
 		}
 		entry.metadata.isSubmitted = true;
-
+		entry.metadata.submissionDate = new Date().getTime();
 		var that = this;
+		myserver.postAssignment(entry.metadata.assignmentId, entry.objectId,
+			function(inSender, inResponse) {
+				humane.log("Assignment submitted");
+			} , function(inSender, inResponse) {
+				humane.log("Error submitting assignment"); 
+			});
 		var ds = new datastore.DatastoreObject(entry.objectId);
 		ds.setMetadata(entry.metadata);
 		ds.save(function() {
 			console.log("Assignment submitted");
 			that.journalChanged();
 		});
-		
-		myserver.postAssignment(entry.metadata.assignmentId, entry.objectId,
-			function(inSender, inResponse) {
-				humane.log("Assignment submitted");
-			} , function(inSender, inResponse) {
-				humane.log("Error submitting assignment"); 
-		});
-		
 	},
 
 
