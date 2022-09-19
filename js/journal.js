@@ -256,9 +256,15 @@ enyo.kind({
 		if (entry.metadata.assignmentId) {
 			inEvent.item.$.assignmentButton.setShowing(true);
 			inEvent.item.$.assignmentInstructions.setShowing(true);
-			if(entry.metadata.isSubmitted === false) {
+			inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			if(entry.metadata.lateTurnIn === true && entry.metadata.dueDate < new Date().getTime()) {
 				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
 			}
+			//thow error if isSubmitted is true and dueDate is passed and lateTurnIn is false
+			else if(entry.metadata.isSubmitted === true && entry.metadata.dueDate < new Date().getTime() && entry.metadata.lateTurnIn === false) {
+				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			}
+
 			inEvent.item.$.submitAssignment.setShowing(true);
 			//find current date.
 			var currentDate = new Date();
@@ -283,7 +289,7 @@ enyo.kind({
 				inEvent.item.$.assignmentDueDate.setContent("Due date passed");
 			} 
 			if(entry.metadata.isSubmitted === true) {
-				inEvent.item.$.assignmentDueDate.setContent("Submitted on " + util.timestampToElapsedString(entry.metadata.submissionDate),2);
+				inEvent.item.$.assignmentDueDate.setContent("Submitted in " + util.timestampToElapsedString(entry.metadata.submissionDate),2);
 			}
 		} else {
 			inEvent.item.$.assignmentButton.setShowing(false);
@@ -594,6 +600,10 @@ enyo.kind({
 		var entry = this.journal[inEvent.index]; //copy
 		if(entry.metadata.isSubmitted == true) {
 			humane.log("This assignment has already been submitted");
+			return;
+		}
+		if(entry.metadata.isSubmitted == false && entry.metadata.dueDate < Date.now() && entry.metadata.lateTurnIn == false) {
+			humane.log("This assignment has passed the due date and late turn in is not allowed");
 			return;
 		}
 		entry.metadata.isSubmitted = true;
