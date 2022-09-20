@@ -641,63 +641,63 @@ var app = new Vue({
 				steps = steps.concat([
 					{
 						element: ".poll-card#0",
-						placement: "right",
+						position: "right",
 						title: this.l10n.stringTutoSettingsPollCardTitle,
-						content: this.l10n.stringTutoSettingsPollCardContent
+						intro: this.l10n.stringTutoSettingsPollCardContent
 					},
 					{
 						element: "#edit-button",
-						placement: "right",
+						position: "right",
 						title: this.l10n.stringTutoSettingsEditButtonTitle,
-						content: this.l10n.stringTutoSettingsEditButtonContent
+						intro: this.l10n.stringTutoSettingsEditButtonContent
 					},
 					{
 						element: "#delete-button",
-						placement: "right",
+						position: "right",
 						title: this.l10n.stringTutoSettingsDeleteButtonTitle,
-						content: this.l10n.stringTutoSettingsDeleteButtonContent
+						intro: this.l10n.stringTutoSettingsDeleteButtonContent
 					},
 					{
 						element: "#settings-button",
-						placement: "bottom",
+						position: "bottom",
 						title: this.l10n.stringTutoSettingsPlayButtonTitle,
-						content: this.l10n.stringTutoSettingsPlayButtonContent
+						intro: this.l10n.stringTutoSettingsPlayButtonContent
 					},
 					{
 						element: "#add-button",
-						placement: "bottom",
+						position: "bottom",
 						title: this.l10n.stringTutoSettingsAddButtonTitle,
-						content: this.l10n.stringTutoSettingsAddButtonContent
+						intro: this.l10n.stringTutoSettingsAddButtonContent
 					},
 					{
 						element: "#image-edit-button",
-						placement: "bottom",
+						position: "bottom",
 						title: this.l10n.stringTutoSettingsImageEditButtonTitle,
-						content: this.l10n.stringTutoSettingsImageEditButtonContent
+						intro: this.l10n.stringTutoSettingsImageEditButtonContent
 					},
 					{
 						element: "#question",
-						placement: "bottom",
+						position: "bottom",
 						title: this.l10n.stringTutoSettingsQuestionTitle,
-						content: this.l10n.stringTutoSettingsQuestionContent
+						intro: this.l10n.stringTutoSettingsQuestionContent
 					},
 					{
 						element: "#type",
-						placement: "bottom",
+						position: "bottom",
 						title: this.l10n.stringTutoSettingsTypeTitle,
-						content: this.l10n.stringTutoSettingsTypeContent
+						intro: this.l10n.stringTutoSettingsTypeContent
 					},
 					{
 						element: ".add-option-button",
-						placement: "top",
+						position: "top",
 						title: this.l10n.stringTutoSettingsAddOptionButtonTitle,
-						content: this.l10n.stringTutoSettingsAddOptionButtonContent
+						intro: this.l10n.stringTutoSettingsAddOptionButtonContent
 					},
 					{
 						element: ".option#0",
-						placement: "top",
+						position: "top",
 						title: this.l10n.stringTutoSettingsOptionTitle,
-						content: this.l10n.stringTutoSettingsOptionContent
+						intro: this.l10n.stringTutoSettingsOptionContent
 					},
 				]);
 			} else {
@@ -705,41 +705,38 @@ var app = new Vue({
 					case 'polls-grid':
 						steps = steps.concat([
 							{
-								element: "",
-								orphan: true,
-								placement: "bottom",
 								title: this.l10n.stringTutoExplainTitle,
-								content: this.l10n.stringTutoExplainContent
+								intro: this.l10n.stringTutoExplainContent
 							},
 							{
 								element: ".poll-card#0",
-								placement: "right",
+								position: "right",
 								title: this.l10n.stringTutoPollCardTitle,
-								content: this.l10n.stringTutoPollCardContent
+								intro: this.l10n.stringTutoPollCardContent
 							},
 							{
 								element: ".search-input",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoPollSearchTitle,
-								content: this.l10n.stringTutoPollSearchContent
+								intro: this.l10n.stringTutoPollSearchContent
 							},
 							{
 								element: "#settings-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoSettingsButtonTitle,
-								content: this.l10n.stringTutoSettingsButtonContent
+								intro: this.l10n.stringTutoSettingsButtonContent
 							},
 							{
 								element: "#history-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoHistoryButtonTitle,
-								content: this.l10n.stringTutoHistoryButtonContent
+								intro: this.l10n.stringTutoHistoryButtonContent
 							},
 							{
 								element: "#network-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoNetworkButtonTitle,
-								content: this.l10n.stringTutoNetworkButtonContent
+								intro: this.l10n.stringTutoNetworkButtonContent
 							},
 						]);
 						break;
@@ -747,27 +744,27 @@ var app = new Vue({
 						steps = steps.concat([
 							{
 								element: ".history-item#0",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoHistoryItemTitle,
-								content: this.l10n.stringTutoHistoryItemContent
+								intro: this.l10n.stringTutoHistoryItemContent
 							},
 							{
 								element: "#home-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoHomeButtonTitle,
-								content: this.l10n.stringTutoHomeButtonContent
+								intro: this.l10n.stringTutoHomeButtonContent
 							},
 							{
 								element: "#export-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoExportButtonTitle,
-								content: this.l10n.stringTutoExportButtonContent
+								intro: this.l10n.stringTutoExportButtonContent
 							},
 							{
 								element: "#delete-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoDeleteButtonTitle,
-								content: this.l10n.stringTutoDeleteButtonContent
+								intro: this.l10n.stringTutoDeleteButtonContent
 							},
 						]);
 						break;
@@ -775,33 +772,33 @@ var app = new Vue({
 						steps = steps.concat([
 							{
 								element: "#stats",
-								placement: "right",
+								position: "right",
 								title: this.l10n.stringTutoPollStatsTitle,
-								content: this.l10n.stringTutoPollStatsContent
+								intro: this.l10n.stringTutoPollStatsContent
 							},
 							{
 								element: ".poll-footer",
-								placement: "top",
+								position: "top",
 								title: this.l10n.stringTutoPollFooterTitle,
-								content: this.l10n.stringTutoPollFooterContent
+								intro: this.l10n.stringTutoPollFooterContent
 							},
 							{
 								element: "#stop-poll",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoStopPollTitle,
-								content: this.l10n.stringTutoStopPollContent
+								intro: this.l10n.stringTutoStopPollContent
 							},
 							{
 								element: "#real-time-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoRealTimeButtonTitle,
-								content: this.l10n.stringTutoRealTimeButtonContent
+								intro: this.l10n.stringTutoRealTimeButtonContent
 							},
 							{
 								element: "#auto-stop-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoAutoStopButtonTitle,
-								content: this.l10n.stringTutoAutoStopButtonContent
+								intro: this.l10n.stringTutoAutoStopButtonContent
 							},
 						]);
 						break;
