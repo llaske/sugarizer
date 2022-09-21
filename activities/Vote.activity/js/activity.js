@@ -694,7 +694,7 @@ var app = new Vue({
 						intro: this.l10n.stringTutoSettingsAddOptionButtonContent
 					},
 					{
-						element: ".option#0",
+						element: ".option [id='#0']",
 						position: "top",
 						title: this.l10n.stringTutoSettingsOptionTitle,
 						intro: this.l10n.stringTutoSettingsOptionContent
@@ -743,7 +743,7 @@ var app = new Vue({
 					case 'history':
 						steps = steps.concat([
 							{
-								element: ".history-item#0",
+								element: ".history-item [id='#0']",
 								position: "bottom",
 								title: this.l10n.stringTutoHistoryItemTitle,
 								intro: this.l10n.stringTutoHistoryItemContent
