@@ -640,7 +640,7 @@ var app = new Vue({
 			if(this.settings) {
 				steps = steps.concat([
 					{
-						element: ".poll-card#0",
+						element: ".poll-card [id='#0']",
 						position: "right",
 						title: this.l10n.stringTutoSettingsPollCardTitle,
 						intro: this.l10n.stringTutoSettingsPollCardContent
@@ -709,7 +709,7 @@ var app = new Vue({
 								intro: this.l10n.stringTutoExplainContent
 							},
 							{
-								element: ".poll-card#0",
+								element: ".poll-card [id='#0']",
 								position: "right",
 								title: this.l10n.stringTutoPollCardTitle,
 								intro: this.l10n.stringTutoPollCardContent
