@@ -1,4 +1,4 @@
-// Tutorial component based on bootstrap tour
+// Tutorial component based on introJs tour
 Vue.component("sugar-tutorial", {
   data: function () {
     return {
