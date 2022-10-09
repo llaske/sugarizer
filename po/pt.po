@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Sun Apr 11 2021 11:03:26 GMT+0200 (heure d’été d’Europe centrale)\n"
+"POT-Creation-Date: Sun Oct 09 2022 11:08:10 GMT+0200 (heure d’été d’Europe centrale)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,6 +59,41 @@ msgstr "Página inicial"
 msgctxt "FilterFavorites"
 msgid "Filter favorites"
 msgstr "Filtrar favoritos"
+
+#: FilterByType
+msgctxt "FilterByType"
+msgid "Filter by type"
+msgstr "Filter by type"
+
+#: FilterByTime
+msgctxt "FilterByTime"
+msgid "Filter by time"
+msgstr "Filter by time"
+
+#: Sort
+msgctxt "Sort"
+msgid "Sort"
+msgstr "Sort"
+
+#: Journal
+msgctxt "Journal"
+msgid "Local journal"
+msgstr "Local journal"
+
+#: Private
+msgctxt "Private"
+msgid "Remote journal"
+msgstr "Remote journal"
+
+#: Shared
+msgctxt "Shared"
+msgid "Shared journal"
+msgstr "Shared journal"
+
+#: CopyFromDevice
+msgctxt "CopyFromDevice"
+msgid "Copy from device"
+msgstr "Copy from device"
 
 #: SecondsAgo
 msgctxt "SecondsAgo"
@@ -322,6 +357,21 @@ msgstr "Imagens atualizadas!"
 msgctxt "InvalidPassword"
 msgid "Invalid images"
 msgstr "Imagens inválidas"
+
+#: MyPrivacy
+msgctxt "MyPrivacy"
+msgid "My privacy"
+msgstr "My privacy"
+
+#: PrivacyStats
+msgctxt "PrivacyStats"
+msgid "Do not send to the server statistics about my usage of the app"
+msgstr "Do not send to the server statistics about my usage of the app"
+
+#: PrivacySync
+msgctxt "PrivacySync"
+msgid "Do not synchronize my local journal with the server"
+msgstr "Do not synchronize my local journal with the server"
 
 #: Language
 msgctxt "Language"
@@ -1748,4 +1798,91 @@ msgstr "A atividade Luzes de Natal permite a criação de belas luzes de Natal p
 msgctxt "TutoActivityDollarStreetactivity"
 msgid "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
 msgstr "A atividade Rua do Dinheiro permite que você descubra como as pessoas vivem em diferentes países, dependendo de sua renda mensal."
+
+#: CookieConsent
+msgctxt "CookieConsent"
+msgid "We need <strong>cookies</strong> to keep your Sugarizer session information. <br/>Please type the <strong>Accept</strong> button to consent to this use."
+msgstr "We need <strong>cookies</strong> to keep your Sugarizer session information. <br/>Please type the <strong>Accept</strong> button to consent to this use."
+
+#. Do not translate {{url}}
+#: PolicyLink
+msgctxt "PolicyLink"
+msgid "For more information you can read our <a target=\"_blank\" href=\"{{url}}\">privacy policy</a>."
+msgstr "For more information you can read our <a target=\"_blank\" href=\"{{url}}\">privacy policy</a>."
+
+#: Accept
+msgctxt "Accept"
+msgid "Accept"
+msgstr "Accept"
+
+#: Decline
+msgctxt "Decline"
+msgid "Decline"
+msgstr "Decline"
+
+#: TutoInitCookieTitle
+msgctxt "TutoInitCookieTitle"
+msgid "Cookie usage"
+msgstr "Cookie usage"
+
+#: TutoInitCookieContent
+msgctxt "TutoInitCookieContent"
+msgid "In this screen you're asked to consent to cookies that Sugarizer use to keep your session information."
+msgstr "In this screen you're asked to consent to cookies that Sugarizer use to keep your session information."
+
+#: TutoInitDeclineTitle
+msgctxt "TutoInitDeclineTitle"
+msgid "Decline cookies"
+msgstr "Decline cookies"
+
+#: TutoInitDeclineContent
+msgctxt "TutoInitDeclineContent"
+msgid "Click here to choose to decline usage of cookies. You will be able to use Sugarizer only locally."
+msgstr "Click here to choose to decline usage of cookies. You will be able to use Sugarizer only locally."
+
+#: TutoInitAcceptTitle
+msgctxt "TutoInitAcceptTitle"
+msgid "Accept cookies"
+msgstr "Accept cookies"
+
+#: TutoInitAcceptContent
+msgctxt "TutoInitAcceptContent"
+msgid "Click here to choose to accept usage of cookies. We will be proud to have your confidence."
+msgstr "Click here to choose to accept usage of cookies. We will be proud to have your confidence."
+
+#. Do not translate {{url}}
+#: CheckboxCookieConsent
+msgctxt "CheckboxCookieConsent"
+msgid "I'm agree to let Sugarizer use cookies to keep session information.<br/> See <a target=\"_blank\" href=\"{{url}}\">privacy policy</a> for more."
+msgstr "I'm agree to let Sugarizer use cookies to keep session information.<br/> See <a target=\"_blank\" href=\"{{url}}\">privacy policy</a> for more."
+
+#: CheckboxToConsent
+msgctxt "CheckboxToConsent"
+msgid "Please check box to consent to cookies"
+msgstr "Please check box to consent to cookies"
+
+#: PrivacyRemove
+msgctxt "PrivacyRemove"
+msgid "Display delete account features"
+msgstr "Display delete account features"
+
+#: PrivacyRemoveLocal
+msgctxt "PrivacyRemoveLocal"
+msgid "Delete local account"
+msgstr "Delete local account"
+
+#: PrivacyRemoveRemote
+msgctxt "PrivacyRemoveRemote"
+msgid "Delete server account"
+msgstr "Delete server account"
+
+#: TutoActivityMeasureactivity
+msgctxt "TutoActivityMeasureactivity"
+msgid "Measure activity is an activity to learn the concepts of sound."
+msgstr "Measure activity is an activity to learn the concepts of sound."
+
+#: TutoActivityStoryactivity
+msgctxt "TutoActivityStoryactivity"
+msgid "Story Activity uses images to prompt you to tell a story. You should try to tell a story that ties the images together into a comprehensive narrative."
+msgstr "Story Activity uses images to prompt you to tell a story. You should try to tell a story that ties the images together into a comprehensive narrative."
 
