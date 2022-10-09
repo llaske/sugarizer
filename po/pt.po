@@ -326,7 +326,7 @@ msgstr "Imagens inválidas"
 #: Language
 msgctxt "Language"
 msgid "Language"
-msgstr "Língua"
+msgstr "Idioma"
 
 #: Done
 msgctxt "Done"
@@ -406,7 +406,7 @@ msgstr "Alemão"
 #: Arabic
 msgctxt "Arabic"
 msgid "Arabic"
-msgstr "Arabe"
+msgstr "Árabe"
 
 #: Japanese
 msgctxt "Japanese"
@@ -512,7 +512,7 @@ msgstr "Cópia remota"
 #: CopyToShared
 msgctxt "CopyToShared"
 msgid "Copy to shared"
-msgstr "Copiar para compartilhar"
+msgstr "Copiar para compartilhada"
 
 #. Do not translate {{user}}
 #: ByUser
@@ -548,12 +548,12 @@ msgstr "Conectado a um servidor"
 #: ServerUrl
 msgctxt "ServerUrl"
 msgid "Server address:"
-msgstr "Server address:"
+msgstr "Endereço do Servidor:"
 
 #: ServerDescription
 msgctxt "ServerDescription"
 msgid "Description:"
-msgstr "Description:"
+msgstr "Descrição:"
 
 #: ServerName
 msgctxt "ServerName"
@@ -623,7 +623,7 @@ msgstr "Novo usuário"
 #: Login
 msgctxt "Login"
 msgid "Login"
-msgstr "Login"
+msgstr "Entrar"
 
 #: Logoff
 msgctxt "Logoff"
@@ -787,12 +787,12 @@ msgstr "Fim"
 #: TutoUserTitle
 msgctxt "TutoUserTitle"
 msgid "Me"
-msgstr "Me"
+msgstr "Eu"
 
 #: TutoUserContent
 msgctxt "TutoUserContent"
 msgid "This icon is you. Pass the mouse over it or long touch it to change your settings (name, color, ...)."
-msgstr "Este ícone é você. Passe o ponteiro do mouse  ou um longo toque para mudar suas configurações (nome, cor, ...)."
+msgstr "Este ícone é você. Passe o ponteiro do mouse ou pressione um longo toque para mudar suas configurações (nome, cor, ...)."
 
 #: TutoActivityTitle
 msgctxt "TutoActivityTitle"
@@ -997,7 +997,7 @@ msgstr "Clique neste ícone para exibir o conteúdo compartilhado no Diário do 
 #: TutoGotoHomeTitle
 msgctxt "TutoGotoHomeTitle"
 msgid "Home view"
-msgstr "Home view"
+msgstr "Visão inicial"
 
 #: TutoGotoHomeContent
 msgctxt "TutoGotoHomeContent"
@@ -1062,7 +1062,7 @@ msgstr "Esta atividade é compartilhada por outro usuário. Passe o mouse sobre 
 #: TutoNeighborWifiTitle
 msgctxt "TutoNeighborWifiTitle"
 msgid "WiFi"
-msgstr "WiFi"
+msgstr "Rede sem fio (WiFi)"
 
 #: TutoNeighborWifiContent
 msgctxt "TutoNeighborWifiContent"
@@ -1172,19 +1172,19 @@ msgstr "Você deseja copiar a entrada {{count}} para o seu Diário compartilhado
 #: CopyToShared_other
 msgctxt "CopyToShared_other"
 msgid "Do you want to copy {{count}} entries in the shared Journal?"
-msgstr "Você dseja copiar a entrada {{count}} para o seu Diário compartilhado?"
+msgstr "Você deseja copiar a entrada {{count}} para o seu Diário compartilhado?"
 
 #. Do not translate {{count}}
 #: CopyToDevice_one
 msgctxt "CopyToDevice_one"
 msgid "Do you want to copy {{count}} entry to your device?"
-msgstr "Você dseja copiar a entrada {{count}} para o seu dispositivo?"
+msgstr "Você deseja copiar a entrada {{count}} para o seu dispositivo?"
 
 #. Do not translate {{count}}
 #: CopyToDevice_other
 msgctxt "CopyToDevice_other"
 msgid "Do you want to copy {{count}} entries to your device?"
-msgstr "Você dseja copiar a entrada {{count}} para o seu dispositivo?"
+msgstr "Você deseja copiar a entrada {{count}} para o seu dispositivo?"
 
 #: Copying
 msgctxt "Copying"
@@ -1305,7 +1305,7 @@ msgstr "Não é sua primeira vez neste dispositivo? Basta clicar no seu nome par
 #: TutoInitHelpTitle
 msgctxt "TutoInitHelpTitle"
 msgid "Help me"
-msgstr "Help me"
+msgstr "Ajude-me"
 
 #: TutoInitHelpContent
 msgctxt "TutoInitHelpContent"
@@ -1325,12 +1325,12 @@ msgstr "Clique neste ícone se você realmente deseja sair do Sugarizer. Nós pe
 #: TutoInitServerTitle
 msgctxt "TutoInitServerTitle"
 msgid "Server address"
-msgstr "Server address"
+msgstr "Endereço do Servidor"
 
 #: TutoInitServerContent
 msgctxt "TutoInitServerContent"
 msgid "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
-msgstr "This is the server address where your data is store. If you know your server address, click on the padlock to unlock the field then type it. It should start by \"http://\" or \"https://\"."
+msgstr "Este é o endereço do servidor onde seus dados são armazenados. Se você sabe o endereço do servidor, clique no cadeado para desbloquear o campo e alterar. Deve iniciar por \"http://\" ou \"https://\"."
 
 #: TutoInitNameTitle
 msgctxt "TutoInitNameTitle"
@@ -1405,7 +1405,7 @@ msgstr "Clique aqui para escolher suas cores favoritas para os ícones. Não se 
 #: TutoInitMainTitle
 msgctxt "TutoInitMainTitle"
 msgid "Home screen"
-msgstr "Home screen"
+msgstr "Tela inicial"
 
 #: TutoInitMainContent
 msgctxt "TutoInitMainContent"
@@ -1440,7 +1440,7 @@ msgstr "Bate-papo fornece uma interface simples para discussão colaborativa ent
 #: TutoActivityChessactivity
 msgctxt "TutoActivityChessactivity"
 msgid "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
-msgstr "Chess activity is a fun way to learn and challenge your friends to a game of Chess."
+msgstr "Chess é uma divertida atividade para aprender e desafiar seus amigos a jogar Xadrez."
 
 #: TutoActivityClockactivity
 msgctxt "TutoActivityClockactivity"
@@ -1470,12 +1470,12 @@ msgstr "O Exerciser é uma ferramenta para criar um conjunto de perguntas intera
 #: TutoActivityFalabracmanactivity
 msgctxt "TutoActivityFalabracmanactivity"
 msgid "Falabracman Activity is a simple game where you have to Help Falabracman learn some words, by collecting all the letters in the right order."
-msgstr "Falabracman Activity is a simple game where you have to Help Falabracman learn some words, by collecting all the letters in the right order."
+msgstr "Falabracman é um jogo simples, onde você precisa ajudar o Falabracman a aprender algumas palavras, colecionando todas as letras na ordem correta."
 
 #: TutoActivityFlipactivity
 msgctxt "TutoActivityFlipactivity"
 msgid "Flip is a simple strategy game where you have to flip \"coins\" until they are all of the same color. Each time you \"win\" the challenge gets more difficult."
-msgstr "Flip é um jogo de estratégia simples onde você tem que virar \que sejam todas da mesma cor. Cada vez que você \mais difícil."
+msgstr "Flip é um jogo de estratégia simples onde você tem que virar \"moedas\" que sejam todas da mesma cor. Cada vez que você \"ganha\", o desafio fica mais difícil."
 
 #: TutoActivityFoodChainactivity
 msgctxt "TutoActivityFoodChainactivity"
@@ -1490,7 +1490,7 @@ msgstr "FotoToon permite que você use suas fotos, desenhos ou imagens do Diári
 #: TutoActivityGameOfLifeactivity
 msgctxt "TutoActivityGameOfLifeactivity"
 msgid "Game of Life is a game to observe and explore how cells interacts and evolves generation after generation. Use one of provided pattern, a full random pattern or create your own and observe what happen."
-msgstr "Game of Life é um jogo para observar e explorar como as células interagem e evoluem geração após geração. Use um dos modelos fornecidos, um modelo aleatório ou crie o seu próprio e observe o que acontece."
+msgstr "Jogo da Vida é um jogo para observar e explorar como as células interagem e evoluem geração após geração. Use um dos modelos fornecidos, um modelo aleatório ou crie o seu próprio e observe o que acontece."
 
 #: TutoActivityGearsactivity
 msgctxt "TutoActivityGearsactivity"
@@ -1545,7 +1545,7 @@ msgstr "O famoso jogo de memorização: encontre pares correspondentes (imagens,
 #: TutoActivityMindMathactivity
 msgctxt "TutoActivityMindMathactivity"
 msgid "Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations."
-msgstr "Mind Math is a mental calculation game similar to countdown numbers rounds. The goal is to achieve a target number by performing mathematical operations."
+msgstr "Mind Math é um jogo de cálculo mental, semelhante às rodadas de contagem regressiva. O objetivo é atingir um número alvo realizando operações matemáticas."
 
 #: TutoActivityMoonactivity
 msgctxt "TutoActivityMoonactivity"
@@ -1610,7 +1610,7 @@ msgstr "Tam Tam Micro é uma atividade para tocar instrumentos, sons e ruídos d
 #: TutoActivityTangramactivity
 msgctxt "TutoActivityTangramactivity"
 msgid "Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes."
-msgstr "Welcome into the Tangram Activity. Tangram is a famous classical chinese game in which the goal is to rearrange the seven separate pieces into a complete image of various shapes."
+msgstr "Bem-vindo à atividade do Tangram. Tangram é um famoso jogo clássico chinês em que o objetivo é reorganizar as sete peças separadas em uma imagem completa de várias formas."
 
 #: TutoActivityTankOpactivity
 msgctxt "TutoActivityTankOpactivity"
@@ -1640,12 +1640,12 @@ msgstr "Pomodoro é um cronômetro utilizado para dividir o trabalho em interval
 #: TutoActivityConstellationactivity
 msgctxt "TutoActivityConstellationactivity"
 msgid "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
-msgstr "Constellation is an offline planetarium that lets you see what is visible in the sky from any location on Earth."
+msgstr "Constellation é um planetário \"offline\" que permite ver o que é visível no céu de qualquer local da Terra."
 
 #: TutoActivityFractionBounceactivity
 msgctxt "TutoActivityFractionBounceactivity"
 msgid "Fraction activity is a game to learn Fraction. The player should nudge a bouncing ball to land at a point of a given fraction."
-msgstr "Fraction activity is a game to learn Fraction. The player should nudge a bouncing ball to land at a point of a given fraction."
+msgstr "Atividade de fração é um jogo para aprender frações. O jogador deve cutucar uma bola quicando para pousar em um ponto de uma determinada fração."
 
 #: NotConnected
 msgctxt "NotConnected"
@@ -1660,7 +1660,7 @@ msgstr "Ícone de sem conexão"
 #: TutoOfflineContent
 msgctxt "TutoOfflineContent"
 msgid "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
-msgstr "When visible, this icon remind you that you're not connected. Connect your device to a server to use collaboration features and to backup your work."
+msgstr "Quando visível, este ícone lembra que você não está conectado. Conecte seu dispositivo a um servidor para usar os recursos de colaboração e fazer backup do seu trabalho."
 
 #: PleaseConnectMessage
 msgctxt "PleaseConnectMessage"
@@ -1675,12 +1675,12 @@ msgstr "Ler o código do servidor"
 #: TutoInitQRCodeContent
 msgctxt "TutoInitQRCodeContent"
 msgid "Use this button to scan the QR code of your server instead of typing its address."
-msgstr "Use this button to scan the QR code of your server instead of typing its address."
+msgstr "Use este botão para escanear o código QR do seu servidor em vez de digitar seu endereço."
 
 #: TutoActivityWriteactivity
 msgctxt "TutoActivityWriteactivity"
 msgid "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
-msgstr "The Write activity is a basic word processor with a simple interface for children to let them write story, poem or essay. It also supports inserting images, performing basic layout operations and generating PDF, ODT or DOC files."
+msgstr "A atividade Escrever é um processador de texto básico com uma interface simples para as crianças escreverem uma história, poema ou ensaio. Também suporta inserir imagens, realizar operações básicas de layout e gerar arquivos PDF, ODT ou DOC."
 
 #: TutoActivityCalligraactivity
 msgctxt "TutoActivityCalligraactivity"
@@ -1700,52 +1700,52 @@ msgstr "Você foi desconectado por outro dispositivo"
 #: TutoActivityImplodeactivity
 msgctxt "TutoActivityImplodeactivity"
 msgid "The Implode activity is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more."
-msgstr "The Implode activity is a logic game based on blocks. The object of the game is to remove all the blocks, by removing blocks in groups of three or more."
+msgstr "A atividade Implode é um jogo de lógica baseado em blocos. O objetivo do jogo é remover todos os blocos, removendo blocos em grupos de três ou mais."
 
 #: Duplicate
 msgctxt "Duplicate"
 msgid "Duplicate"
-msgstr "Duplicate"
+msgstr "Duplicado"
 
 #. Do not translate {{count}}
 #: Duplicate_one
 msgctxt "Duplicate_one"
 msgid "Do you want to duplicate {{count}} entry?"
-msgstr "Do you want to duplicate {{count}} entry?"
+msgstr "Deseja duplicar {{count}} entrada?"
 
 #. Do not translate {{count}}
 #: Duplicate_other
 msgctxt "Duplicate_other"
 msgid "Do you want to duplicate {{count}} entries?"
-msgstr "Do you want to duplicate {{count}} entries?"
+msgstr "Deseja duplicar {{count}} entradas?"
 
 #: TutoActivityCurriculumactivity
 msgctxt "TutoActivityCurriculumactivity"
 msgid "Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
-msgstr "Curriculum is an activity to self evaluate your skills. You can acquire different skills from multiple categories and upload media elements to demonstrate it."
+msgstr "Currículo é uma atividade para auto avaliar suas habilidades. Você pode adquirir diferentes habilidades de várias categorias e fazer upload de elementos de mídia para demonstrá-lo."
 
 #: TutoActivityVoteactivity
 msgctxt "TutoActivityVoteactivity"
 msgid "The Vote activity allow easy creation of a poll system. The user can create a poll and then share it on the network so any user could vote in real-time."
-msgstr "The Vote activity allow easy creation of a poll system. The user can create a poll and then share it on the network so any user could vote in real-time."
+msgstr "A atividade Voto permite a criação fácil de um sistema de votação. O usuário pode criar uma enquete e compartilhá-la na rede para que qualquer usuário possa votar em tempo real."
 
 #: TutoActivityPlanetsactivity
 msgctxt "TutoActivityPlanetsactivity"
 msgid "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
-msgstr "The Planets Activity provides a 3D model of planets for you to let you explore the Solar System."
+msgstr "A Atividade de Planetas fornece um modelo 3D de planetas para você explorar o Sistema Solar."
 
 #: InvalidUser
 msgctxt "InvalidUser"
 msgid "Unknown user"
-msgstr "Unknown user"
+msgstr "Usuário desconhecido"
 
 #: TutoActivityXmasLightsactivity
 msgctxt "TutoActivityXmasLightsactivity"
 msgid "Xmas Lights activity allow creation of nice blinking Christmas lights using Sugarizer icons and colors."
-msgstr "Xmas Lights activity allow creation of nice blinking Christmas lights using Sugarizer icons and colors."
+msgstr "A atividade Luzes de Natal permite a criação de belas luzes de Natal piscantes usando ícones e cores do Sugarizer."
 
 #: TutoActivityDollarStreetactivity
 msgctxt "TutoActivityDollarStreetactivity"
 msgid "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
-msgstr "The DollarStreet activity let you discover how people lives in different countries depending of their monthly income."
+msgstr "A atividade Rua do Dinheiro permite que você descubra como as pessoas vivem em diferentes países, dependendo de sua renda mensal."
 
