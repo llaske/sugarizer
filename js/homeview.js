@@ -497,13 +497,19 @@ enyo.kind({
 		if (this.journal.length > 0) {
 			this.$.journal.colorize(preferences.getColor());
 		}
+		//get assignments which are not completed and duedate is not passed
 		if(this.showAssignments.length > 0){
-			this.getToolbar().$.showAssignments.setShowing(true);
-			this.getToolbar().$.assignmentCount.setContent(this.showAssignments.length);
-		}
-		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
-			humane.log(l10n.get("JournalAlmostFull"));
-			this.isJournalFull = false;
+			var assignments = this.showAssignments.filter(function(assignment){
+				return assignment.metadata.isSubmitted == false && assignment.metadata.dueDate > new Date().getTime();
+			});
+			if(assignments.length > 0){
+				this.getToolbar().$.showAssignments.setShowing(true);
+				this.getToolbar().$.assignmentCount.setContent(assignments.length);
+			}
+			if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
+				humane.log(l10n.get("JournalAlmostFull"));
+				this.isJournalFull = false;
+			}
 		}
 	},
 

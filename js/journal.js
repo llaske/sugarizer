@@ -255,7 +255,9 @@ enyo.kind({
 		//if assignmentId is present then set showing true for assignmentbutton
 		if (entry.metadata.assignmentId) {
 			inEvent.item.$.assignmentButton.setShowing(true);
-			inEvent.item.$.assignmentInstructions.setShowing(true);
+			if(entry.metadata.instructions !== "") {
+				inEvent.item.$.assignmentInstructions.setShowing(true);
+			}
 			inEvent.item.$.submitAssignment.ontap= "submitAssignment";
 			if(entry.metadata.lateTurnIn === true && entry.metadata.dueDate < new Date().getTime()) {
 				inEvent.item.$.submitAssignment.ontap= "submitAssignment";

@@ -113,14 +113,14 @@ body {
 }
 
 .assignment-count {
-	background-color: #ff0000;
+	background-color: #6e6d6d;
 	border-radius: 50%;
 	padding-left: 5px;
 	padding-right: 5px;
 	font-size: larger;
 	color: white;
 	position: absolute !important;
-	top: -10px;
+	top: 17px;
 	left: 683px;
 }
 
@@ -689,7 +689,6 @@ body {
 	margin-top: 15px;
 	font-size: 14px;
 	background-color: white;
-	z-index: 2;
 }
 
 .assignment-dueDate {
