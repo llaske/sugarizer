@@ -35,8 +35,8 @@ function runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,customp
 
 	function init(){
 		canvas = document.getElementById('actualcanvas');
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight-55;
+		canvas.width = window.innerWidth-10;
+		canvas.height = window.innerHeight-65;
 		stage = new createjs.Stage(canvas);
 		stage.update();
 		stage.mouseEventsEnabled = true;
@@ -72,12 +72,12 @@ function runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,customp
 		window.addEventListener('resize', resizeCanvas, false);
 		function resizeCanvas() {
 			if (document.getElementById("unfullscreen-button").style.visibility === "hidden") {
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight-55;
+			canvas.width = window.innerWidth-10;
+			canvas.height = window.innerHeight-65;
 			g.resize();
 			} else {
-				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
+				canvas.width = window.innerWidth-10;
+				canvas.height = window.innerHeight-65;
 				g.resize();
 			}
 		}
