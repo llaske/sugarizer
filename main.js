@@ -222,7 +222,9 @@ function createWindow () {
 
 		// Debug console
 		if (debug) {
-			mainWindow.webContents.openDevTools();
+			var devtools = new BrowserWindow();
+			mainWindow.webContents.setDevToolsWebContents(devtools.webContents);
+			mainWindow.webContents.openDevTools({ mode: 'detach' });
 		}
 
 		// Show wmain window
