@@ -113,6 +113,7 @@ function createWindow () {
 		frame: !frameless,
 		webPreferences: {
 			webSecurity: false,
+			contextIsolation: false,
 			nodeIntegration: true
 		},
 		icon: nativeImage.createFromPath('./res/icon/electron/icon-1024.png')
