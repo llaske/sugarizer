@@ -222,16 +222,16 @@ define(["webL10n"], function (l10n) {
 				},
 			);
 		}
-		debugger;
 		steps = steps.filter((obj) =>  !('element' in obj) || (obj.element.length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != "none" && document.querySelector(obj.element).offsetParent));
-		console.log(steps);
 		introJs().setOptions({
 			tooltipClass: 'customTooltip',
 			steps: steps,
 			prevLabel: l10n.get("TutoPrev"),
 			nextLabel: l10n.get("TutoNext"),
 			exitOnOverlayClick: false,
-			showBullets: false
+			showBullets: false,
+			disableInteraction: true,
+			nextToDone: false,
 		}).start();
 	};
 

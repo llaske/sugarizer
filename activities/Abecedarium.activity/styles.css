@@ -1,6 +1,5 @@
 ﻿body {
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow: hidden;
 	height: 100vh;
 }
 
@@ -1106,7 +1105,6 @@
 	}
 
 	.learnBox {
-		overflow: hidden;
 		margin-top: 7%;
 	}
 
