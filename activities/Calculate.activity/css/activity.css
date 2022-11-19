@@ -109,9 +109,6 @@ calc-container {
   font-weight: bold !important;
   font-size: 200% !important;
 }
-
-/* UI styling for introJs-tutorial */
-
 .introjs-overlay {
   background-color: #000 !important;
   opacity: .8 !important;
@@ -144,6 +141,7 @@ calc-container {
   font-size: 14px;
   padding: 0px 8px;
   font-weight: 800;
+  color: #ffffff;
 }
 
 .customTooltip .introjs-tooltiptext {
@@ -183,16 +181,13 @@ calc-container {
   background-size: 20px 20px;
 }
 
-.customTooltip .introjs-tooltipbuttons {
-  display: flex;
-  flex-wrap:wrap;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-top: 0px;
-  padding: 0px;
-  text-align: center;
-  white-space: normal;
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
 .customTooltip .introjs-button {
