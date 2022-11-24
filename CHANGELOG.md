@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Replace Bootstrap Tour by IntroJS in Sugarizer Core
 - Replace Bootstrap Tour in activities
+- Add statistics feature in activities
 
 ### Fixed
 - Scratch instructions are not localized #970
