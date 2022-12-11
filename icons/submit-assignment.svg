@@ -1,46 +1,54 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 494.554 494.554" style="enable-background:new 0 0 494.554 494.554;" xml:space="preserve">
-<g>
-	<path d="M464.962,16.626C464.962,7.441,457.507,0,448.337,0H114.845c-9.171,0-16.626,7.441-16.626,16.626v141.807h33.252V33.252
-		H431.71v351.659h-59.795c-9.176,0-16.625,7.436-16.625,16.627v59.766H131.471V337.159H98.219v140.769
-		c0,9.186,7.455,16.626,16.626,16.626h257.07c4.593,0,8.749-1.87,11.752-4.873l0,0l0.016-0.016l76.391-76.359l0.016-0.016l0,0
-		c3.008-3.004,4.873-7.16,4.873-11.752V16.626z"/>
-	<path d="M172.989,327.305c0,5.875,3.538,11.186,8.977,13.428c1.803,0.744,3.689,1.104,5.569,1.104
-		c3.798,0,7.519-1.474,10.292-4.255l79.492-79.508c2.728-2.728,4.272-6.426,4.272-10.277c0-3.865-1.544-7.563-4.272-10.291
-		l-79.492-79.492c-2.789-2.795-6.509-4.27-10.292-4.27c-1.881,0-3.767,0.359-5.569,1.101c-5.439,2.26-8.977,7.57-8.977,13.445
-		v23.396H44.139c-8.022,0-14.548,6.508-14.548,14.547v83.129c0,8.037,6.525,14.549,14.548,14.549h128.85V327.305z"/>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   id="Ebene_1"
+   x="0px"
+   y="0px"
+   width="84"
+   height="84"
+   viewBox="0 0 84 84"
+   enable-background="new 0 0 64 64"
+   xml:space="preserve"
+   sodipodi:docname="export-eval.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01, custom)"
+   inkscape:export-filename="/home/lionel/Bureau/mail-open-svgrepo-com.png"
+   inkscape:export-xdpi="171.42999"
+   inkscape:export-ydpi="171.42999"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs15">
+	
+	
+	
+	
+</defs><sodipodi:namedview
+   id="namedview13"
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1.0"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   showgrid="false"
+   inkscape:zoom="5.6568542"
+   inkscape:cx="40.481864"
+   inkscape:cy="34.648233"
+   inkscape:window-width="1526"
+   inkscape:window-height="845"
+   inkscape:window-x="74"
+   inkscape:window-y="27"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Ebene_1"
+   fit-margin-left="10"
+   fit-margin-top="10"
+   fit-margin-bottom="10"
+   fit-margin-right="10"
+   inkscape:showpageshadow="2"
+   inkscape:deskcolor="#d1d1d1" />
+<path
+   d="M 72.743,34.143 64,30.646 V 12 c 0,-1.104 -0.896,-2 -2,-2 H 22 c -1.104,0 -2,0.896 -2,2 v 18.646 l -8.743,3.497 C 10.476,34.456 10.003,35.206 10.002,36 H 10 v 36 c 0,1.104 0.896,2 2,2 h 60 c 1.104,0 2,-0.896 2,-2 V 36 H 73.998 C 73.997,35.206 73.524,34.456 72.743,34.143 Z M 67.954,36.536 64,38.991 V 34.955 Z M 60,14 v 18.031 c 0,0.004 0,0.008 0,0.012 v 9.431 L 42,52.646 24,41.474 v -9.431 c 0,-0.004 0,-0.008 0,-0.012 V 14 Z M 20,38.991 16.046,36.536 20,34.955 Z M 14,70 V 39.975 L 40.945,56.7 c 0.324,0.199 0.689,0.3 1.055,0.3 0.366,0 0.731,-0.101 1.055,-0.301 L 70,39.975 V 70 Z"
+   id="path2"
+   style="fill:#666666" />
 </svg>
