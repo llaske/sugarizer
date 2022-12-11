@@ -574,10 +574,8 @@ enyo.kind({
 		this.journal = this.journal.filter(function(activity) {
 			return (favorite !== undefined ? activity.metadata.keep : true)
 				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
-				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true);
-		});
-		this.journal = this.journal.filter(function(activity) {
-			return (assignment !== undefined ? activity.metadata.assignmentId  : true);
+				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true)
+				&& (assignment !== undefined ? activity.metadata.assignmentId  : true);
 		});
 
 		var that = this;
@@ -1401,7 +1399,8 @@ enyo.kind({
 		return this.$.journalsearch.getText() != ""
 			|| this.$.favoritebutton.getColorized()
 			|| this.typeselected > 0
-			|| this.dateselected > 0;
+			|| this.dateselected > 0
+			|| this.$.assignmentbutton.getColorized();
 	},
 
 	getSortType: function() {
@@ -1433,6 +1432,7 @@ enyo.kind({
 		this.$.sortpalette.setIcon({directory: "icons", icon: "view-lastedit.svg"})
 		this.$.favoritebutton.setColorized(false);
 		this.$.journalsearch.setText("");
+		this.$.assignmentbutton.setColorized(false);
 		this.render();
 	},
 
