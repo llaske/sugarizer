@@ -723,14 +723,14 @@ enyo.kind({
 		this.$.instructionsPopup.setHeader({
 			icon: {directory: "icons", icon: "instructions-icon.svg"},
 			colorized: false,
-			name: "instructions",
-			title: "instructions",
+			name: l10n.get("Instructions"),
+			title: null,
 			action: enyo.bind(this, "hideInstructionsPopup")
 		});
 		var items = [];
 
 		items.push({
-			name: entry.metadata.instructions, 
+			name: entry.metadata.instructions.replace("\n", "<br/>\n"), 
 			action: enyo.bind(this, "hideInstructionsPopup"),
 			
 		});
