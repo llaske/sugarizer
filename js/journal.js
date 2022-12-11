@@ -289,9 +289,11 @@ enyo.kind({
 				inEvent.item.$.assignmentDueDate.setContent("Expected in " + seconds + " seconds");
 			} else{
 				inEvent.item.$.assignmentDueDate.setContent("Due date passed");
+				inEvent.item.$.submitAssignment.setShowing(entry.metadata.lateTurnIn);
 			} 
 			if(entry.metadata.isSubmitted === true) {
 				inEvent.item.$.assignmentDueDate.setContent("Submitted in " + util.timestampToElapsedString(entry.metadata.submissionDate),2);
+				inEvent.item.$.submitAssignment.setShowing(false);
 			}
 		} else {
 			inEvent.item.$.assignmentButton.setShowing(false);
