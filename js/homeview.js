@@ -742,7 +742,7 @@ enyo.kind({
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
 		{name: "syncbutton", classes: "sync-button sync-home sync-gear sync-gear-home", showing: false},
 		{name: "offlinebutton", kind: "Button", classes: "toolbutton offline-button", title:"Not connected", ontap: "doServerSettings", showing: false},
-		{name: "showAssignments", kind: "Sugar.Icon", showing:false, classes: "assignment-button ",icon: {directory: "icons", icon: "assignment.svg"}, title:"Assignments", colorized:true, ontap:"showJournal",},
+		{name: "showAssignments", kind: "Sugar.Icon", showing:false, x: 0, y: 5, size: constant.iconSizeList, classes: "assignment-button", icon: {directory: "icons", icon: "assignment.svg"}, title:"Assignments", colorized:true, ontap:"showJournal",},
 		{name: "assignmentCount", tag:"p", classes: " assignment-count ", title:"count",},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},

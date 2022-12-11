@@ -106,7 +106,6 @@ body {
 }
 
 .assignment-button {
-	background-image: url(../icons/assignment.svg);
 	position: absolute !important;
 	top: 0px;
 	left: 650px;
@@ -120,8 +119,8 @@ body {
 	font-size: larger;
 	color: white;
 	position: absolute !important;
-	top: 17px;
-	left: 683px;
+	top: 15px;
+	left: 677px;
 }
 
 .help-button-journal {
@@ -2349,6 +2348,16 @@ body {
 		visibility: hidden;
 	}
 }
+@media screen and (max-width: 715px) {
+	.assignment-button {
+		visibility: hidden;
+	}
+
+	.assignment-count {
+		visibility: hidden;
+	}
+}
+
 @media screen and (min-width: 762px) and (max-width: 944px) {
 	.assignment-dueDate {
 		left: 522px;
