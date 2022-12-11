@@ -698,7 +698,7 @@ enyo.kind({
 			name: l10n.get("Duplicate"),
 			action: enyo.bind(this, "duplicateEntry"),
 			data: [entry, null],
-			disable: this.journalType != constant.journalLocal
+			disable: this.journalType != constant.journalLocal || entry.metadata.assignmentId
 		});
 		items.push({
 			icon: {directory: "icons", icon: "list-remove.svg"},
@@ -1348,11 +1348,11 @@ enyo.kind({
 					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
 					return;
 				}
-				if(metadata.assignmentId){
+				/*if(metadata.assignmentId){
 					//show error
 					humane.log(l10n.get("ErrorLoadingFile1",{file:file}));
 					return;
-				}
+				}*/
 				metadata.timestamp = new Date().getTime();
 				metadata.creation_time = new Date().getTime();
 				datastore.create(metadata, function(err) {
