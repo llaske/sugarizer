@@ -100,12 +100,19 @@ enyo.kind({
 
 	// Load and sort journal
 	loadJournal: function() {
+		this.loadAssignment();
 		this.journal = datastore.find();
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
 		});
 	},
 
+	loadAssignment: function() {
+		this.showAssignments = datastore.find();
+		this.showAssignments = this.showAssignments.filter(function(entry) {
+			return entry.metadata.assignmentId != undefined;
+		});
+	},
 	// Test Journal size to ensure it's not full
 	testJournalSize: function() {
 		this.isJournalFull = false;
@@ -453,6 +460,12 @@ enyo.kind({
 			util.setToolbar(this.otherview.getToolbar());
 		}
 
+		//show assignment_view
+		else if (newView == constant.assignmentView) {
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
+			util.setToolbar(this.otherview.getToolbar());
+		}
+
 		// Show neighborhood
 		else if (newView == constant.neighborhoodView) {
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.NeighborhoodView"});
@@ -484,9 +497,19 @@ enyo.kind({
 		if (this.journal.length > 0) {
 			this.$.journal.colorize(preferences.getColor());
 		}
-		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
-			humane.log(l10n.get("JournalAlmostFull"));
-			this.isJournalFull = false;
+		//get assignments which are not completed and duedate is not passed
+		if(this.showAssignments.length > 0){
+			var assignments = this.showAssignments.filter(function(assignment){
+				return assignment.metadata.isSubmitted == false && assignment.metadata.dueDate > new Date().getTime();
+			});
+			if(assignments.length > 0){
+				this.getToolbar().$.showAssignments.setShowing(true);
+				this.getToolbar().$.assignmentCount.setContent(assignments.length);
+			}
+			if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
+				humane.log(l10n.get("JournalAlmostFull"));
+				this.isJournalFull = false;
+			}
 		}
 	},
 
@@ -719,6 +742,8 @@ enyo.kind({
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
 		{name: "syncbutton", classes: "sync-button sync-home sync-gear sync-gear-home", showing: false},
 		{name: "offlinebutton", kind: "Button", classes: "toolbutton offline-button", title:"Not connected", ontap: "doServerSettings", showing: false},
+		{name: "showAssignments", kind: "Sugar.Icon", showing:false, classes: "assignment-button ",icon: {directory: "icons", icon: "assignment.svg"}, title:"Assignments", colorized:true, ontap:"showJournal",},
+		{name: "assignmentCount", tag:"p", classes: " assignment-count ", title:"count",},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -729,7 +754,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.needRedraw = false;
 	},
-
 	rendered: function() {
 		this.inherited(arguments);
 		this.localize();
@@ -760,7 +784,11 @@ enyo.kind({
 	setSearchText: function(value) {
 		this.$.searchtext.setText(value);
 	},
-
+	// Display journal
+	showJournal: function() {
+		//open journal view
+		app.showView(constant.assignmentView);
+	},
 	// Handle active button
 	setActiveView: function(view) {
 		if (view == constant.radialView) {
@@ -842,6 +870,7 @@ enyo.kind({
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		tutorial.setElement("showAssignments", this.$.showAssignments.getAttribute("id"));
 		tutorial.setElement("offlinebutton", this.$.offlinebutton.getAttribute("id"));
 		if (app.otherview && app.otherview.beforeHelp) {
 			app.otherview.beforeHelp();

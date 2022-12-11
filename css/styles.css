@@ -105,6 +105,25 @@ body {
 	left: 430px;
 }
 
+.assignment-button {
+	background-image: url(../icons/assignment.svg);
+	position: absolute !important;
+	top: 0px;
+	left: 650px;
+}
+
+.assignment-count {
+	background-color: #6e6d6d;
+	border-radius: 50%;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: larger;
+	color: white;
+	position: absolute !important;
+	top: 17px;
+	left: 683px;
+}
+
 .help-button-journal {
 	background-image: url(../icons/help.svg);
 	position: relative;
@@ -426,6 +445,23 @@ body {
 	left: 421px;
 }
 
+.journal-filter-assignment {
+	left: 480px;
+}
+
+.journal-assignment {
+	left: 721px;
+}
+
+.assignment-instructions {
+	left: 821px;
+}
+
+.assignment-submit {
+	left: 921px;
+}
+
+
 .journal-filter-text {
 	position: relative;
 	width: 350px;
@@ -574,7 +610,7 @@ body {
 
 .journal-filtertype-palette {
 	display: inline-block;
-	margin-left: 70px;
+	margin-left: 120px;
 	vertical-align: middle;
 }
 
@@ -653,7 +689,15 @@ body {
 	margin-top: 15px;
 	font-size: 14px;
 	background-color: white;
-	z-index: 2;
+}
+
+.assignment-dueDate {
+	position: absolute;
+    right: 300px;
+    margin-top: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    
 }
 
 .journal-goright {
@@ -2257,6 +2301,13 @@ body {
 		left: 280px;
 	}
 
+	.assignment-button{
+		left: 450px;
+	}
+	.assignment-count {
+		left: 485px;
+	}
+
 	.sync-home {
 		left: 340px;
 	}
@@ -2281,8 +2332,50 @@ body {
 		left: 270px;
 	}
 
+	.journal-filter-assignment {
+		left: 330px;
+	}
+
+	.assignment-submit {
+		left: 310px;
+	}
+
+	.assignment-dueDate {
+		right:140px;
+		left: 395px;
+	}
+
 	.journal-filter-time {
 		visibility: hidden;
+	}
+}
+@media screen and (min-width: 762px) and (max-width: 944px) {
+	.assignment-dueDate {
+		left: 522px;
+	}
+	.assignment-instructions {
+		visibility: hidden;
+	}
+	.assignment-submit {
+		left: 448px;
+	}
+}
+@media screen and (min-width: 944px) and (max-width: 1435px) {
+	.journal-assignment {
+		left: 438px;
+	}
+	
+	.assignment-instructions {
+		left: 520px;
+	}
+
+	.assignment-submit {
+		left: 610px; 
+	}
+
+	.assignment-dueDate {
+		left: 677px;
+		right: 112px;
 	}
 }
 @media screen and (max-width: 635px) {
@@ -2328,6 +2421,10 @@ body {
 	.help-button-journal {
 		visibility: hidden;
 	}
+
+	.assignment-button-journal {
+		left:200px;
+	}
 }
 @media screen and (max-width: 650px) {
 	.help-button {
@@ -2369,6 +2466,20 @@ body {
 		visibility: hidden;
 	}
 	.page-down {
+		visibility: hidden;
+	}
+}
+@media screen and (max-width: 944px) {
+	.journal-assignment {
+		left: 380px;
+	}
+	
+	.assignment-instructions {
+		visibility: hidden;
+	}
+}
+@media screen and (max-width: 762px) {
+	.journal-assignment {
 		visibility: hidden;
 	}
 }

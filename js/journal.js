@@ -18,11 +18,17 @@ enyo.kind({
 					{name: "activity", kind: "Sugar.Icon", x: 100, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
 					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart"},
 					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},
+					{name: "assignmentButton", kind: "Sugar.Icon", showing:false, classes: "journal-assignment", colorized: true, x: 0, y: 4, icon: {directory: "icons", icon: "assignment.svg"}, size: constant.iconSizeList},
+					{name: "assignmentInstructions", kind: "Sugar.Icon", showing:false, classes: "assignment-instructions",  x: 0, y: 4, icon: {directory: "icons", icon: "instructions-icon.svg"}, size: constant.iconSizeList},
+					{name: "submitAssignment", kind: "Sugar.Icon", showing:false, classes: "assignment-submit",  x: 0, y: 4, icon: {directory: "icons", icon: "submit-assignment.svg"}, size: constant.iconSizeList },
+					{name: "assignmentDueDate", classes: "assignment-dueDate"},
+
 					{name: "time", classes: "journal-time"},
 					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity"}
 				]}
 			]},
-			{name: "activityPopup", kind: "Sugar.Popup", showing: false}
+			{name: "activityPopup", kind: "Sugar.Popup", showing: false},
+			{name: "instructionsPopup", kind: "Sugar.Popup", showing: false}
 		]},
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
 			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", ontap: "showLocalJournal"},
@@ -58,7 +64,6 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-
 		// Colorizer footer icons
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
@@ -71,6 +76,9 @@ enyo.kind({
 		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
 		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
 		this.$.pagedown.setNodeProperty("title", l10n.get("Next"));
+		if (constant.viewNames[app.getView()] === "assignment_view") {
+			this.getToolbar().filterAssignment();
+		}
 		this.journalChanged();
 	},
 
@@ -104,7 +112,7 @@ enyo.kind({
 			if (!this.getToolbar().hasFilter()) {
 				this.loadRemoteJournal(journalId, offset);
 			} else {
-				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+				this.filterEntries(this.request.name, this.request.favorite, this.request.assignment, this.request.typeactivity, this.request.stime, offset);
 			}
 		}
 	},
@@ -124,7 +132,7 @@ enyo.kind({
 			if (!this.getToolbar().hasFilter()) {
 				this.loadRemoteJournal(journalId, offset);
 			} else {
-				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+				this.filterEntries(this.request.name, this.request.favorite, this.request.assignment, this.request.typeactivity, this.request.stime, offset);
 			}
 		}
 	},
@@ -244,6 +252,52 @@ enyo.kind({
 		inEvent.item.$.activity.setIcon(activityIcon);
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite-large.svg"});
 		var keep = entry.metadata.keep;
+		//if assignmentId is present then set showing true for assignmentbutton
+		if (entry.metadata.assignmentId) {
+			inEvent.item.$.assignmentButton.setShowing(true);
+			if(entry.metadata.instructions !== "") {
+				inEvent.item.$.assignmentInstructions.setShowing(true);
+			}
+			inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			if(entry.metadata.lateTurnIn === true && entry.metadata.dueDate < new Date().getTime()) {
+				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			}
+			//thow error if isSubmitted is true and dueDate is passed and lateTurnIn is false
+			else if(entry.metadata.isSubmitted === true && entry.metadata.dueDate < new Date().getTime() && entry.metadata.lateTurnIn === false) {
+				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			}
+
+			inEvent.item.$.submitAssignment.setShowing(true);
+			//find current date.
+			var currentDate = new Date();
+			var difference = new Date(entry.metadata.dueDate).getTime() - currentDate.getTime();
+			var days = Math.floor(difference / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.ceil((difference % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+			if(days > 0) {
+				if(days == 1) {
+					inEvent.item.$.assignmentDueDate.setContent("Expected in " + days + " day " + hours + " hours");
+				} else {
+					inEvent.item.$.assignmentDueDate.setContent("Expected in " + days + " days " + hours + " hours");
+				}
+			} else if(hours > 0) {
+				inEvent.item.$.assignmentDueDate.setContent("Expected in " + hours + " hours");
+			} else if(minutes > 0) {
+				inEvent.item.$.assignmentDueDate.setContent("Expected in " + minutes + " minutes");
+			} else if(seconds > 0) {
+				inEvent.item.$.assignmentDueDate.setContent("Expected in " + seconds + " seconds");
+			} else{
+				inEvent.item.$.assignmentDueDate.setContent("Due date passed");
+			} 
+			if(entry.metadata.isSubmitted === true) {
+				inEvent.item.$.assignmentDueDate.setContent("Submitted in " + util.timestampToElapsedString(entry.metadata.submissionDate),2);
+			}
+		} else {
+			inEvent.item.$.assignmentButton.setShowing(false);
+			inEvent.item.$.assignmentInstructions.setShowing(false);
+			inEvent.item.$.submitAssignment.setShowing(false);
+		}
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);
 		inEvent.item.$.title.setContent(entry.metadata.title);
 		var sortfield = this.getToolbar().getSortType();
@@ -257,6 +311,8 @@ enyo.kind({
 		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
+		inEvent.item.$.assignmentInstructions.setPopupShow(enyo.bind(this, "showInstructionsPopup",inEvent));
+		inEvent.item.$.assignmentInstructions.setPopupHide(enyo.bind(this, "hideInstructionsPopup"));
 		inEvent.item.$.activity.setData(entry);
 		if (l10n.language.direction == "rtl") {
 			inEvent.item.$.title.addClass("rtl-14");
@@ -269,6 +325,10 @@ enyo.kind({
 			tutorial.setElement("titleitem", inEvent.item.$.title.getAttribute("id"));
 			tutorial.setElement("timeitem", inEvent.item.$.time.getAttribute("id"));
 			tutorial.setElement("favoriteitem", inEvent.item.$.favorite.getAttribute("id"));
+			tutorial.setElement("assignment", inEvent.item.$.assignmentButton.getAttribute("id"));
+			tutorial.setElement("instructions", inEvent.item.$.assignmentInstructions.getAttribute("id"));
+			tutorial.setElement("submit", inEvent.item.$.submitAssignment.getAttribute("id"));
+			tutorial.setElement("dueDate", inEvent.item.$.assignmentDueDate.getAttribute("id"));
 		}
 	},
 
@@ -459,7 +519,7 @@ enyo.kind({
 	},
 
 	// Filter entries handling
-	filterEntries: function(name, favorite, typeactivity, timeperiod, offset) {
+	filterEntries: function(name, favorite, assignment, typeactivity, timeperiod, offset) {
 		// Filter remote entries
 		var sortfield = this.getToolbar().getSortType();
 		if (this.journalType != constant.journalLocal) {
@@ -470,12 +530,16 @@ enyo.kind({
 				sort = '-creation_time';
 			} else if (sortfield == 2) {
 				sort = '-textsize';
+			}else if(sortfield == 3){
+				sort = '-dueDate';
 			}
 			var request = {
 				typeactivity: typeactivity,
 				title: (name !== undefined) ? name : undefined,
 				stime: (timeperiod !== undefined ? timeperiod : undefined),
 				favorite: favorite,
+				assignment: assignment,
+				dueDate: dueDate,
 				field: constant.fieldMetadata,
 				limit: constant.pageJournalSize,
 				sort: sort,
@@ -510,12 +574,18 @@ enyo.kind({
 				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
 				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true);
 		});
+		this.journal = this.journal.filter(function(activity) {
+			return (assignment !== undefined ? activity.metadata.assignmentId  : true);
+		});
+
 		var that = this;
 		this.journal = this.journal.sort(function(e0, e1) {
 			if (sortfield == 1) {
 				return parseInt(e1.metadata.creation_time) - parseInt(e0.metadata.creation_time);
 			} else if (sortfield == 2) {
 				return parseInt(e1.metadata.textsize || 0) - parseInt(e0.metadata.textsize || 0);
+			} else if(sortfield == 3){
+				return parseInt(e1.metadata.dueDate) - parseInt(e0.metadata.dueDate);
 			} else {
 				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
 			}
@@ -525,8 +595,36 @@ enyo.kind({
 
 	nofilter: function() {
 		this.toolbar.removeFilter();
-		this.filterEntries("", undefined, undefined, undefined, undefined);
+		this.filterEntries("", undefined, undefined, undefined, undefined, undefined);
 	},
+	
+	submitAssignment: function(inSender, inEvent) {
+		var entry = this.journal[inEvent.index]; //copy
+		if(entry.metadata.isSubmitted == true) {
+			humane.log("This assignment has already been submitted");
+			return;
+		}
+		if(entry.metadata.isSubmitted == false && entry.metadata.dueDate < Date.now() && entry.metadata.lateTurnIn == false) {
+			humane.log("This assignment has passed the due date and late turn in is not allowed");
+			return;
+		}
+		entry.metadata.isSubmitted = true;
+		entry.metadata.submissionDate = new Date().getTime();
+		var that = this;
+		myserver.postAssignment(entry.metadata.assignmentId, entry.objectId,
+			function(inSender, inResponse) {
+				humane.log("Assignment submitted");
+			} , function(inSender, inResponse) {
+				humane.log("Error submitting assignment"); 
+			});
+		var ds = new datastore.DatastoreObject(entry.objectId);
+		ds.setMetadata(entry.metadata);
+		ds.save(function() {
+			console.log("Assignment submitted");
+			that.journalChanged();
+		});
+	},
+
 
 	// Activity popup
 	showActivityPopup: function(icon) {
@@ -615,6 +713,40 @@ enyo.kind({
 		this.$.activityPopup.setMargin({left: 0, top: (icon.owner.index*60)+20-mouse.position.y});
 		this.$.activityPopup.showPopup();
 	},
+
+	//instructions Popup
+	showInstructionsPopup: function(inEvent) {
+		//create popup
+		var entry = this.journal[inEvent.index]
+		this.$.instructionsPopup.setHeader({
+			icon: {directory: "icons", icon: "instructions-icon.svg"},
+			colorized: false,
+			name: "instructions",
+			title: "instructions",
+			action: enyo.bind(this, "hideInstructionsPopup")
+		});
+		var items = [];
+
+		items.push({
+			name: entry.metadata.instructions, 
+			action: enyo.bind(this, "hideInstructionsPopup"),
+			
+		});
+		this.$.instructionsPopup.setFooter(items);
+		this.$.instructionsPopup.showPopup();
+	},
+
+	hideInstructionsPopup: function() {
+		if(!this.$.instructionsPopup) {
+			return true;
+		}
+		if(this.$.instructionsPopup.cursorIsInside()) {
+			return false;
+		}
+		this.$.instructionsPopup.hidePopup();
+		return true;
+	},
+
 	hideActivityPopup: function(icon) {
 		if (!this.$.activityPopup) {
 			return true;
@@ -682,6 +814,10 @@ enyo.kind({
 	// Duplicate locale entry
 	duplicateEntry: function(entry, multiple) {
 		var that = this;
+		if(entry.metadata.assignmentId) {
+			humane.log(l10n.get("CannotDuplicateAssignment"));
+			return;
+		}
 		stats.trace(constant.viewNames[app.getView()], 'duplicate', entry.objectId, null);
 		this.loadEntry(entry, function(err, metadata, text) {
 			var ds = new datastore.DatastoreObject();
@@ -767,6 +903,11 @@ enyo.kind({
 
 	// Remove an entry in the journal
 	removeEntry: function(entry, multiple) {
+		//check if the entry is an assignment entry and if it is, then do not delete it
+		if(entry.metadata.assignmentId) {
+			humane.log(l10n.get("CannotDeleteAssignment"));
+			return;
+		}
 		// Remove from local journal
 		if (this.journalType == constant.journalLocal) {
 			// Delete in datastore
@@ -983,6 +1124,7 @@ enyo.kind({
 		{name: "split2", showing: false, classes: "splitbar"},
 		{name: "selectcount", showing: false, classes: "journal-selectcount"},
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
+		{name: "assignmentbutton", kind: "Sugar.Icon", classes: "journal-filter-assignment", x: 0, y: 4, icon: {directory: "icons", icon: "assignment.svg"}, size: constant.iconSizeList, ontap: "filterAssignment"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", ontap: "gotoDesktop"},
 		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filtertype-palette", contentsClasses: "journal-filtertype-content", contents: []},
@@ -1014,6 +1156,7 @@ enyo.kind({
 	localize: function() {
 		// Localize items
 		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.assignmentbutton.setNodeProperty("title", l10n.get("FilterAssignment"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.unselallbutton.setNodeProperty("title", l10n.get("UnselectAll"));
@@ -1070,7 +1213,7 @@ enyo.kind({
 		this.$.typepalette.setItems(items);
 
 		// Set sort selectbox content
-		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}];
+		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}, {text: l10n.get("SortByDueDate"), icon:"view-size.svg"},];
 		var items = [];
 		this.$.sortpalette.setHeader(l10n.get("SortDisplay"));
 		for(var i = 0 ; i < this.sorts.length ; i++) {
@@ -1093,6 +1236,13 @@ enyo.kind({
 		this.$.favoritebutton.render();
 		this.filterEntries();
 	},
+
+	filterAssignment: function() {
+		this.$.assignmentbutton.setColorized(!this.$.assignmentbutton.getColorized());
+		this.$.assignmentbutton.render();
+		this.filterEntries();
+	},
+
 
 	showTypePalette: function() {
 		this.$.typepalette.switchPalette(app.otherview);
@@ -1125,6 +1275,7 @@ enyo.kind({
 
 	tapSort: function(e, s) {
 		this.sortfield = e.getId()-1;
+		console.log({e:this.sortfield})
 		this.$.sortpalette.setIcon({directory: "icons", icon: this.sorts[this.sortfield].icon});
 		this.filterEntries();
 		this.$.sortpalette.switchPalette(app.otherview);
@@ -1197,6 +1348,11 @@ enyo.kind({
 					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
 					return;
 				}
+				if(metadata.assignmentId){
+					//show error
+					humane.log(l10n.get("ErrorLoadingFile1",{file:file}));
+					return;
+				}
 				metadata.timestamp = new Date().getTime();
 				metadata.creation_time = new Date().getTime();
 				datastore.create(metadata, function(err) {
@@ -1219,6 +1375,11 @@ enyo.kind({
 			util.loadFile(files[i], function(file, err, metadata, text) {
 				if (err) {
 					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
+					return;
+				}
+				if(metadata.assignmentId){
+					//show error
+					humane.log(l10n.get("ErrorLoadingFile1",{file:file}));
 					return;
 				}
 				metadata.timestamp = new Date().getTime();
@@ -1248,16 +1409,18 @@ enyo.kind({
 	filterEntries: function() {
 		var text = this.$.journalsearch.getText();
 		var favorite = this.$.favoritebutton.getColorized() ? true : undefined;
+		var assignment = this.$.assignmentbutton.getColorized() ? true : undefined;
 		var selected = this.typeselected;
 		var typeselected = (selected <= 0 ? undefined : activities.get()[selected-1].id);
 		selected = this.dateselected;
 		var timeselected = (selected <= 0 ? undefined : util.getDateRange(selected).min);
 		var filtertext = 'q=' + text;
 		if (favorite) filtertext += '&favorite=true';
+		if (assignment) filtertext += '&assignment=true';
 		if (typeselected) filtertext += '&type=' + typeselected;
 		if (timeselected) filtertext += '&time=' + timeselected;
 		stats.trace(constant.viewNames[app.getView()], 'search', filtertext, null);
-		app.otherview.filterEntries(text, favorite, typeselected, timeselected, undefined, this.sortfield);
+		app.otherview.filterEntries(text, favorite, assignment, typeselected, timeselected, undefined, this.sortfield);
 	},
 
 	removeFilter: function() {
@@ -1330,6 +1493,7 @@ enyo.kind({
 
 	startTutorial: function() {
 		tutorial.setElement("favoritebutton", this.$.favoritebutton.getAttribute("id"));
+		tutorial.setElement("assignmentbutton", this.$.assignmentbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.journalsearch.getAttribute("id"));
 		tutorial.setElement("typeselect", this.$.typepalette.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.datepalette.getAttribute("id"));
