@@ -5,35 +5,37 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Sun Apr 11 2021 11:03:26 GMT+0200 (heure d’été d’Europe "
 "centrale)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-12-12 15:34+0000\n"
+"Last-Translator: cccczl <z.cccczl@gmail.com>\n"
+"Language-Team: Chinese (Simplified) "
+"<http://translate.sugarizer.org/projects/sugarizer/sugarizer-core/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: ini2po 0.0.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2.16\n"
 
 #: StartNew
 msgctxt "StartNew"
 msgid "Start new"
-msgstr ""
+msgstr "新的开始"
 
 #. Do not translate {{name}}
 #: NameActivity
 msgctxt "NameActivity"
 msgid "{{name}} Activity"
-msgstr ""
+msgstr "{{姓名}} 活动"
 
 #: RemoveFavorite
 msgctxt "RemoveFavorite"
 msgid "Remove favorite"
-msgstr ""
+msgstr "从收藏中删除"
 
 #: MakeFavorite
 msgctxt "MakeFavorite"
 msgid "Make favorite"
-msgstr ""
+msgstr "我的收藏"
 
 #. Do not translate {{number}}
 #: VersionNumber
