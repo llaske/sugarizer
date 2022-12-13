@@ -271,28 +271,14 @@ enyo.kind({
 			//find current date.
 			var currentDate = new Date();
 			var difference = new Date(entry.metadata.dueDate).getTime() - currentDate.getTime();
-			var days = Math.floor(difference / (1000 * 60 * 60 * 24));
-			var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			var minutes = Math.ceil((difference % (1000 * 60 * 60)) / (1000 * 60));
-			var seconds = Math.floor((difference % (1000 * 60)) / 1000);
-			if(days > 0) {
-				if(days == 1) {
-					inEvent.item.$.assignmentDueDate.setContent("Expected in " + days + " day " + hours + " hours");
-				} else {
-					inEvent.item.$.assignmentDueDate.setContent("Expected in " + days + " days " + hours + " hours");
-				}
-			} else if(hours > 0) {
-				inEvent.item.$.assignmentDueDate.setContent("Expected in " + hours + " hours");
-			} else if(minutes > 0) {
-				inEvent.item.$.assignmentDueDate.setContent("Expected in " + minutes + " minutes");
-			} else if(seconds > 0) {
-				inEvent.item.$.assignmentDueDate.setContent("Expected in " + seconds + " seconds");
-			} else{
+			if (difference > 0) {
+				inEvent.item.$.assignmentDueDate.setContent(util.timestampToElapsedString(currentDate.getTime()-difference,2,false,"Expected"));
+			} else {
 				inEvent.item.$.assignmentDueDate.setContent("Due date passed");
 				inEvent.item.$.submitAssignment.setShowing(entry.metadata.lateTurnIn);
 			} 
 			if(entry.metadata.isSubmitted === true) {
-				inEvent.item.$.assignmentDueDate.setContent("Submitted in " + util.timestampToElapsedString(entry.metadata.submissionDate),2);
+				inEvent.item.$.assignmentDueDate.setContent(util.timestampToElapsedString(entry.metadata.submissionDate,2,false,"Submitted"));
 				inEvent.item.$.submitAssignment.setShowing(false);
 			}
 		} else {
