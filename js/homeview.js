@@ -56,6 +56,7 @@ enyo.kind({
 		this.loadJournal();
 		this.isJournalFull = false;
 		this.testJournalSize();
+		this.changeAssignmentIconVisibility();
 
 		// Check change on preferences from server
 		var that = this;
@@ -433,6 +434,7 @@ enyo.kind({
 			this.$.owner.show();
 			this.$.journal.show();
 			this.clearView();
+			this.changeAssignmentIconVisibility();
 			return;
 		}
 
@@ -473,6 +475,7 @@ enyo.kind({
 			util.setToolbar(this.otherview.getToolbar());
 		}
 
+		this.changeAssignmentIconVisibility();
 		this.$.otherview.show();
 		this.$.otherview.render();
 	},
@@ -490,6 +493,21 @@ enyo.kind({
 		this.showView(constant.listView);
 	},
 
+	changeAssignmentIconVisibility: function() {
+		//get assignments which are not completed and duedate is not passed
+		if (!this.getToolbar().showAssignments) {
+			return;
+		}
+		if (this.showAssignments.length > 0 && this.getToolbar().showAssignments) {
+			var assignments = this.showAssignments.filter(function(assignment){
+				return assignment.metadata.isSubmitted == false && assignment.metadata.dueDate > new Date().getTime();
+			});
+			this.getToolbar().showAssignments(assignments.length);
+		} else {
+			this.getToolbar().showAssignments(0);
+		}
+	},
+
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
@@ -497,19 +515,9 @@ enyo.kind({
 		if (this.journal.length > 0) {
 			this.$.journal.colorize(preferences.getColor());
 		}
-		//get assignments which are not completed and duedate is not passed
-		if(this.showAssignments.length > 0){
-			var assignments = this.showAssignments.filter(function(assignment){
-				return assignment.metadata.isSubmitted == false && assignment.metadata.dueDate > new Date().getTime();
-			});
-			if(assignments.length > 0){
-				this.getToolbar().$.showAssignments.setShowing(true);
-				this.getToolbar().$.assignmentCount.setContent(assignments.length);
-			}
-			if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
-				humane.log(l10n.get("JournalAlmostFull"));
-				this.isJournalFull = false;
-			}
+		if (this.isJournalFull && l10n.get("JournalAlmostFull")) {
+			humane.log(l10n.get("JournalAlmostFull"));
+			this.isJournalFull = false;
 		}
 	},
 
@@ -845,6 +853,16 @@ enyo.kind({
 
 	showServerWarning: function(showing) {
 		this.$.offlinebutton.setShowing(showing);
+	},
+
+	showAssignments: function(number) {
+		if(app.getView() != constant.listView && number > 0){
+			this.$.showAssignments.setShowing(true);
+			this.$.assignmentCount.setContent(number);
+		} else {
+			this.$.showAssignments.setShowing(false);
+			this.$.assignmentCount.setContent("");
+		}
 	},
 
 	doServerSettings: function() {
