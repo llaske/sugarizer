@@ -669,7 +669,7 @@ enyo.kind({
 			name: l10n.get("CopyToShared"),
 			action: enyo.bind(this, "copyToRemote"),
 			data: [entry, preferences.getSharedJournal()],
-			disable: !preferences.isConnected() || this.journalType == constant.journalRemoteShared
+			disable: !preferences.isConnected() || this.journalType == constant.journalRemoteShared || entry.metadata.assignmentId
 		});
 		items.push({
 			icon: {directory: "icons", icon: "copy-to-device.svg"},
