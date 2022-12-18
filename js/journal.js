@@ -1199,7 +1199,7 @@ enyo.kind({
 		this.$.typepalette.setItems(items);
 
 		// Set sort selectbox content
-		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}, {text: l10n.get("SortByDueDate"), icon:"view-size.svg"},];
+		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}, {text: l10n.get("SortByDueDate"), icon:"view-duedate.svg"},];
 		var items = [];
 		this.$.sortpalette.setHeader(l10n.get("SortDisplay"));
 		for(var i = 0 ; i < this.sorts.length ; i++) {
@@ -1261,7 +1261,6 @@ enyo.kind({
 
 	tapSort: function(e, s) {
 		this.sortfield = e.getId()-1;
-		console.log({e:this.sortfield})
 		this.$.sortpalette.setIcon({directory: "icons", icon: this.sorts[this.sortfield].icon});
 		this.filterEntries();
 		this.$.sortpalette.switchPalette(app.otherview);
