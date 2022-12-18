@@ -274,7 +274,7 @@ enyo.kind({
 			if (difference > 0) {
 				inEvent.item.$.assignmentDueDate.setContent(util.timestampToElapsedString(currentDate.getTime()-difference,2,false,"Expected"));
 			} else {
-				inEvent.item.$.assignmentDueDate.setContent("Due date passed");
+				inEvent.item.$.assignmentDueDate.setContent(l10n.get("DueDatePassed"));
 				inEvent.item.$.submitAssignment.setShowing(entry.metadata.lateTurnIn);
 			} 
 			if(entry.metadata.isSubmitted === true) {
@@ -587,11 +587,11 @@ enyo.kind({
 	submitAssignment: function(inSender, inEvent) {
 		var entry = this.journal[inEvent.index]; //copy
 		if(entry.metadata.isSubmitted == true) {
-			humane.log("This assignment has already been submitted");
+			humane.log(l10n.get("AssignmentAlreadySubmitted"));
 			return;
 		}
 		if(entry.metadata.isSubmitted == false && entry.metadata.dueDate < Date.now() && entry.metadata.lateTurnIn == false) {
-			humane.log("This assignment has passed the due date and late turn in is not allowed");
+			humane.log(l10n.get("AssignmentDueDatePassed"));
 			return;
 		}
 		entry.metadata.isSubmitted = true;
@@ -599,9 +599,9 @@ enyo.kind({
 		var that = this;
 		myserver.postAssignment(entry.metadata.assignmentId, entry.objectId,
 			function(inSender, inResponse) {
-				humane.log("Assignment submitted");
+				humane.log(l10n.get("AssignmentSubmitted"));
 			} , function(inSender, inResponse) {
-				humane.log("Error submitting assignment"); 
+				humane.log(l10n.get("AssignmentError")); 
 			});
 		var ds = new datastore.DatastoreObject(entry.objectId);
 		ds.setMetadata(entry.metadata);
@@ -1333,11 +1333,6 @@ enyo.kind({
 					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
 					return;
 				}
-				/*if(metadata.assignmentId){
-					//show error
-					humane.log(l10n.get("ErrorLoadingFile1",{file:file}));
-					return;
-				}*/
 				metadata.timestamp = new Date().getTime();
 				metadata.creation_time = new Date().getTime();
 				datastore.create(metadata, function(err) {
@@ -1363,8 +1358,7 @@ enyo.kind({
 					return;
 				}
 				if(metadata.assignmentId){
-					//show error
-					humane.log(l10n.get("ErrorLoadingFile1",{file:file}));
+					humane.log(l10n.get("ErrorLoadingFileAssignment",{file:file}));
 					return;
 				}
 				metadata.timestamp = new Date().getTime();
