@@ -177,6 +177,7 @@ enyo.kind({
 							that.loadJournal();
 							that.testJournalSize();
 							activities.loadEntries();
+							that.changeAssignmentIconVisibility();
 							that.draw();
 							that.render();
 						}
@@ -498,6 +499,7 @@ enyo.kind({
 		if (!this.getToolbar().showAssignments) {
 			return;
 		}
+		this.loadAssignment();
 		if (this.showAssignments.length > 0 && this.getToolbar().showAssignments) {
 			var assignments = this.showAssignments.filter(function(assignment){
 				return assignment.metadata.isSubmitted == false && assignment.metadata.dueDate > new Date().getTime();
