@@ -163,7 +163,7 @@ var Tutorial = {
 				]);
 			}
             
-			steps = steps.filter((step) => !('element' in step) || (step['element'].style.display != 'none'));	
+			steps = steps.filter((step) => !('element' in step) || (step['element'] && step['element'].style.display != 'none'));
 
 			introJs().setOptions({
 				tooltipClass: 'customTooltip',
