@@ -527,7 +527,6 @@ enyo.kind({
 				stime: (timeperiod !== undefined ? timeperiod : undefined),
 				favorite: favorite,
 				assignment: assignment,
-				dueDate: dueDate,
 				field: constant.fieldMetadata,
 				limit: constant.pageJournalSize,
 				sort: sort,

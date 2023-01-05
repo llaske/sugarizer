@@ -663,7 +663,7 @@ body {
 
 .journal-sort-content {
 	width: 250px;
-	height: 230px;
+	height:  275px;
 	max-height: 80vh;
 	z-index: 3;
 }
