@@ -619,85 +619,82 @@ let app = new Vue({
 		onHelp: function (type) {
 			var steps = [
 				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
 					title: this.l10n.stringTutoTitle,
-					content: this.l10n.stringTutoContent
+					intro: this.l10n.stringTutoContent
 				},
 				{
 					element: "#mainCanvas",
-					placement: "top",
+					position: "top",
 					backdrop: false,
 					title: this.l10n.stringTutoBallTitle,
-					content: this.l10n.stringTutoBallContent
+					intro: this.l10n.stringTutoBallContent
 				},
 				{
 					element: "#mainCanvas",
-					placement: "top",
+					position: "top",
 					title: this.l10n.stringTutoBallControlsTitle,
-					content: this.l10n.stringTutoBallControlsContent
+					intro: this.l10n.stringTutoBallControlsContent
 				},
 				{
 					element: "#slopeCanvas",
-					placement: "top",
+					position: "top",
 					backdrop: false,
 					title: this.l10n.stringTutoSlopeTitle,
-					content: this.l10n.stringTutoSlopeContent
+					intro: this.l10n.stringTutoSlopeContent
 				},
 				{
 					element: ".log",
-					placement: "right",
+					position: "right",
 					title: this.l10n.stringTutoLogTitle,
-					content: this.l10n.stringTutoLogContent
+					intro: this.l10n.stringTutoLogContent
 				},
 				{
 					element: "#play-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPlayTitle,
-					content: this.l10n.stringTutoPlayContent
+					intro: this.l10n.stringTutoPlayContent
 				},
 				{
 					element: "#pause-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPlayTitle,
-					content: this.l10n.stringTutoPlayContent
+					intro: this.l10n.stringTutoPlayContent
 				},
 				{
 					element: "#settings-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoSettingsTitle,
-					content: this.l10n.stringTutoSettingsContent
+					intro: this.l10n.stringTutoSettingsContent
 				},
 				{
 					element: "#ball-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoBallSelectTitle,
-					content: this.l10n.stringTutoBallSelectContent
+					intro: this.l10n.stringTutoBallSelectContent
 				},
 				{
 					element: "#bg-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoBgSelectTitle,
-					content: this.l10n.stringTutoBgSelectContent
+					intro: this.l10n.stringTutoBgSelectContent
 				},
 				{
 					element: "#fractions-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoFractionsModeTitle,
-					content: this.l10n.stringTutoFractionsModeContent
+					intro: this.l10n.stringTutoFractionsModeContent
 				},
 				{
 					element: "#sectors-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoSectorsModeTitle,
-					content: this.l10n.stringTutoSectorsModeContent
+					intro: this.l10n.stringTutoSectorsModeContent
 				},
 				{
 					element: "#percents-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPercentsModeTitle,
-					content: this.l10n.stringTutoPercentsModeContent
+					intro: this.l10n.stringTutoPercentsModeContent
 				}
 			];
 			this.$refs.SugarTutorial.show(steps);
