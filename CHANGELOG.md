@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Evaluation mode in Exerciser activity
+- Assignments support
 
 ### Changed
 - Replace Bootstrap Tour by IntroJS in Sugarizer Core
