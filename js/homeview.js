@@ -56,6 +56,7 @@ enyo.kind({
 		this.loadJournal();
 		this.isJournalFull = false;
 		this.testJournalSize();
+		this.changeAssignmentIconVisibility();
 
 		// Check change on preferences from server
 		var that = this;
@@ -100,12 +101,19 @@ enyo.kind({
 
 	// Load and sort journal
 	loadJournal: function() {
+		this.loadAssignment();
 		this.journal = datastore.find();
 		this.journal = this.journal.sort(function(e0, e1) {
 			return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
 		});
 	},
 
+	loadAssignment: function() {
+		this.showAssignments = datastore.find();
+		this.showAssignments = this.showAssignments.filter(function(entry) {
+			return entry.metadata.assignmentId != undefined;
+		});
+	},
 	// Test Journal size to ensure it's not full
 	testJournalSize: function() {
 		this.isJournalFull = false;
@@ -169,6 +177,7 @@ enyo.kind({
 							that.loadJournal();
 							that.testJournalSize();
 							activities.loadEntries();
+							that.changeAssignmentIconVisibility();
 							that.draw();
 							that.render();
 						}
@@ -426,6 +435,7 @@ enyo.kind({
 			this.$.owner.show();
 			this.$.journal.show();
 			this.clearView();
+			this.changeAssignmentIconVisibility();
 			return;
 		}
 
@@ -453,6 +463,12 @@ enyo.kind({
 			util.setToolbar(this.otherview.getToolbar());
 		}
 
+		//show assignment_view
+		else if (newView == constant.assignmentView) {
+			this.otherview = this.$.otherview.createComponent({kind: "Sugar.Journal", journal: this.journal});
+			util.setToolbar(this.otherview.getToolbar());
+		}
+
 		// Show neighborhood
 		else if (newView == constant.neighborhoodView) {
 			this.otherview = this.$.otherview.createComponent({kind: "Sugar.NeighborhoodView"});
@@ -460,6 +476,7 @@ enyo.kind({
 			util.setToolbar(this.otherview.getToolbar());
 		}
 
+		this.changeAssignmentIconVisibility();
 		this.$.otherview.show();
 		this.$.otherview.render();
 	},
@@ -475,6 +492,22 @@ enyo.kind({
 
 	showListView: function() {
 		this.showView(constant.listView);
+	},
+
+	changeAssignmentIconVisibility: function() {
+		//get assignments which are not completed and duedate is not passed
+		if (!this.getToolbar().showAssignments) {
+			return;
+		}
+		this.loadAssignment();
+		if (this.showAssignments.length > 0 && this.getToolbar().showAssignments) {
+			var assignments = this.showAssignments.filter(function(assignment){
+				return assignment.metadata.isSubmitted == false && assignment.metadata.dueDate > new Date().getTime();
+			});
+			this.getToolbar().showAssignments(assignments.length);
+		} else {
+			this.getToolbar().showAssignments(0);
+		}
 	},
 
 	// Render
@@ -719,6 +752,8 @@ enyo.kind({
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button", title:"Help", ontap: "startTutorial"},
 		{name: "syncbutton", classes: "sync-button sync-home sync-gear sync-gear-home", showing: false},
 		{name: "offlinebutton", kind: "Button", classes: "toolbutton offline-button", title:"Not connected", ontap: "doServerSettings", showing: false},
+		{name: "showAssignments", kind: "Sugar.Icon", showing:false, x: 0, y: 5, size: constant.iconSizeList, classes: "assignment-button", icon: {directory: "icons", icon: "assignment.svg"}, title:"Assignments", colorized:true, ontap:"showJournal",},
+		{name: "assignmentCount", tag:"p", classes: " assignment-count ", title:"count",},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
 		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
@@ -729,7 +764,6 @@ enyo.kind({
 		this.inherited(arguments);
 		this.needRedraw = false;
 	},
-
 	rendered: function() {
 		this.inherited(arguments);
 		this.localize();
@@ -760,7 +794,11 @@ enyo.kind({
 	setSearchText: function(value) {
 		this.$.searchtext.setText(value);
 	},
-
+	// Display journal
+	showJournal: function() {
+		//open journal view
+		app.showView(constant.assignmentView);
+	},
 	// Handle active button
 	setActiveView: function(view) {
 		if (view == constant.radialView) {
@@ -819,6 +857,16 @@ enyo.kind({
 		this.$.offlinebutton.setShowing(showing);
 	},
 
+	showAssignments: function(number) {
+		if(app.getView() != constant.listView && number > 0){
+			this.$.showAssignments.setShowing(true);
+			this.$.assignmentCount.setContent(number);
+		} else {
+			this.$.showAssignments.setShowing(false);
+			this.$.assignmentCount.setContent("");
+		}
+	},
+
 	doServerSettings: function() {
 		if (preferences.isConnected()) {
 			var token = preferences.getToken();
@@ -842,6 +890,7 @@ enyo.kind({
 		tutorial.setElement("listbutton", this.$.listbutton.getAttribute("id"));
 		tutorial.setElement("neighborbutton", this.$.neighborbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.searchtext.getAttribute("id"));
+		tutorial.setElement("showAssignments", this.$.showAssignments.getAttribute("id"));
 		tutorial.setElement("offlinebutton", this.$.offlinebutton.getAttribute("id"));
 		if (app.otherview && app.otherview.beforeHelp) {
 			app.otherview.beforeHelp();
