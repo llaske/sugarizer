@@ -3,6 +3,11 @@ body {
   overflow-y: hidden;
 }
 
+#viewport{
+  height: 100vh;
+  width: 100%;
+}
+
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
   z-index: 3;
