@@ -94,9 +94,7 @@ var Tutorial = {
       var steps = [];
       steps = steps.concat([
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoWelcomeTitle,
           intro: this.l10n.stringTutoWelcomeContent
         },
@@ -167,79 +165,57 @@ var Tutorial = {
           intro: this.l10n.stringTutoColorChangeContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoBasicTitle,
           intro: this.l10n.stringTutoBasicContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoAimTitle,
           intro: this.l10n.stringTutoAimContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoPawnTitle,
           intro: this.l10n.stringTutoPawnContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoKnightTitle,
           intro: this.l10n.stringTutoKnightContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoBishopTitle,
           intro: this.l10n.stringTutoBishopContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoRookTitle,
           intro: this.l10n.stringTutoRookContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoQueenTitle,
           intro: this.l10n.stringTutoQueenContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoKingTitle,
           intro: this.l10n.stringTutoKingContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoPawnPromotionTitle,
           intro: this.l10n.stringTutoPawnPromotionContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoCastlingTitle,
           intro: this.l10n.stringTutoCastlingContent
         },
         {
-          element: "",
-          orphan: true,
-          position: "bottom",
+
           title: this.l10n.stringTutoDrawTitle,
           intro: this.l10n.stringTutoDrawContent
         },
