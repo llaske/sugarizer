@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Displaying message when MediaViewer activity is empty #1003
 - Add Previous/Next button in DollarStreet activity to navigate in images #1075
 - Fix SharedNotes tutorial don't start at end of home tutorial
+- Fix SharedNotes content is lost once disconnected #1144 
 
 
 ## [1.6.0] - 2022-01-04
