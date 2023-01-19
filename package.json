@@ -21,7 +21,7 @@
   "devDependencies": {
     "grunt": "~1.3.0",
     "grunt-contrib-jshint": "~2.1.0",
-    "grunt-contrib-nodeunit": "~2.1.0",
+    "grunt-contrib-nodeunit": "~4.0.0",
     "grunt-terser": "~1.0.0"
   },
   "build": {
