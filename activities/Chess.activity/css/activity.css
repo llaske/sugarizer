@@ -351,6 +351,7 @@ body {
   border: 2px solid #808080;
 }
 
+/* UI styling for introJs-tutorial */
 .introjs-overlay {
   background-color: #000 !important;
   opacity: .8 !important;
