@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Wrong arrow icon in Exerciser activity #748
 - Improve calculator screen responsivity #982
 - Overlap hover effect in circular mode view #974
-- No Tooltip on home page and journal page #913
+- No tooltip on home page and journal page #913
 - Localize and detail tooltip in Paint activity #1004
 - Off-center pictures in Abecedarium Activity #1001
 - Generate QRCode with enter in QRCode activity #1007
