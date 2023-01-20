@@ -9,6 +9,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Deploy on Sugarizer Dev Server
+        run: echo "Deploy on Sugarizer Dev Server"
       - name: Update dev.sugarizer.org 
         uses: appleboy/ssh-action@v0.1.7 
         with: 
