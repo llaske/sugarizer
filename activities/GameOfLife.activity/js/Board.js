@@ -14,6 +14,43 @@ function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCel
     });
   };
 
+  this.onDrag = function (dragHandler) {
+    var _this = this;
+    // mouse drag event
+    function dragEvent(e) {
+      var x = e.clientX - canvas.getBoundingClientRect().left;
+      var y = e.clientY - canvas.getBoundingClientRect().top;
+      var cellX = Math.floor(x / (_this.cellWidth + 2));
+      var cellY = Math.floor(y / (_this.cellHeight + 2));
+      dragHandler(cellX, cellY);
+    }
+    // touch drag event
+    function dragTouchEvent(e) {
+      var touch = e.touches[0] || e.changedTouches[0];
+      var x = touch.pageX - canvas.getBoundingClientRect().left;
+      var y = touch.pageY - canvas.getBoundingClientRect().top;
+      var cellX = Math.floor(x / (_this.cellWidth + 2));
+      var cellY = Math.floor(y / (_this.cellHeight + 2));
+      dragHandler(cellX, cellY);
+    }
+    //enabling move listner on start of mouse or touch drag
+    canvas.addEventListener("mousedown", function (e) {
+      canvas.addEventListener("mousemove", dragEvent);
+    });
+
+    canvas.addEventListener("mouseup", function (e) {
+      canvas.removeEventListener("mousemove", dragEvent);
+    });
+    //removing listeners on end of mouse or touch drag
+    canvas.addEventListener("touchstart", function (e) {
+      canvas.addEventListener("touchmove", dragTouchEvent);
+    });
+
+    canvas.addEventListener("touchend", function (e) {
+      canvas.removeEventListener("touchmove", dragTouchEvent);
+    });
+  };
+
   this.draw = function (state) {
     canvasWidth = 1000;
     canvasHeight = 500;

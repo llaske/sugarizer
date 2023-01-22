@@ -209,6 +209,24 @@ function main(Board, State, patterns, color, shadeColor, l10n, dataStore, genSpe
     });
   });
 
+  // to enable cells on dragging accross them
+  board.onDrag(function (cellX, cellY) {
+    state.set(function (prev) {
+      var newState = [].concat(prev.boardState);
+      //checking for board bounds
+      if (
+        cellY < prev.boardState.length &&
+        cellX < prev.boardState[0].length &&
+        cellX >= 0 &&
+        cellY >= 0
+      )
+        newState[cellY][cellX] = 2;
+      return {
+        boardState: newState,
+      };
+    });
+  });
+
   document.querySelector('#play-pause').addEventListener('click', function () {
     state.set(function (prev) {
       var iconToSet = prev.playPauseIcon === 'play' ? 'pause' : 'play';
