@@ -1,7 +1,7 @@
-// Tutorial component based on bootstrap tour
+// Tutorial component based on introjs
 var Tutorial = {
   template: '<div/>',
-  data: function() {
+  data: function () {
     return {
       showPiece: false,
       visuals: "",
@@ -59,11 +59,11 @@ var Tutorial = {
     }
   },
   methods: {
-    localized: function(localization) {
+    localized: function (localization) {
       localization.localize(this.l10n);
     },
 
-    showPieces: function(i, step) {
+    showPieces: function (i, step) {
       switch (i) {
         case 14:
           this.visuals = "<div class='wP tutPiece'></div>"
@@ -86,203 +86,156 @@ var Tutorial = {
         default:
           this.visuals = ""
       }
-      return "\
-      <div class='popover tour'>\
-        <div class='arrow'></div>\
-        <h3 class='popover-title tutorial-title'></h3>\
-        <div class='popover-content'></div>"
-        + this.visuals +
-        "<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-          <div class='tutorial-prev-icon tutorial-icon-button' data-role='prev'>\
-            <div class='tutorial-prev-icon1 web-activity'>\
-              <div class='tutorial-prev-icon2 web-activity-icon'></div>\
-              <div class='tutorial-prev-icon3 web-activity-disable'></div>\
-            </div>\
-            <div class='tutorial-icon-text'>" + this.l10n.stringPrevShort + "</div>\
-          </div>\
-          <span data-role='separator' style='margin: 4px'>|</span>\
-          <div class='tutorial-next-icon tutorial-icon-button' data-role='next'>\
-            <div class='tutorial-next-icon1 web-activity'>\
-              <div class='tutorial-next-icon2 web-activity-icon'></div>\
-              <div class='tutorial-next-icon3 web-activity-disable'></div>\
-            </div>\
-            <div class='tutorial-icon-text'>" + this.l10n.stringNextShort + "</div>\
-          </div>\
-          <div class='tutorial-end-icon tutorial-icon-button' data-role='end'>\
-            <div class='tutorial-end-icon1 web-activity'>\
-              <div class='tutorial-end-icon2 web-activity-icon'></div>\
-              <div class='tutorial-end-icon3 web-activity-disable'></div>\
-            </div>\
-            <div class='tutorial-icon-text'>" + this.l10n.stringEndShort + "</div>\
-          </div>\
-        </div>\
-      </div>";
+
     },
 
-    show: function() {
+    show: function () {
       let vm = this;
       var steps = [];
       steps = steps.concat([{
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoWelcomeTitle,
-          content: this.l10n.stringTutoWelcomeContent
-        },
-        {
-          element: "#board",
-          placement: "right",
-          title: this.l10n.stringTutoBoardTitle,
-          content: this.l10n.stringTutoBoardContent
-        },
-        {
-          element: "#player-clock",
-          placement: "left",
-          title: this.l10n.stringTutoPlayerClockTitle,
-          content: this.l10n.stringTutoPlayerClockContent
-        },
-        {
-          element: "#opponent-clock",
-          placement: "left",
-          title: this.l10n.stringTutoOpponentClockTitle,
-          content: this.l10n.stringTutoOpponentClockContent
-        },
-        {
-          element: "#flagDiv",
-          placement: "left",
-          title: this.l10n.stringTutoFlagTitle,
-          content: this.l10n.stringTutoFlagContent
-        },
-        {
-          element: "#moves-container",
-          placement: "top",
-          title: this.l10n.stringTutoMovesTitle,
-          content: this.l10n.stringTutoMovesContent
-        },
-        {
-          element: "#network-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoNetworkTitle,
-          content: this.l10n.stringTutoNetworkContent
-        },
-        {
-          element: "#new-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoRestartTitle,
-          content: this.l10n.stringTutoRestartContent
-        },
-        {
-          element: "#undo-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoUndoTitle,
-          content: this.l10n.stringTutoUndoContent
-        },
-        {
-          element: "#level-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoComputerLevelTitle,
-          content: this.l10n.stringTutoComputerLevelContent
-        },
-        {
-          element: "#clock-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoClockTitle,
-          content: this.l10n.stringTutoClockContent
-        },
-        {
-          element: "#color-button",
-          placement: "bottom",
-          title: this.l10n.stringTutoColorChangeTitle,
-          content: this.l10n.stringTutoColorChangeContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoBasicTitle,
-          content: this.l10n.stringTutoBasicContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoAimTitle,
-          content: this.l10n.stringTutoAimContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoPawnTitle,
-          content: this.l10n.stringTutoPawnContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoKnightTitle,
-          content: this.l10n.stringTutoKnightContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoBishopTitle,
-          content: this.l10n.stringTutoBishopContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoRookTitle,
-          content: this.l10n.stringTutoRookContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoQueenTitle,
-          content: this.l10n.stringTutoQueenContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoKingTitle,
-          content: this.l10n.stringTutoKingContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoPawnPromotionTitle,
-          content: this.l10n.stringTutoPawnPromotionContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoCastlingTitle,
-          content: this.l10n.stringTutoCastlingContent
-        },
-        {
-          element: "",
-          orphan: true,
-          placement: "bottom",
-          title: this.l10n.stringTutoDrawTitle,
-          content: this.l10n.stringTutoDrawContent
-        },
+
+        title: this.l10n.stringTutoWelcomeTitle,
+        intro: this.l10n.stringTutoWelcomeContent
+      },
+      {
+        element: "#board",
+        position: "right",
+        title: this.l10n.stringTutoBoardTitle,
+        intro: this.l10n.stringTutoBoardContent
+      },
+      {
+        element: "#player-clock",
+        position: "left",
+        title: this.l10n.stringTutoPlayerClockTitle,
+        intro: this.l10n.stringTutoPlayerClockContent
+      },
+      {
+        element: "#opponent-clock",
+        position: "left",
+        title: this.l10n.stringTutoOpponentClockTitle,
+        intro: this.l10n.stringTutoOpponentClockContent
+      },
+      {
+        element: "#flagDiv",
+        position: "left",
+        title: this.l10n.stringTutoFlagTitle,
+        intro: this.l10n.stringTutoFlagContent
+      },
+      {
+        element: "#moves-container",
+        position: "top",
+        title: this.l10n.stringTutoMovesTitle,
+        intro: this.l10n.stringTutoMovesContent
+      },
+      {
+        element: "#network-button",
+        position: "bottom",
+        title: this.l10n.stringTutoNetworkTitle,
+        intro: this.l10n.stringTutoNetworkContent
+      },
+      {
+        element: "#new-button",
+        position: "bottom",
+        title: this.l10n.stringTutoRestartTitle,
+        intro: this.l10n.stringTutoRestartContent
+      },
+      {
+        element: "#undo-button",
+        position: "bottom",
+        title: this.l10n.stringTutoUndoTitle,
+        intro: this.l10n.stringTutoUndoContent
+      },
+      {
+        element: "#level-button",
+        position: "bottom",
+        title: this.l10n.stringTutoComputerLevelTitle,
+        intro: this.l10n.stringTutoComputerLevelContent
+      },
+      {
+        element: "#clock-button",
+        position: "bottom",
+        title: this.l10n.stringTutoClockTitle,
+        intro: this.l10n.stringTutoClockContent
+      },
+      {
+        element: "#color-button",
+        position: "bottom",
+        title: this.l10n.stringTutoColorChangeTitle,
+        intro: this.l10n.stringTutoColorChangeContent
+      },
+      {
+
+        title: this.l10n.stringTutoBasicTitle,
+        intro: this.l10n.stringTutoBasicContent
+      },
+      {
+
+        title: this.l10n.stringTutoAimTitle,
+        intro: this.l10n.stringTutoAimContent
+      },
+      {
+
+        title: this.l10n.stringTutoPawnTitle,
+        intro: this.l10n.stringTutoPawnContent
+      },
+      {
+
+        title: this.l10n.stringTutoKnightTitle,
+        intro: this.l10n.stringTutoKnightContent
+      },
+      {
+
+        title: this.l10n.stringTutoBishopTitle,
+        intro: this.l10n.stringTutoBishopContent
+      },
+      {
+
+        title: this.l10n.stringTutoRookTitle,
+        intro: this.l10n.stringTutoRookContent
+      },
+      {
+
+        title: this.l10n.stringTutoQueenTitle,
+        intro: this.l10n.stringTutoQueenContent
+      },
+      {
+
+        title: this.l10n.stringTutoKingTitle,
+        intro: this.l10n.stringTutoKingContent
+      },
+      {
+
+        title: this.l10n.stringTutoPawnPromotionTitle,
+        intro: this.l10n.stringTutoPawnPromotionContent
+      },
+      {
+
+        title: this.l10n.stringTutoCastlingTitle,
+        intro: this.l10n.stringTutoCastlingContent
+      },
+      {
+
+        title: this.l10n.stringTutoDrawTitle,
+        intro: this.l10n.stringTutoDrawContent
+      },
 
       ]);
 
-      var tour = new Tour({
-        template: this.showPieces,
-        storage: false,
-        backdrop: true,
-        steps: steps,
+      steps = steps.filter(function (obj) {
+        return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');
       });
-      tour.init();
-      tour.start(true);
+      introJs().setOptions({
+        tooltipClass: 'customTooltip',
+        steps: steps,
+        prevLabel: this.l10n.stringPrevShort,
+        nextLabel: this.l10n.stringNextShort,
+        exitOnOverlayClick: false,
+        nextToDone: false,
+        showBullets: false
+      }).start();
+
+
     }
   }
 }
+
