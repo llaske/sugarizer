@@ -1,82 +1,86 @@
 button:disabled {
-	opacity: 0.3 !important;
+  opacity: 0.3 !important;
 }
 
 body {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	height: 100vh;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 p {
-	margin: 0.6em 0;
+  margin: 0.6em 0;
 }
 
 #app {
-	height: 100%;
+  height: 100%;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .4s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
 #main-toolbar .splitbar {
-	border-right: 1.5px solid #565656;
-	margin: 7.5px 5px;
-	height: 40px;
-	display: inline-block;
-	vertical-align: bottom;
+  border-right: 1.5px solid #565656;
+  margin: 7.5px 5px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 #main-toolbar.toolbar {
-	padding: 0 2%;
-	overflow: hidden;
+  padding: 0 2%;
+  overflow: hidden;
 }
 
 #main-toolbar.hidden {
-	height: 0;
-	overflow: hidden;
+  height: 0;
+  overflow: hidden;
 }
 
 #main-toolbar #activity-button {
-	background-image: url(../activity/activity-icon.svg);
+  background-image: url(../activity/activity-icon.svg);
 }
 
 #main-toolbar #network-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
 #main-toolbar #view-button {
-	background-image: url(../icons/settings.svg);
+  background-image: url(../icons/settings.svg);
 }
 
 #main-toolbar #puzzle-category-button {
-	background-image: url(../icons/tangram-type.svg);
+  background-image: url(../icons/tangram-type.svg);
 }
 
 #main-toolbar #random-play-button {
-	background-image: url(../icons/random-btn.svg);
+  background-image: url(../icons/random-btn.svg);
 }
 
 #main-toolbar #level-button {
-	background-image: url(../icons/level.svg);
+  background-image: url(../icons/level.svg);
 }
 
 #main-toolbar #timer-button {
-	background-image: url(../icons/timer-0.svg);
+  background-image: url(../icons/timer-0.svg);
 }
 
 #main-toolbar #hint-button {
-	background-image: url(../icons/robot.svg);
+  background-image: url(../icons/robot.svg);
 }
 
 #main-toolbar #create-category-button {
-	background-image: url(../icons/add.svg);
+  background-image: url(../icons/add.svg);
 }
 
 #main-toolbar #help-button {
@@ -84,32 +88,33 @@ p {
 }
 
 #private-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-	width: 47px;
-	height: 47px;
-	margin: 4px 2px;
-	color: white;
-	color: transparent;
-	background-color: transparent;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0;
-	border-radius: 5.5px;
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
 }
+
 #shared-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
-	width: 47px;
-	height: 47px;
-	margin: 4px 2px;
-	color: white;
-	color: transparent;
-	background-color: transparent;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0;
-	border-radius: 5.5px;
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
 }
 
 #main-toolbar #fullscreen-button {
@@ -137,27 +142,27 @@ p {
 }
 
 #back-button {
-	background: url(../icons/go-left.svg) no-repeat;
-	filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(15deg) brightness(94%) contrast(83%);
-	background-size: cover;
-	position: absolute;
-	top: 12px;
-	left: 1.2vw;
-	width: 65px;
-	height: 65px;
-	cursor: pointer;
+  background: url(../icons/go-left.svg) no-repeat;
+  filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(15deg) brightness(94%) contrast(83%);
+  background-size: cover;
+  position: absolute;
+  top: 12px;
+  left: 1.2vw;
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
   z-index: 3;
 }
 
 #spinner {
-	position: absolute;
-	margin-left: 45%;
-	margin-top: 20%;
-	width: 8%;
+  position: absolute;
+  margin-left: 45%;
+  margin-top: 20%;
+  width: 8%;
 }
 
 #back-button:hover {
-	border: none;
+  border: none;
 }
 
 .btn-in-footer {
@@ -167,8 +172,8 @@ p {
   border: none;
   margin: 0px 1%;
   cursor: pointer;
-	font-weight: bold;
-	font-size: 2vh;
+  font-weight: bold;
+  font-size: 2vh;
   border-radius: 20%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   background-repeat: no-repeat;
@@ -177,9 +182,9 @@ p {
 }
 
 @media (orientation: portrait) {
-	.btn-in-footer {
-		font-size: 2vw;
-	}
+  .btn-in-footer {
+    font-size: 2vw;
+  }
 }
 
 .btn-in-footer:hover {
@@ -187,27 +192,27 @@ p {
 }
 
 .btn-replay {
-	background-image: url(../icons/refresh.svg);
+  background-image: url(../icons/refresh.svg);
 }
 
 .btn-restart {
-	background-image: url(../icons/restart-black.svg);
+  background-image: url(../icons/restart-black.svg);
 }
 
 .btn-back {
-	background-image: url(../icons/go-left-black.svg);
+  background-image: url(../icons/go-left-black.svg);
 }
 
 .btn-validate {
-	background-image: url(../icons/validate.svg);
+  background-image: url(../icons/validate.svg);
 }
 
 .btn-pass {
-	background-image: url(../icons/pass-icon.svg);
+  background-image: url(../icons/pass-icon.svg);
 }
 
 .btn-see-leaderboard {
-	background-image: url(../icons/leaderboard.svg);
+  background-image: url(../icons/leaderboard.svg);
 }
 
 #easy-button {
@@ -219,12 +224,14 @@ p {
 }
 
 #category-buttons {
-	max-height: 70vh;
-	overflow: auto;
-	overflow-x: hidden;
+  max-height: 70vh;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
-@media (hover:none), (hover:on-demand) {
+@media (hover:none),
+(hover:on-demand) {
+
   /* suppress hover effect on devices that don't support hover fully*/
   .btn-in-footer:hover {
     background-size: 80%;
@@ -271,14 +278,14 @@ p {
 }
 
 @media only screen and (max-height: 400px) {
-	#back-button {
-		width: 50px;
-		height: 50px;
-	}
+  #back-button {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .pagination {
-	color: black;
+  color: black;
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -362,7 +369,9 @@ p {
   z-index: 4;
 }
 
-.palette *, ::after, ::before {
+.palette *,
+::after,
+::before {
   box-sizing: initial;
 }
 
@@ -397,53 +406,119 @@ p {
   margin: 4px;
 }
 
-.tutorial-icon-button {
-	border-radius: 22px;
-	margin-top: 5px;
-	height: 35px;
-	width: 90px;
-	background-color: #808080;
-	border: 2px solid #808080;
-	display: flex;
-	align-items: center;
+/* UI styling for introJs-tutorial */
+
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: .8 !important;
 }
 
-.tutorial-icon-button {
-	color: white;
-}
-.tutorial-icon-button.disabled {
-	color: black;
-}
-
-.tutorial-title {
-	background-color: #808080 !important;
-	color: #ffffff !important;
+.introjs-tooltip {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
 }
 
-.tutorial-prev-icon1 {
-	margin-left: 6px;
-	background-image: url(../icons/go-left.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+.introjs-helperLayer {
+  background: inherit !important;
+  opacity: 0.6 !important;
 }
 
-.tutorial-next-icon1 {
-	margin-left: 6px;
-	background-image: url(../icons/go-right.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
 }
 
-.tutorial-end-icon1 {
-	margin-left: 6px;
-	background-image: url(../icons/dialog-cancel.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
 }
 
-.tutorial-icon-text {
-	padding-left: 4px;
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
+}
+
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
 }
