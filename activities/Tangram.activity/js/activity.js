@@ -173,17 +173,17 @@ var app = new Vue({
   },
 
   created: function () {
-    Konva.Util.getRandomColor = function (){
-			var randColor = ((Math.random() * 0xadcea0) << 0).toString(15);
-			while (randColor.length < 6) {
-				randColor = `0${randColor}`;
-			}
-			return `#${randColor}`;
-		}
+    Konva.Util.getRandomColor = function () {
+      var randColor = ((Math.random() * 0xadcea0) << 0).toString(15);
+      while (randColor.length < 6) {
+        randColor = `0${randColor}`;
+      }
+      return `#${randColor}`;
+    }
   },
 
   watch: {
-    currentScreen: function() {
+    currentScreen: function () {
       var vm = this;
       document.getElementById("spinner").style.visibility = "visible";
       if (vm.currentScreen === 'game') {
@@ -213,7 +213,7 @@ var app = new Vue({
       }
     },
 
-    pNo: function() {
+    pNo: function () {
       let vm = this;
       vm.gameOver = null;
       vm.hintNumber = 0;
@@ -264,11 +264,11 @@ var app = new Vue({
       vm.centerTangram();
     },
 
-    'DataSetHandler.AllCategories': function(newVal, oldVal) {
+    'DataSetHandler.AllCategories': function (newVal, oldVal) {
       this.fillCategoryPalette();
     },
 
-    playersPlaying: function() {
+    playersPlaying: function () {
       var vm = this;
       if (vm.playersPlaying.length === 0 && vm.SugarPresence.isHost) {
         vm.disabled = false;
@@ -278,7 +278,7 @@ var app = new Vue({
     }
   },
 
-  mounted: function() {
+  mounted: function () {
     this.SugarJournal = this.$refs.SugarJournal;
     this.SugarL10n = this.$refs.SugarL10n;
     this.SugarPresence = this.$refs.SugarPresence;
@@ -289,7 +289,7 @@ var app = new Vue({
   },
 
   methods: {
-    initialized: function() {
+    initialized: function () {
       let vm = this;
       // Initialize Sugarizer
       vm.currentenv = vm.$refs.SugarActivity.getEnvironment();
@@ -300,7 +300,7 @@ var app = new Vue({
 
     },
 
-    localized: function() {
+    localized: function () {
       if (document.getElementById('no-timer-button')) {
         document.getElementById('no-timer-button').innerHTML = this.SugarL10n.get("NoTimer");
       }
@@ -308,7 +308,7 @@ var app = new Vue({
       this.SugarL10n.localize(this.l10n);
     },
 
-    pulseEffect: function() {
+    pulseEffect: function () {
       let vm = this;
       let pulseMainEle = document.querySelector('.pulse-main');
       if (pulseMainEle) {
@@ -320,7 +320,7 @@ var app = new Vue({
 
     },
 
-    fillCategoryPalette: function() {
+    fillCategoryPalette: function () {
       let categoryButtonsContent = '';
       let changeCategory = true;
       for (var i = 0; i < this.DataSetHandler.AllCategories.length; i++) {
@@ -340,7 +340,7 @@ var app = new Vue({
         let buttons = document.getElementById('category-buttons').children;
         for (var i = 0; i < buttons.length; i++) {
           let cat = this.DataSetHandler.AllCategories[i];
-          buttons[i].addEventListener('click', function(event) {
+          buttons[i].addEventListener('click', function (event) {
             that.tangramCategorySelectedEvent.index = cat;
             that.getPalette().dispatchEvent(customEvent);
             that.popDown();
@@ -354,7 +354,7 @@ var app = new Vue({
       }
     },
 
-    startClock: function() {
+    startClock: function () {
       var vm = this;
       vm.$set(vm.clock, 'time', vm.clock.initial);
       vm.$set(vm.clock, 'active', true);
@@ -363,7 +363,7 @@ var app = new Vue({
       }
     },
 
-    stopClock: function() {
+    stopClock: function () {
       var vm = this;
       if (vm.timer) {
         clearInterval(vm.timer);
@@ -372,7 +372,7 @@ var app = new Vue({
       vm.$set(vm.clock, 'active', false);
     },
 
-    pushTimeMark: function() {
+    pushTimeMark: function () {
       let vm = this;
       if (vm.timeMarks.length === 0) {
         vm.timeMarks.push(vm.clock.initial);
@@ -380,10 +380,10 @@ var app = new Vue({
       vm.timeMarks.push(vm.clock.time);
     },
 
-    tick: function() {
+    tick: function () {
       var vm = this;
 
-      vm.timer = setInterval(function() {
+      vm.timer = setInterval(function () {
         if (vm.clock.active) {
           if (vm.mode === 'timer') {
             vm.$set(vm.clock, 'time', vm.clock.time - 1);
@@ -401,7 +401,7 @@ var app = new Vue({
                   }
                 }
 
-                vm.playersPlaying = vm.playersPlaying.filter(function(user) {
+                vm.playersPlaying = vm.playersPlaying.filter(function (user) {
                   return user.networkId !== vm.currentenv.user.networkId
                 })
 
@@ -428,7 +428,7 @@ var app = new Vue({
       }, 1000);
     },
 
-    newGame: function(joined) {
+    newGame: function (joined) {
       let vm = this;
       vm.score = 0;
       vm.userResponse = [];
@@ -450,7 +450,7 @@ var app = new Vue({
       vm.centerTangram();
     },
 
-    onMultiplayerGameStarted: function(restarted) {
+    onMultiplayerGameStarted: function (restarted) {
       var vm = this;
       vm.multiplayer = true;
       //disable the buttons
@@ -530,7 +530,7 @@ var app = new Vue({
       }
     },
 
-    generateQuestionSet: function(appendRandomTangrams) {
+    generateQuestionSet: function (appendRandomTangrams) {
       var vm = this;
       if (vm.mode === 'non-timer') {
         vm.puzzles = vm.generatePuzzles(1, false);
@@ -540,7 +540,7 @@ var app = new Vue({
       vm.pNo = 0;
     },
 
-    generatePuzzles: function(number, appendRandomTangrams) {
+    generatePuzzles: function (number, appendRandomTangrams) {
       let vm = this;
       let puzzles = [];
       let pNo = 0;
@@ -596,7 +596,7 @@ var app = new Vue({
       return puzzles;
     },
 
-    populatePuzzles: function(tanObjsArr) {
+    populatePuzzles: function (tanObjsArr) {
       let vm = this;
       targetTans = [];
       let tans = [];
@@ -656,7 +656,7 @@ var app = new Vue({
       };
     },
 
-    centerTangram: function() {
+    centerTangram: function () {
       let vm = this;
       let targetTans = vm.puzzles[vm.pNo].targetTans;
       let scale = vm.gameScale;
@@ -693,7 +693,7 @@ var app = new Vue({
       }
     },
 
-    setUserResponse: function(tans) {
+    setUserResponse: function (tans) {
       let vm = this;
       let isSolved = true;
       let bonus = vm.puzzles[vm.pNo].difficulty ? 2 : 0;
@@ -719,13 +719,13 @@ var app = new Vue({
       });
     },
 
-    onConfigChanged: function(data) {
+    onConfigChanged: function (data) {
       this.gameScale = data.scale;
       this.gameStage.width = data.stageWidth;
       this.gameStage.height = data.stageHeight;
     },
 
-    onUpdateTansPlaced: function(data) {
+    onUpdateTansPlaced: function (data) {
       let vm = this;
       if (vm.gameOver) {
         return;
@@ -745,7 +745,7 @@ var app = new Vue({
       }
     },
 
-    onTangramStatus: function(data) {
+    onTangramStatus: function (data) {
       let vm = this;
       if (vm.gameOver) {
         return;
@@ -772,7 +772,7 @@ var app = new Vue({
       }
     },
 
-    handleRestartButton: function() {
+    handleRestartButton: function () {
       var vm = this;
       if (vm.currentScreen === 'game') {
         vm.pushTimeMark();
@@ -797,7 +797,7 @@ var app = new Vue({
       }
     },
 
-    handlePassButton: function() {
+    handlePassButton: function () {
       var vm = this;
 
       if (vm.currentScreen === 'game') {
@@ -822,7 +822,7 @@ var app = new Vue({
       }
     },
 
-    onRandom: function() {
+    onRandom: function () {
       let vm = this;
       if (vm.tangramCategories[0] === "Random") {
         vm.tangramCategories = ["Animals"];
@@ -840,7 +840,7 @@ var app = new Vue({
 
     },
 
-    onTangramCategorySelected: function(evt) {
+    onTangramCategorySelected: function (evt) {
       let vm = this;
       let index = vm.DataSetHandler.dataSet.findIndex(ele => ele.name === evt.index);
       if (vm.currentScreen === 'game' && (index === -1 || vm.DataSetHandler.dataSet[index].tangrams.length === 0)) {
@@ -860,7 +860,7 @@ var app = new Vue({
       }, 0)
     },
 
-    selectTangramCategoryItem: function(categories) {
+    selectTangramCategoryItem: function (categories) {
       let elems = document.getElementById('category-buttons').children;
       for (var i = 0; i < elems.length; i++) {
         let elem = elems[i];
@@ -873,7 +873,7 @@ var app = new Vue({
       }
     },
 
-    onDifficultySelected: function() {
+    onDifficultySelected: function () {
       var vm = this;
       vm.level = vm.level ? 0 : 1;
       if (vm.level == 0) {
@@ -894,7 +894,7 @@ var app = new Vue({
       vm.centerTangram();
     },
 
-    onTimerSelected: function(evt) {
+    onTimerSelected: function (evt) {
       var vm = this;
       vm.pulseEffect();
       switch (evt.index) {
@@ -926,7 +926,7 @@ var app = new Vue({
       }
     },
 
-    selectTimerItem: function(number) {
+    selectTimerItem: function (number) {
       var elems = [
         document.getElementById('no-timer-button'),
         document.getElementById('first-timer-button'),
@@ -944,7 +944,7 @@ var app = new Vue({
       }
     },
 
-    onHint: function() {
+    onHint: function () {
       let vm = this;
       if (vm.level === 0 || vm.gameOver) {
         return;
@@ -969,7 +969,7 @@ var app = new Vue({
 
     },
 
-    onChangeView: function() {
+    onChangeView: function () {
       let vm = this;
       vm.pulseEffect();
       if (vm.view === 'play') {
@@ -984,32 +984,32 @@ var app = new Vue({
       }
     },
 
-    goToSettingEditor: function() {
+    goToSettingEditor: function () {
       this.currentScreen = 'setting-editor';
     },
 
-    goToDatasetList: function() {
+    goToDatasetList: function () {
       if (this.currentScreen === 'game') {
         this.stopClock();
       }
       this.currentScreen = 'dataset-list';
     },
 
-    onEditPuzzle: function(id) {
+    onEditPuzzle: function (id) {
       this.puzzleToBeEdited = this.DataSetHandler.getTangramPuzzle(id);
       this.goToSettingEditor();
     },
 
-    onEditCategory: function(id) {
+    onEditCategory: function (id) {
       this.categoryToBeEdited = this.tangramCategories[0];
       this.currentScreen = 'categoryForm';
     },
 
-    onSavePuzzle: function(data) {
+    onSavePuzzle: function (data) {
       this.DataSetHandler.editTangramPuzzle(data.puzzle, data.id);
     },
 
-    onPlayPuzzle: function(id) {
+    onPlayPuzzle: function (id) {
       this.puzzleChosen = this.DataSetHandler.getTangramPuzzle(id);
       let index = this.DataSetHandler.tangramSet.findIndex(ele => ele.id === id);
       let i = this.DataSetHandler.nextArr.findIndex(ele => ele === index);
@@ -1019,14 +1019,14 @@ var app = new Vue({
       this.currentScreen = "game";
     },
 
-    importDataSet: function(dataSet) {
+    importDataSet: function (dataSet) {
       let vm = this;
       vm.DataSetHandler.dataSet = dataSet;
       vm.DataSetHandler.loadTangramSet();
       vm.newGame();
     },
 
-    deserealizePuzzles: function(puzzles) {
+    deserealizePuzzles: function (puzzles) {
       let puzzlesArr = [];
       for (var i = 0; i < puzzles.length; i++) {
         let tans = puzzles[i].tangram.tans.map(ele => {
@@ -1050,21 +1050,21 @@ var app = new Vue({
       return puzzlesArr
     },
 
-    fullscreen: function() {
+    fullscreen: function () {
       this.$refs.SugarToolbar.hide();
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
       }, 0);
     },
 
-    unfullscreen: function() {
+    unfullscreen: function () {
       this.$refs.SugarToolbar.show();
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
       }, 0);
     },
 
-    onStop: function() {
+    onStop: function () {
       let vm = this;
       let puzzlesContext = [];
       for (var i = 0; i < vm.puzzles.length; i++) {
@@ -1152,12 +1152,12 @@ var app = new Vue({
       vm.SugarJournal.saveData(context);
     },
 
-    onJournalNewInstance: function() {
+    onJournalNewInstance: function () {
       console.log("New instance");
       this.currentScreen = "dataset-list";
     },
 
-    onJournalDataLoaded: function(data, metadata) {
+    onJournalDataLoaded: function (data, metadata) {
       var vm = this;
       console.log("Existing instance");
       if (data.type === "game-dataset") {
@@ -1281,18 +1281,18 @@ var app = new Vue({
       vm.selectTimerItem(vm.clock.type);
     },
 
-    onJournalLoadError: function(error) {
+    onJournalLoadError: function (error) {
       console.log("Error loading from journal");
       this.currentScreen = "dataset-list";
     },
 
-    onActivityShared: function(event, paletteObject) {
+    onActivityShared: function (event, paletteObject) {
       this.onMultiplayerGameStarted();
       // Usual behaviour call
       this.SugarPresence.onShared(event, paletteObject);
     },
 
-    onNetworkDataReceived: function(msg) {
+    onNetworkDataReceived: function (msg) {
       var vm = this;
       if (vm.SugarPresence.getUserInfo().networkId === msg.user.networkId) {
         var vm = this;
@@ -1337,7 +1337,7 @@ var app = new Vue({
               break;
             }
           }
-          vm.playersPlaying = vm.playersPlaying.filter(function(user) {
+          vm.playersPlaying = vm.playersPlaying.filter(function (user) {
             return user.networkId !== msg.user.networkId
           })
           if (vm.SugarPresence.isHost && vm.playersPlaying.length === 0) {
@@ -1381,7 +1381,7 @@ var app = new Vue({
       }
     },
 
-    onNetworkUserChanged: function(msg) {
+    onNetworkUserChanged: function (msg) {
       var vm = this;
 
       if (msg.move === 1) {
@@ -1424,7 +1424,7 @@ var app = new Vue({
         }
 
       } else {
-        vm.playersPlaying = vm.playersPlaying.filter(function(user) {
+        vm.playersPlaying = vm.playersPlaying.filter(function (user) {
           return user.networkId !== msg.user.networkId
         });
 
@@ -1435,7 +1435,7 @@ var app = new Vue({
           }
         }
 
-        vm.connectedPlayers = vm.connectedPlayers.filter(function(user) {
+        vm.connectedPlayers = vm.connectedPlayers.filter(function (user) {
           return user.networkId !== msg.user.networkId
         });
         vm.SugarPresence.isHost = vm.connectedPlayers[0].networkId === vm.SugarPresence.getUserInfo().networkId ? true : false;
@@ -1443,310 +1443,284 @@ var app = new Vue({
 
     },
 
-    onHelp: function() {
+    onHelp: function () {
       var vm = this;
       var steps = [];
       if (vm.currentScreen === 'leaderboard') {
         steps = [{
-            element: ".leaderboard-main",
-            placement: "top",
-            title: this.l10n.stringTutoLeaderboardMainTitle,
-            content: this.l10n.stringTutoLeaderboardMainContent
-          },
-          {
-            element: ".btn-back",
-            placement: "auto top",
-            title: this.l10n.stringTutoGoBackTitle,
-            content: this.l10n.stringTutoGoBackContent
-          },
-          {
-            element: ".page-no",
-            placement: "auto top",
-            title: this.l10n.stringTutoLeaderboardPaginationTitle,
-            content: this.l10n.stringTutoLeaderboardPaginationContent
-          },
+          element: ".leaderboard-main",
+          position: "top",
+          title: this.l10n.stringTutoLeaderboardMainTitle,
+          intro: this.l10n.stringTutoLeaderboardMainContent
+        },
+        {
+          element: ".btn-back",
+          position: "auto top",
+          title: this.l10n.stringTutoGoBackTitle,
+          intro: this.l10n.stringTutoGoBackContent
+        },
+        {
+          element: ".page-no",
+          position: "auto top",
+          title: this.l10n.stringTutoLeaderboardPaginationTitle,
+          intro: this.l10n.stringTutoLeaderboardPaginationContent
+        },
         ];
       } else if (vm.currentScreen === 'result') {
         document.querySelector('.result-panel-primary').scrollTo({
           top: 0
         });
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoResultTitle,
-            content: this.l10n.stringTutoResultContent
-          },
-          {
-            element: ".result-card:first-child",
-            placement: "auto right",
-            title: this.l10n.stringTutoTangramCardTitle,
-            content: this.l10n.stringTutoTangramCardContent
-          },
-          {
-            element: ".result-card:first-child .clock-info-block",
-            placement: "auto bottom",
-            title: this.l10n.stringTutoClockInfoTitle,
-            content: this.l10n.stringTutoClockInfoContent
-          },
-          {
-            element: ".result-card:first-child .score-info-block",
-            placement: "auto bottom",
-            title: this.l10n.stringTutoScoreInfoTitle,
-            content: this.l10n.stringTutoScoreInfoContent
-          },
-          {
-            element: ".btn-restart",
-            placement: "auto top",
-            title: this.l10n.stringTutoRestartTitle,
-            content: this.l10n.stringTutoRestartContent
-          },
-          {
-            element: ".btn-see-leaderboard",
-            placement: "auto top",
-            title: this.l10n.stringTutoRestartTitle,
-            content: this.l10n.stringTutoRestartContent
-          }
+
+          title: this.l10n.stringTutoResultTitle,
+          intro: this.l10n.stringTutoResultContent
+        },
+        {
+          element: ".result-card:first-child",
+          position: "auto right",
+          title: this.l10n.stringTutoTangramCardTitle,
+          intro: this.l10n.stringTutoTangramCardContent
+        },
+        {
+          element: ".result-card:first-child .clock-info-block",
+          position: "auto bottom",
+          title: this.l10n.stringTutoClockInfoTitle,
+          intro: this.l10n.stringTutoClockInfoContent
+        },
+        {
+          element: ".result-card:first-child .score-info-block",
+          position: "auto bottom",
+          title: this.l10n.stringTutoScoreInfoTitle,
+          intro: this.l10n.stringTutoScoreInfoContent
+        },
+        {
+          element: ".btn-restart",
+          position: "auto top",
+          title: this.l10n.stringTutoRestartTitle,
+          intro: this.l10n.stringTutoRestartContent
+        },
+        {
+          element: ".btn-see-leaderboard",
+          position: "auto top",
+          title: this.l10n.stringTutoRestartTitle,
+          intro: this.l10n.stringTutoRestartContent
+        }
         ];
       } else if (vm.currentScreen === 'game') {
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
-          },
-          {
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoEachPuzzleTitle,
-            content: this.l10n.stringTutoEachPuzzleContent
-          },
-          {
-            element: ".stage",
-            placement: "top",
-            title: this.l10n.stringTutoBoardTitle,
-            content: this.l10n.stringTutoBoardContent
-          },
-          {
-            element: ".stage",
-            placement: "top",
-            title: this.l10n.stringTutoKeyBoardTitle,
-            content: this.l10n.stringTutoKeyBoardContent
-          },
-          {
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoAboutTitle,
-            content: this.l10n.stringTutoAboutContent
-          },
-          {
-            element: ".footer-actions",
-            placement: "top",
-            title: this.l10n.stringTutoGameActionsTitle,
-            content: this.l10n.stringTutoGameActionsContent
-          },
-          {
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoScoreTitle,
-            content: this.l10n.stringTutoScoreContent
-          },
-          {
-            element: "#puzzle-category-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoTangramCategoryTitle,
-            content: this.l10n.stringTutoTangramCategoryContent
-          },
-          {
-            element: "#random-play-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoRandomPlayTitle,
-            content: this.l10n.stringTutoRandomPlayContent
-          },
-          {
-            element: "#level-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoLevelTitle,
-            content: this.l10n.stringTutoLevelContent
-          },
-          {
-            element: "#timer-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoTimerTitle,
-            content: this.l10n.stringTutoTimerContent
-          },
-          {
-            element: "#view-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoViewTitle,
-            content: this.l10n.stringTutoViewContent
-          },
-          {
-            element: "#hint-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoHintTitle,
-            content: this.l10n.stringTutoHintContent
-          },
+
+          title: this.l10n.stringTutoExplainTitle,
+          intro: this.l10n.stringTutoExplainContent
+        },
+        {
+
+          title: this.l10n.stringTutoEachPuzzleTitle,
+          intro: this.l10n.stringTutoEachPuzzleContent
+        },
+        {
+          element: ".stage",
+          position: "top",
+          title: this.l10n.stringTutoBoardTitle,
+          intro: this.l10n.stringTutoBoardContent
+        },
+        {
+          element: ".stage",
+          position: "top",
+          title: this.l10n.stringTutoKeyBoardTitle,
+          intro: this.l10n.stringTutoKeyBoardContent
+        },
+        {
+
+          title: this.l10n.stringTutoAboutTitle,
+          intro: this.l10n.stringTutoAboutContent
+        },
+        {
+          element: ".footer-actions",
+          position: "top",
+          title: this.l10n.stringTutoGameActionsTitle,
+          intro: this.l10n.stringTutoGameActionsContent
+        },
+        {
+
+          title: this.l10n.stringTutoScoreTitle,
+          intro: this.l10n.stringTutoScoreContent
+        },
+        {
+          element: "#puzzle-category-button",
+          position: "bottom",
+          title: this.l10n.stringTutoTangramCategoryTitle,
+          intro: this.l10n.stringTutoTangramCategoryContent
+        },
+        {
+          element: "#random-play-button",
+          position: "bottom",
+          title: this.l10n.stringTutoRandomPlayTitle,
+          intro: this.l10n.stringTutoRandomPlayContent
+        },
+        {
+          element: "#level-button",
+          position: "bottom",
+          title: this.l10n.stringTutoLevelTitle,
+          intro: this.l10n.stringTutoLevelContent
+        },
+        {
+          element: "#timer-button",
+          position: "bottom",
+          title: this.l10n.stringTutoTimerTitle,
+          intro: this.l10n.stringTutoTimerContent
+        },
+        {
+          element: "#view-button",
+          position: "bottom",
+          title: this.l10n.stringTutoViewTitle,
+          intro: this.l10n.stringTutoViewContent
+        },
+        {
+          element: "#hint-button",
+          position: "bottom",
+          title: this.l10n.stringTutoHintTitle,
+          intro: this.l10n.stringTutoHintContent
+        },
         ];
       } else if (vm.currentScreen === 'dataset-list' && vm.view === 'play') {
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
-          },
-          {
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoEachPuzzleTitle,
-            content: this.l10n.stringTutoEachPuzzleContent
-          },
-          {
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoPlayViewTitle,
-            content: this.l10n.stringTutoPlayViewContent
-          },
-          {
-            element: "#puzzle-category-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoTangramCategoryTitle,
-            content: this.l10n.stringTutoTangramCategoryContent
-          },
-          {
-            element: "#view-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoViewTitle,
-            content: this.l10n.stringTutoViewContent
-          },
+
+          title: this.l10n.stringTutoExplainTitle,
+          intro: this.l10n.stringTutoExplainContent
+        },
+        {
+
+          title: this.l10n.stringTutoEachPuzzleTitle,
+          intro: this.l10n.stringTutoEachPuzzleContent
+        },
+        {
+
+          title: this.l10n.stringTutoPlayViewTitle,
+          intro: this.l10n.stringTutoPlayViewContent
+        },
+        {
+          element: "#puzzle-category-button",
+          position: "bottom",
+          title: this.l10n.stringTutoTangramCategoryTitle,
+          intro: this.l10n.stringTutoTangramCategoryContent
+        },
+        {
+          element: "#view-button",
+          position: "bottom",
+          title: this.l10n.stringTutoViewTitle,
+          intro: this.l10n.stringTutoViewContent
+        },
         ];
       } else if (vm.currentScreen === 'dataset-list' && vm.view === 'setting') {
         document.querySelector('.dataset-list-panel-primary').scrollTo({
           top: 0
         });
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
-          },
-          {
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoSettingViewTitle,
-            content: this.l10n.stringTutoSettingViewContent
-          },
-          {
-            element: ".tangram-card:first-child .edit-btn",
-            placement: "auto bottom",
-            title: this.l10n.stringTutoEditPuzzleTitle,
-            content: this.l10n.stringTutoEditPuzzleContent
-          },
-          {
-            element: ".tangram-card:first-child .delete-btn",
-            placement: "auto bottom",
-            title: this.l10n.stringTutoDeletePuzzleTitle,
-            content: this.l10n.stringTutoDeletePuzzleContent
-          },
-          {
-            element: ".dataset-list-bar-block .edit-btn",
-            placement: "auto bottom",
-            title: this.l10n.stringTutoEditCategoryTitle,
-            content: this.l10n.stringTutoEditCategoryContent
-          },
-          {
-            element: ".dataset-list-bar-block .delete-btn",
-            placement: "auto bottom",
-            title: this.l10n.stringTutoDeleteCategoryTitle,
-            content: this.l10n.stringTutoDeleteCategoryContent
-          },
-          {
-            element: "#puzzle-category-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoTangramCategoryTitle,
-            content: this.l10n.stringTutoTangramCategoryContent
-          },
-          {
-            element: "#view-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoViewTitle,
-            content: this.l10n.stringTutoViewContent
-          },
-          {
-            element: "#create-category-button",
-            placement: "bottom",
-            title: this.l10n.stringTutoNewCategoryTitle,
-            content: this.l10n.stringTutoNewCategoryContent
-          },
-          {
-            element: ".btn-add-puzzle",
-            placement: "auto top",
-            title: this.l10n.stringTutoNewPuzzleTitle,
-            content: this.l10n.stringTutoNewPuzzleContent
-          }
+
+          title: this.l10n.stringTutoExplainTitle,
+          intro: this.l10n.stringTutoExplainContent
+        },
+        {
+
+          title: this.l10n.stringTutoSettingViewTitle,
+          intro: this.l10n.stringTutoSettingViewContent
+        },
+        {
+          element: ".tangram-card:first-child .edit-btn",
+          position: "auto bottom",
+          title: this.l10n.stringTutoEditPuzzleTitle,
+          intro: this.l10n.stringTutoEditPuzzleContent
+        },
+        {
+          element: ".tangram-card:first-child .delete-btn",
+          position: "auto bottom",
+          title: this.l10n.stringTutoDeletePuzzleTitle,
+          intro: this.l10n.stringTutoDeletePuzzleContent
+        },
+        {
+          element: ".dataset-list-bar-block .edit-btn",
+          position: "auto bottom",
+          title: this.l10n.stringTutoEditCategoryTitle,
+          intro: this.l10n.stringTutoEditCategoryContent
+        },
+        {
+          element: ".dataset-list-bar-block .delete-btn",
+          position: "auto bottom",
+          title: this.l10n.stringTutoDeleteCategoryTitle,
+          intro: this.l10n.stringTutoDeleteCategoryContent
+        },
+        {
+          element: "#puzzle-category-button",
+          position: "bottom",
+          title: this.l10n.stringTutoTangramCategoryTitle,
+          intro: this.l10n.stringTutoTangramCategoryContent
+        },
+        {
+          element: "#view-button",
+          position: "bottom",
+          title: this.l10n.stringTutoViewTitle,
+          intro: this.l10n.stringTutoViewContent
+        },
+        {
+          element: "#create-category-button",
+          position: "bottom",
+          title: this.l10n.stringTutoNewCategoryTitle,
+          intro: this.l10n.stringTutoNewCategoryContent
+        },
+        {
+          element: ".btn-add-puzzle",
+          position: "auto top",
+          title: this.l10n.stringTutoNewPuzzleTitle,
+          intro: this.l10n.stringTutoNewPuzzleContent
+        }
         ];
       } else if (vm.currentScreen === 'setting-editor') {
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
-          },
-          {
-            element: ".stage",
-            placement: "auto left",
-            title: this.l10n.stringTutoBoardEditorTitle,
-            content: this.l10n.stringTutoBoardEditorContent
-          },
-          {
-            element: "",
-            orphan: true,
-            placement: "bottom",
-            title: this.l10n.stringTutoValidPuzzleTitle,
-            content: this.l10n.stringTutoValidPuzzleContent
-          },
-          {
-            element: ".valid-puzzle-indicator",
-            placement: "auto left",
-            title: this.l10n.stringTutoValidPuzzleIndicatorTitle,
-            content: this.l10n.stringTutoValidPuzzleIndicatorContent
-          },
-          {
-            element: ".btn-replay",
-            placement: "auto top",
-            title: this.l10n.stringTutoRefreshTitle,
-            content: this.l10n.stringTutoRefreshContent
-          },
-          {
-            element: ".btn-random",
-            placement: "auto top",
-            title: this.l10n.stringTutoRandomButtonTitle,
-            content: this.l10n.stringTutoRandomButtonContent
-          },
-          {
-            element: ".btn-back",
-            placement: "auto top",
-            title: this.l10n.stringTutoGoBackTitle,
-            content: this.l10n.stringTutoGoBackContent
-          },
+
+          title: this.l10n.stringTutoExplainTitle,
+          intro: this.l10n.stringTutoExplainContent
+        },
+        {
+          element: ".stage",
+          position: "auto left",
+          title: this.l10n.stringTutoBoardEditorTitle,
+          intro: this.l10n.stringTutoBoardEditorContent
+        },
+        {
+
+          title: this.l10n.stringTutoValidPuzzleTitle,
+          intro: this.l10n.stringTutoValidPuzzleContent
+        },
+        {
+          element: ".valid-puzzle-indicator",
+          position: "auto left",
+          title: this.l10n.stringTutoValidPuzzleIndicatorTitle,
+          intro: this.l10n.stringTutoValidPuzzleIndicatorContent
+        },
+        {
+          element: ".btn-replay",
+          position: "auto top",
+          title: this.l10n.stringTutoRefreshTitle,
+          intro: this.l10n.stringTutoRefreshContent
+        },
+        {
+          element: ".btn-random",
+          position: "auto top",
+          title: this.l10n.stringTutoRandomButtonTitle,
+          intro: this.l10n.stringTutoRandomButtonContent
+        },
+        {
+          element: ".btn-back",
+          position: "auto top",
+          title: this.l10n.stringTutoGoBackTitle,
+          intro: this.l10n.stringTutoGoBackContent
+        },
         ];
       } else {
         steps = [{
-          element: "",
-          orphan: true,
-          placement: "bottom",
+
           title: this.l10n.stringTutoExplainTitle,
-          content: this.l10n.stringTutoExplainContent
+          intro: this.l10n.stringTutoExplainContent
         }];
       }
       this.$refs.SugarTutorial.show(steps);
