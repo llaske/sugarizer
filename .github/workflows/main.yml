@@ -9,8 +9,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
       - name: Deploy on Sugarizer Dev Server
         run: echo "Deploy on Sugarizer Dev Server"
+=======
+>>>>>>> origin
       - name: Update dev.sugarizer.org 
         uses: appleboy/ssh-action@v0.1.7 
         with: 
@@ -20,4 +23,8 @@ jobs:
           port: ${{ secrets.PORT }} 
           script: | 
             cd sugarizer-dev/sugarizer 
+<<<<<<< HEAD
             git pull
+=======
+            git pull
+>>>>>>> origin
