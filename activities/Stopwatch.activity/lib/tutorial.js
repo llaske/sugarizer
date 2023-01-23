@@ -9,25 +9,25 @@ define(["webL10n"], function (l10n) {
                 intro: l10n.get("TutoExplainContent")
             },
             {
-                element: "#1 .start-stop-button",
+                element: ".start-stop-button",
                 position: "bottom",
                 title: l10n.get("TutoStartStopTitle"),
                 intro: l10n.get("TutoStartStopContent")
             },
             {
-                element: "#1 .reset-button",
+                element: ".reset-button",
                 position: "bottom",
                 title: l10n.get("TutoResetTitle"),
                 intro: l10n.get("TutoResetContent")
             },
             {
-                element: "#1 .mark-button",
+                element: ".mark-button",
                 position: "bottom",
                 title: l10n.get("TutoMarkTitle"),
                 intro: l10n.get("TutoMarkContent")
             },
             {
-                element: "#1 .counter",
+                element: ".counter",
                 position: "right",
                 title: l10n.get("TutoCounterTitle"),
                 intro: l10n.get("TutoCounterContent")
@@ -40,7 +40,7 @@ define(["webL10n"], function (l10n) {
                 intro: l10n.get("TutoAddContent")
             },
             {
-                element: "#1 .remove",
+                element: ".remove",
                 position: "left",
                 title: l10n.get("TutoRemoveTitle"),
                 intro: l10n.get("TutoRemoveContent")
@@ -48,7 +48,9 @@ define(["webL10n"], function (l10n) {
         ];
 
 
-        steps = steps.filter((step) => !('element' in step) || (step['element'] && step['element'].style.display != 'none'));
+        steps = steps.filter(function (obj) {
+            return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');
+        });
         introJs().setOptions({
             tooltipClass: 'customTooltip',
             steps: steps,
