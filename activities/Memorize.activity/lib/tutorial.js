@@ -5,48 +5,54 @@ define(["webL10n"], function (l10n) {
 
 		var steps = [
 			{
+				element: "",
+				orphan: true,
+				placement: "bottom",
 				title: l10n.get("TutoTitleMemorize"),
-			    intro: l10n.get("TutoExplainintro")
+			    content: l10n.get("TutoExplainContent")
 			},
 			{
 				element: "#activity-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleActivity"),
-				intro: l10n.get("TutoActivity")
+				content: l10n.get("TutoActivity")
 			},
 			{
 				element: "#network-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleNetwork"),
-			    intro: l10n.get("TutoNetwork")
+			    content: l10n.get("TutoNetwork")
 			},
 			{
 				element: "#game-templates-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleTemplate"),
-			    intro: l10n.get("TutoGameTemplate")
+			    content: l10n.get("TutoGameTemplate")
 			},
 			{
 				element: "#game-size-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleSize"),
-			    intro: l10n.get("TutoGameSize")
+			    content: l10n.get("TutoGameSize")
             },
             {
 				element: "#game-reset-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleReset"),
-			    intro: l10n.get("TutoResetGame")
+			    content: l10n.get("TutoResetGame")
             },
             {
 				element: "#game-editor-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleOpen"),
-			    intro: l10n.get("TutoOpenEditor")
+			    content: l10n.get("TutoOpenEditor")
 			},
 			{
+				element: "",
+				orphan: true,
+				placement: "bottom",
 				title: l10n.get("TutoTitleInstructions"),
-			    intro: l10n.get("TutoExplainPlay")
+			    content: l10n.get("TutoExplainPlay")
 			},
 
 		];
@@ -55,49 +61,73 @@ define(["webL10n"], function (l10n) {
 			steps.splice(7, 0, {
 				element: "#numberOneTutorial",
 				orphan: true,
-				position: "right",
+				placement: "right",
 				title: l10n.get("TutoTitleCardType1"),
-				intro: l10n.get("TutoNumberOne")
+				content: l10n.get("TutoNumberOne")
 			},
 			{
 				element: "#numberTwoTutorial",
 				orphan: true,
-				position: "right",
+				placement: "right",
 				title: l10n.get("TutoTitleCardType2"),
-				intro: l10n.get("TutoNumberTwo")
+				content: l10n.get("TutoNumberTwo")
 			});
 		} else if (boardType === 2) {
 			steps.splice(7, 0, {
 				element: "#soundTutorial",
 				orphan: true,
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleSounds"),
-				intro: l10n.get("TutoSounds")
+				content: l10n.get("TutoSounds")
 			},
 			{
 				element: "#soundTutorial2",
 				orphan: true,
-				position: "top",
+				placement: "top",
 				title: l10n.get("TutoTitleSounds"),
-				intro: l10n.get("TutoSounds2")
+				content: l10n.get("TutoSounds2")
 			})
 		};
 
-		steps= steps.filter(function (obj) {
-			return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');
+
+
+		var tour = new Tour({
+			template: "\
+			<div class='popover tour'>\
+				<div class='arrow'></div>\
+				<h3 class='popover-title tutorial-title'></h3>\
+				<div class='popover-content'></div>\
+				<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
+					<div class='tutorial-prev-icon icon-button' data-role='prev'>\
+						<div class='tutorial-prev-icon1 web-activity'>\
+							<div class='tutorial-prev-icon2 web-activity-icon'></div>\
+							<div class='tutorial-prev-icon3 web-activity-disable'></div>\
+						</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
+					</div>\
+					<span data-role='separator' style='margin: 4px'>|</span>\
+					<div class='tutorial-next-icon icon-button' data-role='next'>\
+						<div class='tutorial-next-icon1 web-activity'>\
+							<div class='tutorial-next-icon2 web-activity-icon'></div>\
+							<div class='tutorial-next-icon3 web-activity-disable'></div>\
+						</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
+					</div>\
+					<div class='tutorial-end-icon icon-button' data-role='end'>\
+						<div class='tutorial-end-icon1 web-activity'>\
+							<div class='tutorial-end-icon2 web-activity-icon'></div>\
+							<div class='tutorial-end-icon3 web-activity-disable'></div>\
+						</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
+					</div>\
+				</div>\
+			</div>",
+			storage: false,
+			backdrop: true,
+			steps: steps
 		});
-
-		introJs().setOptions({
-			tooltipClass: 'customTooltip',
-			steps: steps,
-			prevLabel: l10n.get("TutoPrev"),
-			nextLabel: l10n.get("TutoNext"),
-			exitOnOverlayClick: false,
-			nextToDone: false,
-			showBullets: false
-		}).start();
-
-		
+		tour.init();
+		tour.start(true);
 
 	};
 
@@ -106,75 +136,96 @@ define(["webL10n"], function (l10n) {
 
 			{
 				element: "#game-editor-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleGoPlay"),
-				intro: l10n.get("TutoEditorPlayMode")
+				content: l10n.get("TutoEditorPlayMode")
 			},
 			{
 				element: "#game-editor-insert-mode-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleInsert"),
-				intro: l10n.get("TutoInsertMode")
+				content: l10n.get("TutoInsertMode")
 			},
 			{
 				element: "#game-editor-play-mode-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitlePlay"),
-			    intro: l10n.get("TutoPlayMode")
+			    content: l10n.get("TutoPlayMode")
 			},
 			{
 				element: "#game-editor-clear-button",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleClear"),
-			    intro: l10n.get("TutoClear")
+			    content: l10n.get("TutoClear")
 			},
 			{
 				element: "#InputBox",
-				position: "bottom",
+				placement: "bottom",
 				title: l10n.get("TutoTitleInput"),
-			    intro: l10n.get("TutoEditorInputBox")
+			    content: l10n.get("TutoEditorInputBox")
 			},
 			{
 				element: "#InsertImage",
-				position: "right",
+				placement: "right",
 				title: l10n.get("TutoTitleInsertImage"),
-			    intro: l10n.get("TutorEditorInsertImage")
+			    content: l10n.get("TutorEditorInsertImage")
 			},
 			{
 				element: "#EditorAddButton",
-				position: "left",
+				placement: "left",
 				title: l10n.get("TutoTitleAddCard"),
-			    intro: l10n.get("TutoEditorAddButton")
+			    content: l10n.get("TutoEditorAddButton")
 			},
 			{
 				element: "#EditorUpdateButton",
-				position: "left",
+				placement: "left",
 				title: l10n.get("TutoTitleUpdateCard"),
-			    intro: l10n.get("TutoEditorUpdateButton")
+			    content: l10n.get("TutoEditorUpdateButton")
 			},
 			{
 				element: "#EditorDeleteButton",
-				position: "left",
+				placement: "left",
 				title: l10n.get("TutoTitleClearCard"),
-			    intro: l10n.get("TutoEditorDeleteButton")
+			    content: l10n.get("TutoEditorDeleteButton")
 			}
 		];
-		
-		steps= steps.filter(function (obj) {
-			return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');
+		var tour = new Tour({
+			template: "\
+			<div class='popover tour'>\
+				<div class='arrow'></div>\
+				<h3 class='popover-title tutorial-title'></h3>\
+				<div class='popover-content'></div>\
+				<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
+					<div class='tutorial-prev-icon icon-button' data-role='prev'>\
+						<div class='tutorial-prev-icon1 web-activity'>\
+							<div class='tutorial-prev-icon2 web-activity-icon'></div>\
+							<div class='tutorial-prev-icon3 web-activity-disable'></div>\
+						</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
+					</div>\
+					<span data-role='separator' style='margin: 4px'>|</span>\
+					<div class='tutorial-next-icon icon-button' data-role='next'>\
+						<div class='tutorial-next-icon1 web-activity'>\
+							<div class='tutorial-next-icon2 web-activity-icon'></div>\
+							<div class='tutorial-next-icon3 web-activity-disable'></div>\
+						</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
+					</div>\
+					<div class='tutorial-end-icon icon-button' data-role='end'>\
+						<div class='tutorial-end-icon1 web-activity'>\
+							<div class='tutorial-end-icon2 web-activity-icon'></div>\
+							<div class='tutorial-end-icon3 web-activity-disable'></div>\
+						</div>\
+						<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
+					</div>\
+				</div>\
+			</div>",
+			storage: false,
+			backdrop: true,
+			steps: steps
 		});
-
-		introJs().setOptions({
-			tooltipClass: 'customTooltip',
-			steps: steps,
-			prevLabel: l10n.get("TutoPrev"),
-			nextLabel: l10n.get("TutoNext"),
-			exitOnOverlayClick: false,
-			nextToDone: false,
-			showBullets: false
-		}).start();
-
-
+		tour.init
+		tour.start(true)
 	};
 
 	return tutorial;
