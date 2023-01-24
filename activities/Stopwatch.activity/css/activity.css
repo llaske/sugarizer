@@ -220,6 +220,7 @@ button.remove {
   font-size: 14px;
   padding: 0px 8px;
   font-weight: 800;
+  color: white;
 }
 
 .customTooltip .introjs-tooltiptext {
