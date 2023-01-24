@@ -15,7 +15,7 @@
   background-image: url(../icons/view-return.svg);
   border: 0;
   border-radius: 0px;
-  margin: 1px;
+  margin:1px;
   width: 45px;
   height: 45px;
   top: 0;
@@ -65,20 +65,20 @@ ul {
   margin-left: -15px;
 }
 
-.d-flex {
+.d-flex{
   display: flex !important;
   padding: 0 15px;
 }
 
-.justify-content-center {
+.justify-content-center{
   justify-content: center !important;
 }
 
-.align-items-center {
+.align-items-center{
   align-items: center !important;
 }
 
-div.p-0 {
+div.p-0{
   padding: 0;
 }
 
@@ -352,11 +352,11 @@ button.remove {
   color: #000000;
 }
 
-.popover-navigation {
+.popover-navigation{
   overflow: hidden;
 }
 
-.tutorial-title {
+.tutorial-title{
   font-weight: bold;
   line-height: 1.42857143;
 }
@@ -364,37 +364,36 @@ button.remove {
 /* Below code is used to make responsive changes */
 
 @media only screen and (max-width: 1130px) and (min-width: 767px) {
-  .marks {
+  .marks{
     font-size: 26px;
   }
 }
 
 @media only screen and (max-width: 1060px) and (min-width: 767px) {
-  .marks {
+  .marks{
     font-size: 24px;
   }
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 767px) {
-  .buttons-group button {
+  .buttons-group button{
     height: 42px;
     width: 42px;
     background-size: 32px 32px;
   }
 
-  .counter,
-  .marks {
+  .counter, .marks {
     font-size: 22px;
   }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 767px){
   .d-flex {
     width: 100%;
   }
 }
 
-@media only screen and (max-width: 484px) {
+@media only screen and (max-width: 484px){
   button.remove {
     margin-right: 0;
   }
@@ -405,8 +404,7 @@ button.remove {
     background-size: 32px 32px;
   }
 
-  .counter,
-  .marks {
+  .counter, .marks {
     font-size: 22px;
   }
 

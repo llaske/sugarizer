@@ -1,7 +1,7 @@
 define(["webL10n"], function (l10n) {
     var tutorial = {};
 
-    tutorial.start = function () {
+    tutorial.start = function() {
         var steps = [
             {
 
@@ -35,7 +35,7 @@ define(["webL10n"], function (l10n) {
             {
                 element: "#add-stopwatch",
                 position: $('#add-stopwatch').outerHeight() * 2 + $('#add-stopwatch').position().top
-                    + $('#canvas').scrollTop() > $("#canvas").height() ? "top" : "right",
+                           + $('#canvas').scrollTop() > $("#canvas").height()? "top" : "right",
                 title: l10n.get("TutoAddTitle"),
                 intro: l10n.get("TutoAddContent")
             },
