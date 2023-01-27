@@ -1449,21 +1449,21 @@ var app = new Vue({
       if (vm.currentScreen === 'leaderboard') {
         steps = [{
             element: ".leaderboard-main",
-            placement: "top",
+            position: "top",
             title: this.l10n.stringTutoLeaderboardMainTitle,
-            content: this.l10n.stringTutoLeaderboardMainContent
+            intro: this.l10n.stringTutoLeaderboardMainContent
           },
           {
             element: ".btn-back",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoGoBackTitle,
-            content: this.l10n.stringTutoGoBackContent
+            intro: this.l10n.stringTutoGoBackContent
           },
           {
             element: ".page-no",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoLeaderboardPaginationTitle,
-            content: this.l10n.stringTutoLeaderboardPaginationContent
+            intro: this.l10n.stringTutoLeaderboardPaginationContent
           },
         ];
       } else if (vm.currentScreen === 'result') {
@@ -1471,160 +1471,136 @@ var app = new Vue({
           top: 0
         });
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoResultTitle,
-            content: this.l10n.stringTutoResultContent
+            intro: this.l10n.stringTutoResultContent
           },
           {
             element: ".result-card:first-child",
-            placement: "auto right",
+            position: "auto right",
             title: this.l10n.stringTutoTangramCardTitle,
-            content: this.l10n.stringTutoTangramCardContent
+            intro: this.l10n.stringTutoTangramCardContent
           },
           {
             element: ".result-card:first-child .clock-info-block",
-            placement: "auto bottom",
+            position: "auto bottom",
             title: this.l10n.stringTutoClockInfoTitle,
-            content: this.l10n.stringTutoClockInfoContent
+            intro: this.l10n.stringTutoClockInfoContent
           },
           {
             element: ".result-card:first-child .score-info-block",
-            placement: "auto bottom",
+            position: "auto bottom",
             title: this.l10n.stringTutoScoreInfoTitle,
-            content: this.l10n.stringTutoScoreInfoContent
+            intro: this.l10n.stringTutoScoreInfoContent
           },
           {
             element: ".btn-restart",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoRestartTitle,
-            content: this.l10n.stringTutoRestartContent
+            intro: this.l10n.stringTutoRestartContent
           },
           {
             element: ".btn-see-leaderboard",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoRestartTitle,
-            content: this.l10n.stringTutoRestartContent
+            intro: this.l10n.stringTutoRestartContent
           }
         ];
       } else if (vm.currentScreen === 'game') {
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
+            intro: this.l10n.stringTutoExplainContent
           },
           {
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoEachPuzzleTitle,
-            content: this.l10n.stringTutoEachPuzzleContent
+            intro: this.l10n.stringTutoEachPuzzleContent
           },
           {
             element: ".stage",
-            placement: "top",
+            position: "top",
             title: this.l10n.stringTutoBoardTitle,
-            content: this.l10n.stringTutoBoardContent
+            intro: this.l10n.stringTutoBoardContent
           },
           {
             element: ".stage",
-            placement: "top",
+            position: "top",
             title: this.l10n.stringTutoKeyBoardTitle,
-            content: this.l10n.stringTutoKeyBoardContent
+            intro: this.l10n.stringTutoKeyBoardContent
           },
           {
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoAboutTitle,
-            content: this.l10n.stringTutoAboutContent
+            intro: this.l10n.stringTutoAboutContent
           },
           {
             element: ".footer-actions",
-            placement: "top",
+            position: "top",
             title: this.l10n.stringTutoGameActionsTitle,
-            content: this.l10n.stringTutoGameActionsContent
+            intro: this.l10n.stringTutoGameActionsContent
           },
           {
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoScoreTitle,
-            content: this.l10n.stringTutoScoreContent
+            intro: this.l10n.stringTutoScoreContent
           },
           {
             element: "#puzzle-category-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoTangramCategoryTitle,
-            content: this.l10n.stringTutoTangramCategoryContent
+            intro: this.l10n.stringTutoTangramCategoryContent
           },
           {
             element: "#random-play-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoRandomPlayTitle,
-            content: this.l10n.stringTutoRandomPlayContent
+            intro: this.l10n.stringTutoRandomPlayContent
           },
           {
             element: "#level-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoLevelTitle,
-            content: this.l10n.stringTutoLevelContent
+            intro: this.l10n.stringTutoLevelContent
           },
           {
             element: "#timer-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoTimerTitle,
-            content: this.l10n.stringTutoTimerContent
+            intro: this.l10n.stringTutoTimerContent
           },
           {
             element: "#view-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoViewTitle,
-            content: this.l10n.stringTutoViewContent
+            intro: this.l10n.stringTutoViewContent
           },
           {
             element: "#hint-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoHintTitle,
-            content: this.l10n.stringTutoHintContent
+            intro: this.l10n.stringTutoHintContent
           },
         ];
       } else if (vm.currentScreen === 'dataset-list' && vm.view === 'play') {
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
+            intro: this.l10n.stringTutoExplainContent
           },
           {
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoEachPuzzleTitle,
-            content: this.l10n.stringTutoEachPuzzleContent
+            intro: this.l10n.stringTutoEachPuzzleContent
           },
           {
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoPlayViewTitle,
-            content: this.l10n.stringTutoPlayViewContent
+            intro: this.l10n.stringTutoPlayViewContent
           },
           {
             element: "#puzzle-category-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoTangramCategoryTitle,
-            content: this.l10n.stringTutoTangramCategoryContent
+            intro: this.l10n.stringTutoTangramCategoryContent
           },
           {
             element: "#view-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoViewTitle,
-            content: this.l10n.stringTutoViewContent
+            intro: this.l10n.stringTutoViewContent
           },
         ];
       } else if (vm.currentScreen === 'dataset-list' && vm.view === 'setting') {
@@ -1632,121 +1608,106 @@ var app = new Vue({
           top: 0
         });
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
+            intro: this.l10n.stringTutoExplainContent
           },
           {
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoSettingViewTitle,
-            content: this.l10n.stringTutoSettingViewContent
+            intro: this.l10n.stringTutoSettingViewContent
           },
           {
             element: ".tangram-card:first-child .edit-btn",
-            placement: "auto bottom",
+            position: "auto bottom",
             title: this.l10n.stringTutoEditPuzzleTitle,
-            content: this.l10n.stringTutoEditPuzzleContent
+            intro: this.l10n.stringTutoEditPuzzleContent
           },
           {
             element: ".tangram-card:first-child .delete-btn",
-            placement: "auto bottom",
+            position: "auto bottom",
             title: this.l10n.stringTutoDeletePuzzleTitle,
-            content: this.l10n.stringTutoDeletePuzzleContent
+            intro: this.l10n.stringTutoDeletePuzzleContent
           },
           {
             element: ".dataset-list-bar-block .edit-btn",
-            placement: "auto bottom",
+            position: "auto bottom",
             title: this.l10n.stringTutoEditCategoryTitle,
-            content: this.l10n.stringTutoEditCategoryContent
+            intro: this.l10n.stringTutoEditCategoryContent
           },
           {
             element: ".dataset-list-bar-block .delete-btn",
-            placement: "auto bottom",
+            position: "auto bottom",
             title: this.l10n.stringTutoDeleteCategoryTitle,
-            content: this.l10n.stringTutoDeleteCategoryContent
+            intro: this.l10n.stringTutoDeleteCategoryContent
           },
           {
             element: "#puzzle-category-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoTangramCategoryTitle,
-            content: this.l10n.stringTutoTangramCategoryContent
+            intro: this.l10n.stringTutoTangramCategoryContent
           },
           {
             element: "#view-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoViewTitle,
-            content: this.l10n.stringTutoViewContent
+            intro: this.l10n.stringTutoViewContent
           },
           {
             element: "#create-category-button",
-            placement: "bottom",
+            position: "bottom",
             title: this.l10n.stringTutoNewCategoryTitle,
-            content: this.l10n.stringTutoNewCategoryContent
+            intro: this.l10n.stringTutoNewCategoryContent
           },
           {
             element: ".btn-add-puzzle",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoNewPuzzleTitle,
-            content: this.l10n.stringTutoNewPuzzleContent
+            intro: this.l10n.stringTutoNewPuzzleContent
           }
         ];
       } else if (vm.currentScreen === 'setting-editor') {
         steps = [{
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoExplainTitle,
-            content: this.l10n.stringTutoExplainContent
+            intro: this.l10n.stringTutoExplainContent
           },
           {
             element: ".stage",
-            placement: "auto left",
+            position: "auto left",
             title: this.l10n.stringTutoBoardEditorTitle,
-            content: this.l10n.stringTutoBoardEditorContent
+            intro: this.l10n.stringTutoBoardEditorContent
           },
           {
-            element: "",
-            orphan: true,
-            placement: "bottom",
             title: this.l10n.stringTutoValidPuzzleTitle,
-            content: this.l10n.stringTutoValidPuzzleContent
+            intro: this.l10n.stringTutoValidPuzzleContent
           },
           {
             element: ".valid-puzzle-indicator",
-            placement: "auto left",
+            position: "auto left",
             title: this.l10n.stringTutoValidPuzzleIndicatorTitle,
-            content: this.l10n.stringTutoValidPuzzleIndicatorContent
+            intro: this.l10n.stringTutoValidPuzzleIndicatorContent
           },
           {
             element: ".btn-replay",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoRefreshTitle,
-            content: this.l10n.stringTutoRefreshContent
+            intro: this.l10n.stringTutoRefreshContent
           },
           {
             element: ".btn-random",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoRandomButtonTitle,
-            content: this.l10n.stringTutoRandomButtonContent
+            intro: this.l10n.stringTutoRandomButtonContent
           },
           {
             element: ".btn-back",
-            placement: "auto top",
+            position: "auto top",
             title: this.l10n.stringTutoGoBackTitle,
-            content: this.l10n.stringTutoGoBackContent
+            intro: this.l10n.stringTutoGoBackContent
           },
         ];
       } else {
         steps = [{
-          element: "",
-          orphan: true,
-          placement: "bottom",
           title: this.l10n.stringTutoExplainTitle,
-          content: this.l10n.stringTutoExplainContent
+          intro: this.l10n.stringTutoExplainContent
         }];
       }
       this.$refs.SugarTutorial.show(steps);
