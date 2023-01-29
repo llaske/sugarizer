@@ -490,6 +490,10 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], fun
 			var createdStart = null;
 			world.on({
 				'interact:poke': function( pos ){
+					// make previously created body dynamic
+					if (createdBody && physicsActive) {
+						createdBody.treatment = "dynamic";
+					}
 					// create body at a static place
 					if (currentType != -1 && pos.y > 55) {
 						createdBody = dropInBody(currentType, pos);
