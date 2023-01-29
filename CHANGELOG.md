@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix SharedNotes content is lost once disconnected #1144 
 - Tutorial steps missing at first launch #1089
 - Disabling Text selection for buttons #1151
+- Physics element are coming above toolbar #1064
 
 
 ## [1.6.0] - 2022-01-04
