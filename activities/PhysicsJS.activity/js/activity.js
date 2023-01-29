@@ -485,9 +485,20 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], fun
 				gravityMode = value;
 			}
 
+			function isEdgeCollision (distance, createdStart, type) {
+				if (type == "rectangle") distance /= 1.5; //root2 ceil to 1.5 for diagonal
+				return (
+					distance > createdStart.x ||
+					distance > innerWidth-createdStart.x ||
+					distance > createdStart.y-toolbarHeight ||
+					distance > innerHeight-createdStart.y
+				);
+			}
+
 			// add some fun interaction
 			var createdBody = null;
 			var createdStart = null;
+			var distance = null;
 			world.on({
 				'interact:poke': function( pos ){
 					// create body at a static place
@@ -502,7 +513,12 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], fun
 						// compute new size
 						var distx = createdStart.x - pos.x;
 						var disty = createdStart.y - pos.y;
-						var distance = Math.min(Math.sqrt(Math.abs(distx*distx-disty*disty)),createdStart.y-toolbarHeight);
+						var prevDistance = distance;
+						distance = Math.sqrt(Math.abs(distx*distx-disty*disty)) | 0;
+						
+						if (isEdgeCollision(distance, createdStart, createdBody.geometry.name)) {
+							distance = prevDistance;
+						}
 						if (createdBody.view != null) {
 							// Recreate the object with new size
 							var object = serializeObject(createdBody);
