@@ -4,9 +4,6 @@ define(["webL10n"], function (l10n) {
   tutorial.startMainTutorial = function (boardType) {
     var steps = [
       {
-        element: "",
-        orphan: true,
-        position: "bottom",
         title: l10n.get("TutoTitleMemorize"),
         intro: l10n.get("TutoExplainContent"),
       },
@@ -47,9 +44,6 @@ define(["webL10n"], function (l10n) {
         intro: l10n.get("TutoOpenEditor"),
       },
       {
-        element: "",
-        orphan: true,
-        position: "bottom",
         title: l10n.get("TutoTitleInstructions"),
         intro: l10n.get("TutoExplainPlay"),
       },
