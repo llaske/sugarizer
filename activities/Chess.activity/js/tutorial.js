@@ -63,32 +63,7 @@ var Tutorial = {
       localization.localize(this.l10n);
     },
 
-    showPieces: function(i, step) {
-      switch (i) {
-        case 14:
-          this.visuals = "<div class='wP tutPiece'></div>"
-          break;
-        case 15:
-          this.visuals = "<div class='wN tutPiece'></div>"
-          break;
-        case 16:
-          this.visuals = "<div class='wB tutPiece'></div>"
-          break;
-        case 17:
-          this.visuals = "<div class='wR tutPiece'></div>"
-          break;
-        case 18:
-          this.visuals = "<div class='wQ tutPiece'></div>"
-          break;
-        case 19:
-          this.visuals = "<div class='wK tutPiece'></div>"
-          break;
-        default:
-          this.visuals = ""
-      }
-
-    },
-
+    
     show: function() {
       let vm = this;
       var steps = [];
@@ -176,32 +151,32 @@ var Tutorial = {
         {
 
           title: this.l10n.stringTutoPawnTitle,
-          intro: this.l10n.stringTutoPawnContent
+          intro: this.l10n.stringTutoPawnContent+"<div class='wP tutPiece'></div>"
         },
         {
 
           title: this.l10n.stringTutoKnightTitle,
-          intro: this.l10n.stringTutoKnightContent
+          intro: this.l10n.stringTutoKnightContent+"<div class='wN tutPiece'></div>"
         },
         {
 
           title: this.l10n.stringTutoBishopTitle,
-          intro: this.l10n.stringTutoBishopContent
+          intro: this.l10n.stringTutoBishopContent+"<div class='wB tutPiece'></div>"
         },
         {
 
           title: this.l10n.stringTutoRookTitle,
-          intro: this.l10n.stringTutoRookContent
+          intro: this.l10n.stringTutoRookContent+"<div class='wR tutPiece'></div>"
         },
         {
 
           title: this.l10n.stringTutoQueenTitle,
-          intro: this.l10n.stringTutoQueenContent
+          intro: this.l10n.stringTutoQueenContent+"<div class='wQ tutPiece'></div>"
         },
         {
 
           title: this.l10n.stringTutoKingTitle,
-          intro: this.l10n.stringTutoKingContent
+          intro: this.l10n.stringTutoKingContent+"<div class='wK tutPiece'></div>"
         },
         {
 

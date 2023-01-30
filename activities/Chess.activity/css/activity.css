@@ -345,6 +345,14 @@ body {
   background-color: #808080;
 }
 
+.tutorial-icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
 /* UI styling for introJs-tutorial */
 
 .introjs-overlay {
@@ -353,20 +361,20 @@ body {
 }
 
 .introjs-tooltip {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
   border-radius: 6px !important;
   padding: 2px 1px !important;
   font-size: 14px !important;
 }
 
-.introjs-helperLayer {
+.introjs-helperLayer{
   background: inherit !important;
   opacity: 0.6 !important;
 }
 
 .customTooltip .introjs-tooltip-header {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffffff;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color : #ffffff;
   text-shadow: none;
   background-color: #808080;
   margin: 0;
@@ -420,7 +428,7 @@ body {
 
 .customTooltip .introjs-tooltipbuttons {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap:wrap;
   justify-content: center;
   align-items: center;
   cursor: pointer;
