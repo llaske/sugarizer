@@ -1,155 +1,152 @@
 .toolbar {
-    height: auto !important;
-    min-height: 55px !important;
-    position:block;
+  height: auto !important;
+  min-height: 55px !important;
+  position: block;
 }
 
 #fullscreen-button {
-    background-image: url(../icons/view-fullscreen.svg);
-    z-index: 5;
+  background-image: url(../icons/view-fullscreen.svg);
+  z-index: 5;
 }
 
 .toolbutton {
-    height:50%;
-    width:50%;
-    position:block;
-
+  height: 50%;
+  width: 50%;
+  position: block;
 }
 
 #canvas {
-    position:block;
+  position: block;
 }
 
 #unfullscreen-button {
-	background-image: url(../icons/view-return.svg);
-	border: 0;
-	border-radius: 0px;
-	width: 45px;
-	height: 45px;
-	top: 3px;
-	right: 5%;
-	position: absolute;
-	visibility: hidden;
-	z-index: 5;
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  width: 45px;
+  height: 45px;
+  top: 3px;
+  right: 5%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
 }
 
 #stop-button {
-    z-index: 5;
+  z-index: 5;
 }
 
 #main-toolbar #activity-button {
-    background-image: url(../activity/activity-icon.svg);
+  background-image: url(../activity/activity-icon.svg);
 }
 
 #main-toolbar #network-button {
-    background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
 #main-toolbar #game-templates-button {
-    background-image: url(../icons/memorize-collection.svg);
+  background-image: url(../icons/memorize-collection.svg);
 }
 
 #main-toolbar #game-size-button {
-    background-image: url(../icons/4x4.svg);
-    background-size: contain !important;
-    background-repeat: no-repeat !important;
+  background-image: url(../icons/4x4.svg);
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
 }
 
 #main-toolbar #game-reset-button {
-    background-image: url(../icons/game-new.svg);
+  background-image: url(../icons/game-new.svg);
 }
 
-
 #main-toolbar #game-editor-button {
-    background-image: url(../icons/cog.svg);
+  background-image: url(../icons/cog.svg);
 }
 
 #main-toolbar #game-editor-insert-mode-button {
-    background-image: url(../icons/pair-equals.svg);
+  background-image: url(../icons/pair-equals.svg);
 }
 
 #main-toolbar #game-editor-play-mode-button {
-    background-image: url(../icons/grouped_game1.svg);
+  background-image: url(../icons/grouped_game1.svg);
 }
 
 #main-toolbar #game-editor-clear-button {
-    background-image: url(../icons/edit-clear.svg);
+  background-image: url(../icons/edit-clear.svg);
 }
 
 #private-button {
-    background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-    width: 47px;
-    height: 47px;
-    margin: 4px 2px;
-    color: white;
-    color: transparent;
-    background-color: transparent;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: 0;
-    border-radius: 5.5px;
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
 }
 #shared-button {
-    background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
-    width: 47px;
-    height: 47px;
-    margin: 4px 2px;
-    color: white;
-    color: transparent;
-    background-color: transparent;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: 0;
-    border-radius: 5.5px;
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
 }
 
 #game-templates-button {
-    background-repeat: no-repeat;
-    background-position: center center;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 #game-players {
-    background: #005983;
-    position:fixed;
-    bottom:0;
-    width:100%;
-    height:56px;
+  background: #005983;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 56px;
 }
 
-
 .palette .wrapper {
-    min-width: 10px;
-    padding: 5px;
+  min-width: 10px;
+  padding: 5px;
 }
 
 .toolbar {
-    padding:0 15px;
+  padding: 0 15px;
 }
 
-input[type='text'] {
-    color: #000 !important;
+input[type="text"] {
+  color: #000 !important;
 }
 
 textarea {
-    color: #000 !important;
+  color: #000 !important;
 }
 
-@media screen and (min-width: 590px) and (max-width: 654px){
-    .toolbar{
-        padding: 0 25px;
-    }
+@media screen and (min-width: 590px) and (max-width: 654px) {
+  .toolbar {
+    padding: 0 25px;
+  }
 }
 
-@media screen and (min-width: 275px) and (max-width: 326px){
-    .toolbar{
-        padding: 0 20px;
-    }
+@media screen and (min-width: 275px) and (max-width: 326px) {
+  .toolbar {
+    padding: 0 20px;
+  }
 }
 
 #main-toolbar #help-button {
-    background-image: url(../icons/help.svg);
+  background-image: url(../icons/help.svg);
 }
 
 @media screen and (max-width: 676px) {
@@ -157,131 +154,132 @@ textarea {
     visibility: hidden;
   }
 }
+/* UI styling for introJs-tutorial */
 
-.tutorial-title {
-	background-color: #808080 !important;
-	color: #ffffff !important;
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: 0.8 !important;
 }
 
-.tutorial-prev-icon {
-	display: inline-flex;
-	width: 90px;
+.introjs-tooltip {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
 }
 
-.tutorial-prev-icon.icon-button {
-	color: white;
+.introjs-helperLayer {
+  background: inherit !important;
+  opacity: 0.6 !important;
 }
 
-.tutorial-prev-icon.icon-button.disabled {
-	color: black;
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
 }
 
-.tutorial-prev-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
 }
 
-.tutorial-prev-icon2 {
-	background-image: url(../icons/go-left.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
 }
 
-.tutorial-prev-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.tutorial-next-icon {
-	display: inline-flex;
-	width: 90px;
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
-.tutorial-next-icon.icon-button {
-	color: white;
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
-.tutorial-next-icon.icon-button.disabled {
-	color: black;
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
 }
 
-.tutorial-next-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
 }
 
-.tutorial-next-icon2 {
-	background-image: url(../icons/go-right.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  border: 0px;
+  background-color: #808080 !important;
 }
 
-.tutorial-next-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: 0.65;
 }
 
-.tutorial-end-icon {
-	display: inline-flex;
-	width: 90px;
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  border: 0px;
 }
-
-.tutorial-end-icon.icon-button {
-	color: white;
-}
-
-.tutorial-end-icon.icon-button.disabled {
-	color: black;
-}
-
-.tutorial-end-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
-}
-
-.tutorial-end-icon2 {
-	background-image: url(../icons/dialog-cancel.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-}
-
-.tutorial-end-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
-}
-
-.icon-tutorial-text {
-	margin-top: 7px;
-	padding-left: 4px;
-	padding-right: 38px;
-	display: inline-block;
-}
-
 .web-activity-icon {
-	background-repeat: no-repeat;
-	background-position: center;
-	padding: 2px;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
 }
 
 .icon-button {
-	border-radius: 22px;
-	margin-top: 5px;
-	height: 35px;
-	background-color: #808080;
-	border: 2px solid #808080;
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
 }
