@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Tutorial steps missing at first launch #1089
 - Disabling Text selection for buttons #1151
 - Physics element are coming above toolbar #1064
+- Forbid create elements in Physics that're Bigger than canvas #1171
 
 
 ## [1.6.0] - 2022-01-04
