@@ -113,9 +113,10 @@ button:disabled {
 }
 
 .palette .container {
-	padding-left: 5px;
-	padding-right: 0px;
+	padding-left: 3px;
+	padding-right: 3px;
 	box-sizing: initial;
+	width: max-content;
 }
 
 .palette .wrapper {
