@@ -91,11 +91,6 @@ enyo.kind({
 		toolbar.style.backgroundColor = "white";
 		document.getElementById("canvas").style.overflowY = "hidden";
 		util.hideNativeToolbar();
-	},
-
-	// Render
-	rendered: function() {
-		this.inherited(arguments);
 
 		// At first launch, display tutorial
 		var that = this;
@@ -104,7 +99,6 @@ enyo.kind({
 				that.startTutorial();
 			}
 		}, constant.timerBeforeTutorial);
-
 	},
 
 	localize: function() {

@@ -37,6 +37,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add Previous/Next button in DollarStreet activity to navigate in images #1075
 - Fix SharedNotes tutorial don't start at end of home tutorial
 - Fix SharedNotes content is lost once disconnected #1144 
+- Tutorial steps missing at first launch #1089
+- Disabling Text selection for buttons #1151
+- Physics element are coming above toolbar #1064
+- Forbid create elements in Physics that're Bigger than canvas #1171
+- Template container interfering the Calligra Activity #1174
 
 
 ## [1.6.0] - 2022-01-04
