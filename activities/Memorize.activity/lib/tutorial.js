@@ -6,7 +6,7 @@ define(["webL10n"], function (l10n) {
 		var steps = [
 			{
 				title: l10n.get("TutoTitleMemorize"),
-			    intro: l10n.get("TutoExplainContent")
+				intro: l10n.get("TutoExplainContent")
 			},
 			{
 				element: "#activity-button",
@@ -18,35 +18,35 @@ define(["webL10n"], function (l10n) {
 				element: "#network-button",
 				position: "bottom",
 				title: l10n.get("TutoTitleNetwork"),
-			    intro: l10n.get("TutoNetwork")
+				intro: l10n.get("TutoNetwork")
 			},
 			{
 				element: "#game-templates-button",
 				position: "bottom",
 				title: l10n.get("TutoTitleTemplate"),
-			    intro: l10n.get("TutoGameTemplate")
+				intro: l10n.get("TutoGameTemplate")
 			},
 			{
 				element: "#game-size-button",
 				position: "bottom",
 				title: l10n.get("TutoTitleSize"),
-			    intro: l10n.get("TutoGameSize")
+				intro: l10n.get("TutoGameSize")
             },
             {
 				element: "#game-reset-button",
 				position: "bottom",
 				title: l10n.get("TutoTitleReset"),
-			    intro: l10n.get("TutoResetGame")
+				intro: l10n.get("TutoResetGame")
             },
             {
 				element: "#game-editor-button",
 				position: "bottom",
 				title: l10n.get("TutoTitleOpen"),
-			    intro: l10n.get("TutoOpenEditor")
+				intro: l10n.get("TutoOpenEditor")
 			},
 			{
 				title: l10n.get("TutoTitleInstructions"),
-			    intro: l10n.get("TutoExplainPlay")
+				intro: l10n.get("TutoExplainPlay")
 			},
 
 		];
@@ -125,43 +125,43 @@ define(["webL10n"], function (l10n) {
 				element: "#game-editor-play-mode-button",
 				position: "bottom",
 				title: l10n.get("TutoTitlePlay"),
-			    intro: l10n.get("TutoPlayMode")
+				intro: l10n.get("TutoPlayMode")
 			},
 			{
 				element: "#game-editor-clear-button",
 				position: "bottom",
 				title: l10n.get("TutoTitleClear"),
-			    intro: l10n.get("TutoClear")
+				intro: l10n.get("TutoClear")
 			},
 			{
 				element: "#InputBox",
 				position: "bottom",
 				title: l10n.get("TutoTitleInput"),
-			    intro: l10n.get("TutoEditorInputBox")
+				intro: l10n.get("TutoEditorInputBox")
 			},
 			{
 				element: "#InsertImage",
 				position: "right",
 				title: l10n.get("TutoTitleInsertImage"),
-			    intro: l10n.get("TutorEditorInsertImage")
+				intro: l10n.get("TutorEditorInsertImage")
 			},
 			{
 				element: "#EditorAddButton",
 				position: "left",
 				title: l10n.get("TutoTitleAddCard"),
-			    intro: l10n.get("TutoEditorAddButton")
+				intro: l10n.get("TutoEditorAddButton")
 			},
 			{
 				element: "#EditorUpdateButton",
 				position: "left",
 				title: l10n.get("TutoTitleUpdateCard"),
-			    intro: l10n.get("TutoEditorUpdateButton")
+				intro: l10n.get("TutoEditorUpdateButton")
 			},
 			{
 				element: "#EditorDeleteButton",
 				position: "left",
 				title: l10n.get("TutoTitleClearCard"),
-			    intro: l10n.get("TutoEditorDeleteButton")
+				intro: l10n.get("TutoEditorDeleteButton")
 			}
 		];
 		steps = steps.filter(
