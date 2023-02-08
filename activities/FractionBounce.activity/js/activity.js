@@ -6,6 +6,9 @@ requirejs.config({
 	}
 });
 
+var score = 0;
+var count = 0;
+
 // Vue main app
 let app = new Vue({
 	el: '#app',
@@ -225,6 +228,11 @@ let app = new Vue({
 			this.paused = !this.paused;
 			if (!this.paused) {
 				this.launch();
+				if(count==30){
+					score = 0;
+					count = 0;
+			        Score.innerHTML = "score: 0/10";	
+				}
 			}
 			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
 		},
@@ -295,10 +303,15 @@ let app = new Vue({
 				slopeCanvas.removeEventListener("mousedown", this.onTouchStart);
 				this.onTouchEnd();
 				let result = this.$refs.slopecanvas.checkAnswer();
+				count++;
 				if (result == this.answer) {
 					this.successSound.play();
+					score++;
 				} else {
 					this.failSound.play();
+				}
+				if (count < 30) {
+					Score.innerHTML = "score: " + Math.round(score / 3) + "/10";
 				}
 				this.onSlope = true;
 				if (this.vy < 0.5) {

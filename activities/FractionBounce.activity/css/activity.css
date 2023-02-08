@@ -83,6 +83,14 @@ p {
 	vertical-align: bottom;
 }
 
+div#Score {
+	position: absolute;
+	right: 10%;
+	top: 15%;
+	font-weight: bold;
+	font-size: 4vh;
+}
+
 @media only screen and (max-width: 1040px) {
 	.helpText {
 		display: none;
@@ -108,6 +116,10 @@ p {
 	}
 	#main-toolbar .splitbar {
 		display: none;
+	}
+	div#Score {
+		top: 40%;
+		right: 30%;
 	}
 }
 @media only screen and (max-width: 340px) {
