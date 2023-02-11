@@ -137,7 +137,6 @@ enyo.kind({
 				var changed = preferences.merge(inResponse);
 				util.updateFavicon();
 				if (changed) {
-					preferences.saveToServer(myserver);
 					that.draw();
 					that.render();
 				} else if (that.currentView == constant.journalView) {
