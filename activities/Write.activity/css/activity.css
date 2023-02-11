@@ -410,6 +410,7 @@ body {
   background-color: #808080;
   border: 2px solid #808080;
 }
-#journal-container::-webkit-scrollbar {
-  background-color: #040404;
+
+.pico-overlay {
+  opacity: 0.66 !important;
 }

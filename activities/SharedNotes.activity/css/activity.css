@@ -390,3 +390,7 @@ body {
     display: none;
   }
 }
+
+.pico-overlay {
+  opacity: 0.66 !important;
+}
