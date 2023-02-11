@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Physics element are coming above toolbar #1064
 - Forbid create elements in Physics that're Bigger than canvas #1171
 - Template container interfering the Calligra Activity #1174
+- Background color of journal-container and body are same in some activities #1181
 
 
 ## [1.6.0] - 2022-01-04
