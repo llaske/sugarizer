@@ -83,12 +83,12 @@ p {
 	vertical-align: bottom;
 }
 
-div#Score {
+#Score {
 	position: absolute;
-	right: 10%;
-	top: 15%;
+	right: 37vw;
+	top: 40%;
 	font-weight: bold;
-	font-size: 4vh;
+	font-size: 60px;
 }
 
 @media only screen and (max-width: 1040px) {
@@ -103,6 +103,10 @@ div#Score {
 	#fullscreen-button {
 		display: none;
 	}
+	#Score{
+		font-size: 8vw;
+		right: 30vw;
+	}
 }
 @media only screen and (max-width: 540px) {
 	#percents-button {
@@ -116,10 +120,6 @@ div#Score {
 	}
 	#main-toolbar .splitbar {
 		display: none;
-	}
-	div#Score {
-		top: 40%;
-		right: 30%;
 	}
 }
 @media only screen and (max-width: 340px) {
