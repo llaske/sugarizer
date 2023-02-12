@@ -230,10 +230,10 @@ let app = new Vue({
 			this.paused = !this.paused;
 			if (!this.paused) {
 				this.launch();
-				if(count==30){
+				if(this.count==30){
 					this.score = 0;
 					this.count = 0;
-			        Score.innerHTML = "";	
+			        Score.innerHTML = " ";	
 				}
 			}
 			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
