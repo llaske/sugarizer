@@ -83,6 +83,14 @@ p {
 	vertical-align: bottom;
 }
 
+#Score {
+	position: absolute;
+	right: 37vw;
+	top: 40%;
+	font-weight: bold;
+	font-size: 60px;
+}
+
 @media only screen and (max-width: 1040px) {
 	.helpText {
 		display: none;
@@ -94,6 +102,10 @@ p {
 	}
 	#fullscreen-button {
 		display: none;
+	}
+	#Score{
+		font-size: 8vw;
+		right: 30vw;
 	}
 }
 @media only screen and (max-width: 540px) {
