@@ -538,7 +538,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
                     document.querySelector('#vidDisplay').srcObject = mediaStream;
                     recordRTC.startRecording();
-                    var maxTime = 5;
+                    var maxTime = 15;
                     t.currentRecording.time = 0;
                     var p = document.getElementById("loading-progress");
                     t.currentRecording.maxTime = maxTime;
@@ -664,10 +664,6 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                     path = path.replace("file:/", "file:///");
                     window.resolveLocalFileSystemURL(path, function (entry) {
                         entry.file(function (file) {
-                            if (file.size / 1000000 > 2) {
-                                displayAlertMessage("File is too big");
-                                return;
-                            }
                             var reader = new FileReader();
                             reader.onloadend = function (evt) {
                                 captureHelper.forgeAndInsertData(evt.target.result);
@@ -706,10 +702,6 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
                     window.resolveLocalFileSystemURL(path, function (entry) {
                         entry.file(function (file) {
-                            if (file.size / 1000000 > 2) {
-                                displayAlertMessage("File is too big");
-                                return;
-                            }
                             var reader = new FileReader();
                             reader.onloadend = function (evt) {
                                 captureHelper.forgeAndInsertData(evt.target.result);

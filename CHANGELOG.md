@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Background color of journal-container and body are same in some activities #1181
 - Bad handling of multitouch in Physics activity #849
 - Add score counter in Fractions Activity #1032
+- Increase Record video limit to 15s, remove size limit
 
 
 ## [1.6.0] - 2022-01-04
