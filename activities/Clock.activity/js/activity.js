@@ -1026,7 +1026,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         }
 
-        var touchScreen = ("ontouchstart" in document.documentElement);
+        var touchScreen = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
         if (touchScreen) {
           clock.clockCanvasElem.addEventListener('touchstart', handleOnMouseDown, false);
           clock.clockCanvasElem.addEventListener('touchend', handleOnMouseUp, false);

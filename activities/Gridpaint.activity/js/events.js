@@ -29,7 +29,7 @@ var zoom;
 var touchScreen = false;
 
 function eventInit(){
-	touchScreen = ("ontouchstart" in document.documentElement);
+	touchScreen = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
 	if (touchScreen) {
 		document.getElementById("canvas").addEventListener("touchstart", evMousedown, false);
 		frame.addEventListener("touchmove", evMousemove, false);
