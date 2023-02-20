@@ -272,7 +272,7 @@
         },
 
         // Does the browser support touch input?
-        supportsTouch = (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch),
+        supportsTouch = (('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) || window.DocumentTouch && document instanceof window.DocumentTouch),
 
         // Does the browser support PointerEvents
         supportsPointerEvent = !!PointerEvent,

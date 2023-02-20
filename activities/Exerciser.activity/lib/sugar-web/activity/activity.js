@@ -28,8 +28,10 @@ define([
 
 	var activity = {};
 
-	activity.setup = function () {
-		bus.listen();
+    var user = {};
+
+    activity.setup = function () {
+        bus.listen();
 
 		l10n.start();
 
@@ -122,37 +124,25 @@ define([
 
 		shortcut.add("Ctrl", "Q", this.close);
 
-		env.getEnvironment(function (error, environment) {
-			var l10n = {
-				en: "{{name}} Activity",
-				fr: "Activité {{name}}",
-				es: "Actividad {{name}}",
-				pt: "{{name}} Atividade",
-				de: "Aktivität {{name}}",
-			};
-			var activityName = "";
-			for (var i = 0; i < environment.user.activities.length; i++) {
-				if (environment.user.activities[i].id == environment.bundleId) {
-					activityName = environment.user.activities[i].name;
-					break;
-				}
-			}
-			document.title =
-				(l10n[environment.user.language] || l10n["en"]).replace(
-					"{{name}}",
-					activityName
-				) + " - Sugarizer";
-			if (!environment.objectId) {
-				datastoreObject.setMetadata({
-					title: (l10n[environment.user.language] || l10n["en"]).replace(
-						"{{name}}",
-						environment.activityName
-					),
-					title_set_by_user: "0",
-					activity: environment.bundleId,
-					activity_id: environment.activityId,
-				});
-			}
+        env.getEnvironment(function (error, environment) {
+            user = environment.user;
+            var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
+            var activityName = "";
+            for (var i = 0 ; i < environment.user.activities.length ; i++) {
+                if (environment.user.activities[i].id == environment.bundleId) {
+                    activityName = environment.user.activities[i].name;
+                    break;
+                }
+            }
+            document.title = (l10n[environment.user.language]||l10n["en"]).replace("{{name}}", activityName)+" - Sugarizer";
+            if (!environment.objectId) {
+                datastoreObject.setMetadata({
+                    "title": (l10n[environment.user.language]||l10n["en"]).replace("{{name}}", environment.activityName),
+                    "title_set_by_user": "0",
+                    "activity": environment.bundleId,
+                    "activity_id": environment.activityId
+                });
+            }
 			if (env.isSugarizer()) {
 				presence.joinNetwork(function (error, presence) {
 					if (environment.sharedId) {
@@ -222,17 +212,40 @@ define([
 			}
 		}
 
-		bus.sendMessage("activity.close", [], onResponseReceived);
-	};
+        activity.traceStats("activity","stop",window.top.sugar.environment.objectId,null);
+        bus.sendMessage("activity.close", [], onResponseReceived);
+    };
 
-	activity.showObjectChooser = function (callback) {
-		function onResponseReceived(error, result) {
-			if (error === null) {
-				callback(null, result[0]);
-			} else {
-				callback(error, null);
-			}
-		}
+    activity.traceStats = function (object, action, label, value) {
+        if (!user.options.stats) {
+            return;
+        }
+        var statslist = datastore.localStorage.getValue('sugar_stats');
+        if (!statslist) {
+            return
+        }
+        var stat = {};
+        stat.user_id = user.networkId;
+        stat.user_agent = navigator.userAgent;
+        stat.timestamp = new Date().getTime();
+        stat.client_type = (document.location.protocol.substr(0,4) == "http" ? "Web App" : "App");
+        stat.event_source = window.top.sugar.environment.bundleId;
+        stat.event_object = object;
+        stat.event_action = action;
+        stat.event_label = label;
+        stat.event_value = value;
+        statslist.push(stat);
+		datastore.localStorage.setValue('sugar_stats', statslist);
+    };
+
+    activity.showObjectChooser = function (callback) {
+        function onResponseReceived(error, result) {
+            if (error === null) {
+                callback(null, result[0]);
+            } else {
+                callback(error, null);
+            }
+        }
 
 		bus.sendMessage("activity.show_object_chooser", [], onResponseReceived);
 	};

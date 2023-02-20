@@ -121,7 +121,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     document.addEventListener('keyup', handleOnKeyDown, false);
     document.getElementById('word').addEventListener('input', handleOnTextChange);
 
-    var touchScreen = ("ontouchstart" in document.documentElement);
+    var touchScreen = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
 
     if (touchScreen) {
       canvas.addEventListener('touchstart', handleOnMouseDown, false);

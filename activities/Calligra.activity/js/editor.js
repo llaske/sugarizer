@@ -47,7 +47,7 @@ var Editor = {
 			// Register click/touch on letter event
 			var vm = this;
 			var clickEvent = "click";
-			var touchScreen = ("ontouchstart" in document.documentElement);
+			var touchScreen = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
 			if (touchScreen) {
 				clickEvent = "touchend";
 			}
