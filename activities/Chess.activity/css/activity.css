@@ -139,6 +139,7 @@ body {
   margin: 5%;
   background-color: #f0d9b5;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  padding-left: 20px;
 }
 
 #moves-container li {
