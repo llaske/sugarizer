@@ -177,12 +177,13 @@ define(["webL10n"], function (l10n) {
     }
 
     steps = steps.filter(
-      (obj) =>
-        !("element" in obj) ||
-        (obj.element.length &&
-          document.querySelector(obj.element) &&
-          document.querySelector(obj.element).style.display != "none")
+      (step) =>
+        !("element" in step) ||
+        (step.element.length &&
+          document.querySelector(step.element) &&
+          document.querySelector(step.element).style.display != "none")
     );
+
     introJs()
       .setOptions({
         tooltipClass: "customTooltip",
