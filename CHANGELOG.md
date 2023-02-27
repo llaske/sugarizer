@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Increase Record video limit to 15s, remove size limit
 - Fix touch support on smart board and touch PC
 - Chess Activity : Step Number are not visible after 99 #1196
+- Speak activity UI enhancement #1201
 
 
 ## [1.6.0] - 2022-01-04
