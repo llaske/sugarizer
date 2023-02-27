@@ -1,5 +1,6 @@
 #main-toolbar #activity-button {
 	background-image: url(../activity/activity-icon.svg);
+	-webkit-appearance: none;
 }
 
 #main-toolbar #png-button {
@@ -364,7 +365,7 @@
 #qrtextdropdown {
 	height: 7vh;
 	width: 7vh;
-	-webkit-appearance: button;
+	-webkit-appearance: none;
 	-moz-appearance: button;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -373,7 +374,7 @@
 	background-image: url(../icons/go-down.svg);
 	background-size: 55px 50px;
 	background-position: 50% 50%;
-	color: #555;
+	color: #f8f8f8;
 	font-size: inherit;
 	overflow: hidden;
 	padding-top: 2px;
