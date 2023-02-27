@@ -128,8 +128,7 @@ body {
 }
 
 .search-field-border {
-	border-radius: 10px;
-	color: 10px solid red ;
+	border-radius: 22px;
 	top: 5px;
 	width: 350px;
 	height: 35px;
@@ -178,15 +177,12 @@ body {
 	opacity: 1;
 	margin-left: 30px;
 	border: 0px;
-	width: 250px;
 	display: inline-block;
 	background-color: #e5e5e5;
-	
-	line-height: 10px;
-    border-width: 30px;
-	
+	width: 270px;
+	line-height: 22px;
 	outline: 0;
-	font-size: 11pt;
+	font-size: 10pt;
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
@@ -2246,15 +2242,15 @@ body {
 }
 @media screen and (min-width: 410px) and (max-width: 1023px) {
 	.search-field-border {
-		width: 250px;
+		width: 200px;
 	}
 
 	.search-field-input {
-		width: 170px;
+		width: 120px;
 	}
 
 	.help-button {
-		left: 325px;
+		left: 280px;
 	}
 
 	.sync-home {
@@ -2266,7 +2262,7 @@ body {
 	}
 
 	.homeview-filter-text {
-		width: 240px;
+		width: 200px;
 	}
 
 	.activity-version {
