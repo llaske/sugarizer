@@ -1,6 +1,6 @@
 #main-toolbar #activity-button {
 	background-image: url(../activity/activity-icon.svg);
-	-webkit-appearance: none;
+	
 }
 
 #main-toolbar #png-button {
