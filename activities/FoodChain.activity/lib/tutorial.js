@@ -181,7 +181,8 @@ define(["webL10n"], function (l10n) {
         !("element" in step) ||
         (step.element.length &&
           document.querySelector(step.element) &&
-          document.querySelector(step.element).style.display != "none")
+          document.querySelector(step.element).style.display != "none" &&
+          document.querySelector(step.element).getBoundingClientRect().y != 0)
     );
 
     introJs()
