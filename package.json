@@ -19,10 +19,8 @@
     "tmp": "~0.1.0"
   },
   "devDependencies": {
-    "grunt": "~1.5.3",
-    "grunt-contrib-jshint": "~2.1.0",
-    "grunt-contrib-nodeunit": "~2.1.0",
-    "grunt-terser": "~1.0.0"
+    "grunt": "~1.6.0",
+    "grunt-terser": "~2.0.0"
   },
   "build": {
     "appId": "org.olpc-france.sugarizer",
