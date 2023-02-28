@@ -364,7 +364,7 @@
 #qrtextdropdown {
 	height: 7vh;
 	width: 7vh;
-	-webkit-appearance: button;
+	-webkit-appearance: none;
 	-moz-appearance: button;
 	-webkit-user-select: none;
 	-moz-user-select: none;
