@@ -71,7 +71,6 @@ Vue.component('sugar-toolbar', {
 		// Handle fullscreen mode
 		hide: function () {
 			this.hidden = true;
-
 		},
 
 		show: function () {
