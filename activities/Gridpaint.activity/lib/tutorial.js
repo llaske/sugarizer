@@ -2,79 +2,67 @@ define(["webL10n"], function (l10n) {
 	var tutorial = {};
 
 	tutorial.start = function() {
-		var tour = new Tour({
-			template: "\
-			<div class='popover tour'>\
-				<div class='arrow'></div>\
-				<h3 class='popover-title tutorial-title'></h3>\
-				<div class='popover-content'></div>\
-				<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-					<div class='tutorial-prev-icon icon-button' data-role='prev'>\
-						<div class='tutorial-prev-icon1 web-activity'>\
-							<div class='tutorial-prev-icon2 web-activity-icon'></div>\
-							<div class='tutorial-prev-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
-					</div>\
-					<span data-role='separator' style='margin: 4px'>|</span>\
-					<div class='tutorial-next-icon icon-button' data-role='next'>\
-						<div class='tutorial-next-icon1 web-activity'>\
-							<div class='tutorial-next-icon2 web-activity-icon'></div>\
-							<div class='tutorial-next-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
-					</div>\
-					<div class='tutorial-end-icon icon-button' data-role='end'>\
-						<div class='tutorial-end-icon1 web-activity'>\
-							<div class='tutorial-end-icon2 web-activity-icon'></div>\
-							<div class='tutorial-end-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
-					</div>\
-				</div>\
-			</div>",
-			storage: false,
-			backdrop: true,
-			steps: [],
-		});
+		var steps=[]
 		if(mode=='edit'){
-			tour.addSteps([
+		 steps =[
+			
 			{
 				element: "#canvas",
-				placement: "top",
+				position: "top",
 				title: l10n.get("TutoEditTitle"),
-				content: l10n.get("TutoEditContent")
+				intro: l10n.get("TutoEditContent")
 			},
 			{
 				element: "#clear-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoClearTitle"),
-				content: l10n.get("TutoClearContent")
+				intro: l10n.get("TutoClearContent")
 			}
-			]
-			);
-		}else {
-			tour.addSteps([
-			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
-				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
-			},
-			{
-				element: "#canvas",
-				placement: "top",
-				title: l10n.get("TutoGridTitle"),
-				content: l10n.get("TutoGridContent")
-			}
-			]
-			);
+			
+		]}
+		else{
+				steps=[
+					{
+						element: "",
+						orphan: true,
+						position: "bottom",
+						title: l10n.get("TutoExplainTitle"),
+						intro: l10n.get("TutoExplainContent")
+					},
+					{
+						element: "#canvas",
+						position: "top",
+						title: l10n.get("TutoGridTitle"),
+						intro: l10n.get("TutoGridContent")
+					}
+				]
 		}
-		tour.init();
-		tour.start(true);
 
-	};
+		steps = steps.filter(
+			(step) =>
+			  !("element" in step) ||
+			  (step.element.length &&
+				document.querySelector(step.element) &&
+				document.querySelector(step.element).style.display != "none" &&
+				document.querySelector(step.element).getBoundingClientRect().y != 0)
+		  );
+	  
+		  introJs()
+			.setOptions({
+			  tooltipClass: "customTooltip",
+			  steps: steps,
+			  prevLabel: l10n.get("TutoPrev"),
+			  nextLabel: l10n.get("TutoNext"),
+			  exitOnOverlayClick: false,
+			  nextToDone: false,
+			  showBullets: false,
+			})
+			.start();
+		};
+	  
+		// return tutorial/;
+		
+	
 
 	return tutorial;
 });
