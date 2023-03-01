@@ -50,6 +50,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Chess Activity : Step Number are not visible after 99 #1196
 - Speak activity UI enhancement #1201
 - TamTam Micro : Piano Color keys doesn't work when pressed near Black keys #1206
+- Dollar Street Activity sliders can overlap #1212
 
 
 ## [1.6.0] - 2022-01-04
