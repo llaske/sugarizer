@@ -20,4 +20,8 @@ jobs:
           port: ${{ secrets.PORT }} 
           script: | 
             cd sugarizer-dev/sugarizer 
+<<<<<<< HEAD
             git pull
+=======
+            git pull
+>>>>>>> xo_tour_intro_js
