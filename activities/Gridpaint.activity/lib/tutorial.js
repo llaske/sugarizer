@@ -59,10 +59,6 @@ define(["webL10n"], function (l10n) {
 			})
 			.start();
 		};
-	  
-		// return tutorial/;
-		
-	
 
 	return tutorial;
 });
