@@ -640,7 +640,7 @@ var app = new Vue({
 			if(this.settings) {
 				steps = steps.concat([
 					{
-						element: ".poll-card [id='0']",
+						element: ".poll-card[id='0']",
 						position: "right",
 						title: this.l10n.stringTutoSettingsPollCardTitle,
 						intro: this.l10n.stringTutoSettingsPollCardContent
@@ -694,7 +694,7 @@ var app = new Vue({
 						intro: this.l10n.stringTutoSettingsAddOptionButtonContent
 					},
 					{
-						element: ".option [id='0']",
+						element: ".option[id='0']",
 						position: "top",
 						title: this.l10n.stringTutoSettingsOptionTitle,
 						intro: this.l10n.stringTutoSettingsOptionContent
@@ -712,7 +712,7 @@ var app = new Vue({
 								intro: this.l10n.stringTutoExplainContent
 							},
 							{
-								element: ".poll-card [id='0']",
+								element: ".poll-card[id='0']",
 								position: "right",
 								title: this.l10n.stringTutoPollCardTitle,
 								intro: this.l10n.stringTutoPollCardContent
@@ -746,7 +746,7 @@ var app = new Vue({
 					case 'history':
 						steps = steps.concat([
 							{
-								element: ".history-item [id='0']",
+								element: ".history-itemx[id='0']",
 								position: "bottom",
 								title: this.l10n.stringTutoHistoryItemTitle,
 								intro: this.l10n.stringTutoHistoryItemContent
