@@ -1388,8 +1388,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
 
                     });
             } else {
-                this._resizeButton.x = this._x - this._width - this._resizeButton.width / 2;
-                this._resizeButton.y = this._y - this._height - this._resizeButton.height / 2;
+                this._resizeButton.x = this._x - this._width - this._resizeButton.width / 1;
+                this._resizeButton.y = this._y - this._height - this._resizeButton.height / 1;
                 this._resizeButton.visible = this.getSelected();
             };
 
@@ -1408,8 +1408,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                         });
                     });
             } else {
-                this._editButton.x = this._x + this._width - this._editButton.width / 2;
-                this._editButton.y = this._y - this._height - this._editButton.height / 2;
+                this._editButton.x = this._x + this._width - this._editButton.width / 15;
+                this._editButton.y = this._y - this._height - this._editButton.height / 1;
                 this._editButton.visible = this.getSelected();
             };
 
@@ -1430,8 +1430,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                             });
                         });
                 } else {
-                    this._rotateButton.x = this._x + this._width - this._rotateButton.width / 2;
-                    this._rotateButton.y = this._y + this._height - this._rotateButton.height / 2;
+                    this._rotateButton.x = this._x + this._width - this._rotateButton.width / 15;
+                    this._rotateButton.y = this._y + this._height - this._rotateButton.height / 15;
                     this._rotateButton.visible = this.getSelected();
                 };
             };
@@ -1452,8 +1452,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                             });
                         });
                 } else {
-                    this._removeButton.x = this._x - this._width - this._removeButton.width / 2;
-                    this._removeButton.y = this._y + this._height - this._removeButton.height / 2;
+                    this._removeButton.x = this._x - this._width - this._removeButton.width / 1;
+                    this._removeButton.y = this._y + this._height - this._removeButton.height / 15;
                     this._removeButton.visible = this.getSelected();
                 };
             };
