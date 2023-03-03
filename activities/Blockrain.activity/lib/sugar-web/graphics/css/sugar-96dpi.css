@@ -102,7 +102,7 @@ button {
 }
 button:hover {
   background-color: #a2a2a2;
-  border-color: #a2a2a2;
+  transform: translateY(-2px);
 }
 button:active {
   color: black;
