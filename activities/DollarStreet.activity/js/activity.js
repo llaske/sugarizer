@@ -232,9 +232,6 @@ var app = new Vue({
 		onHelp: function() {
 			let vm = this;
 			let steps = [];
-			// let classplaces = document.getElementsByClassName("place-padding");
-			// console.log(classplaces)
-			// let placeelement = classplaces[0]
 			if (vm.currentView == viewList) {
 				steps = steps.concat([
 					{
