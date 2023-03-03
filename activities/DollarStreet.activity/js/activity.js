@@ -232,8 +232,9 @@ var app = new Vue({
 		onHelp: function() {
 			let vm = this;
 			let steps = [];
-			let classplaces = document.getElementsByClassName("place-padding");
-			let placeelement = classplaces && classplaces[0] ? classplaces[0] : "";
+			// let classplaces = document.getElementsByClassName("place-padding");
+			// console.log(classplaces)
+			// let placeelement = classplaces[0]
 			if (vm.currentView == viewList) {
 				steps = steps.concat([
 					{
@@ -267,7 +268,7 @@ var app = new Vue({
 						intro: vm.l10n.stringTutoListRegionContent
 					},
 					{
-						element: placeelement,
+						element: ".place-padding",
 						position: "right",
 						title: vm.l10n.stringTutoListPlaceTitle,
 						intro: vm.l10n.stringTutoListPlaceContent
@@ -276,7 +277,7 @@ var app = new Vue({
 			} else {
 				steps = steps.concat([
 					{
-						element: "",
+					
 						orphan: true,
 						position: "bottom",
 						title: vm.l10n.stringTutoDetailViewTitle,
@@ -295,7 +296,7 @@ var app = new Vue({
 						intro: vm.l10n.stringTutoDetailDescriptionContent
 					},
 					{
-						element: placeelement,
+						element: ".place-padding",
 						position: "top",
 						title: vm.l10n.stringTutoDetailThingsTitle,
 						intro: vm.l10n.stringTutoDetailThingsContent
