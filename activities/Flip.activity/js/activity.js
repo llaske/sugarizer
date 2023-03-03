@@ -31,7 +31,7 @@ function runactivity(act,doc,colors,env,datastore,sizepalette,tutorial){
 	function init(){
 		canvas = document.getElementById('actualcanvas');
 		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		canvas.height = window.innerHeight-180;
 		stage = new createjs.Stage(canvas);
 		stage.update();
 		stage.mouseEventsEnabled = true;
