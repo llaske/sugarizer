@@ -4,7 +4,6 @@ define(["webL10n"], function(l10n) {
 	tutorial.start = function() {
 		var steps = [
 			{
-				element: "",
 				orphan: true,
 				position: "bottom",
 				title: l10n.get("TutoExplainTitle"),
