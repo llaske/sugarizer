@@ -6,7 +6,6 @@ body {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  overflow: hidden;
   height: 100vh;
 }
 
@@ -225,6 +224,11 @@ body {
   /* suppress hover effect on devices that don't support hover fully*/
   .btn-general-block:hover {
     background-size: 80%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  body{
+    overflow: hidden;
   }
 }
 
