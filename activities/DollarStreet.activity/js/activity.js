@@ -232,80 +232,77 @@ var app = new Vue({
 		onHelp: function() {
 			let vm = this;
 			let steps = [];
-			let classplaces = document.getElementsByClassName("place-padding");
-			let placeelement = classplaces && classplaces[0] ? classplaces[0] : "";
 			if (vm.currentView == viewList) {
 				steps = steps.concat([
 					{
-						element: "",
 						orphan: true,
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoListWelcomeTitle,
-						content: vm.l10n.stringTutoListWelcomeContent
+						intro: vm.l10n.stringTutoListWelcomeContent
 					},
 					{
 						element: "#street-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoListIncomeTitle,
-						content: vm.l10n.stringTutoListIncomeContent
+						intro: vm.l10n.stringTutoListIncomeContent
 					},
 					{
 						element: "#family-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoListFamilyTitle,
-						content: vm.l10n.stringTutoListFamilyContent
+						intro: vm.l10n.stringTutoListFamilyContent
 					},
 					{
 						element: "#things-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoListThingsTitle,
-						content: vm.l10n.stringTutoListThingsContent
+						intro: vm.l10n.stringTutoListThingsContent
 					},
 					{
 						element: "#world-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoListRegionTitle,
-						content: vm.l10n.stringTutoListRegionContent
+						intro: vm.l10n.stringTutoListRegionContent
 					},
 					{
-						element: placeelement,
-						placement: "right",
+						element: ".place-padding",
+						position: "right",
 						title: vm.l10n.stringTutoListPlaceTitle,
-						content: vm.l10n.stringTutoListPlaceContent
+						intro: vm.l10n.stringTutoListPlaceContent
 					},
 				]);
 			} else {
 				steps = steps.concat([
 					{
-						element: "",
+					
 						orphan: true,
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoDetailViewTitle,
-						content: vm.l10n.stringTutoDetailViewContent
+						intro: vm.l10n.stringTutoDetailViewContent
 					},
 					{
 						element: ".family-image-container",
-						placement: "right",
+						position: "right",
 						title: vm.l10n.stringTutoDetailImageTitle,
-						content: vm.l10n.stringTutoDetailImageContent
+						intro: vm.l10n.stringTutoDetailImageContent
 					},
 					{
 						element: "#family-description",
-						placement: "left",
+						position: "left",
 						title: vm.l10n.stringTutoDetailDescriptionTitle,
-						content: vm.l10n.stringTutoDetailDescriptionContent
+						intro: vm.l10n.stringTutoDetailDescriptionContent
 					},
 					{
-						element: placeelement,
-						placement: "top",
+						element: ".place-padding",
+						position: "top",
 						title: vm.l10n.stringTutoDetailThingsTitle,
-						content: vm.l10n.stringTutoDetailThingsContent
+						intro: vm.l10n.stringTutoDetailThingsContent
 					},
 					{
 						element: "#family-goback",
-						placement: "right",
+						position: "right",
 						title: vm.l10n.stringTutoDetailBackTitle,
-						content: vm.l10n.stringTutoDetailBackContent
+						intro: vm.l10n.stringTutoDetailBackContent
 					},
 				]);
 			}
