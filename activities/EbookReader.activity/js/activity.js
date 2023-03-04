@@ -154,7 +154,7 @@ var app = new Vue({
 					<div id='popup-toolbar' class='toolbar' style='padding: 0'>
 						<button class='toolbutton pull-right' id='popup-ok-button' title='`+titleOk+`' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-ok.svg)'></button>
 						<button class='toolbutton pull-right' id='popup-cancel-button' title='`+titleCancel+`' style='outline:none;background-image: url(lib/sugar-web/graphics/icons/actions/dialog-cancel.svg)'></button>
-						<div style='position: absolute; top: 20px; left: 60px;'>`+titleSettings+`</div>
+						<div style='position: absolute; top: 20px; left: 10px;'>`+titleSettings+`</div>
 					</div>
 					<div id='popup-container' style='width: 100%; overflow:auto'>
 						<div class='popup-label'>`+titleUrl+`</div>
