@@ -32,7 +32,7 @@ You could also build yourself the Sugarizer Application APK using instruction be
 
 To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
 
-![](images/applestore.png)
+<a href="https://apps.apple.com/us/app/sugarizer/id978495303">![](images/applestore.png)</a>
 
 To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
 The Sugarizer desktop application has four possible arguments:
