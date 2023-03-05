@@ -55,6 +55,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Get Things Done Activity : plus button unaligned #1245
 - QR code Activity: buttons are unaligned #1253
 - Markdown Activity: Mouse pointer UI issue on scrollbar #1255
+- Physics Js Activity : Navbar still active in fullscreen mode #1290
 
 
 ## [1.6.0] - 2022-01-04
