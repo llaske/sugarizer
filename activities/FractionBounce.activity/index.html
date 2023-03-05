@@ -13,12 +13,11 @@
 		href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 	<link rel="stylesheet" href="css/activity.css">
 	<link rel="stylesheet" href="css/libnotify.css">
-	<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
+	<link rel="stylesheet" href="css/introjs.css">
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
 	<script src="lib/vue.min.js"></script>
 	<script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
-	<script src="lib/jquery.min.js"></script>
-	<script src="lib/bootstrap-tour-standalone.min.js"></script>
+	<script src="lib/intro.js"></script>
 	<script>if (window.module) module = window.module;</script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="../../cordova.js"></script>
@@ -119,6 +118,8 @@
 						 v-bind:answer="answer" v-bind:correct-answers="correctAnswers" v-bind:mode="mode" />
 		</div>
 
+		<div id="Score"></div>
+		
 		<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
 		<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError"></sugar-journal>
 		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>

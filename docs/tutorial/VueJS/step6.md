@@ -145,7 +145,7 @@ As usual, let's first include the magic component `SugarPresence` in the `index.
 <script src="js/components/SugarPresence.js"></script>
 ```
 
-Similar to `SugarL10n`, let's keep a data variable as a reference to this component instance too. It will be used multiple times in the activity. Upadte `js/activity.js` as:
+Similar to `SugarL10n`, let's keep a data variable as a reference to this component instance too. It will be used multiple times in the activity. Update `js/activity.js` as:
 ```js
 data: {
 	currentenv: null,
@@ -195,7 +195,7 @@ onAddClick: function () {
 
 If the activity is shared with the network (i.e. `SugarPresence.isShared()` is `true` which tells if presence is initialized and the activity is shared), we call the `sendMessage` method. As its name implies, `sendMessage` is the method to send a message to the server. The parameter is the message you want to send. We decided to split the message in two parts: information about `user` that sent the message and the `content`, the user color. The user info is get from SugarPresence component using the `getUserInfo()` call: it will retrieve an object with `name`, `networkId` and `colorvalue`.
 
-That's all we need to create a shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. Another situation where component makes the life easier, it handles the existence of this parameter (`shareId`) and automatically intializes the presence object.
+That's all we need to create a shared activity and let it appear on the Neighborhood view of other users. We have now to handle what happens when a user clicks on the Join menu. In that case, your activity is automatically open by Sugarizer with a specific parameter in the environment. Another situation where component makes the life easier, it handles the existence of this parameter (`shareId`) and automatically initializes the presence object.
 
 In case you wish to perform some action only when the activity is a shared instance, you can make use of the `journal-shared-instance` event from `SugarJournal` which is emitted on startup of a shared instance.
 

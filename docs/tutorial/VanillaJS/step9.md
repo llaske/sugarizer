@@ -55,40 +55,35 @@ Let's run the activity to test the result.
 The button is here. That's a good start.
 
 
-## Integrate Bootstrap tour components
+## Integrate IntroJs tour components
 
-Sugarizer relys on the [Bootstrap tour library](http://bootstraptour.com/) to produce the UI for the tutorial. 
+Sugarizer relies on the [IntroJs library](https://introjs.com/) to produce the UI for the tutorial. 
 
-**Bootstrap tour** is a set of components - based on the famous [Boostrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/) libraries - dedicated to build interactive tutorial. It could be integrated into web pages that already use Bootstrap/jQuery but is also usable standalone for web pages that don't use them (like in our case).
+**Intro.js** is a lightweight JavaScript library for creating step-by-step and powerful customer onboarding tours. Intro.js doesn't have any dependencies. All we need to do is add the JS and CSS file.
 
 Let's see how to integrate it in Pawn activity.
 
-First download the bootstrap tour standalone and jQuery JavaScript libraries. You could find the `bootstrap-tour-standalone.min.css` file [here](../../download/bootstrap-tour-standalone.min.css), the `bootstrap-tour-standalone.min.js` file [here](../../download/bootstrap-tour-standalone.min.js) and the `jquery.min.js` file [here](../../download/jquery.min.js).
+First download the introJs JavaScript libraries. You could find the `introjs.css` file [here](../../download/introjs.css) and the `intro.js` file [here](../../download/intro.js).
 
-Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the two others files should be copied in the `lib` directory.
+Copy these files in your Pawn activity. The first file should be copied in the `css` directory and the other one should be copied in the `lib` directory.
 
 We're now going to reference these files from our `index.html` file. Update the file like that:
 ```html
 ...
 <link rel="stylesheet" href="css/activity.css">
 
-<link rel="stylesheet" href="css/bootstrap-tour-standalone.min.css">
-<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-<script src="lib/jquery.min.js"></script>
-<script src="lib/bootstrap-tour-standalone.min.js"></script>
-<script>if (window.module) module = window.module;</script>
+<link rel="stylesheet" href="css/introjs.css">
+<script src="lib/intro.js"></script>
 
 <script data-main="js/loader" src="lib/require.js"></script>
 ...
 ```
 The main change is to add the link on the CSS file and integrate the libraries into the scripts part. 
 
-Note that we've done script integration around `if (typeof module ...)` and `if (window.module)` testing. It's related to an [incompatibility between Electron and jQuery](https://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined). You don't have to worry about that.
-
 
 ## Display the tutorial
 
-Only a few Javascript lines are needed to display a tutorial with Bootstrap tour. By the way, it's a good practice to separate this specific code in a dedicated file.
+Only a few Javascript lines are needed to display a tutorial with introJs. By the way, it's a good practice to separate this specific code in a dedicated file.
 
 So, let's create a new Javascript file `lib/tutorial.js` to handle everything related to the tutorial.
 
@@ -100,27 +95,27 @@ define([], function () {
 	tutorial.start = function() {
 		var steps = [
 			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
 				title: "Pawn Activity",
-				content: "Welcome into the Pawn activity. This activity is an activity to test Sugarizer development."
+				intro: "Welcome into the Pawn activity. This activity is an activity to test Sugarizer development."
 			},
 			{
 				element: "#add-button",
-				placement: "bottom",
+				position: "bottom",
 				title: "Add pawn",
-				content: "Click here to add one to three pawns on the board."
+				intro: "Click here to add one to three pawns on the board."
 			},
 			{
 				element: "#picture-button",
 				title: "Change background",
-				content: "Click here to choose a new background for the board."
+				intro: "Click here to choose a new background for the board."
 			}
 		];
-		var tour = new Tour({steps: steps});
-		tour.init();
-		tour.start(true);
+    steps= steps.filter(function (obj) {
+        return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');
+    });
+		introJs().setOptions({
+			steps: steps,
+		}).start();
 
 	};
 
@@ -129,11 +124,12 @@ define([], function () {
 ```
 Since Step 2, you should now be familiar with the structure of this file. It defines a new **require.js** component with a single method `start()`.
 
-The `start` method contains all the stuff to call Bootstrap tour. 
+The `start` method contains all the stuff to call introJs library. 
 
 We've first defined an array with steps (i.e. dialogs) for the tutorial. Here we've chosen a dialog box to present the activity, then two dialog box to explain the role of "Add" and "Insert Image" buttons.
+Here, we are also ensuring that if any element we are targeting for steps, then it should be present or should be visible to display our step.
 
-Then we've created the `Tour` object, exposed by the Bootstrap tour library. Finally, we've called the `init()` and `start()` method on this object to display the tutorial.
+Then we've called the `setOptions()` function, exposed by the introJs library. Finally, we've called the  `start()` method on this object to display the tutorial.
 
 Really easy, isn't it?
 
@@ -157,180 +153,144 @@ That's all. Now launch the activity and click on the help button.
 ![](../../images/tutorial_step9_4.png)
 
 Hurrah! It works!
-
+Don't worry about UI we are going to fix it.
 
 ## Sugarize the UI
 
 Our tutorial is nice but it don't look like to an usual Sugarizer tutorial. Let's now "Sugarize" the tutorial UI.
 
-A cool feature of Bootstrap tour is that we're able to fully customize the UI by using "templates". A template is a way to provide the exact HTML code that you want to use for the tutorial window.
+A cool feature of introJs library is that we're able to fully customize the UI by using the [`tooltipClass`](https://introjs.com/docs/intro/options) option. A css class is a way to provide the exact CSS styling that you want to use for the tutorial window.
 
-So we're going to update the call to Bootstrap tour into `lib/tutorial.js` to include a more Sugarizer friendly UI:
+So we're going to update the call to introJs tour into `lib/tutorial.js` to include a more Sugarizer friendly UI:
 ```js
-var tour = new Tour({
-	template: "\
-	<div class='popover tour'>\
-		<div class='arrow'></div>\
-		<h3 class='popover-title tutorial-title'></h3>\
-		<div class='popover-content'></div>\
-		<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-			<div class='tutorial-prev-icon icon-button' data-role='prev'>\
-				<div class='tutorial-prev-icon1 web-activity'>\
-					<div class='tutorial-prev-icon2 web-activity-icon'></div>\
-					<div class='tutorial-prev-icon3 web-activity-disable'></div>\
-				</div>\
-				<div class='icon-tutorial-text'>Prev</div>\
-			</div>\
-			<span data-role='separator' style='margin: 4px'>|</span>\
-			<div class='tutorial-next-icon icon-button' data-role='next'>\
-				<div class='tutorial-next-icon1 web-activity'>\
-					<div class='tutorial-next-icon2 web-activity-icon'></div>\
-					<div class='tutorial-next-icon3 web-activity-disable'></div>\
-				</div>\
-				<div class='icon-tutorial-text'>Next</div>\
-			</div>\
-			<div class='tutorial-end-icon icon-button' data-role='end'>\
-				<div class='tutorial-end-icon1 web-activity'>\
-					<div class='tutorial-end-icon2 web-activity-icon'></div>\
-					<div class='tutorial-end-icon3 web-activity-disable'></div>\
-				</div>\
-				<div class='icon-tutorial-text'>End</div>\
-			</div>\
-		</div>\
-	</div>",
-	storage: false,
-	backdrop: true,
-	steps: steps
-});
+introJs().setOptions({
+	tooltipClass: 'customTooltip',
+	steps: steps,
+	prevLabel: "Prev",
+	nextLabel: "Next",
+	exitOnOverlayClick: false,
+	nextToDone: false,
+	showBullets: false
+}).start();
 ```
-We need also to define CSS class used in the template. To do that, add the following lines to the `css/activity.css` file:
+We need also to define custom CSS class `customTooltip` used here. To do that, add the following lines to the `css/activity.css` file:
+
 ```css
-.tutorial-title {
-	background-color: #808080 !important;
-	color: #ffffff !important;
+/* UI styling for introJs-tutorial */
+
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: .8 !important;
 }
 
-.tutorial-prev-icon {
-	display: inline-flex;
-	width: 90px;
+.introjs-tooltip {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
 }
 
-.tutorial-prev-icon.icon-button {
-	color: white;
+.introjs-helperLayer{
+  background: inherit !important;
+  opacity: 0.6 !important;
 }
 
-.tutorial-prev-icon.icon-button.disabled {
-	color: black;
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color : #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
 }
 
-.tutorial-prev-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
 }
 
-.tutorial-prev-icon2 {
-	background-image: url(../icons/go-left.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
 }
 
-.tutorial-prev-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.tutorial-next-icon {
-	display: inline-flex;
-	width: 90px;
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
-.tutorial-next-icon.icon-button {
-	color: white;
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
 }
 
-.tutorial-next-icon.icon-button.disabled {
-	color: black;
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
 }
 
-.tutorial-next-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
 }
 
-.tutorial-next-icon2 {
-	background-image: url(../icons/go-right.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
 }
 
-.tutorial-next-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
 }
 
-.tutorial-end-icon {
-	display: inline-flex;
-	width: 90px;
-}
-
-.tutorial-end-icon.icon-button {
-	color: white;
-}
-
-.tutorial-end-icon.icon-button.disabled {
-	color: black;
-}
-
-.tutorial-end-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
-}
-
-.tutorial-end-icon2 {
-	background-image: url(../icons/dialog-cancel.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-}
-
-.tutorial-end-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
-}
-
-.icon-tutorial-text {
-	margin-top: 7px;
-	padding-left: 4px;
-	padding-right: 38px;
-	display: inline-block;
-}
-
-.web-activity-icon {
-	background-repeat: no-repeat;
-	background-position: center;
-	padding: 2px;
-}
-
-.icon-button {
-	border-radius: 22px;
-	margin-top: 5px;
-	height: 35px;
-	background-color: #808080;
-	border: 2px solid #808080;
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
 }
 ```
 Finally we need to integrate icons used by Sugarizer buttons. So download icons `go-left.svg` [here](../../images/go-left.svg), `go-right.svg` [here](../../images/go-right.svg), `dialog-cancel.svg` [here](../../images/dialog-cancel.svg) and copy them in the `icons` directory.
@@ -350,7 +310,6 @@ So let's first prepare text to localize. We need to translate title and content 
 ```
 TutoPrev=Prev
 TutoNext=Next
-TutoEnd=End
 TutoExplainTitle=Pawn Activity
 TutoExplainContent=Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.
 TutoAddTitle=Add pawn
@@ -368,62 +327,33 @@ We're now able to reference our new resource strings by using call to `l10n.get(
 ```js
 var steps = [
 	{
-		element: "",
-		orphan: true,
-		placement: "bottom",
 		title: l10n.get("TutoExplainTitle"),
-		content: l10n.get("TutoExplainContent")
+		intro: l10n.get("TutoExplainContent")
 	},
 	{
 		element: "#add-button",
-		placement: "bottom",
+		position: "bottom",
 		title: l10n.get("TutoAddTitle"),
-		content: l10n.get("TutoAddContent")
+		intro: l10n.get("TutoAddContent")
 	},
 	{
 		element: "#picture-button",
 		title: l10n.get("TutoBackgroundTitle"),
-		content: l10n.get("TutoBackgroundContent")
+		intro: l10n.get("TutoBackgroundContent")
 	}
 ];
 ```
-Then into the template to change the text for buttons:
+Then into the `setoptions()` method to change the text for label of buttons:
 ```js
-var tour = new Tour({
-	template: "\
-	<div class='popover tour'>\
-		<div class='arrow'></div>\
-		<h3 class='popover-title tutorial-title'></h3>\
-		<div class='popover-content'></div>\
-		<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-			<div class='tutorial-prev-icon icon-button' data-role='prev'>\
-				<div class='tutorial-prev-icon1 web-activity'>\
-					<div class='tutorial-prev-icon2 web-activity-icon'></div>\
-					<div class='tutorial-prev-icon3 web-activity-disable'></div>\
-				</div>\
-				<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
-			</div>\
-			<span data-role='separator' style='margin: 4px'>|</span>\
-			<div class='tutorial-next-icon icon-button' data-role='next'>\
-				<div class='tutorial-next-icon1 web-activity'>\
-					<div class='tutorial-next-icon2 web-activity-icon'></div>\
-					<div class='tutorial-next-icon3 web-activity-disable'></div>\
-				</div>\
-				<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
-			</div>\
-			<div class='tutorial-end-icon icon-button' data-role='end'>\
-				<div class='tutorial-end-icon1 web-activity'>\
-					<div class='tutorial-end-icon2 web-activity-icon'></div>\
-					<div class='tutorial-end-icon3 web-activity-disable'></div>\
-				</div>\
-				<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
-			</div>\
-		</div>\
-	</div>",
-	storage: false,
-	backdrop: true,
-	steps: steps
-});
+introJs().setOptions({
+	tooltipClass:  'customTooltip',
+	steps:  steps,
+	prevLabel:  l10n.get("TutoPrev"),
+	nextLabel:  l10n.get("TutoNext"),
+	exitOnOverlayClick:  false,
+	nextToDone:  false,
+	showBullets:  false
+}).start();
 ```
 It's done.
 

@@ -665,7 +665,7 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 fullCardDiv.resultDiv = div;
 
                 var clickEvent = "click";
-                if ("ontouchstart" in document.documentElement) {
+                if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
                     clickEvent = "touchend";
                 }
                 fullCardDiv.addEventListener(clickEvent, onCardClick, false);

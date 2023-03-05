@@ -36,7 +36,7 @@ define(['sugar-web/graphics/journalchooser','sugar-web/datastore'], function(cho
                     var x;
                     var y;
                     var imageWoRectangle;
-                    var touchScreen = ("ontouchstart" in document.documentElement);
+                    var touchScreen = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);
 
                     ctx.putImageData(imagedata, 0, 0);
                     x = 65;

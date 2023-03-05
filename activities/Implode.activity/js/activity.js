@@ -302,13 +302,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
                     square.marked = false; //used for Game Over
                     square.prev_color = backgorund_color;
                     square.addEventListener('mouseover', function(e){
-                        if(anim_over == true && ("ontouchstart" in document.documentElement) == false){
+                        if(anim_over == true && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) == false){
                             highlight_mouseover(e.target);
                             stage.update();
                         }
                     });
                     square.addEventListener('click', function(e){
-                        if(anim_over == true && ("ontouchstart" in document.documentElement) == true){
+                        if(anim_over == true && ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) == true){
                             HandleTap(e);
                         }
                     });

@@ -139,7 +139,17 @@ enyo.kind({
 		var datastoreObject = this.activity.getDatastoreObject();
 		var jsonData = JSON.stringify(preferences.getState());
 		datastoreObject.setDataAsText(jsonData);
-		datastoreObject.save(function() {});
+		datastoreObject.getMetadata(function(error, metadata) {
+			var completed = 0;
+			for (var i = 0 ; i < preferences.levels.length ; i++) {
+				if (preferences.levels[i].completed) {
+					completed++;
+				}
+			}
+			metadata["score"] = completed+"/"+preferences.levels.length;
+			datastoreObject.setMetadata(metadata);
+			datastoreObject.save(function() {});
+		})
 	}
 
 });

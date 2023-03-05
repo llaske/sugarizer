@@ -38,7 +38,7 @@ To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here]
 The Sugarizer desktop application has four possible arguments:
 
 * `--window` to open Sugarizer in a window (instead of fullscreen)
-* `--debug` to open Sugarizer with the debug console
+* `--sdebug` to open Sugarizer with the debug console
 * `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
 

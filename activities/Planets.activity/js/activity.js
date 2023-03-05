@@ -335,7 +335,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				}
 
 				document.getElementById("Name").innerHTML = '<p>' + l10n.get("PlanetName") + '</br>' + l10n.get(name) + '</p>';
-				document.getElementById("Type").innerHTML = '<p>' + l10n.get("PlanetType") + '</br>' + type + '</p>';
+				document.getElementById("Type").innerHTML = '<p>' + l10n.get("PlanetType") + '</br>' + l10n.get(type.replace(/\s+/g, '')) + '</p>';
 				document.getElementById("Year").innerHTML = '<p>' + l10n.get("YearLength") + '</br>' + l10n.get("EarthDays", {year:year}) + '</p>';
 				document.getElementById("Mass").innerHTML = '<p>' + l10n.get("Mass") + '</br>' + mass + '</p>';
 				document.getElementById("Temperature").innerHTML = '<p>' + l10n.get("SurfaceTemperature") + '</br>' + temperature + '</p>';

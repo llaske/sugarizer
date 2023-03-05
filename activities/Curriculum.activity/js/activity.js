@@ -1033,7 +1033,17 @@ var app = new Vue({
 					currentView: this.currentView
 				};
 			}
-			this.$refs.SugarJournal.saveData(context);
+			var count = 0, acquired = 0;
+			for (var catId in this.user.skills) {
+				for (var skillId in this.user.skills[catId]) {
+					count++;
+					let textVariable = this.levels[this.notationLevel][this.user.skills[catId][skillId].acquired].textVariable;
+					if (textVariable == "LevelAcquired" || textVariable == "LevelExceeded") {
+						acquired++;
+					}
+				}
+			}
+			this.$refs.SugarJournal.saveData(context, {score: acquired+"/"+count});
 		},
 
 		onStop: function () {

@@ -31,6 +31,7 @@ let app = new Vue({
 		traction: 0.1,
 		paused: true,
 		onSlope: true,
+		SugarL10n: null,
 
 		frameInterval: 20,
 		launchDelay: 1000,
@@ -44,6 +45,8 @@ let app = new Vue({
 		userFractions: [],
 		successSound: null,
 		failSound: null,
+		score: 0,
+		count: 0,
 		l10n: {
 			stringFractionBounceActivity: '',
 			stringTemplate: '',
@@ -123,6 +126,8 @@ let app = new Vue({
 		if(this.$refs.SugarDevice.isMobile()) {
 			this.$refs.SugarDevice.watchAcceleration(2*this.frameInterval);
 		}
+
+		this.SugarL10n = this.$refs.SugarL10n;
 	},
 
 	methods: {
@@ -225,6 +230,11 @@ let app = new Vue({
 			this.paused = !this.paused;
 			if (!this.paused) {
 				this.launch();
+				if(this.count==30){
+					this.score = 0;
+					this.count = 0;
+			        Score.innerHTML = " ";	
+				}
 			}
 			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
 		},
@@ -295,10 +305,15 @@ let app = new Vue({
 				slopeCanvas.removeEventListener("mousedown", this.onTouchStart);
 				this.onTouchEnd();
 				let result = this.$refs.slopecanvas.checkAnswer();
+				this.count++;
 				if (result == this.answer) {
 					this.successSound.play();
+					this.score++;
 				} else {
 					this.failSound.play();
+				}
+				if (this.count==30) {
+					Score.innerHTML = this.SugarL10n.get("Score")+" "+ Math.round(this.score / 3) + "/10";
 				}
 				this.onSlope = true;
 				if (this.vy < 0.5) {
@@ -619,85 +634,82 @@ let app = new Vue({
 		onHelp: function (type) {
 			var steps = [
 				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
 					title: this.l10n.stringTutoTitle,
-					content: this.l10n.stringTutoContent
+					intro: this.l10n.stringTutoContent
 				},
 				{
 					element: "#mainCanvas",
-					placement: "top",
+					position: "top",
 					backdrop: false,
 					title: this.l10n.stringTutoBallTitle,
-					content: this.l10n.stringTutoBallContent
+					intro: this.l10n.stringTutoBallContent
 				},
 				{
 					element: "#mainCanvas",
-					placement: "top",
+					position: "top",
 					title: this.l10n.stringTutoBallControlsTitle,
-					content: this.l10n.stringTutoBallControlsContent
+					intro: this.l10n.stringTutoBallControlsContent
 				},
 				{
 					element: "#slopeCanvas",
-					placement: "top",
+					position: "top",
 					backdrop: false,
 					title: this.l10n.stringTutoSlopeTitle,
-					content: this.l10n.stringTutoSlopeContent
+					intro: this.l10n.stringTutoSlopeContent
 				},
 				{
 					element: ".log",
-					placement: "right",
+					position: "right",
 					title: this.l10n.stringTutoLogTitle,
-					content: this.l10n.stringTutoLogContent
+					intro: this.l10n.stringTutoLogContent
 				},
 				{
 					element: "#play-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPlayTitle,
-					content: this.l10n.stringTutoPlayContent
+					intro: this.l10n.stringTutoPlayContent
 				},
 				{
 					element: "#pause-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPlayTitle,
-					content: this.l10n.stringTutoPlayContent
+					intro: this.l10n.stringTutoPlayContent
 				},
 				{
 					element: "#settings-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoSettingsTitle,
-					content: this.l10n.stringTutoSettingsContent
+					intro: this.l10n.stringTutoSettingsContent
 				},
 				{
 					element: "#ball-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoBallSelectTitle,
-					content: this.l10n.stringTutoBallSelectContent
+					intro: this.l10n.stringTutoBallSelectContent
 				},
 				{
 					element: "#bg-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoBgSelectTitle,
-					content: this.l10n.stringTutoBgSelectContent
+					intro: this.l10n.stringTutoBgSelectContent
 				},
 				{
 					element: "#fractions-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoFractionsModeTitle,
-					content: this.l10n.stringTutoFractionsModeContent
+					intro: this.l10n.stringTutoFractionsModeContent
 				},
 				{
 					element: "#sectors-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoSectorsModeTitle,
-					content: this.l10n.stringTutoSectorsModeContent
+					intro: this.l10n.stringTutoSectorsModeContent
 				},
 				{
 					element: "#percents-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPercentsModeTitle,
-					content: this.l10n.stringTutoPercentsModeContent
+					intro: this.l10n.stringTutoPercentsModeContent
 				}
 			];
 			this.$refs.SugarTutorial.show(steps);

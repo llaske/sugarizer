@@ -389,7 +389,8 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		}
 		var loadGraph = function() {
 			var datastoreObject = activity.getDatastoreObject();
-			datastoreObject.loadAsText(function (error, metadata, data) {
+			datastoreObject.loadAsText(function (error, metadata, dataStr) {
+				var data = JSON.parse(dataStr);
 				if (Array.isArray(data)) {
 					var newObj = {
 						background_image: '',
@@ -443,7 +444,7 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var saveGraph = function(callback) {
 			var datastoreObject = activity.getDatastoreObject();
 			var commands = getGraph();
-			datastoreObject.setDataAsText(commands);
+			datastoreObject.setDataAsText(JSON.stringify(commands));
 			datastoreObject.save(callback);
 		}
 

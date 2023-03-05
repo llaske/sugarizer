@@ -77,7 +77,7 @@ function runactivity(act,doc,colors,env,datastore,fraction,abacuspalette,customp
 			g.resize();
 			} else {
 				canvas.width = window.innerWidth;
-				canvas.height = window.innerHeight;
+				canvas.height = window.innerHeight-55;
 				g.resize();
 			}
 		}

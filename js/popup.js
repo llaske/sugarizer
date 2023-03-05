@@ -159,7 +159,7 @@ enyo.kind({
 		{name: "itemList", classes: "item-list", kind: "Repeater", onSetupItem: "setupItem", components: [
 			{name: "item", classes: "item-list-item", ontap: "runItemAction", components: [
 				{name: "icon", kind: "Sugar.Icon", x: 5, y: 4, size: constant.iconSizeFavorite},
-				{name: "name", classes: "item-name"}
+				{name: "name", classes: "item-name", allowHtml: true}
 			]}
 		]}
 	],

@@ -72,6 +72,7 @@ define(["sugar-web/activity/activity", "tutorial"], function (activity, tutorial
 					// Stop sound at end of game to sanitize media environment, specifically on Android
 					document.getElementById("stop-button").addEventListener('click', function (event) {
 						sound.pause();
+						app.save();
 					});
 				} else {
 					// Just change locale

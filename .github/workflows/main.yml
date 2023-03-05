@@ -20,4 +20,6 @@ jobs:
           port: ${{ secrets.PORT }} 
           script: | 
             cd sugarizer-dev/sugarizer 
+
             git pull
+

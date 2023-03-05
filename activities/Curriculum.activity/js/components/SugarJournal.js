@@ -29,16 +29,27 @@ Vue.component('sugar-journal', {
 		});
 	},
 	methods: {
-		saveData: function (context) {
+		saveData: function (context, newMetadata) {
 			var compressedData = this.LZString.compressToUTF16(JSON.stringify(context));
-			this.activity.getDatastoreObject().setDataAsText(compressedData);
-			this.activity.getDatastoreObject().save(function (error) {
-				if (error === null) {
-					console.log("write done.");
-				} else {
-					console.log("write failed.");
+			var datastoreObject = this.activity.getDatastoreObject();
+			datastoreObject.setDataAsText(compressedData);
+			datastoreObject.getMetadata(function(error, metadata) {
+				if (newMetadata) {
+					for (var prop in newMetadata) {
+						if (Object.prototype.hasOwnProperty.call(newMetadata, prop)) {
+							metadata[prop]=newMetadata[prop];
+						}
+					}
+					datastoreObject.setMetadata(metadata);
 				}
-			});
+				datastoreObject.save(function (error) {
+					if (error === null) {
+						console.log("write done.");
+					} else {
+						console.log("write failed.");
+					}
+				});
+			})
 		},
 
 		insertFromJournal: function (type) {

@@ -597,111 +597,105 @@ var app = new Vue({
 			if (vm.currentView == viewGrid) {
 				steps = steps.concat([
 					{
-						element: "",
-						orphan: true,
-						placement: "bottom",
 						title: vm.l10n.stringTutoGridWelcomeTitle,
-						content: vm.l10n.stringTutoGridWelcomeContent
+						intro: vm.l10n.stringTutoGridWelcomeContent
 					},
 					{
 						element: "#grid",
-						placement: "top",
+						position: "top",
 						title: vm.l10n.stringTutoGridBoardTitle,
-						content: vm.l10n.stringTutoGridBoardContent
+						intro: vm.l10n.stringTutoGridBoardContent
 					},
 					{
 						element: "#list-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoGridTemplateButtonTitle,
-						content: vm.l10n.stringTutoGridTemplateButtonContent
+						intro: vm.l10n.stringTutoGridTemplateButtonContent
 					},
 					{
 						element: "#playpause-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoGridPlayButtonTitle,
-						content: vm.l10n.stringTutoGridPlayButtonContent
+						intro: vm.l10n.stringTutoGridPlayButtonContent
 					},
 					{
 						element: "#settings-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoGridSettingsButtonTitle,
-						content: vm.l10n.stringTutoGridSettingsButtonContent
+						intro: vm.l10n.stringTutoGridSettingsButtonContent
 					},
 					{
 						element: "#speed-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoGridSpeedButtonTitle,
-						content: vm.l10n.stringTutoGridSpeedButtonContent
+						intro: vm.l10n.stringTutoGridSpeedButtonContent
 					},
 					{
 						element: "#text-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoGridTextButtonTitle,
-						content: vm.l10n.stringTutoGridTextButtonContent
+						intro: vm.l10n.stringTutoGridTextButtonContent
 					},
 					{
 						element: "#zoom-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoGridZoomButtonTitle,
-						content: vm.l10n.stringTutoGridZoomButtonContent
+						intro: vm.l10n.stringTutoGridZoomButtonContent
 					},
 					{
 						element: "#network-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoGridNetworkButtonTitle,
-						content: vm.l10n.stringTutoGridNetworkButtonContent
+						intro: vm.l10n.stringTutoGridNetworkButtonContent
 					}
 				]);
 			} else {
 				steps = steps.concat([
 					{
-						element: "",
-						orphan: true,
-						placement: "bottom",
 						title: vm.l10n.stringTutoDetailWelcomeTitle,
-						content: vm.l10n.stringTutoDetailWelcomeContent
+						intro: vm.l10n.stringTutoDetailWelcomeContent
 					},
 					{
 						element: "#drop-icons-zone",
-						placement: "right",
+						position: "right",
 						title: vm.l10n.stringTutoDetailDropIconTitle,
-						content: vm.l10n.stringTutoDetailDropIconContent
+						intro: vm.l10n.stringTutoDetailDropIconContent
 					},
 					{
 						element: "#drag-icons-zone",
-						placement: "top",
+						position: "top",
 						title: vm.l10n.stringTutoDetailDragIconTitle,
-						content: vm.l10n.stringTutoDetailDragIconContent
+						intro: vm.l10n.stringTutoDetailDragIconContent
 					},
 					{
 						element: "#delete-icons-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoDetailDeleteIconTitle,
-						content: vm.l10n.stringTutoDetailDeleteIconContent
+						intro: vm.l10n.stringTutoDetailDeleteIconContent
 					},
 					{
 						element: "#drop-colors-zone",
-						placement: "left",
+						position: "left",
 						title: vm.l10n.stringTutoDetailDropColorTitle,
-						content: vm.l10n.stringTutoDetailDropColorContent
+						intro: vm.l10n.stringTutoDetailDropColorContent
 					},
 					{
 						element: "#drag-colors-zone",
-						placement: "top",
+						position: "top",
 						title: vm.l10n.stringTutoDetailDragColorTitle,
-						content: vm.l10n.stringTutoDetailDragColorContent
+						intro: vm.l10n.stringTutoDetailDragColorContent
 					},
 					{
 						element: "#delete-colors-button",
-						placement: "left",
+						position: "left",
 						title: vm.l10n.stringTutoDetailDeleteColorTitle,
-						content: vm.l10n.stringTutoDetailDeleteColorContent
+						intro: vm.l10n.stringTutoDetailDeleteColorContent
 					},
 					{
 						element: "#settings-button",
-						placement: "bottom",
+						position: "bottom",
 						title: vm.l10n.stringTutoDetailGridButtonTitle,
-						content: vm.l10n.stringTutoDetailGridButtonContent
+						intro: vm.l10n.stringTutoDetailGridButtonContent
 					}
 				]);
 			}

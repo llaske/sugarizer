@@ -78,7 +78,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 			computeSize();
 		};
 		document.getElementById("unfullscreen-button").addEventListener('click', unfullscreen);
-		if ("ontouchstart" in document.documentElement) {
+		if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0) {
 			document.getElementById("unfullscreen-button").addEventListener("touchstart", unfullscreen, false);
 		}
 	});

@@ -82,8 +82,8 @@ a {
 }
 /* Canvas */
 #canvas {
-  position: absolute;
-  top: 55px;
+  position: fixed;
+  top: 90px;
   bottom: 0;
   width: 100%;
   overflow-y: auto;
