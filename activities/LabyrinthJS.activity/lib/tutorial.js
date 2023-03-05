@@ -156,7 +156,6 @@ define(["webL10n", "activity/activity"], function () {
 	// Start tutorial
 	tutorial.start = function() {
 		tutorial.init();
-		tour.start(true);
 	};
 
 	return tutorial;
