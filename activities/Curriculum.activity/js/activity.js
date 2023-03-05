@@ -822,49 +822,49 @@ var app = new Vue({
 			if(this.rewardsActive) {
 				steps = steps.concat([
 					{
-						element: ".trophy-card#0",
-						placement: "bottom",
+						element: '.trophy-card[id="0"]',
+						position: "bottom",
 						title: this.l10n.stringTutoTrophyCardTitle,
-						content: this.l10n.stringTutoTrophyCardContent
+						intro: this.l10n.stringTutoTrophyCardContent
 					},
 				]);
 			} else if(this.settings) {
 				steps = steps.concat([
 					{
-						element: ".category-card#0",
-						placement: "right",
+						element: '.category-card[id="0"]',
+						position: "right",
 						title: this.l10n.stringTutoSettingsCategoryCardTitle,
-						content: this.l10n.stringTutoSettingsCategoryCardContent
+						intro: this.l10n.stringTutoSettingsCategoryCardContent
 					},
 					{
-						element: ".skill-card#0",
-						placement: "right",
+						element: '.skill-card[id="0"]',
+						position: "right",
 						title: this.l10n.stringTutoSettingsSkillCardTitle,
-						content: this.l10n.stringTutoSettingsSkillCardContent
+						intro: this.l10n.stringTutoSettingsSkillCardContent
 					},
 					{
 						element: "#edit-button",
-						placement: "right",
+						position: "right",
 						title: this.l10n.stringTutoSettingsEditButtonTitle,
-						content: this.l10n.stringTutoSettingsEditButtonContent
+						intro: this.l10n.stringTutoSettingsEditButtonContent
 					},
 					{
 						element: "#delete-button",
-						placement: "right",
+						position: "right",
 						title: this.l10n.stringTutoSettingsDeleteButtonTitle,
-						content: this.l10n.stringTutoSettingsDeleteButtonContent
+						intro: this.l10n.stringTutoSettingsDeleteButtonContent
 					},
 					{
 						element: "#notation-button",
-						placement: "bottom",
+						position: "bottom",
 						title: this.l10n.stringTutoSettingsNotationButtonTitle,
-						content: this.l10n.stringTutoSettingsNotationButtonContent
+						intro: this.l10n.stringTutoSettingsNotationButtonContent
 					},
 					{
 						element: "#add-button",
-						placement: "bottom",
+						position: "bottom",
 						title: this.l10n.stringTutoSettingsAddButtonTitle,
-						content: this.l10n.stringTutoSettingsAddButtonContent
+						intro: this.l10n.stringTutoSettingsAddButtonContent
 					},
 				]);
 			} else {
@@ -872,111 +872,105 @@ var app = new Vue({
 					case 'template-selection':
 						steps = steps.concat([
 							{
-								element: "",
-								orphan: true,
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoExplainTitle,
-								content: this.l10n.stringTutoExplainContent
+								intro: this.l10n.stringTutoExplainContent
 							},
 							{
-								element: "",
-								orphan: true,
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoTemplateSelectionTitle,
-								content: this.l10n.stringTutoTemplateSelectionContent
+								intro: this.l10n.stringTutoTemplateSelectionContent
 							},
 							{
-								element: ".template#0",
-								placement: "bottom",
+								element: '.template[id="0"]',
+								position: "bottom",
 								title: this.l10n.stringTutoTemplateTitle,
-								content: this.l10n.stringTutoTemplateContent
+								intro: this.l10n.stringTutoTemplateContent
 							},
 							{
 								element: ".add-template",
-								placement: "left",
+								position: "left",
 								title: this.l10n.stringTutoAddTemplateTitle,
-								content: this.l10n.stringTutoAddTemplateContent
+								intro: this.l10n.stringTutoAddTemplateContent
 							}
 						]);
 						break;
 					case 'categories-grid':
 						steps = steps.concat([
 							{
-								element: "",
-								orphan: true,
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoExplainTitle,
-								content: this.l10n.stringTutoExplainContent
+								intro: this.l10n.stringTutoExplainContent
 							},
 							{
-								element: ".category-card#0",
-								placement: "right",
+								element: '.category-card[id="0"]',
+								position: "right",
 								title: this.l10n.stringTutoCategoryCardTitle,
-								content: this.l10n.stringTutoCategoryCardContent
+								intro: this.l10n.stringTutoCategoryCardContent
 							},
 							{
-								element: ".category-card#0 .category-skills",
-								placement: "bottom",
+								element: '.category-card[id="0"] .category-skills',
+								position: "bottom",
 								title: this.l10n.stringTutoCategorySkillsTitle,
-								content: this.l10n.stringTutoCategorySkillsContent
+								intro: this.l10n.stringTutoCategorySkillsContent
 							},
 							{
-								element: ".category-card#0 .progress",
-								placement: "bottom",
+								element: '.category-card[id="0"] .progress',
+								position: "bottom",
 								title: this.l10n.stringTutoCategoryProgressTitle,
-								content: this.l10n.stringTutoCategoryProgressContent
+								intro: this.l10n.stringTutoCategoryProgressContent
 							},
 							{
 								element: ".search-input",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoCategorySearchTitle,
-								content: this.l10n.stringTutoCategorySearchContent
+								intro: this.l10n.stringTutoCategorySearchContent
 							},
 							{
 								element: "#rewards-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoRewardsButtonTitle,
-								content: this.l10n.stringTutoRewardsButtonContent
+								intro: this.l10n.stringTutoRewardsButtonContent
 							},
 							{
 								element: "#settings-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoSettingsButtonTitle,
-								content: this.l10n.stringTutoSettingsButtonContent
+								intro: this.l10n.stringTutoSettingsButtonContent
 							},
 							{
 								element: "#export-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoExportButtonTitle,
-								content: this.l10n.stringTutoExportButtonContent
+								intro: this.l10n.stringTutoExportButtonContent
 							},
 							{
 								element: "#network-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoNetworkButtonTitle,
-								content: this.l10n.stringTutoNetworkButtonContent
+								intro: this.l10n.stringTutoNetworkButtonContent
 							},
 						]);
 						break;
 					case 'skills-grid':
 						steps = steps.concat([
 							{
-								element: ".skill-card#0",
-								placement: "right",
+								element: '.skill-card[id="0"]',
+								position: "right",
 								title: this.l10n.stringTutoSkillCardTitle,
-								content: this.l10n.stringTutoSkillCardContent
+								intro: this.l10n.stringTutoSkillCardContent
 							},
 							{
 								element: "#home-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoHomeButtonTitle,
-								content: this.l10n.stringTutoHomeButtonContent
+								intro: this.l10n.stringTutoHomeButtonContent
 							},
 							{
 								element: ".search-input",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoSkillSearchTitle,
-								content: this.l10n.stringTutoSkillSearchContent
+								intro: this.l10n.stringTutoSkillSearchContent
 							},
 						]);
 						break;
@@ -984,27 +978,27 @@ var app = new Vue({
 						steps = steps.concat([
 							{
 								element: ".skill-uploads",
-								placement: "top",
+								position: "top",
 								title: this.l10n.stringTutoSkillUploadsTitle,
-								content: this.l10n.stringTutoSkillUploadsContent
+								intro: this.l10n.stringTutoSkillUploadsContent
 							},
 							{
 								element: "#acquire-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoAcquireButtonTitle,
-								content: this.l10n.stringTutoAcquireButtonContent
+								intro: this.l10n.stringTutoAcquireButtonContent
 							},
 							{
 								element: "#upload-button",
-								placement: "bottom",
+								position: "bottom",
 								title: this.l10n.stringTutoUploadButtonTitle,
-								content: this.l10n.stringTutoUploadButtonContent
+								intro: this.l10n.stringTutoUploadButtonContent
 							},
 							{
-								element: "#0 .uploaded-item",
-								placement: "top",
+								element: '[id="0"] .uploaded-item',
+								position: "top",
 								title: this.l10n.stringTutoUploadedItemTitle,
-								content: this.l10n.stringTutoUploadedItemContent
+								intro: this.l10n.stringTutoUploadedItemContent
 							},
 						]);
 						break;
