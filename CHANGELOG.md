@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Dollar Street Activity sliders can overlap #1212
 - Blockrain Activity : rotate button unaligned #1232
 - Get Things Done Activity : plus button unaligned #1245
+- QR code Activity: buttons are unaligned #1253
 
 
 ## [1.6.0] - 2022-01-04
