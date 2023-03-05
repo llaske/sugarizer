@@ -24,9 +24,9 @@ Sugarizer on Android is also available as a launcher to replace the current laun
 
 You could also build yourself the Sugarizer Application APK using instruction below.
 
-![](images/googleplay.png)
-![](images/amazonstore.png)
-![](images/fdroid.png)
+<a href="https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer">![](images/googleplay.png)</a>
+<a href="http://www.amazon.com/gp/product/B00NKK7PZA">![](images/amazonstore.png)</a>
+<a href="https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer">![](images/fdroid.png)</a>
 
 
 
