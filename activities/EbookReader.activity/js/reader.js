@@ -11,6 +11,16 @@ var EbookReader = {
 			rendition: null
 		};
 	},
+	mounted: function() {
+		var vm = this;
+		document.addEventListener("keydown", function(event) {
+		  if (event.keyCode == 37) {
+			vm.previousPage();
+		  } else if (event.keyCode == 39) {
+			vm.nextPage();
+		  }
+		});
+	  },
 	methods: {
 		computeScreenSize: function() {
 			var canvas = document.getElementById("canvas") || document.getElementById("body");
