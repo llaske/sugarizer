@@ -178,7 +178,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 				return;
 			}
 			document.getElementById("main-toolbar").style.opacity = 0;
-			document.getElementById("input-box").style.opacity = 0;
+			// document.getElementById("input-box").style.opacity = 0;
 			document.getElementById("canvas").style.top = "0px";
 			document.getElementById("unfullscreen-button").style.visibility = "visible";
 			resizeHandler();
