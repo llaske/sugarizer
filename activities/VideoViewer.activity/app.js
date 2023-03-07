@@ -16,9 +16,9 @@ enyo.kind({
 			]}
 		]},
 		{name: "footer", classes: "viewer-footer toolbar", fit: false, components: [
-			{name: "previousbutton", kind: "Button", classes: "toolbutton previous-button pull-left", title:"Previous", ontap: "showPrevious", showing: false},
+			{name: "previousbutton", kind: "Button", classes: "toolbutton previous-button pull-left", title:"Previous", onkeydown: "handleKeydown"  ,ontap: "showPrevious", showing: false},
 			{name: "pagecount", content: "0/0", classes: "page-count"},
-			{name: "nextbutton", kind: "Button", classes: "toolbutton next-button pull-right", title:"Next", ontap: "showNext", showing: false}
+			{name: "nextbutton", kind: "Button", classes: "toolbutton next-button pull-right", title:"Next",onkeydown: "handleKeydown"   ,ontap: "showNext", showing: false}
 		]},
 		{name: "libraryDialog", kind: "VideoViewer.LibraryDialog", onHide: "librariesHidden"},
 		{name: "addLibraryDialog", kind: "VideoViewer.AddLibraryDialog"},
@@ -121,6 +121,7 @@ enyo.kind({
 		var lastPage = Math.ceil(len/constant.pageCount);
 		this.$.pagecount.setContent(currentPage+"/"+lastPage);
 		this.$.nextbutton.setShowing(currentPage < lastPage);
+		
 	},
 
 	putItemsJournalModeTo: function(tojournal) {
@@ -146,6 +147,14 @@ enyo.kind({
 		this.index += constant.pageCount;
 		this.saveContext();
 		this.draw();
+	},
+
+	handleKeydown: function(inSender, inEvent) {
+		if (inEvent.keyCode === 37) {
+			this.showPrevious();
+		}else if(inEvent.keyCode === 39){
+            this.showNext();
+		}
 	},
 
 	showVideo: function(item) {
