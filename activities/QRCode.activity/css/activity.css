@@ -171,6 +171,7 @@
 
 
 .search-field-border {
+	left: 42px;
 	position: absolute;
 	border-radius: 22px;
 	top: 2px;
@@ -355,6 +356,8 @@
 }
 
 #loading-spinner {
+	top: 51px;
+	left: 90px;
 	position: absolute;
 	margin-left: 30px;
 	margin-top: 10px;
