@@ -11,7 +11,7 @@ var EbookReader = {
 			rendition: null
 		};
 	},
-	mounted: function() {
+	created: function() {
 		var vm = this;
 		document.addEventListener("keydown", function(event) {
 		  if (event.keyCode == 37) {
@@ -76,7 +76,11 @@ var EbookReader = {
 		},
 
 		getLocation: function() {
-			return this.rendition.currentLocation().start.cfi;
+			var currentLocation = this.rendition.currentLocation();
+			if (currentLocation != null && currentLocation.start != null) {
+			  return currentLocation.start.cfi;
+			}
+			return null;
 		}
 	}
 };
