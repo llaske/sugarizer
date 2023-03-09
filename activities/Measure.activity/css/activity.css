@@ -8,6 +8,7 @@ body {
 	box-sizing: border-box;
 	height: 100vh;
 	background-color: white;
+	overflow: hidden;
 }
 
 p {
@@ -636,4 +637,17 @@ p {
 	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
 	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
 	border: 0px;
+}
+.introjs-tooltiptext{
+	padding: 5px 20px;
+}
+.introjs-right{
+    top: -100px;
+}
+.introjs-arrow.left{
+	top: 120px;
+}
+.introjs-tooltip{
+	min-width: 305px;
+	max-width: 350px;
 }

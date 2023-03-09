@@ -1681,7 +1681,7 @@ var app = new Vue({
 						}
 					},
 					element: "#amplitudeSettings",
-					position: "left",
+					position: "right",
 					title: this.l10n.stringTutoAmplitudeTitle,
 					intro: this.tutorialGifContent('amplitude_demo.gif', this.l10n.stringTutoAmplitudeContent)
 				},
@@ -1697,7 +1697,7 @@ var app = new Vue({
 						}
 					},
 					element: "#waveformInversionSettings",
-					position: "left",
+					position: "right",
 					title: this.l10n.stringTutoWaveformInversionTitle,
 					intro: this.tutorialGifContent('waveform_invert_demo.gif', this.l10n.stringTutoWaveformInversionContent)
 				},
@@ -1713,7 +1713,7 @@ var app = new Vue({
 						}
 					},
 					element: "#triggeringEdgeSettings",
-					position: "left",
+					position: "right",
 					title: this.l10n.stringTutoTriggeringEdgeTitle,
 					intro: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
 				},
