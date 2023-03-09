@@ -1,5 +1,6 @@
 body {
   height: 100vh;
+  cursor: default;
 }
 
 #main-toolbar #activity-button {
