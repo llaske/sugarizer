@@ -10,7 +10,9 @@
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);
 }
-
+body{
+  overflow: hidden;
+}
 #unfullscreen-button {
   background-image: url(../icons/view-return.svg);
   border: 0;
