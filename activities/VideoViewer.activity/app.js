@@ -120,10 +120,8 @@ enyo.kind({
 		this.$.previousbutton.setShowing(this.index-constant.pageCount >= 0);
 		var currentPage = (len?1:0)+Math.ceil(this.index/constant.pageCount);
 		this.currentPage=currentPage;
-		console.log(currentPage);
 		var lastPage = Math.ceil(len/constant.pageCount);
 		this.lastPage=lastPage;
-		console.log(lastPage);
 		this.$.pagecount.setContent(currentPage+"/"+lastPage);
 		this.$.nextbutton.setShowing(currentPage < lastPage);
 		
@@ -155,12 +153,24 @@ enyo.kind({
 	},
 
 	handleKeyDown: function(event) {
-		if(this.currentPage>=1 && this.currentPage<=this.lastPage){
+		if(this.currentPage>1 && this.currentPage<this.lastPage){
 				if (event.key === "ArrowLeft") {
 					this.showPrevious();
 				  } else if (event.key === "ArrowRight") {
 					this.showNext();
 				}
+		}
+		else if(this.currentPage ===1)
+		{
+			if (event.key === "ArrowRight") {
+				this.showNext();
+			  } 
+		}
+		else
+		{
+			if (event.key === "ArrowLeft") {
+				this.showPrevious();
+			  } 
 		}
 	},
 
