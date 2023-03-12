@@ -102,7 +102,9 @@ var app = new Vue({
 
 		saveContext: function() {
 			if (this.currentView === EbookReader) {
-				this.currentBook.location = this.$refs.view.getLocation();
+				if (this.$refs.view.getLocation()) {
+					this.currentBook.location = this.$refs.view.getLocation();
+				}
 			} else {
 				this.currentLibrary = this.$refs.view.library;
 			}
