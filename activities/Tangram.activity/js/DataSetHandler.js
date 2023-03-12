@@ -15,9 +15,7 @@ Vue.component('data-set-handler', {
   methods: {
     loadList() {
       return new Promise((resolve, reject) => {
-        requirejs(["text!../data/dataSet.json"], function(dataSet) {
-          resolve(dataSet);
-        });
+        resolve(JSON.stringify(initialDataSet));
       });
     },
 
