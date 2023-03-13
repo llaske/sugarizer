@@ -150,6 +150,7 @@ body {
   background-position: left;
   z-index: -1;
   height: 40px;
+  line-height: 40px;
 }
 
 .bB {
