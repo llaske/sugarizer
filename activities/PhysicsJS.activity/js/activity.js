@@ -144,7 +144,7 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], fun
 			});
 
 			document.getElementById("fullscreen-button").addEventListener('click', function() {
-				document.getElementById("main-toolbar").style.opacity = 0;
+				document.getElementById("main-toolbar").style.zIndex = -1;
 				document.getElementById("unfullscreen-button").style.visibility = "visible";
 				toolbarHeight = 0;
 				document.dispatchEvent(new Event('resize'));
@@ -152,7 +152,7 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env"], fun
 			});
 
 			document.getElementById("unfullscreen-button").addEventListener('click', function() {
-				document.getElementById("main-toolbar").style.opacity = 1;
+				document.getElementById("main-toolbar").style.zIndex = 2;
 				document.getElementById("unfullscreen-button").style.visibility = "hidden";
 				toolbarHeight = 55;
 				document.dispatchEvent(new Event('resize'));

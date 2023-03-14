@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Replace Bootstrap Tour by IntroJS in Sugarizer Core
-- Replace Bootstrap Tour by IntroJS in activities
+- Replace Bootstrap Tour by IntroJS in activities #1090
 - Add statistics feature in activities
 
 ### Fixed
@@ -51,6 +51,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Speak activity UI enhancement #1201
 - TamTam Micro : Piano Color keys doesn't work when pressed near Black keys #1206
 - Dollar Street Activity sliders can overlap #1212
+- Blockrain Activity : rotate button unaligned #1232
+- Get Things Done Activity : plus button unaligned #1245
+- QR code Activity: buttons are unaligned #1253
+- Markdown Activity: Mouse pointer UI issue on scrollbar #1255
+- Physics Js Activity : Navbar still active in fullscreen mode #1290
+- Abecedarium Activity: Unexpected behaviour with language change button #1321
+- VideoViewer Activity add key mapping #1274
+- Chess Activity Moves Alignment Fix #1329
 
 
 ## [1.6.0] - 2022-01-04

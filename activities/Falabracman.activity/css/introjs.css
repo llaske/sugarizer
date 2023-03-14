@@ -159,8 +159,8 @@ tr.introjs-showElement>th {
     position: absolute;
     visibility: visible;
     background-color: #fff;
-    min-width: 250px;
-    max-width: 300px;
+    min-width: 320px;
+    max-width: 350px;
     border-radius: 5px;
     -webkit-box-shadow: 0 3px 30px rgba(33, 33, 33, .3);
     box-shadow: 0 3px 30px rgba(33, 33, 33, .3);

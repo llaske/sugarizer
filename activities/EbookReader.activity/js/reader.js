@@ -45,6 +45,9 @@ var EbookReader = {
 			if (this.rendition != null) {
 				var vm = this;
 				var location = vm.getLocation();
+				if (location == null) {
+					return;
+				}
 				vm.rendition.next().then(function() {},
 					function() {vm.rendition.display(location)}
 				);
@@ -59,6 +62,9 @@ var EbookReader = {
 			if (this.rendition != null) {
 				var vm = this;
 				var location = vm.getLocation();
+				if (location == null) {
+					return;
+				}
 				vm.rendition.prev().then(function() {},
 					function() {vm.rendition.display(location)}
 				);
@@ -76,11 +82,7 @@ var EbookReader = {
 		},
 
 		getLocation: function() {
-			var currentLocation = this.rendition.currentLocation();
-			if (currentLocation != null && currentLocation.start != null) {
-			  return currentLocation.start.cfi;
-			}
-			return null;
+			return this.rendition.currentLocation().start.cfi;
 		}
 	}
 };

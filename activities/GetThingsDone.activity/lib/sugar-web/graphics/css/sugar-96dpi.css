@@ -207,9 +207,6 @@ input[type='text'].expand {
   background-repeat: no-repeat;
   border: 0;
 }
-.icon-input button {
-  top: 2px;
-}
 .toolbar .icon-input button:hover {
   background-color: transparent;
 }

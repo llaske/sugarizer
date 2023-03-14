@@ -16,9 +16,9 @@ enyo.kind({
 			]}
 		]},
 		{name: "footer", classes: "viewer-footer toolbar", fit: false, components: [
-			{name: "previousbutton", kind: "Button", classes: "toolbutton previous-button pull-left", title:"Previous", ontap: "showPrevious", showing: false},
+			{name: "previousbutton", kind: "Button", classes: "toolbutton previous-button pull-left", title:"Previous" ,ontap: "showPrevious", showing: false},
 			{name: "pagecount", content: "0/0", classes: "page-count"},
-			{name: "nextbutton", kind: "Button", classes: "toolbutton next-button pull-right", title:"Next", ontap: "showNext", showing: false}
+			{name: "nextbutton", kind: "Button", classes: "toolbutton next-button pull-right", title:"Next",ontap: "showNext", showing: false}
 		]},
 		{name: "libraryDialog", kind: "VideoViewer.LibraryDialog", onHide: "librariesHidden"},
 		{name: "addLibraryDialog", kind: "VideoViewer.AddLibraryDialog"},
@@ -41,6 +41,7 @@ enyo.kind({
 				that.datastore = datastore;
 			});
 		});
+		enyo.dispatcher.listen(document, "keydown", enyo.bind(this, "handleKeyDown"));
 	},
 
 	loadLibraries: function() {
@@ -118,9 +119,12 @@ enyo.kind({
 		// Display button
 		this.$.previousbutton.setShowing(this.index-constant.pageCount >= 0);
 		var currentPage = (len?1:0)+Math.ceil(this.index/constant.pageCount);
+		this.currentPage=currentPage;
 		var lastPage = Math.ceil(len/constant.pageCount);
+		this.lastPage=lastPage;
 		this.$.pagecount.setContent(currentPage+"/"+lastPage);
 		this.$.nextbutton.setShowing(currentPage < lastPage);
+		
 	},
 
 	putItemsJournalModeTo: function(tojournal) {
@@ -146,6 +150,28 @@ enyo.kind({
 		this.index += constant.pageCount;
 		this.saveContext();
 		this.draw();
+	},
+
+	handleKeyDown: function(event) {
+		if(this.currentPage>1 && this.currentPage<this.lastPage){
+				if (event.key === "ArrowLeft") {
+					this.showPrevious();
+				  } else if (event.key === "ArrowRight") {
+					this.showNext();
+				}
+		}
+		else if(this.currentPage ===1)
+		{
+			if (event.key === "ArrowRight") {
+				this.showNext();
+			  } 
+		}
+		else
+		{
+			if (event.key === "ArrowLeft") {
+				this.showPrevious();
+			  } 
+		}
 	},
 
 	showVideo: function(item) {
