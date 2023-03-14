@@ -308,8 +308,8 @@ enyo.kind({
 	showGameFinished: function(){
 		this.cleanBox();
 		Abcd.changeVisibility(this, {home: false, back: false, filter: false, check: false, itemCount: false});
-		Abcd.hideLang();
 		this.$.caseButton.hide();
+		this.$.languageButton.hide();
 		this.$.colorBar.removeClass("themeColor"+this.theme);
 		this.$.colorBar.addClass("themeColor-1");
 		var playMode = this;
@@ -321,7 +321,7 @@ enyo.kind({
 
 	hideGameFinished: function(){
 		this.$.gameFinished.hide();
-		Abcd.showLang();
+		this.$.languageButton.show();
 		this.$.caseButton.show();
 	},
 
