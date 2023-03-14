@@ -82,7 +82,11 @@ var EbookReader = {
 		},
 
 		getLocation: function() {
-			return this.rendition.currentLocation().start.cfi;
+			try {
+				return this.rendition.currentLocation().start.cfi;
+			} catch(e) {
+				return null;
+			}
 		}
 	}
 };
