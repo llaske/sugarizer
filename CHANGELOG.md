@@ -59,7 +59,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Abecedarium Activity: Unexpected behaviour with language change button #1321
 - VideoViewer Activity add key mapping #1274
 - Chess Activity Moves Alignment Fix #1329
-
+- Stopwatch activity: Activity dropdown UI issue #1297
 
 ## [1.6.0] - 2022-01-04
 ### Added
