@@ -21,6 +21,10 @@ var EbookReader = {
 		  }
 		});
 	  },
+	  beforeDestroy: function() {
+		// Remove the event listener
+		document.removeEventListener("keydown", this.handleKeyDown);
+	  },
 	methods: {
 		computeScreenSize: function() {
 			var canvas = document.getElementById("canvas") || document.getElementById("body");
