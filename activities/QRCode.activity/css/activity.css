@@ -356,8 +356,9 @@
 }
 
 #loading-spinner {
+	top: 10.5%;
 	position: absolute;
-	margin-left: 30px;
+	margin-left: 25px;
 	margin-top: 10px;
 	visibility: hidden;
 	z-index: 4;
