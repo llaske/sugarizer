@@ -21,7 +21,7 @@ var EbookReader = {
 		  }
 		});
 	  },
-	  beforeDestroy: function() {
+	beforeDestroy: function() {
 		// Remove the event listener
 		document.removeEventListener("keydown", this.handleKeyDown);
 	  },
