@@ -171,7 +171,6 @@
 
 
 .search-field-border {
-	left: 42px;
 	position: absolute;
 	border-radius: 22px;
 	top: 2px;
@@ -194,7 +193,7 @@
   }
   
   .search-field-input {
-	padding: 0px 10px;
+
 	opacity: 1;
 	margin-left: 30px;
 	border: 0px;
@@ -356,10 +355,9 @@
 }
 
 #loading-spinner {
-	top: 51px;
-	left: 90px;
+	top: 10.5%;
 	position: absolute;
-	margin-left: 30px;
+	margin-left: 25px;
 	margin-top: 10px;
 	visibility: hidden;
 	z-index: 4;
