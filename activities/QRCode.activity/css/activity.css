@@ -357,7 +357,7 @@
 
 #loading-spinner {
 	top: 10.5%;
-	position: absolute;
+	position: fixed;
 	margin-left: 25px;
 	margin-top: 10px;
 	visibility: hidden;
