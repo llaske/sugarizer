@@ -122,6 +122,7 @@ div.p-0{
 }
 
 .marks {
+  display: flex;
   font-size: 28px;
   overflow: auto;
   white-space: nowrap;
