@@ -123,6 +123,8 @@ div.p-0{
 
 .marks {
   font-size: 28px;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .counter {
