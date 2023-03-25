@@ -57,6 +57,9 @@
 	SugarizerOS& -->
 
 	<platform name="android">
+		<edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application/activity" mode="merge">
+			<activity android:exported="true"/>
+		</edit-config>  
 		<icon density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
 		<icon density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
 		<icon density="hdpi" src="res/icon/android/icon-72-hdpi.png" />
