@@ -327,6 +327,7 @@ body {
   font-family: system-ui;
   font-size: 11px;
   width: 245px;
+  
   color: black;
 }
 
@@ -334,6 +335,7 @@ body {
   font-family: system-ui;
   font-size: 11px;
   width: 255px;
+  resize: vertical;
   color: black;
 }
 
