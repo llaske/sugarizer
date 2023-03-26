@@ -214,7 +214,7 @@ Refer [this](docs/ios/ios_doc.md) documentation for building sugarizer for iOS.
 
 # Reduce package size
 
-The current size of Sugarizer is more than 350 Mb. This huge size is related to media content and resources include in three activities:
+The current size of Sugarizer is more than 400 Mb. This huge size is related to media content and resources include in three activities:
 
 * **Abecedarium activity**: about 150 Mb
 * **Etoys activity**: about 100 Mb
