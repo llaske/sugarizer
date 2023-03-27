@@ -147,4 +147,15 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 			loadpreference();
 		}
 	});
+
+	// Hot key "/" to focus search input
+	document.addEventListener('keyup', (event) => {
+		if (event.key === '/') {
+			const searchInput = document.getElementsByClassName('search-field-input');
+			const lastSearchInput = searchInput[searchInput.length - 1];
+			if (lastSearchInput) {
+				lastSearchInput.focus();
+			}
+		}
+	});
 });
