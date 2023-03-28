@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "grunt": "~1.6.0",
+    "terser": "~5.16.0",
     "grunt-terser": "~2.0.0"
   },
   "build": {

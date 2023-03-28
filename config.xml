@@ -28,8 +28,8 @@
 	<allow-navigation href="*" />
 
 	<preference name="android-minSdkVersion" value="22" />
-	<preference name="android-targetSdkVersion" value="30" />
-	<preference name="android-compileSdkVersion" value="30" />
+	<preference name="android-targetSdkVersion" value="31" />
+	<preference name="android-compileSdkVersion" value="31" />
 
 	<engine name="android" spec="9.0.0" />
 	<plugin name="cordova-plugin-inappbrowser" spec="5.0.0" />
@@ -57,6 +57,9 @@
 	SugarizerOS& -->
 
 	<platform name="android">
+		<edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application/activity" mode="merge">
+			<activity android:exported="true"/>
+		</edit-config>  
 		<icon density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
 		<icon density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
 		<icon density="hdpi" src="res/icon/android/icon-72-hdpi.png" />
