@@ -18,7 +18,7 @@ var Family = {
 			</div>
 			<div id="family-things" class="family-things">
 				<div class="flex-container">
-					<street-place ref="things" v-for="(place) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place)"></street-place>
+					<street-place ref="things" v-for="(place,index) in things" :place="place" :size="1" :topicMode="true" @place-clicked="showImage(place,index)"></street-place>
 				</div>
 				<img id="family-spinner" src="images/spinner-light.gif"/>
 			</div>
@@ -56,6 +56,7 @@ var Family = {
 				for (let i = 0 ; i < things.length ; i++) {
 					things[i].visible = true;
 				}
+				_all_things=vm.things;
 			}, 500);
 		});
 	},
@@ -83,9 +84,10 @@ var Family = {
 			}, 0);
 		},
 
-		showImage: function(place) {
+		showImage: function(place, index=-1) {
 			let image = place.images.full2048;
 			_place_to_export = place;
+			_current_index=index;
 			let titleClose = app.$refs.SugarL10n.get("Close");
 			this.$refs.imageDialog.show({
 				content: `
@@ -94,6 +96,8 @@ var Family = {
 						</div>
 						<img id="export-image" class="popup-hidden-image" src="`+image+`"/>
 						<div id="popup-export" onclick="_image_export()"></div>
+						<div id="left" class="place-left" onclick="previousPlace()" style="visibility: hidden;"></div>
+						<div id="right" class="place-right" onclick="nextPlace()" style="visibility: hidden;"></div>
 						<div class="popup-credit">Photo DollarStreet - licensed under CC BY 4.0</div>
 					</div>`,
 				closeHtml: "",
@@ -122,6 +126,34 @@ var Family = {
 // Capitalize name
 function _capitalize(name) {
 	return name.replace(/-/g, " ").replace(/\b\w/g, function(c) { return c.toUpperCase()});
+}
+
+var _current_index=null;
+var _all_things=null;
+function previousPlace(){
+	if(_current_index==_all_things.length-1) {
+		document.getElementById('right').style.visibility="visible";
+	}
+	_current_index=_current_index-1;
+	let index=_current_index;
+	let image=_all_things[index].images.full2048;
+	if(index==0) {
+		document.getElementById('left').style.visibility="hidden";
+	}
+	document.getElementById('popup-image').style.backgroundImage="url("+image+")";
+}
+
+function nextPlace(){
+	if(_current_index==0) {
+		document.getElementById('left').style.visibility="visible";
+	}
+	_current_index=_current_index+1;
+	let index=_current_index;
+	let image=_all_things[index].images.full2048;
+	if(index==_all_things.length-1) {
+		document.getElementById('right').style.visibility="hidden";
+	}
+	document.getElementById('popup-image').style.backgroundImage="url("+image+")";
 }
 
 // Export popup

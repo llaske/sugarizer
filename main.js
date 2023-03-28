@@ -92,7 +92,7 @@ function LoadFile(event, file) {
 function createWindow () {
 	// Process argument
 	for (var i = 0 ; i < process.argv.length ; i++) {
-		if (process.argv[i] == '--debug') {
+		if (process.argv[i] == '--sdebug') {
 			debug = true;
 		} else if (process.argv[i] == '--window') {
 			frameless = false;
@@ -113,6 +113,7 @@ function createWindow () {
 		frame: !frameless,
 		webPreferences: {
 			webSecurity: false,
+			contextIsolation: false,
 			nodeIntegration: true
 		},
 		icon: nativeImage.createFromPath('./res/icon/electron/icon-1024.png')
@@ -193,7 +194,7 @@ function createWindow () {
 			temp.file('sugarizer', function(err, path, fd) {
 				if (!err) {
 					var data = arg.text.replace(/^data:.+;base64,/, "");
-					var buf = new Buffer(data, 'base64');
+					var buf = Buffer.from(data, 'base64');
 					fs.writeFile(fd, buf, function(err) {
 						event.sender.send('create-tempfile-reply', path);
 					});
@@ -222,7 +223,9 @@ function createWindow () {
 
 		// Debug console
 		if (debug) {
-			mainWindow.webContents.openDevTools();
+			var devtools = new BrowserWindow();
+			mainWindow.webContents.setDevToolsWebContents(devtools.webContents);
+			mainWindow.webContents.openDevTools({ mode: 'detach' });
 		}
 
 		// Show wmain window

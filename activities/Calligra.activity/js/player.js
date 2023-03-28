@@ -204,7 +204,7 @@ var Player = {
 			var downEvent = "mousedown";
 			var moveEvent = "mousemove"
 			var upEvent = "mouseup";
-			var touchScreen = ("ontouchstart" in document.documentElement);
+			var touchScreen = ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0);;
 			if (touchScreen) {
 				downEvent = "touchstart";
 				moveEvent = "touchmove";

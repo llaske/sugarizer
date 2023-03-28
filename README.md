@@ -24,21 +24,21 @@ Sugarizer on Android is also available as a launcher to replace the current laun
 
 You could also build yourself the Sugarizer Application APK using instruction below.
 
-![](images/googleplay.png)
-![](images/amazonstore.png)
-![](images/fdroid.png)
+<a href="https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer">![](images/googleplay.png)</a>
+<a href="http://www.amazon.com/gp/product/B00NKK7PZA">![](images/amazonstore.png)</a>
+<a href="https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer">![](images/fdroid.png)</a>
 
 
 
 To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
 
-![](images/applestore.png)
+<a href="https://apps.apple.com/us/app/sugarizer/id978495303">![](images/applestore.png)</a>
 
 To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
 The Sugarizer desktop application has four possible arguments:
 
 * `--window` to open Sugarizer in a window (instead of fullscreen)
-* `--debug` to open Sugarizer with the debug console
+* `--sdebug` to open Sugarizer with the debug console
 * `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
 
@@ -214,7 +214,7 @@ Refer [this](docs/ios/ios_doc.md) documentation for building sugarizer for iOS.
 
 # Reduce package size
 
-The current size of Sugarizer is more than 350 Mb. This huge size is related to media content and resources include in three activities:
+The current size of Sugarizer is more than 400 Mb. This huge size is related to media content and resources include in three activities:
 
 * **Abecedarium activity**: about 150 Mb
 * **Etoys activity**: about 100 Mb

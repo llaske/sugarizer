@@ -4,6 +4,65 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2023-03-28
+### Added
+- Evaluation mode in Exerciser activity
+- Assignments support
+
+### Changed
+- Replace Bootstrap Tour by IntroJS in Sugarizer Core
+- Replace Bootstrap Tour by IntroJS in activities #1090
+- Fix touch support on smart board and touch PC
+- Better compatibility with iPad on iOS 13+
+- Add statistics feature in activities
+
+### Fixed
+- Scratch instructions are not localized #970
+- Wrong arrow icon in Exerciser activity #748
+- Improve responsive in Calculate activity #982
+- Overlap hover effect in circular mode view #974
+- No tooltip on home page and journal page #913
+- Localize and detail tooltip in Paint activity #1004
+- Off-center pictures in Abecedarium Activity #1001
+- Generate QRCode with enter in QRCode activity #1007
+- Implode Activity: fix Warning message button alignment #1025
+- Hover effect to Planet Activity #1029
+- Fraction jump tutorial navigation text issue #1035
+- Some button text is not in centre with the icon #1052
+- Dollar street activity not loading #985
+- Overlapping of "activity-palette" with "back-button" in Tangran and Curriculum activity #1055
+- Settings of Falabracman activity was overlapping with activity palette #1060
+- Overlapping of "activity-palette" in LabyrinthJS.activity #1073
+- Blank screen after using Sugarizer Server Dashboard #1079
+- Planet type is not localized in Planets activity #1076
+- Displaying message when MediaViewer activity is empty #1003
+- Add Previous/Next button in DollarStreet activity to navigate in images #1075
+- Fix SharedNotes tutorial don't start at end of home tutorial
+- Fix SharedNotes content is lost once disconnected #1144 
+- Tutorial steps missing at first launch #1089
+- Disabling Text selection for buttons #1151
+- Physics element are coming above toolbar #1064
+- Forbid create elements in Physics that're Bigger than canvas #1171
+- Template container interfering the Calligra Activity #1174
+- Background color of journal-container and body are same in some activities #1181
+- Bad handling of multitouch in Physics activity #849
+- Add score counter in Fractions Activity #1032
+- Increase Record video limit to 15s, remove size limit
+- Chess Activity : Step Number are not visible after 99 #1196
+- Speak activity UI enhancement #1201
+- TamTam Micro : Piano Color keys doesn't work when pressed near Black keys #1206
+- Dollar Street Activity sliders can overlap #1212
+- Blockrain Activity : rotate button unaligned #1232
+- Get Things Done Activity : plus button unaligned #1245
+- QR code Activity: buttons are unaligned #1253
+- Markdown Activity: Mouse pointer UI issue on scrollbar #1255
+- Physics Js Activity : Navbar still active in fullscreen mode #1290
+- Abecedarium Activity: Unexpected behaviour with language change button #1321
+- VideoViewer Activity add key mapping #1274
+- Chess Activity Moves Alignment Fix #1329
+- Stopwatch activity: Activity dropdown UI issue #1297
+- Ebook Activity : Add keys to paginate #1273
+
 ## [1.6.0] - 2022-01-04
 ### Added
 - Measure activity

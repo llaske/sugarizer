@@ -1638,17 +1638,14 @@ var app = new Vue({
 		onHelp: function () {
 			var steps = [
 				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
 					title: this.l10n.stringTutoExplainTitle,
-					content: this.l10n.stringTutoExplainContent
+					intro: this.l10n.stringTutoExplainContent
 				},
 				{
 					element: "#time-domain-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoTimeFreqTitle,
-					content: this.tutorialGifContent('time_freq_switch_demo.gif',this.l10n.stringTutoTimeFreqContent)
+					intro: this.tutorialGifContent('time_freq_switch_demo.gif',this.l10n.stringTutoTimeFreqContent)
 				},
 				{
 					onHide: function (tourType) {
@@ -1662,15 +1659,15 @@ var app = new Vue({
 						}
 					},
 					element: "#zoomSettingsPalette",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoZoomSettingsTitle,
-					content: this.tutorialGifContent('zoom_settings_demo.gif', this.l10n.stringTutoZoomSettingsContent)
+					intro: this.tutorialGifContent('zoom_settings_demo.gif', this.l10n.stringTutoZoomSettingsContent)
 				},
 				{
 					element: "#play-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPlayPauseTitle,
-					content: this.tutorialGifContent('play_pause_demo.gif', this.l10n.stringTutoPlayPauseContent)
+					intro: this.tutorialGifContent('play_pause_demo.gif', this.l10n.stringTutoPlayPauseContent)
 				},
 				{
 					onHide: function (tourType) {
@@ -1684,9 +1681,9 @@ var app = new Vue({
 						}
 					},
 					element: "#amplitudeSettings",
-					placement: "left",
+					position: "right",
 					title: this.l10n.stringTutoAmplitudeTitle,
-					content: this.tutorialGifContent('amplitude_demo.gif', this.l10n.stringTutoAmplitudeContent)
+					intro: this.tutorialGifContent('amplitude_demo.gif', this.l10n.stringTutoAmplitudeContent)
 				},
 				{
 					onHide: function (tourType) {
@@ -1700,9 +1697,9 @@ var app = new Vue({
 						}
 					},
 					element: "#waveformInversionSettings",
-					placement: "left",
+					position: "right",
 					title: this.l10n.stringTutoWaveformInversionTitle,
-					content: this.tutorialGifContent('waveform_invert_demo.gif', this.l10n.stringTutoWaveformInversionContent)
+					intro: this.tutorialGifContent('waveform_invert_demo.gif', this.l10n.stringTutoWaveformInversionContent)
 				},
 				{
 					onHide: function (tourType) {
@@ -1716,16 +1713,13 @@ var app = new Vue({
 						}
 					},
 					element: "#triggeringEdgeSettings",
-					placement: "left",
+					position: "right",
 					title: this.l10n.stringTutoTriggeringEdgeTitle,
-					content: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
+					intro: this.tutorialGifContent('triggering_edge_demo.gif', this.l10n.stringTutoTriggeringEdgeContent)
 				},
 				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
 					title: this.l10n.stringTutoLoggingExplainTitle,
-					content: this.l10n.stringTutoLoggingExplainContent
+					intro: this.l10n.stringTutoLoggingExplainContent
 				},
 				{
 					onHide: function (tourType) {
@@ -1739,9 +1733,9 @@ var app = new Vue({
 						}
 					},
 					element: "#loggingPalette",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoLoggingIntervalTitle,
-					content: this.l10n.stringTutoLoggingIntervalContent
+					intro: this.l10n.stringTutoLoggingIntervalContent
 				},
 				{
 					onShow: function(tourType) {
@@ -1750,9 +1744,9 @@ var app = new Vue({
 						}
 					},
 					element: "#record-off-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoStartStopTitle,
-					content: this.l10n.stringTutoStartStopContent
+					intro: this.l10n.stringTutoStartStopContent
 				},
 				{
 					onHide: function (tourType) {
@@ -1766,9 +1760,9 @@ var app = new Vue({
 						}
 					},
 					element: "#csv-export",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoExportLoggingCSVTitle,
-					content: this.l10n.stringTutoExportLoggingCSVContent
+					intro: this.l10n.stringTutoExportLoggingCSVContent
 				},
 				{
 					onHide: function (tourType) {
@@ -1782,16 +1776,13 @@ var app = new Vue({
 						}
 					},
 					element: "#pdf-export",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoExportLoggingPDFTitle,
-					content: this.l10n.stringTutoExportLoggingPDFContent
+					intro: this.l10n.stringTutoExportLoggingPDFContent
 				},
 				{
-					element: "",
-					orphan: true,
-					placement: "bottom",
 					title: this.l10n.stringTutoInstrumentExplainTitle,
-					content: this.l10n.stringTutoInstrumentExplainContent
+					intro: this.l10n.stringTutoInstrumentExplainContent
 				},
 				{
 					onHide: function (tourType) {
@@ -1805,9 +1796,9 @@ var app = new Vue({
 						}
 					},
 					element: "#instrumentPalette",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoInstrumentSelectTitle,
-					content: this.l10n.stringTutoInstrumentSelectContent
+					intro: this.l10n.stringTutoInstrumentSelectContent
 				},
 				{
 					onHide: function (tourType) {
@@ -1821,9 +1812,9 @@ var app = new Vue({
 						}
 					},
 					element: "#notePalette",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoNoteSelectTitle,
-					content: this.tutorialGifContent('select_note_demo.gif', this.l10n.stringTutoNoteSelectContent)
+					intro: this.tutorialGifContent('select_note_demo.gif', this.l10n.stringTutoNoteSelectContent)
 				},
 				{
 					onHide: function (tourType) {
@@ -1837,9 +1828,9 @@ var app = new Vue({
 						}
 					},
 					element: "#octavePalette",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoOctaveSelectTitle,
-					content: this.l10n.stringTutoOctaveSelectContent
+					intro: this.l10n.stringTutoOctaveSelectContent
 				},
 				{
 					onHide: function (tourType) {
@@ -1856,9 +1847,9 @@ var app = new Vue({
 						}
 					},
 					element: "#harmonics-off-button",
-					placement: "left",
+					position: "left",
 					title: this.l10n.stringTutoShowHarmonicsTitle,
-					content: this.tutorialGifContent('show_harmonics_demo.gif', this.l10n.stringTutoShowHarmonicsContent)
+					intro: this.tutorialGifContent('show_harmonics_demo.gif', this.l10n.stringTutoShowHarmonicsContent)
 				},
 				{
 					onHide: function (tourType) {
@@ -1872,9 +1863,9 @@ var app = new Vue({
 						}
 					},
 					element: "#tuning-freq",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoTuningFreqInputTitle,
-					content: this.l10n.stringTutoTuningFreqInputContent
+					intro: this.l10n.stringTutoTuningFreqInputContent
 				},
 				{
 					onHide: function (tourType) {
@@ -1893,9 +1884,9 @@ var app = new Vue({
 						}
 					},
 					element: "#tuning-line-off-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoTuningLineTitle,
-					content: this.tutorialGifContent('show_tuning_line_demo.gif', this.l10n.stringTutoTuningLineContent)
+					intro: this.tutorialGifContent('show_tuning_line_demo.gif', this.l10n.stringTutoTuningLineContent)
 				},
 				{
 					onHide: function (tourType) {
@@ -1912,15 +1903,15 @@ var app = new Vue({
 						}
 					},
 					element: "#stop-note-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoPlayStopNoteTitle,
-					content: this.l10n.stringTutoPlayStopNoteContent
+					intro: this.l10n.stringTutoPlayStopNoteContent
 				},
 				{
 					element: "#capture-image-button",
-					placement: "bottom",
+					position: "bottom",
 					title: this.l10n.stringTutoCaptureWaveformTitle,
-					content: this.l10n.stringTutoCaptureWaveformContent
+					intro: this.l10n.stringTutoCaptureWaveformContent
 				}
 			];
 			this.$refs.SugarTutorial.show(steps);
