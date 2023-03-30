@@ -223,6 +223,9 @@ define(["webL10n"], function (l10n) {
 			);
 		}
 		steps = steps.filter((obj) =>  !('element' in obj) || (obj.element.length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != "none" && document.querySelector(obj.element).offsetParent));
+		var isSingleStepTut = steps.length === 1;
+			if(isSingleStepTut)	steps.push({});
+
 		introJs().setOptions({
 			tooltipClass: 'customTooltip',
 			steps: steps,
@@ -232,6 +235,14 @@ define(["webL10n"], function (l10n) {
 			showBullets: false,
 			disableInteraction: true,
 			nextToDone: false,
+		}).onafterchange(() => {
+			isSingleStepTut && document.querySelector(".introjs-nextbutton") && document.querySelector(".introjs-nextbutton").classList.add("introjs-disabled");
+			var btn = document.querySelector(".introjs-nextbutton");
+			if (isSingleStepTut && btn) {
+				btn.classList.add("introjs-disabled");
+				btn.style.pointerEvents = "none";
+				document.querySelector(".introjs-tooltipbuttons").style.cursor = "auto";
+			}
 		}).start();
 	};
 
