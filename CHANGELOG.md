@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
+- Undefined tutorial step in curriculum activity #1293
 
 ## [1.7.0] - 2023-03-28
 ### Added

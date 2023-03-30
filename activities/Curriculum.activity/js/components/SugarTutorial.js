@@ -35,7 +35,12 @@ Vue.component('sugar-tutorial', {
 				showBullets: false,
 				hidePrev: false,
 			}).onafterchange(() => {
-				isSingleStepTut && document.querySelector(".introjs-nextbutton") && document.querySelector(".introjs-nextbutton").classList.add("introjs-disabled");
+				var btn = document.querySelector(".introjs-nextbutton");
+				if (isSingleStepTut && btn) {
+					btn.classList.add("introjs-disabled");
+					btn.style.pointerEvents = "none";
+					document.querySelector(".introjs-tooltipbuttons").style.cursor = "auto";
+				}
 			}).start();
 		}
 	}
