@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+	<meta charset="utf-8" />
+	<title>Sugarizer</title>
+
+	<link href="css/xocolor.css" rel="stylesheet" type="text/css" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+	<script src="https://unpkg.com/vue@3"></script>
+	<script src="lib/axios.min.js"></script>
+	<script src="lib/require.js"></script>
+	<script type="text/javascript" src="cordova.js"></script>
+
+	<!-- Sugarizer classes -->
+	<link href="css/styles.css" rel="stylesheet" type="text/css" />
+	<script>if (window.module) module = window.module;</script>
+  </head>
+
+  <body id="body">
+	<div id="app">
+		<div class="filterBox-demo">
+			<icon
+				id="2"
+				svgfile="../icons/view-radial.svg" 
+				color="512"
+				size="60"
+				x="-2"
+				is-native="true"
+				v-on:click="this.homeClicked()"
+				style="margin-left: auto; margin-right: 10px;"
+			></icon>
+		</div>
+
+		<h2>Sugarizer Home v2</h2>
+		<icon
+			id="1"
+			svgfile="activities/Gridpaint.activity/activity/activity-icon.svg" 
+			color="120"
+			size="60"
+			x="-2"
+			is-native="true"
+			v-on:click="this.iconClicked()"
+		></icon>
+
+	</div>
+
+	<script src="js/icon.js"></script>
+	<script src="js/iconbutton.js"></script>
+	<script src="js/searchfield.js"></script>
+	<script src="js/popup.js"></script>
+	<script src="js/selectbox.js"></script>
+	<script src="js/filterbox.js"></script>
+	<script src="js/password.js"></script>
+	<script src="js/dialog.js"></script>
+	<script src="js/app.js"></script>
+  </body>
+</html>

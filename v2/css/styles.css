@@ -1,0 +1,821 @@
+@font-face {
+	font-family: "Noto Emoji";
+	src: url("../fonts/NotoEmoji.woff") format('woff');
+}
+
+html {
+	height: 100%;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body {
+	position: relative;
+ 	height: 100vh;
+	margin: 0;
+	font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
+	font-size: 10pt;
+	background-color: #c0c0c0;
+	overflow-x: hidden;
+}
+html, button {
+	cursor: url(../icons/ArrowSmall.cur), default;
+}
+
+/* sugar-vue-Icon */
+.test {
+    width:80px;
+    height:50px;
+    background-color:#808080;
+    margin:20px;
+}
+.icon {
+	padding: 2px;
+	width: fit-content;
+}
+
+.icon:hover {
+	background-color: #d5d5d5;
+	border-radius: 5px;
+}
+/* sugar-vue-IconButton */
+
+.web-activity-disable {
+	color: black !important;
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.icon-button {
+	display: flex;
+	width: max-content;
+	cursor:pointer;
+	border-radius: 22px;
+	margin-top: 5px;
+	padding: 2px 10px;
+	height: 35px;
+	color: white;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+
+.icon-button-icon {
+	align-self: center;
+}
+
+.icon-button-text {
+	margin-top: 10px;
+	width:inherit;
+	padding: 0px 10px;
+	display: inline-block;
+}
+
+/* sugar-vue-SearchField */
+
+.search-field-border {
+	border-radius: 22px;
+	top: 5px;
+	width: 350px;
+	height: 35px;
+	display: inline-block;
+	position: relative;
+}
+
+.search-field-border-focus {
+	background-color: white;
+	border: 2px solid white;
+}
+
+.search-field-border-nofocus {
+	background-color: #e5e5e5;
+	border: 2px solid #e5e5e5;
+}
+
+.search-field-iconsearch {
+	position: absolute;
+	background-image: url(../icons/entry-search.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px 20px;
+	left: 6px;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.search-field-iconcancel {
+	position: absolute;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	right: 10px;
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.search-field-input {
+	opacity: 1;
+	margin-left: 30px;
+	border: 0px !important;
+	display: inline-block;
+	background-color: #e5e5e5;
+	width: 270px;
+	line-height: 22px;
+	outline: 0;
+	font-size: 10pt;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.search-field-input:focus {
+	background-color: white;
+}
+
+.search-field-input:disabled {
+	border-color: #808080;
+	background-color: #808080;
+}
+
+/* sugar-vue-PopUp */
+
+.home-activity-popup {
+	position: absolute;
+	z-index: 1;
+}
+
+.popup-title {
+	display: flex;
+	background-color: black;
+	color: white;
+	border-color: #808080;
+	border-style: solid;
+	border-width: 2px;
+	z-index: 1;
+}
+
+.item-icon-title {
+	margin: 0px 4px;
+	padding: 8px;
+	align-self: center;
+}
+
+.popup-name-text {
+	margin-left: 2px;
+	padding-top: 10px;
+	margin-right: 30px;
+	font-weight: bold;
+	min-height: 16px;
+	z-index: 1;
+}
+
+.popup-title-text {
+	margin-left: 2px;
+	margin-top: 0px;
+	margin-right: 30px;
+	padding-bottom: 10px;
+}
+
+.popup-items {
+	background-color: black;
+	color: white;
+	border-color: #808080;
+	border-style: none solid solid solid;
+	border-width: 2px;
+	z-index: 1;
+	max-height: 80vh;
+	overflow-y: auto;
+}
+
+.popup-footer :hover{
+	background-color: #808080;
+}
+
+.popup-item-listview {
+	padding: 8px 0px 8px 0px;
+}
+
+.item-list-item {
+	display: flex;
+	height: 40px;
+	z-index: 1;
+}
+
+.item-list-item :hover{
+	background-color: #808080;
+}
+
+.item-icon {
+	margin: 2px;
+	padding: 8px;
+	align-self: center;
+}
+
+.item-name {
+	width: 100%;
+	margin-top: 0px;
+	margin-right: 10px;
+	padding: 10px;
+	z-index: 1;
+}
+
+
+/* sugar-vue-SelectBox */
+
+.selectbox-border {
+	border-radius: 22px;
+	height: 30px;
+	display: inline-block;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+
+.selectbox-bar {
+	display: flex;
+	flex-direction: row;
+}
+
+.selectbox-icon {
+	position: absolute;
+	margin: 4px 10px 10px 8px;
+}
+
+.selectbox-double {
+
+}
+.selectbox-text {
+	color: white;
+	width: fit-content;
+	position: relative;
+	top: 6px;
+	margin-left: 36px;
+	margin-right: 30px;
+}
+
+.selectbox-arrow {
+	width: 20px;
+	position: relative;
+	top: 6px;
+	margin-left: 0px;
+	margin-right: 10px;
+	height: 50px;
+	background-image: url(../icons/control-popup-arrow.svg);
+	background-repeat: no-repeat;
+	background-position: 95% 15%;
+}
+
+/* sugar-vue-FilterBox */
+
+.filterBox-demo {
+	background-color: #282828;
+}
+
+.filterBox-sugarizer {
+	margin-top: 0px;
+	height: 45px;
+	width: fit-content;
+	margin: 10px;
+	color: white
+}
+
+.filterBox {
+	display: flex;
+}
+
+.filterBox-sugarizer:hover {
+	background-color: black;
+}
+
+.filterBox-icon {
+	margin: 2px;
+	margin-top: 12px !important;
+}
+
+.filterBox-down {
+	background-image: url('../icons/arrow-down.svg');
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	background-position-x: center;
+}
+
+.filterBox-up {
+	background-image: url('../icons/arrow-up.svg');
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	background-position-x: center;
+	background-color: black;
+	background-size: 47px;
+	border: 2px solid #808080;
+	border-bottom: 0;
+}
+
+.filterBox-text {
+	margin-top: 14px;
+	margin-left: 15px;
+	margin-right: 4px;
+}
+
+.filterBox-content {
+	position: absolute;
+	background-color: black;
+	max-width: 271px;
+	min-width: 161px;
+	min-height: 51px;
+	max-height: 80vh;
+	pointer-events: auto;
+	border: 2px solid #808080;
+	color: white;
+	overflow: auto;
+	z-index: 1;
+	margin-top: 9px;
+	margin-left: -2px;
+}
+
+.filterBox-header {
+	height: 40px;
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	line-height: 50px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+.filterBox-hr {
+	border: 1px solid #808080;
+	margin-top: 0;
+}
+
+.filterBox-items {
+	background-color: black;
+	color: white;
+	border-width: 2px;
+	z-index: 1;
+	max-height: 50vh;
+	overflow-y: auto;
+}
+
+.filterBox-items-item {
+	display: flex;
+	height: 35px;
+	margin: 3px 0px;
+}
+
+.filterBox-items-item:hover {
+	background-color: #808080;
+}
+
+
+/* sugar-vue-Password */
+
+.password-demo {
+	background-color: white;
+}
+
+.password-line {
+	vertical-align: middle;
+	text-align: center;
+	width: 380px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.password-input {
+	text-align: center;
+	display: inline-block;
+	border-width: 2px;
+	border-style: inset;
+	border-top-color: #9a9a9a;
+ 	border-right-color: #eeeeee;
+	border-bottom-color: #eeeeee;
+	border-left-color: #9a9a9a;
+	border-image: initial;
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 30px;
+	width: 310px;
+	height: 36px;
+}
+
+.password-value {
+	font-size: 16pt;
+	font-family: "Noto Emoji";
+	border: none;
+	width: 270px;
+	padding: 4px;
+	line-height: 30px;
+	min-height: 30px;
+	background-color: white;
+	padding: 1px;
+	text-align: left;
+	outline: 0;
+	margin-left: 10px;
+	margin-top: 3px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	display: inline-block;
+}
+
+.password-iconcancel {
+	position: relative;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	top: 2px;
+	right: 10px;
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	margin-left: 0px;
+	display: inline-block;
+}
+
+.password-label {
+	position: relative;
+	left: 20px;
+	margin-top: 20px;
+	color: #808080;
+	width: 350px;
+	margin-bottom: 5px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.password-emojis {
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.password-emojis-line {
+}
+
+.password-emojis-category {
+	margin-top: 10px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.emoji {
+	display: inline-block;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 2px solid #e5e5e5;
+}
+
+.emoji-selected {
+	background-color: white;
+}
+
+.emoji-unselected {
+	background-color: #e5e5e5;
+}
+
+.emoji-flash {
+	background-color: #e5e5e5;
+}
+
+.emoji-icon {
+	font-size: 24pt;
+	font-family: "Noto Emoji";
+	padding-left: 8px;
+	padding-top: 6px;
+	padding-right: 8px;
+}
+
+.emoji-letter {
+	font-size: 8pt;
+	text-align: right;
+	padding-right: 4px;
+	padding-bottom: 4px;
+}
+
+.emoji-category {
+	display: block;
+	border: 2px solid #e5e5e5;
+	border-radius: 0px 26px 26px 0px;
+}
+
+.emoji-category-icon {
+	font-size: 15pt;
+	font-family: "Noto Emoji";
+	padding-left: 8px;
+	padding-top: 6px;
+	padding-right: 8px;
+}
+
+.hidden-emoji {
+	font-family: "Noto Emoji";
+	position: absolute;
+	top: -10000px;
+	left: -10000px;
+}
+
+/* sugar-vue-Dialog */
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+}
+
+.modal {
+	margin-top: 4%;
+	z-index: 5;
+	width: 800px;
+	height: 500px;
+}
+
+.dialog-content {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 800px;
+	height: 100%;
+	max-height: 500px;
+	background-color: #000000;
+	border: 2px solid #808080;
+	color: white;
+	overscroll-behavior-y: contain;
+    overflow-y: auto;
+}
+
+.settings-filter-text {
+	position: relative;
+	margin-left: 10px;
+	margin-top: 5px;
+	width: 350px;
+}
+
+.settings-close-button {
+	background-image: url(../icons/dialog-cancel.svg);
+	position: absolute !important;
+	top: 5px;
+	right: 30px;
+	width: 35px !important;
+	height: 35px !important;
+}
+
+.toolbar {
+	height: 60px;
+	padding: 0 77px;
+	color: white;
+	background-color: #282828;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	position: sticky;
+	top: 0px;
+	display: flex;
+}
+
+.toolbar hr {
+	display: inline-block;
+	height: 45px;
+	margin: 4.5px;
+	margin-bottom: -21px;
+	border: 1px solid #808080;
+}
+
+.toolbar .toolbutton {
+	position: relative;
+	width: 67px;
+	height: 67px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 7.5px;
+}
+
+.toolbar .toolbutton:hover {
+	background-color: black;
+}
+
+.module-dialog {
+	width: 100%;
+	max-width: 800px;
+	height: 100%;
+	max-height: 500px;
+	overscroll-behavior-y: contain;
+    overflow-y: auto;
+	background-color: #ffffff;
+	border: 2px solid #808080;
+}
+
+.module-icon {
+	position: absolute;
+	left: 10px;
+}
+
+.module-text {
+	margin: 20px 10px 0px 0px;
+	color: white;
+	word-wrap: break-word;
+}
+
+.module-cancel-button {
+	background-image: url(../icons/dialog-cancel.svg);
+	position: absolute !important;
+	top: 5px;
+	right: 60px;
+	width: 35px !important;
+	height: 35px !important;
+}
+
+.module-ok-button {
+	background-image: url(../icons/dialog-ok.svg);
+	position: absolute !important;
+	top: 5px;
+	right: 15px;
+	width: 35px !important;
+	height: 35px !important;
+}
+
+.dialog-items {
+	display: flex;
+	text-align: center;
+	flex-wrap: wrap;
+	overscroll-behavior-y: contain;
+    overflow-y: auto;
+	height: inherit;
+}
+
+.dialog-items > div{
+	display: grid;
+	flex: 1 1 auto;
+	margin: 10px;
+	padding: 5px 40px;
+	justify-content: center;
+}
+
+.dialog-item-text {
+	padding-top: 4px;
+}
+.dialog-icon {
+	padding: 10px;
+}
+
+.dialog-item-disable {
+	color: #808080 !important;
+	pointer-events: none;
+}
+
+.dialog-item-disable :first-child {
+	opacity: 0.8;
+}
+
+.computer-content {
+	max-height: 90%;
+	color: black;
+	overscroll-behavior-y: contain;
+    overflow-y: auto;
+	background-color: white;
+	height: inherit;
+}
+
+.computer-software {
+	border-color: #808080;
+	border-style: solid none none none;
+	border-width: 2px;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.computer-sugarizer {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 20px;
+	display: inline-block;
+}
+
+.computer-clienttype {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-browser {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-browserversion {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-useragent {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-storage {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.computer-line {
+}
+
+.computer-copyright {
+	border-color: #808080;
+	border-style: solid none none none;
+	border-width: 2px;
+	margin-left: 20px;
+	margin-top: 30px;
+}
+
+.computer-contributor {
+	margin-left: 30px;
+	margin-top: 20px;
+	display: inline-block;
+}
+
+.computer-contributor-link {
+	display: inline-block;
+	text-decoration: underline;
+}
+
+.computer-licence {
+	margin-left: 30px;
+}
+
+.computer-value {
+	margin-left: 10px;
+	color: black;
+	display: inline-block;
+}
+
+.language-message {
+	margin-left: 20px;
+	margin-top: 20px;
+	color: #808080;
+}
+
+.language-select {
+	margin-left: 30px;
+	margin-top: 30px;
+	color: white;
+	width: 200px;
+}
+
+/* Handle small screen resolution */
+@media screen and (max-width: 410px) {
+	.search-field-border {
+		visibility: hidden;
+		width: 0px;
+	}
+
+	.search-field-input {
+		visibility: hidden;
+		width: 0px;
+	}
+	.settings-filter-text {
+		visibility: hidden;
+		width: 0px;
+	}
+}
+
+@media screen and (min-width: 410px) and (max-width: 1023px) {
+	.search-field-border {
+		width: 200px;
+	}
+
+	.search-field-input {
+		width: 120px !important;
+	}
+}
