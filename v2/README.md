@@ -45,6 +45,12 @@ Clone the repository on your local machine and run.
 npm install
 ```
 
+Create a symbolic link on initial activities directory.
+
+```bash
+ln -s ../activities activities
+```
+
 Now you can open the `index.html` in your browser directly.
 
 ## To tests the files
