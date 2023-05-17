@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>My Vue Activity</title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+		<link rel="prefetch" type="application/l10n" href="locale.ini" />
+		<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css" />
+		<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css" />
+		<link rel="stylesheet" href="css/activity.css" />
+		<link rel="stylesheet" href="css/introjs.css" />
+		<script src="lib/intro.js"></script>
+		<script src="lib/vue.min.js"></script>
+		<script src="lib/chart.min.js"></script>
+		<script src="lib/require.js"></script>
+		<script type="text/javascript" src="../../cordova.js"></script>
+	</head>
+
+	<body oncontextmenu="return false;">
+		<div id="app" :class="{fullscreen: isFullscreen}">
+			<sugar-toolbar ref="SugarToolbar">
+				<sugar-toolitem ref="activityPal" id="activity-button"></sugar-toolitem>
+				<sugar-toolitem
+					ref="sharedPal"
+					id="network-button"
+					title="string"
+					palette-file="sugar-web/graphics/presencepalette"
+					palette-class="PresencePalette"
+					palette-event="shared"
+					@shared="SugarPresence.onShared"
+					v-if="SugarPresence"
+				></sugar-toolitem>
+
+				<hr />
+				<sugar-toolitem id="add-button" :title="l10n.stringAddData" @click="addData"></sugar-toolitem>
+				<sugar-toolitem id="remove-button" :title="l10n.stringRemoveData" @click="removeData"></sugar-toolitem>
+
+				<hr />
+				<template v-for="(chart) in CHART_TYPES" :key="chart">
+					<sugar-toolitem @click="pref.chartType = chart" :id="`${chart}-chart-button`" :class="{active: pref.chartType==chart}" :title="chart"></sugar-toolitem>
+				</template>
+				<hr />
+				<sugar-toolitem id="config-button" @click="toggleConfig" class="invoker" :class="{active: configActive}" title="configuration"></sugar-toolitem>
+
+				<sugar-toolitem id="text-palette-button" @click="toggleTextPal" class="invoker" :class="{active: textPalActive}" title="configuration"></sugar-toolitem>
+				<sugar-toolitem id="export-button" title="No title" @click="onAddImage"></sugar-toolitem>
+
+				<sugar-toolitem @click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
+				<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" title="Fullscreen" class="pull-right"></sugar-toolitem>
+				<sugar-toolitem @click="onHelp" id="help-button" title="Tutorial" class="pull-right"></sugar-toolitem>
+			</sugar-toolbar>
+			<!-- Sub Toolbar -->
+			<div id="sub-toolbar" :class="{hidden: !configActive && !textPalActive}">
+				<!-- Config Palette -->
+				<sugar-toolbar id="config-toolbar" class="sub-toolbar-itm" :class="{hidden: !configActive}">
+					<sugar-toolitem
+						ref="strokeColorPal"
+						id="chart-stroke"
+						class="colorpalette"
+						title="settings"
+						palette-file="js/palettes/colorpalette"
+						palette-class="ColorPalette"
+						palette-event="color-change"
+						@color-change="handleChartColor($event, 'stroke')"
+					></sugar-toolitem>
+					<sugar-toolitem
+						ref="fillColorPal"
+						id="chart-fill"
+						class="colorpalette"
+						title="settings"
+						palette-file="js/palettes/colorpalette"
+						palette-class="ColorPalette"
+						palette-event="color-change"
+						@color-change="handleChartColor($event, 'fill')"
+					></sugar-toolitem>
+					<hr />
+					<sugar-toolitem id="xLabel-button" title="Tutorial"></sugar-toolitem>
+					<input @focus="popDownPal" v-model:value="pref.labels.x" type="text" class="input-text" placeholder="Horizontal Label" />
+					<sugar-toolitem id="yLabel-button" title="Tutorial" tabindex="-1"></sugar-toolitem>
+					<input @focus="popDownPal" v-model:value="pref.labels.y" type="text" class="input-text" placeholder="Vertical Label" />
+				</sugar-toolbar>
+				<!-- Text Palette -->
+				<sugar-toolbar id="font-toolbar" class="sub-toolbar-itm" :class="{hidden: !textPalActive}">
+				<sugar-toolitem
+					id="title-font-button"
+					@click="updateFontField(0)"
+					:class="{active: selectedFontIdx == 0}"
+					title="Tutorial"
+				></sugar-toolitem>
+				<sugar-toolitem
+					id="labels-font-button"
+					@click="updateFontField(1)"
+					:class="{active: selectedFontIdx == 1}"
+					title="Tutorial"
+				></sugar-toolitem>
+				<sugar-toolitem
+					id="tick-font-button"
+					@click="updateFontField(2)"
+					:class="{active: selectedFontIdx == 2}"
+					title="Tutorial"
+				></sugar-toolitem>
+					<hr style="margin-inline: 12px" />
+					<sugar-toolitem id="fontplus-button" @click="handleFontSize(2)" title="Tutorial"></sugar-toolitem>
+					<sugar-toolitem
+						ref="fontPal"
+						id="font-button"
+						title="settings"
+						palette-file="js/palettes/fontpalette"
+						palette-class="TextPalette"
+						palette-event="font-change"
+						@font-change="handleFontFamily"
+					></sugar-toolitem>
+					<sugar-toolitem id="fontminus-button" @click="handleFontSize(-2)" title="Tutorial"></sugar-toolitem>
+					<sugar-toolitem
+						ref="textColorPal"
+						id="text-color"
+						class="colorpalette"
+						title="settings"
+						palette-file="js/palettes/colorpalette"
+						palette-class="ColorPalette"
+						palette-event="color-change"
+						@color-change="handleTextColor"
+					></sugar-toolitem>
+				</sugar-toolbar>
+			</div>
+
+			<div class="activity-container">
+				<div class="data-container">
+					<div class="data-labels">
+						<span class="data-label">Labels</span>
+						<span class="data-label">Values</span>
+					</div>
+					<div class="input-container">
+						<div v-for="(data, i) in tabularData" :key="i" class="input-group" :class="{active: (selectedField==i)}" @click="selectedField = i">
+							<input v-model:value="data.x" ref="input" type="text" />
+							<input :value="data.y" @input="validateInput($event, i)" type="text" />
+						</div>
+					</div>
+					<div class="toolbar swap-fields">
+						<button id="up-button" class="toolbutton" :title="l10n.stringAddData" @click="swapUp"></button>
+						<button id="down-button" class="toolbutton" :title="l10n.stringAddData" @click="swapDown"></button>
+					</div>
+				</div>
+				<div class="chart-container">
+					<chartview ref="chartview" class="view" :tabular-data="tabularData" :pref="pref"></chartview>
+				</div>
+			</div>
+
+			<sugar-activity @initialized="initialized" ref="SugarActivity"></sugar-activity>
+			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+			<sugar-presence ref="SugarPresence" @data-received="onNetworkDataReceived" @user-changed="onNetworkUserChanged"></sugar-presence>
+			<sugar-journal
+				ref="SugarJournal"
+				@journal-shared-instance="onJournalSharedInstance"
+				@journal-data-loaded="onJournalDataLoaded"
+				@journal-new-instance="onJournalNewInstance"
+			></sugar-journal>
+			<sugar-localization @localized="localized" ref="SugarL10n"></sugar-localization>
+		</div>
+		<script src="js/components/SugarTutorial.js"></script>
+		<script src="js/components/SugarPresence.js"></script>
+		<script src="js/components/SugarL10n.js"></script>
+		<script src="js/components/SugarJournal.js"></script>
+		<script src="js/components/SugarActivity.js"></script>
+		<script src="js/components/SugarToolbar.js"></script>
+		<script src="js/ChartView.js"></script>
+		<script src="js/activity.js"></script>
+	</body>
+</html>
