@@ -222,7 +222,10 @@ body {
 .web-activity-icon {
 	background-repeat: no-repeat;
 	background-position: center;
-	padding: 2px;
+	padding-left: 4px;
+	padding-right: 2px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 .web-activity-icon:hover {
@@ -850,7 +853,7 @@ body {
 .icon-button-text {
 	margin-top: 10px;
 	width:inherit;
-	padding-left: 38px;
+	padding-left: 40px;
 	padding-right: 38px;
 	color: white;
 	display: inline-block;
@@ -1353,14 +1356,16 @@ body {
 	position: absolute;
 	left: 50px;
 	bottom: 50px;
-	width: 120px;
+	width: 100px;
+	height: 37.4px;
 }
 
 .first-rightbutton {
 	position: absolute;
 	right: 50px;
 	bottom: 50px;
-	width: 120px;
+	width: 100px;
+	height: 37.4px;
 }
 
 .first-historybox {
@@ -2095,18 +2100,18 @@ body {
 	content: "";
 	margin-right: 6px;
 	background-image: url(../icons/go-right.svg);
-	width: 20px;
+	width: 30px;
 	height: 20px;
-	background-size: 20px 20px;
+	background-size: 22px 22px;
 }
 
 .customTooltip .introjs-prevbutton::before {
 	content: "";
 	margin-right: 6px;
 	background-image: url(../icons/go-left.svg);
-	width: 20px;
+	width: 30px;
 	height: 20px;
-	background-size: 20px 20px;
+	background-size: 22px 22px;
 }
 
 .customTooltip .introjs-tooltipbuttons {
