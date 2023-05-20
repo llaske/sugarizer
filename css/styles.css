@@ -841,7 +841,7 @@ body {
 .icon-button {
 	border-radius: 22px;
 	margin-top: 5px;
-	height: 35px;
+	height: 37.4px;
 	background-color: #808080;
 	border: 2px solid #808080;
 	user-select: none;
@@ -1357,7 +1357,6 @@ body {
 	left: 50px;
 	bottom: 50px;
 	width: 100px;
-	height: 37.4px;
 }
 
 .first-rightbutton {
@@ -1365,7 +1364,6 @@ body {
 	right: 50px;
 	bottom: 50px;
 	width: 100px;
-	height: 37.4px;
 }
 
 .first-historybox {
