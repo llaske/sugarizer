@@ -2,7 +2,7 @@
 requirejs.config({
 	baseUrl: "lib",
 	paths: {
-		activity: "../js"
+		activity: "../js",
 	}
 });
 
@@ -15,7 +15,8 @@ const app = Vue.createApp({
 		"select-box": SelectBox,
 		"filter-box": FilterBox,
 		"password": Password,
-		"dialog-box": Dialog
+		"dialog-box": Dialog,
+		"locales": Locales,
 	},
 	data() {
 		return {
