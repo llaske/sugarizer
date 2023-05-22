@@ -1,10 +1,10 @@
-var ChartView = {
+const ChartView = {
 	template: `
     	<div class="canvas-container">
 		    <canvas ref="canvas"></canvas>
     	</div>
     `,
-	props: ["tabularData", "pref"],
+	props: ["tabularData", "activityTitle", "pref"],
 	data() {
 		return {
 			indexAxis: "x",
@@ -20,8 +20,8 @@ var ChartView = {
 					{
 						label: "",
 						fill: "origin",
-						data: this.values,
-						borderWidth: 4,
+						data: this.values.signValues,
+						borderWidth: 3,
 						pointHoverBorderWidth: 4,
 						pointRadius: 4,
 						pointHoverRadius: 6,
@@ -36,39 +36,51 @@ var ChartView = {
 	methods: {
 		// Update Handlers
 		updateTitle(title) {
-			this.chart.data.datasets[0].label = title;
+			this.chart.options.plugins.title.text = title;
 			this.chart.update();
 		},
 		updateLabel(axis) {
 			this.chart.options.scales[axis].title.text = this.pref.labels[axis];
 			this.chart.update();
 		},
-		updateChartColor() {
+		setPieBgColor() {
+			this.chart.data.datasets[0].backgroundColor = this.createGradient(
+				this.pref.chartColor.fill,
+				this.labels.length
+			);
+		},
+		setChartBgColor() {
 			this.chart.data.datasets[0].backgroundColor =
 				this.pref.chartColor.fill;
+		},
+		updateChartColor() {
+			this.pref.chartType === "pie" ? this.setPieBgColor() : this.setChartBgColor();			
 			this.chart.data.datasets[0].borderColor =
 				this.pref.chartColor.stroke;
 			this.chart.update();
 		},
 		updateFontValues(fieldName, valueName) {
 			let fieldStr1 = "font";
-			let fieldStr2;
+			let fieldStr2, fullStr;
 			switch (valueName) {
 				case "fontsize":
 					fieldStr2 = "size";
+					fullStr = "fontSize";
 					break;
 				case "fontfamily":
 					fieldStr2 = "family";
+					fullStr = "fontFamily";
 					break;
 				case "color":
 					fieldStr1 = "color";
+					fullStr = "fontColor";
 					break;
 			}
 
 			const propValue = this.pref.font[fieldName][valueName];
 			switch (fieldName) {
 				case "title":
-					let titleObj = this.chart.options.plugins.legend.labels;
+					let titleObj = this.chart.options.plugins.title;
 					if (fieldStr2) titleObj[fieldStr1][fieldStr2] = propValue;
 					else titleObj[fieldStr1] = propValue;
 					break;
@@ -83,6 +95,10 @@ var ChartView = {
 					break;
 
 				case "tick":
+					// Tick values for Pie
+					const pieLabelObj = this.chart.options.plugins.labels;
+					pieLabelObj[fullStr] = propValue;
+
 					["x", "y"].forEach((axis) => {
 						let ticksObj = this.chart.options.scales[axis].ticks;
 						if (fieldStr2)
@@ -94,31 +110,33 @@ var ChartView = {
 			this.chart.update();
 		},
 		updateChartType() {
-			this.chart.data.labels = this.labels;
+			// Reset values set by pie chart
+			this.chart.data.datasets[0].data = this.values.signValues;
+			this.setChartBgColor();
 
 			switch (this.pref.chartType) {
 				case "horizontal-bar":
 					this.indexAxis = "y";
 					this.chart.config.type = "bar";
-					this.chart.config.options = this.chartOptionsY;
+					this.chart.config.options = this.chartOpHorizontal;
 					break;
 				case "bar":
 					this.indexAxis = "x";
 					this.chart.config.type = this.pref.chartType;
-					this.chart.config.options = this.chartOptionsX;
+					this.chart.config.options = this.chartOpVertical;
 					this.chart.config.options.scales.x.offset = true;
 					break;
 				case "line":
 					this.indexAxis = "x";
 					this.chart.config.type = this.pref.chartType;
-					this.chart.config.options = this.chartOptionsX;
+					this.chart.config.options = this.chartOpVertical;
 					this.chart.config.options.scales.x.offset = false;
 					break;
 				case "pie":
-					// this.chart.data.datasets[0].backgroundColor = this.createGradient();
 					this.chart.config.type = this.pref.chartType;
-					this.chart.config.options = this.chartOptionsPie;
-					this.chart.data.labels = [this.chart.data.datasets[0].label];
+					this.chart.config.options = this.chartOpPie;
+					this.chart.data.datasets[0].data = this.values.absValues;
+					this.setPieBgColor();
 					break;
 			}
 			this.chart.update();
@@ -129,9 +147,9 @@ var ChartView = {
 			const con = document.querySelector(".canvas-container");
 			// con.style.width = "130%";
 			// this.chart.resize();
-			var mimetype = "image/png";
-			var imgData = canvas.toDataURL(mimetype, 1);
-			var metadata = {
+			const mimetype = "image/png";
+			const imgData = canvas.toDataURL(mimetype, 1);
+			const metadata = {
 				mimetype: mimetype,
 				title: "Chart image",
 				activity: "org.olpcfrance.MediaViewerActivity",
@@ -143,26 +161,57 @@ var ChartView = {
 			// this.chart.resize();
 			return { imgData, metadata };
 		},
+		createGradient(baseColor, numberOfColors) {
+			let baseRGB = baseColor;
+			if (baseColor.startsWith("#")) {
+				baseRGB = Chart.helpers.color(baseColor).rgbString();			
+			}
+			if (numberOfColors === 1) return [baseRGB];
+
+			let rgbArr = baseRGB
+				.substring(4, baseRGB.length - 1)
+				.replace(/ /g, "")
+				.split(",");			
+			rgbArr = rgbArr.map(value => parseInt(value));
+
+			const gradientColors = [];
+			for (let i = 0; i < numberOfColors; i++) {
+				const ratio = i / (numberOfColors - 1);
+				const brightness = .7; // Adjust the brightness factor as needed
+
+				const r = Math.round(rgbArr[0] + (255 - rgbArr[0]) * ratio * brightness);
+				const g = Math.round(rgbArr[1] + (255 - rgbArr[1]) * ratio * brightness);
+				const b = Math.round(rgbArr[2] + (255 - rgbArr[2]) * ratio * brightness);
+
+				gradientColors.push(`rgb(${r},${g},${b})`);
+			}
+
+			return gradientColors;
+		}
 	},
 	computed: {
 		chartOptions() {
 			return {
 				responsive: true,
 				maintainAspectRatio: false,
-				layout: { padding: 18 },
+				layout: { padding: {top: 15, left: 18, right: 18, bottom: 40} },
 				indexAxis: this.indexAxis,
 				plugins: {
-					legend: {
-						onClick: null,
-						labels: {
-							font: {
-								size: this.pref.font.title.fontsize,
-								family: this.pref.font.title.fontfamily,
-							},
-							color: this.pref.font.title.color,
-							boxWidth: 0,
-						},
+					tooltip: {
+						titleFont: {size: 18},
+						bodyFont: {size: 18}
 					},
+					title: {
+						display: true,
+						text: this.activityTitle,
+						padding: { bottom: 35 },
+						font: {
+							size: this.pref.font.title.fontsize,
+							family: this.pref.font.title.fontfamily,
+						},
+						color: this.pref.font.title.color,
+					},
+					legend: { display: false },
 				},
 				scales: {
 					y: {
@@ -193,54 +242,81 @@ var ChartView = {
 				},
 			};
 		},
-		chartOptionsY() {
+		chartOpHorizontal() {
 			return {
 				...this.chartOptions,
+				plugins: {
+					...this.chartOptions.plugins,
+					labels: { ...this.chartOptions.plugins.labels, render: () => {} },
+				},
 				scales: {
 					x: { ...this.chartOptions.scales.x, beginAtZero: true },
 					y: { ...this.chartOptions.scales.y, offset: true },
 				},
 			};
 		},
-		chartOptionsX() {
+		chartOpVertical() {
 			return {
 				...this.chartOptions,
+				plugins: {
+					...this.chartOptions.plugins,
+					labels: { ...this.chartOptions.plugins.labels, render: () => {} },
+				},
 				scales: {
 					x: { ...this.chartOptions.scales.x, offset: true },
 					y: { ...this.chartOptions.scales.y, beginAtZero: true },
 				},
 			};
 		},
-		chartOptionsPie() {
+		chartOpPie() {
 			return {
 				...this.chartOptions,
+				plugins: { 
+					...this.chartOptions.plugins,
+					labels: {
+						render: (ctx) => (`${ctx.label} (${ctx.percentage}%)`),
+						precision: 2,
+						position: "outside",
+				        textMargin: 15,
+						fontColor: this.pref.font.tick.color,
+						fontSize: this.pref.font.tick.fontsize,
+						fontFamily: this.pref.font.tick.fontfamily,
+				    }
+    			},
 				scales: {
-					x: { display: false },
-					y: { display: false },
+					x: { ...this.chartOptions.scales.x, display: false },
+					y: { ...this.chartOptions.scales.y, display: false },
 				},
-			};
+			}
 		},
 		labels() {
 			return this.tabularData.map((data) => data.x);
 		},
 		values() {
-			return this.tabularData.map((data) => data.y);
+			const values = { signValues: [], absValues: [] };
+			this.tabularData.forEach((data) => {
+			  const value = data.y ? parseFloat(data.y) : 0;
+			  values.signValues.push(value);
+			  values.absValues.push(Math.abs(value));
+			});
+			return values;
 		},
 	},
 	watch: {
 		labels() {
-			switch (this.pref.chartType) {
-				case "pie":
-					this.chart.data.labels = [this.chart.data.datasets[0].label];
-					break;
-				default:
-					this.chart.data.labels = this.labels;
-					break;
-			}
+			this.chart.data.labels = this.labels;
 			this.chart.update();
 		},
 		values() {
-			this.chart.data.datasets[0].data = this.values;
+			if (this.pref.chartType === "pie") {
+				this.chart.data.datasets[0].backgroundColor = this.createGradient(
+					this.pref.chartColor.fill,
+					this.labels.length
+				);					
+				this.chart.data.datasets[0].data = this.values.absValues;
+			} else {
+				this.chart.data.datasets[0].data = this.values.signValues;
+			}
 			this.chart.update();
 		},
 	},

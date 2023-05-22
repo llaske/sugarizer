@@ -15,7 +15,7 @@ const CHART_TYPES = {
 };
 
 // APP
-var app = new Vue({
+const app = new Vue({
 	el: "#app",
 	components: {
 		chartview: ChartView,
@@ -76,7 +76,7 @@ var app = new Vue({
 			const { stroke, fill } = this.currentenv.user.colorvalue;
 
 			this.pref.chartColor = { stroke, fill };
-			this.chartview.updateTitle(this.currentenv.activityName);
+			this.activityTitle = this.currentenv.activityName;
 			this.updatePalletes();
 
 			const that = this;
@@ -102,7 +102,7 @@ var app = new Vue({
 		addData() {
 			this.tabularData.push({
 				x: (this.tabularData.length + 1),
-				y: (Math.random() * 10 + 1) | 0,
+				y: Math.floor((Math.random() * 10 + 1))+"",
 			});
 			var lastIdx = this.tabularData.length - 1;
 			this.$nextTick(function () {
@@ -197,7 +197,7 @@ var app = new Vue({
 		onJournalSharedInstance() {},
 
 		onJournalNewInstance() {
-			this.chartview.updateTitle(this.activityTitle);
+			this.chartview.updateTitle("Chart Activity");
 		},
 		onJournalDataLoaded(data, metadata) {
 			this.tabularData = data.tabularData;
@@ -269,7 +269,7 @@ var app = new Vue({
 		handleFontSize(value) {
 			let fontsize = this.selectedFontField.fontsize;
 			fontsize += value;
-			this.selectedFontField.fontsize = Math.min(Math.max(10, fontsize), 60);
+			this.selectedFontField.fontsize = Math.min(Math.max(10, fontsize), 55);
 		},
 		updateFontField(index) {
 			this.selectedFontIdx = index;
@@ -279,8 +279,9 @@ var app = new Vue({
 		updatePreference(prefObj) {
 			this.pref = prefObj;
 			this.$nextTick(function () {
-				this.chartview.updateChartType();
+				// Maintain order so chartType pie can update colors
 				this.chartview.updateChartColor();
+				this.chartview.updateChartType();
 				this.updatePalletes();
 				["x", "y"].forEach(axis => {
 					this.chartview.updateLabel(axis);

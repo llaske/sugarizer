@@ -12,6 +12,7 @@
 		<script src="lib/intro.js"></script>
 		<script src="lib/vue.min.js"></script>
 		<script src="lib/chart.min.js"></script>
+		<script src="lib/chartjs-datalabels.min.js"></script>
 		<script src="lib/require.js"></script>
 		<script type="text/javascript" src="../../cordova.js"></script>
 	</head>
@@ -142,7 +143,7 @@
 					</div>
 				</div>
 				<div class="chart-container">
-					<chartview ref="chartview" class="view" :tabular-data="tabularData" :pref="pref"></chartview>
+					<chartview ref="chartview" class="view" :tabular-data="tabularData" :pref="pref" :activity-title="activityTitle"></chartview>
 				</div>
 			</div>
 
