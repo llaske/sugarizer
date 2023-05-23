@@ -32,6 +32,7 @@ const ChartView = {
 			},
 			options: this.chartOptions,
 		});
+		Chart.defaults.scale.grid.lineWidth = 2;
 	},
 	methods: {
 		// Update Handlers
@@ -250,7 +251,13 @@ const ChartView = {
 					labels: { ...this.chartOptions.plugins.labels, render: () => {} },
 				},
 				scales: {
-					x: { ...this.chartOptions.scales.x, beginAtZero: true },
+					x: {
+						...this.chartOptions.scales.x,
+						beginAtZero: true,
+						grid: {
+							color: (ctx) => (ctx.tick && ctx.tick.value === 0 ? "rgb(50,50,50)" : "rgb(240,240,240)"),
+						},
+					},
 					y: { ...this.chartOptions.scales.y, offset: true },
 				},
 			};
@@ -264,7 +271,13 @@ const ChartView = {
 				},
 				scales: {
 					x: { ...this.chartOptions.scales.x, offset: true },
-					y: { ...this.chartOptions.scales.y, beginAtZero: true },
+					y: {
+						...this.chartOptions.scales.x,
+						beginAtZero: true,
+						grid: {
+							color: (ctx) => (ctx.tick && ctx.tick.value === 0 ? "rgb(50,50,50)" : "rgb(240,240,240)"),
+						},
+					},
 				},
 			};
 		},
