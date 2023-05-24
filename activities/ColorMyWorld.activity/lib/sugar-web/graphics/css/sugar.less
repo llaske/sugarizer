@@ -544,11 +544,14 @@ input[type='radio']:checked {
 /* Textarea */
 
 textarea {
+  resize: vertical;
   margin: @line-width;
   border: @line-width solid @button-grey;
 }
 
 textarea.expand {
+  resize: vertical;
+  max-height: 70vh;
   width: calc(~"100%" - (6 * (@line-width)));
 }
 

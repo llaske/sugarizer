@@ -105,6 +105,8 @@ button:disabled {
 	font-size: 11px;
 	width: 255px;
 	color: black;
+	resize: vertical;
+	max-height: 70vh;
 }
 
 .palette input[type='text'].expand {
@@ -464,7 +466,7 @@ body {
 	content: "";
 	margin-right: 6px;
 	background-image: url(../icons/go-right.svg);
-	width: 20px;
+	width: 30px;
 	height: 20px;
 	background-size: 20px 20px;
   }
@@ -473,7 +475,7 @@ body {
 	content: "";
 	margin-right: 6px;
 	background-image: url(../icons/go-left.svg);
-	width: 20px;
+	width: 30px;
 	height: 20px;
 	background-size: 20px 20px;
   }

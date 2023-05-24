@@ -1,363 +1,369 @@
 #main-toolbar #activity-button {
-background-image:url(../activity/activity-icon.svg);
-}
-
-#main-toolbar #network-button {
-background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-}
-
-#main-toolbar #help-button {
-background-image: url(../icons/help.svg);
-}
-
-#main-toolbar #image-upload {
-background-image:url(../icons/image-upload.svg);
-visibility: hidden;
-}
-
-
-.network-text {
-font-size: 12pt;
-}
-
-#private-button {
-background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-width: 47px;
-height: 47px;
-margin: 4px 2px;
-color: white;
-color: transparent;
-background-color: transparent;
-background-position: center;
-background-repeat: no-repeat;
-background-size: contain;
-border: 0;
-border-radius: 5.5px;
-}
-
-#shared-button {
-background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
-width: 47px;
-height: 47px;
-margin: 4px 2px;
-color: white;
-color: transparent;
-background-color: transparent;
-background-position: center;
-background-repeat: no-repeat;
-background-size: contain;
-border: 0;
-border-radius: 5.5px;
-}
-
-*,:before,:after {
--moz-box-sizing:border-box;
--webkit-box-sizing:border-box;
-box-sizing:border-box;
-}
-
-html {
-font-family:Helvetica, Arial, sans-serif;
-font-size:100%;
-background:#333;
-}
-
-#page-wrapper {
-width:650px;
-background:#FFF;
-border-top:5px solid #69c773;
-box-shadow:0 2px 10px rgba(0,0,0,0.8);
-margin:1em auto;
-padding:1em;
-}
-
-h1 {
-margin-top:0;
-}
-
-#status {
-font-size:.9rem;
-margin-bottom:1rem;
-}
-
-.open {
-color:green;
-}
-
-.closed {
-color:red;
-}
-
-.error {
-color:red;
-}
-
-#messages {
-list-style:none;
-font-size:.95rem;
-margin:0;
-padding:0;
-}
-
-.message-line {
-border-bottom:1px solid #EEE;
-padding:.5rem .75rem;
-}
-
-.message-line:first-child {
-border-top:1px solid #EEE;
-}
-
-ul li span {
-display:inline-block;
-width:90px;
-font-weight:700;
-color:black;
-font-size:.9rem;
-text-transform:uppercase;
-letter-spacing:1px;
-}
-
-.sent {
-background-color:#F7F7F7;
-}
-
-#message-form {
-margin-top:1.5rem;
-}
-
-#text-container textarea {
-  height:41px;
-}
-textarea {
-  position: relative;
-  width:88%;
-  margin-left: 1%;
-  font-size:1rem;
-  border:1px solid #D9D9D9;
-  border-radius:3px;
-  box-shadow:inset 0 1px 1px rgba(0,0,0,0.1);
-  padding:3px;
-}
-
-/** Emoji Buttons **/
-#smiley-button {
-  position: absolute;
-  background-repeat: no-repeat;
-  margin-top: 8px;
-  margin-left: 10px;
-}
-
-#sad-button {
-  position: absolute;
-  margin-top:8px;
-  margin-left: 55px;
-}
-
-#others-button {
-  position: absolute;
-  margin-top:8px;
-  margin-left: 100px;
-}
-
-/** Dropdown for emoji button **/
-select {
-    padding:3px;
-    margin: 0;
-    background: transparent;
-    background-repeat: no-repeat;
-    color:#888;
-    border: none !important;;
-    outline:none;
-    display: inline-block;
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    cursor:pointer;
-}
-
-
-button {
-display:inline-block;
-border-radius:3px;
-border:none;
-font-size:.9rem;
-color:#FFF;
-text-align:center;
-background:#BABABA;
-border-bottom:1px solid #999;
-margin:0 .25rem;
-padding:.6rem 1em;
-}
-
-button[type="submit"] {
-background:#86b32d;
-border-bottom:1px solid #5d7d1f;
-}
-
-button:hover {
-opacity:0.75;
-cursor:pointer;
-}
-
-#content {
-margin: 1%;
-background:white;
-border-radius:5px;
-overflow-y: auto;
-border:1px solid #CCC;
-height:80%;
-padding:1%;
-}
-
-/** Media Access Query**/
-
-@media only screen and (min-width: 360px){
-  textarea {
-    position: static;
-    width:60%;
+  background-image:url(../activity/activity-icon.svg);
   }
-  #smiley-button, #sad-button, #others-button{
-      margin-top: 0px;
-      margin-bottom: 0px;
+  
+  #main-toolbar #network-button {
+  background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
   }
-}
-
-@media only screen and (min-width: 1366px){
-    textarea {
-      position: relative;
-      width:88%;
-      height: 41px;
-    }
-   #smiley-button, #sad-button, #others-button{
-      margin-top: 8px;
+  
+  #main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
   }
-}
-.introjs-overlay {
-  background-color: #000 !important;
-  opacity: .8 !important;
-}
-
-.introjs-tooltip {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
-  border-radius: 6px !important;
-  padding: 2px 1px !important;
-  font-size: 14px !important;
-}
-
-.introjs-helperLayer{
-  background: inherit !important;
-  opacity: 0.6 !important;
-}
-
-.customTooltip .introjs-tooltip-header {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color : #ffffff;
-  text-shadow: none;
-  background-color: #808080;
-  margin: 0;
-  padding: 0px 10px;
-  border-bottom: 1px solid #ebebeb;
-  border-radius: 5px 5px 0 0;
-}
-
-.customTooltip .introjs-tooltip-title {
-  font-size: 14px;
-  padding: 0px 8px;
-  font-weight: 800;
-}
-
-.customTooltip .introjs-tooltiptext {
-  color: #000000;
-  line-height: 1.42857143;
-}
-
-.customTooltip .introjs-skipbutton {
-  float: right;
-  cursor: pointer;
-  background-image: url(../icons/dialog-cancel.svg);
-  width: 25px;
-  height: 25px;
-  background-size: 25px 25px;
-  margin-top: 2px;
-  padding: 0px;
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.customTooltip .introjs-nextbutton::before {
-  content: "";
-  margin-right: 6px;
-  background-image: url(../icons/go-right.svg);
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-}
-
-.customTooltip .introjs-prevbutton::before {
-  content: "";
-  margin-right: 6px;
-  background-image: url(../icons/go-left.svg);
-  width: 20px;
-  height: 20px;
-  background-size: 20px 20px;
-}
-
-.customTooltip .introjs-tooltipbuttons {
-  display: flex;
-  flex-wrap:wrap;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-top: 0px;
-  padding: 0px;
-  text-align: center;
-  white-space: normal;
-}
-
-.customTooltip .introjs-button {
-  text-shadow: none;
-  border-radius: 22px;
-  margin: 5px 8px 8px 8px;
-  width: fit-content;
-  background-color: #808080 !important;
-  display: flex !important;
-  align-items: center !important;
-  color: white !important;
-  padding: 6px 20px 6px 10px;
-  border: 0px;
-}
-
-.customTooltip .introjs-button:focus {
-  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
-  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
-  border: 0px;
-  background-color: #808080 !important;
-}
-
-.customTooltip .introjs-disabled {
-  color: black !important;
-  border: 0px;
-  opacity: .65;
-}
-
-.customTooltip .introjs-disabled:focus {
-  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
-  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
-  border: 0px;
-}
-
-.web-activity-icon {
-  background-repeat: no-repeat;
+  
+  #main-toolbar #image-upload {
+  background-image:url(../icons/image-upload.svg);
+  visibility: hidden;
+  }
+  
+  
+  .network-text {
+  font-size: 12pt;
+  }
+  
+  #private-button {
+  background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
   background-position: center;
-  padding: 2px;
-}
-
-.icon-button {
-  border-radius: 22px;
-  margin-top: 5px;
-  height: 35px;
-  background-color: #808080;
-  border: 2px solid #808080;
-}
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  }
+  
+  #shared-button {
+  background-image:url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  }
+  
+  *,:before,:after {
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
+  }
+  
+  html {
+  font-family:Helvetica, Arial, sans-serif;
+  font-size:100%;
+  background:#333;
+  }
+  
+  #page-wrapper {
+  width:650px;
+  background:#FFF;
+  border-top:5px solid #69c773;
+  box-shadow:0 2px 10px rgba(0,0,0,0.8);
+  margin:1em auto;
+  padding:1em;
+  }
+  
+  h1 {
+  margin-top:0;
+  }
+  
+  #status {
+  font-size:.9rem;
+  margin-bottom:1rem;
+  }
+  
+  .open {
+  color:green;
+  }
+  
+  .closed {
+  color:red;
+  }
+  
+  .error {
+  color:red;
+  }
+  
+  #messages {
+  list-style:none;
+  font-size:.95rem;
+  margin:0;
+  padding:0;
+  }
+  
+  .message-line {
+  border-bottom:1px solid #EEE;
+  padding:.5rem .75rem;
+  }
+  
+  .message-line:first-child {
+  border-top:1px solid #EEE;
+  }
+  
+  ul li span {
+  display:inline-block;
+  width:90px;
+  font-weight:700;
+  color:black;
+  font-size:.9rem;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  }
+  
+  .sent {
+  background-color:#F7F7F7;
+  }
+  
+  #message-form {
+  margin-top:1.5rem;
+  }
+  
+  #text-container textarea {
+    resize: vertical;
+    height:41px;
+  }
+  textarea {
+    resize: vertical;
+    position: relative;
+    width:88%;
+    margin-left: 1%;
+    font-size:1rem;
+    border:1px solid #D9D9D9;
+    border-radius:3px;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,0.1);
+    padding:3px;
+  }
+  
+  /** Emoji Buttons **/
+  #smiley-button {
+    position: absolute;
+    background-repeat: no-repeat;
+    margin-top: 8px;
+    margin-left: 10px;
+  }
+  
+  #sad-button {
+    position: absolute;
+    margin-top:8px;
+    margin-left: 55px;
+  }
+  
+  #others-button {
+    position: absolute;
+    margin-top:8px;
+    margin-left: 100px;
+  }
+  
+  /** Dropdown for emoji button **/
+  select {
+      padding:3px;
+      margin: 0;
+      background: transparent;
+      background-repeat: no-repeat;
+      color:#888;
+      border: none !important;;
+      outline:none;
+      display: inline-block;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      appearance:none;
+      cursor:pointer;
+  }
+  
+  
+  button {
+  display:inline-block;
+  border-radius:3px;
+  border:none;
+  font-size:.9rem;
+  color:#FFF;
+  text-align:center;
+  background:#BABABA;
+  border-bottom:1px solid #999;
+  margin:0 .25rem;
+  padding:.6rem 1em;
+  }
+  
+  button[type="submit"] {
+  background:#86b32d;
+  border-bottom:1px solid #5d7d1f;
+  }
+  
+  button:hover {
+  opacity:0.75;
+  cursor:pointer;
+  }
+  
+  #content {
+  margin: 1%;
+  background:white;
+  border-radius:5px;
+  overflow-y: auto;
+  border:1px solid #CCC;
+  height:80%;
+  padding:1%;
+  }
+  
+  /** Media Access Query**/
+  
+  @media only screen and (min-width: 360px){
+    textarea {
+      resize: vertical;
+      max-height: 70vh;
+      position: static;
+      width:60%;
+    }
+    #smiley-button, #sad-button, #others-button{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+  }
+  
+  @media only screen and (min-width: 1366px){
+      textarea {
+        resize: vertical;
+        position: relative;
+        width:88%;
+        height: 41px;
+      }
+     #smiley-button, #sad-button, #others-button{
+        margin-top: 8px;
+    }
+  }
+  .introjs-overlay {
+    background-color: #000 !important;
+    opacity: .8 !important;
+  }
+  
+  .introjs-tooltip {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+    border-radius: 6px !important;
+    padding: 2px 1px !important;
+    font-size: 14px !important;
+  }
+  
+  .introjs-helperLayer{
+    background: inherit !important;
+    opacity: 0.6 !important;
+  }
+  
+  .customTooltip .introjs-tooltip-header {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color : #ffffff;
+    text-shadow: none;
+    background-color: #808080;
+    margin: 0;
+    padding: 0px 10px;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .customTooltip .introjs-tooltip-title {
+    font-size: 14px;
+    padding: 0px 8px;
+    font-weight: 800;
+  }
+  
+  .customTooltip .introjs-tooltiptext {
+    color: #000000;
+    line-height: 1.42857143;
+  }
+  
+  .customTooltip .introjs-skipbutton {
+    float: right;
+    cursor: pointer;
+    background-image: url(../icons/dialog-cancel.svg);
+    width: 25px;
+    height: 25px;
+    background-size: 25px 25px;
+    margin-top: 2px;
+    padding: 0px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .customTooltip .introjs-nextbutton::before {
+    content: "";
+    margin-right: 6px;
+    background-image: url(../icons/go-right.svg);
+    width: 30px;
+    height: 20px;
+    background-size: 20px 20px;
+  }
+  
+  .customTooltip .introjs-prevbutton::before {
+    content: "";
+    margin-right: 6px;
+    background-image: url(../icons/go-left.svg);
+    width: 30px;
+    height: 20px;
+    background-size: 20px 20px;
+  }
+  
+  .customTooltip .introjs-tooltipbuttons {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-top: 0px;
+    padding: 0px;
+    text-align: center;
+    white-space: normal;
+  }
+  
+  .customTooltip .introjs-button {
+    text-shadow: none;
+    border-radius: 22px;
+    margin: 5px 8px 8px 8px;
+    width: fit-content;
+    background-color: #808080 !important;
+    display: flex !important;
+    align-items: center !important;
+    color: white !important;
+    padding: 6px 20px 6px 10px;
+    border: 0px;
+  }
+  
+  .customTooltip .introjs-button:focus {
+    -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+    box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+    border: 0px;
+    background-color: #808080 !important;
+  }
+  
+  .customTooltip .introjs-disabled {
+    color: black !important;
+    border: 0px;
+    opacity: .65;
+  }
+  
+  .customTooltip .introjs-disabled:focus {
+    -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+    box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+    border: 0px;
+  }
+  
+  .web-activity-icon {
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 2px;
+  }
+  
+  .icon-button {
+    border-radius: 22px;
+    margin-top: 5px;
+    height: 35px;
+    background-color: #808080;
+    border: 2px solid #808080;
+  }
+  

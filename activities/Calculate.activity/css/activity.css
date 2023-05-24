@@ -70,6 +70,7 @@ input[type='text'] {
   color: #000 !important;
 }
 textarea {
+  resize: vertical;
   color: #000 !important;
 }
 #results-zone {
@@ -169,7 +170,7 @@ calc-container {
   content: "";
   margin-right: 6px;
   background-image: url(../icons/go-right.svg);
-  width: 20px;
+  width: 30px;
   height: 20px;
   background-size: 20px 20px;
 }
@@ -178,7 +179,7 @@ calc-container {
   content: "";
   margin-right: 6px;
   background-image: url(../icons/go-left.svg);
-  width: 20px;
+  width: 30px;
   height: 20px;
   background-size: 20px 20px;
 }

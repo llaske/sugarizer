@@ -8,7 +8,7 @@ body {
   margin: 0;
   font-family: sans-serif;
   font-size: 10pt;
-  background-color: white;
+  background-color: #c0c0c0;
 }
 .unselectable {
   -webkit-user-select: none;
@@ -86,6 +86,7 @@ a {
   top: 55px;
   bottom: 0;
   width: 100%;
+  overflow-y: auto;
   color: black;
   background-color: #c0c0c0;
 }
@@ -102,7 +103,7 @@ button {
 }
 button:hover {
   background-color: #a2a2a2;
-  transform: translateY(-2px);
+  border-color: #a2a2a2;
 }
 button:active {
   color: black;
@@ -419,10 +420,13 @@ input[type='radio']:checked {
 }
 /* Textarea */
 textarea {
+  resize: vertical;
   margin: 2px;
   border: 2px solid #808080;
 }
 textarea.expand {
+  resize: vertical;
+  max-height: 70vh;
   width: calc(100% - 12px);
 }
 /* Lists */
