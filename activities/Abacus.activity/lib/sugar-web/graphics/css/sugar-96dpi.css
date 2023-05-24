@@ -420,10 +420,13 @@ input[type='radio']:checked {
 }
 /* Textarea */
 textarea {
+  resize: vertical;
   margin: 2px;
   border: 2px solid #808080;
 }
 textarea.expand {
+  resize: vertical;
+  max-height: 70vh;
   width: calc(100% - 12px);
 }
 /* Lists */
@@ -455,3 +458,4 @@ ul.flat-list.striped li:nth-child(odd) {
 *:focus {
   outline: 0;
  }
+
