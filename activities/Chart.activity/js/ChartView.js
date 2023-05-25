@@ -167,7 +167,6 @@ const ChartView = {
 			if (baseColor.startsWith("#")) {
 				baseRGB = Chart.helpers.color(baseColor).rgbString();			
 			}
-			if (numberOfColors === 1) return [baseRGB];
 
 			let rgbArr = baseRGB
 				.substring(4, baseRGB.length - 1)
@@ -176,13 +175,12 @@ const ChartView = {
 			rgbArr = rgbArr.map(value => parseInt(value));
 
 			const gradientColors = [];
+			const brightness = .6; 
 			for (let i = 0; i < numberOfColors; i++) {
 				const ratio = i / (numberOfColors - 1);
-				const brightness = .7; 
-
-				const r = Math.round(rgbArr[0] + (255 - rgbArr[0]) * ratio * brightness);
+				const r = Math.round(rgbArr[0] + (190 - rgbArr[0]) * ratio * brightness);
 				const g = Math.round(rgbArr[1] + (255 - rgbArr[1]) * ratio * brightness);
-				const b = Math.round(rgbArr[2] + (255 - rgbArr[2]) * ratio * brightness);
+				const b = Math.round(rgbArr[2] + (230 - rgbArr[2]) * ratio * brightness);
 
 				gradientColors.push(`rgb(${r},${g},${b})`);
 			}
