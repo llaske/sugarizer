@@ -122,12 +122,16 @@ p {
 	padding: 0px 10px;
 	border-bottom: 1px solid #ebebeb;
 	border-radius: 5px 5px 0 0;
+	display: flex;
+	align-items: center;
 }
 
 .customTooltip .introjs-tooltip-title {
 	font-size: 14px;
 	padding: 0px 8px;
 	font-weight: 800;
+	margin: 8px auto 8px 0px;
+	line-height: normal;
 }
 
 .customTooltip .introjs-tooltiptext {
@@ -136,7 +140,6 @@ p {
 }
 
 .customTooltip .introjs-skipbutton {
-	float: right;
 	cursor: pointer;
 	background-image: url(../icons/dialog-cancel.svg);
 	width: 25px;
@@ -147,6 +150,7 @@ p {
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
+	flex-shrink: 0;
 }
 
 .customTooltip .introjs-nextbutton::before {
@@ -248,7 +252,7 @@ p {
 #main-toolbar #line-chart-button {
     background-image: url(../icons/line.svg);
 }
-#main-toolbar #horizontal-bar-chart-button {
+#main-toolbar #horizontalBar-chart-button {
     background-image: url(../icons/hbar.svg);
 }
 #main-toolbar #bar-chart-button {

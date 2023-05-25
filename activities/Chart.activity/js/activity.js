@@ -8,10 +8,10 @@ requirejs.config({
 
 // CONSTANTS
 const CHART_TYPES = {
-	line: "line",
-	horizontalBar: "horizontal-bar",
-	bar: "bar",
-	pie: "pie",
+	line: "stringLineChart",
+	horizontalBar: "stringHorizontalBarChart",
+	bar: "stringVerticalBarChart",
+	pie: "stringPieChart",
 };
 
 // APP
@@ -42,14 +42,58 @@ const app = new Vue({
 		// TODO: implement collaboration
 		isUpdated: false,
 		l10n: {
-			stringAddData: "",
-			stringRemoveData: "",
-			stringTutoExplainTitle: "",
+			stringChartActivity: "",
+			stringAddValue: "",
+			stringRemoveValue: "",
+			stringVerticalBarChart: "",
+			stringHorizontalBarChart: "",
+			stringLineChart: "",
+			stringPieChart: "",
+			stringChartColor: "",
+			stringLineColor: "",
+			stringHorizontalLabel: "",
+			stringVerticalLabel: "",
+			stringFontColor: "",
+			stringSelectFont: "",
+			stringTitleFont: "",
+			stringLabelsFont: "",
+			stringTickFont: "",
+			stringFontMinusButton: "",
+			stringFontPlusButton: "",
+			stringFullscreen: "",
+			stringNetwork: "",
+			stringMoveUp: "",
+			stringMoveDown: "",
+			stringLabel: "",
+			stringValue: "",
+			stringHelp: "",
+			stringConfigs: "",
+			stringTextPalette: "",
+			stringTutoPrev: "",
+			stringTutoNext: "",
+			stringTutoEnd: "",
+
 			stringTutoExplainContent: "",
-			stringTutoAddTitle: "",
-			stringTutoAddContent: "",
-			stringTutoBackgroundTitle: "",
-			stringTutoBackgroundContent: "",
+			stringTutoAddData: "",
+			stringTutoAddButton: "",
+			stringTutoRemoveButton: "",
+			stringTutoChartTitle: "",
+			stringTutoChartType: "",
+			stringTutoConfig: "",
+			stringTutoSaveImage: "",
+			stringTutoReadActivity: "",
+			stringTutoReadStopWatch: "",
+			stringTutoReadMeasure: "",
+			
+			stringLines: "",
+			stringVerticalBars: "",
+			stringHorizontalBars: "",
+			stringInvalidValue: "",
+			stringSaveImage: "",
+			stringReadStopWatch: "",
+			stringReadMeasure: "",
+			stringNoData: "",
+			stringInvalidFile: "",
 		},
 		configActive: false,
 		textPalActive: false,
@@ -86,16 +130,7 @@ const app = new Vue({
 				this.chartview.updateTitle(e.target.value);
 			});
 		},
-		updatePalletes() {
-			this.palettes.strokeColor.setColor(this.pref.chartColor.stroke);
-			this.palettes.fillColor.setColor(this.pref.chartColor.fill);
-			this.palettes.textColor.setColor(this.pref.font.title.color);
-			this.palettes.font.setFont(this.pref.font.title.fontfamily);
-		},
 		localized() {
-			// this.activityTitle = this.SugarL10n.get("UserJoined", {
-			// 	name: this.currentenv.user.name,
-			// });
 			this.SugarL10n.localize(this.l10n);
 		},
 
@@ -186,18 +221,10 @@ const app = new Vue({
 			}
 		},
 
-		onStop() {
-			var context = {
-				tabularData: this.tabularData,
-				pref: this.pref,
-			};
-			this.$refs.SugarJournal.saveData(context);
-		},
-
 		onJournalSharedInstance() {},
 
 		onJournalNewInstance() {
-			this.chartview.updateTitle("Chart Activity");
+			this.chartview.updateTitle(this.l10n.stringChartActivity);
 		},
 		onJournalDataLoaded(data, metadata) {
 			this.tabularData = data.tabularData;
@@ -214,28 +241,6 @@ const app = new Vue({
 				console.log(data);
 				// document.getElementById("app").style.backgroundImage = `url(${data})`;
 			});
-		},
-
-		onHelp() {
-			var steps = [
-				{
-					title: this.l10n.stringTutoExplainTitle,
-					intro: this.l10n.stringTutoExplainContent,
-				},
-				{
-					element: "#add-button",
-					position: "right",
-					title: this.l10n.stringTutoAddTitle,
-					intro: this.l10n.stringTutoAddContent,
-				},
-				{
-					element: "#insert-button",
-					position: "bottom",
-					title: this.l10n.stringTutoBackgroundTitle,
-					intro: this.l10n.stringTutoBackgroundContent,
-				},
-			];
-			this.$refs.SugarTutorial.show(steps);
 		},
 
 		onAddImage() {
@@ -271,6 +276,12 @@ const app = new Vue({
 			fontsize += value;
 			this.selectedFontField.fontsize = Math.min(Math.max(10, fontsize), 55);
 		},
+		updatePalletes() {
+			this.palettes.strokeColor.setColor(this.pref.chartColor.stroke);
+			this.palettes.fillColor.setColor(this.pref.chartColor.fill);
+			this.palettes.textColor.setColor(this.pref.font.title.color);
+			this.palettes.font.setFont(this.pref.font.title.fontfamily);
+		},
 		updateFontField(index) {
 			this.selectedFontIdx = index;
 			this.palettes.textColor.setColor(this.selectedFontField.color);
@@ -293,6 +304,131 @@ const app = new Vue({
 				});
 			});
 		},
+
+		onHelp() {
+			const steps = [
+				{
+					title: this.l10n.stringChartActivity,
+					intro: this.l10n.stringTutoExplainContent,
+				},
+				{
+					element: "#activity-button",
+					position: "bottom",
+					title: this.l10n.stringChartActivity,
+					intro: this.l10n.stringTutoChartTitle,
+				},
+				{
+					element: "#add-button",
+					position: "bottom",
+					title: this.l10n.stringAddValue,
+					intro: this.l10n.stringTutoAddData,
+				},
+				{
+					element: "#remove-button",
+					position: "bottom",
+					title: this.l10n.stringRemoveValue,
+					intro: this.l10n.stringTutoRemoveButton,
+				},
+				{
+					title: this.l10n.stringChartActivity,
+					intro: this.l10n.stringTutoChartType,
+				},
+				{
+					element: "#line-chart-button",
+					position: "bottom",
+					title: this.l10n.stringLineChart,
+					intro: this.l10n.stringLines,
+				},
+				{
+					element: "#horizontalBar-chart-button",
+					position: "bottom",
+					title: this.l10n.stringHorizontalBarChart,
+					intro: this.l10n.stringHorizontalBars,
+				},
+				{
+					element: "#bar-chart-button",
+					position: "bottom",
+					title: this.l10n.stringVerticalBarChart,
+					intro: this.l10n.stringVerticalBars,
+				},
+				{
+					element: "#pie-chart-button",
+					position: "bottom",
+					title: this.l10n.stringPieChart,
+					intro: this.l10n.stringPieChart,
+				},
+				{
+					element: "#config-button",
+					position: "bottom",
+					title: this.l10n.stringConfigs,
+					intro: this.l10n.stringTutoConfig,
+				},
+				{
+					element: "#text-palette-button",
+					position: "bottom",
+					title: this.l10n.stringTextPalette,
+					intro: this.l10n.stringTextPalette,
+				},
+				{
+					element: "#title-font-button",
+					position: "bottom",
+					title: this.l10n.stringTitleFont,
+					intro: this.l10n.stringTitleFont,
+				},
+				{
+					element: "#labels-font-button",
+					position: "bottom",
+					title: this.l10n.stringLabelsFont,
+					intro: this.l10n.stringLabelsFont,
+				},
+				{
+					element: "#tick-font-button",
+					position: "bottom",
+					title: this.l10n.stringTickFont,
+					intro: this.l10n.stringTickFont,
+				},
+				{
+					element: "#font-button",
+					position: "bottom",
+					title: this.l10n.stringSelectFont,
+					intro: this.l10n.stringSelectFont,
+				},
+				{
+					element: "#text-color",
+					position: "bottom",
+					title: this.l10n.stringFontColor,
+					intro: this.l10n.stringFontColor,
+				},
+				{
+					element: "#export-button",
+					position: "bottom",
+					title: this.l10n.stringSaveImage,
+					intro: this.l10n.stringTutoSaveImage,
+				},
+			];
+			const introJs = this.$refs.SugarTutorial.introJs;
+			introJs.onbeforechange((targetEle) => {
+				console.log(targetEle.id);
+				switch (targetEle.id) {
+					case "title-font-button":
+						this.textPalActive = true;
+						this.configActive = false;
+						break;
+				}
+			})
+			introJs.onexit(() => this.textPalActive = false);
+			this.configActive = this.textPalActive = false;
+			this.$refs.SugarTutorial.show(steps);
+		},
+		onStop() {
+			var context = {
+				tabularData: this.tabularData,
+				pref: this.pref,
+			};
+			this.$refs.SugarJournal.saveData(context);
+		},
+
+
 	},
 	computed: {
 		selectedFontField() {

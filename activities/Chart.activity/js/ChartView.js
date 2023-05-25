@@ -116,7 +116,7 @@ const ChartView = {
 			this.setChartBgColor();
 
 			switch (this.pref.chartType) {
-				case "horizontal-bar":
+				case "horizontalBar":
 					this.indexAxis = "y";
 					this.chart.config.type = "bar";
 					this.chart.config.options = this.chartOpHorizontal;
@@ -178,7 +178,7 @@ const ChartView = {
 			const gradientColors = [];
 			for (let i = 0; i < numberOfColors; i++) {
 				const ratio = i / (numberOfColors - 1);
-				const brightness = .7; // Adjust the brightness factor as needed
+				const brightness = .7; 
 
 				const r = Math.round(rgbArr[0] + (255 - rgbArr[0]) * ratio * brightness);
 				const g = Math.round(rgbArr[1] + (255 - rgbArr[1]) * ratio * brightness);

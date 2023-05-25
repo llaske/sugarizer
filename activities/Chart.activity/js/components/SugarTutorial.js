@@ -10,6 +10,7 @@ Vue.component('sugar-tutorial', {
 		}
 	},
 	mounted() {
+		this.introJs = introJs();
 		let vm = this;
 		if (this.$root.$refs.SugarL10n) {
 			this.$root.$refs.SugarL10n.$on('localized', function () {
@@ -22,7 +23,7 @@ Vue.component('sugar-tutorial', {
 			steps= steps.filter(function (obj) {
 				return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');
 			});
-			introJs().setOptions({
+			this.introJs.setOptions({
 				tooltipClass: 'customTooltip',
 				steps: steps,
 				prevLabel: this.l10n.stringTutoPrev,
@@ -31,6 +32,6 @@ Vue.component('sugar-tutorial', {
 				nextToDone: false,
 				showBullets: false
 			}).start();
-		}
+		},
 	}
 });
