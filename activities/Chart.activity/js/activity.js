@@ -29,11 +29,11 @@ const app = new Vue({
 		pref: {
 			chartType: "bar",
 			chartColor: { stroke: "", fill: "" },
-			labels: {x: "X →", y: "Y →"},
+			labels: {x: "", y: ""},
 			font: {
 				propertyOrder: ["title", "labels", "tick"],
 				title: {fontsize: 26, fontfamily: "Arial", color: "#005fe4"},
-				labels: {fontsize: 20, fontfamily: "Arial", color: "#FF5733"},
+				labels: {fontsize: 22, fontfamily: "Arial", color: "#555555"},
 				tick: {fontsize: 14, fontfamily: "Arial", color: "#282828"},
 			} 
 		},
@@ -131,6 +131,16 @@ const app = new Vue({
 			});
 		},
 		localized() {
+			const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
+			for(let i = 0; i < 3; i++) {
+				const label = "EgLabel" + randArr[i];
+				this.tabularData.push({
+					x: this.SugarL10n.get(label),
+					y: randArr[i] + 6,
+				})
+			}
+			this.pref.labels.x = this.SugarL10n.get("Sports") +" →";
+			this.pref.labels.y = this.SugarL10n.get("Students") +" →";
 			this.SugarL10n.localize(this.l10n);
 		},
 
@@ -427,8 +437,13 @@ const app = new Vue({
 			};
 			this.$refs.SugarJournal.saveData(context);
 		},
-
-
+		shuffleArray(array) {
+		    for (let i = array.length - 1; i > 0; i--) {
+		        const j = Math.floor(Math.random() * (i + 1));
+		        [array[i], array[j]] = [array[j], array[i]];
+		    }
+		    return array;
+		}
 	},
 	computed: {
 		selectedFontField() {
