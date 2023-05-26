@@ -88,11 +88,9 @@ const app = new Vue({
 			stringLines: "",
 			stringVerticalBars: "",
 			stringHorizontalBars: "",
-			stringInvalidValue: "",
 			stringSaveImage: "",
 			stringReadStopWatch: "",
 			stringReadMeasure: "",
-			stringNoData: "",
 			stringInvalidFile: "",
 		},
 		configActive: false,
@@ -131,16 +129,6 @@ const app = new Vue({
 			});
 		},
 		localized() {
-			const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
-			for(let i = 0; i < 3; i++) {
-				const label = "EgLabel" + randArr[i];
-				this.tabularData.push({
-					x: this.SugarL10n.get(label),
-					y: randArr[i] + 6,
-				})
-			}
-			this.pref.labels.x = this.SugarL10n.get("Sports") +" →";
-			this.pref.labels.y = this.SugarL10n.get("Students") +" →";
 			this.SugarL10n.localize(this.l10n);
 		},
 
@@ -234,6 +222,18 @@ const app = new Vue({
 		onJournalSharedInstance() {},
 
 		onJournalNewInstance() {
+			window.addEventListener("localized", () => {
+				const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
+				for(let i = 0; i < 3; i++) {
+					const label = "EgLabel" + randArr[i];
+					this.tabularData.push({
+						x: this.SugarL10n.get(label),
+						y: randArr[i] + 6,
+					})
+				}
+				this.pref.labels.x = this.SugarL10n.get("Sports") +" →";
+				this.pref.labels.y = this.SugarL10n.get("Students") +" →";
+			}, { once: true });
 			this.chartview.updateTitle(this.l10n.stringChartActivity);
 		},
 		onJournalDataLoaded(data, metadata) {
@@ -418,7 +418,6 @@ const app = new Vue({
 			];
 			const introJs = this.$refs.SugarTutorial.introJs;
 			introJs.onbeforechange((targetEle) => {
-				console.log(targetEle.id);
 				switch (targetEle.id) {
 					case "title-font-button":
 						this.textPalActive = true;

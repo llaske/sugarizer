@@ -30,7 +30,7 @@ const ChartView = {
 				],
 				labels: this.labels,
 			},
-			options: this.chartOptions,
+			options: this.chartOpVertical,
 		});
 		Chart.defaults.scale.grid.lineWidth = 2;
 	},
@@ -270,7 +270,7 @@ const ChartView = {
 				scales: {
 					x: { ...this.chartOptions.scales.x, offset: true },
 					y: {
-						...this.chartOptions.scales.x,
+						...this.chartOptions.scales.y,
 						beginAtZero: true,
 						grid: {
 							color: (ctx) => (ctx.tick && ctx.tick.value === 0 ? "rgb(50,50,50)" : "rgb(240,240,240)"),
