@@ -33,7 +33,7 @@ Vue.component('sugar-localization', {
 	},
 	mounted: function () {
 		const vm = this;
-		// var vm = this;
+
 		if (vm.l10n == null) {
 			requirejs(["sugar-web/env"], function (env) {
 				env.getEnvironment(function (err, environment) {
@@ -101,78 +101,80 @@ Vue.component('sugar-localization', {
 			vm.activityInitialized = true;
 		});
 	},
+
 	methods: {
-	subscribeLanguageChange: function () {
-		let vm = this;
-		i18next.on('languageChanged', function (lng) {
-			vm.code = lng;
-			vm.dictionary = i18next.getResourceBundle(lng, 'translation');
-			vm.$emit('localized');
-			vm.eventReceived = true;
-		});
-	},
-	// Get a string with parameters
-	get: function (str, params) {
-		let out = '';
+		subscribeLanguageChange: function () {
+			let vm = this;
+			i18next.on('languageChanged', function (lng) {
+				vm.code = lng;
+				vm.dictionary = i18next.getResourceBundle(lng, 'translation');
+				vm.$emit('localized');
+				vm.eventReceived = true;
+			});
+		},
 
-		if (!this.dictionary) {
-			out = str;
-		} else {
-			out = this.dictionary[str] || str;
-		}
+		// Get a string with parameters
+		get: function (str, params) {
+			let out = '';
 
-		// Check params
-		if (params) {
-			let paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
-			for (let i in paramsInString) {
-				let param = paramsInString[i].match(/[\w\.]+/)[0];
-				if (params[param]) {
-					out = out.replace(paramsInString[i], params[param]);
+			if (!this.dictionary) {
+				out = str;
+			} else {
+				out = this.dictionary[str] || str;
+			}
+
+			// Check params
+			if (params) {
+				let paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
+				for (let i in paramsInString) {
+					let param = paramsInString[i].match(/[\w\.]+/)[0];
+					if (params[param]) {
+						out = out.replace(paramsInString[i], params[param]);
+					}
 				}
 			}
-		}
-		return out;
-	},
+			return out;
+		},
 
-	// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
-	localize: function (strings) {
-		const vm = this;
-		Object.keys(strings).forEach(function (key, index) {
-			strings[key] = vm.get(key.substr(6));
-		});
-	},
+		// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
+		localize: function (strings) {
+			const vm = this;
+			Object.keys(strings).forEach(function (key, index) {
+				strings[key] = vm.get(key.substr(6));
+			});
+		},
 
-	// Convert a UNIX timestamp to Sugarizer time elapsed string
-	localizeTimestamp: function (timestamp) {
-		const maxlevel = 2;
-		const levels = 0;
-		const time_period = '';
-		const elapsed_seconds = (Date.now() - timestamp) / 1000;
-		for (let i = 0; i < this.units.length; i++) {
-			let factor = this.units[i].factor;
+		// Convert a UNIX timestamp to Sugarizer time elapsed string
+		localizeTimestamp: function (timestamp) {
+			const maxlevel = 2;
+			const levels = 0;
+			const time_period = '';
+			const elapsed_seconds = (Date.now() - timestamp) / 1000;
+			for (let i = 0; i < this.units.length; i++) {
+				let factor = this.units[i].factor;
 
-			let elapsed_units = Math.floor(elapsed_seconds / factor);
-			if (elapsed_units > 0) {
-				if (levels > 0)
-					time_period += ',';
+				let elapsed_units = Math.floor(elapsed_seconds / factor);
+				if (elapsed_units > 0) {
+					if (levels > 0)
+						time_period += ',';
 
-				time_period += ' ' + elapsed_units + " " + (elapsed_units == 1 ? this.get(this.units[i].name + "_one") : this.get(this.units[i].name + "_other"));
+					time_period += ' ' + elapsed_units + " " + (elapsed_units == 1 ? this.get(this.units[i].name + "_one") : this.get(this.units[i].name + "_other"));
 
-				elapsed_seconds -= elapsed_units * factor;
+					elapsed_seconds -= elapsed_units * factor;
+				}
+
+				if (time_period != '')
+					levels += 1;
+
+				if (levels == maxlevel)
+					break;
 			}
 
-			if (time_period != '')
-				levels += 1;
+			if (levels == 0) {
+				return this.get("SecondsAgo");
+			}
 
-			if (levels == maxlevel)
-				break;
+			return this.get("Ago", { time: time_period });
 		}
-
-		if (levels == 0) {
-			return this.get("SecondsAgo");
-		}
-
-		return this.get("Ago", { time: time_period });
 	}
-}
-  });
+});
