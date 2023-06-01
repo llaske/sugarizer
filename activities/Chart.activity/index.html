@@ -2,17 +2,19 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>My Vue Activity</title>
+		<title>Chart Activity</title>
 		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
 		<link rel="prefetch" type="application/l10n" href="locale.ini" />
 		<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css" />
 		<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css" />
 		<link rel="stylesheet" href="css/activity.css" />
 		<link rel="stylesheet" href="css/introjs.css" />
+		<link rel="stylesheet" href="css/libnotify.css" />
 		<script src="lib/intro.js"></script>
 		<script src="lib/vue.min.js"></script>
 		<script src="lib/chart.min.js"></script>
 		<script src="lib/chartjs-datalabels.min.js"></script>
+		<script src="lib/csv-to-json.js"></script>
 		<script src="lib/require.js"></script>
 		<script type="text/javascript" src="../../cordova.js"></script>
 	</head>
@@ -41,10 +43,20 @@
 					<sugar-toolitem @click="pref.chartType = key" :id="`${key}-chart-button`" :class="{active: pref.chartType==key}" :title="l10n[string]"></sugar-toolitem>
 				</template>
 				<hr />
+				<sugar-toolitem id="insert-chart" @click="insertChart" :title="l10n.stringInsertChart"></sugar-toolitem>
 				<sugar-toolitem id="config-button" @click="toggleConfig" class="invoker" :class="{active: configActive}" :title="l10n.stringConfigs"></sugar-toolitem>
 
 				<sugar-toolitem id="text-palette-button" @click="toggleTextPal" class="invoker" :class="{active: textPalActive}" :title="l10n.stringConfigs"></sugar-toolitem>
-				<sugar-toolitem id="export-button" :title="l10n.stringSaveImage" @click="onAddImage"></sugar-toolitem>
+				<sugar-toolitem 
+					id="export-button" 
+					ref="exportPal"
+					v-bind:title="l10n.stringExportSettings" 
+					palette-file="lib/js/palettes/exportpalette.js"
+					palette-class="ExportPalette"
+					palette-event="export-file"
+					@export-file="exportFile"
+					:title="l10n.stringExportSettings"
+				></sugar-toolitem>
 
 				<sugar-toolitem @click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 				<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right" :title="l10n.stringFullscreen"></sugar-toolitem>
@@ -135,11 +147,13 @@
 			<sugar-activity @initialized="initialized" ref="SugarActivity"></sugar-activity>
 			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
 			<sugar-presence ref="SugarPresence" @data-received="onNetworkDataReceived" @user-changed="onNetworkUserChanged"></sugar-presence>
+			<sugar-popup ref="SugarPopup"></sugar-popup>
 			<sugar-journal ref="SugarJournal" @journal-shared-instance="onJournalSharedInstance" @journal-data-loaded="onJournalDataLoaded" @journal-new-instance="onJournalNewInstance"></sugar-journal>
 			<sugar-localization @localized="localized" ref="SugarL10n"></sugar-localization>
 		</div>
 		<script src="js/components/SugarTutorial.js"></script>
 		<script src="js/components/SugarPresence.js"></script>
+		<script src="js/components/SugarPopup.js"></script>
 		<script src="js/components/SugarL10n.js"></script>
 		<script src="js/components/SugarJournal.js"></script>
 		<script src="js/components/SugarActivity.js"></script>

@@ -24,7 +24,7 @@ const app = new Vue({
 		currentenv: null,
 		SugarL10n: null,
 		SugarPresence: null,
-		activityTitle: "Chart Activity",
+		activityTitle: "",
 		tabularData: [],
 		pref: {
 			chartType: "bar",
@@ -72,7 +72,6 @@ const app = new Vue({
 			stringTutoPrev: "",
 			stringTutoNext: "",
 			stringTutoEnd: "",
-
 			stringTutoExplainContent: "",
 			stringTutoAddData: "",
 			stringTutoAddButton: "",
@@ -81,14 +80,17 @@ const app = new Vue({
 			stringTutoChartType: "",
 			stringTutoConfig: "",
 			stringTutoSaveImage: "",
+			stringTutoExportCsv: "",
+			stringexportAsCSV: "",
+			stringSaveImage: "",
+			stringInsertChart: "",
 			stringTutoReadActivity: "",
 			stringTutoReadStopWatch: "",
 			stringTutoReadMeasure: "",
-			
 			stringLines: "",
 			stringVerticalBars: "",
 			stringHorizontalBars: "",
-			stringSaveImage: "",
+			stringExportSettings: "",
 			stringReadStopWatch: "",
 			stringReadMeasure: "",
 			stringInvalidFile: "",
@@ -103,16 +105,19 @@ const app = new Vue({
 	mounted() {
 		this.SugarL10n = this.$refs.SugarL10n;
 		this.SugarPresence = this.$refs.SugarPresence;
+		this.SugarPopup = this.$refs.SugarPopup;
+		this.SugarJournal = this.$refs.SugarJournal;
+		this.chartview = this.$refs.chartview;
 	},
 	methods: {
 		initialized() {
 			const refs = this.$refs;
-			this.chartview = refs.chartview;
 			this.palettes.strokeColor = refs.strokeColorPal.paletteObject;
 			this.palettes.fillColor = refs.fillColorPal.paletteObject;
 			this.palettes.textColor = refs.textColorPal.paletteObject;
 			this.palettes.font = refs.fontPal.paletteObject;
 			this.palettes.share = refs.sharedPal.paletteObject;
+			this.palettes.export = refs.exportPal.paletteObject;
 
 			this.currentenv = refs.SugarActivity.getEnvironment();
 			const { stroke, fill } = this.currentenv.user.colorvalue;
@@ -130,6 +135,9 @@ const app = new Vue({
 		},
 		localized() {
 			this.SugarL10n.localize(this.l10n);
+			document.getElementById("export-csv-button").title = this.l10n.stringexportAsCSV;
+			document.getElementById("export-img-button").title = this.l10n.stringSaveImage;
+
 		},
 
 		addData() {
@@ -222,40 +230,70 @@ const app = new Vue({
 		onJournalSharedInstance() {},
 
 		onJournalNewInstance() {
-			window.addEventListener("localized", () => {
-				const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
-				for(let i = 0; i < 3; i++) {
-					const label = "EgLabel" + randArr[i];
-					this.tabularData.push({
-						x: this.SugarL10n.get(label),
-						y: randArr[i] + 6,
-					})
-				}
-				this.pref.labels.x = this.SugarL10n.get("Sports") +" →";
-				this.pref.labels.y = this.SugarL10n.get("Students") +" →";
-			}, { once: true });
+			const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
+			for(let i = 0; i < 3; i++) {
+				const label = "EgLabel" + randArr[i];
+				this.tabularData.push({
+					x: this.SugarL10n.get(label),
+					y: randArr[i] + 6,
+				})
+			}
+			this.pref.labels.x = this.SugarL10n.get("Sports"); 
+			this.pref.labels.y = this.SugarL10n.get("Students");
+			this.activityTitle = this.l10n.stringChartActivity;
 			this.chartview.updateTitle(this.l10n.stringChartActivity);
 		},
 		onJournalDataLoaded(data, metadata) {
 			this.tabularData = data.tabularData;
 			this.updatePreference(data.pref);
 		},
-		insertBackground() {
+		insertChart() {
 			var filters = [
-				// { activity: "org.sugarlabs.StopwatchActivity" },
-				{ mimetype: "text/plain" },
+				{ activity: "org.sugarlabs.StopwatchActivity" },
+				{ activity: "org.sugarlabs.Measure" },
+				// { mimetype: "text/plain" },
 			];
 
 			this.$refs.SugarJournal.insertFromJournal(filters).then((data, metadata) => {
 				console.log("Jounal Dialog data");
 				console.log(data);
-				// document.getElementById("app").style.backgroundImage = `url(${data})`;
 			});
 		},
 
-		onAddImage() {
+		exportFile(e) {
+			switch (e.format) {
+				case "csv":
+					this.exportAsCsv();
+					break;
+				case "png":
+					this.exportAsImage();
+					break;
+			}
+		},
+		exportAsImage() {
 			const { imgData, metadata } = this.chartview.getImgData();
-			this.$refs.SugarJournal.createEntry(imgData, metadata);
+			this.createJournalEntry(imgData, metadata, this.SugarL10n.get("exportImage"));
+		},
+		exportAsCsv() {
+			const data = this.tabularData.map(({ x, y }) => ({
+				[this.pref.labels.x]: x,
+				[this.pref.labels.y]: y,
+			}));
+			const csvContent = CSVParser.jsonToCsv(data);
+			const metadata = {
+				mimetype: 'text/plain',
+				title: this.activityTitle + ".txt",
+				activity: "org.olpcfrance.Chart",
+				timestamp: new Date().getTime(),
+				creation_time: new Date().getTime(),
+				file_size: 0
+			};
+			this.createJournalEntry(csvContent, metadata, this.SugarL10n.get("exportedLogAsCSV"));
+		},
+		createJournalEntry(content, metadata, msg) {
+			this.SugarJournal.createEntry(content, metadata).then(() => {
+				this.SugarPopup.log(msg);
+			});
 		},
 
 		sendPresenceMessage(action, data) {
@@ -410,7 +448,13 @@ const app = new Vue({
 					intro: this.l10n.stringFontColor,
 				},
 				{
-					element: "#export-button",
+					element: "#export-csv-button",
+					position: "bottom",
+					title: this.l10n.stringexportAsCSV,
+					intro: this.l10n.stringTutoExportCsv,
+				},
+				{
+					element: "#export-img-button",
 					position: "bottom",
 					title: this.l10n.stringSaveImage,
 					intro: this.l10n.stringTutoSaveImage,
@@ -421,11 +465,17 @@ const app = new Vue({
 				switch (targetEle.id) {
 					case "title-font-button":
 						this.textPalActive = true;
-						this.configActive = false;
+						this.palettes.export.popDown();
+						break;
+					case "export-csv-button":
+						this.palettes.export.popUp();
 						break;
 				}
 			})
-			introJs.onexit(() => this.textPalActive = false);
+			introJs.onexit(() => {
+				this.textPalActive = false;
+				this.palettes.export.popDown();
+			});			
 			this.configActive = this.textPalActive = false;
 			this.$refs.SugarTutorial.show(steps);
 		},

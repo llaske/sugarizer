@@ -54,6 +54,9 @@ p {
 	height: 0;
 	overflow: hidden;
 }
+.palette .wrapper {
+	min-width: 120px;
+}
 
 #main-toolbar #add-button {
     background-image: url(../icons/add.svg);
@@ -268,7 +271,16 @@ p {
     background-image: url(../icons/remove.svg);
 }
 #main-toolbar #export-button {
+    background-image: url(../icons/file-export.svg);
+}
+#main-toolbar #insert-chart {
+    background-image: url(../icons/insert-picture.svg);
+}
+#export-img-button {
     background-image: url(../icons/save-as-image.svg);
+}
+#export-csv-button {
+    background-image: url(../icons/save-as-csv.svg);
 }
 #main-toolbar #config-button {
     background-image: url(../icons/settings.svg);
@@ -312,6 +324,19 @@ p {
 }
 #down-button {
     background-image: url(../icons/go-down.svg);
+}
+#export-formats {
+	display: flex;
+}
+#export-formats button {
+	border-radius: 0;
+	margin: 5px;
+	width: 50px;
+	height: 50px;
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 /* Color Palette */

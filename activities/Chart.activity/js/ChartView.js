@@ -145,21 +145,22 @@ const ChartView = {
 
 		getImgData() {
 			const canvas = this.$refs.canvas;
-			const con = document.querySelector(".canvas-container");
-			// con.style.width = "130%";
-			// this.chart.resize();
+			const app = document.getElementById("app");
+			app.classList.add("fullscreen");
+			this.chart.resize();
 			const mimetype = "image/png";
 			const imgData = canvas.toDataURL(mimetype, 1);
+			app.classList.remove("fullscreen");
+			this.chart.resize();
+
 			const metadata = {
 				mimetype: mimetype,
-				title: "Chart image",
+				title: this.activityTitle,
 				activity: "org.olpcfrance.MediaViewerActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
 				file_size: 0,
 			};
-			// con.style.width = "auto";
-			// this.chart.resize();
 			return { imgData, metadata };
 		},
 		createGradient(baseColor, numberOfColors) {
