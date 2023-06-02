@@ -37,6 +37,7 @@ Vue.component('sugar-localization', {
 		if (vm.l10n == null) {
 			requirejs(['sugar-web/env'], function (env) {
 				env.getEnvironment((err, environment) => {
+					// Get default language
 					const defaultLanguage =
 						typeof chrome !== 'undefined' &&
 							chrome.app &&
@@ -87,7 +88,7 @@ Vue.component('sugar-localization', {
 					}
 				);
 			}).catch((error) => {
-				vm.loadLanguageFile('en');
+				vm.loadLanguageFile('en'); // Load default language
 				console.log(error);
 			});
 		},
@@ -96,12 +97,13 @@ Vue.component('sugar-localization', {
 			const vm = this;
 			i18next.on('languageChanged', (lng) => {
 				vm.code = lng;
-				vm.dictionary = i18next.getResourceBundle(lng, 'translation');
+				vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
 				vm.$emit('localized');
 				vm.eventReceived = true;
 			});
 		},
 
+		// Get a string with parameter
 		get: function (str, params) {
 			let out = '';
 
@@ -111,6 +113,7 @@ Vue.component('sugar-localization', {
 				out = this.dictionary[str] || str;
 			}
 
+			// Check params
 			if (params) {
 				let paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
 				for (let i in paramsInString) {
@@ -123,6 +126,7 @@ Vue.component('sugar-localization', {
 			return out;
 		},
 
+		// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
 		localize: function (strings) {
 			const vm = this;
 			Object.keys(strings).forEach((key, index) => {
@@ -130,6 +134,7 @@ Vue.component('sugar-localization', {
 			});
 		},
 
+		// Convert a UNIX timestamp to Sugarizer time elapsed string
 		localizeTimestamp: function (timestamp) {
 			const maxlevel = 2;
 			const levels = 0;
