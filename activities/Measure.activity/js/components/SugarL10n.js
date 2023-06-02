@@ -16,82 +16,43 @@ Vue.component('sugar-localization', {
 				{ name: 'Hours', factor: 60 * 60 },
 				{ name: 'Minutes', factor: 60 }
 			],
-		}
+		};
 	},
 	computed: {
 		readyToEmit: function () {
-			return (this.dictionary != null) && this.activityInitialized;
-		}
+			return this.dictionary != null && this.activityInitialized;
+		},
 	},
 	watch: {
 		readyToEmit: function (newVal, oldVal) {
 			if (newVal) {
-				this.$emit("localized");
+				this.$emit('localized');
 				this.eventReceived = true;
 			}
-		}
+		},
 	},
 	mounted: function () {
 		const vm = this;
 
 		if (vm.l10n == null) {
-			requirejs(["sugar-web/env"], function (env) {
-				env.getEnvironment(function (err, environment) {
-					const defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-					const language = environment.user ? environment.user.language : defaultLanguage;
+			requirejs(['sugar-web/env'], function (env) {
+				env.getEnvironment((err, environment) => {
+					const defaultLanguage =
+						typeof chrome !== 'undefined' &&
+							chrome.app &&
+							chrome.app.runtime
+							? chrome.i18n.getUILanguage()
+							: navigator.language;
+					const language = environment.user
+						? environment.user.language
+						: defaultLanguage;
 
 					if (vm.l10n == null) {
-						// Initialize i18next with options
-						i18next.init({
-							lng: language,
-							fallbackLng: 'en',
-							debug: true,
-							resources: {
-								en: {
-									translation: null // Placeholder for English translation data
-								},
-								fr: {
-									translation: null // Placeholder for French translation data
-								},
-								es: {
-									translation: null // Placeholder for Spanish translation data
-								},
-								pt: {
-									translation: null // Placeholder for Portuguese translation data
-								}
-							}
-						}, function () {
-							// Fetch all translation files using axios.get() and assign the data to resources
-							const translationPromises = [
-								axios.get('./locales/en.json').then(function (response) {
-									i18next.addResourceBundle('en', 'translation', response.data);
-								}),
-								axios.get('./locales/fr.json').then(function (response) {
-									i18next.addResourceBundle('fr', 'translation', response.data);
-								}),
-								axios.get('./locales/es.json').then(function (response) {
-									i18next.addResourceBundle('es', 'translation', response.data);
-								}),
-								axios.get('./locales/pt.json').then(function (response) {
-									i18next.addResourceBundle('pt', 'translation', response.data);
-								})
-							];
-
-							// Wait for all translation promises to resolve
-							Promise.all(translationPromises).then(function () {
-								vm.l10n = i18next;
-								vm.code = i18next.language;
-								vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
-								vm.subscribeLanguageChange();
-							});
-						});
+						vm.loadLanguageFile(language);
 					}
 				});
 			});
 		}
-
-
-
 
 		// Activity initialization check
 		const SugarActivity = vm.$root.$children.find(function (child) {
@@ -103,9 +64,37 @@ Vue.component('sugar-localization', {
 	},
 
 	methods: {
+		loadLanguageFile: function (language) {
+			const vm = this;
+			axios.get(`./locales/${language}.json`).then((response) => {
+				i18next.init(
+					{
+						lng: language,
+						fallbackLng: 'en',
+						debug: true,
+						resources: {
+							[language]: {
+								translation: response.data
+							}
+						},
+					},
+					() => {
+						vm.l10n = i18next;
+						vm.code = i18next.language;
+						vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
+						vm.subscribeLanguageChange();
+						vm.activityInitialized = true;
+					}
+				);
+			}).catch((error) => {
+				vm.loadLanguageFile('en');
+				console.log(error);
+			});
+		},
+
 		subscribeLanguageChange: function () {
-			let vm = this;
-			i18next.on('languageChanged', function (lng) {
+			const vm = this;
+			i18next.on('languageChanged', (lng) => {
 				vm.code = lng;
 				vm.dictionary = i18next.getResourceBundle(lng, 'translation');
 				vm.$emit('localized');
@@ -113,7 +102,6 @@ Vue.component('sugar-localization', {
 			});
 		},
 
-		// Get a string with parameters
 		get: function (str, params) {
 			let out = '';
 
@@ -123,7 +111,6 @@ Vue.component('sugar-localization', {
 				out = this.dictionary[str] || str;
 			}
 
-			// Check params
 			if (params) {
 				let paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
 				for (let i in paramsInString) {
@@ -136,20 +123,18 @@ Vue.component('sugar-localization', {
 			return out;
 		},
 
-		// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
 		localize: function (strings) {
 			const vm = this;
-			Object.keys(strings).forEach(function (key, index) {
+			Object.keys(strings).forEach((key, index) => {
 				strings[key] = vm.get(key.substr(6));
 			});
 		},
 
-		// Convert a UNIX timestamp to Sugarizer time elapsed string
 		localizeTimestamp: function (timestamp) {
 			const maxlevel = 2;
 			const levels = 0;
-			const time_period = '';
-			const elapsed_seconds = (Date.now() - timestamp) / 1000;
+			let time_period = '';
+			let elapsed_seconds = (Date.now() - timestamp) / 1000;
 			for (let i = 0; i < this.units.length; i++) {
 				let factor = this.units[i].factor;
 
@@ -171,10 +156,10 @@ Vue.component('sugar-localization', {
 			}
 
 			if (levels == 0) {
-				return this.get("SecondsAgo");
+				return this.get('SecondsAgo');
 			}
 
-			return this.get("Ago", { time: time_period });
-		}
-	}
+			return this.get('Ago', { time: time_period });
+		},
+	},
 });
