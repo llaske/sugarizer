@@ -14,7 +14,7 @@
 		<script src="lib/vue.min.js"></script>
 		<script src="lib/chart.min.js"></script>
 		<script src="lib/chartjs-datalabels.min.js"></script>
-		<script src="lib/csv-to-json.js"></script>
+		<script src="lib/csv-parser.js"></script>
 		<script src="lib/require.js"></script>
 		<script type="text/javascript" src="../../cordova.js"></script>
 	</head>
@@ -59,7 +59,7 @@
 				></sugar-toolitem>
 
 				<sugar-toolitem @click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
-				<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right" :title="l10n.stringFullscreen"></sugar-toolitem>
+				<sugar-toolitem @click="toggleFullscreen" id="fullscreen-button" class="pull-right" :title="l10n.stringFullscreen"></sugar-toolitem>
 				<sugar-toolitem @click="onHelp" id="help-button" :title="l10n.stringHelp" class="pull-right"></sugar-toolitem>
 			</sugar-toolbar>
 			<!-- Sub Toolbar -->

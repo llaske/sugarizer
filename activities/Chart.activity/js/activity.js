@@ -201,6 +201,10 @@ const app = new Vue({
 			this.configActive = false;
 			this.popDownPal();
 		},
+		toggleFullscreen() {
+			this.isFullscreen = !this.isFullscreen;
+			this.popDownPal();
+		},
 
 		onNetworkDataReceived(msg) {
 			this.isUpdated = true;

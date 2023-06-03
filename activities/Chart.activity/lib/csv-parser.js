@@ -101,7 +101,8 @@ const CSVParser = {
 		jsonObj.forEach((obj) => {
 			let row = [];
 			headers.forEach(header => {
-				const value = `"${obj[header]}"`;
+				let value = obj[header];
+				if (typeof value === "string" && value.includes(delimiter)) value = `"${value}"`;	
 				row.push(value);
 			});
 			csvContent += row.join(delimiter) + "\n";

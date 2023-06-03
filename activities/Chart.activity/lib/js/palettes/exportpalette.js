@@ -6,8 +6,8 @@ define(["sugar-web/graphics/palette"], function (palette) {
 
         var template = `
             <div id="export-formats">
-                <button id="export-csv-button"></button>
                 <button id="export-img-button"></button>
+                <button id="export-csv-button"></button>
             </div>
         `;
 
