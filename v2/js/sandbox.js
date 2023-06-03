@@ -17,21 +17,31 @@ const app = Vue.createApp({
 		"password": Password,
 		"dialog-box": Dialog,
 		"locales": Locales,
+		"sugar-localization": SugarL10n,
 	},
-	data() {
+	data: function () {
 		return {
+			SugarL10n: null,
+			l10n: {
+				stringMySettings: "",
+				stringByUser: "",
+				stringTutoActivityTurtleBlocksJSactivity: "",
+				stringTutoOfflineContent: "",
+				stringLicenseTerms: "",
+			},
+
 			message: "Sugarizer in Vue",
 			products: [
-				{ name: "Keyboard", price: 44, category: 'Accessories'},
-				{ name: "Mouse", price: 20, category: 'Accessories'},
-				{ name: "Monitor", price: 399, category: 'Accessories'},
-				{ name: "Dell XPS", price: 599, category: 'Laptop'},
-				{ name: "MacBook Pro", price: 899, category: 'Laptop'},
-				{ name: "Pencil Box", price: 6, category: 'Stationary'},
-				{ name: "Pen", price: 2, category: 'Stationary'},
-				{ name: "USB Cable", price: 7, category: 'Accessories'},
-				{ name: "Eraser", price: 2, category: 'Stationary'},
-				{ name: "Highlighter", price: 5, category: 'Stationary'}
+				{ name: "Keyboard", price: 44, category: 'Accessories' },
+				{ name: "Mouse", price: 20, category: 'Accessories' },
+				{ name: "Monitor", price: 399, category: 'Accessories' },
+				{ name: "Dell XPS", price: 599, category: 'Laptop' },
+				{ name: "MacBook Pro", price: 899, category: 'Laptop' },
+				{ name: "Pencil Box", price: 6, category: 'Stationary' },
+				{ name: "Pen", price: 2, category: 'Stationary' },
+				{ name: "USB Cable", price: 7, category: 'Accessories' },
+				{ name: "Eraser", price: 2, category: 'Stationary' },
+				{ name: "Highlighter", price: 5, category: 'Stationary' }
 			],
 			filterProducts: null,
 			popupData: null,
@@ -51,7 +61,7 @@ const app = Vue.createApp({
 				},
 				5: {
 					id: "5",
-					icon: { id: "11", iconData: "icons/write.svg", color: "95", size: "30"},
+					icon: { id: "11", iconData: "icons/write.svg", color: "95", size: "30" },
 					name: "Write",
 					title: "Write Activity",
 					itemList: [
@@ -106,41 +116,42 @@ const app = Vue.createApp({
 		}
 	},
 	mounted() {
-		this.filterProducts=this.products
-		this.filtersettings=this.settingsData
-		this.computerData= this.getComputerData();
+		this.filterProducts = this.products
+		this.filtersettings = this.settingsData
+		this.computerData = this.getComputerData();
+		this.SugarL10n = this.$refs.SugarL10n;
 	},
 	watch: {
-		filterProducts: function(newData, oldData) {
-			this.filterProducts= newData
-		}, 
-		filtersettings: function(newData, oldData) {
-			this.filtersettings= newData
-		}, 
+		filterProducts: function (newData, oldData) {
+			this.filterProducts = newData
+		},
+		filtersettings: function (newData, oldData) {
+			this.filtersettings = newData
+		},
 	},
 	methods: {
 		changeColor() {
-			this.$refs.icon1.colorData=Math.floor(Math.random() * 179);
-			this.$refs.icon2.colorData=Math.floor(Math.random() * 179);
+			this.$refs.icon1.colorData = Math.floor(Math.random() * 179);
+			this.$refs.icon2.colorData = Math.floor(Math.random() * 179);
 		},
 		changePosition() {
-			this.$refs.icon1.xData=Math.floor(Math.random() * 100) + 1;
-			this.$refs.icon1.yData=Math.floor(Math.random() * 100) + 1;
-			this.$refs.icon2.xData=Math.floor(Math.random() * 100) + 1;
-			this.$refs.icon2.yData=Math.floor(Math.random() * 100) + 1;
+			this.$refs.icon1.xData = Math.floor(Math.random() * 100) + 1;
+			this.$refs.icon1.yData = Math.floor(Math.random() * 100) + 1;
+			this.$refs.icon2.xData = Math.floor(Math.random() * 100) + 1;
+			this.$refs.icon2.yData = Math.floor(Math.random() * 100) + 1;
 		},
 		changeSize() {
-			this.$refs.icon1.sizeData=Math.floor(Math.random() * 80) + 20;
-			this.$refs.icon2.sizeData=Math.floor(Math.random() * 80) + 20;
+			this.$refs.icon1.sizeData = Math.floor(Math.random() * 80) + 20;
+			this.$refs.icon2.sizeData = Math.floor(Math.random() * 80) + 20;
 		},
 		buttonfunc1: function (event) {
 			console.log("Button one clicked");
-			this.$refs.buttonIcon1.iconData="icons/owner-icon.svg"
-			this.$refs.buttonIcon1.textData= "text changed"
+			this.$refs.buttonIcon1.iconData = "icons/owner-icon.svg"
+			this.$refs.buttonIcon1.textData = "text changed"
 		},
 		buttonfunc2(event) {
 			console.log("Button two clicked");
-			this.$refs.buttonIcon2.disabledData= true
+			this.$refs.buttonIcon2.disabledData = true
 		},
 		searchFunction(searchInput) {
 			this.filterProducts = this.products.filter((product) => {
@@ -149,27 +160,27 @@ const app = Vue.createApp({
 		},
 		showPopupFunction(e) {
 			var itemId, x, y;
-			if(e.target.tagName=='svg') {
-				itemId= e.target.parentElement.id
-				x= e.clientX-4;
-				y= e.clientY-4;
+			if (e.target.tagName == 'svg') {
+				itemId = e.target.parentElement.id
+				x = e.clientX - 4;
+				y = e.clientY - 4;
 			}
-			else if(e.target.tagName=='use') {
-				itemId= e.target.parentElement.parentElement.id
-				x= e.clientX;
-				y= e.clientY;
+			else if (e.target.tagName == 'use') {
+				itemId = e.target.parentElement.parentElement.id
+				x = e.clientX;
+				y = e.clientY;
 			}
 			else {
-				itemId= e.target.id;
-				x= e.clientX-12;
-				y= e.clientY-12;
+				itemId = e.target.id;
+				x = e.clientX - 12;
+				y = e.clientY - 12;
 			}
-			var obj= JSON.parse(JSON.stringify(this.popupDummyData))
-			this.popupData= obj[itemId];
-			this.$refs.popup.show(x,y);
+			var obj = JSON.parse(JSON.stringify(this.popupDummyData))
+			this.popupData = obj[itemId];
+			this.$refs.popup.show(x, y);
 		},
 		removePopupFunction(e) {
-			if(!this.$refs.popup.isCursorInside(e.clientX, e.clientY)){
+			if (!this.$refs.popup.isCursorInside(e.clientX, e.clientY)) {
 				this.$refs.popup.hide();
 			}
 		},
@@ -177,18 +188,18 @@ const app = Vue.createApp({
 			console.log(item);
 		},
 		optionSelected(e) {
-			var obj= JSON.parse(JSON.stringify(e))
+			var obj = JSON.parse(JSON.stringify(e))
 			console.log(obj);
 		},
 		filterSelected(e) {
-			var obj= JSON.parse(JSON.stringify(e))
+			var obj = JSON.parse(JSON.stringify(e))
 			console.log(obj);
 		},
 		passwordSet(e) {
-			console.log("Password: "+e);
+			console.log("Password: " + e);
 		},
 		openModal(e) {
-			this.$refs[e].showDialog= true;
+			this.$refs[e].showDialog = true;
 		},
 		userSearchMethod(input) {
 			this.filtersettings = this.settingsData.filter((setting) => {
@@ -197,17 +208,17 @@ const app = Vue.createApp({
 		},
 		userOkMethod(e) {
 			// code to save the changes and re-render
-			this.$refs[e].showDialog= false
+			this.$refs[e].showDialog = false
 		},
 		userCancelMethod(e) {
-			this.$refs[e].showDialog= false
+			this.$refs[e].showDialog = false
 		},
 		getComputerData() {
-			let computerDetails={};
+			let computerDetails = {};
 			// code to get computer details and return as object
 
 			// setting dummy data
-			computerDetails= {
+			computerDetails = {
 				sugarizerVersion: "0.0.1",
 				clientName: "User Name",
 				browser: "Firefox",
@@ -217,7 +228,15 @@ const app = Vue.createApp({
 			}
 			return computerDetails;
 		},
-	},
+		localized() {
+			document.getElementById("30").title = this.SugarL10n.get("MySettings");
+			document.getElementById("ByUser").innerHTML = this.SugarL10n.get("ByUser", { user: "Vinayak" });
+			document.getElementById("TutoActivityTurtleBlocksJSactivity").innerHTML = this.SugarL10n.get("TutoActivityTurtleBlocksJSactivity");
+			document.getElementById("TutoOfflineContent").innerHTML = this.SugarL10n.get("TutoOfflineContent");
+			document.getElementById("LicenseTerms").innerHTML = this.SugarL10n.get("LicenseTerms");
+			this.SugarL10n.localize(this.l10n);
+		},
+	}
 });
 
 app.mount('#app');

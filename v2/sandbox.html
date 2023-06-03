@@ -12,6 +12,7 @@
 
 	<script src="https://unpkg.com/vue@3"></script>
 	<script src="lib/axios.min.js"></script>
+	<script src="lib/i18next.min.js"></script>
 	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="cordova.js"></script>
 
@@ -30,8 +31,9 @@
 			svgfile="icons/preferences-system.svg" 
 			size="24"
 			color="256"
+			v-bind:title="l10n.MySettings"
 			v-on:button-click="openModal('settingModal')"
-			v-bind:disabled=false
+			
 		></icon-button>
 
 		<dialog-box 
@@ -230,8 +232,10 @@
 			</li>
 		</ul>
 		<locales ref="locales"></locales>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 	</div>
 
+	<script src="js/SugarL10n.js"></script>
 	<script src="js/locales.js"></script>
 	<script src="js/icon.js"></script>
 	<script src="js/iconbutton.js"></script>

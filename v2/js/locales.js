@@ -18,7 +18,6 @@ const Locales = {
             <button class="locales-button" v-on:click="switchLang('pt')">Portuguese</button>
             <button class="locales-button" v-on:click="switchLang('ibo')">Igbo</button>
             <button class="locales-button" v-on:click="switchLang('pl')">Polish</button>
-            <button class="locales-button" v-on:click="switchLang('fr')">Korean</button>
             <button class="locales-button" v-on:click="switchLang('ar')">Arabic</button>
             <button class="locales-button" v-on:click="switchLang('yor')">Yoruba</button>
         </div>
@@ -32,25 +31,12 @@ const Locales = {
     </div>
     <br><br>
     `,
-    mounted() {
-        this.initL();
-    },
+   
     methods: {
-        initL: function () {
-            const vm = this;
-            requirejs(["l10N"], function (l10N) {
-                vm.l10N = l10N;
-                console.log(vm.l10N);
-                vm.l10N.initLang();
-            });
-        },
         switchLang: function (lng) {
-            const vm = this;
-            requirejs(["l10N"], function (l10N) {
-                vm.l10N = l10N;
-                console.log(vm.l10N);
-                vm.l10N.switchTo(lng);
-            });
+            //save the language preference in the local storage (TEMPORARY SOLUTION TILL WE HAVE CONNECTION FEATURE)
+            localStorage.setItem("lang", lng); 
+            window.location.reload();
         }
     },
 };
