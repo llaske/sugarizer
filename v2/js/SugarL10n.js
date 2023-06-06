@@ -71,7 +71,6 @@ const SugarL10n = {
                     vm.code = i18next.language;
                     vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
                     vm.subscribeLanguageChange();
-                    vm.activityInitialized = true;
                 });
             }).catch((error) => {
                 vm.loadLanguageFile('en'); // Load default language
