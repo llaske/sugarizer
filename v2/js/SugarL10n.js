@@ -122,7 +122,7 @@ const SugarL10n = {
         // Convert a UNIX timestamp to Sugarizer time elapsed string
         localizeTimestamp: function (timestamp) {
             const maxlevel = 2;
-            const levels = 0;
+            let levels = 0;
             let time_period = '';
             let elapsed_seconds = (Date.now() - timestamp) / 1000;
             for (let i = 0; i < this.units.length; i++) {

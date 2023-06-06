@@ -22,7 +22,8 @@ describe('SugarL10n.js', () => {
         jest.clearAllMocks();
         wrapper = mount(SugarL10n);
     });
-
+    
+    // tests for loadLanguageFile method
     it('should load language file and initialize i18next', async () => {
         const enStrings = require('../locales/en.json');
         // Mock a successful response from axios.get
@@ -65,7 +66,7 @@ describe('SugarL10n.js', () => {
     });
 
     it('should load default language file on error', async () => {
-        
+
         await wrapper.vm.loadLanguageFile('xx'); // Assuming 'xx' language file is not available
 
         expect(axios.get).toHaveBeenCalledWith('./locales/xx.json');
@@ -82,6 +83,7 @@ describe('SugarL10n.js', () => {
         }, expect.any(Function));
     });
 
+    // test for subscribeLanguageChange method
     it('should update code, dictionary, emit event on language change', async () => {
 
         const frStrings = require('../locales/fr.json');
@@ -105,4 +107,56 @@ describe('SugarL10n.js', () => {
         // Check if the eventReceived flag has been set to true
         expect(wrapper.vm.eventReceived).toBe(true);
     });
+
+
+    // tests for get method
+    it('should return the translated string if it exists in the dictionary', () => {
+        const enStrings = require('../locales/en.json');
+        wrapper.setData({ dictionary: enStrings });
+
+        const result = wrapper.vm.get('ChooseDirectory');
+        expect(result).toBe('Choose directory...');
+    });
+
+    it('should return the input string if it does not exist in the dictionary', () => {
+        const enStrings = require('../locales/en.json');
+        wrapper.setData({ dictionary: enStrings });
+
+        const result = wrapper.vm.get('farewell');
+        expect(result).toBe('farewell');
+    });
+
+    it('should replace parameters in the translated string', () => {
+        const enStrings = require('../locales/en.json');
+        wrapper.setData({ dictionary: enStrings });
+
+        const result = wrapper.vm.get('ByUser', { user: 'John' });
+        expect(result).toBe('by John');
+    });
+      
+
+    // tests for localizeTimestamp method
+    it('should return "SecondsAgo" when the elapsed time is less than a minute', () => {
+        const enStrings = require('../locales/en.json');
+        wrapper.setData({ dictionary: enStrings });
+
+        const currentTime = Date.now();
+        const timestamp = currentTime - 30 * 1000; // 30 seconds ago
+
+        const result = wrapper.vm.localizeTimestamp(timestamp);
+        expect(result).toBe('Seconds ago');
+    });
+
+    it('should return a localized time period string for elapsed time', () => {
+        const enStrings = require('../locales/en.json');
+        wrapper.setData({ dictionary: enStrings });
+
+        const currentTime = Date.now();
+        const timestamp = currentTime - (2 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000); // 2 days and 3 hours ago
+
+        const result = wrapper.vm.localizeTimestamp(timestamp);
+        expect(result.trim()).toBe('2 days, 3 hours ago');
+
+    });
+
 });
