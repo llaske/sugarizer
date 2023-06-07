@@ -24,3 +24,19 @@
   margin-left: 40px;
   background-image: url(../icons/switch-player.svg);
 }
+
+.palette textarea#description.expand {
+  resize: vertical !important;
+  max-height: 70vh !important;
+}
+
+#description .row expand {
+  resize: vertical !important;
+  max-height: 70vh !important;; 
+} 
+
+textarea #description.expand {
+  resize: vertical !important;
+  max-height: 70vh !important;
+}
+
