@@ -1,3 +1,5 @@
+@import url(../../../css/activity.css);
+
 #main-toolbar #activity-button {
 	background-image: url(../activity/activity-icon.svg);
 	outline: none;

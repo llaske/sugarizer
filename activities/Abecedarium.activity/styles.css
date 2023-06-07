@@ -1,4 +1,6 @@
-﻿body {
+﻿@import url(../../../css/activity.css);
+
+body {
 	overflow: hidden;
 	height: 100vh;
 }
