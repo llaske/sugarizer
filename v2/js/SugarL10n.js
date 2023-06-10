@@ -56,35 +56,39 @@ const SugarL10n = {
     methods: {
         loadLanguageFile: function (language) {
             const vm = this;
-            axios.get(`./locales/${language}.json`).then((response) => {
-                i18next.init({
-                    lng: language,
-                    fallbackLng: 'en',
-                    debug: true,
-                    resources: {
-                        [language]: {
-                            translation: response.data
-                        }
-                    },
-                }, () => {
-                    vm.l10n = i18next;
-                    vm.code = i18next.language;
-                    vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
-                    vm.subscribeLanguageChange();
+            requirejs(['lib/i18next.min.js'], function (i18next) {
+                axios.get(`./locales/${language}.json`).then((response) => {
+                    i18next.init({
+                        lng: language,
+                        fallbackLng: 'en',
+                        debug: true,
+                        resources: {
+                            [language]: {
+                                translation: response.data
+                            }
+                        },
+                    }, () => {
+                        vm.l10n = i18next;
+                        vm.code = i18next.language;
+                        vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
+                        vm.subscribeLanguageChange();
+                    });
+                }).catch((error) => {
+                    vm.loadLanguageFile('en'); // Load default language
+                    console.log(error);
                 });
-            }).catch((error) => {
-                vm.loadLanguageFile('en'); // Load default language
-                console.log(error);
             });
         },
 
         subscribeLanguageChange: function () {
             const vm = this;
-            i18next.on('languageChanged', (lng) => {
-                vm.code = lng;
-                vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
-                vm.$emit('localized');
-                vm.eventReceived = true;
+            requirejs(['lib/i18next.min.js'], function (i18next) {
+                i18next.on('languageChanged', (lng) => {
+                    vm.code = lng;
+                    vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
+                    vm.$emit('localized');
+                    vm.eventReceived = true;
+                });
             });
         },
 
