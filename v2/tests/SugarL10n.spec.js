@@ -15,6 +15,10 @@ window.i18next = {
     getResourceBundle: jest.fn().mockReturnValue({}),
 };
 
+window.requirejs = jest.fn().mockImplementation((dependencies, callback) => {
+    callback(window.i18next);
+});
+
 describe('SugarL10n.js', () => {
     let wrapper;
 
@@ -22,7 +26,7 @@ describe('SugarL10n.js', () => {
         jest.clearAllMocks();
         wrapper = mount(SugarL10n);
     });
-    
+
     // tests for loadLanguageFile method
     it('should load language file and initialize i18next', async () => {
         const enStrings = require('../locales/en.json');
@@ -133,7 +137,7 @@ describe('SugarL10n.js', () => {
         const result = wrapper.vm.get('ByUser', { user: 'John' });
         expect(result).toBe('by John');
     });
-      
+
 
     // tests for localizeTimestamp method
     it('should return "SecondsAgo" when the elapsed time is less than a minute', () => {
