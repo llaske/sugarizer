@@ -124,6 +124,7 @@ const app = new Vue({
 
 			this.pref.chartColor = { stroke, fill };
 			this.activityTitle = this.currentenv.activityName;
+			this.chartview.updateTitle(this.activityTitle)
 			this.updatePalletes();
 
 			const that = this;
@@ -248,8 +249,27 @@ const app = new Vue({
 			this.chartview.updateTitle(this.l10n.stringChartActivity);
 		},
 		onJournalDataLoaded(data, metadata) {
-			this.tabularData = data.tabularData;
-			this.updatePreference(data.pref);
+			this.LZ = this.SugarJournal.LZString;
+			if (metadata.mimetype === "text/csv") {
+				this.isCsvFile = true;
+				var jsonData = CSVParser.csvToJson(data)
+				const keys = Object.keys(jsonData[0]);
+				this.pref.labels.x = keys[0] || ""; 
+				this.pref.labels.y = keys[1] || ""; 
+				["x", "y"].forEach(axis => {
+					this.chartview.updateLabel(axis);
+				});
+				this.tabularData = jsonData.map((obj, i) => {
+					return {
+						x: obj[keys[0]],
+						y: obj[keys[1]]
+					}
+				})
+				return;
+			}
+			var jsonData = JSON.parse(this.LZ.decompressFromUTF16(data));
+			this.tabularData = jsonData.tabularData;
+			this.updatePreference(jsonData.pref);
 		},
 		insertChart() {
 			var filters = [
@@ -285,9 +305,9 @@ const app = new Vue({
 			}));
 			const csvContent = CSVParser.jsonToCsv(data);
 			const metadata = {
-				mimetype: 'text/plain',
-				title: this.activityTitle + ".txt",
-				activity: "org.olpcfrance.Chart",
+				mimetype: "text/csv",
+				title: this.activityTitle + ".csv",
+				activity: "org.sugarlabs.ChartActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
 				file_size: 0
@@ -296,7 +316,7 @@ const app = new Vue({
 		},
 		createJournalEntry(content, metadata, msg) {
 			this.SugarJournal.createEntry(content, metadata).then(() => {
-				this.SugarPopup.log(msg);
+				msg && this.SugarPopup.log(msg);
 			});
 		},
 
@@ -484,10 +504,22 @@ const app = new Vue({
 			this.$refs.SugarTutorial.show(steps);
 		},
 		onStop() {
-			var context = {
+			const context = {
 				tabularData: this.tabularData,
 				pref: this.pref,
 			};
+			if (this.isCsvFile) {
+				const metadata = {
+					title: this.activityTitle, 
+					activity: "org.sugarlabs.ChartActivity",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				var data = this.LZ.compressToUTF16(JSON.stringify(context));
+				this.createJournalEntry(data, metadata);
+				return;
+			}
 			this.$refs.SugarJournal.saveData(context);
 		},
 		shuffleArray(array) {

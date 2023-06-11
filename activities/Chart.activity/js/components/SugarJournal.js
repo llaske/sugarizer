@@ -14,8 +14,7 @@ Vue.component('sugar-journal', {
 				if (environment.objectId) {
 					vm.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
 						if (error == null && data != null) {
-							var loadedData = LZString.decompressFromUTF16(data);
-							vm.$emit('journal-data-loaded', JSON.parse(loadedData), metadata);
+							vm.$emit('journal-data-loaded', data, metadata);
 						} else {
 							vm.$emit('journal-load-error', error);
 						}
