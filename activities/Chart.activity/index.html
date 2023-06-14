@@ -42,8 +42,8 @@
 				<template v-for="(string, key) in CHART_TYPES" :key="key">
 					<sugar-toolitem @click="pref.chartType = key" :id="`${key}-chart-button`" :class="{active: pref.chartType==key}" :title="l10n[string]"></sugar-toolitem>
 				</template>
+				<sugar-toolitem id="csv-button" :class="{active: pref.chartType == 'csvMode'}"  @click="pref.chartType = 'csvMode'" title="View csv"></sugar-toolitem>
 				<hr />
-				<sugar-toolitem id="insert-chart" @click="insertChart" :title="l10n.stringInsertChart"></sugar-toolitem>
 				<sugar-toolitem id="config-button" @click="toggleConfig" class="invoker" :class="{active: configActive}" :title="l10n.stringConfigs"></sugar-toolitem>
 
 				<sugar-toolitem id="text-palette-button" @click="toggleTextPal" class="invoker" :class="{active: textPalActive}" :title="l10n.stringConfigs"></sugar-toolitem>
@@ -140,9 +140,10 @@
 					</div>
 				</div>
 				<div class="chart-container">
-					<chartview ref="chartview" class="view" :tabular-data="tabularData" :pref="pref" :activity-title="activityTitle"></chartview>
+					<chartview ref="chartview" :tabular-data="tabularData" :pref="pref" :activity-title="activityTitle"></chartview>
 				</div>
 			</div>
+			<csv-view ref="csvView" @data-change="handleDataChange" v-show="pref.chartType == 'csvMode'" :json-data="jsonData"></csv-view>
 
 			<sugar-activity @initialized="initialized" ref="SugarActivity"></sugar-activity>
 			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
@@ -159,6 +160,7 @@
 		<script src="js/components/SugarActivity.js"></script>
 		<script src="js/components/SugarToolbar.js"></script>
 		<script src="js/ChartView.js"></script>
+		<script src="js/CsvView.js"></script>
 		<script src="js/activity.js"></script>
 	</body>
 </html>

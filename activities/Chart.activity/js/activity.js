@@ -19,6 +19,7 @@ const app = new Vue({
 	el: "#app",
 	components: {
 		chartview: ChartView,
+		"csv-view": CsvView,
 	},
 	data: {
 		currentenv: null,
@@ -26,6 +27,10 @@ const app = new Vue({
 		SugarPresence: null,
 		activityTitle: "",
 		tabularData: [],
+		jsonData: {
+			data: [],
+			header: [],
+		},
 		pref: {
 			chartType: "bar",
 			chartColor: { stroke: "", fill: "" },
@@ -240,48 +245,33 @@ const app = new Vue({
 				const label = "EgLabel" + randArr[i];
 				this.tabularData.push({
 					x: this.SugarL10n.get(label),
-					y: randArr[i] + 6,
+					y: randArr[i] + 6 + "",
 				})
 			}
 			this.pref.labels.x = this.SugarL10n.get("Sports"); 
 			this.pref.labels.y = this.SugarL10n.get("Students");
 			this.activityTitle = this.l10n.stringChartActivity;
 			this.chartview.updateTitle(this.l10n.stringChartActivity);
+
+			const header = [this.pref.labels.x, this.pref.labels.y];
+			this.$refs.csvView.updateJsonData(this.tabularData, header, true);
 		},
 		onJournalDataLoaded(data, metadata) {
 			this.LZ = this.SugarJournal.LZString;
 			if (metadata.mimetype === "text/csv") {
 				this.isCsvFile = true;
-				var jsonData = CSVParser.csvToJson(data)
-				const keys = Object.keys(jsonData[0]);
-				this.pref.labels.x = keys[0] || ""; 
-				this.pref.labels.y = keys[1] || ""; 
-				["x", "y"].forEach(axis => {
-					this.chartview.updateLabel(axis);
-				});
-				this.tabularData = jsonData.map((obj, i) => {
-					return {
-						x: obj[keys[0]],
-						y: obj[keys[1]]
-					}
-				})
+				this.pref.chartType = "csvMode";
+				const json = CSVParser.csvToJson(data);
+				this.$refs.csvView.updateJsonData(json.data, json.headers);
 				return;
 			}
-			var jsonData = JSON.parse(this.LZ.decompressFromUTF16(data));
-			this.tabularData = jsonData.tabularData;
-			this.updatePreference(jsonData.pref);
-		},
-		insertChart() {
-			var filters = [
-				{ activity: "org.sugarlabs.StopwatchActivity" },
-				{ activity: "org.sugarlabs.Measure" },
-				// { mimetype: "text/plain" },
-			];
+			const parsedData = JSON.parse(this.LZ.decompressFromUTF16(data));
+			const pref = parsedData.pref;
 
-			this.$refs.SugarJournal.insertFromJournal(filters).then((data, metadata) => {
-				console.log("Jounal Dialog data");
-				console.log(data);
-			});
+			let xKey = pref.labels.x;
+			if (xKey == pref.labels.y) xKey += "__"
+			this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
+			this.updatePreference(pref);
 		},
 
 		exportFile(e) {
@@ -299,11 +289,8 @@ const app = new Vue({
 			this.createJournalEntry(imgData, metadata, this.SugarL10n.get("exportImage"));
 		},
 		exportAsCsv() {
-			const data = this.tabularData.map(({ x, y }) => ({
-				[this.pref.labels.x]: x,
-				[this.pref.labels.y]: y,
-			}));
-			const csvContent = CSVParser.jsonToCsv(data);
+			const header = [this.pref.labels.x, this.pref.labels.y];
+			const csvContent = CSVParser.jsonToCsv(this.tabularData, header);
 			const metadata = {
 				mimetype: "text/csv",
 				title: this.activityTitle + ".csv",
@@ -334,6 +321,20 @@ const app = new Vue({
 		},
 
 		// Handlers
+		handleDataChange(field, key) {
+			let axis = field === "label" ? "x" : "y";
+			this.pref.labels[axis] = !key.startsWith("__") ? key : "";
+			this.jsonData.data.forEach((obj, i) => {
+				let value = obj[key];
+				if (axis === "y") value = value.replace(/,/g, "");
+				if (!this.tabularData[i]) {
+					this.tabularData.push({
+						x: "", y: "",
+					})
+				}
+				this.tabularData[i][axis] = value;
+			});
+		},
 		handleChartColor(e, type) {
 			this.pref.chartColor[type] = e.detail.color;
 		},
@@ -547,6 +548,7 @@ const app = new Vue({
 			this.chartview.updateLabel("y");
 		},
 		"pref.chartType"() {
+			if (this.pref.chartType === "csvMode") return;
 			this.chartview.updateChartType();
 		},
 		"pref.chartColor": {

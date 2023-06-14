@@ -25,10 +25,25 @@ const CSVParser = {
 		return detectedDelimiter;
 	},
 
+	_uniquify: function(headers) {
+		let count = {};
+		headers.forEach((key, i) => {
+			if (key === "") {
+				count[key] = (count[key] || 0) + 1;
+				headers[i] = `__${count[key]}`;
+			} else if (count.hasOwnProperty(key)) {
+				headers[i] = `${key}__${count[key]++}`;
+			} else {
+				count[key] = 1;
+			}
+		});
+	},
+
 	_convertToJSON: function (lines, delimiter) {
 		const data = [];
 
 		const headers = lines[0].split(delimiter).map((header) => header.replace(/"/g, "").trim());
+		this._uniquify(headers)
 		let multilineField = false;
 		let value = "";
 		let inQuotes = true;
@@ -65,9 +80,10 @@ const CSVParser = {
 				} else if (currentChar === delimiter && !inQuotes) {
 					value = value.trim();
 					row[headers[currentIndex]] = value;
-
 					value = "";
 					currentIndex++;
+					
+					if (nextChar === undefined) row[headers[currentIndex]] = "";
 				} else {
 					value += currentChar;
 					// Ending without quote
@@ -85,7 +101,7 @@ const CSVParser = {
 
 			if (!multilineField) data.push(row);
 		}
-		return data;
+		return { headers, data };
 	},
 
 	csvToJson: function (csvContent, delimiter) {
@@ -94,14 +110,18 @@ const CSVParser = {
 		return this._convertToJSON(lines, delimiter);
 	},
 
-	jsonToCsv: function (jsonObj, delimiter = ",") {
+	jsonToCsv: function (jsonObj, headers, delimiter = ",") {
 		if (!jsonObj.length) return;
-		const headers = Object.keys(jsonObj[0]);
+
+		if (!headers) headers = Object.keys(jsonObj[0]);
+		else this._uniquify(headers);
+
 		let csvContent = headers.join(delimiter) +"\n";
+		let keys = Object.keys(jsonObj[0]);
 		jsonObj.forEach((obj) => {
 			let row = [];
-			headers.forEach(header => {
-				let value = obj[header];
+			keys.forEach(key => {
+				let value = obj[key];
 				if (typeof value === "string" && value.includes(delimiter)) value = `"${value}"`;	
 				row.push(value);
 			});

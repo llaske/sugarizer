@@ -302,7 +302,7 @@ const ChartView = {
 			}
 		},
 		labels() {
-			return this.tabularData.map((data) => data.x);
+			return this.tabularData.map((data) => data.x || "");
 		},
 		values() {
 			const values = { signValues: [], absValues: [] };
