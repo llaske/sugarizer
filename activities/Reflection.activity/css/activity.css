@@ -1,5 +1,3 @@
-@import url(../../../css/activity.css);
-
 body{
 	overflow: hidden;
 }
@@ -168,6 +166,11 @@ body{
   height: 35px;
   background-color: #808080;
   border: 2px solid #808080;
+}
+
+textarea {
+	resize: vertical !important;
+	max-height: 70vh !important;
 }
 
 #fullscreen-button {

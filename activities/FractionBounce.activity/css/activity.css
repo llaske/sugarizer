@@ -1,5 +1,3 @@
-@import url(../../../css/activity.css);
-
 button:disabled {
 	opacity: 0.3 !important;
 }
@@ -201,6 +199,11 @@ p {
 /* Firefox */
 .settings input[type=number] {
   -moz-appearance: textfield;
+}
+
+textarea {
+	resize: vertical !important;
+	max-height: 70vh !important;
 }
 
 .settings #add-button {

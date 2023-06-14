@@ -1,11 +1,14 @@
-@import url(../../../css/activity.css);
-
-#main-toolbar #activity-button {
+main-toolbar #activity-button {
     background-image: url(../activity/activity-icon.svg);
 }
 
 body {
     overflow: hidden;
+}
+
+textarea {
+	resize: vertical !important;
+	max-height: 70vh !important;
 }
 
 .loading-svg {

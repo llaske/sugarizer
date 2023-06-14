@@ -1,11 +1,15 @@
 /*@media screen and (max-width: 1000px) {*/
-@import url(../../../css/activity.css);
 
 .toolbar {
   /*padding: 0 10px !important;*/
 }
 .palette .wrapper {
   max-width: none !important;
+}
+
+textarea {
+	resize: vertical !important;
+	max-height: 70vh !important;
 }
 
 /*}*/
