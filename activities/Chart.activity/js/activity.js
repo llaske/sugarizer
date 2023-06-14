@@ -513,9 +513,9 @@ const app = new Vue({
 				const metadata = {
 					title: this.activityTitle, 
 					activity: "org.sugarlabs.ChartActivity",
-					timestamp: new Date().getTime(),
-					creation_time: new Date().getTime(),
-					file_size: 0
+					timestamp: new Date().getTime()+1000,
+					creation_time: new Date().getTime()+1000,
+					file_size: 0,
 				};
 				var data = this.LZ.compressToUTF16(JSON.stringify(context));
 				this.createJournalEntry(data, metadata);

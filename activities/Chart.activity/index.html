@@ -45,8 +45,8 @@
 				<sugar-toolitem id="csv-button" :class="{active: pref.chartType == 'csvMode'}"  @click="pref.chartType = 'csvMode'" title="View csv"></sugar-toolitem>
 				<hr />
 				<sugar-toolitem id="config-button" @click="toggleConfig" class="invoker" :class="{active: configActive}" :title="l10n.stringConfigs"></sugar-toolitem>
-
 				<sugar-toolitem id="text-palette-button" @click="toggleTextPal" class="invoker" :class="{active: textPalActive}" :title="l10n.stringConfigs"></sugar-toolitem>
+				<hr />
 				<sugar-toolitem 
 					id="export-button" 
 					ref="exportPal"
