@@ -83,7 +83,7 @@ const CSVParser = {
 					value = "";
 					currentIndex++;
 					
-					if (nextChar === undefined) row[headers[currentIndex]] = "";
+					if (j === currentLine.length - 1) row[headers[currentIndex]] = "";
 				} else {
 					value += currentChar;
 					// Ending without quote

@@ -42,10 +42,8 @@ const app = new Vue({
 				tick: {fontsize: 14, fontfamily: "Arial", color: "#282828"},
 			} 
 		},
-		selectedField: 0,
+		selectedField: {i: 0, axis: "x"},
 		selectedFontIdx: 0,
-		// TODO: implement collaboration
-		isUpdated: false,
 		l10n: {
 			stringChartActivity: "",
 			stringAddValue: "",
@@ -147,50 +145,43 @@ const app = new Vue({
 		},
 
 		addData() {
-			this.tabularData.push({
+			const obj = {
 				x: (this.tabularData.length + 1),
 				y: Math.floor((Math.random() * 10 + 1))+"",
-			});
+			}
+			this.tabularData.push(obj);
 			var lastIdx = this.tabularData.length - 1;
 			this.$nextTick(function () {
 				this.$refs.input[lastIdx].focus();
 			});
-			this.selectedField = lastIdx;
+			this.selectedField.i = lastIdx;
 		},
 		removeData() {
-			if (this.selectedField < 0) return;
-			this.tabularData.splice(this.selectedField, 1);
-			this.selectedField--;
-			if (this.selectedField < 0)
-				this.selectedField += this.tabularData.length;
+			if (this.selectedField.i < 0) return;
+			this.tabularData.splice(this.selectedField.i, 1);
+			this.selectedField.i--;
+			if (this.selectedField.i < 0)
+				this.selectedField.i += this.tabularData.length;
 		},
-		validateInput(e, index) {
-			const value = e.target.value
+		validateInput(e) {
+			e.target.value = e.target.value
 				.replace(/[^0-9.-]/g, "") //Remove char that are not digits, points, or negative sign
 				.replace(/(\..*?)\..*/g, "$1") // Keep only the first occurrence of a "." 	
 				.replace(/(?!^)-/g, ''); //Remove "-" sign (if not at the beginning)
-			this.tabularData[index].y = value;
-			e.target.value = value;
+			this.updateInput(e);
+		},
+		updateInput(e) {
+			const value = e.target.value;
+			this.tabularData[this.selectedField.i][this.selectedField.axis] = value;
 		},
 
 		swapData(a, b) {
-			let tmp = this.tabularData[a];
-			this.tabularData[a] = this.tabularData[b];
-			this.$set(this.tabularData, b, tmp);
 		},
 		swapUp() {
-			const i = this.selectedField;
-			if (i >= 1) {
-				this.swapData(i, i - 1);
-				this.selectedField--;
-			}
+			this.selectedField.i = util.swapToPrev(this.tabularData, this.selectedField.i);	
 		},
 		swapDown() {
-			const i = this.selectedField;
-			if (i <= this.tabularData.length - 2) {
-				this.swapData(i, i + 1);
-				this.selectedField++;
-			}
+			this.selectedField.i = util.swapToNext(this.tabularData, this.selectedField.i);	
 		},
 
 		popDownPal() {
@@ -213,27 +204,10 @@ const app = new Vue({
 		},
 
 		onNetworkDataReceived(msg) {
-			this.isUpdated = true;
-			const data = msg.content.data;
-			switch (msg.content.action) {
-				case "init":
-					this.tabularData = data;
-					break;
-				case "update":
-					this.$set(this.tabularData, data.index, data.values);
-					break;
-			}
+			Execute[msg.content.action](this, msg);
 		},
 		onNetworkUserChanged(msg) {
-			// Handling only by the host
 			if (this.SugarPresence.isHost) {
-				this.SugarPresence.sendMessage({
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action: "init",
-						data: this.tabularData,
-					},
-				});
 			}
 		},
 
@@ -308,16 +282,15 @@ const app = new Vue({
 		},
 
 		sendPresenceMessage(action, data) {
-			if (this.SugarPresence.isShared()) {
-				var message = {
-					user: this.SugarPresence.getUserInfo(),
-					content: {
-						action,
-						data,
-					},
-				};
-				this.SugarPresence.sendMessage(message);
-			}
+			if (!this.SugarPresence.isShared()) return;
+			const message = {
+				user: this.SugarPresence.getUserInfo(),
+				content: {
+					action,
+					data,
+				},
+			};
+			this.SugarPresence.sendMessage(message);
 		},
 
 		// Handlers
@@ -326,7 +299,7 @@ const app = new Vue({
 			this.pref.labels[axis] = !key.startsWith("__") ? key : "";
 			this.jsonData.data.forEach((obj, i) => {
 				let value = obj[key];
-				if (axis === "y") value = value.replace(/,/g, "");
+				if (axis === "y" && value !== undefined) value = value.replace(/,/g, "");
 				if (!this.tabularData[i]) {
 					this.tabularData.push({
 						x: "", y: "",
@@ -376,6 +349,10 @@ const app = new Vue({
 					});
 				});
 			});
+		},
+		setSelectedField(i, axis) {
+			this.selectedField.i = i;
+			this.selectedField.axis = axis;
 		},
 
 		onHelp() {
@@ -566,18 +543,5 @@ const app = new Vue({
 		"selectedFontField.fontsize"() {
 			this.chartview.updateFontValues(this.selectedFontName, "fontsize");
 		},
-	// 	tabularData: {
-	// 		handler() {
-	// 			if (this.isUpdated) {
-	// 				this.isUpdated = false;
-	// 				return;
-	// 			}
-	// 			this.sendPresenceMessage("update", {
-	// 				index: this.selectedField,
-	// 				values: this.tabularData[this.selectedField],
-	// 			});
-	// 		},
-	// 		deep: true,
-	// 	},
 	},
 });

@@ -1,47 +1,57 @@
 const CsvView = {
 	template: `
-    	<div class="csv-container">
-    		<div class="cell-group select">
-				<span class="marker"></span>
-				<div v-for="(key,i) in jsonData.header" :key="'select'+i" class="cell select-group">
-					<div @click="updateLabel(key)" :class="{active: labelKey === key}" class="data-label">Label</div>
-					<div @click="updateValue(key)" :class="{active: valueKey === key, disabled: invalidKeys.includes(key)}" class="data-label">Value</div>
+		<div class="csv-view">
+	    	<div class="csv-container">
+				<div class="cell-group csv-header">
+					<span class="marker">1</span>
+					<div v-for="(key, i) in jsonData.header" :key="'header'+i" @click="setIndex(0, i)" :class="{active: isActive(0, i), invalid: isInvalid(i)}" class="cell">
+						{{ key.startsWith("__") ? "" : key }}
+					</div>
 				</div>
-    		</div>
-    		<div class="cell-group csv-header">
-				<span class="marker">1</span>
-				<div v-for="(key,i) in jsonData.header" :key="'header'+i" class="cell">
-					{{ key.startsWith("__") ? "" : key }}
+				<div v-for="(dataRow, i) in jsonData.data" :key="'row'+i" class="cell-group">
+					<span class="marker">{{ i+2 }}</span>
+					<div v-for="(key, j) in jsonData.header" :key="'col'+j" @click="setIndex(i+1, j)" :class="{active: isActive(i+1, j)}" class="cell">
+						{{ dataRow[key] }}
+					</div>
 				</div>
-    		</div>
-			<div v-for="(dataRow, i) in jsonData.data" :key="'row'+i" class="cell-group">
-				<span class="marker">{{ i+2 }}</span>
-				<div v-for="(key, j) in jsonData.header" :key="'col'+j" class="cell">
-					{{ dataRow[key] }}
-				</div>
+	    	</div>
+			<div class="toolbar swap-fields">
+				<button id="up-button" class="toolbutton" @click="swapLeft"></button>
+				<button id="down-button" class="toolbutton" @click="swapRight"></button>
 			</div>
-    	</div>
+		</div>
     `,
 	props: ["jsonData"],
 	data() {
 		return {
-			labelKey: "",
-			valueKey: "",
+			selectedIdx: { i: 0, j: 0 },
+			invalid: false,
 		}
 	},
 	methods: {
-		updateLabel(key) {
-			this.labelKey = key;
-			this.$emit("data-change", "label", key)
+		swapRight() {
+			this.selectedIdx.j = util.swapToNext(this.jsonData.header, this.selectedIdx.j);	
+			this.updateKeys();
+		},	
+		swapLeft() {
+			this.selectedIdx.j = util.swapToPrev(this.jsonData.header, this.selectedIdx.j);
+			this.updateKeys();
 		},
-		updateValue(key) {
-			if (this.invalidKeys.includes(key)) return;
-			this.valueKey = key;
-			this.$emit("data-change", "value", key)
+
+		updateData(labelKey, valueKey) {
+			const header = this.jsonData.header;
+			if (labelKey !== undefined) this.$emit("data-change", "label", labelKey)
+
+			if (valueKey === undefined || this.invalidKeys.includes(valueKey)) {
+				this.invalid = true;
+			} else {
+				this.invalid = false;
+				this.$emit("data-change", "value", valueKey);
+			}
 		},
-		updateKeys(labelKey, valueKey) {
-			if (labelKey !== undefined) this.updateLabel(labelKey);
-			if (valueKey !== undefined) this.updateValue(valueKey);
+		updateKeys() {
+			const header = this.jsonData.header;
+			this.updateData(header[0], header[1]);
 		},
 		updateJsonData(data, header, mapKeys) {
 			if (mapKeys) {
@@ -57,8 +67,18 @@ const CsvView = {
 			}
 			this.jsonData.data = data;
 			this.jsonData.header = header;
-			this.updateKeys(header[0], header[1]);
+			this.updateKeys();
 		},
+		setIndex(i, j) {
+			this.selectedIdx.i = i;
+			this.selectedIdx.j = j;
+		},
+		isActive(i, j) {
+			return this.selectedIdx.i === i && this.selectedIdx.j === j;
+		},
+		isInvalid(i) {
+			return i === 1 && this.invalid;
+		}
 	},
 	computed: {
 		invalidKeys() {

@@ -129,9 +129,9 @@
 						<span class="data-label">{{ l10n.stringValue }}</span>
 					</div>
 					<div class="input-container">
-						<div v-for="(data, i) in tabularData" :key="i" class="input-group" :class="{active: (selectedField==i)}" @click="selectedField = i">
-							<input v-model:value="data.x" ref="input" type="text" />
-							<input :value="data.y" @input="validateInput($event, i)" type="text" />
+						<div v-for="(data, i) in tabularData" :key="i" class="input-group" :class="{active: (selectedField.i==i)}">
+							<input :value="data.x" @input="updateInput" ref="input" type="text" @focus="setSelectedField(i, 'x')" />
+							<input :value="data.y" @input="validateInput" type="text" @focus="setSelectedField(i, 'y')" />
 						</div>
 					</div>
 					<div class="toolbar swap-fields">
@@ -159,6 +159,7 @@
 		<script src="js/components/SugarJournal.js"></script>
 		<script src="js/components/SugarActivity.js"></script>
 		<script src="js/components/SugarToolbar.js"></script>
+		<script src="js/util.js"></script>
 		<script src="js/ChartView.js"></script>
 		<script src="js/CsvView.js"></script>
 		<script src="js/activity.js"></script>

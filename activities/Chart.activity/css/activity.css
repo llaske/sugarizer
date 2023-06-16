@@ -35,7 +35,7 @@ p {
 	height: 100vh !important;
 }
 #app.fullscreen .csv-container {
-	height: 100vh;
+	height: calc(100vh - 42px);
 	top: 0;
 }
 #app.fullscreen #fullscreen-button {
@@ -62,7 +62,7 @@ p {
 	overflow: hidden;
 }
 .palette .wrapper {
-	z-index: 2;
+	z-index: 50;
 	position: relative;
 	min-width: 120px;
 }
@@ -259,7 +259,7 @@ p {
     background-image: url(../icons/help.svg);
 }
 #main-toolbar #fullscreen-button {
-	z-index: 1;
+	z-index: 100;
     background-image: url(../icons/view-fullscreen.svg);
 }
 #main-toolbar #line-chart-button {
@@ -414,10 +414,20 @@ p {
 	justify-content: flex-end;
 	padding-right: 1rem;
 	height: 42px;
+	overflow: hidden;
 }
 .swap-fields .toolbutton {
 	height: 40px;
 	bottom: 4px;
+}
+.csv-view .swap-fields {
+	justify-content: flex-start;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+}
+.csv-view .swap-fields .toolbutton {
+	transform: rotate(-90deg);
 }
 
 .input-container {
@@ -430,11 +440,12 @@ p {
 	display: flex;
 	position: relative;
 }
-.input-group.active::after {
+.input-group.active::after, .cell.active::after {
 	content: "";
 	pointer-events: none;
 	position: absolute;
 	right: 0;
+	top: 0;
 	width: calc(100% - 6px);
 	height: calc(100% - 6px);
 	border: 3px solid coral;
@@ -459,15 +470,25 @@ p {
 
 .csv-container {
 	position: absolute;
-	inset: 0;
+	height: calc(100vh - 94px);
+	width: 100%;
 	top: 55px;
 	overflow: auto;
 	background-color: #fff;
 }
+.csv-container .csv-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
 .csv-container .csv-header .cell {
 	font-weight: bold;
-	background-color: #FCF9BE;
+	background-color: #FCF9BE !important;
 }
+.csv-header .cell.invalid {
+	background-color: #FF7D7D !important;	
+}
+
 .csv-container .csv-header .marker {
 	color: #282828;
 	background-color: #FCF9BE;
@@ -482,10 +503,19 @@ p {
   color: #737373;
   user-select: none;
 }
+
 .csv-container .cell-group .cell {
 	padding-block: 7px;
-	flex: 0 0 190px;
+	flex-shrink: 0;
+	width: 190px;
+	word-break: break-word;
+	position: relative;	
 }
+.csv-container .cell-group .cell:nth-of-type(1),
+.csv-container .cell-group .cell:nth-of-type(2) {
+	background-color: #E6FFFD;
+}
+
 .cell-group.select .cell {
 	background-color: white;
 	font-weight: bold;
