@@ -5,6 +5,7 @@
 	"license": "Apache-2.0",
 	"dependencies": {
 		"core-js": "^3.8.3",
+		"js-ini": "^1.6.0",
 		"vue": "^3.2.13",
 		"axios": "^0.27.2",
 		"vue-axios": "^3.4.1"
