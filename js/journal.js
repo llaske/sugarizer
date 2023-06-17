@@ -1128,7 +1128,7 @@ enyo.kind({
 		this.typeselected = 0;
 		this.dateselected = 0;
 		this.sortfield = 0;
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
+		if (util.getClientType() == constant.webAppType || util.platform.android || util.platform.ios || (util.getClientType() == constant.appType && !util.platform.electron)) {
 			this.createComponent({name: "file", kind: "Input", type: "file", showing: false, onchange: "fileSelected"}, {owner: this});
 		}
 	},
@@ -1322,8 +1322,10 @@ enyo.kind({
 	},
 
 	fromDeviceSelected: function() {
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
-			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt");
+		if (util.getClientType() == constant.webAppType || util.platform.android || util.platform.ios || (util.getClientType() == constant.appType && !util.platform.electron)) {
+			if (!util.platform.android && !util.platform.ios) {
+				this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt");
+			}
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
 		} else {
