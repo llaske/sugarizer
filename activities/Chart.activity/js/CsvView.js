@@ -30,16 +30,22 @@ const CsvView = {
 	},
 	methods: {
 		swapRight() {
-			this.selectedIdx.j = util.swapToNext(this.jsonData.header, this.selectedIdx.j);	
-			this.updateKeys();
+	        const arr = this.jsonData.header;
+	        let idx = this.selectedIdx.j;
+	        if (!arr.length || idx > arr.length - 2) return;
+			this.$emit("swap-data", idx, idx + 1);
+	        this.selectedIdx.j++;
 		},	
 		swapLeft() {
-			this.selectedIdx.j = util.swapToPrev(this.jsonData.header, this.selectedIdx.j);
-			this.updateKeys();
+	        let idx = this.selectedIdx.j;
+	        if (idx < 1) return;
+			this.$emit("swap-data", idx, idx - 1);
+	        this.selectedIdx.j--;
 		},
 
-		updateData(labelKey, valueKey) {
-			const header = this.jsonData.header;
+		updateTableData() {
+			const labelKey = this.jsonData.header[0];
+			const valueKey = this.jsonData.header[1];
 			if (labelKey !== undefined) this.$emit("data-change", "label", labelKey)
 
 			if (valueKey === undefined || this.invalidKeys.includes(valueKey)) {
@@ -49,11 +55,7 @@ const CsvView = {
 				this.$emit("data-change", "value", valueKey);
 			}
 		},
-		updateKeys() {
-			const header = this.jsonData.header;
-			this.updateData(header[0], header[1]);
-		},
-		updateJsonData(data, header, mapKeys) {
+		updateJsonData(data, header, mapKeys, updateViewOnly) {
 			if (mapKeys) {
 				data = data.map(obj => {
 					const tmp = {};
@@ -67,7 +69,8 @@ const CsvView = {
 			}
 			this.jsonData.data = data;
 			this.jsonData.header = header;
-			this.updateKeys();
+			if (!updateViewOnly) this.updateTableData();
+			else this.invalid = this.invalidKeys.includes(this.jsonData.header[1]);
 		},
 		setIndex(i, j) {
 			this.selectedIdx.i = i;
@@ -85,7 +88,7 @@ const CsvView = {
 			const invalidKeys = [];
 			for (const key of this.jsonData.header) {
 				for (const obj of this.jsonData.data) {
-					if (obj[key] && obj[key].match(/[^0-9.\-,]/g)) {
+					if (typeof obj[key] == "string" && obj[key].match(/[^0-9.\-,]/g)) {
 						invalidKeys.push(key);
 						break;
 					}

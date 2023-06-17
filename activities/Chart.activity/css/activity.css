@@ -50,8 +50,8 @@ p {
 	overflow: hidden;
 }
 #sub-toolbar {
-	z-index: 1;	
 	position: relative;
+	z-index: 50;
 }
 .sub-toolbar-itm {
 	transition: height .3s;

@@ -209,6 +209,7 @@ define([
 		// Look for matching button
 		for (var i = 0 ; i < this.buttons.length ; i++) {
 			if (this.buttons[i].style.backgroundColor == color) {
+                if (this.invoker.style.backgroundColor == color) return;
 				var event = document.createEvent('MouseEvents');
 				event.initEvent('click', true, true);
 				this.buttons[i].dispatchEvent(event);

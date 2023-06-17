@@ -126,15 +126,13 @@ const app = new Vue({
 			const { stroke, fill } = this.currentenv.user.colorvalue;
 
 			this.pref.chartColor = { stroke, fill };
-			this.activityTitle = this.currentenv.activityName;
-			this.chartview.updateTitle(this.activityTitle)
+			this.updateActivityTitle(this.currentenv.activityName)
 			this.updatePalletes();
 
 			const that = this;
 			const input = document.querySelector("#activity-palette .container input");
 			input.addEventListener("input", (e) => {
-				that.activityTitle = e.target.value;
-				this.chartview.updateTitle(e.target.value);
+				this.updateActivityTitle(e.target.value)
 			});
 		},
 		localized() {
@@ -149,7 +147,8 @@ const app = new Vue({
 				x: (this.tabularData.length + 1),
 				y: Math.floor((Math.random() * 10 + 1))+"",
 			}
-			this.tabularData.push(obj);
+			this.executeAndSendAction(Action_Types.ADD_TABLE_DATA, { obj })
+
 			var lastIdx = this.tabularData.length - 1;
 			this.$nextTick(function () {
 				this.$refs.input[lastIdx].focus();
@@ -158,11 +157,15 @@ const app = new Vue({
 		},
 		removeData() {
 			if (this.selectedField.i < 0) return;
-			this.tabularData.splice(this.selectedField.i, 1);
+			this.executeAndSendAction(Action_Types.REMOVE_TABLE_DATA, {
+				idx: this.selectedField.i,
+			});			 
+
 			this.selectedField.i--;
 			if (this.selectedField.i < 0)
 				this.selectedField.i += this.tabularData.length;
 		},
+
 		validateInput(e) {
 			e.target.value = e.target.value
 				.replace(/[^0-9.-]/g, "") //Remove char that are not digits, points, or negative sign
@@ -171,17 +174,36 @@ const app = new Vue({
 			this.updateInput(e);
 		},
 		updateInput(e) {
-			const value = e.target.value;
-			this.tabularData[this.selectedField.i][this.selectedField.axis] = value;
+			const data = {
+				selectedField: this.selectedField,
+				value: e.target.value,
+			};
+			this.executeAndSendAction(Action_Types.UPDATE_TABLE_DATA, data);
 		},
 
-		swapData(a, b) {
-		},
 		swapUp() {
-			this.selectedField.i = util.swapToPrev(this.tabularData, this.selectedField.i);	
+	        const arr = this.tabularData;
+	        let idx = this.selectedField.i;
+	        if (idx < 1) return;
+
+			this.executeAndSendAction(Action_Types.SWAP_DATA, {
+				a: idx,
+				b: idx - 1,
+			});			
+	        idx--;
+	        this.selectedField.i = idx;
 		},
 		swapDown() {
-			this.selectedField.i = util.swapToNext(this.tabularData, this.selectedField.i);	
+	        const arr = this.tabularData;
+	        let idx = this.selectedField.i;
+	        if (!arr.length || idx > arr.length - 2) return;
+
+			this.executeAndSendAction(Action_Types.SWAP_DATA, {
+				a: idx,
+				b: idx + 1,
+			});			
+	        idx++;
+	        this.selectedField.i = idx;
 		},
 
 		popDownPal() {
@@ -189,29 +211,54 @@ const app = new Vue({
 				this.palettes[key] && this.palettes[key].popDown();				
 		},
 		toggleConfig() {
-			this.configActive = !this.configActive;
-			this.textPalActive = false;
-			this.popDownPal();
+			this.executeAndSendAction(Action_Types.TOGGLE_PALETTE, {
+				configActive: !this.configActive,
+				textPalActive: false,
+			});			
 		},
 		toggleTextPal() {
-			this.textPalActive = !this.textPalActive;
-			this.configActive = false;
-			this.popDownPal();
-		},
-		toggleFullscreen() {
-			this.isFullscreen = !this.isFullscreen;
-			this.popDownPal();
+			this.executeAndSendAction(Action_Types.TOGGLE_PALETTE, {
+				textPalActive: !this.textPalActive,
+				configActive: false,
+			});			
 		},
 
 		onNetworkDataReceived(msg) {
 			Execute[msg.content.action](this, msg);
 		},
+
 		onNetworkUserChanged(msg) {
 			if (this.SugarPresence.isHost) {
+				const message = {
+					user: this.SugarPresence.getUserInfo(),
+					content: {
+						action: Action_Types.INIT,
+						data: {
+							tabularData: this.tabularData,
+							pref: this.pref,
+							title: this.activityTitle,
+							csvJsonData: this.jsonData,
+						}
+					},
+				};
+				this.SugarPresence.sendMessage(message);
 			}
 		},
 
-		onJournalSharedInstance() {},
+		executeAndSendAction(action, data) {
+			const message = {
+				content: {
+					action,
+					data,
+				},
+			};
+			Execute[action](this, message);
+
+			if (!this.SugarPresence.isShared()) return;
+			message.user = this.SugarPresence.getUserInfo();
+			this.SugarPresence.sendMessage(message);
+		},
+
 
 		onJournalNewInstance() {
 			const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
@@ -224,8 +271,7 @@ const app = new Vue({
 			}
 			this.pref.labels.x = this.SugarL10n.get("Sports"); 
 			this.pref.labels.y = this.SugarL10n.get("Students");
-			this.activityTitle = this.l10n.stringChartActivity;
-			this.chartview.updateTitle(this.l10n.stringChartActivity);
+			this.updateActivityTitle(this.l10n.stringChartActivity)
 
 			const header = [this.pref.labels.x, this.pref.labels.y];
 			this.$refs.csvView.updateJsonData(this.tabularData, header, true);
@@ -243,7 +289,7 @@ const app = new Vue({
 			const pref = parsedData.pref;
 
 			let xKey = pref.labels.x;
-			if (xKey == pref.labels.y) xKey += "__"
+			if (xKey == pref.labels.y) xKey += "__";
 			this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
 			this.updatePreference(pref);
 		},
@@ -281,18 +327,6 @@ const app = new Vue({
 			});
 		},
 
-		sendPresenceMessage(action, data) {
-			if (!this.SugarPresence.isShared()) return;
-			const message = {
-				user: this.SugarPresence.getUserInfo(),
-				content: {
-					action,
-					data,
-				},
-			};
-			this.SugarPresence.sendMessage(message);
-		},
-
 		// Handlers
 		handleDataChange(field, key) {
 			let axis = field === "label" ? "x" : "y";
@@ -308,19 +342,52 @@ const app = new Vue({
 				this.tabularData[i][axis] = value;
 			});
 		},
-		handleChartColor(e, type) {
-			this.pref.chartColor[type] = e.detail.color;
+		handleColSwap(a, b) {
+			this.executeAndSendAction(Action_Types.SWAP_COLUMN, {
+				a,
+				b,
+			});			
 		},
+
+		handleLabel(e, axis) {
+			this.executeAndSendAction(Action_Types.UPDATE_LABEL, {
+				value: e.target.value,
+				axis: axis,
+			});
+		},
+		handleChartColor(e, type) {
+			this.executeAndSendAction(Action_Types.UPDATE_CHART_COLOR, {
+				color: e.detail.color,
+				type: type,
+			});
+		},
+		setChartType(type) {
+			this.executeAndSendAction(Action_Types.UPDATE_CHART_TYPE, {
+				chartType: type,
+			});
+		},
+
 		handleTextColor(e) {
-			this.selectedFontField.color = e.detail.color;	
+			this.executeAndSendAction(Action_Types.UPDATE_TEXT_COLOR, {
+				selectedFontIdx: this.selectedFontIdx,	
+				color: e.detail.color,
+			});
 		}, 
 		handleFontFamily(e) {
-			this.selectedFontField.fontfamily = e.detail.family;	
+			this.executeAndSendAction(Action_Types.UPDATE_FONT_FAMILY, {
+				selectedFontIdx: this.selectedFontIdx,	
+				family: e.detail.family,
+			});
 		},
 		handleFontSize(value) {
-			let fontsize = this.selectedFontField.fontsize;
-			fontsize += value;
-			this.selectedFontField.fontsize = Math.min(Math.max(10, fontsize), 55);
+			this.executeAndSendAction(Action_Types.UPDATE_FONT_SIZE, {
+				selectedFontIdx: this.selectedFontIdx,	
+				value: value,
+			});
+		},
+
+		updateActivityTitle(title) {
+			this.executeAndSendAction(Action_Types.UPDATE_TITLE, { title });
 		},
 		updatePalletes() {
 			this.palettes.strokeColor.setColor(this.pref.chartColor.stroke);
