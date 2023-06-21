@@ -9,7 +9,7 @@ html {
 }
 body {
 	position: relative;
- 	height: 100vh;
+	height: 100vh;
 	margin: 0;
 	font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
 	font-size: 10pt;
@@ -18,6 +18,35 @@ body {
 }
 html, button {
 	cursor: url(../icons/ArrowSmall.cur), default;
+}
+
+/* common styles */
+.sugarizer-canvas {
+	background-color: white;
+	overflow: hidden;
+	height: calc(100vh - 64px);
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.input_field {
+	border-radius: 22px;
+	height: 25px;
+	width: 250px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 10pt;
+	border-width: 2px;
+	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
+}
+
+a {
+	color: #0076c3;
+	text-decoration: none;
 }
 
 /* sugar-vue-Icon */
@@ -391,7 +420,7 @@ html, button {
 	border-width: 2px;
 	border-style: inset;
 	border-top-color: #9a9a9a;
- 	border-right-color: #eeeeee;
+	border-right-color: #eeeeee;
 	border-bottom-color: #eeeeee;
 	border-left-color: #9a9a9a;
 	border-image: initial;
@@ -552,7 +581,7 @@ html, button {
 	border: 2px solid #808080;
 	color: white;
 	overscroll-behavior-y: contain;
-    overflow-y: auto;
+	overflow-y: auto;
 }
 
 .settings-filter-text {
@@ -616,7 +645,7 @@ html, button {
 	height: 100%;
 	max-height: 500px;
 	overscroll-behavior-y: contain;
-    overflow-y: auto;
+	overflow-y: auto;
 	background-color: #ffffff;
 	border: 2px solid #808080;
 }
@@ -655,7 +684,7 @@ html, button {
 	text-align: center;
 	flex-wrap: wrap;
 	overscroll-behavior-y: contain;
-    overflow-y: auto;
+	overflow-y: auto;
 	height: inherit;
 }
 
@@ -687,7 +716,7 @@ html, button {
 	max-height: 90%;
 	color: black;
 	overscroll-behavior-y: contain;
-    overflow-y: auto;
+	overflow-y: auto;
 	background-color: white;
 	height: inherit;
 }
@@ -791,6 +820,54 @@ html, button {
 	margin-top: 30px;
 	color: white;
 	width: 200px;
+}
+
+/* first screen */
+.firstscreen {
+	position: relative;
+	top: 20vh;
+}
+
+.firstscreen_landing {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.firstscreen_text {
+	color: #808080;
+}
+
+.firstscreen_btn {
+	display: inline-block;
+	margin: auto;
+}
+
+/* login screen */
+#loginscreen_name,
+#loginscreen_server {
+	gap: 15px;
+}
+
+.loginscreen_buttons {
+	position: fixed;
+	bottom: 10px;
+	width: 100%;
+	display: flex;
+}
+
+.loginscreen_warning {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.login-policytext {
+	text-align: center;
+	width: 100%;
+	display: inline-block;
+	margin-top: 10px;
 }
 
 /* Handle small screen resolution */

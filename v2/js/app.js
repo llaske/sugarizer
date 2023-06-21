@@ -7,22 +7,24 @@ requirejs.config({
 });
 
 const activity = {
-	"id": "org.olpcfrance.Gridpaint", 
-	"name": "Grid Paint from v2", 
-	"version": 2, 
-	"directory": "activities/Gridpaint.activity", 
-	"icon": "activity/activity-icon.svg", 
-	"favorite": true, 
+	"id": "org.olpcfrance.Gridpaint",
+	"name": "Grid Paint from v2",
+	"version": 2,
+	"directory": "activities/Gridpaint.activity",
+	"icon": "activity/activity-icon.svg",
+	"favorite": true,
 	"activityId": null
 };
 
 const app = Vue.createApp({
 	components: {
-		"icon": Icon
+		"icon": Icon,
+		"firstscreen": FirstScreen,
 	},
 	data() {
 		return {
-			message: ""
+			message: "",
+			isFirstScreen: true,
 		}
 	},
 	mounted() {
@@ -35,6 +37,9 @@ const app = Vue.createApp({
 		homeClicked() {
 			let location = "../index.html";
 			document.location.href = location;
+		},
+		setIsFirstScreen(value) {
+			this.isFirstScreen = value;
 		},
 	},
 });
