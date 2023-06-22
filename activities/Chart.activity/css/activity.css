@@ -450,6 +450,20 @@ p {
 	height: calc(100% - 6px);
 	border: 3px solid coral;
 }
+.cell.active::after {
+	border-top: none;
+	border-bottom: none;
+	border-color: #6f6f6f;
+	height: calc(100% + 2px);
+	z-index: 10;
+}
+.csv-header .cell.active::after {
+	border-top: 3px solid #6f6f6f;
+}
+.cell.active.last {
+	border-bottom: 3px solid #646464;
+}
+
 .input-group.active input {
 	border-color: coral;
 }
@@ -508,6 +522,7 @@ p {
 	padding-block: 7px;
 	flex-shrink: 0;
 	width: 190px;
+	background-color: white;
 	word-break: break-word;
 	position: relative;	
 }

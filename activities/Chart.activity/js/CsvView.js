@@ -4,13 +4,13 @@ const CsvView = {
 	    	<div class="csv-container">
 				<div class="cell-group csv-header">
 					<span class="marker">1</span>
-					<div v-for="(key, i) in jsonData.header" :key="'header'+i" @click="setIndex(0, i)" :class="{active: isActive(0, i), invalid: isInvalid(i)}" class="cell">
+					<div v-for="(key, i) in jsonData.header" :key="'header'+i" @click="selectedIdx = i" :class="{active: isActive(i), invalid: isInvalid(i)}" class="cell">
 						{{ key.startsWith("__") ? "" : key }}
 					</div>
 				</div>
 				<div v-for="(dataRow, i) in jsonData.data" :key="'row'+i" class="cell-group">
 					<span class="marker">{{ i+2 }}</span>
-					<div v-for="(key, j) in jsonData.header" :key="'col'+j" @click="setIndex(i+1, j)" :class="{active: isActive(i+1, j)}" class="cell">
+					<div v-for="(key, j) in jsonData.header" :key="'col'+j" @click="selectedIdx = j" :class="{active: isActive(j), last: i == jsonData.data.length-1}" class="cell">
 						{{ dataRow[key] }}
 					</div>
 				</div>
@@ -24,23 +24,23 @@ const CsvView = {
 	props: ["jsonData"],
 	data() {
 		return {
-			selectedIdx: { i: 0, j: 0 },
+			selectedIdx: 0,
 			invalid: false,
 		}
 	},
 	methods: {
 		swapRight() {
 	        const arr = this.jsonData.header;
-	        let idx = this.selectedIdx.j;
+	        let idx = this.selectedIdx;
 	        if (!arr.length || idx > arr.length - 2) return;
 			this.$emit("swap-data", idx, idx + 1);
-	        this.selectedIdx.j++;
+	        this.selectedIdx++;
 		},	
 		swapLeft() {
-	        let idx = this.selectedIdx.j;
+	        let idx = this.selectedIdx;
 	        if (idx < 1) return;
 			this.$emit("swap-data", idx, idx - 1);
-	        this.selectedIdx.j--;
+	        this.selectedIdx--;
 		},
 
 		updateTableData() {
@@ -72,12 +72,8 @@ const CsvView = {
 			if (!updateViewOnly) this.updateTableData();
 			else this.invalid = this.invalidKeys.includes(this.jsonData.header[1]);
 		},
-		setIndex(i, j) {
-			this.selectedIdx.i = i;
-			this.selectedIdx.j = j;
-		},
-		isActive(i, j) {
-			return this.selectedIdx.i === i && this.selectedIdx.j === j;
+		isActive(idx) {
+			return this.selectedIdx === idx;
 		},
 		isInvalid(i) {
 			return i === 1 && this.invalid;

@@ -130,9 +130,10 @@ const app = new Vue({
 			this.updatePalletes();
 
 			const that = this;
-			const input = document.querySelector("#activity-palette .container input");
-			input.addEventListener("input", (e) => {
+			this.activityInput = document.querySelector("#activity-palette .container input");
+			this.activityInput.addEventListener("input", (e) => {
 				this.updateActivityTitle(e.target.value)
+				e.target.value = this.activityInput.value;
 			});
 		},
 		localized() {
@@ -280,6 +281,7 @@ const app = new Vue({
 			this.LZ = this.SugarJournal.LZString;
 			if (metadata.mimetype === "text/csv") {
 				this.isCsvFile = true;
+				this.csvTitle = this.currentenv.activityName;
 				this.pref.chartType = "csvMode";
 				const json = CSVParser.csvToJson(data);
 				this.$refs.csvView.updateJsonData(json.data, json.headers);
@@ -563,6 +565,11 @@ const app = new Vue({
 				};
 				var data = this.LZ.compressToUTF16(JSON.stringify(context));
 				this.createJournalEntry(data, metadata);
+				this.activityInput.style.visibility = "visible";
+				this.activityInput.style.opacity = 0;
+				this.activityInput.value = this.csvTitle;
+				this.activityInput.focus();
+				this.activityInput.blur(); //to update the title in activitypalette.js
 				return;
 			}
 			this.$refs.SugarJournal.saveData(context);
