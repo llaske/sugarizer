@@ -8,22 +8,12 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
             debug: true,
             fallbackLng: "en",
             resources: {}
-        }).then((t) => {
+        }).then(() => {
             l10n.switchTo(lang);
         });
     };
 
-    l10n.get = async (key) => {
-        if (!initialized) {
-            await new Promise((resolve) => {
-                const checkInitialization = setInterval(() => {
-                    if (initialized) {
-                        clearInterval(checkInitialization);
-                        resolve();
-                    }
-                }, 100); // Adjust the interval duration as needed
-            });
-        }
+    l10n.get = (key) => {
         return i18next.t(key);
     };
 
@@ -45,20 +35,23 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
                 if (locales !== null) {
                     i18next.addResourceBundle(lang, "translation", locales);
                 } else {
-                    console.log("Language file not found. Falling back to 'en' language.");
-                    lng = "en"; // Fall back to "en" language
-                    l10n.loadLanguageResource(lang).then((locales) => {
-                        i18next.addResourceBundle(lang, "translation", locales);
-                    });
+                    l10n.init("en");
                 }
                 i18next.changeLanguage(lang);
                 initialized = true;
+                triggerLocalizedEvent();
             });
         } else {
             i18next.changeLanguage(lang);
             initialized = true;
-
+            triggerLocalizedEvent();
         }
+    };
+
+
+    function triggerLocalizedEvent() {
+        const event = new Event("localized");
+        window.dispatchEvent(event);
     };
 
     return l10n;
