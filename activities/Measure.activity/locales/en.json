@@ -36,6 +36,7 @@
 	"FullScreen": "Fullscreen",
 	"UnFullScreen": "Unfullscreen",
 	"WaveformSettings": "Waveform Amplitude Settings",
+	"WaveformImage": "Measure Waveform Image",
 	"decreaseAmp": "Decrease Amplitude",
 	"increaseAmp": "Increase Amplitude",
 	"InvertWaveform": "Invert Waveform",
