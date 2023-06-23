@@ -1,0 +1,21 @@
+{
+	"QRCodeSaved": "Código QR salvo no Diário!",
+	"TutoPrev": "Anterior",
+	"TutoNext": "Próximo",
+	"TutoEnd": "Fim",
+	"TutoExplainTitle": "Atividade QRCode",
+	"TutoExplainContent": "Welcome into the QRCode activity. QRCode activity is a simple QR Code generator and reader",
+	"TutoPhotoTitle": "Ler código QR",
+	"TutoPhotoContent": "Click here to scan a QR code through Camera of your device",
+	"TutoPNGTitle": "Export to PNG",
+	"TutoPNGContent": "Click this icon to export the QR Code in Journal as a PNG file",
+	"TutoGenerateTitle": "Gerar",
+	"TutoGenerateContent": "Click this icon to launch generation",
+	"TutoListTitle": "Histórico",
+	"TutoListContent": "Click here to get a list of previously generated QR Codes",
+	"TutoQRTitle": "QR Code",
+	"TutoQRContent": "Here is shown the generated QR Code",
+	"TutoInputTitle": "Texto a gerar",
+	"TutoInputContent": "Type here the text you want to generate as a QR Code",
+	"Text": "Type text here"
+}
