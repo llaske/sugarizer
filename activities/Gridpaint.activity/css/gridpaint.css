@@ -12,8 +12,7 @@ div.frame {
 }
 
 #canvas {
- position: relative;
- top: 0px !important;
+ overflow: hidden;
 }
 
 canvas.gridcnv {

@@ -18,16 +18,22 @@ enyo.kind({
 					{name: "activity", kind: "Sugar.Icon", x: 100, y: 5, size: constant.iconSizeList, colorized: true, ontap: "runActivity"},
 					{name: "title", showing: true, classes: "journal-title", ontap: "titleEditStart"},
 					{name: "titleEdit", showing: false, kind: "enyo.Input", classes: "journal-title-edit", onblur:"titleEditEnd"},
+					{name: "assignmentButton", kind: "Sugar.Icon", showing:false, classes: "journal-assignment", colorized: true, x: 0, y: 4, icon: {directory: "icons", icon: "assignment.svg"}, size: constant.iconSizeList},
+					{name: "assignmentInstructions", kind: "Sugar.Icon", showing:false, classes: "assignment-instructions",  x: 0, y: 4, icon: {directory: "icons", icon: "instructions-icon.svg"}, size: constant.iconSizeList},
+					{name: "submitAssignment", kind: "Sugar.Icon", showing:false, classes: "assignment-submit",  x: 0, y: 4, icon: {directory: "icons", icon: "submit-assignment.svg"}, size: constant.iconSizeList },
+					{name: "assignmentDueDate", classes: "assignment-dueDate"},
+
 					{name: "time", classes: "journal-time"},
 					{name: "goright", kind: "Sugar.Icon", classes: "journal-goright", size: constant.iconSizeFavorite, ontap: "runActivity"}
 				]}
 			]},
-			{name: "activityPopup", kind: "Sugar.Popup", showing: false}
+			{name: "activityPopup", kind: "Sugar.Popup", showing: false},
+			{name: "instructionsPopup", kind: "Sugar.Popup", showing: false}
 		]},
 		{name: "footer", classes: "journal-footer toolbar", showing: false, components: [
-			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", title:"Journal", ontap: "showLocalJournal"},
-			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", title:"Private", ontap: "showPrivateCloud"},
-			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", title:"Shared", ontap: "showSharedCloud"},
+			{name: "journalbutton", kind: "Button", classes: "toolbutton view-localjournal-button active", ontap: "showLocalJournal"},
+			{name: "cloudonebutton", kind: "Button", classes: "toolbutton view-cloudone-button", ontap: "showPrivateCloud"},
+			{name: "cloudallbutton", kind: "Button", classes: "toolbutton view-cloudall-button", ontap: "showSharedCloud"},
 			{name: "syncgear", classes: "sync-button sync-gear sync-gear-journal", showing: false},
 			{name: "syncbutton", kind: "Button", classes: "toolbutton sync-button sync-journal", title:"Sync", ontap: "syncJournal"},
 			{name: "pageup", kind: "Button", classes: "toolbutton page-up", showing: false, title:"Previous", ontap: "pagePrevious"},
@@ -58,15 +64,21 @@ enyo.kind({
 	// Render
 	rendered: function() {
 		this.inherited(arguments);
-
 		// Colorizer footer icons
 		iconLib.colorize(this.$.journalbutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudonebutton.hasNode(), preferences.getColor(), function() {});
 		iconLib.colorize(this.$.cloudallbutton.hasNode(), preferences.getColor(), function() {});
 
+		this.$.cloudallbutton.setNodeProperty("title", l10n.get("Shared"));
+		this.$.cloudonebutton.setNodeProperty("title", l10n.get("Private"));
+		this.$.journalbutton.setNodeProperty("title", l10n.get("Journal"));
+
 		this.$.syncbutton.setNodeProperty("title", l10n.get("Synchronize"));
 		this.$.pageup.setNodeProperty("title", l10n.get("Back"));
 		this.$.pagedown.setNodeProperty("title", l10n.get("Next"));
+		if (constant.viewNames[app.getView()] === "assignment_view") {
+			this.getToolbar().filterAssignment();
+		}
 		this.journalChanged();
 	},
 
@@ -100,7 +112,7 @@ enyo.kind({
 			if (!this.getToolbar().hasFilter()) {
 				this.loadRemoteJournal(journalId, offset);
 			} else {
-				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+				this.filterEntries(this.request.name, this.request.favorite, this.request.assignment, this.request.typeactivity, this.request.stime, offset);
 			}
 		}
 	},
@@ -120,7 +132,7 @@ enyo.kind({
 			if (!this.getToolbar().hasFilter()) {
 				this.loadRemoteJournal(journalId, offset);
 			} else {
-				this.filterEntries(this.request.name, this.request.favorite, this.request.typeactivity, this.request.stime, offset);
+				this.filterEntries(this.request.name, this.request.favorite, this.request.assignment, this.request.typeactivity, this.request.stime, offset);
 			}
 		}
 	},
@@ -161,7 +173,7 @@ enyo.kind({
 		var canvas_center = util.getCanvasCenter();
 		var footer_size = this.$.footer.getShowing() ? 55 : 0;   // HACK: 55 is the footer height
 		this.smallTime = (canvas_center.dx < 660);
-		var android_gap = (enyo.platform.android ? 3 : 0);
+		var android_gap = (util.platform.android ? 3 : 0);
 		this.$.content.applyStyle("height", (canvas_center.dy-footer_size-android_gap)+"px");
 		this.$.empty.applyStyle("margin-left", (canvas_center.x-constant.sizeEmpty/4)+"px");
 		var margintop = (canvas_center.y-constant.sizeEmpty/4-80);
@@ -225,8 +237,8 @@ enyo.kind({
 		if (entry.metadata.buddy_color) {
 			inEvent.item.$.activity.setColorizedColor(entry.metadata.buddy_color);
 		}
-		var activityIcon = preferences.getActivity(entry.metadata.activity);
-		if (activityIcon == preferences.genericActivity) {
+		var activityIcon = activities.getById(entry.metadata.activity);
+		if (activities.isGeneric(activityIcon)) {
 			if (entry.metadata.mimetype == "text/plain") {
 				activityIcon = {directory: "icons", icon: "application-x-txt.svg"};
 			} else if (entry.metadata.mimetype == "application/pdf") {
@@ -240,6 +252,40 @@ enyo.kind({
 		inEvent.item.$.activity.setIcon(activityIcon);
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite-large.svg"});
 		var keep = entry.metadata.keep;
+		//if assignmentId is present then set showing true for assignmentbutton
+		if (entry.metadata.assignmentId) {
+			inEvent.item.$.assignmentButton.setShowing(true);
+			if(entry.metadata.instructions !== "") {
+				inEvent.item.$.assignmentInstructions.setShowing(true);
+			}
+			inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			if(entry.metadata.lateTurnIn === true && entry.metadata.dueDate < new Date().getTime()) {
+				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			}
+			//thow error if isSubmitted is true and dueDate is passed and lateTurnIn is false
+			else if(entry.metadata.isSubmitted === true && entry.metadata.dueDate < new Date().getTime() && entry.metadata.lateTurnIn === false) {
+				inEvent.item.$.submitAssignment.ontap= "submitAssignment";
+			}
+
+			inEvent.item.$.submitAssignment.setShowing(true);
+			//find current date.
+			var currentDate = new Date();
+			var difference = new Date(entry.metadata.dueDate).getTime() - currentDate.getTime();
+			if (difference > 0) {
+				inEvent.item.$.assignmentDueDate.setContent(util.timestampToElapsedString(currentDate.getTime()-difference,2,false,"Expected"));
+			} else {
+				inEvent.item.$.assignmentDueDate.setContent(l10n.get("DueDatePassed"));
+				inEvent.item.$.submitAssignment.setShowing(entry.metadata.lateTurnIn);
+			} 
+			if(entry.metadata.isSubmitted === true) {
+				inEvent.item.$.assignmentDueDate.setContent(util.timestampToElapsedString(entry.metadata.submissionDate,2,false,"Submitted"));
+				inEvent.item.$.submitAssignment.setShowing(false);
+			}
+		} else {
+			inEvent.item.$.assignmentButton.setShowing(false);
+			inEvent.item.$.assignmentInstructions.setShowing(false);
+			inEvent.item.$.submitAssignment.setShowing(false);
+		}
 		inEvent.item.$.favorite.setColorized(keep !== undefined && keep == 1);
 		inEvent.item.$.title.setContent(entry.metadata.title);
 		var sortfield = this.getToolbar().getSortType();
@@ -253,6 +299,8 @@ enyo.kind({
 		inEvent.item.$.goright.setIcon({directory: "icons", icon: "go-right.svg"});
 		inEvent.item.$.activity.setPopupShow(enyo.bind(this, "showActivityPopup"));
 		inEvent.item.$.activity.setPopupHide(enyo.bind(this, "hideActivityPopup"));
+		inEvent.item.$.assignmentInstructions.setPopupShow(enyo.bind(this, "showInstructionsPopup",inEvent));
+		inEvent.item.$.assignmentInstructions.setPopupHide(enyo.bind(this, "hideInstructionsPopup"));
 		inEvent.item.$.activity.setData(entry);
 		if (l10n.language.direction == "rtl") {
 			inEvent.item.$.title.addClass("rtl-14");
@@ -265,6 +313,10 @@ enyo.kind({
 			tutorial.setElement("titleitem", inEvent.item.$.title.getAttribute("id"));
 			tutorial.setElement("timeitem", inEvent.item.$.time.getAttribute("id"));
 			tutorial.setElement("favoriteitem", inEvent.item.$.favorite.getAttribute("id"));
+			tutorial.setElement("assignment", inEvent.item.$.assignmentButton.getAttribute("id"));
+			tutorial.setElement("instructions", inEvent.item.$.assignmentInstructions.getAttribute("id"));
+			tutorial.setElement("submit", inEvent.item.$.submitAssignment.getAttribute("id"));
+			tutorial.setElement("dueDate", inEvent.item.$.assignmentDueDate.getAttribute("id"));
 		}
 	},
 
@@ -281,6 +333,9 @@ enyo.kind({
 		var ds = new datastore.DatastoreObject(objectId);
 		ds.setMetadata(this.journal[inEvent.index].metadata);
 		ds.save();
+		if (preferences.isConnected() && preferences.getOptions("sync")) {
+			app.otherview.syncJournal();
+		}
 		inEvent.dispatchTarget.container.setColorized(this.journal[inEvent.index].metadata.keep == 1);
 		inEvent.dispatchTarget.container.render();
 	},
@@ -372,7 +427,7 @@ enyo.kind({
 			toProcess.push(this.journal[selection[i]]);
 		}
 		var that = this;
-		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && enyo.platform.electron);
+		var isMultiple = (this.dialogAction == constant.journalDevice && util.getClientType() == constant.appType && util.platform.electron);
 		if (!isMultiple) {
 			humane.log(l10n.get(this.dialogAction == constant.journalRemove ? "Erasing" : "Copying"));
 		}
@@ -411,8 +466,8 @@ enyo.kind({
 	},
 	runCurrentActivity: function(activity) {
 		// Generic activity type, try to open as a document
-		var activityInstance = preferences.getActivity(activity.metadata.activity);
-		if (activityInstance == preferences.genericActivity) {
+		var activityInstance = activities.getById(activity.metadata.activity);
+		if (activities.isGeneric(activityInstance)) {
 			if (activity.metadata.mimetype == "application/pdf") {
 				var that = this;
 				this.loadEntry(activity, function(err, metadata, text) {
@@ -452,7 +507,7 @@ enyo.kind({
 	},
 
 	// Filter entries handling
-	filterEntries: function(name, favorite, typeactivity, timeperiod, offset) {
+	filterEntries: function(name, favorite, assignment, typeactivity, timeperiod, offset) {
 		// Filter remote entries
 		var sortfield = this.getToolbar().getSortType();
 		if (this.journalType != constant.journalLocal) {
@@ -463,12 +518,15 @@ enyo.kind({
 				sort = '-creation_time';
 			} else if (sortfield == 2) {
 				sort = '-textsize';
+			}else if(sortfield == 3){
+				sort = '-dueDate';
 			}
 			var request = {
 				typeactivity: typeactivity,
 				title: (name !== undefined) ? name : undefined,
 				stime: (timeperiod !== undefined ? timeperiod : undefined),
 				favorite: favorite,
+				assignment: assignment,
 				field: constant.fieldMetadata,
 				limit: constant.pageJournalSize,
 				sort: sort,
@@ -501,14 +559,18 @@ enyo.kind({
 		this.journal = this.journal.filter(function(activity) {
 			return (favorite !== undefined ? activity.metadata.keep : true)
 				&& (name.length != 0 ? activity.metadata.title.toLowerCase().indexOf(name.toLowerCase()) != -1 : true)
-				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true);
+				&& (timeperiod !== undefined ? activity.metadata.timestamp >= timeperiod : true)
+				&& (assignment !== undefined ? activity.metadata.assignmentId  : true);
 		});
+
 		var that = this;
 		this.journal = this.journal.sort(function(e0, e1) {
 			if (sortfield == 1) {
 				return parseInt(e1.metadata.creation_time) - parseInt(e0.metadata.creation_time);
 			} else if (sortfield == 2) {
 				return parseInt(e1.metadata.textsize || 0) - parseInt(e0.metadata.textsize || 0);
+			} else if(sortfield == 3){
+				return parseInt(e1.metadata.dueDate) - parseInt(e0.metadata.dueDate);
 			} else {
 				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
 			}
@@ -518,8 +580,36 @@ enyo.kind({
 
 	nofilter: function() {
 		this.toolbar.removeFilter();
-		this.filterEntries("", undefined, undefined, undefined, undefined);
+		this.filterEntries("", undefined, undefined, undefined, undefined, undefined);
 	},
+	
+	submitAssignment: function(inSender, inEvent) {
+		var entry = this.journal[inEvent.index]; //copy
+		if(entry.metadata.isSubmitted == true) {
+			humane.log(l10n.get("AssignmentAlreadySubmitted"));
+			return;
+		}
+		if(entry.metadata.isSubmitted == false && entry.metadata.dueDate < Date.now() && entry.metadata.lateTurnIn == false) {
+			humane.log(l10n.get("AssignmentDueDatePassed"));
+			return;
+		}
+		entry.metadata.isSubmitted = true;
+		entry.metadata.submissionDate = new Date().getTime();
+		var that = this;
+		myserver.postAssignment(entry.metadata.assignmentId, entry.objectId,
+			function(inSender, inResponse) {
+				humane.log(l10n.get("AssignmentSubmitted"));
+			} , function(inSender, inResponse) {
+				humane.log(l10n.get("AssignmentError")); 
+			});
+		var ds = new datastore.DatastoreObject(entry.objectId);
+		ds.setMetadata(entry.metadata);
+		ds.save(function() {
+			console.log("Assignment submitted");
+			that.journalChanged();
+		});
+	},
+
 
 	// Activity popup
 	showActivityPopup: function(icon) {
@@ -553,7 +643,7 @@ enyo.kind({
 			colorized: false,
 			name: l10n.get("RestartActivity"),
 			action: enyo.bind(this, "runCurrentActivity"),
-			disable: (preferences.getActivity(entry.metadata.activity) == preferences.genericActivity && entry.metadata.mimetype != "application/pdf"),
+			disable: (activities.isGeneric(activities.getById(entry.metadata.activity)) && entry.metadata.mimetype != "application/pdf"),
 			data: [entry, null]
 		});
 		items.push({
@@ -578,7 +668,7 @@ enyo.kind({
 			name: l10n.get("CopyToShared"),
 			action: enyo.bind(this, "copyToRemote"),
 			data: [entry, preferences.getSharedJournal()],
-			disable: !preferences.isConnected() || this.journalType == constant.journalRemoteShared
+			disable: !preferences.isConnected() || this.journalType == constant.journalRemoteShared || entry.metadata.assignmentId
 		});
 		items.push({
 			icon: {directory: "icons", icon: "copy-to-device.svg"},
@@ -593,7 +683,7 @@ enyo.kind({
 			name: l10n.get("Duplicate"),
 			action: enyo.bind(this, "duplicateEntry"),
 			data: [entry, null],
-			disable: this.journalType != constant.journalLocal
+			disable: this.journalType != constant.journalLocal || entry.metadata.assignmentId
 		});
 		items.push({
 			icon: {directory: "icons", icon: "list-remove.svg"},
@@ -608,6 +698,40 @@ enyo.kind({
 		this.$.activityPopup.setMargin({left: 0, top: (icon.owner.index*60)+20-mouse.position.y});
 		this.$.activityPopup.showPopup();
 	},
+
+	//instructions Popup
+	showInstructionsPopup: function(inEvent) {
+		//create popup
+		var entry = this.journal[inEvent.index]
+		this.$.instructionsPopup.setHeader({
+			icon: {directory: "icons", icon: "instructions-icon.svg"},
+			colorized: false,
+			name: l10n.get("Instructions"),
+			title: null,
+			action: enyo.bind(this, "hideInstructionsPopup")
+		});
+		var items = [];
+
+		items.push({
+			name: entry.metadata.instructions.replace("\n", "<br/>\n"), 
+			action: enyo.bind(this, "hideInstructionsPopup"),
+			
+		});
+		this.$.instructionsPopup.setFooter(items);
+		this.$.instructionsPopup.showPopup();
+	},
+
+	hideInstructionsPopup: function() {
+		if(!this.$.instructionsPopup) {
+			return true;
+		}
+		if(this.$.instructionsPopup.cursorIsInside()) {
+			return false;
+		}
+		this.$.instructionsPopup.hidePopup();
+		return true;
+	},
+
 	hideActivityPopup: function(icon) {
 		if (!this.$.activityPopup) {
 			return true;
@@ -675,6 +799,10 @@ enyo.kind({
 	// Duplicate locale entry
 	duplicateEntry: function(entry, multiple) {
 		var that = this;
+		if(entry.metadata.assignmentId) {
+			humane.log(l10n.get("CannotDuplicateAssignment"));
+			return;
+		}
 		stats.trace(constant.viewNames[app.getView()], 'duplicate', entry.objectId, null);
 		this.loadEntry(entry, function(err, metadata, text) {
 			var ds = new datastore.DatastoreObject();
@@ -760,6 +888,11 @@ enyo.kind({
 
 	// Remove an entry in the journal
 	removeEntry: function(entry, multiple) {
+		//check if the entry is an assignment entry and if it is, then do not delete it
+		if(entry.metadata.assignmentId) {
+			humane.log(l10n.get("CannotDeleteAssignment"));
+			return;
+		}
 		// Remove from local journal
 		if (this.journalType == constant.journalLocal) {
 			// Delete in datastore
@@ -786,7 +919,7 @@ enyo.kind({
 				this.loadLocalJournal();
 
 				// Refresh home screen: activity menu, journal content
-				preferences.updateEntries();
+				activities.loadEntries();
 				app.journal = this.journal;
 				app.redraw();
 			}
@@ -850,15 +983,21 @@ enyo.kind({
 				that.loadLocalJournal();
 
 				// Refresh home screen: activity menu, journal content
-				preferences.updateEntries();
+				activities.loadEntries();
 				app.journal = that.journal;
 				app.redraw();
+
+				// Sync journal
+				if (preferences.isConnected() && preferences.getOptions("sync")) {
+					app.otherview.syncJournal();
+				}
 			}
 
 			// Update remote journal
 			else {
 				// Update metadata
 				metadata.title = newtitle;
+				metadata.timestamp = new Date().getTime();
 
 				// Update remote journal
 				var journalId = (that.journalType == constant.journalRemotePrivate ) ? preferences.getPrivateJournal() : preferences.getSharedJournal();
@@ -867,6 +1006,11 @@ enyo.kind({
 				myserver.putJournalEntry(journalId, objectId, dataentry,
 					function() {
 						that.loadRemoteJournal(journalId);
+
+						// Sync journal
+						if (preferences.isConnected() && preferences.getOptions("sync")) {
+							app.otherview.syncJournal();
+						}
 					},
 					function() {
 						console.log("WARNING: Error updating journal "+journalId);
@@ -918,7 +1062,7 @@ enyo.kind({
 				if (locale && that.journalType == constant.journalLocal) {
 					that.loadLocalJournal();
 					app.journal = that.journal;
-					preferences.updateEntries();
+					activities.loadEntries();
 					app.draw();
 				}
 				// Remote has changed, update display
@@ -965,13 +1109,14 @@ enyo.kind({
 		{name: "split2", showing: false, classes: "splitbar"},
 		{name: "selectcount", showing: false, classes: "journal-selectcount"},
 		{name: "favoritebutton", kind: "Sugar.Icon", classes: "journal-filter-favorite", x: 0, y: 4, icon: {directory: "icons", icon: "emblem-favorite.svg"}, size: constant.iconSizeList, ontap: "filterFavorite"},
+		{name: "assignmentbutton", kind: "Sugar.Icon", classes: "journal-filter-assignment", x: 0, y: 4, icon: {directory: "icons", icon: "assignment.svg"}, size: constant.iconSizeList, ontap: "filterAssignment"},
 		{name: "journalsearch", kind: "Sugar.SearchField", onTextChanged: "filterEntries", classes: "journal-filter-text"},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-desktop-button", title:"Home", ontap: "gotoDesktop"},
 		{name: "typepalette", kind: "Sugar.Palette", ontap: "showTypePalette", icon: {directory: "icons", icon: "view-type.svg"}, size: constant.iconSizeList, classes: "journal-filtertype-palette", contentsClasses: "journal-filtertype-content", contents: []},
 		{name: "datepalette", kind: "Sugar.Palette", ontap: "showDatePalette", icon: {directory: "icons", icon: "view-created.svg"}, size: constant.iconSizeList, classes: "journal-filterdate-palette", contentsClasses: "journal-filterdate-content", contents: []},
 		{name: "sortpalette", kind: "Sugar.Palette", ontap: "showSortPalette", icon: {directory: "icons", icon: "view-lastedit.svg"}, size: constant.iconSizeList, classes: "journal-sort-palette", contentsClasses: "journal-sort-content", contents: []},
 		{name: "split3", classes: "splitbar journal-split split3"},
-		{name: "fromdevicebutton", kind: "Sugar.Icon", x: 0, y: 0, icon: {directory: "icons", icon: "copy-from-device.svg"}, classes: "journal-fromdevice", size: constant.iconSizeList, ontap: "fromDeviceSelected"},
+		{name: "fromdevicebutton", kind: "Sugar.Icon", x: 0, y: 0, icon: {directory: "icons", icon: "copy-from-device.svg"}, classes: "journal-fromdevice", title:"CopyFromDevice", size: constant.iconSizeList, ontap: "fromDeviceSelected"},
 		{name: "split4", classes: "splitbar journal-split split4"},
 		{name: "helpbutton", kind: "Button", classes: "toolbutton help-button-journal", title:"Help", ontap: "startTutorial"}
 	],
@@ -983,7 +1128,7 @@ enyo.kind({
 		this.typeselected = 0;
 		this.dateselected = 0;
 		this.sortfield = 0;
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
 			this.createComponent({name: "file", kind: "Input", type: "file", showing: false, onchange: "fileSelected"}, {owner: this});
 		}
 	},
@@ -996,6 +1141,7 @@ enyo.kind({
 	localize: function() {
 		// Localize items
 		this.$.favoritebutton.setNodeProperty("title", l10n.get("FilterFavorites"));
+		this.$.assignmentbutton.setNodeProperty("title", l10n.get("FilterAssignment"));
 		this.$.radialbutton.setNodeProperty("title", l10n.get("Home"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.unselallbutton.setNodeProperty("title", l10n.get("UnselectAll"));
@@ -1007,6 +1153,10 @@ enyo.kind({
 		this.$.copydevicebutton.setNodeProperty("title", l10n.get("CopyToDevice"));
 		this.$.duplicatebutton.setNodeProperty("title", l10n.get("Duplicate"));
 		this.$.journalsearch.setPlaceholder(l10n.get("SearchJournal"));
+		this.$.typepalette.setNodeProperty("title",l10n.get("FilterByType"));
+		this.$.datepalette.setNodeProperty("title",l10n.get("FilterByTime"));
+		this.$.sortpalette.setNodeProperty("title",l10n.get("Sort"));
+		this.$.fromdevicebutton.setNodeProperty("title",l10n.get("CopyFromDevice"));
 		this.$.typepalette.setText(l10n.get("AllType"));
 		this.$.datepalette.setText(l10n.get("Anytime"));
 
@@ -1028,12 +1178,12 @@ enyo.kind({
 			{kind: "Sugar.Icon", icon: {directory: "icons", icon: "application-x-generic.svg"}, x: 5, y: 3, size: constant.iconSizeFavorite},
 			{classes: "item-name", content: l10n.get("AllType")}
 		], ontap: "tapLine"});
-		var activities = preferences.getActivities();
+		var activitiesList = activities.get();
 		var unsortedItems = [];
-		for(var i = 0 ; i < activities.length ; i++) {
+		for(var i = 0 ; i < activitiesList.length ; i++) {
 			unsortedItems.push({id: ""+(i+1), classes: "journal-filtertype-line", components:[
-				{kind: "Sugar.Icon", icon: activities[i], x: 5, y: 3, size: constant.iconSizeFavorite},
-				{classes: "item-name", content: activities[i].name}
+				{kind: "Sugar.Icon", icon: activitiesList[i], x: 5, y: 3, size: constant.iconSizeFavorite},
+				{classes: "item-name", content: activitiesList[i].name}
 			], ontap: "tapLine"});
 		}
 		unsortedItems.sort(function(a,b) {
@@ -1048,7 +1198,7 @@ enyo.kind({
 		this.$.typepalette.setItems(items);
 
 		// Set sort selectbox content
-		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}];
+		this.sorts = [{text: l10n.get("SortByUpdated"), icon:"view-lastedit.svg"}, {text: l10n.get("SortByCreated"), icon:"view-created.svg"}, {text: l10n.get("SortBySize"), icon:"view-size.svg"}, {text: l10n.get("SortByDueDate"), icon:"view-duedate.svg"},];
 		var items = [];
 		this.$.sortpalette.setHeader(l10n.get("SortDisplay"));
 		for(var i = 0 ; i < this.sorts.length ; i++) {
@@ -1072,16 +1222,23 @@ enyo.kind({
 		this.filterEntries();
 	},
 
+	filterAssignment: function() {
+		this.$.assignmentbutton.setColorized(!this.$.assignmentbutton.getColorized());
+		this.$.assignmentbutton.render();
+		this.filterEntries();
+	},
+
+
 	showTypePalette: function() {
 		this.$.typepalette.switchPalette(app.otherview);
 	},
 
 	tapLine: function(e, s) {
-		var activities = preferences.getActivities();
-		var generic = {directory: "icons", icon: "application-x-generic.svg"};
+		var activitiesList = activities.get();
+		var generic = activities.genericActivity();
 		this.typeselected = e.getId();
-		this.$.typepalette.setIcon((this.typeselected == 0 ? generic : activities[this.typeselected-1]));
-		this.$.typepalette.setText((this.typeselected == 0 ? l10n.get("AllType") : activities[this.typeselected-1].name));
+		this.$.typepalette.setIcon((this.typeselected == 0 ? generic : activitiesList[this.typeselected-1]));
+		this.$.typepalette.setText((this.typeselected == 0 ? l10n.get("AllType") : activitiesList[this.typeselected-1].name));
 		this.filterEntries();
 		this.$.typepalette.switchPalette(app.otherview);
 	},
@@ -1165,7 +1322,7 @@ enyo.kind({
 	},
 
 	fromDeviceSelected: function() {
-		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !enyo.platform.android && !enyo.platform.androidChrome && !enyo.platform.ios && !enyo.platform.electron)) {
+		if (util.getClientType() == constant.webAppType || (util.getClientType() == constant.appType && !util.platform.android && !util.platform.ios && !util.platform.electron)) {
 			this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt");
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();
@@ -1199,6 +1356,10 @@ enyo.kind({
 					humane.log(l10n.get("ErrorLoadingFile",{file:file}));
 					return;
 				}
+				if(metadata.assignmentId){
+					humane.log(l10n.get("ErrorLoadingFileAssignment",{file:file}));
+					return;
+				}
 				metadata.timestamp = new Date().getTime();
 				metadata.creation_time = new Date().getTime();
 				datastore.create(metadata, function() {
@@ -1216,7 +1377,8 @@ enyo.kind({
 		return this.$.journalsearch.getText() != ""
 			|| this.$.favoritebutton.getColorized()
 			|| this.typeselected > 0
-			|| this.dateselected > 0;
+			|| this.dateselected > 0
+			|| this.$.assignmentbutton.getColorized();
 	},
 
 	getSortType: function() {
@@ -1226,16 +1388,18 @@ enyo.kind({
 	filterEntries: function() {
 		var text = this.$.journalsearch.getText();
 		var favorite = this.$.favoritebutton.getColorized() ? true : undefined;
+		var assignment = this.$.assignmentbutton.getColorized() ? true : undefined;
 		var selected = this.typeselected;
-		var typeselected = (selected <= 0 ? undefined : preferences.getActivities()[selected-1].id);
+		var typeselected = (selected <= 0 ? undefined : activities.get()[selected-1].id);
 		selected = this.dateselected;
 		var timeselected = (selected <= 0 ? undefined : util.getDateRange(selected).min);
 		var filtertext = 'q=' + text;
 		if (favorite) filtertext += '&favorite=true';
+		if (assignment) filtertext += '&assignment=true';
 		if (typeselected) filtertext += '&type=' + typeselected;
 		if (timeselected) filtertext += '&time=' + timeselected;
 		stats.trace(constant.viewNames[app.getView()], 'search', filtertext, null);
-		app.otherview.filterEntries(text, favorite, typeselected, timeselected, undefined, this.sortfield);
+		app.otherview.filterEntries(text, favorite, assignment, typeselected, timeselected, undefined, this.sortfield);
 	},
 
 	removeFilter: function() {
@@ -1246,6 +1410,7 @@ enyo.kind({
 		this.$.sortpalette.setIcon({directory: "icons", icon: "view-lastedit.svg"})
 		this.$.favoritebutton.setColorized(false);
 		this.$.journalsearch.setText("");
+		this.$.assignmentbutton.setColorized(false);
 		this.render();
 	},
 
@@ -1308,6 +1473,7 @@ enyo.kind({
 
 	startTutorial: function() {
 		tutorial.setElement("favoritebutton", this.$.favoritebutton.getAttribute("id"));
+		tutorial.setElement("assignmentbutton", this.$.assignmentbutton.getAttribute("id"));
 		tutorial.setElement("searchtext", this.$.journalsearch.getAttribute("id"));
 		tutorial.setElement("typeselect", this.$.typepalette.getAttribute("id"));
 		tutorial.setElement("timeselect", this.$.datepalette.getAttribute("id"));

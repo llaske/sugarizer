@@ -1,4 +1,6 @@
-﻿// Entry component with image and sound
+﻿var firstTimePlayed = true; // HACK for Safari
+
+// Entry component with image and sound
 enyo.kind({
 	name: "TamTam.Item",
 	kind: enyo.Control,
@@ -39,7 +41,17 @@ enyo.kind({
 		currentSimonMode = this.name;
 		this.nameChanged();
 		if (this.name != null) {
-			tonePlayer.playSound("audio/database/"+this.name+".mp3");
+			var sound = 'audio/database/'+this.name+".mp3";
+			if (firstTimePlayed) { // HACK: First time should be different on Safari
+				tonePlayer.load(sound, function() {
+					tonePlayer.play(0)
+				});
+				firstTimePlayed = false;
+				return;
+			} else {  // HACK: Only this sequence works on Safari
+				tonePlayer.playSound(sound);
+				tonePlayer.play(0);
+			}
 		}
 	},
 });

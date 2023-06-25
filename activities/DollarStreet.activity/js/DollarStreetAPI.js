@@ -1,13 +1,10 @@
 // Dollar Street API encapsulation
 
 // API urls and routes
-const dsUrl = "https://ds-dev.dollarstreet.org/dollar-street/v1/";
 const dsApi = "https://api.dollarstreet.org/v1/";
-const dsLanguages = "languagesList";
-const dsLanguage = "language?lang=";
-const dsStreetSettings = "street-settings";
-const dsRegions = "countries-filter?thing=Families&countries=World&regions=World&lang=";
-const dsThings = "things-filter?thing=Families&countries=World&regions=World&lang=";
+const dsLanguages = "data/languages.json";
+const dsStreetSettings = "data/street-settings.json";
+const dsThings = "data/things.json";
 const dsFamilies = "search/families?featuredOnly=false&pageSize=1000&lng=";
 
 // Main component
@@ -16,9 +13,7 @@ Vue.component("dollarstreet-api", {
 	data: function() {
 		return {
 			language: "en",
-			l10n: {},
 			streetSettings: {},
-			regions: [],
 			things: [],
 			popularThings: [],
 			familyThing: {}
@@ -47,24 +42,20 @@ Vue.component("dollarstreet-api", {
 
 							// Initialize data set
 							Promise.all([
-								_dsAPIGet(dsLanguage+vm.language),
 								_dsAPIGet(dsStreetSettings),
-								_dsAPIGet(dsRegions+vm.language),
-								_dsAPIGet(dsThings+vm.language),
+								_dsAPIGet(dsThings),
 							]).then(function (results) {
 								// Retrieve all data sets
-								vm.l10n = results[0];
-								vm.streetSettings = results[1];
-								vm.regions = results[2];
-								vm.things = results[3].otherThings;
-								vm.familyThing = results[3].thing;
-								vm.popularThings = results[3].popularThings;
+								vm.streetSettings = results[0];
+								vm.things = results[1].otherThings;
+								vm.familyThing = results[1].thing;
+								vm.popularThings = results[1].popularThings;
 
 								// Load icons for things
 								let iconsLoad = [];
 								for (let i = 0 ; i < vm.things.length ; i++) {
 									let thing = vm.things[i];
-									iconsLoad.push(_loadIcon(thing.icon));
+									iconsLoad.push(_loadIcon(thing.originPlural));
 								}
 								Promise.all(iconsLoad).then(function (results) {
 									for (let i = 0 ; i < vm.things.length ; i++) {
@@ -86,16 +77,6 @@ Vue.component("dollarstreet-api", {
 		// Encode topic value
 		encodeTopic: function(rawtopic) {
 			return rawtopic.toLowerCase().replace(/ /g,"-").replace(/,/g,"");
-		},
-
-		// Get a localized string by id
-		getL10n: function(id) {
-			return this.l10n[id];
-		},
-
-		// Get regions
-		getRegions: function() {
-			return this.regions;
 		},
 
 		// Get things
@@ -144,12 +125,7 @@ Vue.component("dollarstreet-api", {
 		// Get street places
 		getStreetPlaces: function(topic="families", regions=null, imin=0, imax=0) {
 			let vm = this;
-
-			// HACK: Need to force en description to be returned by the API
 			let language = vm.language;
-			if (language == "en") {
-				language = "cs";
-			}
 			return new Promise(function(resolve, reject) {
 				let region = regions ? "&regions=" + regions : "";
 				let min = imin ? "&min=" + imin : "";
@@ -174,12 +150,6 @@ Vue.component("dollarstreet-api", {
 		getThingsForPlace: function(place) {
 			let vm = this;
 
-			// HACK: Need to force en description to be returned by the API
-			let language = vm.language;
-			if (language == "en") {
-				language = "cs";
-			}
-
 			// HACK: Retrieve each things for this place because direct route don't work due to CORS
 			let placeId = place.place.id;
 			let placeIncome = Math.floor(place.place.income);
@@ -190,7 +160,7 @@ Vue.component("dollarstreet-api", {
 			for (let j = 0 ; j < vm.things.length ; j++) {
 				let topic = vm.encodeTopic(vm.things[j].originPlural);
 				promises.push(new Promise(function(resolve, reject) {
-					axios.get(dsApi+dsFamilies+language+"&topic="+topic+region+min+max).then(function(response) {
+					axios.get(dsApi+dsFamilies+vm.language+"&topic="+topic+region+min+max).then(function(response) {
 						let initialStreets = response.data.hits["4"];
 						let streets = [];
 						for (let i = 0 ; i < initialStreets.length ; i++) {
@@ -230,8 +200,8 @@ Vue.component("dollarstreet-api", {
 // Do a GET call to a route
 function _dsAPIGet(route) {
 	return new Promise(function(resolve, reject) {
-		axios.get(dsUrl+route).then(function(response) {
-			resolve(response.data.data);
+		axios.get(route).then(function(response) {
+			resolve(response.data);
 		}).catch(function(error) {
 			reject(error);
 		});
@@ -241,8 +211,8 @@ function _dsAPIGet(route) {
 // Load thing SVG and change default color
 function _loadIcon(url) {
 	return new Promise(function(resolve, reject) {
-		axios.get("https:"+url).then(function(response) {
-			resolve(response.data.replace(/#2C4351/g, "#FFFFFF"));
+		axios.get("icons/"+url+".svg").then(function(response) {
+			resolve(response.data);
 		}).catch(function(error) {
 			reject(error);
  		});

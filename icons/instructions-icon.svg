@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200pt" height="1200pt" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+ <path transform="scale(50)" d="m22 12c0 3.5727-1.906 6.8739-5 8.6602s-6.906 1.7863-10 0-5-5.0876-5-8.6602 1.906-6.8739 5-8.6602 6.906-1.7863 10 0 5 5.0876 5 8.6602" fill="none" stroke="#666666" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+ <path transform="scale(50)" d="m12 16v-4" fill="none" stroke="#666666" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+ <path d="m600 450c-27.613 0-50-22.387-50-50s22.387-50 50-50 50 22.387 50 50-22.387 50-50 50z"  fill="#666666"/>
+</svg>

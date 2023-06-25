@@ -43,40 +43,7 @@ function initGui() {
   /* Scrolling top prevent any overflow */
   window.scrollTo(0, -1000);
 
-  /* Registering onResize function to handle window size changes */
-  window.onresize = onResize;
   PaintApp.clearCanvas();
-}
-
-
-/* When onResize, update the attributes width and height used by paperJS */
-function onResize() {
-  return;
-  var canvas = PaintApp.elements.canvas;
-  try {
-    var image = canvas.toDataURL();
-  } catch (e) {
-    return;
-  }
-
-  PaintApp.elements.canvas.style.height = parseInt(window.innerHeight) - 55 + "px";
-  PaintApp.elements.canvas.style.width = parseInt(window.innerWidth) + "px";
-
-  PaintApp.elements.canvas.setAttribute("width", PaintApp.elements.canvas.getBoundingClientRect().width);
-  PaintApp.elements.canvas.setAttribute("height", parseInt(window.innerHeight) - 55);
-
-  var ctx = canvas.getContext('2d');
-  var img = new Image();
-
-  img.onload = function() {
-    ctx.save();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.style.width, canvas.style.height);
-    ctx.drawImage(img, 0, 0);
-    ctx.restore();
-  };
-
-  img.src = image;
 }
 
 /* Initialization of the presence palette */

@@ -13,7 +13,7 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Speak by Vishal Batchu
 * Chat, Markdown by Suraj Gillespie
 * Moon by Shirsh Zibbu
-* EToys by Bert Freudenberg
+* EToys by Vanessa Freudenberg
 * Abacus, Reflection, XOEditor, Flip by Euan Ong  
 * ColorMyWorld by Charles Cossé
 * Blockrain by Sanchit Kapoor
@@ -27,7 +27,8 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 * Constellation, Planets by Andrea Gonzales
 * Falabracman, Chess, MindMath, Tangram by Prakash Ujjwal
 * Fraction, Curriculum, Vote by Dhruv Misra
-* Implode by Sarthak Gupta
+* Implode, Measure by Sarthak Gupta
+* Story by Saurabh Gupta
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra, Xmas Lights, Dollar Street by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
@@ -37,6 +38,6 @@ The Sugarizer OS version for Android was developped by Jeremie Amsellem and Mich
 
 Lot of students contributed to Sugarizer during GSoC and GCI.
 
-Here's a generated list of contributors coming from git repository: Lionel Laské, Daniel Narvaez, Gonzalo Odiard, Manuel Quiñones, Christian Stroetmann, Jason Weathersby, Puneet Kaur, Pierre Varly, Naji Boumzough, Shirsh Zibbu, Piotr Antosz, Tymon P.Radzik, Matías Martínez, Charles Cossé, Victor Takaki, Brian Silverman, Dhruv Misra, Sarthak gupta, Marcus Chong, Sanatan, sdziuda, Prakash Ujjwal, Paulo Francisco Slomp, Kumar Saurabh Raj, Sashreek Magan, ashish aggarwal, matiasmartineeez, Walter Bender, shikhargarg1812, Mohit Sharma, Michaël Ohayon, Utkarsh Raj Singh, lp1tek, abhishektanwar, Uasked4dat, Batchu Venkat Vishal, AlastairM-E, Christoph Derndorfer-Medosch, Bastien, Ayush Lohani, tradzik, Divyansh Tripathi, Dave Crossland, est271, Vanessa Freudenberg, Nathan Dimmer, superhakar, FreddieN, Piotr Antosz, Jorge Alberto Gómez López, Devakumar, Avinash Agarwal, ccr4b, Sameer Kumar Satyadarshi, Sanchit Kapoor, Dinesh Choudhary, Sebastian Silva, Rajeev Ravindran, Harrison Katz, ariessa, Ibukunoluwa Fatoki, Larissa Moura, Ethan Nelson-Moore, Shak2000, phorical, Ignacio Rodríguez, Alan Aguiar, Hemansh Khaneja, j-shubh, Aryan Mediratta, Nikolay Gospodinov, Franco Correa, Kunal Mohta, Anshuman Bhardwaj, Suraj, Rosa Anil George, leonardcj, Euan Ong, vjrj, Samyok Nepal, naofum, Michael Pu, Martin Abente Lahaye, Saurav Pratihar, Mihir Shah, Free Educational Software for Mobile Devices - Translations to Brazilian Portuguese, Yashashvi Dave, Andrea Gonzales, Eric Yoon, Mankirat Singh, Prabhu Pant and Samson Goddy.
+Here's a generated list of contributors coming from git repository: Lionel Laské, Daniel Narvaez, Gonzalo Odiard, Manuel Quiñones, Christian Stroetmann, Jason Weathersby, Puneet Kaur, Pierre Varly, Naji Boumzough, Shirsh Zibbu, Piotr Antosz, Tymon P.Radzik, Matías Martínez, Charles Cossé, Victor Takaki, Brian Silverman, Dhruv Misra, Saurabh Gupta, Prakash Ujjwal, Sanatan, matiasmartineeez, Marcus Chong, FreddieN, Andrea Gonzales, Sarthak gupta, Saurabh Raj, Mankirat Singh, ashish aggarwal, Sashreek Magan, Paulo Francisco Slomp, Szymon Dziuda, EstyxTranslations, Abhishek Singh, Michaël Ohayon, Mohit Sharma, Walter Bender, Christoph Derndorfer-Medosch, abhishektanwar, Jaikishan Brijwani, Free Educational Software for Mobile Devices - Translations to Brazilian Portuguese, shikhargarg1812, superhakar, Dimmer, Uasked4dat, C. Cossé, Keisuki, Avinash Agarwal, Jorge Alberto Gómez López, tradzik, lp1tek, Utkarsh Singh, est271, Bastien, Vanessa Freudenberg, Dinesh Choudhary, Eric Yoon, Sebastian Silva, Brady H, Ayush Lohani, ccr4b, K Adithya Krishna, Sanchit Kapoor, Anshuman Bhardwaj, Aditya Kumar Sinha, Davide Costa, Amit Chakraborti, Devakumar NM, Hemansh Khaneja, Larissa Moura, Ignacio Rodríguez, Ethan Nelson-Moore, Sameer Kumar Satyadarshi, Rajeev Ravindran, ariessa, Shak Ragoler, j-shubh, Kunal Mohta, naofum, Suraj, Aryan Mediratta, Franco Correa, Divyansh Tripathi, Alan Aguiar, Dave Crossland, Ibukunoluwa Fatoki, Harrison Katz, Martin Abente Lahaye, Samyok Nepal, Raul Quinto Sakai, Michael Pu, Prabhu Pant, Nikolay Gospodinov, Rosa Anil George, Samson Goddy, Saurav Pratihar, Yashashvi Dave, Euan Ong, Mihir Shah, leonardcj and vjrj.
 
 Many thanks to all Sugarizer contributors in past, present and future.

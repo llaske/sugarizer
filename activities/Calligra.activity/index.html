@@ -11,7 +11,7 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-tour.min.css">
+<link rel="stylesheet" href="css/introjs.css">
 <link rel="stylesheet" href="css/activity.css">
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <!-- <script src="lib/vue.min.js"></script> -->
@@ -20,7 +20,7 @@
 <script src="lib/axios.min.js"></script>
 <script src="lib/popper.min.js"></script>
 <script src="lib/bootstrap.min.js"></script>
-<script src="lib/bootstrap-tour.min.js"></script>
+<script src="lib/intro.js"></script>
 <script>if (window.module) module = window.module;</script>
 <script src="lib/require.js"></script>
 <script type="text/javascript" src="../../cordova.js"></script>
@@ -37,6 +37,7 @@
 
 		<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 
+		<popup ref="inserttextpopup" v-on:after-show="insertPopupShown" v-on:after-close="insertPopupClosed"></popup>
 		<localization ref="localization" v-on:localized="localized"></localization>
 		<tutorial ref="tutorial"></tutorial>
 	</div>
@@ -47,6 +48,7 @@
 	<script src="js/editor.js"></script>
 	<script src="js/player.js"></script>
 	<script src="js/template.js"></script>
+	<script src="js/popup.js"></script>
 	<script src="js/database.js"></script>
 	<script src="js/activity.js"></script>
 </body>

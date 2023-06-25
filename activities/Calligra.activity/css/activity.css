@@ -1,3 +1,8 @@
+@font-face {
+	font-family: Graphecrit;
+	src: url('../fonts/graphecrit.ttf');
+}
+
 #main-toolbar #activity-button {
 	background-image: url(../activity/activity-icon.svg);
 	outline: none;
@@ -59,6 +64,10 @@ button:disabled {
 	background-image: url(../icons/insert-image.svg);
 }
 
+#main-toolbar #inserttext-button {
+	background-image: url(../icons/insert-text.svg);
+}
+
 #main-toolbar #zoom-button {
 	background-image: url(../icons/zoom.svg);
 }
@@ -104,9 +113,10 @@ button:disabled {
 }
 
 .palette .container {
-	padding-left: 5px;
-	padding-right: 0px;
+	padding-left: 3px;
+	padding-right: 3px;
 	box-sizing: initial;
+	width: max-content;
 }
 
 .palette .wrapper {
@@ -171,6 +181,12 @@ body {
 	cursor: pointer;
 }
 
+.template-item-text {
+	position: absolute;
+	display: inline;
+	font-family: Graphecrit;
+}
+
 .template-item-remove {
 	position: absolute;
 	top: 10px;
@@ -201,26 +217,6 @@ body {
 	width: 100px;
 	z-index: 5;
 	visibility: hidden;
-}
-
-.popup-input {
-	border-radius: 22px;
-	height: 30px;
-	width: 400px;
-	background-color: #e5e5e5;
-	padding-left: 10px;
-	padding-right: 10px;
-	font-size: 10pt;
-	display: inline-block;
-}
-
-.popup-label {
-	color: #808080;
-	margin-bottom: 5px;
-	display: inline-block;
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 10px;
 }
 
 .editor-area {
@@ -257,6 +253,17 @@ body {
 	 position: absolute;
 	 top: 80px;
 	 left: 0px;
+}
+
+.editor-miniword {
+	 width: 100px;
+	 height: 100px;
+	 position: absolute;
+	 top: 80px;
+	 left: 0px;
+	 font-family: Graphecrit;
+	 vertical-align: middle;
+	 text-align: center;
 }
 
 .editor-start {
@@ -335,6 +342,20 @@ body {
 	background-color: lightgray;
 }
 
+.player-debug-target {
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	visibility: hidden;
+}
+
+.player-debug-position {
+	position: absolute;
+	bottom: 22px;
+	left: 5px;
+	visibility: hidden;
+}
+
 .player-restart {
 	position: absolute;
 	top: 70px;
@@ -386,128 +407,142 @@ body {
 	border-radius: 5.5px !important;
 }
 
-.tutorial-icon-button {
-	border-radius: 22px;
-	margin-top: 5px;
-	height: 35px;
+.introjs-overlay {
+	background-color: #000 !important;
+	opacity: .8 !important;
+  }
+  
+  .introjs-tooltip {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+	border-radius: 6px !important;
+	padding: 2px 1px !important;
+	font-size: 14px !important;
+  }
+  
+  .introjs-helperLayer{
+	background: inherit !important;
+	opacity: 0.6 !important;
+  }
+  
+  .customTooltip .introjs-tooltip-header {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color : #ffffff;
+	text-shadow: none;
 	background-color: #808080;
-	border: 2px solid #808080;
-}
-
-.tutorial-title {
-	background-color: #808080 !important;
-	color: #ffffff !important;
-}
-
-.tutorial-prev-icon {
-	display: inline-flex;
-	width: 90px;
-}
-
-.tutorial-prev-icon.tutorial-icon-button {
-	color: white;
-}
-
-.tutorial-prev-icon.tutorial-icon-button.disabled {
-	color: black;
-}
-
-.tutorial-prev-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
-}
-
-.tutorial-prev-icon2 {
-	background-image: url(../icons/go-left.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-}
-
-.tutorial-prev-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
-}
-
-.tutorial-next-icon {
-	display: inline-flex;
-	width: 90px;
-}
-
-.tutorial-next-icon.tutorial-icon-button {
-	color: white;
-}
-
-.tutorial-next-icon.tutorial-icon-button.disabled {
-	color: black;
-}
-
-.tutorial-next-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
-}
-
-.tutorial-next-icon2 {
+	margin: 0;
+	padding: 0px 10px;
+	border-bottom: 1px solid #ebebeb;
+	border-radius: 5px 5px 0 0;
+  }
+  
+  .customTooltip .introjs-tooltip-title {
+	font-size: 14px;
+	padding: 0px 8px;
+	font-weight: 800;
+  }
+  
+  .customTooltip .introjs-tooltiptext {
+	color: #000000;
+	line-height: 1.42857143;
+  }
+  
+  .customTooltip .introjs-skipbutton {
+	float: right;
+	cursor: pointer;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 25px;
+	height: 25px;
+	background-size: 25px 25px;
+	margin-top: 2px;
+	padding: 0px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+  }
+  
+  .customTooltip .introjs-nextbutton::before {
+	content: "";
+	margin-right: 6px;
 	background-image: url(../icons/go-right.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
-}
-
-.tutorial-next-icon3 {
-	display: none;
+  }
+  
+  .customTooltip .introjs-prevbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-left.svg);
 	width: 20px;
 	height: 20px;
 	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
-}
-
-.tutorial-end-icon {
-	display: inline-flex;
-	width: 90px;
-}
-
-.tutorial-end-icon.tutorial-icon-button {
-	color: white;
-}
-
-.tutorial-end-icon.tutorial-icon-button.disabled {
-	color: black;
-}
-
-.tutorial-end-icon1 {
-	margin-left: 6px;
-	margin-top: 6px;
-}
-
-.tutorial-end-icon2 {
-	background-image: url(../icons/dialog-cancel.svg);
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-}
-
-.tutorial-end-icon3 {
-	display: none;
-	width: 20px;
-	height: 20px;
-	background-size: 20px 20px;
-	background-color: white;
-	margin-top: -20px;
-}
-
-.tutorial-icon-text {
-	margin-top: 7px;
-	padding-left: 4px;
-	padding-right: 38px;
-	display: inline-block;
-}
+  }
+  
+  .customTooltip .introjs-tooltipbuttons {
+	display: flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-top: 0px;
+	padding: 0px;
+	text-align: center;
+	white-space: normal;
+  }
+  
+  .customTooltip .introjs-button {
+	text-shadow: none;
+	border-radius: 22px;
+	margin: 5px 8px 8px 8px;
+	width: fit-content;
+	background-color: #808080 !important;
+	display: flex !important;
+	align-items: center !important;
+	color: white !important;
+	padding: 6px 20px 6px 10px;
+	border: 0px;
+  }
+  
+  .customTooltip .introjs-button:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+	background-color: #808080 !important;
+  }
+  
+  .customTooltip .introjs-disabled {
+	color: black !important;
+	border: 0px;
+	opacity: .65;
+  }
+  
+  .customTooltip .introjs-disabled:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+  }
 
 #search-text {
 	color: black;
+}
+
+#popup-container {
+	margin-left: 9px;
+	margin-top: 7px;
+}
+
+.popup-input {
+	text-indent: 4px;
+	border-radius: 22px;
+	height: 100px;
+	width: 400px;
+	background-color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-family: Graphecrit;
+	font-size: 78px;
+	display: inline-block;
+	border-style: inset;
+	border-width: 2px;
+	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
 }

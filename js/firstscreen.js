@@ -30,8 +30,15 @@ enyo.kind({
 		{name: "historybox", classes: "first-historybox", kind: "Repeater", onSetupItem: "setupHistory", onresize: "resize", showing: false, components:[
 			{name: "history", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "owner-icon.svg"}, classes: "first-historybutton", ontap: "historyClicked"}
 		]},
+		{name: "consentbox", classes: "first-consentbox", onresize: "resize", showing: false, components: [
+			{name: "privacy", kind: "Sugar.Icon", icon: {directory: "icons", icon: "cookie.svg"}, classes: "first-privacy-icon"},
+			{name: "cookietext", content: "xxx", classes: "first-cookietext", allowHtml: true},
+			{name: "policytext", content: "xxx", classes: "first-policytext", allowHtml: true}
+		]},
 		{name: "previous", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-left.svg"}, classes: "first-leftbutton", ontap: "previous", showing: false},
 		{name: "next", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "go-right.svg"}, classes: "first-rightbutton", ontap: "next", showing: false},
+		{name: "decline", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-cancel.svg"}, classes: "first-leftbutton", ontap: "decline", showing: false},
+		{name: "accept", kind: "Sugar.IconButton", icon: {directory: "icons", icon: "dialog-ok.svg"}, classes: "first-rightbutton", ontap: "accept", showing: false},
 		{name: "colortext", content: "xxx", classes: "first-colortext", showing: false},
 		{name: "owner", kind: "Sugar.Icon", size: constant.sizeOwner, colorized: true, classes: "first-owner-icon", showing: false, onresize: "resize", ontap: "nextcolor"},
 		{name: "newuser", kind: "Sugar.Icon", size: constant.sizeNewUser, colorized: false, classes: "first-owner-icon", showing: true, onresize: "resize", ontap: "newUser"},
@@ -48,7 +55,7 @@ enyo.kind({
 		app = this;
 		this.inherited(arguments);
 		this.localize();
-		this.history = preferences.getHistory();
+		this.history = historic.get();
 		if (!this.history || !this.history.length) {
 			this.history = [];
 		}
@@ -84,11 +91,6 @@ enyo.kind({
 		toolbar.style.backgroundColor = "white";
 		document.getElementById("canvas").style.overflowY = "hidden";
 		util.hideNativeToolbar();
-	},
-
-	// Render
-	rendered: function() {
-		this.inherited(arguments);
 
 		// At first launch, display tutorial
 		var that = this;
@@ -97,7 +99,6 @@ enyo.kind({
 				that.startTutorial();
 			}
 		}, constant.timerBeforeTutorial);
-
 	},
 
 	localize: function() {
@@ -106,6 +107,10 @@ enyo.kind({
 		this.$.password.setLabel(l10n.get("Password"));
 		this.$.previous.setText(l10n.get("Back"));
 		this.$.next.setText(l10n.get("Next"));
+		this.$.decline.setText(l10n.get("Decline"));
+		this.$.accept.setText(l10n.get("Accept"));
+		this.$.cookietext.setContent(l10n.get("CookieConsent"));
+		this.$.policytext.setContent(l10n.get("PolicyLink", {url: "#"}));
 		this.$.newusertext.setContent(l10n.get("NewUser"));
 		this.$.logintext.setContent(l10n.get("Login"));
 		this.$.owner.setIcon({directory: "icons", icon: "owner-icon.svg"});
@@ -137,17 +142,22 @@ enyo.kind({
 			vowner = false,
 			vnext = false,
 			vprevious = false,
+			vdecline = false,
+			vaccept = false,
+			vconsentbox = false,
 			vwarning = false,
 			vhistory = false;
 		var currentserver;
 		var serverurl;
 		var defaultServer;
+		var server = preferences.getServer();
+		var consentNeed = ((util.getClientType() == constant.appType && !this.createnew) || (server && server.options && server.options["consent-need"]));
 
 		switch(this.step) {
 		case 0: // Choose between New User/Login
 			this.scrollToTop();
 			vlogin = vlogintext = vnewuser = vnewusertext = true;
-			vstop = enyo.platform.electron;
+			vstop = util.platform.electron;
 			vhistory = true;
 			defaultServer = util.getOptions()["defaultServer"] || constant.defaultServer;
 			this.$.server.setValue((util.getClientType() == constant.appType) ? defaultServer : util.getCurrentServerUrl());
@@ -156,7 +166,7 @@ enyo.kind({
 
 		case 1: // Server name
 			vserverbox = vnext = vprevious = true;
-			this.$.qrbutton.setShowing(enyo.platform.ios || enyo.platform.android || enyo.platform.androidChrome);
+			this.$.qrbutton.setShowing(util.platform.ios || util.platform.android);
 			this.$.next.setText(l10n.get("Next"));
 			break;
 
@@ -177,10 +187,15 @@ enyo.kind({
 		case 4: // Choose color
 			this.scrollToTop();
 			vcolortext = vprevious = vnext = vowner = true;
-			this.$.next.setText(l10n.get("Done"));
+			this.$.next.setText(l10n.get(consentNeed ? "Next" : "Done"));
 			break;
 
-		case 5: // Go to home view
+		case 5: // Consent to cookies
+			this.scrollToTop();
+			vconsentbox = vdecline = vaccept = true;
+			break;
+
+		case 6: // Go to home view
 			this.createOrLogin();
 			return;
 		}
@@ -209,6 +224,9 @@ enyo.kind({
 		this.$.owner.setShowing(vowner);
 		this.$.previous.setShowing(vprevious);
 		this.$.next.setShowing(vnext);
+		this.$.decline.setShowing(vdecline);
+		this.$.accept.setShowing(vaccept);
+		this.$.consentbox.setShowing(vconsentbox);
 		this.$.historybox.setShowing(vhistory && this.history.length);
 		this.$.warningmessage.setShowing(vwarning);
 	},
@@ -286,9 +304,20 @@ enyo.kind({
 				return;
 			}
 			this.step++;
-			if (!this.createnew) { // No color when login
-				this.step++;
+			if (!this.createnew) {
+				this.step++; // No color when login
+				this.step++; // No cookie consent when login (asked at create)
 			}
+			this.displayStep();
+		} else if (this.step == 4) {
+			var server = preferences.getServer();
+			if ((util.getClientType() == constant.appType && this.createnew) // No cookie consent for the app when create new
+				|| (server && !server.options["consent-need"])) { // No cookie consent if server doesn't require it
+				this.step++;
+			} else if (server && server.options) {
+				this.$.policytext.setContent(l10n.get("PolicyLink", {url: server.options["policy-url"]+"?lang="+preferences.getLanguage() || "#"}));
+			}
+			this.step++;
 			this.displayStep();
 		} else {
 			this.step++;
@@ -308,6 +337,16 @@ enyo.kind({
 		) {
 			this.step--;
 		}
+		this.displayStep();
+	},
+
+	decline: function() {
+		this.step = 0;
+		this.displayStep();
+	},
+
+	accept: function() {
+		this.step++;
 		this.displayStep();
 	},
 
@@ -334,7 +373,7 @@ enyo.kind({
 	scrollToField: function(inSender) {
 		// HACK: Scroll screen on Android to avoid to be hide by the touch keyboard
 		var nodeName = inSender.hasNode();
-		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
+		if (nodeName && util.platform.android) {
 			setTimeout(function() {
 				nodeName.scrollIntoView();
 			}, 100);
@@ -342,7 +381,7 @@ enyo.kind({
 	},
 	scrollToTop: function() {
 		var nodeName = this.$.helpbutton.hasNode();
-		if (nodeName && (enyo.platform.android || enyo.platform.androidChrome)) {
+		if (nodeName && util.platform.android) {
 			setTimeout(function() {
 				nodeName.scrollIntoView(true);
 			}, 100);
@@ -373,6 +412,8 @@ enyo.kind({
 		var newUserPosition = (middletop-constant.sizeNewUser/2);
 		this.$.newuser.applyStyle("margin-top", newUserPosition+"px");
 		this.$.login.applyStyle("margin-top", newUserPosition+"px");
+		this.$.privacy.applyStyle("margin-left", (canvas_center.x-25)+"px");
+		this.$.consentbox.applyStyle("margin-top", (newUserPosition+55)+"px");
 		this.$.historybox.applyStyle("margin-top", (newUserPosition+20)+"px");
 		this.$.newusertext.applyStyle("margin-top", (newUserPosition+constant.sizeNewUser+20)+"px");
 		this.$.newusertext.applyStyle("width", constant.sizeNewUser+"px");
@@ -401,9 +442,9 @@ enyo.kind({
 		var user = this.history[this.history.length-inEvent.index-1];
 		this.$.name.setValue(user.name);
 		this.$.server.setValue(user.server ? user.server.url: "");
+		var that = this;
 		if (user.server && user.server.url) {
 			// Retrieve the server in history and go to login
-			var that = this;
 			myserver.getServerInformation(this.$.server.getValue(), function(inSender, inResponse) {
 				inResponse.url = that.$.server.getValue();
 				preferences.setServer(inResponse);
@@ -415,7 +456,11 @@ enyo.kind({
 			// No server in history, create a new local user
 			preferences.setName(user.name);
 			preferences.setColor(user.color);
-			this.launchDesktop();
+			activities.load().then(function(data) {
+				that.launchDesktop();
+			}).catch(function(error) {
+				console.log("Error loading init activities");
+			});
 		}
 	},
 
@@ -426,9 +471,14 @@ enyo.kind({
 		preferences.setName(this.$.name.getValue().trim());
 
 		// Not connected
+		var that = this;
 		if (util.getClientType() != constant.webAppType && (this.createnew || !this.$.server.getValue())) {
-			preferences.addUserInHistory();
-			this.launchDesktop();
+			historic.addUser({name: preferences.getName(), color: util.getColorIndex(preferences.getColor()), server: preferences.getServer()});
+			activities.load().then(function(data) {
+				that.launchDesktop();
+			}).catch(function(error) {
+				console.log("Error loading init activities");
+			});
 			return;
 		}
 
@@ -529,10 +579,10 @@ enyo.kind({
 		};
 		myserver.loginUser(user, function(loginSender, loginResponse) {
 			preferences.setToken({'x_key': loginResponse.user._id, 'access_token': loginResponse.token});
+			preferences.setNetworkId(loginResponse.user._id);
 			myserver.getUser(
 				loginResponse.user._id,
 				function(inSender, inResponse) {
-					preferences.setNetworkId(inResponse._id);
 					preferences.setPrivateJournal(inResponse.private_journal);
 					preferences.setSharedJournal(inResponse.shared_journal);
 					preferences.setConnected(true);
@@ -542,8 +592,12 @@ enyo.kind({
 						preferences.save();
 					}
 					that.$.spinner.setShowing(false);
-					preferences.addUserInHistory();
-					that.launchDesktop();
+					historic.addUser({name: preferences.getName(), color: util.getColorIndex(preferences.getColor()), server: preferences.getServer()});
+					activities.load().then(function(data) {
+						that.launchDesktop();
+					}).catch(function(error) {
+						console.log("Error loading init activities");
+					});
 				},
 				function(response, code) {
 					that.$.warningmessage.setContent(l10n.get("ServerError", {code: code}));
@@ -597,6 +651,8 @@ enyo.kind({
 		tutorial.setElement("previous", this.$.previous.getAttribute("id"));
 		tutorial.setElement("next", this.$.next.getAttribute("id"));
 		tutorial.setElement("owner", this.$.owner.getAttribute("id"));
+		tutorial.setElement("accept", this.$.accept.getAttribute("id"));
+		tutorial.setElement("decline", this.$.decline.getAttribute("id"));
 		tutorial.setElement("createnew", this.createnew);
 		tutorial.setElement("currentstep", this.step);
 		tutorial.start();
@@ -633,6 +689,7 @@ enyo.kind({
 		this.inherited(arguments);
 		this.timer = null;
 		this.step = 0;
+		this.pong = false;
 		app.noresize = true;
 	},
 
@@ -758,40 +815,43 @@ enyo.kind({
 6b68182218465f5b68685b164c5768626f1822184457605f1638656b6370656b5d5e182218495e5f\
 68695e16505f58586b182218465f656a681637646a6569701822184a6f63656416462448575a705f\
 6118221843576ae35769164357686ae3645b70182218395e5768625b691639656969df1822184c5f\
-596a6568164a576157615f18221838685f576416495f626c5b6863576418221846576b6265163c68\
-5764595f6959651649626563661822183a5e686b6c16435f69685718221837645a685b57163d6564\
-7057625b691822184668576157695e164b60606d576218221857695e5f695e16575d5d57686d5762\
-1822184957686a5e5761165d6b666a57182218416b6357681649576b6857585e164857601822184d\
-57626a5b6816385b645a5b68182218435768596b6916395e65645d182218435764615f68576a1649\
-5f645d5e18221863576a5f57696357686a5f645b5b5b70182218695a705f6b5a57182218695e5f61\
-5e57685d57685d272e2728182218395e685f696a65665e163a5b68645a65685c5b6823435b5a6569\
-595e182218435f595e57e16216455e576f65641822184b5769615b5a2a5a576a1822184065685d5b\
-163762585b686a65163de9635b701642e9665b701822183c685b5b163b5a6b59576a5f6564576216\
-49655c6a6d57685b165c6568164365585f625b163a5b6c5f595b691623164a6857646962576a5f65\
-6469166a6516386857705f625f5764164665686a6b5d6b5b695b182218696b665b685e5761576818\
-22184957695e685b5b611643575d5764182218495764576a576418221857585e5f695e5b616a5764\
-6d57681822184b6a615768695e1648576016495f645d5e1822186266276a5b6118221844576a5e57\
-64163a5f63635b681822183c685b5a5a5f5b4418221843655e5f6a16495e57686357182218376257\
-696a575f6843233b182218495b5857696a5f576416495f626c5718221838576a595e6b164c5b6461\
-576a164c5f695e57621822184c57645b696957163c685b6b5a5b64585b685d1822183a5f645b695e\
-16395e656b5a5e57686f1822186a68575a705f61182218376c5f6457695e16375d57686d57621822\
-183857696a5f5b64182218376f6b695e1642655e57645f1822183a5b6c57616b6357681822183b68\
-5f59164f6565641822185959682a581822184257685f6969571643656b68571822183b6a5e576416\
-445b6269656423436565685b1822183e5b635764695e16415e57645b60571822183764695e6b6357\
-6416385e57685a6d57601822185b696a282d27182218495764595e5f6a1641576665656818221846\
-5f656a681637646a6569701822183f5d6457595f651648655a68e35d6b5b701822183c6857645965\
-16396568685b571822184857605b5b6c1648576c5f645a685764182218665e65685f595762182218\
-37686f576416435b5a5f68576a6a571822186457655c6b631822184957635b5b6816416b63576816\
-49576a6f575a5768695e5f1822183a5f6c6f5764695e164a685f66576a5e5f182218416b64576216\
-43655e6a57182218495e5761282626261822183e5768685f6965641641576a701822183a576c5b16\
-39686569696257645a18221857685f5b696957182218486569571637645f62163d5b65685d5b1822\
-184357686a5f641637585b646a5b1642575e576f5b182218496b685760182218495763696564163d\
-655a5a6f182218466857585e6b164657646a182218435f595e575b6216466b18221849576b68576c\
-164668576a5f5e57681822186023695e6b585e1822184957636f656116445b665762182218435f5e\
-5f6816495e575e1822186c606860182218445f616562576f163d656966655a5f64656c1822183f58\
-6b616b6465626b6d57163c576a65615f1822184f57695e57695e6c5f163a576c5b18221837625764\
-16375d6b5f5768182218625b656457685a59601822183b6b57641645645d1853\
-",
+596a6568164a576157615f18221838685f576416495f626c5b686357641822183a5e686b6c16435f\
+69685718221849576b6857585e163d6b666a571822184668576157695e164b60606d576218221849\
+5764576a576418221863576a5f57696357686a5f645b5b5b70182218435768596b6916395e65645d\
+1822183c685b5a5a5f5b4418221837645a685b57163d65647057625b691822184957686a5e576116\
+5d6b666a5718221849576b6857585e16485760182218435764615f68576a16495f645d5e18221857\
+695e5f695e16575d5d57686d57621822184957695e685b5b611643575d576418221846576b626516\
+3c685764595f69596516496265636618221849706f636564163a705f6b5a571822183b696a6f6e4a\
+6857646962576a5f65646918221837585e5f695e5b6116495f645d5e182218435f595e57e1621645\
+5e576f656418221843655e5f6a16495e576863571822184d57626a5b6816385b645a5b6818221839\
+5e685f696a65665e163a5b68645a65685c5b6823435b5a6569595e18221857585e5f695e5b616a57\
+646d576818221840575f615f695e57641638685f606d57645f1822183c685b5b163b5a6b59576a5f\
+656457621649655c6a6d57685b165c6568164365585f625b163a5b6c5f595b691623164a68576469\
+62576a5f656469166a6516386857705f625f5764164665686a6b5d6b5b695b182218695e5f615e57\
+685d57685d272e2728182218696b665b685e576157681822183a5f63635b681822184b5769615b5a\
+2a5a576a18221839241639656969df182218415b5f696b615f182218376c5f6457695e16375d5768\
+6d57621822184065685d5b163762585b686a65163de9635b701642e9665b701822186a68575a705f\
+611822186266276a5b611822184b6a615768695e16495f645d5e1822185b696a282d271822183857\
+696a5f5b641822184c57645b696957163c685b6b5a5b64585b685d1822183a5f645b695e16395e65\
+6b5a5e57686f1822183b685f59164f656564182218495b5857696a5f576416495f626c5718221838\
+68575a6f163e182218376f6b695e1642655e57645f1822185959682a581822184116375a5f6a5e6f\
+571641685f695e6457182218495764595e5f6a164157666565681822183764695e6b63576416385e\
+57685a6d5760182218375a5f6a6f5716416b63576816495f645e571822183a576c5f5a5b16396569\
+6a5718221837635f6a16395e576168575865686a5f1822183a5b6c57616b6357681644431822183e\
+5b635764695e16415e57645b60571822184257685f6969571643656b68571822183f5d6457595f65\
+1648655a68e35d6b5b701822183b6a5e576416445b6269656423436565685b1822184957635b5b68\
+16416b6357681649576a6f575a5768695e5f1822184857605b5b6c1648576c5f645a685764182218\
+57685f5b696957182218495e57611648575d65625b681822186023695e6b585e182218416b645762\
+1643655e6a571822186457655c6b63182218496b68576018221837686f576416435b5a5f68576a6a\
+571822183c685764596516396568685b571822183a5f6c6f5764695e164a685f66576a5e5f182218\
+3762576416375d6b5f57681822183a576c5b1639686569696257645a1822183f586b616b6465626b\
+6d57163c576a65615f1822183e5768685f6965641641576a701822184357686a5f641637585b646a\
+5b1642575e576f5b1822184957636f656116445b66576218221848576b6216476b5f646a65164957\
+61575f182218435f595e575b6216466b182218466857585e6b164657646a182218445f616562576f\
+163d656966655a5f64656c182218486569571637645f62163d5b65685d5b18221849576369656416\
+3d655a5a6f18221849576b68576c164668576a5f5e57681822184f57695e57695e6c5f163a576c5b\
+1822183b6b57641645645d182218435f5e5f6816495e575e182218625b656457685a59601822186c\
+6068601853",
 
 	contributors: function() {
 		var json = "";
@@ -806,5 +866,49 @@ enyo.kind({
 			list.push({networkId: "nxx"+i, name: contribs[i], colorvalue: color});
 		}
 		return list;
+	},
+
+	// Pong activity icons
+	startPong: function(home) {
+		this.pong = true;
+		var items = [];
+		var imax = 30;
+		var imin = -30;
+		var randvalue = function(min,max) { return Math.floor(Math.random() * (max - min + 1) ) + min };
+		var controls = home.$.desktop.getControls();
+		//controls.push(home.$.owner);
+		//controls.push(home.$.journal);
+		enyo.forEach(controls, function(item) {
+			item.setDisabled(false);
+			items.push({
+				ctrl: item,
+				ix: randvalue(imin, imax),
+				iy: randvalue(imin, imax),
+				size: parseInt(item.getComputedStyleValue("width"),10)
+			});
+		});
+		var dim = util.getCanvasCenter();
+		var that = this;
+		var step = function() {
+			if (!that.pong) {
+				return;
+			}
+			for (var i = 0 ; i < items.length ; i++) {
+				var item = items[i];
+				var x = parseInt(item.ctrl.getComputedStyleValue("margin-left"),10);
+				var y = parseInt(item.ctrl.getComputedStyleValue("margin-top"),10);
+				x += item.ix;
+				if (x <= 0 || x+item.size >= dim.dx-item.size/2) { item.ix = -item.ix; }
+				y += item.iy;
+				if (y <= item.size/2 || y+item.size >= dim.dy-item.size/2) { item.iy = -item.iy; }
+				item.ctrl.applyStyle("margin-left", x+"px");
+				item.ctrl.applyStyle("margin-top", y+"px");
+			}
+			setTimeout(step, 200);
+		};
+		setTimeout(step, 200);
+	},
+	stopPong: function() {
+		this.pong = false;
 	}
 });

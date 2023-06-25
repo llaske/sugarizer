@@ -11,6 +11,20 @@ var EbookReader = {
 			rendition: null
 		};
 	},
+	created: function() {
+		var vm = this;
+		document.addEventListener("keydown", function(event) {
+		  if (event.keyCode == 37) {
+			vm.previousPage();
+		  } else if (event.keyCode == 39) {
+			vm.nextPage();
+		  }
+		});
+	},
+	beforeDestroy: function() {
+		// Remove the event listener
+		document.removeEventListener("keydown", this.handleKeyDown);
+	},
 	methods: {
 		computeScreenSize: function() {
 			var canvas = document.getElementById("canvas") || document.getElementById("body");
@@ -35,6 +49,9 @@ var EbookReader = {
 			if (this.rendition != null) {
 				var vm = this;
 				var location = vm.getLocation();
+				if (location == null) {
+					return;
+				}
 				vm.rendition.next().then(function() {},
 					function() {vm.rendition.display(location)}
 				);
@@ -49,6 +66,9 @@ var EbookReader = {
 			if (this.rendition != null) {
 				var vm = this;
 				var location = vm.getLocation();
+				if (location == null) {
+					return;
+				}
 				vm.rendition.prev().then(function() {},
 					function() {vm.rendition.display(location)}
 				);
@@ -66,7 +86,11 @@ var EbookReader = {
 		},
 
 		getLocation: function() {
-			return this.rendition.currentLocation().start.cfi;
+			try {
+				return this.rendition.currentLocation().start.cfi;
+			} catch(e) {
+				return null;
+			}
 		}
 	}
 };

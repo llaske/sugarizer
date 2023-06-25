@@ -207,9 +207,6 @@ input[type='text'].expand {
   background-repeat: no-repeat;
   border: 0;
 }
-.icon-input button {
-  top: 2px;
-}
 .toolbar .icon-input button:hover {
   background-color: transparent;
 }
@@ -422,6 +419,7 @@ input[type='radio']:checked {
 textarea {
   margin: 2px;
   border: 2px solid #808080;
+  cursor: auto;
 }
 textarea.expand {
   width: calc(100% - 12px);

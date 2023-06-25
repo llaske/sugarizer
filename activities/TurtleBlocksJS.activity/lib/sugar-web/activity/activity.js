@@ -17,6 +17,8 @@ define(["webL10n.sugarizer",
 
     var activity = {};
 
+    var user = {};
+
     activity.setup = function () {
         bus.listen();
 
@@ -97,6 +99,7 @@ define(["webL10n.sugarizer",
         shortcut.add("Ctrl", "Q", this.close);
 
         env.getEnvironment(function (error, environment) {
+            user = environment.user;
             var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
             var activityName = "";
             for (var i = 0 ; i < environment.user.activities.length ; i++) {
@@ -183,7 +186,30 @@ define(["webL10n.sugarizer",
             }
         }
 
+        activity.traceStats("activity","stop",window.top.sugar.environment.objectId,null);
         bus.sendMessage("activity.close", [], onResponseReceived);
+    };
+
+    activity.traceStats = function (object, action, label, value) {
+        if (!user.options.stats) {
+            return;
+        }
+        var statslist = datastore.localStorage.getValue('sugar_stats');
+        if (!statslist) {
+            return
+        }
+        var stat = {};
+        stat.user_id = user.networkId;
+        stat.user_agent = navigator.userAgent;
+        stat.timestamp = new Date().getTime();
+        stat.client_type = (document.location.protocol.substr(0,4) == "http" ? "Web App" : "App");
+        stat.event_source = window.top.sugar.environment.bundleId;
+        stat.event_object = object;
+        stat.event_action = action;
+        stat.event_label = label;
+        stat.event_value = value;
+        statslist.push(stat);
+		datastore.localStorage.setValue('sugar_stats', statslist);
     };
 
     activity.showObjectChooser = function (callback) {

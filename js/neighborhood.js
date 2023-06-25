@@ -134,7 +134,7 @@ enyo.kind({
 			action: enyo.bind(this, "doLogoff"),
 			data: null
 		});
-		if (enyo.platform.electron) {
+		if (util.platform.electron) {
 			items.push({
 				icon: {directory: "lib/sugar-web/graphics/icons/actions", icon: "activity-stop.svg"},
 				colorized: false,
@@ -517,8 +517,8 @@ enyo.kind({
 		for (var i = 0 ; i < len ; i++) {
 			// Unknown activity, ignoe
 			 var currentActivity = this.activities[i];
-			 var activityInfo = preferences.getActivity(currentActivity.activityId);
-			 if (activityInfo == preferences.genericActivity) {
+			 var activityInfo = activities.getById(currentActivity.activityId);
+			 if (activities.isGeneric(activityInfo)) {
 				continue;
 			}
 

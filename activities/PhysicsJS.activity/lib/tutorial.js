@@ -4,112 +4,81 @@ define(["webL10n"], function (l10n) {
 	tutorial.start = function() {
 		var steps = [
 			{
-				element: "",
-				orphan: true,
-				placement: "bottom",
 				title: l10n.get("TutoExplainTitle"),
-				content: l10n.get("TutoExplainContent")
+				intro: l10n.get("TutoExplainContent")
 			},
 			{
 				element: "#viewport",
-				placement: "top",
+				position: "top",
 				title: l10n.get("TutoBoardTitle"),
-				content: l10n.get("TutoBoardContent")
+				intro: l10n.get("TutoBoardContent")
 			},
 			{
 				element: "#circle-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoCircleTitle"),
-				content: l10n.get("TutoCircleContent")
+				intro: l10n.get("TutoCircleContent")
 			},
 			{
 				element: "#box-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoBoxTitle"),
-				content: l10n.get("TutoBoxContent")
+				intro: l10n.get("TutoBoxContent")
 			},
 			{
 				element: "#triangle-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoTriangleTitle"),
-				content: l10n.get("TutoTriangleContent")
+				intro: l10n.get("TutoTriangleContent")
 			},
 			{
 				element: "#polygon-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoPolygonTitle"),
-				content: l10n.get("TutoPolygonContent")
+				intro: l10n.get("TutoPolygonContent")
 			},
 			{
 				element: "#gravity-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoGravityTitle"),
-				content: l10n.get("TutoGravityContent")
+				intro: l10n.get("TutoGravityContent")
 			},
 			{
 				element: "#sensor-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoSensorTitle"),
-				content: l10n.get("TutoSensorContent")
+				intro: l10n.get("TutoSensorContent")
 			},
 			{
 				element: "#apple-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoAppleTitle"),
-				content: l10n.get("TutoAppleContent")
+				intro: l10n.get("TutoAppleContent")
 			},
 			{
 				element: "#clear-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoClearTitle"),
-				content: l10n.get("TutoClearContent")
+				intro: l10n.get("TutoClearContent")
 			},
 			{
 				element: "#run-button",
-				placement: "bottom",
+				position: "bottom",
 				title: l10n.get("TutoPauseTitle"),
-				content: l10n.get("TutoPauseContent")
+				intro: l10n.get("TutoPauseContent")
 			},
 		];
-		var tour = new Tour({
-			template: "\
-			<div class='popover tour'>\
-				<div class='arrow'></div>\
-				<h3 class='popover-title tutorial-title'></h3>\
-				<div class='popover-content'></div>\
-				<div class='popover-navigation' style='display: flex; flex-wrap:wrap; justify-content: center; align-items: center'>\
-					<div class='tutorial-prev-icon icon-button' data-role='prev'>\
-						<div class='tutorial-prev-icon1 web-activity'>\
-							<div class='tutorial-prev-icon2 web-activity-icon'></div>\
-							<div class='tutorial-prev-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoPrev")+"</div>\
-					</div>\
-					<span data-role='separator' style='margin: 4px'>|</span>\
-					<div class='tutorial-next-icon icon-button' data-role='next'>\
-						<div class='tutorial-next-icon1 web-activity'>\
-							<div class='tutorial-next-icon2 web-activity-icon'></div>\
-							<div class='tutorial-next-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoNext")+"</div>\
-					</div>\
-					<div class='tutorial-end-icon icon-button' data-role='end'>\
-						<div class='tutorial-end-icon1 web-activity'>\
-							<div class='tutorial-end-icon2 web-activity-icon'></div>\
-							<div class='tutorial-end-icon3 web-activity-disable'></div>\
-						</div>\
-						<div class='icon-tutorial-text'>"+l10n.get("TutoEnd")+"</div>\
-					</div>\
-				</div>\
-			</div>",
-			storage: false,
-			backdrop: true,
-			steps: steps
-		});
-		tour.init();
-		tour.start(true);
-
-	};
+				steps = steps.filter((obj) =>  !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none'));
+		introJs().setOptions({
+			tooltipClass: 'customTooltip',
+			steps: steps,
+			prevLabel: l10n.get("TutoPrev"),
+			nextLabel: l10n.get("TutoNext"),
+			exitOnOverlayClick: false,
+			nextToDone: false,
+			showBullets: false
+		}).start();
+	}
 
 	return tutorial;
 });

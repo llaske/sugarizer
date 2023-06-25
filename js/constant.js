@@ -3,7 +3,7 @@
 // Constants
 var constant = {};
 
-constant.sugarizerVersion = "1.5.0";
+constant.sugarizerVersion = "1.7.0";
 
 constant.sizeOwner = 100;
 constant.sizeJournal = 40;
@@ -15,7 +15,7 @@ constant.sizeNewUser = 150;
 constant.iconSpacingFactor = 1.1;
 constant.ringInitSpaceFactor = 2.2;
 constant.spiralInitSpaceFactor = 0.89;
-constant.ringSpaceFactor = 1.3;
+constant.ringSpaceFactor = 1.18;
 constant.spiralSpaceFactor = 1.3;
 constant.ringAdjustAngleFactor = 3.6;
 constant.ringAdjustSizeFactor = 0.9;
@@ -26,7 +26,8 @@ constant.radialView = 0;
 constant.listView = 1;
 constant.journalView = 2;
 constant.neighborhoodView = 3;
-constant.viewNames = ['home_view', 'list_view', 'journal_view', 'neighborhood_view'];
+constant.assignmentView = 4;
+constant.viewNames = ['home_view', 'list_view', 'journal_view', 'neighborhood_view', 'assignment_view'];
 
 constant.journalLocal = 0;
 constant.journalRemotePrivate = 1;
@@ -59,6 +60,7 @@ constant.loginURL = "/auth/login/";
 constant.signupURL = "/auth/signup/";
 constant.initNetworkURL = "/api/v1/users/";
 constant.sendCloudURL = "/api/v1/journal/";
+constant.submitAssignment = "/api/v1/assignments/deliveries/submit/";
 constant.statsURL = "/api/v1/stats/";
 constant.filterJournalURL = "/filter/";
 constant.filterFieldURL = "/field/";

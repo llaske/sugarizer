@@ -102,7 +102,7 @@ button {
 }
 button:hover {
   background-color: #a2a2a2;
-  border-color: #a2a2a2;
+  transform: translateY(-2px);
 }
 button:active {
   color: black;
@@ -421,6 +421,7 @@ input[type='radio']:checked {
 textarea {
   margin: 2px;
   border: 2px solid #808080;
+  cursor: auto;
 }
 textarea.expand {
   width: calc(100% - 12px);
