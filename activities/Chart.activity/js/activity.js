@@ -391,6 +391,15 @@ const app = new Vue({
 		updateActivityTitle(title) {
 			this.executeAndSendAction(Action_Types.UPDATE_TITLE, { title });
 		},
+		updateTitleInput (value) {
+			const activeEle = document.activeElement;
+			this.activityInput.style.visibility = "visible";
+			this.activityInput.value = value;
+			this.activityInput.focus();
+			this.activityInput.blur(); //to update the title in activitypalette.js
+			activeEle.focus();
+			this.activityInput.style.visibility = "unset";
+		},
 		updatePalletes() {
 			this.palettes.strokeColor.setColor(this.pref.chartColor.stroke);
 			this.palettes.fillColor.setColor(this.pref.chartColor.fill);
@@ -565,11 +574,7 @@ const app = new Vue({
 				};
 				var data = this.LZ.compressToUTF16(JSON.stringify(context));
 				this.createJournalEntry(data, metadata);
-				this.activityInput.style.visibility = "visible";
-				this.activityInput.style.opacity = 0;
-				this.activityInput.value = this.csvTitle;
-				this.activityInput.focus();
-				this.activityInput.blur(); //to update the title in activitypalette.js
+				this.updateTitleInput(this.csvTitle);
 				return;
 			}
 			this.$refs.SugarJournal.saveData(context);

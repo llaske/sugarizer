@@ -25,6 +25,7 @@ const Execute = {
         self.pref = data.pref;
         self.updatePreference(data.pref);
         self.updateActivityTitle(data.title);
+        self.updateTitleInput(data.title);
         self.$refs.csvView.updateJsonData(data.csvJsonData.data, data.csvJsonData.header, false, true);
     },
 
@@ -32,6 +33,9 @@ const Execute = {
         const title = msg.content.data.title;
         self.activityTitle = title;
         self.chartview.updateTitle(title);
+        if (msg.user) {
+            self.updateTitleInput(title);
+        }
     },
 
     [Action_Types.UPDATE_TABLE_DATA]: function (self, msg) {
