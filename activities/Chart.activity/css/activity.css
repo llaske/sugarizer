@@ -51,7 +51,7 @@ p {
 }
 #sub-toolbar {
 	position: relative;
-	z-index: 50;
+	z-index: 1000000;
 }
 .sub-toolbar-itm {
 	transition: height .3s;
@@ -62,7 +62,7 @@ p {
 	overflow: hidden;
 }
 .palette .wrapper {
-	z-index: 50;
+	z-index: 1000000;
 	position: relative;
 	min-width: 120px;
 }
@@ -482,6 +482,15 @@ p {
 	font-size: 18px;
 }
 
+
+.csv-view {
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.csv-view.hidden {
+	visibility: hidden;
+}
 .csv-container {
 	position: absolute;
 	height: calc(100vh - 94px);

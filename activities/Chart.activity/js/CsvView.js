@@ -1,10 +1,10 @@
 const CsvView = {
 	template: `
-		<div class="csv-view">
+		<div ref="csvView" class="csv-view">
 	    	<div class="csv-container">
 				<div class="cell-group csv-header">
 					<span class="marker">1</span>
-					<div v-for="(key, i) in jsonData.header" :key="'header'+i" @click="selectedIdx = i" :class="{active: isActive(i), invalid: isInvalid(i), last: !jsonData.data[1]}" class="cell">
+					<div v-for="(key, i) in jsonData.header" :key="'header'+i" :id="'header'+i" @click="selectedIdx = i" :class="{active: isActive(i), invalid: isInvalid(i), last: !jsonData.data[1]}" class="cell">
 						{{ key.startsWith("__") ? "" : key }}
 					</div>
 				</div>

@@ -87,16 +87,17 @@ const app = new Vue({
 			stringexportAsCSV: "",
 			stringSaveImage: "",
 			stringInsertChart: "",
-			stringTutoReadActivity: "",
-			stringTutoReadStopWatch: "",
-			stringTutoReadMeasure: "",
+			stringTutoViewCsv: "",
 			stringLines: "",
 			stringVerticalBars: "",
 			stringHorizontalBars: "",
 			stringExportSettings: "",
-			stringReadStopWatch: "",
-			stringReadMeasure: "",
-			stringInvalidFile: "",
+			stringViewCsv: "",
+			stringTutoCsvColumn1: "",
+			stringTutoCsvColumn2: "",
+			stringTutoCsvNumOnly: "",
+			stringTutoCsvRightArr: "",
+			stringTutoCsvLeftArr: "",
 		},
 		configActive: false,
 		textPalActive: false,
@@ -486,6 +487,36 @@ const app = new Vue({
 					intro: this.l10n.stringPieChart,
 				},
 				{
+					element: "#csv-button",
+					position: "bottom",
+					title: this.l10n.stringViewCsv,
+					intro: this.l10n.stringTutoViewCsv,
+				},
+				{
+					element: ".csv-header #header0",
+					position: "right",
+					title: this.l10n.stringViewCsv,
+					intro: this.l10n.stringTutoCsvColumn1,
+				},
+				{
+					element: ".csv-header #header1",
+					position: "right",
+					title: this.l10n.stringViewCsv,
+					intro: `${this.l10n.stringTutoCsvColumn2}. ${this.l10n.stringTutoCsvNumOnly}`,
+				},
+				{
+					element: ".csv-view #up-button",
+					position: "top",
+					title: this.l10n.stringViewCsv,
+					intro: this.l10n.stringTutoCsvLeftArr,
+				},
+				{
+					element: ".csv-view #down-button",
+					position: "top",
+					title: this.l10n.stringViewCsv,
+					intro: this.l10n.stringTutoCsvRightArr,
+				},
+				{
 					element: "#config-button",
 					position: "bottom",
 					title: this.l10n.stringConfigs,
@@ -528,26 +559,41 @@ const app = new Vue({
 					intro: this.l10n.stringFontColor,
 				},
 				{
-					element: "#export-csv-button",
-					position: "bottom",
-					title: this.l10n.stringexportAsCSV,
-					intro: this.l10n.stringTutoExportCsv,
-				},
-				{
 					element: "#export-img-button",
 					position: "bottom",
 					title: this.l10n.stringSaveImage,
 					intro: this.l10n.stringTutoSaveImage,
 				},
+				{
+					element: "#export-csv-button",
+					position: "bottom",
+					title: this.l10n.stringexportAsCSV,
+					intro: this.l10n.stringTutoExportCsv,
+				},
 			];
 			const introJs = this.$refs.SugarTutorial.introJs;
 			introJs.onbeforechange((targetEle) => {
 				switch (targetEle.id) {
+					case "pie-chart-button":
+					case "config-button":
+						this.$refs.csvView.$refs.csvView.style.zIndex = "unset";
+						this.textPalActive = false;
+						break;
+					case "header0":
+					case "header1":
+						setTimeout(() => {
+							document.querySelector(".introjs-helperLayer").style.height = "calc(100vh - 95px)"
+						},0);
+					case "down-button":
+						this.pref.chartType = "csvMode";
+						this.$refs.csvView.$refs.csvView.style.zIndex = "9999991";
+						break;
 					case "title-font-button":
+						this.pref.chartType = CHART_TYPES.line;
 						this.textPalActive = true;
 						this.palettes.export.popDown();
 						break;
-					case "export-csv-button":
+					case "export-img-button":
 						this.palettes.export.popUp();
 						break;
 				}
