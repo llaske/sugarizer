@@ -4,8 +4,8 @@
  */
 
 const FirstScreen = {
-    name: 'FirstScreen',
-    template: `<div class="firstscreen">
+	name: 'FirstScreen',
+	template: `<div class="firstscreen">
                     <div class="firstscreen_login" v-if="showLoginScreen" >
                         <login-screen
                             :userType="userType"
@@ -59,84 +59,84 @@ const FirstScreen = {
                         </div>
                     </div>
                </div>`,
-    components: {
-        'icon': Icon,
-        'icon-button': IconButton,
-        'login-screen': LoginScreen,
-    },
+	components: {
+		'icon': Icon,
+		'icon-button': IconButton,
+		'login-screen': LoginScreen,
+	},
 
-    emits: ['showdesktop'],
+	emits: ['showdesktop'],
 
-    data() {
-        return {
-            prevUsers: [],
-            showLoginScreen: false,
-            userType: {
-                isNewuser: false,
-                isLogin: false,
-                isPrevUser: null,
-            },
-            isFirstScreen: true,
-        }
-    },
+	data() {
+		return {
+			prevUsers: [],
+			showLoginScreen: false,
+			userType: {
+				isNewuser: false,
+				isLogin: false,
+				isPrevUser: null,
+			},
+			isFirstScreen: true,
+		}
+	},
 
-    watch: {
-        isFirstScreen: function (newVal) {
-            this.$emit('showdesktop', newVal)
-        }
-    },
+	watch: {
+		isFirstScreen: function (newVal) {
+			this.$emit('showdesktop', newVal)
+		}
+	},
 
-    mounted() {
-        this.getPrevUsers()
-    },
+	mounted() {
+		this.getPrevUsers()
+	},
 
-    methods: {
-        getPrevUsers() {
-            try {
-                this.prevUsers = JSON.parse(localStorage.getItem('sugar_history')).reverse();
-            } catch (error) {
-                console.error('Error parsing previous users:', error);
-                this.prevUsers = [];
-            }
-        },
+	methods: {
+		getPrevUsers() {
+			try {
+				this.prevUsers = JSON.parse(localStorage.getItem('sugar_history')).reverse();
+			} catch (error) {
+				console.error('Error parsing previous users:', error);
+				this.prevUsers = [];
+			}
+		},
 
-        loadLoginScreen(buttontype, index) {
-            switch (buttontype) {
-                case 'newuser':
-                    this.userType.isNewuser = true;
-                    this.userType.isLogin = false;
-                    this.userType.isPrevUser = null;
-                    break;
-                case 'login':
-                    this.userType.isLogin = true;
-                    this.userType.isNewuser = false;
-                    this.userType.isPrevUser = null;
-                    break;
-                case 'previoususer':
-                    this.prevUsers.forEach((user, i) => {
-                        if (i === index) {
-                            this.userType.isPrevUser = {
-                                name: user.name,
-                                url: user.server.url,
-                            }
-                        }
-                    });
-                    this.userType.isLogin = false;
-                    this.userType.isNewuser = false;
-                    break;
-                default:
-                    console.error('Error loading login screen');
-                    break;
-            }
-            this.showLoginScreen = true;
-        },
-        handleLoginScreenPropModified(prop) {
-            this.showLoginScreen = prop;
-        },
-        setIsFirstScreen2(value) {
-            this.isFirstScreen = value;
-        }
-    }
+		loadLoginScreen(buttontype, index) {
+			switch (buttontype) {
+				case 'newuser':
+					this.userType.isNewuser = true;
+					this.userType.isLogin = false;
+					this.userType.isPrevUser = null;
+					break;
+				case 'login':
+					this.userType.isLogin = true;
+					this.userType.isNewuser = false;
+					this.userType.isPrevUser = null;
+					break;
+				case 'previoususer':
+					this.prevUsers.forEach((user, i) => {
+						if (i === index) {
+							this.userType.isPrevUser = {
+								name: user.name,
+								url: user.server.url,
+							}
+						}
+					});
+					this.userType.isLogin = false;
+					this.userType.isNewuser = false;
+					break;
+				default:
+					console.error('Error loading login screen');
+					break;
+			}
+			this.showLoginScreen = true;
+		},
+		handleLoginScreenPropModified(prop) {
+			this.showLoginScreen = prop;
+		},
+		setIsFirstScreen2(value) {
+			this.isFirstScreen = value;
+		}
+	}
 }
 
 if (typeof module !== 'undefined') module.exports = { FirstScreen }
