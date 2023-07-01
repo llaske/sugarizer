@@ -36,19 +36,9 @@
 		</div>
 
 		<div class="sugarizer-canvas" v-if="isFirstScreen">
-		<h2>Sugarizer Home v2</h2>
-		<icon
-			id="1"
-			svgfile="activities/Gridpaint.activity/activity/activity-icon.svg" 
-			color="120"
-			size="60"
-			x="-2"
-			is-native="true"
-			v-on:click="this.iconClicked()"
-		></icon>
 		<firstscreen @showdesktop="setIsFirstScreen"/>
-		</div>
 		<div class="sugarizer-desktop" v-else>desktop view</div>
+		</div>
 	</div>
 
 	<script src="js/icon.js"></script>
