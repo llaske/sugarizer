@@ -247,9 +247,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         function setTranslatedStrings() {
             document.getElementById("simple-clock-button").title = l10n_s.get("SimpleClock");
             document.getElementById("nice-clock-button").title = l10n_s.get("NiceClock");
-            document.getElementById("write-time-button").title = l10n_s.get("WriteTime");
-            document.getElementById("write-date-button").title = l10n_s.get("WriteDate");
-            document.getElementById("write-seconds-button").title = l10n_s.get("WriteSeconds");
+            document.getElementById("write-time-button").title = "Show Time";
+            document.getElementById("write-date-button").title = "Show Date";
+            document.getElementById("write-seconds-button").title = "Show Seconds";
             document.getElementById("set-time-button").title = l10n_s.get("SetTime");
             document.getElementById("set-timeGame-button").title = l10n_s.get("SetTimeGame");
             document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
