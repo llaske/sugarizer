@@ -6,14 +6,14 @@
 const FirstScreen = {
 	name: 'FirstScreen',
 	template: `<div class="firstscreen">
-                    <div class="firstscreen_login" v-if="showLoginScreen" >
+                    <div class="firstscreen_login" v-show="showLoginScreen" >
                         <login-screen
                             :userType="userType"
                             @propModified="handleLoginScreenPropModified" 
                             @updateIsFirstScreen="setIsFirstScreen2"
                         />
                     </div>
-                    <div class="firstscreen_landing" v-else>
+                    <div class="firstscreen_landing" v-show="!showLoginScreen">
                         <div class="firstscreen_newuser">
                             <div class="column">
                                 <icon
