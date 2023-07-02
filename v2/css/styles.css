@@ -851,9 +851,19 @@ a {
 
 .loginscreen_buttons {
 	position: fixed;
-	bottom: 10px;
+	bottom: 50px;
 	width: 100%;
 	display: flex;
+	justify-content: space-between;
+}
+
+.ls_left_btn {
+	margin-left: 50px;
+}
+
+.ls_right_btn {
+	margin-right: 50px;
+	margin-left: auto;
 }
 
 .loginscreen_warning {

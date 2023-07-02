@@ -71,7 +71,7 @@ const LoginScreen = {
 
                 <div class="loginscreen_buttons">
                     <br>
-                    <div class="firstscreen_btn">
+                    <div class="ls_left_btn">
                         <icon-button 
                             id="back-btn"
                             text="back"
@@ -83,7 +83,7 @@ const LoginScreen = {
                             @click="prevItem" 
                         ></icon-button>
                     </div>
-                    <div class="firstscreen_btn" v-if="index.currentIndex !== index.maxIndex">
+                    <div class="ls_right_btn" v-if="index.currentIndex !== index.maxIndex">
                         <icon-button 
                             id="next-btn"
                             text="next"
@@ -95,7 +95,7 @@ const LoginScreen = {
                             @click="nextItem" 
                         ></icon-button>
                     </div>
-                    <div class="firstscreen_btn" v-if="index.currentIndex === index.maxIndex">
+                    <div class="ls_right_btn" v-if="index.currentIndex === index.maxIndex">
                         <icon-button 
                             id="next-btn"
                             text="done"
