@@ -7,21 +7,18 @@ const LoginScreen = {
 	name: 'LoginScreen',
 	template: `<div class="loginscreen">
                     <form>
-                        <div id="loginscreen_server" class="column" v-if="index.currentIndex === 0">
+                        <div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
                             <div class="firstscreen_text">Server Address:</div>
                             <input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress">
                         </div>
-                        <br>
-                        <div id="loginscreen_name" class="column" v-if="index.currentIndex === 1">
+                        <div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
                             <div class="firstscreen_text">Name:</div>
                             <input ref="nameInput" type="text" class="input_field" v-model="details.name">
                         </div>
-                        <br>
                         <div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
                             <div class="firstscreen_text">Your Images:</div>
                             <password ref="passwordInput" ></password>
                         </div>
-                        <br>
                         <div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3" >
                             <div class="firstscreen_text">Click to change color:</div>
                             <icon
@@ -36,7 +33,6 @@ const LoginScreen = {
                                 v-model="details.color"
                             ></icon>
                         </div>
-                        <br>
                         <div id="loginscreen_privacy" class="column" v-show="index.currentIndex === 4">
                             <icon 
                                 id="privacy-icon"
@@ -145,8 +141,15 @@ const LoginScreen = {
 
 	emits: ['propModified', 'updateIsFirstScreen'],
 
-	mounted() {
-		this.checkMethodType();
+	watch: {
+		userType: {
+			deep: true,
+			handler(val) {
+				this.checkMethodType();
+				console.log(val);
+				console.log(this.index);
+			}
+		}
 	},
 
 	methods: {

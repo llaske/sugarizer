@@ -825,7 +825,7 @@ a {
 /* first screen */
 .firstscreen {
 	position: relative;
-	top: 20vh;
+	top: 30vh;
 }
 
 .firstscreen_landing {
@@ -838,14 +838,10 @@ a {
 	color: #808080;
 }
 
-.firstscreen_btn {
-	display: inline-block;
-	margin: auto;
-}
-
 /* login screen */
 #loginscreen_name,
-#loginscreen_server {
+#loginscreen_server,
+#loginscreen_iconchoice {
 	gap: 15px;
 }
 
@@ -904,5 +900,17 @@ a {
 
 	.search-field-input {
 		width: 120px !important;
+	}
+}
+
+@media screen and (max-height: 450px) {
+	.firstscreen {
+		position: relative;
+		top: 20vh;
+	}
+	
+	#loginscreen_password , #loginscreen_iconchoice{
+		position: relative;
+		top: -6vh;
 	}
 }
