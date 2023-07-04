@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Chart Activity
+- CSV support in the Journal
+
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
 - Undefined tutorial step in curriculum activity #1293
