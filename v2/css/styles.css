@@ -42,6 +42,12 @@ html, button {
 	font-size: 10pt;
 	border-width: 2px;
 	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
+	background-color: #e5e5e5;
+}
+
+.input_field:focus {	
+	outline: none;
+	background-color: white;
 }
 
 a {
@@ -862,6 +868,10 @@ a {
 	margin-left: auto;
 }
 
+.ls_icon_btn {
+	width: 120px;
+}
+
 .loginscreen_warning {
 	display: flex;
 	align-items: center;
@@ -908,8 +918,8 @@ a {
 		position: relative;
 		top: 20vh;
 	}
-	
-	#loginscreen_password , #loginscreen_iconchoice{
+
+	#loginscreen_password , #loginscreen_iconchoice, #loginscreen_privacy{
 		position: relative;
 		top: -6vh;
 	}
