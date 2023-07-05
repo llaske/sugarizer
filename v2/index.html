@@ -39,8 +39,10 @@
 		<firstscreen @showdesktop="setIsFirstScreen"/>
 		</div>
 		<div class="sugarizer-desktop" v-else>desktop view</div>
+		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
 	</div>
 
+	<script src="js/SugarL10n.js"></script>
 	<script src="js/icon.js"></script>
 	<script src="js/iconbutton.js"></script>
 	<script src="js/password.js"></script>

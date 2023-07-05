@@ -8,19 +8,19 @@ const LoginScreen = {
 	template: `<div class="loginscreen">
                     <form>
                         <div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
-                            <div class="firstscreen_text">Server Address:</div>
+                            <div class="firstscreen_text" id="serverurl"></div>
                             <input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress">
                         </div>
                         <div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
-                            <div class="firstscreen_text">Name:</div>
+                            <div class="firstscreen_text" id="name">Name:</div>
                             <input ref="nameInput" type="text" class="input_field" v-model="details.name">
                         </div>
                         <div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
-                            <div class="firstscreen_text">Your Images:</div>
+                            <div class="firstscreen_text" id="pass_text"></div>
                             <password ref="passwordInput" ></password>
                         </div>
                         <div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3" >
-                            <div class="firstscreen_text">Click to change color:</div>
+                            <div class="firstscreen_text" id="buddyicon_text"></div>
                             <icon
                                 ref="buddyIcon" 
                                 id="buddy_icon"
@@ -44,10 +44,8 @@ const LoginScreen = {
                                 isNative="true"
                             ></icon>
                             <div class="login-policytext" id="loginscreen_cookietext">
-                            We need <strong>cookies</strong> to keep your Sugarizer session information. <br>Please type the <strong>Accept</strong> button to consent to this use.
                             </div>
                             <div class="login-policytext" id="loginscreen_policytext">
-                            For more information you can read our <a target="_blank" href="https://sugarizer.org/policy.html?lang=en">privacy policy</a>.
                             </div>
                         </div>
                     </form>
@@ -70,8 +68,8 @@ const LoginScreen = {
                     <div class="ls_left_btn">
                         <icon-button 
                             id="back-btn"
-                            text="back"
                             svgfile="./icons/go-left.svg"
+									 class="ls_icon_btn"
                             size="28"
                             color="1024"
                             x="0"
@@ -79,11 +77,11 @@ const LoginScreen = {
                             @click="prevItem" 
                         ></icon-button>
                     </div>
-                    <div class="ls_right_btn" v-if="index.currentIndex !== index.maxIndex">
+                    <div class="ls_right_btn" v-show="index.currentIndex !== index.maxIndex">
                         <icon-button 
                             id="next-btn"
-                            text="next"
                             svgfile="./icons/go-right.svg"
+									 class="ls_icon_btn"
                             size="28"
                             color="1024"
                             x="0"
@@ -91,11 +89,11 @@ const LoginScreen = {
                             @click="nextItem" 
                         ></icon-button>
                     </div>
-                    <div class="ls_right_btn" v-if="index.currentIndex === index.maxIndex">
+                    <div class="ls_right_btn" v-show="index.currentIndex === index.maxIndex">
                         <icon-button 
-                            id="next-btn"
-                            text="done"
+                            id="done-btn"
                             svgfile="./icons/go-right.svg"
+									 class="ls_icon_btn"
                             size="28"
                             color="1024"
                             x="0"

@@ -25,7 +25,7 @@ const FirstScreen = {
                                     isNative="true"
                                     @click="loadLoginScreen('newuser')"
                                  ></icon>
-                                <div class="firstscreen_text">New User</div>
+                                <div class="firstscreen_text" id="newuser_text"></div>
                             </div>
                         </div>
                         <div class="firstscreen_login">
@@ -39,7 +39,7 @@ const FirstScreen = {
                                     isNative="true"
                                     @click="loadLoginScreen('login')"
                                 ></icon>
-                                <div class="firstscreen_text">Login</div>
+                                <div class="firstscreen_text" id="login_text"></div>
                             </div>                        
                         </div>
                         <div class="previoususer">
