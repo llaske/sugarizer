@@ -65,7 +65,7 @@ const FirstScreen = {
 		'login-screen': LoginScreen,
 	},
 
-	emits: ['showdesktop'],
+	emits: ['showmainscreen'],
 
 	data() {
 		return {
@@ -82,7 +82,7 @@ const FirstScreen = {
 
 	watch: {
 		isFirstScreen: function (newVal) {
-			this.$emit('showdesktop', newVal)
+			this.$emit('showmainscreen', newVal)
 		}
 	},
 
