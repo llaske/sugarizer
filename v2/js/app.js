@@ -8,7 +8,6 @@ requirejs.config({
 
 const app = Vue.createApp({
 	components: {
-		"icon": Icon,
 		"firstscreen": FirstScreen,
 		"sugar-localization": SugarL10n,
 	},
@@ -36,10 +35,7 @@ const app = Vue.createApp({
 			document.getElementById("done-btn").nextElementSibling.innerText = this.SugarL10n.get("Done");
 			this.SugarL10n.localize(this.l10n);
 		},
-		homeClicked() {
-			let location = "../index.html";
-			document.location.href = location;
-		},
+		
 		setIsFirstScreen(value) {
 			this.isFirstScreen = value;
 		},

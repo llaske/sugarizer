@@ -24,7 +24,7 @@ html, button {
 .sugarizer-canvas {
 	background-color: white;
 	overflow: hidden;
-	height: calc(100vh - 64px);
+	height: 100vh;
 }
 
 .column {
@@ -831,7 +831,7 @@ a {
 /* first screen */
 .firstscreen {
 	position: relative;
-	top: 30vh;
+	top: 42vh;
 }
 
 .firstscreen_landing {
@@ -916,11 +916,16 @@ a {
 @media screen and (max-height: 450px) {
 	.firstscreen {
 		position: relative;
-		top: 20vh;
+		top: 25vh;
+	}
+
+	.loginscreen{
+		position: relative;
+		top: 15vh;
 	}
 
 	#loginscreen_password , #loginscreen_iconchoice, #loginscreen_privacy{
 		position: relative;
-		top: -6vh;
+		top: -10vh;
 	}
 }

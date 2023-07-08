@@ -22,19 +22,6 @@
 
   <body id="body">
 	<div id="app">
-		<div class="filterBox-demo">
-			<icon
-				id="2"
-				svgfile="../icons/view-radial.svg" 
-				color="512"
-				size="60"
-				x="-2"
-				is-native="true"
-				v-on:click="this.homeClicked()"
-				style="margin-left: auto; margin-right: 10px;"
-			></icon>
-		</div>
-
 		<div class="sugarizer-canvas" v-if="isFirstScreen">
 		<firstscreen @showdesktop="setIsFirstScreen"/>
 		</div>
