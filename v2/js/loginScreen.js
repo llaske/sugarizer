@@ -9,15 +9,15 @@ const LoginScreen = {
                     <form>
                         <div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
                             <div class="firstscreen_text" id="serverurl"></div>
-                            <input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress">
+                            <input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
                         </div>
                         <div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
                             <div class="firstscreen_text" id="name">Name:</div>
-                            <input ref="nameInput" type="text" class="input_field" v-model="details.name">
+                            <input ref="nameInput" type="text" class="input_field" v-model="details.name" @keyup="handleEnterKey">
                         </div>
                         <div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
                             <div class="firstscreen_text" id="pass_text"></div>
-                            <password ref="passwordInput" ></password>
+                            <password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
                         </div>
                         <div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3" >
                             <div class="firstscreen_text" id="buddyicon_text"></div>
@@ -185,16 +185,11 @@ const LoginScreen = {
 
 			if (this.index.currentIndex < this.index.maxIndex) {
 				if (this.index.currentIndex === 0) {
-					console.log(this.details.serverAddress);
 					this.index.currentIndex++;
 				}
 
 				else if (this.index.currentIndex === 1) {
-					console.log(this.details.name);
 					const userexists = await this.checkifUserExists(this.details.serverAddress, this.details.name);
-					console.log(userexists);
-					console.log(this.userType.isNewuser);
-					console.log(this.userType.isLogin);
 					if (this.userType.isNewuser && !userexists) {
 						this.index.currentIndex++;
 					} else if (this.userType.isNewuser && userexists) {
@@ -208,7 +203,6 @@ const LoginScreen = {
 					}
 				}
 				else if (this.index.currentIndex === 2) {
-					console.log(this.details.password);
 					this.index.currentIndex++;
 				}
 				else if (this.index.currentIndex === 3) {
@@ -217,6 +211,21 @@ const LoginScreen = {
 				else {
 					this.index.currentIndex++;
 				}
+			}
+		},
+
+		handleEnterKey(event) {
+			if (event.key === 'Enter') {
+				this.nextItem();
+			}
+		},
+
+		handlePasswordSet(password) {
+			if (this.index.maxIndex === 4) {
+				this.nextItem();
+			}
+			else if (this.index.maxIndex === 2) {
+				this.makeLoginRequest();
 			}
 		},
 
