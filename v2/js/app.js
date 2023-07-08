@@ -15,6 +15,7 @@ const app = Vue.createApp({
 	data() {
 		return {
 			isFirstScreen: true,
+			l10n: "",
 		}
 	},
 	mounted() {

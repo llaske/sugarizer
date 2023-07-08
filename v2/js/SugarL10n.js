@@ -44,12 +44,11 @@ const SugarL10n = {
 		const vm = this;
 		if (vm.l10n == null) {
 			//get the language preference from the local storage (TEMPORARY SOLUTION TILL WE HAVE CONNECTION FEATURE )
-			this.language = localStorage.getItem("lang") || 'en';
-			const language = this.language;
+			vm.language = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 
-			if (vm.l10n == null) {
-				vm.loadLanguageFile(language);
-			}
+			const language = vm.language;
+			console.log('Language: ' + language);
+			vm.loadLanguageFile(language);
 		}
 	},
 
