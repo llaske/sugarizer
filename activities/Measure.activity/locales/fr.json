@@ -106,7 +106,7 @@
 	"HideTuningLine": "Cacher réglage gamme",
 	"playTitle": "Jouer",
 	"stopTitle": "Arrêter",
-	"IntervalSecond": "{{interval}} seconde",
+	"IntervalSecond": "{{interval}} secondes",
 	"IntervalMinute": "{{interval}} minutes",
 	"TutoPrev": "Préc",
 	"TutoNext": "Suiv",
