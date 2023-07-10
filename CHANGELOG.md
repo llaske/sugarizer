@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Chart Activity
 - CSV support in the Journal
 - Export CSV instead of TXT in Measure.activity
+- Export CSV in Stopwatch activity
 
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
