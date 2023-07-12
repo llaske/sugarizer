@@ -27,6 +27,10 @@ html, button {
 	height: 100vh;
 }
 
+.sugarizer-desktop {
+	background-color: white;
+}
+
 .column {
 	display: flex;
 	flex-direction: column;
@@ -107,7 +111,6 @@ a {
 
 .search-field-border {
 	border-radius: 22px;
-	top: 5px;
 	width: 350px;
 	height: 35px;
 	display: inline-block;
@@ -607,8 +610,8 @@ a {
 }
 
 .toolbar {
-	height: 60px;
-	padding: 0 77px;
+	height: 55px;
+	padding: 0 55px;
 	color: white;
 	background-color: #282828;
 	-webkit-user-select: none;
@@ -616,6 +619,13 @@ a {
 	position: sticky;
 	top: 0px;
 	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.tool_rightitems {
+	display: flex;
+	align-items: center;
 }
 
 .toolbar hr {
@@ -627,18 +637,9 @@ a {
 }
 
 .toolbar .toolbutton {
-	position: relative;
-	width: 67px;
-	height: 67px;
+	width: 47px;
+	height: 47px;
 	margin: 4px 2px;
-	color: white;
-	color: transparent;
-	background-color: transparent;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0;
-	border-radius: 7.5px;
 }
 
 .toolbar .toolbutton:hover {
@@ -886,6 +887,30 @@ a {
 	margin-top: 10px;
 }
 
+/* listview */
+.listview {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+	padding: 0 20px;
+}
+
+.listview_left {
+	display: flex; 
+	align-items: center;
+	gap: 20px;
+}
+.activity-name {
+	font-size: 14px;
+	font-weight: bold;
+	width: 150px;
+	margin-left: 20px;
+}
+
+.activity-version {
+	font-size: 14px;
+}
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
@@ -910,6 +935,12 @@ a {
 
 	.search-field-input {
 		width: 120px !important;
+	}
+}
+
+@media screen and (min-width: 1081px) {
+	.listview {
+		padding: 0 100px 0px 50px;
 	}
 }
 
