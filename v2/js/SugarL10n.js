@@ -43,7 +43,6 @@ const SugarL10n = {
 
 		const vm = this;
 		if (vm.l10n == null) {
-			//get the language preference from the local storage (TEMPORARY SOLUTION TILL WE HAVE CONNECTION FEATURE )
 			vm.language = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 
 			const language = vm.language;
