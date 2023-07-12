@@ -8,13 +8,17 @@ requirejs.config({
 
 const app = Vue.createApp({
 	components: {
-		"firstscreen": FirstScreen,
 		"sugar-localization": SugarL10n,
+		"firstscreen": FirstScreen,
+		"mainscreen": MainScreen,
 	},
 	data() {
 		return {
+			SugarL10n: null,
+			l10n: {
+				stringSearchHome: "",
+			},
 			isFirstScreen: true,
-			l10n: "",
 		}
 	},
 	mounted() {
@@ -22,6 +26,8 @@ const app = Vue.createApp({
 	},
 	methods: {
 		localized(){
+			this.SugarL10n.localize(this.l10n);
+			console.log("this.l10n: ", this.l10n.stringSearchHome);
 			document.getElementById("newuser_text").innerText = this.SugarL10n.get("NewUser");
 			document.getElementById("login_text").innerText = this.SugarL10n.get("Login");
 			document.getElementById("serverurl").innerText = this.SugarL10n.get("ServerUrl");
@@ -33,9 +39,8 @@ const app = Vue.createApp({
 			document.getElementById("back-btn").nextElementSibling.innerText = this.SugarL10n.get("Back");
 			document.getElementById("next-btn").nextElementSibling.innerText = this.SugarL10n.get("Next");
 			document.getElementById("done-btn").nextElementSibling.innerText = this.SugarL10n.get("Done");
-			this.SugarL10n.localize(this.l10n);
 		},
-		
+
 		setIsFirstScreen(value) {
 			this.isFirstScreen = value;
 		},
