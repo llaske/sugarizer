@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Export CSV instead of TXT in Measure.activity
 - Export CSV in Stopwatch activity
 
+### Changed
+- Migrate localization to i18next
+
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
 - Undefined tutorial step in curriculum activity #1293

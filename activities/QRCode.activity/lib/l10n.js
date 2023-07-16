@@ -1,20 +1,20 @@
 define(['i18next.min', 'axios.min'], function (i18next, axios) {
-    const l10n = {};
+    const l10n = {language: {direction: "ltr"}};
     let initialized = false;
 
     l10n.init = async (lang) => {
         await i18next.init({
             lng: lang,
-            debug: true,
             fallbackLng: "en",
             resources: {}
         }).then(() => {
+            l10n.language.direction = i18next.dir();
             l10n.switchTo(lang);
         });
     };
 
-    l10n.get = (key) => {
-        return i18next.t(key);
+    l10n.get = (key, parameter) => {
+        return i18next.t(key, parameter);
     };
 
     l10n.loadLanguageResource = (lang) => {
