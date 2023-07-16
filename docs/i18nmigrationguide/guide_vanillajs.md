@@ -109,7 +109,7 @@ Also remove ```l10n.start();``` activity.setup() function.
 Now remove  ``` "webL10n": "lib/webL10n" ``` from test/loader.js and ```  "webL10n": "github:sugarlabs/webL10n",``` from sugar-web/package.json.
 
 ## Step6: Deleting unnecessary files
-Delete files locale.ini (ini file) and lib/webL10n.js.
+Delete files locale.ini (ini file), po directory and lib/webL10n.js.
 
 Remove statement mentioned below from index.html file.
 ```

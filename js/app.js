@@ -1,10 +1,9 @@
 
 
 // Desktop handling
-define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/datastore", "sugar-web/presence", "settings", "server", "humane", "util", "tutorial", "stats", "autosync", "history", "activities"], function (_l10n, _iconLib, _xoPalette, _radioButtonsGroup, _datastore, _presence, _preferences, _myserver, _humane, _util, _tutorial, _stats, _autosync, _historic, _activities) {
+define(["l10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/datastore", "sugar-web/presence", "settings", "server", "humane", "util", "tutorial", "stats", "autosync", "history", "activities"], function (_l10n, _iconLib, _xoPalette, _radioButtonsGroup, _datastore, _presence, _preferences, _myserver, _humane, _util, _tutorial, _stats, _autosync, _historic, _activities) {
 	// Load required library
 	l10n = _l10n;
-	l10n.start();
 	iconLib = _iconLib;
 	xoPalette = _xoPalette;
 	radioButtonsGroup = _radioButtonsGroup;
@@ -19,7 +18,7 @@ define(["webL10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sug
 	historic = _historic;
 	activities = _activities;
 	util = _util;
-	var toload = 2;
+	var toload = 1;
 	var preferenceset = false;
 
 	// Main program
