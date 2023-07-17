@@ -44,21 +44,28 @@ const ListView = {
 		'icon': Icon,
 	},
 
+	emits: ['activities'],
+
 	data() {
 		return {
 			token: null,
 			favactivities: [],
 			activities: [],
+			// filteredActivities: this.filteredactivities,
 		}
 	},
 
-	props: {
-		// The list of items to display
-	},
+	props: ['filteredactivities'],
 
 	mounted() {
 		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
 		this.getActivities();
+	},
+
+	watch: {
+		filteredactivities: function (value) {
+			this.activities = value;
+		}
 	},
 
 	methods: {
@@ -105,6 +112,7 @@ const ListView = {
 						}
 					}
 					this.activities = list;
+					this.$emit('activities', list);
 					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
 				} else {
 					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
@@ -121,6 +129,7 @@ const ListView = {
 						}
 						else if (response.status == 200) {
 							this.activities = activities;
+							this.$emit('activities', activities);
 							this.favactivities = favactivities;
 						}
 					});
