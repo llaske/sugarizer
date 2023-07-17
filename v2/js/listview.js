@@ -11,20 +11,23 @@ const ListView = {
 								:id="'star' + activity.id"
 								svgfile="./icons/star.svg"
 								:color="getStarColor(activity)"
-								size="24"
+								size="22"
 								:x=0
 								:y=0
 								@click="toggleFavorite(activity)"
-								style="padding: 9px;"
+								style="padding: 10px;"
 							></icon>
-							<icon 
-								:id=activity.id
-								:svgfile="activity.directory + '/' + activity.icon"
-								color="512"
-								size="44"
-								isNative="true"
-								@click="launchActivity(activity)"
-							></icon>
+							<div style="width:44px">
+								<icon 
+									:id=activity.id
+									:svgfile="activity.directory + '/' + activity.icon"
+									color="1280"
+									size="40"
+									isNative="true"
+									@click="launchActivity(activity)"
+									style="padding: 2px;"
+								></icon>
+							</div>
 							<div class="activity-name">{{ activity.name }}</div>
 						</div>
 						<div class="activity-version">Version {{ activity.version }}</div>
@@ -74,7 +77,6 @@ const ListView = {
 			if (response.status == 200) {
 				console.log(response.data);
 				const activities = response.data;
-				console.log(this.activities);
 				this.getUser(activities);
 			}
 		},
@@ -150,10 +152,10 @@ const ListView = {
 			if (response.status == 200) {
 				const iconRef = this.$refs["star" + activity.id][0];
 				console.log(iconRef.colorData)
-				if (iconRef.colorData == 45) {
-					iconRef.colorData = 512;
-				} else if (iconRef.colorData == 512){
-					iconRef.colorData = 45;
+				if (iconRef.colorData == 120) {
+					iconRef.colorData = 256;
+				} else if (iconRef.colorData == 256){
+					iconRef.colorData = 120;
 				};
 			}
 
@@ -169,9 +171,9 @@ const ListView = {
 
 		getStarColor(activity) {
 			if (activity.favorite) {
-				return 45;
+				return 120;
 			} else {
-				return 512;
+				return 256;
 			}
 		},
 
