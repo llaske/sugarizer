@@ -152,7 +152,6 @@ const Icon ={
 			let fill = svg.match(/<!ENTITY\s+fill_color\s+"(.*)">/);
 			let stroke = svg.match(/<!ENTITY\s+stroke_color\s+"(.*)">/);
 			this._originalColor = { fill: fill && fill.length ? fill[1] : null, stroke: stroke && stroke.length ? stroke[1] : null };
-			console.log("fill: "+this._originalColor.fill+" stroke: "+this._originalColor.stroke+" color: "+this.color);
 
 			// Remove ENTITY HEADER
 			let read = svg;
