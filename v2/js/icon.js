@@ -27,9 +27,10 @@ const Icon ={
 			_isSugarNative : this.isNative=="true"? true: false,
 			iconData: this.svgfile,
 			sizeData: this.size? this.size: 55,
-			colorData: this.color? this.color: 512,
+			colorData: this.color? this.color: (this.isNative=="true" ? 0 : 512),
 			xData: this.x ? this.x: 0,
 			yData: this.y ? this.y: 0,
+			_originalColor: { fill: null, stroke: null},
 			_element: null
 		}
 	},
@@ -77,11 +78,11 @@ const Icon ={
 		}, 
 		xData: function(newX, oldX) {
 			var element = this._element;
-			element.setAttribute("style", "margin: "+newX+"px "+this.yData+"px");
+			element.setAttribute("style", "margin: "+newX+"px "+this.yData+"px"+this._generateOriginalColor());
 		}, 
 		yData: function(newY, oldX) {
 			var element = this._element;
-			element.setAttribute("style", "margin: "+this.xData+"px "+newY+"px");
+			element.setAttribute("style", "margin: "+this.xData+"px "+newY+"px"+this._generateOriginalColor());
 		},		
 		sizeData: function(newSize, oldSize) {
 			var element = this._element;
@@ -102,7 +103,7 @@ const Icon ={
 			if (size) {
 				svgElement.setAttribute("width", size+"px");
 				svgElement.setAttribute("height", size+"px");
-				svgElement.setAttribute("style", "margin: "+this.xData+"px "+this.yData+"px");
+				svgElement.setAttribute("style", "margin: "+this.xData+"px "+this.yData+"px"+this._generateOriginalColor());
 				svgElement.setAttribute("preserveAspectRatio", "xMidYMid meet");
 				var img = new Image();
 				img.onload = function() {
@@ -147,6 +148,12 @@ const Icon ={
 			});
 		},
 		_convertSVG(svg, id) {
+			// Get original color
+			let fill = svg.match(/<!ENTITY\s+fill_color\s+"(.*)">/);
+			let stroke = svg.match(/<!ENTITY\s+stroke_color\s+"(.*)">/);
+			this._originalColor = { fill: fill && fill.length ? fill[1] : null, stroke: stroke && stroke.length ? stroke[1] : null };
+			console.log("fill: "+this._originalColor.fill+" stroke: "+this._originalColor.stroke+" color: "+this.color);
+
 			// Remove ENTITY HEADER
 			let read = svg;
 			var buf= read;
@@ -165,11 +172,16 @@ const Icon ={
 		_setColor(vm, color) {
 			let element = vm._element;
 			if (element) {
-				if (color > 179 && color != 256 && color != 512) {
+				if (color > 179 && color != 256 && color != 512 &&  color != 768 && color != 1024) {
 					color = color % 180;
 				}
-				element.setAttribute("class", "xo-color"+color);
+				if (this.color) {
+					element.setAttribute("class", "xo-color"+color);
+				}
 			}
+		},
+		_generateOriginalColor() {
+			return !this.color && this._originalColor.fill && this._originalColor.stroke ? ";--stroke-color:"+this._originalColor.stroke+";--fill-color:"+this._originalColor.fill+";" : "";
 		},
 		_setSize(vm, size) {
 			let element = vm._element;
@@ -188,7 +200,8 @@ const Icon ={
 					iheight = Math.round(parseInt(iheight.replace("pt",""),10)*96/72); // Convert pt to px
 				}
 				// Set Position
-				element.setAttribute("style", "margin: "+vm.xData+"px "+vm.yData+"px");
+				element.setAttribute("style", "margin: "+vm.xData+"px "+vm.yData+"px"+this._generateOriginalColor());
+
 				// Set size
 				element.setAttribute("width", size+"px");
 				element.setAttribute("height", size+"px");
