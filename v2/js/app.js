@@ -18,11 +18,14 @@ const app = Vue.createApp({
 			l10n: {
 				stringSearchHome: "",
 			},
-			isFirstScreen: true,
+			isFirstScreen: null,
+			token: null,
 		}
 	},
 	mounted() {
 		this.SugarL10n = this.$refs.SugarL10n;
+		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
+		this.checkUserLoggedIn();
 	},
 	methods: {
 		localized(){
@@ -43,6 +46,23 @@ const app = Vue.createApp({
 
 		setIsFirstScreen(value) {
 			this.isFirstScreen = value;
+		},
+
+		async checkUserLoggedIn() {
+			const response = await axios.get("/api/v1/users/" + this.token.x_key, {
+				headers: {
+					'x-key': this.token.x_key,
+					'x-access-token': this.token.access_token,
+				},
+			});
+			if (response.status != 200) {
+				this.setIsFirstScreen(true);
+				// throw new Error('Unable to load the user');	
+			}
+			else if (response.status == 200) {
+				this.setIsFirstScreen(false);
+				console.log("User is logged in");
+			}
 		},
 	},
 });
