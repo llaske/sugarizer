@@ -21,13 +21,15 @@ const ListView = {
 								<icon 
 									:id=activity.id
 									:svgfile="activity.directory + '/' + activity.icon"
-									color="1280"
 									size="40"
 									isNative="true"
+									v-on:mouseover="showPopupFunction($event)"
+									v-on:mouseleave="removePopupFunction($event)"
 									@click="launchActivity(activity)"
 									style="padding: 2px;"
 								></icon>
-							</div>
+								</div>
+							
 							<div class="activity-name">{{ activity.name }}</div>
 						</div>
 						<div class="activity-version">Version {{ activity.version }}</div>
@@ -38,10 +40,18 @@ const ListView = {
 							size="44"
 							isNative="true"
 						></icon>
-					</div>`,
+					</div>
+					<popup 
+						ref="popup" 
+						v-bind:item="popup"
+						v-on:mouseleave="removePopupFunction($event)"
+						v-on:itemis-clicked="itemisClicked($event)"
+					></popup>
+				`,
 
 	components: {
 		'icon': Icon,
+		'popup': Popup,
 	},
 
 	emits: ['activities'],
@@ -51,7 +61,8 @@ const ListView = {
 			token: null,
 			favactivities: [],
 			activities: [],
-			// filteredActivities: this.filteredactivities,
+			popupData: null,
+			popup: null, //singular popup data
 		}
 	},
 
@@ -114,6 +125,7 @@ const ListView = {
 					this.activities = list;
 					this.$emit('activities', list);
 					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
+					this.getPopupData();
 				} else {
 					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
 					await axios.put("/api/v1/users/" + this.token.x_key, ({
@@ -131,6 +143,7 @@ const ListView = {
 							this.activities = activities;
 							this.$emit('activities', activities);
 							this.favactivities = favactivities;
+							this.getPopupData();
 						}
 					});
 				}
@@ -163,7 +176,7 @@ const ListView = {
 				console.log(iconRef.colorData)
 				if (iconRef.colorData == 120) {
 					iconRef.colorData = 256;
-				} else if (iconRef.colorData == 256){
+				} else if (iconRef.colorData == 256) {
 					iconRef.colorData = 120;
 				};
 			}
@@ -187,8 +200,65 @@ const ListView = {
 		},
 
 		launchActivity(activity) {
-			const location = activity.directory+"/index.html?aid="+activity.activityId+"&a="+activity.id+"&n="+activity.name;
+			const location = activity.directory + "/index.html?aid=" + activity.activityId + "&a=" + activity.id + "&n=" + activity.name;
 			document.location.href = location;
+		},
+
+		getPopupData() {
+			const popupData = {};
+			const activities = this.activities;
+			activities.forEach(activity => {
+				popupData[activity.id] = {
+					id: activity.id,
+					icon: {
+						id: activity.id + "_popup", 
+						iconData: activity.directory + "/" + activity.icon,
+						color: 120, 
+						size: 30 
+					},
+					name: activity.name,
+					title: null,
+					itemList: [
+						{icon: { id: 1, iconData: activity.directory + "/" + activity.icon, color: 1280, size: 20 }, name: "Start New"},
+						{icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite="true" ? 120: 256 , size: 20 }, name: "Favorite"},
+					],
+					footerList: []
+				};
+			});
+			this.popupData = popupData;
+		},
+
+		showPopupFunction(e) {
+			let itemId, x, y;
+			if (e.target.tagName == 'svg') {
+				itemId = e.target.parentElement.id
+				x = e.clientX - 4;
+				y = e.clientY - 4;
+				console.log(itemId);
+			}
+			else if (e.target.tagName == 'use') {
+				itemId = e.target.parentElement.parentElement.id
+				x = e.clientX;
+				y = e.clientY;
+				console.log(itemId);
+			}
+			else {
+				itemId = e.target.id;
+				x = e.clientX - 12;
+				y = e.clientY - 12;
+				console.log(itemId);
+			}
+			const obj = JSON.parse(JSON.stringify(this.popupData))
+			this.popup = obj[itemId];
+			this.$refs.popup.show(x, y);
+		},
+		removePopupFunction(e) {
+			if (!this.$refs.popup.isCursorInside(e.clientX, e.clientY)) {
+				this.$refs.popup.hide();
+			}
+		},
+		itemisClicked(item) {
+			console.log(item);
 		},
 	},
 };
