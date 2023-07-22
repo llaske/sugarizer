@@ -23,6 +23,7 @@ const Popup ={
 							:size=itemData.icon.size
 							:x=itemData.icon.iconx
 							:y=itemData.icon.icony
+							:isNative=itemData.icon.isNative
 						>
 						</icon>
 						<div>
@@ -45,6 +46,7 @@ const Popup ={
 										:size=ele.icon.size
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
 									></icon>
 									<div class="item-name">{{ ele.name }}</div>
 								</div>
@@ -66,6 +68,7 @@ const Popup ={
 										:size=ele.icon.size
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
 									></icon>
 									<div class="item-name">{{ ele.name }}</div>
 								</div>
