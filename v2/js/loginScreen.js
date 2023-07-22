@@ -312,8 +312,6 @@ const LoginScreen = {
 				const colorNumber = this.$refs.buddyIcon.colorData;
 
 				requirejs(['lib/xocolor.js'], (xocolor) => {
-					console.log(xocolor);
-					console.log(this.details.color);
 					this.details.color = xocolor.colors[colorNumber];
 					console.log(this.details.color);
 
