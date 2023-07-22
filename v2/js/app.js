@@ -23,9 +23,8 @@ const app = Vue.createApp({
 		}
 	},
 	mounted() {
-		this.SugarL10n = this.$refs.SugarL10n;
-		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
 		this.checkUserLoggedIn();
+		this.SugarL10n = this.$refs.SugarL10n;
 	},
 	methods: {
 		localized(){
@@ -48,20 +47,26 @@ const app = Vue.createApp({
 			this.isFirstScreen = value;
 		},
 
-		async checkUserLoggedIn() {
-			const response = await axios.get("/api/v1/users/" + this.token.x_key, {
-				headers: {
-					'x-key': this.token.x_key,
-					'x-access-token': this.token.access_token,
-				},
-			});
-			if (response.status != 200) {
+		checkUserLoggedIn() {
+			if (localStorage.getItem("sugar_settings") !== null && localStorage.getItem("sugar_settings") !== undefined && localStorage.getItem("sugar_settings") !== "{}") {
+				this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
+				axios.get("/api/v1/users/" + this.token.x_key, {
+					headers: {
+						'x-key': this.token.x_key,
+						'x-access-token': this.token.access_token,
+					},
+				}).then((response) => {
+					if (response.status == 200) {
+						this.setIsFirstScreen(false);
+					} else {
+						this.setIsFirstScreen(true);
+					}
+				}).catch((error) => {
+					console.log("Error: ", error);
+					this.setIsFirstScreen(true);
+				});
+			} else {
 				this.setIsFirstScreen(true);
-				// throw new Error('Unable to load the user');	
-			}
-			else if (response.status == 200) {
-				this.setIsFirstScreen(false);
-				console.log("User is logged in");
 			}
 		},
 	},
