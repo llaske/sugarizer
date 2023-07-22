@@ -11,77 +11,12 @@ Currently translation strings are stored in ini files but to adapt it to i18next
 
 To achieve that you can use the following [script](https://github.com/llaske/l10nstudy/blob/master/ini2json.js).
 
-## Step3: Modifying SugarL10n component
-**3.1. Add methods**  
-Add two methods loadLanguageFile and subscribeLanguageChange in the methods block.
-```
-loadLanguageFile: function (language) {
-			const vm = this;
-			requirejs(['lib/i18next.min.js', 'lib/axios.min.js'], function (i18next, axios) {
-				axios.get(`./locales/${language}.json`).then((response) => {
-					i18next.init(
-						{
-							lng: language,
-							fallbackLng: 'en',
-							debug: true,
-							resources: {
-								[language]: {
-									translation: response.data
-								}
-							},
-						},
-						() => {
-							vm.l10n = i18next;
-							vm.code = i18next.language;
-							vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
-							vm.subscribeLanguageChange();
-							vm.activityInitialized = true;
-						}
-					);
-				}).catch((error) => {
-					vm.loadLanguageFile('en'); // Load default language
-					console.log(error);
-				});
-			});
-		},
+## Step3: Downloading New SugarL10n component
+Replace the current SugarL10n component present in the js/components directory with the [new SugarL10n Component](/activities/Measure.activity/js/components/SugarL10n.js).
 
-		subscribeLanguageChange: function () {
-			const vm = this;
-			requirejs(['lib/i18next.min.js'], function (i18next) {
-				i18next.on('languageChanged', (lng) => {
-					vm.code = lng;
-					vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
-					vm.$emit('localized');
-					vm.eventReceived = true;
-				});
-			});
-		},  
-```
 Here, *loadLanguageFile* Method is responsible for loading the language file and initializing the i18next. After initializing i18next, the method updates various properties of the Vue instance. The l10n property is assigned the initialized i18next instance, code is updated with the current language code obtained from i18next.language, and dictionary is set with the translation resource bundle for the current language, accessed using i18next.getResourceBundle
 
 *subscribeLanguageFile* Method sets up a listener for the 'languageChanged' event in i18next. This event is triggered whenever the language is changed in i18next. The listener updates the code property with the new language code and updates the dictionary property with the updated translation resource bundle for the new language.
-
-**3.2. Update code in mounted hook**   
-Now in mounted hook block remove the webl10n reference like this:  
-```
-requirejs(['sugar-web/env'], function (env) {
-```
-Remove webl10n code 
-```
-webL10n.language.code = language;
-window.addEventListener("localized", function () {
-	if (!vm.eventReceived) {
-		vm.code = language;
-		vm.dictionary = vm.l10n.dictionary;
-	} else if (webL10n.language.code != language) {
-		webL10n.language.code = language;
-	}
-});
-```
-And replace it with the loadLanguageFile method call.  
-```
-vm.loadLanguageFile(language);
-```
 ## Step4: Remove webl10n reference from sugarweb
 Navigate to lib/sugarweb/activity.js and first remove webl10n code from requirejs statement like this.
 
