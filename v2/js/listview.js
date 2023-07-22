@@ -92,8 +92,7 @@ const ListView = {
 				throw new Error('Unable to load the activities');
 			}
 
-			if (response.status == 200) {
-				console.log(response.data);
+			if (response.status == 200 || response.status == 304) {
 				const activities = response.data;
 				this.getUser(activities);
 			}
@@ -235,19 +234,16 @@ const ListView = {
 				itemId = e.target.parentElement.id
 				x = e.clientX - 4;
 				y = e.clientY - 4;
-				console.log(itemId);
 			}
 			else if (e.target.tagName == 'use') {
 				itemId = e.target.parentElement.parentElement.id
 				x = e.clientX;
 				y = e.clientY;
-				console.log(itemId);
 			}
 			else {
 				itemId = e.target.id;
 				x = e.clientX - 12;
 				y = e.clientY - 12;
-				console.log(itemId);
 			}
 			const obj = JSON.parse(JSON.stringify(this.popupData))
 			this.popup = obj[itemId];
