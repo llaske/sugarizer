@@ -211,16 +211,17 @@ const ListView = {
 				popupData[activity.id] = {
 					id: activity.id,
 					icon: {
-						id: activity.id + "_popup", 
+						id: activity.id + "_popup",
 						iconData: activity.directory + "/" + activity.icon,
-						color: 120, 
-						size: 30 
+						color: 120,
+						size: 30,
+						isNative: "true"
 					},
 					name: activity.name,
 					title: null,
 					itemList: [
-						{icon: { id: 1, iconData: activity.directory + "/" + activity.icon, color: 1280, size: 20 }, name: "Start New"},
-						{icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite="true" ? 120: 256 , size: 20 }, name: "Favorite"},
+						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20,isNative: "true" }, name: "Start New"},
+						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? 120 : 256, size: 20 }, name: "Favorite"},
 					],
 					footerList: []
 				};
