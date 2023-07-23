@@ -150,13 +150,15 @@ const ListView = {
 		},
 
 		async toggleFavorite(activity) {
-			if (!activity.favorite) {
-				this.favactivities.push(activity.id);
-				console.log(this.favactivities)
-			} else if (activity.favorite) {
-				this.favactivities = this.favactivities.filter((favactivity) => favactivity != activity.id);
+
+			const index = this.favactivities.indexOf(activity.id);
+			if (index === -1) {
+			  this.favactivities.push(activity.id);
+			} else {
+			  this.favactivities = this.favactivities.filter((favactivity) => favactivity !== activity.id);
+
 			}
-			console.log(this.favactivities)
+
 			const response = await axios.put("/api/v1/users/" + this.token.x_key, ({
 				"user": JSON.stringify({ "favorites": this.favactivities }),
 			}), {
@@ -173,6 +175,7 @@ const ListView = {
 			if (response.status == 200) {
 				const iconRef = this.$refs["star" + activity.id][0];
 				console.log(iconRef.colorData)
+				activity.favorite = !activity.favorite;
 				if (iconRef.colorData == 120) {
 					iconRef.colorData = 256;
 				} else if (iconRef.colorData == 256) {
@@ -201,6 +204,7 @@ const ListView = {
 		launchActivity(activity) {
 			const location = activity.directory + "/index.html?aid=" + activity.activityId + "&a=" + activity.id + "&n=" + activity.name;
 			document.location.href = location;
+			console.log(activity.activityId);
 		},
 
 		getPopupData() {
@@ -209,6 +213,8 @@ const ListView = {
 			activities.forEach(activity => {
 				popupData[activity.id] = {
 					id: activity.id,
+					favorite: activity.favorite,
+					directory: activity.directory,
 					icon: {
 						id: activity.id + "_popup",
 						iconData: activity.directory + "/" + activity.icon,
@@ -219,8 +225,8 @@ const ListView = {
 					name: activity.name,
 					title: null,
 					itemList: [
-						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20,isNative: "true" }, name: "Start New"},
-						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? 120 : 256, size: 20 }, name: "Favorite"},
+						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: "Start New" },
+						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? 120 : 256, size: 20 }, name: "Favorite" },
 					],
 					footerList: []
 				};
@@ -247,6 +253,7 @@ const ListView = {
 			}
 			const obj = JSON.parse(JSON.stringify(this.popupData))
 			this.popup = obj[itemId];
+			console.log(this.popup)
 			this.$refs.popup.show(x, y);
 		},
 		removePopupFunction(e) {
@@ -255,7 +262,12 @@ const ListView = {
 			}
 		},
 		itemisClicked(item) {
-			console.log(item);
+			let favIcon = this.popup.id + "_Favorite";
+			if (item == favIcon) {
+				this.toggleFavorite(this.popup);
+			} else {
+				this.launchActivity(this.popup);
+			}
 		},
 	},
 };
