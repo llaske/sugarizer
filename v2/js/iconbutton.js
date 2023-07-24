@@ -52,7 +52,7 @@ const IconButton ={
 		}
 	},
 	watch: {
-		textData: function(newText, oldText) {
+		text: function(newText, oldText) {
 			this.textData = newText
 		},
 		disabledData: function(newVal, oldVal) {
