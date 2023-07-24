@@ -8,19 +8,19 @@ const LoginScreen = {
 	template: `<div class="loginscreen">
                     <form>
                         <div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
-                            <div class="firstscreen_text" id="serverurl"></div>
+                            <div class="firstscreen_text" id="serverurl">{{l10n.stringServerUrl}}</div>
                             <input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
                         </div>
                         <div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
-                            <div class="firstscreen_text" id="name">Name:</div>
+                            <div class="firstscreen_text" id="name">{{l10n.stringName}}</div>
                             <input ref="nameInput" type="text" class="input_field" v-model="details.name" @keyup="handleEnterKey">
                         </div>
                         <div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
-                            <div class="firstscreen_text" id="pass_text"></div>
+                            <div class="firstscreen_text" id="pass_text">{{l10n.stringPassword}}</div>
                             <password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
                         </div>
                         <div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3" >
-                            <div class="firstscreen_text" id="buddyicon_text"></div>
+                            <div class="firstscreen_text" id="buddyicon_text">{{l10n.stringClickToColor}}</div>
                             <icon
                                 ref="buddyIcon" 
                                 id="buddy_icon"
@@ -43,9 +43,9 @@ const LoginScreen = {
                                 y="0"
                                 isNative="true"
                             ></icon>
-                            <div class="login-policytext" id="loginscreen_cookietext">
+                            <div class="login-policytext" id="loginscreen_cookietext" v-html="l10n.stringCookieConsent">
                             </div>
-                            <div class="login-policytext" id="loginscreen_policytext">
+                            <div class="login-policytext" id="loginscreen_policytext" v-html="l10n.stringPolicyLink">
                             </div>
                         </div>
                     </form>
@@ -74,6 +74,7 @@ const LoginScreen = {
                             color="1024"
                             x="0"
                             y="0" 
+									 :text="l10n.stringBack"
                             @click="prevItem" 
                         ></icon-button>
                     </div>
@@ -86,6 +87,7 @@ const LoginScreen = {
                             color="1024"
                             x="0"
                             y="0" 
+									 :text="l10n.stringNext"
                             @click="nextItem" 
                         ></icon-button>
                     </div>
@@ -98,6 +100,7 @@ const LoginScreen = {
                             color="1024"
                             x="0"
                             y="0" 
+									 :text="l10n.stringDone"
                             type="submit"
                             @click="makeLoginRequest()" 
                         ></icon-button>
@@ -114,7 +117,8 @@ const LoginScreen = {
 			isLogin: Boolean,
 			isNewuser: Boolean,
 			isPrevUser: Object,
-		}
+		},
+		l10n: Object,
 	},
 
 	data() {
@@ -194,12 +198,12 @@ const LoginScreen = {
 						this.index.currentIndex++;
 					} else if (this.userType.isNewuser && userexists) {
 						this.warning.show = true;
-						this.warning.text = "User already exists";
+						this.warning.text = this.l10n.stringUserAlreadyExist;
 					} else if (this.userType.isLogin && userexists) {
 						this.index.currentIndex++;
 					} else if (this.userType.isLogin && !userexists) {
 						this.warning.show = true;
-						this.warning.text = "User does not exist";
+						this.warning.text = this.l10n.stringInvalidUser;
 					}
 				}
 				else if (this.index.currentIndex === 2) {

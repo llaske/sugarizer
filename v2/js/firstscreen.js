@@ -9,6 +9,7 @@ const FirstScreen = {
                     <div class="firstscreen_login" v-show="showLoginScreen" >
                         <login-screen
                             :userType="userType"
+									 :l10n="l10n"
                             @propModified="handleLoginScreenPropModified" 
                             @updateIsFirstScreen="setIsFirstScreen2"
                         />
@@ -25,7 +26,7 @@ const FirstScreen = {
                                     isNative="true"
                                     @click="loadLoginScreen('newuser')"
                                  ></icon>
-                                <div class="firstscreen_text" id="newuser_text"></div>
+                                <div class="firstscreen_text" id="newuser_text">{{l10n.stringNewUser}}</div>
                             </div>
                         </div>
                         <div class="firstscreen_login">
@@ -39,7 +40,7 @@ const FirstScreen = {
                                     isNative="true"
                                     @click="loadLoginScreen('login')"
                                 ></icon>
-                                <div class="firstscreen_text" id="login_text"></div>
+                                <div class="firstscreen_text" id="login_text">{{l10n.stringLogin}}</div>
                             </div>                        
                         </div>
                         <div class="previoususer">
@@ -66,6 +67,8 @@ const FirstScreen = {
 	},
 
 	emits: ['showmainscreen'],
+
+	props: ['l10n'],
 
 	data() {
 		return {
