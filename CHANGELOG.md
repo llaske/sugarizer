@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Chart Activity
+- Word Puzzle Template in Exerciser activity
 - CSV support in the Journal
 - Export CSV instead of TXT in Measure.activity
 - Export CSV in Stopwatch activity
