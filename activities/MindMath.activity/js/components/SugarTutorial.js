@@ -1,5 +1,6 @@
 // Tutorial component based on bootstrap tour
 const SugarTutorial= {
+	render() {},
 	data: function () {
 		return {
 			l10n: {

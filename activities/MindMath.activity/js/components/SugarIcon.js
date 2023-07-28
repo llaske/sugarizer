@@ -1,4 +1,5 @@
 const SugarIcon= {
+	render() {},
 	data: function () {
 		return {
 			icon: null

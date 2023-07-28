@@ -1,4 +1,5 @@
 const SugarPresence= {
+	render() {},
 	data: function () {
 		return {
 			activity: null,
