@@ -1,4 +1,5 @@
-Vue.component('sugar-icon', {
+const SugarIcon= {
+	render() {},
 	data: function () {
 		return {
 			icon: null
@@ -37,7 +38,7 @@ Vue.component('sugar-icon', {
 			});
 		}
 	}
-})
+};
 
 let getBackgroundURL = function (el) {
 	var style = el.currentStyle || window.getComputedStyle(el, '');

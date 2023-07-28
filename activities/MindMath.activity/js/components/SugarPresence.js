@@ -1,4 +1,5 @@
-Vue.component('sugar-presence', {
+const SugarPresence= {
+	render() {},
 	data: function () {
 		return {
 			activity: null,
@@ -111,4 +112,4 @@ Vue.component('sugar-presence', {
 			}
 		}
 	}
-});
+};
