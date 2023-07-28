@@ -20,6 +20,17 @@ html, button {
 	cursor: url(../icons/ArrowSmall.cur), default;
 }
 
+::-webkit-scrollbar {
+    width: 11px;
+    background-color: #808080;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: white;
+	border: 2px solid #dddddd;
+	border-radius: 11px;
+}
+
 /* common styles */
 .sugarizer-canvas {
 	background-color: white;
