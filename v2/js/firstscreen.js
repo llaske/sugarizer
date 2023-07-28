@@ -98,7 +98,6 @@ const FirstScreen = {
 			try {
 				this.prevUsers = JSON.parse(localStorage.getItem('sugar_history')).reverse();
 			} catch (error) {
-				console.error('Error parsing previous users:', error);
 				this.prevUsers = [];
 			}
 		},
