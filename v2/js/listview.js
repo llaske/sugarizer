@@ -228,7 +228,6 @@ const ListView = {
 						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: "Start New" },
 						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? 120 : 256, size: 20 }, name: "Favorite" },
 					],
-					footerList: []
 				};
 			});
 			this.popupData = popupData;
