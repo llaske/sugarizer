@@ -1,0 +1,21 @@
+{
+	"QRCodeSaved": "QR Code enregistré dans le journal",
+	"TutoPrev": "Préc",
+	"TutoNext": "Suiv",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Activité QRCode",
+	"TutoExplainContent": "Bienvenue dans l'activité QRCode. L'activité QRCode est un simple générateur et lecteur de QR Codes",
+	"TutoPhotoTitle": "Lire QR Code",
+	"TutoPhotoContent": "Cliquez ici pour lire un QR Code avec la caméra de votre machine",
+	"TutoPNGTitle": "Exporter en PNG",
+	"TutoPNGContent": "Cliquez ici pour exporter le QR Code dans le Journal sous forme d'un fichier PNG",
+	"TutoGenerateTitle": "Générer",
+	"TutoGenerateContent": "Cliquez sur cet icône pour lancer la génération",
+	"TutoListTitle": "Historique",
+	"TutoListContent": "Cliquez ici pour afficher la liste des QR Codes générés précédemment",
+	"TutoQRTitle": "QR Code",
+	"TutoQRContent": "Ici s'affiche le QR Code généré",
+	"TutoInputTitle": "Texte à générer",
+	"TutoInputContent": "Tapez ici le texte que vous voulez générer sous forme de QR Code",
+	"Text": "Tapez le texte ici"
+}

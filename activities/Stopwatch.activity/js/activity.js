@@ -1,4 +1,5 @@
 define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial", "webL10n"], function (activity,mustache,env, tutorial, webL10n) {
+    
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -273,6 +274,42 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial", "
 
     document.getElementById("help-button").addEventListener('click', function(e) {
         tutorial.start();
+    });
+
+    document.getElementById("export-csv-button").addEventListener('click', function() {
+        var stopwatchData = document.getElementById("stopwatch-list").getElementsByTagName("li");
+        var csvContent = "Marks No.,Time (s),Marks,Counter\n";
+        var marksSet = [];
+
+        for (i = 0; i < stopwatchData.length; i++) { 
+            var marks = stopwatchData[i].getElementsByClassName("marks")[0].innerHTML.split(" - ");
+            for (var j = 0; j < marks.length; j++) {
+                if (marks.length === 1 && !marks[0]) break;
+                var mark = marks[j];
+
+                var minutes = parseInt(mark.split(":")[0]);
+                var sec = parseInt(mark.split(":")[1]);
+                var tenthsOfSec = parseInt(mark.split(":")[2]);
+                var time = (minutes * 60) + sec + (tenthsOfSec / 10); 
+
+                if (!marksSet.includes(mark)) marksSet.push(mark);
+                var markNo = marksSet.indexOf(mark) + 1;
+                csvContent += `${markNo},${time || ""},${mark},${i+1}\n`;
+            };
+        }
+        var metadata = {
+            mimetype: "text/csv",
+            title: "Stopwatch export.csv",
+            activity: "org.sugarlabs.ChartActivity",
+            timestamp: new Date().getTime(),
+            creation_time: new Date().getTime(),
+            file_size: 0
+        };
+        requirejs(["sugar-web/datastore", "humane"], function (datastore, humane) {
+            datastore.create(metadata, function () {
+                humane.log(webL10n.get("exportAsCSV"));
+            }, csvContent);
+        });
     });
 
 });

@@ -6,6 +6,10 @@
   background-image: url(../icons/help.svg);
 }
 
+#main-toolbar #export-csv-button {
+  background-image: url(../icons/save-as-csv.svg);
+}
+
 /*Add image to fullscreen/unfullscreen button*/
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);

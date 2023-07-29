@@ -5,10 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Chart Activity
+- Word Puzzle Template in Exerciser activity
+- CSV support in the Journal
+- Export CSV instead of TXT in Measure.activity
+- Export CSV in Stopwatch activity
+
+### Changed
+- Migrate localization to i18next
+
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
 - Undefined tutorial step in curriculum activity #1293
 - Bad cursor pointer on scrollbar #1281
+- Extra white space to right side of the buttons #1124
+- Migrating Measure activity to i18next #1362
 
 ## [1.7.0] - 2023-03-28
 ### Added
