@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+  <!ENTITY stroke_color "#FFFFFF">
+  <!ENTITY fill_color "#808080">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240">
+  <rect x="15" y="0" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="115" y="0" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="215" y="0" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="15" y="80" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="115" y="80" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="215" y="80" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="15" y="160" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="115" y="160" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+  <rect x="215" y="160" width="90" height="80" stroke-width="10" stroke="&stroke_color;" fill="&fill_color;"/>
+</svg>

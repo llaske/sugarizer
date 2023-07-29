@@ -1,0 +1,21 @@
+{
+	"QRCodeSaved": "Código QR exportado a la biblioteca",
+	"TutoPrev": "Ant",
+	"TutoNext": "Sig",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Actividad \"Código QR\"",
+	"TutoExplainContent": "Bienvenido a la actividad \"Código QR\". En esta actividad, el alumno aprenderá a usar un generador y lector de códigos QR",
+	"TutoPhotoTitle": "Leer código QR",
+	"TutoPhotoContent": "Haz clic aquí para escanear un código QA usando la cámara de tu dispositivo",
+	"TutoPNGTitle": "Exportar a PNG",
+	"TutoPNGContent": "Haz clic aquí para exportar el código QR a tu biblioteca como archivo PNG",
+	"TutoGenerateTitle": "Generar",
+	"TutoGenerateContent": "Haz clic en este icono para generar un código",
+	"TutoListTitle": "Historial",
+	"TutoListContent": "Haz clic aquí para ver una lista de los códigos QR que has generado",
+	"TutoQRTitle": "Código QR",
+	"TutoQRContent": "Aquí se muestra el código QR generado",
+	"TutoInputTitle": "Texto a generar",
+	"TutoInputContent": "Escribe aquí el texto que quieres incluir como contenido de tu código QR",
+	"Text": "Escribe el texto aquí"
+}

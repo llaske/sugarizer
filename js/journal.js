@@ -248,6 +248,8 @@ enyo.kind({
 			} else if (entry.metadata.mimetype == "application/vnd.oasis.opendocument.text") {
 				activityIcon = {directory: "icons", icon: "application-x-odt.svg"};
 			}
+		} else if (entry.metadata.mimetype == "text/csv") {
+			activityIcon = {directory: "icons", icon: "application-x-csv.svg"};
 		}
 		inEvent.item.$.activity.setIcon(activityIcon);
 		inEvent.item.$.favorite.setIcon({directory: "icons", icon: "emblem-favorite-large.svg"});
@@ -1324,7 +1326,7 @@ enyo.kind({
 	fromDeviceSelected: function() {
 		if (util.getClientType() == constant.webAppType || util.platform.android || util.platform.ios || (util.getClientType() == constant.appType && !util.platform.electron)) {
 			if (!util.platform.android && !util.platform.ios) {
-				this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt");
+				this.$.file.setNodeProperty("accept", ".png,.jpg,.wav,.webm,.json,.mp3,.mp4,.pdf,.txt,.doc,.odt,.csv,.tsv");
 			}
 			this.$.file.setNodeProperty("multiple", "true");
 			this.$.file.hasNode().click();

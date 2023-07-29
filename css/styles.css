@@ -851,7 +851,7 @@ body {
 	margin-top: 10px;
 	width:inherit;
 	padding-left: 38px;
-	padding-right: 38px;
+	padding-right: 28px;
 	color: white;
 	display: inline-block;
 }
@@ -1353,14 +1353,14 @@ body {
 	position: absolute;
 	left: 50px;
 	bottom: 50px;
-	width: 120px;
+	width: fit-content;
 }
 
 .first-rightbutton {
 	position: absolute;
 	right: 50px;
 	bottom: 50px;
-	width: 120px;
+	width: fit-content;
 }
 
 .first-historybox {
