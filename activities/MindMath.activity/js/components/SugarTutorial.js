@@ -6,23 +6,14 @@ const SugarTutorial= {
 			l10n: {
 				stringTutoPrev: 'Prev',
 				stringTutoNext: 'Next',
-				stringTutoEnd: 'End',
 			}
 		}
-	},
-	mounted() {
-		let vm = this;
-		var localizeCheck = function() {
-			var SugarL10n = vm.$root.$refs.SugarL10n;
-			if (SugarL10n.activityInitialized) {
-				SugarL10n.localize(vm.l10n)
-			} else {
-				window.setTimeout(localizeCheck, 100);
-			}
-		}
-		window.setTimeout(localizeCheck, 100);
 	},
 	methods: {
+		activityLocalized: function (localize) {
+			localize(this.l10n);
+		},
+
 		show: function (steps) {
 			steps= steps.filter(function (obj) {
 				return !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none');

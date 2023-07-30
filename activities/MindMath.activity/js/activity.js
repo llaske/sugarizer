@@ -155,7 +155,7 @@ const app = Vue.createApp({
   },
   mounted: function() {
     var vm = this;
-    // vm.SugarPresence = vm.$refs.SugarPresence;
+    vm.SugarPresence = vm.$refs.SugarPresence;
     vm.SugarL10n = vm.$refs.SugarL10n;
     vm.sugarPopup = vm.$refs.SugarPopup;
     vm.SugarJournal = vm.$refs.SugarJournal;
@@ -273,6 +273,7 @@ const app = Vue.createApp({
     initialized: function() {
       var vm = this;
       // Initialize Sugarizer
+      vm.SugarL10n.activityInit();
       vm.currentenv = vm.$refs.SugarActivity.getEnvironment();
 
       document.getElementById('app').style.background = vm.currentenv.user.colorvalue.stroke;
@@ -289,6 +290,7 @@ const app = Vue.createApp({
     },
 
     localized: function() {
+      this.$refs.SugarTutorial.activityLocalized(this.SugarL10n.localize);
       document.getElementById('next-slot-text').innerHTML = this.SugarL10n.get("NextSlot");
       document.getElementById('no-timer-button').innerHTML = this.SugarL10n.get("NoTimer");
       document.getElementById('easy-button').title = this.SugarL10n.get("EasyLevel");
