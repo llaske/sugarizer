@@ -904,6 +904,11 @@ a {
 	margin-top: 10px;
 }
 
+#loginscreen_password {
+	position: relative;
+	top: -10vh;
+}
+
 /* listview */
 .listview {
 	display: flex;
