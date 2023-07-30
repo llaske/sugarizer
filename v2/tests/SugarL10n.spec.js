@@ -1,5 +1,5 @@
 const { mount } = require('@vue/test-utils');
-const { SugarL10n } = require('../js/SugarL10n.js');
+const { SugarL10n } = require('../js/components/SugarL10n.js');
 
 const axiosGetMock = jest.fn().mockResolvedValue({ data: {} });
 const i18nextInitMock = jest.fn();

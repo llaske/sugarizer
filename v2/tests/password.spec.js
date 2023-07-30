@@ -1,5 +1,5 @@
 const { mount } = require('@vue/test-utils');
-const { Password } = require('../js/password.js');
+const { Password } = require('../js/components/password.js');
 
 // Promise to wait a delay
 const delay = time => new Promise(resolve => setTimeout(resolve, time));

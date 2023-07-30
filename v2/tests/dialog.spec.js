@@ -1,7 +1,7 @@
 const { mount } = require('@vue/test-utils');
-if (typeof Icon == 'undefined') Icon = require('../js/icon.js').Icon;
-if (typeof SearchField == 'undefined') SearchField = require('../js/searchfield.js').SearchField;
-const { Dialog } = require('../js/dialog.js');
+if (typeof Icon == 'undefined') Icon = require('../js/components/icon.js').Icon;
+if (typeof SearchField == 'undefined') SearchField = require('../js/components/searchfield.js').SearchField;
+const { Dialog } = require('../js/components/dialog.js');
 
 const path = require('path');
 const filename = path.dirname(__filename);

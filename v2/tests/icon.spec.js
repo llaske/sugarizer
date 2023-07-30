@@ -18,7 +18,7 @@ if (typeof axios == 'undefined') axios = {
         }
     }
 }
-const { Icon } = require('../js/icon.js');
+const { Icon } = require('../js/components/icon.js');
 
 const path = require('path');
 const filename = path.dirname(__dirname);
