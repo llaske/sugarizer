@@ -129,7 +129,7 @@ const LoginScreen = {
 			},
 			index: {
 				minIndex: 0,
-				currentIndex: 0,
+				currentIndex: null,
 				maxIndex: 3,
 			},
 			details: {
@@ -150,6 +150,22 @@ const LoginScreen = {
 				this.checkMethodType();
 				console.log(val);
 				console.log(this.index);
+			}
+		},
+
+		'index.currentIndex': function (val) {
+			if (val === 0) {
+				this.$nextTick(() => {
+					this.$refs.serverAddress.focus();
+				});
+			} else if (val === 1) {
+				this.$nextTick(() => {
+					this.$refs.nameInput.focus();
+				});
+			} else if (val === 2) {
+				this.$nextTick(() => {
+					this.$refs.passwordInput.$refs.password.focus();
+				});
 			}
 		}
 	},
