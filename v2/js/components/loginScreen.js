@@ -1,5 +1,5 @@
 /**
- * @module FirstScreen
+ * @module LoginScreen
  * @desc This is the login screen component
  */
 
@@ -148,8 +148,6 @@ const LoginScreen = {
 			deep: true,
 			handler(val) {
 				this.checkMethodType();
-				console.log(val);
-				console.log(this.index);
 			}
 		},
 
