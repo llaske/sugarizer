@@ -931,6 +931,12 @@ a {
 .activity-version {
 	font-size: 14px;
 }
+
+/* homescreen */
+.homescreen {
+	display: flex;
+	flex-wrap: wrap;
+}
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {

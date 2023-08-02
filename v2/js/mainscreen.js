@@ -36,7 +36,7 @@ const MainScreen = {
 					</div>
 					<div class="sugarizer-desktop" >
 						<listview v-if="screentype==='list'" @activities="setActivities" :filteredactivities="filteredactvities"/>
-						<div v-else-if="screentype==='home'"> Home </div>
+						<homescreen v-else-if="screentype==='home'"/>
 						<div v-else-if="screentype==='neighbor'"> Neighbor </div>
 					</div>
 					`,
@@ -44,6 +44,7 @@ const MainScreen = {
 		'searchfield': SearchField,
 		'icon': Icon,
 		'listview': ListView,
+		'homescreen': HomeScreen
 	},
 	props: {
 		searchhome: String,
@@ -51,7 +52,7 @@ const MainScreen = {
 
 	data: function () {
 		return {
-			screentype: 'list',
+			screentype: 'home',
 			activities: [],
 			filteredactvities: [],
 		}
