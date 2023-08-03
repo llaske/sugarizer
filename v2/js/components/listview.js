@@ -174,13 +174,17 @@ const ListView = {
 
 			if (response.status == 200) {
 				const iconRef = this.$refs["star" + activity.id][0];
-				console.log(iconRef.colorData)
 				activity.favorite = !activity.favorite;
 				if (iconRef.colorData == 120) {
 					iconRef.colorData = 256;
 				} else if (iconRef.colorData == 256) {
 					iconRef.colorData = 120;
 				};
+
+				this.popupData[activity.id].favorite = activity.favorite;
+				this.popupData[activity.id].itemList[1].icon.color = activity.favorite ? 120 : 256;
+				this.popup.favorite = activity.favorite;
+				this.popup.itemList[1].icon.color = activity.favorite ? 120 : 256;
 			}
 
 		},

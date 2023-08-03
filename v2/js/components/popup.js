@@ -90,9 +90,12 @@ const Popup ={
 		}
 	},
 	watch: {
-		item: async function(newItem, oldItem){
-			this.itemData= newItem;
-			this.iconKey= !this.iconKey;
+		item: {
+			deep: true,
+			handler: function(newItem) {
+				this.itemData= newItem;
+				this.iconKey= !this.iconKey;
+			}
 		}
 	},
 	updated: function() {
