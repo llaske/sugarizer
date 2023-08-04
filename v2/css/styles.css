@@ -906,7 +906,7 @@ a {
 
 #loginscreen_password {
 	position: relative;
-	top: -10vh;
+	top: -15vh;
 }
 
 /* listview */
@@ -981,7 +981,7 @@ a {
 		top: 15vh;
 	}
 
-	#loginscreen_password , #loginscreen_iconchoice, #loginscreen_privacy{
+	#loginscreen_iconchoice, #loginscreen_privacy{
 		position: relative;
 		top: -10vh;
 	}
