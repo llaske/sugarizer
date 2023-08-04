@@ -6,6 +6,17 @@
 const FirstScreen = {
 	name: 'FirstScreen',
 	template: `<div class="firstscreen">
+						  <div class="firstscreen_help">
+								<icon
+									id="help-icon"
+									svgfile="/icons/help.svg"
+									size="50"
+									x="0"
+									y="0"
+									color="256"
+									isNative="true"
+								></icon>
+						  </div>
                     <div class="firstscreen_login" v-show="showLoginScreen" >
                         <login-screen
                             :userType="userType"

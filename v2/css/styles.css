@@ -909,6 +909,12 @@ a {
 	top: -15vh;
 }
 
+.loginscreen_help, .firstscreen_help {
+	position: fixed;
+	top: 60px;
+	left: 30px;
+ }
+
 /* listview */
 .listview {
 	display: flex;

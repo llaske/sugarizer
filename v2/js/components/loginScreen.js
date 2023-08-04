@@ -6,7 +6,18 @@
 const LoginScreen = {
 	name: 'LoginScreen',
 	template: `<div class="loginscreen">
-                    <form>
+							<div class="loginscreen_help">
+								<icon
+									id="help-icon"
+									svgfile="/icons/help.svg"
+									size="50"
+									x="0"
+									y="0"
+									color="256"
+									isNative="true"
+								></icon>
+							</div>
+                  	<form>
                         <div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
                             <div class="firstscreen_text" id="serverurl">{{l10n.stringServerUrl}}</div>
                             <input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
@@ -48,7 +59,7 @@ const LoginScreen = {
                             <div class="login-policytext" id="loginscreen_policytext" v-html="l10n.stringPolicyLink">
                             </div>
                         </div>
-                    </form>
+                    	</form>
                 </div>
                 <div class="loginscreen_warning" v-if="warning.show">
                     <icon 
