@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bad cursor pointer on scrollbar #1281
 - Extra white space to right side of the buttons #1124
 - Migrating Measure activity to i18next #1362
+- Unable to create password mainly based on numbers #1380
 
 ## [1.7.0] - 2023-03-28
 ### Added
