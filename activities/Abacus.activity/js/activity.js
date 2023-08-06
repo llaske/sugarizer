@@ -4,7 +4,7 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activ
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		requirejs(["sugar-web/env","sugar-web/datastore","fraction","activity/abacuspalette","activity/custompalette","tutorial","webL10n"], function(env,datastore,fraction,abacuspalette,custompalette,tutorial,webL10n) {
+		requirejs(["sugar-web/env","sugar-web/datastore","fraction","activity/abacuspalette","activity/custompalette","tutorial","l10n"], function(env,datastore,fraction,abacuspalette,custompalette,tutorial,l10n) {
 			act.setup();
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
@@ -14,7 +14,7 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/game','activ
 				window.addEventListener('localized', function(e) {
 					if (e.language != language) {
 						setTimeout(function() {
-						  webL10n.language.code = language;
+						  l10n.init(language);
 						}, 50);
 					}
 				});
