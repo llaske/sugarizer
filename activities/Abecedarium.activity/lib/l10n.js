@@ -5,7 +5,7 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
     l10n.init = async (lang) => {
         await i18next.init({
             lng: lang,
-            debug: true,
+            debug: false,
             fallbackLng: "en",
             resources: {}
         }).then(() => {
