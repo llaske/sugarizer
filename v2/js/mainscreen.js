@@ -3,10 +3,24 @@
 const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
-					<searchfield :placeholder="searchhome" v-on:input-changed="searchFunction"/> 
+					<div class="tool_leftitems">
+						<searchfield :placeholder="searchhome" v-on:input-changed="searchFunction"/> 
+						<icon 
+							class="toolbutton"
+							id="help-icon"
+							svgfile="/icons/help.svg"
+							size="47"
+							x="0"
+							y="0"
+							color="768"
+							isNative="true"
+						></icon>
+					</div>
 					<div class="tool_rightitems">
 						<icon
 							class="toolbutton"
+							v-bind:class="{ active: screentype === 'home' }"
+							ref="view_home_button"
 							id="view_home_button"
 							svgfile="/icons/view-radial.svg" 
 							color="768"
@@ -16,6 +30,7 @@ const MainScreen = {
 						></icon>
 						<icon
 							class="toolbutton"
+							v-bind:class="{ active: screentype === 'neighbor' }"
 							id="view_neighbor_button"
 							svgfile="/icons/view-neighborhood.svg"
 							color="768"
@@ -25,6 +40,7 @@ const MainScreen = {
 						></icon>
 						<icon
 							class="toolbutton"
+							v-bind:class="{ active: screentype === 'list' }"
 							id="view_list_button"
 							svgfile="/icons/view-list.svg" 
 							color="768"
@@ -34,7 +50,7 @@ const MainScreen = {
 						></icon>
 					</div>
 					</div>
-					<div class="sugarizer-desktop" >
+					<div id="canvas" ref="canvas" class="sugarizer-desktop">
 						<listview v-if="screentype==='list'" @activities="setActivities" :filteredactivities="filteredactvities"/>
 						<homescreen v-else-if="screentype==='home'"/>
 						<div v-else-if="screentype==='neighbor'"> Neighbor </div>
@@ -60,15 +76,13 @@ const MainScreen = {
 
 	watch: {
 		screentype: function (newVal, oldVal) {
-			document.getElementById(`view_${newVal}_button`).style.backgroundColor = '#808080';
-			document.getElementById(`view_${oldVal}_button`).style.backgroundColor = 'transparent';
+			document.getElementById(`view_${newVal}_button`).classList.add('active');
+			document.getElementById(`view_${oldVal}_button`).classList.remove('active');
 		}
 	},
 
 	mounted: function () {
-		console.log(this.searchhome)
-		document.getElementById(`view_${this.screentype}_button`).style.backgroundColor = '#808080';
-
+		document.getElementById(`view_${this.screentype}_button`).classList.add('active');
 	},
 
 	methods: {
