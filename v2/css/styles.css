@@ -663,6 +663,24 @@ a {
 	background-color: black;
 }
 
+.active{
+	background-color: #808080;
+}
+
+.toolbar .toolbutton.active:hover {
+	background-color: #808080;
+}
+
+#view_home_button.active .xo-color768{
+	--fill-color: #808080;
+}
+
+.tool_leftitems {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
 .module-dialog {
 	width: 100%;
 	max-width: 800px;
@@ -939,10 +957,10 @@ a {
 }
 
 /* homescreen */
-.homescreen {
-	display: flex;
-	flex-wrap: wrap;
+.home-icon {
+	position: absolute;
 }
+
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
