@@ -76,13 +76,15 @@ const Icon ={
 			var element = this._element;
 			element.setAttribute("class", "xo-color"+newColor);
 		}, 
-		xData: function(newX, oldX) {
-			var element = this._element;
-			element.setAttribute("style", "margin: "+newX+"px "+this.yData+"px"+this._generateOriginalColor());
+		x: function(newX, oldX) {
+			var iconDiv = this.$refs.icon;
+			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0 0 "+newX+"px"+this._generateOriginalColor());
+			this.xData=newX;
 		}, 
-		yData: function(newY, oldX) {
-			var element = this._element;
-			element.setAttribute("style", "margin: "+this.xData+"px "+newY+"px"+this._generateOriginalColor());
+		y: function(newY, oldX) {
+			var iconDiv = this.$refs.icon;
+			iconDiv.setAttribute("style", "margin: "+newY+"px 0 0 "+this.xData+"px"+this._generateOriginalColor());
+			this.yData=newY;
 		},		
 		sizeData: function(newSize, oldSize) {
 			var element = this._element;
@@ -103,7 +105,7 @@ const Icon ={
 			if (size) {
 				svgElement.setAttribute("width", size+"px");
 				svgElement.setAttribute("height", size+"px");
-				svgElement.setAttribute("style", "margin: "+this.xData+"px "+this.yData+"px"+this._generateOriginalColor());
+				svgElement.setAttribute("style", "margin: "+this.yData+"px 0 0 "+this.xData+"px"+this._generateOriginalColor());
 				svgElement.setAttribute("preserveAspectRatio", "xMidYMid meet");
 				var img = new Image();
 				img.onload = function() {
@@ -199,7 +201,8 @@ const Icon ={
 					iheight = Math.round(parseInt(iheight.replace("pt",""),10)*96/72); // Convert pt to px
 				}
 				// Set Position
-				element.setAttribute("style", "margin: "+vm.xData+"px "+vm.yData+"px"+this._generateOriginalColor());
+				const iconDiv = this.$refs.icon;
+				iconDiv.setAttribute("style", "margin: "+vm.yData+"px 0 0 "+vm.xData+"px"+this._generateOriginalColor());
 
 				// Set size
 				element.setAttribute("width", size+"px");
