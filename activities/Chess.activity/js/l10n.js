@@ -57,7 +57,7 @@ var Localization = {
 
 		// Activity initialization check
 		const SugarActivity = vm.$root.$children.find(function (child) {
-			return child.$options.name == 'SugarActivity';
+			return child.$options.name = 'SugarActivity';
 		});
 		SugarActivity.$on('initialized', function () {
 			vm.activityInitialized = true;
@@ -73,7 +73,7 @@ var Localization = {
 						{
 							lng: language,
 							fallbackLng: 'en',
-							debug: true,
+							debug: false,
 							resources: {
 								[language]: {
 									translation: response.data
