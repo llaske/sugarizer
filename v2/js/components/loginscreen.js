@@ -5,118 +5,116 @@
 
 const LoginScreen = {
 	name: 'LoginScreen',
-	template: `<div class="loginscreen">
-							<div class="loginscreen_help">
-								<icon
-									id="help-icon"
-									svgfile="/icons/help.svg"
-									size="50"
-									x="0"
-									y="0"
-									color="256"
-									isNative="true"
-								></icon>
-							</div>
-                  	<form>
-                        <div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
-                            <div class="firstscreen_text" id="serverurl">{{l10n.stringServerUrl}}</div>
-                            <input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
-                        </div>
-                        <div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
-                            <div class="firstscreen_text" id="name">{{l10n.stringName}}</div>
-                            <input ref="nameInput" type="text" class="input_field" v-model="details.name" @keyup="handleEnterKey">
-                        </div>
-                        <div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
-                            <div class="firstscreen_text" id="pass_text">{{l10n.stringPassword}}</div>
-                            <password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
-                        </div>
-                        <div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3" >
-                            <div class="firstscreen_text" id="buddyicon_text">{{l10n.stringClickToColor}}</div>
-                            <icon
-                                ref="buddyIcon" 
-                                id="buddy_icon"
-                                svgfile="/icons/owner-icon.svg"
-                                :color="Math.floor(Math.random() * 180)"
-                                size="125"
-                                x="0"
-                                is-native="true"
-                                @click="changeColor()"
-                                v-model="details.color"
-                            ></icon>
-                        </div>
-                        <div id="loginscreen_privacy" class="column" v-show="index.currentIndex === 4">
-                            <icon 
-                                id="privacy-icon"
-                                svgfile="./icons/cookie.svg"
-                                size="55"
-                                color="256"
-                                x="0"
-                                y="0"
-                                isNative="true"
-                            ></icon>
-                            <div class="login-policytext" id="loginscreen_cookietext" v-html="l10n.stringCookieConsent">
-                            </div>
-                            <div class="login-policytext" id="loginscreen_policytext" v-html="l10n.stringPolicyLink">
-                            </div>
-                        </div>
-                    	</form>
-                </div>
-                <div class="loginscreen_warning" v-if="warning.show">
-                    <icon 
-                        id="warning-icon"
-                        svgfile="./icons/emblem-warning.svg"
-                        size="35"
-                        color="256"
-                        x="0"
-                        y="0"
-                        isNative="true"
-                    ></icon>
-                    <span id="warning_text">{{ warning.text }}</span>
-                </div>
-
-                <div class="loginscreen_buttons">
-                    <br>
-                    <div class="ls_left_btn">
-                        <icon-button 
-                            id="back-btn"
-                            svgfile="./icons/go-left.svg"
-									 class="ls_icon_btn"
-                            size="28"
-                            color="1024"
-                            x="0"
-                            y="0" 
-									 :text="l10n.stringBack"
-                            @click="prevItem" 
-                        ></icon-button>
-                    </div>
-                    <div class="ls_right_btn" v-show="index.currentIndex !== index.maxIndex">
-                        <icon-button 
-                            id="next-btn"
-                            svgfile="./icons/go-right.svg"
-									 class="ls_icon_btn"
-                            size="28"
-                            color="1024"
-                            x="0"
-                            y="0" 
-									 :text="l10n.stringNext"
-                            @click="nextItem" 
-                        ></icon-button>
-                    </div>
-                    <div class="ls_right_btn" v-show="index.currentIndex === index.maxIndex">
-                        <icon-button 
-                            id="done-btn"
-                            svgfile="./icons/go-right.svg"
-									 class="ls_icon_btn"
-                            size="28"
-                            color="1024"
-                            x="0"
-                            y="0" 
-									 :text="l10n.stringDone"
-                            type="submit"
-                            @click="makeLoginRequest()" 
-                        ></icon-button>
-                    </div>
-                </div>`,
+	template: `
+	<div class="loginscreen">
+	<div class="loginscreen_help">
+		<icon 
+			 id="help-icon"
+			 svgfile="/icons/help.svg"
+			 size="50"
+			 x="0"
+			 y="0"
+			 color="256"
+			 isNative="true"
+		 ></icon>
+	</div>
+	<form>
+		<div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
+			<div class="firstscreen_text" id="serverurl">{{l10n.stringServerUrl}}</div>
+			<input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
+		</div>
+		<div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
+			<div class="firstscreen_text" id="name">{{l10n.stringName}}</div>
+			<input ref="nameInput" type="text" class="input_field" v-model="details.name" @keyup="handleEnterKey">
+		</div>
+		<div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
+			<div class="firstscreen_text" id="pass_text">{{l10n.stringPassword}}</div>
+			<password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
+		</div>
+		<div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3">
+			<div class="firstscreen_text" id="buddyicon_text">{{l10n.stringClickToColor}}</div>
+			<icon 
+				 ref="buddyIcon"
+				 id="buddy_icon"
+				 svgfile="/icons/owner-icon.svg"
+				 :color="Math.floor(Math.random() * 180)"
+				 size="125"
+				 x="0"
+				 is-native="true"
+				 @click="changeColor()"
+				 v-model="details.color"
+			></icon>
+		</div>
+		<div id="loginscreen_privacy" class="column" v-show="index.currentIndex === 4">
+			<icon 
+				 id="privacy-icon"
+				 svgfile="./icons/cookie.svg"
+				 size="55"
+				 color="256"
+				 x="0"
+				 y="0"
+				 isNative="true"
+			></icon>
+			<div class="login-policytext" id="loginscreen_cookietext" v-html="l10n.stringCookieConsent"></div>
+			<div class="login-policytext" id="loginscreen_policytext" v-html="l10n.stringPolicyLink"></div>
+		</div>
+	</form>
+</div>
+<div class="loginscreen_warning" v-if="warning.show">
+	<icon 
+		 id="warning-icon"
+		 svgfile="./icons/emblem-warning.svg"
+		 size="35"
+		 color="256"
+		 x="0"
+		 y="0"
+		 isNative="true"
+	  ></icon>
+	<span id="warning_text">{{ warning.text }}</span>
+</div>
+<div class="loginscreen_buttons">
+	<br>
+	<div class="ls_left_btn">
+		<icon-button
+			 id="back-btn"
+			 svgfile="./icons/go-left.svg"
+			 class="ls_icon_btn"
+			 size="28"
+			 color="1024"
+			 x="0"
+			 y="0"
+			 :text="l10n.stringBack"
+			 @click="prevItem"
+			></icon-button>
+	</div>
+	<div class="ls_right_btn" v-show="index.currentIndex !== index.maxIndex">
+		<icon-button 
+			 id="next-btn"
+			 svgfile="./icons/go-right.svg"
+			 class="ls_icon_btn"
+			 size="28"
+			 color="1024"
+			 x="0"
+			 y="0"
+			 :text="l10n.stringNext"
+			 @click="nextItem"
+			></icon-button>
+	</div>
+	<div class="ls_right_btn" v-show="index.currentIndex === index.maxIndex">
+		<icon-button
+			 id="done-btn"
+			 svgfile="./icons/go-right.svg"
+			 class="ls_icon_btn"
+			 size="28"
+			 color="1024"
+			 x="0"
+			 y="0"
+			 :text="l10n.stringDone"
+			 type="submit"
+			 @click="makeLoginRequest()"
+			></icon-button>
+	</div>
+</div>`,
 	components: {
 		"password": Password,
 		"icon-button": IconButton,
@@ -186,12 +184,12 @@ const LoginScreen = {
 
 		checkMethodType() {
 			if (this.userType.isLogin) {
-				this.index.currentIndex = 0;
-				this.index.minIndex = 0;
+				this.index.currentIndex = 1;
+				this.index.minIndex = 1;
 				this.index.maxIndex = 2;
 			} else if (this.userType.isNewuser) {
-				this.index.currentIndex = 0;
-				this.index.minIndex = 0;
+				this.index.currentIndex = 1;
+				this.index.minIndex = 1;
 				this.index.maxIndex = 4;
 			} else if (this.userType.isPrevUser !== null) {
 				this.index.currentIndex = 2;
