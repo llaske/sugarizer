@@ -1,6 +1,6 @@
 // Localization component
 var Localization = {
-	template: '<div/>',
+	template: '<div/>',	
 	data: function () {
 		return {
 			l10n: null,
@@ -33,37 +33,37 @@ var Localization = {
 	},
 	mounted: function () {
 		const vm = this;
-
+	
 		if (vm.l10n == null) {
 			requirejs(['sugar-web/env'], function (env) {
 				env.getEnvironment((err, environment) => {
 					// Get default language
 					const defaultLanguage =
 						typeof chrome !== 'undefined' &&
-							chrome.app &&
-							chrome.app.runtime
-							? chrome.i18n.getUILanguage()
-							: navigator.language;
+						chrome.app &&
+						chrome.app.runtime
+						? chrome.i18n.getUILanguage()
+						: navigator.language;
 					const language = environment.user
 						? environment.user.language
 						: defaultLanguage;
-
+	
 					if (vm.l10n == null) {
 						vm.loadLanguageFile(language);
 					}
 				});
 			});
 		}
-
+	
 		// Activity initialization check
-		const SugarActivity = vm.$root.$children.find(function (child) {
-			return child.$options.name = 'SugarActivity';
-		});
-		SugarActivity.$on('initialized', function () {
-			vm.activityInitialized = true;
-		});
+		vm.$root.$children.find(function (child) {
+			if (child.$options.name === 'SugarActivity') {
+				child.$on('initialized', function () {
+					vm.activityInitialized = true;
+				});
+			}});
 	},
-
+	
 	methods: {
 		loadLanguageFile: function (language) {
 			const vm = this;
