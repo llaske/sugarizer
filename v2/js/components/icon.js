@@ -76,6 +76,9 @@ const Icon ={
 			var element = this._element;
 			element.setAttribute("class", "xo-color"+newColor);
 		}, 
+		color: function(newColor, oldColor) {
+			this.colorData=newColor;
+		},
 		x: function(newX, oldX) {
 			var iconDiv = this.$refs.icon;
 			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0 0 "+newX+"px"+this._generateOriginalColor());
