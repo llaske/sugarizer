@@ -22,7 +22,7 @@ const HomeScreen = {
 								id="buddy"
 								svgfile="./icons/owner-icon.svg"
 								class="home-icon"
-								color="120"
+								:color="buddycolor"
 								size="104"
 								:x="canvasCenter.x - 52"
 								:y="canvasCenter.y - 52"
@@ -54,6 +54,7 @@ const HomeScreen = {
 			popupData: null,
 			popup: null, // singular popup data
 			username: null,
+			buddycolor: null,
 			constant: {
 				iconSpacingFactor: 1.1,
 				ringInitSpaceFactor: 2.2,
@@ -124,7 +125,12 @@ const HomeScreen = {
 				throw new Error('Unable to load the user');
 			}
 			if (response.status == 200) {
-				console.log(response.data);
+				requirejs(['xocolor'], (xocolor) => {
+					const color = response.data.color;
+					this.buddycolor = xocolor.colors.findIndex(el => {
+						return el.fill === color.fill && el.stroke === color.stroke;
+					});
+				});
 				if (response.data.favorites !== undefined) {
 					const list = activities;
 					for (let i = 0; i < list.length; i++) {
@@ -139,7 +145,6 @@ const HomeScreen = {
 					this.username = response.data.name;
 					this.$emit('activities', list);
 					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
-					this.getPopupData();
 				} else {
 					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
 					await axios.put("/api/v1/users/" + this.token.x_key, ({
@@ -158,7 +163,6 @@ const HomeScreen = {
 							this.username = response.data.name;
 							this.$emit('activities', activities);
 							this.favactivities = favactivities;
-							this.getPopupData();
 						}
 					});
 				}
@@ -187,7 +191,7 @@ const HomeScreen = {
 					icon: {
 						id: activity.id + "_popup",
 						iconData: activity.directory + "/" + activity.icon,
-						color: 120,
+						color: this.buddycolor,
 						size: 30,
 						isNative: "true"
 					},
@@ -201,8 +205,10 @@ const HomeScreen = {
 			this.popupData = popupData;
 		},
 
-		showPopupFunction(e) {
+		async showPopupFunction(e) {
 			let itemId, x, y;
+			await this.getPopupData();
+
 			if (e.target.tagName == 'svg') {
 				itemId = e.target.parentElement.id
 				x = e.clientX - 4;
@@ -228,7 +234,7 @@ const HomeScreen = {
 					icon: {
 						id: "buddy_popup",
 						iconData: "icons/owner-icon.svg",
-						color: 120,
+						color: this.buddycolor,
 						size: 34,
 					},
 					name: this.username,

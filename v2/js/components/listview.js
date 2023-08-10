@@ -63,6 +63,7 @@ const ListView = {
 			activities: [],
 			popupData: null,
 			popup: null, //singular popup data
+			buddycolor: null,
 		}
 	},
 
@@ -110,7 +111,12 @@ const ListView = {
 				throw new Error('Unable to load the user');
 			}
 			if (response.status == 200) {
-				console.log(response.data);
+				requirejs(['xocolor'], (xocolor) => {
+					const color = response.data.color;
+					this.buddycolor = xocolor.colors.findIndex(el => {
+						return el.fill === color.fill && el.stroke === color.stroke;
+					});
+				});
 				if (response.data.favorites !== undefined) {
 					const list = activities;
 					for (let i = 0; i < list.length; i++) {
@@ -124,7 +130,6 @@ const ListView = {
 					this.activities = list;
 					this.$emit('activities', list);
 					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
-					this.getPopupData();
 				} else {
 					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
 					await axios.put("/api/v1/users/" + this.token.x_key, ({
@@ -142,9 +147,9 @@ const ListView = {
 							this.activities = activities;
 							this.$emit('activities', activities);
 							this.favactivities = favactivities;
-							this.getPopupData();
 						}
 					});
+
 				}
 			}
 		},
@@ -153,9 +158,9 @@ const ListView = {
 
 			const index = this.favactivities.indexOf(activity.id);
 			if (index === -1) {
-			  this.favactivities.push(activity.id);
+				this.favactivities.push(activity.id);
 			} else {
-			  this.favactivities = this.favactivities.filter((favactivity) => favactivity !== activity.id);
+				this.favactivities = this.favactivities.filter((favactivity) => favactivity !== activity.id);
 
 			}
 
@@ -175,16 +180,16 @@ const ListView = {
 			if (response.status == 200) {
 				const iconRef = this.$refs["star" + activity.id][0];
 				activity.favorite = !activity.favorite;
-				if (iconRef.colorData == 120) {
+				if (iconRef.colorData == this.buddycolor) {
 					iconRef.colorData = 256;
 				} else if (iconRef.colorData == 256) {
-					iconRef.colorData = 120;
+					iconRef.colorData = this.buddycolor;
 				};
 
 				this.popupData[activity.id].favorite = activity.favorite;
-				this.popupData[activity.id].itemList[1].icon.color = activity.favorite ? 120 : 256;
+				this.popupData[activity.id].itemList[1].icon.color = activity.favorite ? this.buddycolor : 256;
 				this.popup.favorite = activity.favorite;
-				this.popup.itemList[1].icon.color = activity.favorite ? 120 : 256;
+				this.popup.itemList[1].icon.color = activity.favorite ? this.buddycolor : 256;
 			}
 
 		},
@@ -199,7 +204,7 @@ const ListView = {
 
 		getStarColor(activity) {
 			if (activity.favorite) {
-				return 120;
+				return this.buddycolor;
 			} else {
 				return 256;
 			}
@@ -222,7 +227,7 @@ const ListView = {
 					icon: {
 						id: activity.id + "_popup",
 						iconData: activity.directory + "/" + activity.icon,
-						color: 120,
+						color: this.buddycolor,
 						size: 30,
 						isNative: "true"
 					},
@@ -230,15 +235,16 @@ const ListView = {
 					title: null,
 					itemList: [
 						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: "Start New" },
-						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? 120 : 256, size: 20 }, name: "Favorite" },
+						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? this.buddycolor : 256, size: 20 }, name: "Favorite" },
 					],
 				};
 			});
 			this.popupData = popupData;
 		},
 
-		showPopupFunction(e) {
+		async showPopupFunction(e) {
 			let itemId, x, y;
+			await this.getPopupData();
 			if (e.target.tagName == 'svg') {
 				itemId = e.target.parentElement.id
 				x = e.clientX - 4;
