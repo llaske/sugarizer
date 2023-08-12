@@ -27,8 +27,11 @@ Brief explanation of methods:
 
 - `triggerLocalizedEvent()`: Triggers a custom event named "localized" by creating a new event object and dispatching it on the `window` object. This event can be used by other parts of the application to respond to localization changes.
 
-## Step4: Modify the js/activity.js 
+## Step4: Modify reference to webl10n in the code 
 Now you need to replace the webl10n code with i18next.
+
+You should update at least the file js/activity.js but references to webl10n in other js files in the activity should be updated as well.
+
 You can refer to this [code](https://github.com/llaske/sugarizer/pull/1371/files#diff-b2447869bafe96b01d12ef5db78589d5a1aa490d31188e694300e3f674211d7fR3) and spin up a similar instance.
 
 ## Step5: Remove webl10n reference from sugarweb
