@@ -24,7 +24,7 @@
 	"TutoWelcomeTitle": "Actividad \"Ajedrez\"",
 	"TutoWelcomeContent": "La actividad \"Ajedrez\" es una manera divertida de aprender a jugar y retar a tus amigos a una partida de ajedrez.",
 	"TutoBoardTitle": "Tablero de ajedrez",
-	"TutoBoardContent": "This is a chess board. you can hover on the piece to get legal moves and drag and drop pieces to move and play.",
+	"TutoBoardContent": "Este es un tablero de ajedrez. puede pasar el cursor sobre la pieza para obtener movimientos legales y arrastrar y soltar piezas para mover y jugar.",
 	"TutoPlayerClockTitle": "Tu reloj",
 	"TutoPlayerClockContent": "Aquí se mostrará tu tiempo restante (si el reloj no está desactivado)",
 	"TutoOpponentClockTitle": "Reloj del oponente",
@@ -66,5 +66,5 @@
 	"TutoCastlingTitle": "¿Qué es el enroque?",
 	"TutoCastlingContent": "Durante el enroque, el rey se moverá dos casillas hacia la torre con la que quiera enrocarse, y la torre se colocará en la primera casilla por la que ha pasado el rey en este movimiento. El enroque solo puede completarse si ni el rey ni la torre se han movido de su posición original, y si no hay ninguna pieza entre ambas",
 	"TutoDrawTitle": "¿Qué es un empate?",
-	"TutoDrawContent": "La partida llegará a un empate cuando el jugador que se mueve no tiene ningún movimiento legal y su rey no está en jaque. En este punto, se dice que la partida ha terminado \"en tablas\\"."
+	"TutoDrawContent": "La partida llegará a un empate cuando el jugador que se mueve no tiene ningún movimiento legal y su rey no está en jaque. En este punto, se dice que la partida ha terminado \"en tablas\\"
 }
