@@ -313,8 +313,8 @@ enyo.kind({
 		this.$.colorBar.removeClass("themeColor"+this.theme);
 		this.$.colorBar.addClass("themeColor-1");
 		var playMode = this;
-		requirejs(["webL10n"], function(webL10n) {
-			playMode.$.gameFinishedMsg.setContent(webL10n.get("GameFinised"));
+		requirejs(["l10n"], function(l10n) {
+			playMode.$.gameFinishedMsg.setContent(l10n.get("GameFinised"));
 		});
 		this.$.gameFinished.show();
 	},
