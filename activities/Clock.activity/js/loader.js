@@ -9,7 +9,7 @@ requirejs.config({
 
 requirejs(["activity/activity"]);
 
-requirejs(["webL10n","sugar-web/env","moment-with-locales.min"], function(l10n, env, moment) {
+requirejs(["sugar-web/env","moment-with-locales.min"], function(l10n, env, moment) {
 	l10n_s = l10n; //global declaration of translate interface
 
 	env.getEnvironment(function(err, environment) {
