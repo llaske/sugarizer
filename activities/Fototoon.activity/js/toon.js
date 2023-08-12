@@ -1316,7 +1316,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._shapeControls.graphics.endStroke();
 
                 this._shapeControls.visible = this.getSelected();
-                this._stage.addChild(this._shapeControls);
+                this._stage.addChildAt(this._shapeControls, this._stage.children.length - 1);
+
             } else {
                 this._shapeControls.visible = this.getSelected();
                 this._shapeControls.x = x;
@@ -1324,7 +1325,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             };
 
             // point position
+            this._stage.addChild(this._shapeControls);
             if (this._type != TYPE_RECTANGLE) {
+                this._stage.addChild(this._pointerControl);
+                this._stage.addChild(this._rotateButton);
 
                 if (this._pointerControl != null &&
                     (this._pointerChanged || this._shapeChanged)) {
@@ -1437,6 +1441,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             };
 
             if (! this._isTitleGlobe) {
+                this._stage.addChild(this._resizeButton);
+                this._stage.addChild(this._editButton);
+                this._stage.addChild(this._removeButton);
                 if (this._removeButton == null) {
                     createAsyncBitmapButton(this, './icons/remove.svg',
                         function(globe, button) {
