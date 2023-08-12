@@ -94,15 +94,11 @@ enyo.kind({
 
 		// At first launch, display tutorial
 		var that = this;
-		var interval = window.setInterval(function() {
-			if (that.history.length == 0) {
-				if (!l10n.initialized) {
-					return;
-				}
+		window.addEventListener("localized", function () {
+			if (that.history.length === 0) {
 				that.startTutorial();
 			}
-			window.clearInterval(interval);
-		}, constant.timerBeforeTutorial);
+		}, {once : true})
 	},
 
 	localize: function() {
