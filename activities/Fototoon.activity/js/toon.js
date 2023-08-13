@@ -1289,6 +1289,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
         };
 
         this.createControls = function() {
+	    this._stage.addChild(this._resizeButton);
+            this._stage.addChild(this._editButton);
             var x = this._x;
             var y = this._y;
             var w = this._width;
