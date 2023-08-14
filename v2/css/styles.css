@@ -1010,3 +1010,9 @@ a {
 		top: -10vh;
 	}
 }
+
+@media screen and (max-width: 650px){
+	#toolbar-help-btn {
+	visibility: hidden;
+	}
+}

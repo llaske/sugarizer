@@ -7,7 +7,7 @@ const MainScreen = {
 						<searchfield :placeholder="searchhome" v-on:input-changed="searchFunction"/> 
 						<icon 
 							class="toolbutton"
-							id="help-icon"
+							id="toolbar-help-btn"
 							svgfile="/icons/help.svg"
 							size="47"
 							x="0"
