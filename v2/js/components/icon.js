@@ -79,16 +79,20 @@ const Icon ={
 		color: function(newColor, oldColor) {
 			this.colorData=newColor;
 		},
-		x: function(newX, oldX) {
+		xData: function(newX, oldX) {
 			var iconDiv = this.$refs.icon;
 			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0 0 "+newX+"px"+this._generateOriginalColor());
-			this.xData=newX;
 		}, 
-		y: function(newY, oldX) {
+		x: function(newX, oldX) {
+			this.xData=newX;
+		},
+		yData: function(newY, oldX) {
 			var iconDiv = this.$refs.icon;
 			iconDiv.setAttribute("style", "margin: "+newY+"px 0 0 "+this.xData+"px"+this._generateOriginalColor());
-			this.yData=newY;
 		},		
+		y: function(newY, oldX) {
+			this.yData=newY;
+		},
 		sizeData: function(newSize, oldSize) {
 			var element = this._element;
 			element.setAttribute("width", newSize+"px");
