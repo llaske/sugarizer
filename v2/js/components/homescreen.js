@@ -5,14 +5,14 @@
 const HomeScreen = {
 	name: 'HomeScreen',
 	template: ` <div class="homescreen" ref="homescreen">
-							<div v-for="(activity, index) in filterFavorite(activities)" :key="activity.id">
+							<div v-for="(activity, index) in restrictedModeInfo.activities || activities" :key="activity.id">
 								<icon
 									size="55"
 									:id="activity.id"
 									class="home-icon"
 									:svgfile="activity.directory + '/' + activity.icon"
-									:x="activityPositions[index].x"
-       							:y="activityPositions[index].y"
+									:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : activityPositions[index].x"
+       							:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : activityPositions[index].y"
 									isNative="true"
 									v-on:mouseover="showPopupFunction($event)"
 									v-on:mouseleave="removePopupFunction($event)"
@@ -28,6 +28,41 @@ const HomeScreen = {
 								:y="canvasCenter.y - 52"
 								v-on:mouseover="showPopupFunction($event)"
 								v-on:mouseleave="removePopupFunction($event)"
+							></icon>
+							<icon
+								id="journal-btn"
+								svgfile="./icons/activity-journal.svg"
+								class="home-icon"
+								size="40"
+								:x="canvasCenter.x - 40/2"
+								:y="canvasCenter.y + 104 - 40 + canvasCenter.jdeltay"
+								:color="buddycolor"
+								isNative="true"
+								@click="showJournal"
+							></icon>
+							<icon
+								v-if="isRestrictedPrev"
+								id="restricted-prev"
+								svgfile="./icons/activity-etc.svg"
+								class="home-icon"
+								size="55"
+								:x="buttonpositions.prev.x"
+								:y="buttonpositions.prev.y"
+								color="512"
+								isNative="true"
+								@click="showPreviousRestrictedList"
+							></icon>
+							<icon
+								v-if="isRestrictedNext"
+								id="restricted-next"
+								svgfile="./icons/activity-etc.svg"
+								class="home-icon"
+								size="55"
+								:x="buttonpositions.next.x"
+								:y="buttonpositions.next.y"
+								color="512"
+								isNative="true"
+								@click="showNextRestrictedList"
 							></icon>
 					</div>
 					<popup 
@@ -68,6 +103,12 @@ const HomeScreen = {
 			canvasCenter: {},
 			restrictedModeInfo: { start: 0 },
 			spiralPositions: [],
+			isRestrictedPrev: false,
+			isRestrictedNext: false,
+			buttonpositions:{
+				next: {},
+				prev: {}
+			},
 		}
 	},
 
@@ -87,12 +128,6 @@ const HomeScreen = {
 		window.removeEventListener("resize", this.draw);
 	},
 
-	watch: {
-		filteredactivities: function (value) {
-			this.activities = value;
-		}
-	},
-
 	methods: {
 		async getActivities() {
 			const response = await axios.get("/api/v1/activities", {
@@ -109,7 +144,6 @@ const HomeScreen = {
 			if (response.status == 200 || response.status == 304) {
 				const activities = response.data;
 				this.getUser(activities);
-				console.log(activities)
 			}
 		},
 
@@ -141,7 +175,7 @@ const HomeScreen = {
 							}
 						}
 					}
-					this.activities = list;
+					this.activities = this.filterFavorite(list);
 					this.username = response.data.name;
 					this.$emit('activities', list);
 					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
@@ -159,7 +193,7 @@ const HomeScreen = {
 							throw new Error('Unable to update the user');
 						}
 						else if (response.status == 200) {
-							this.activities = activities;
+							this.activities = this.filterFavorite(activities);
 							this.username = response.data.name;
 							this.$emit('activities', activities);
 							this.favactivities = favactivities;
@@ -170,14 +204,13 @@ const HomeScreen = {
 			}
 		},
 
-		filterFavorite( activities ) {
+		filterFavorite(activities) {
 			return activities.filter(activity => activity.favorite);
 		},
 
 		launchActivity(activity) {
 			const location = activity.directory + "/index.html?aid=" + activity.activityId + "&a=" + activity.id + "&n=" + activity.name;
 			document.location.href = location;
-			console.log(activity.activityId);
 		},
 
 		getPopupData() {
@@ -283,11 +316,9 @@ const HomeScreen = {
 			let canvas_width = canvas.offsetWidth;
 			let canvas_centery = parseFloat(canvas_height) / 2.0;
 			let canvas_centerx = parseFloat(canvas_width) / 2.0;
-			console.log(canvas_centerx, canvas_centery, canvas_width, canvas_height);
 
 			this.canvasCenter = { x: canvas_centerx, y: canvas_centery, dx: canvas_width, dy: canvas_height };
-			console.log(this.canvasCenter);
-			return { x: canvas_centerx, y: canvas_centery, dx: canvas_width, dy: canvas_height};
+			return { x: canvas_centerx, y: canvas_centery, dx: canvas_width, dy: canvas_height };
 		},
 
 		hasRoomForSpiral(canvas_center, icon_size) {
@@ -311,7 +342,6 @@ const HomeScreen = {
 				maxX = Math.max(maxX, ix + icon_size); maxY = Math.max(maxY, iy + icon_size);
 				minX = Math.min(minX, ix); minY = Math.min(minY, iy);
 				angle -= (PI2 / n);
-				// this.spiralPositions = spiralPositions;
 			}
 			return (maxX <= canvas_center.dx && maxY <= canvas_center.dy - 5 && minX >= 0 && minY >= 0);
 		},
@@ -325,9 +355,10 @@ const HomeScreen = {
 			let icon_padding = icon_size * constant.iconSpacingFactor;
 			let semi_size = icon_size / 2;
 			let jdeltay = (canvas_center.dy < 480) ? -12 : 0;
+			this.canvasCenter.jdeltay = jdeltay;
 
 			// Compute ring size and shape
-			let activitiesList = this.filterFavorite(this.activities);
+			let activitiesList = this.activities;
 			let activitiesCount = activitiesList.length;
 			let activitiesIndex = 0;
 			let radiusx, radiusy, base_angle, spiralMode, restrictedMode;
@@ -336,6 +367,10 @@ const HomeScreen = {
 			let circumference = PI2 * radiusx;
 			this.spiralPositions = [];
 			this.activityPositions = [];
+
+			this.restrictedModeInfo.activities = undefined;
+			this.restrictedModeInfo.positions = undefined;
+
 			if ((circumference / activitiesList.length) >= constant.iconSpacingFactor * icon_padding) {
 				spiralMode = restrictedMode = false;
 				base_angle = (PI2 / parseFloat(activitiesList.length));
@@ -351,6 +386,9 @@ const HomeScreen = {
 					while ((circumference / activitiesCount) <= constant.ringSpaceFactor * constant.iconSpacingFactor * icon_padding) {
 						activitiesCount--;
 					}
+					this.restrictedModeInfo.count = activitiesCount;
+					this.restrictedModeInfo.length = activitiesList.length;
+
 					base_angle = (PI2 / parseFloat(activitiesCount + 1));
 				}
 			}
@@ -370,9 +408,77 @@ const HomeScreen = {
 					iy = this.spiralPositions[i].y;
 				}
 
-				this.activityPositions.push({x: ix, y: iy});
+				// Restricted mode for small device: integrate a way to scroll on the circle
+				this.isRestrictedPrev = false;
+				this.isRestrictedNext = false;
+
+				if (restrictedMode) {
+					this.isRestrictedNext = true;
+					if (i < this.restrictedModeInfo.start) {
+						angle = previousAngle;
+					} else if (i > 0 && this.restrictedModeInfo.start > 0) {
+						this.isRestrictedPrev = true;
+					} else if (this.restrictedModeInfo.start + this.restrictedModeInfo.count >= activitiesList.length) {
+						this.isRestrictedNext = false;
+					}
+				}
+				this.activityPositions.push({ x: ix, y: iy });
 
 			}
+			if (restrictedMode) {
+				const nextcount = this.restrictedModeInfo.start + this.restrictedModeInfo.count;
+				this.buttonpositions.next = this.activityPositions[nextcount - 1];
+				this.buttonpositions.prev = this.activityPositions[this.restrictedModeInfo.start];
+				if (this.restrictedModeInfo.start === 0) {
+					this.restrictedModeInfo.activities = activitiesList.slice(this.restrictedModeInfo.start, nextcount - 1)
+					this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.start, nextcount - 1);
+				} else if (this.restrictedModeInfo.start + this.restrictedModeInfo.count >= activitiesList.length) {
+					this.restrictedModeInfo.activities = activitiesList.slice(-this.restrictedModeInfo.count + 1)
+					this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.start + 1, nextcount);
+				} else {
+					this.restrictedModeInfo.activities = activitiesList.slice(this.restrictedModeInfo.start, nextcount - 2)
+					this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.start + 1, nextcount - 1);
+				}
+			}
 		},
+
+		showNextRestrictedList() {
+			const activities = this.activities;
+			let newStart = this.restrictedModeInfo.start + this.restrictedModeInfo.count - 2;
+			this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.count + 2)
+			this.isRestrictedPrev = true;
+			if (newStart > this.restrictedModeInfo.length - 1) {
+				return;
+			} else if (this.restrictedModeInfo.start == 0) {
+				newStart = this.restrictedModeInfo.count - 1;
+			} else if (newStart + this.restrictedModeInfo.count > this.restrictedModeInfo.length) {
+				newStart = this.restrictedModeInfo.length - this.restrictedModeInfo.count + 1;
+				this.isRestrictedNext = false;
+				this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.count + 2)
+				
+				this.restrictedModeInfo.start = newStart;
+				this.restrictedModeInfo.activities = activities.slice(this.restrictedModeInfo.start, this.restrictedModeInfo.start + this.restrictedModeInfo.count)
+				return;
+
+			}
+			this.restrictedModeInfo.start = newStart;
+			this.restrictedModeInfo.activities = activities.slice(this.restrictedModeInfo.start, this.restrictedModeInfo.start + this.restrictedModeInfo.count - 2)
+		},
+
+		showPreviousRestrictedList() {
+			const activities = this.activities;
+			let newStart = this.restrictedModeInfo.start - this.restrictedModeInfo.count;
+			this.isRestrictedNext = true;
+			if (newStart < 0) {
+				newStart = 0;
+				this.isRestrictedPrev = false;
+				this.restrictedModeInfo.start = newStart;
+				this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.count + 1);
+				this.restrictedModeInfo.activities = activities.slice(this.restrictedModeInfo.start, this.restrictedModeInfo.start + this.restrictedModeInfo.count - 1);
+				return;
+			}
+			this.restrictedModeInfo.start = newStart;
+			this.restrictedModeInfo.activities = activities.slice(this.restrictedModeInfo.start, this.restrictedModeInfo.start + this.restrictedModeInfo.count - 2);
+		}
 	},
 };
