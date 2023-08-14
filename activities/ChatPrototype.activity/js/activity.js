@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser","tutorial","sugar-web/env"], function (activity,l10n_s, palette,presencepalette,datastore,chooser,tutorial,env) {
+define(["sugar-web/activity/activity","l10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser","tutorial","sugar-web/env"], function (activity,l10n, palette,presencepalette,datastore,chooser,tutorial,env) {
     var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -10,7 +10,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
     	env.getEnvironment(function(err, environment) {
     		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
     		var language = environment.user ? environment.user.language : defaultLanguage;
-    		l10n_s.language.code = language;
+    		l10n.init(language);
     	});
 
 		var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
@@ -44,8 +44,8 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var imageUpload = document.getElementById('image-upload');
 
         window.addEventListener("localized", function() {
-            document.getElementById("status").innerHTML = l10n_s.get("status");
-            messageField.placeholder = l10n_s.get("WriteYourMessage");
+            document.getElementById("status").innerHTML = l10n.get("status");
+            messageField.placeholder = l10n.get("WriteYourMessage");
         });
 
 	    var userSettings = null;
