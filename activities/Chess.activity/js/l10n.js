@@ -6,8 +6,6 @@ var Localization = {
 			l10n: null,
 			code: null,
 			dictionary: null,
-			eventReceived: false,
-			activityInitialized: false,
 			units: [
 				{ name: 'Years', factor: 356 * 24 * 60 * 60 },
 				{ name: 'Months', factor: 30 * 24 * 60 * 60 },
@@ -18,50 +16,24 @@ var Localization = {
 			],
 		};
 	},
-	computed: {
-		readyToEmit: function () {
-			return this.dictionary != null && this.activityInitialized;
-		},
-	},
-	watch: {
-		readyToEmit: function (newVal, oldVal) {
-			if (newVal) {
-				this.$emit('localized');
-				this.eventReceived = true;
-			}
-		},
-	},
 	mounted: function () {
 		const vm = this;
-	
-		if (vm.l10n == null) {
-			requirejs(['sugar-web/env'], function (env) {
-				env.getEnvironment((err, environment) => {
-					// Get default language
-					const defaultLanguage =
-						typeof chrome !== 'undefined' &&
-						chrome.app &&
-						chrome.app.runtime
-						? chrome.i18n.getUILanguage()
-						: navigator.language;
-					const language = environment.user
-						? environment.user.language
-						: defaultLanguage;
-	
-					if (vm.l10n == null) {
-						vm.loadLanguageFile(language);
-					}
-				});
+		requirejs(['sugar-web/env'], function (env) {
+			env.getEnvironment((err, environment) => {
+				// Get default language
+				const defaultLanguage =
+					typeof chrome !== 'undefined' &&
+					chrome.app &&
+					chrome.app.runtime
+					? chrome.i18n.getUILanguage()
+					: navigator.language;
+				const language = environment.user
+					? environment.user.language
+					: defaultLanguage;
+
+				vm.loadLanguageFile(language);
 			});
-		}
-	
-		// Activity initialization check
-		vm.$root.$children.find(function (child) {
-			if (child.$options.name === 'SugarActivity') {
-				child.$on('initialized', function () {
-					vm.activityInitialized = true;
-				});
-			}});
+		});
 	},
 	
 	methods: {
@@ -84,8 +56,8 @@ var Localization = {
 							vm.l10n = i18next;
 							vm.code = i18next.language;
 							vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
+							vm.$emit('localized');
 							vm.subscribeLanguageChange();
-							vm.activityInitialized = true;
 						}
 					);
 				}).catch((error) => {
@@ -102,7 +74,6 @@ var Localization = {
 					vm.code = lng;
 					vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
 					vm.$emit('localized');
-					vm.eventReceived = true;
 				});
 			});
 		},
