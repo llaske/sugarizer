@@ -6,7 +6,6 @@ Vue.component('sugar-localization', {
 			l10n: null,
 			code: null,
 			dictionary: null,
-			eventReceived: false,
 			activityInitialized: false,
 			units: [
 				{ name: 'Years', factor: 356 * 24 * 60 * 60 },
@@ -27,33 +26,28 @@ Vue.component('sugar-localization', {
 		readyToEmit: function (newVal, oldVal) {
 			if (newVal) {
 				this.$emit('localized');
-				this.eventReceived = true;
 			}
 		},
 	},
 	mounted: function () {
 		const vm = this;
 
-		if (vm.l10n == null) {
-			requirejs(['sugar-web/env'], function (env) {
-				env.getEnvironment((err, environment) => {
-					// Get default language
-					const defaultLanguage =
-						typeof chrome !== 'undefined' &&
-							chrome.app &&
-							chrome.app.runtime
-							? chrome.i18n.getUILanguage()
-							: navigator.language;
-					const language = environment.user
-						? environment.user.language
-						: defaultLanguage;
+		requirejs(['sugar-web/env'], function (env) {
+			env.getEnvironment((err, environment) => {
+				// Get default language
+				const defaultLanguage =
+					typeof chrome !== 'undefined' &&
+						chrome.app &&
+						chrome.app.runtime
+						? chrome.i18n.getUILanguage()
+						: navigator.language;
+				const language = environment.user
+					? environment.user.language
+					: defaultLanguage;
 
-					if (vm.l10n == null) {
-						vm.loadLanguageFile(language);
-					}
-				});
+				vm.loadLanguageFile(language);
 			});
-		}
+		});
 
 		// Activity initialization check
 		const SugarActivity = vm.$root.$children.find(function (child) {
@@ -73,7 +67,6 @@ Vue.component('sugar-localization', {
 						{
 							lng: language,
 							fallbackLng: 'en',
-							debug: true,
 							resources: {
 								[language]: {
 									translation: response.data
@@ -85,7 +78,6 @@ Vue.component('sugar-localization', {
 							vm.code = i18next.language;
 							vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
 							vm.subscribeLanguageChange();
-							vm.activityInitialized = true;
 						}
 					);
 				}).catch((error) => {
@@ -102,7 +94,6 @@ Vue.component('sugar-localization', {
 					vm.code = lng;
 					vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
 					vm.$emit('localized');
-					vm.eventReceived = true;
 				});
 			});
 		},
