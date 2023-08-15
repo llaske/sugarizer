@@ -1,6 +1,5 @@
 define(['i18next.min', 'axios.min'], function (i18next, axios) {
-    const l10n = {};
-    let initialized = false;
+    const l10n = {language: {direction: "ltr"}};
 
     l10n.init = async (lang) => {
         await i18next.init({
@@ -34,16 +33,14 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
             l10n.loadLanguageResource(lang).then((locales) => {
                 if (locales !== null) {
                     i18next.addResourceBundle(lang, "translation", locales);
+                    i18next.changeLanguage(lang);
+                    triggerLocalizedEvent();
                 } else {
                     l10n.init("en");
                 }
-                i18next.changeLanguage(lang);
-                initialized = true;
-                triggerLocalizedEvent();
             });
         } else {
             i18next.changeLanguage(lang);
-            initialized = true;
             triggerLocalizedEvent();
         }
     };
