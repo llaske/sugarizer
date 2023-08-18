@@ -31,7 +31,7 @@ define(function () {
 			} else {
 				window.top.sugar.environment.user = JSON.parse(localStorage.sugar_settings);
 				setTimeout(function () {
-                    callback(null, window.top.sugar.environment);
+					callback(null, window.top.sugar.environment);
 				}, 0);
 			}
         } else if (env.isStandalone()) {
