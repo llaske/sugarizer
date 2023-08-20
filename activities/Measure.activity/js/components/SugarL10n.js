@@ -77,23 +77,11 @@ Vue.component('sugar-localization', {
 							vm.l10n = i18next;
 							vm.code = i18next.language;
 							vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
-							vm.subscribeLanguageChange();
 						}
 					);
 				}).catch((error) => {
 					vm.loadLanguageFile('en'); // Load default language
 					console.log(error);
-				});
-			});
-		},
-
-		subscribeLanguageChange: function () {
-			const vm = this;
-			requirejs(['lib/i18next.min.js'], function (i18next) {
-				i18next.on('languageChanged', (lng) => {
-					vm.code = lng;
-					vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
-					vm.$emit('localized');
 				});
 			});
 		},
