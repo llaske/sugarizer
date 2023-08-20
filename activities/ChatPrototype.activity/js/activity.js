@@ -58,14 +58,14 @@ define(["sugar-web/activity/activity","l10n","sugar-web/graphics/palette","sugar
 
 				// Unable to join
 				if (error)  {
-					socketStatus.innerHTML = l10n_s.get('Error');
+					socketStatus.innerHTML = l10n.get('Error');
 					socketStatus.className = 'error';
 					return;
 				}
 
 				// Store settings
 				userSettings = presence.getUserInfo();
-				socketStatus.innerHTML = l10n_s.get('Connected');
+				socketStatus.innerHTML = l10n.get('Connected');
 				socketStatus.className = 'open';
 				messageField.readOnly = false;
 
@@ -77,15 +77,15 @@ define(["sugar-web/activity/activity","l10n","sugar-web/graphics/palette","sugar
 
 				// Show a disconnected message when the WebSocket is closed.
 				presence.onConnectionClosed(function (event) {
-					console.log(l10n_s.get("ConnectionClosed"));
-					socketStatus.innerHTML = l10n_s.get('DisconnectedFromWebSocket');
+					console.log(l10n.get("ConnectionClosed"));
+					socketStatus.innerHTML = l10n.get('DisconnectedFromWebSocket');
 					socketStatus.className = 'closed';
 				});
 
 				// Display connection changed
 				presence.onSharedActivityUserChanged(function (msg) {
 					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-					messagesList.innerHTML += '<li class="received message-line" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n_s.get('Join'):l10n_s.get('Leave')) + ' '+l10n_s.get('Chat')+'</li>';
+					messagesList.innerHTML += '<li class="received message-line" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n.get('Join'):l10n.get('Leave')) + ' '+l10n.get('Chat')+'</li>';
 					imageUpload.style.visibility = "visible";
 				});
 
@@ -154,7 +154,7 @@ define(["sugar-web/activity/activity","l10n","sugar-web/graphics/palette","sugar
 
 
                 // Clear out the message field
-				messageField.placeholder = l10n_s.get("WriteYourMessage");
+				messageField.placeholder = l10n.get("WriteYourMessage");
                 messageField.value = "";
 				messageField.setSelectionRange(0,0);
 				return false;
