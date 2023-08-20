@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser","tutorial","sugar-web/env"], function (activity,l10n_s, palette,presencepalette,datastore,chooser,tutorial,env) {
+define(["sugar-web/activity/activity","l10n","sugar-web/graphics/palette","sugar-web/graphics/presencepalette","sugar-web/datastore","sugar-web/graphics/journalchooser","tutorial","sugar-web/env"], function (activity,l10n, palette,presencepalette,datastore,chooser,tutorial,env) {
     var activity = requirejs("sugar-web/activity/activity");
 
     // Manipulate the DOM only when it is ready.
@@ -10,7 +10,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
     	env.getEnvironment(function(err, environment) {
     		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
     		var language = environment.user ? environment.user.language : defaultLanguage;
-    		l10n_s.language.code = language;
+    		l10n.init(language);
     	});
 
 		var tagBody = '(?:[^"\'>]|"[^"]*"|\'[^\']*\')*';
@@ -44,8 +44,8 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
         var imageUpload = document.getElementById('image-upload');
 
         window.addEventListener("localized", function() {
-            document.getElementById("status").innerHTML = l10n_s.get("status");
-            messageField.placeholder = l10n_s.get("WriteYourMessage");
+            document.getElementById("status").innerHTML = l10n.get("status");
+            messageField.placeholder = l10n.get("WriteYourMessage");
         });
 
 	    var userSettings = null;
@@ -58,14 +58,14 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
 				// Unable to join
 				if (error)  {
-					socketStatus.innerHTML = l10n_s.get('Error');
+					socketStatus.innerHTML = l10n.get('Error');
 					socketStatus.className = 'error';
 					return;
 				}
 
 				// Store settings
 				userSettings = presence.getUserInfo();
-				socketStatus.innerHTML = l10n_s.get('Connected');
+				socketStatus.innerHTML = l10n.get('Connected');
 				socketStatus.className = 'open';
 				messageField.readOnly = false;
 
@@ -77,15 +77,15 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
 				// Show a disconnected message when the WebSocket is closed.
 				presence.onConnectionClosed(function (event) {
-					console.log(l10n_s.get("ConnectionClosed"));
-					socketStatus.innerHTML = l10n_s.get('DisconnectedFromWebSocket');
+					console.log(l10n.get("ConnectionClosed"));
+					socketStatus.innerHTML = l10n.get('DisconnectedFromWebSocket');
 					socketStatus.className = 'closed';
 				});
 
 				// Display connection changed
 				presence.onSharedActivityUserChanged(function (msg) {
 					var userName = msg.user.name.replace('<','&lt;').replace('>','&gt;');
-					messagesList.innerHTML += '<li class="received message-line" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n_s.get('Join'):l10n_s.get('Leave')) + ' '+l10n_s.get('Chat')+'</li>';
+					messagesList.innerHTML += '<li class="received message-line" style = "color:blue">' + userName + ' ' + (msg.move>0?l10n.get('Join'):l10n.get('Leave')) + ' '+l10n.get('Chat')+'</li>';
 					imageUpload.style.visibility = "visible";
 				});
 
@@ -154,7 +154,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/palette","su
 
 
                 // Clear out the message field
-				messageField.placeholder = l10n_s.get("WriteYourMessage");
+				messageField.placeholder = l10n.get("WriteYourMessage");
                 messageField.value = "";
 				messageField.setSelectionRange(0,0);
 				return false;
