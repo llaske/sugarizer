@@ -1,15 +1,12 @@
 // Tutorial component based on bootstrap tour
 const SugarTutorial = {
 	render() {},
-	data: function () {
-		return {
-			l10n: {
-				stringTutoPrev: "Prev",
-				stringTutoNext: "Next",
-			},
-		};
-	},
 	created() {
+		this.l10n = {
+			stringTutoPrev: "Prev",
+			stringTutoNext: "Next",
+		};
+		
 		const vm = this;
 		window.addEventListener(
 			"localized",
