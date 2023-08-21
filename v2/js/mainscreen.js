@@ -51,8 +51,8 @@ const MainScreen = {
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
-						<listview v-if="screentype==='list'" @activities="setActivities" :filteredactivities="filteredactvities"/>
-						<homescreen v-else-if="screentype==='home'"/>
+						<listview v-if="screentype==='list'" @activities="setActivities" :filteredactivities="filteredactivities"/>
+						<homescreen v-else-if="screentype==='home'" @activities="setActivities" :filteredactivities="filteredactivities"/>
 						<div v-else-if="screentype==='neighbor'"> Neighbor </div>
 					</div>
 					`,
@@ -70,7 +70,7 @@ const MainScreen = {
 		return {
 			screentype: 'home',
 			activities: [],
-			filteredactvities: [],
+			filteredactivities: [],
 		}
 	},
 

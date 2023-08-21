@@ -38,7 +38,6 @@ const HomeScreen = {
 								:y="canvasCenter.y + 104 - 40 + canvasCenter.jdeltay"
 								:color="buddycolor"
 								isNative="true"
-								@click="showJournal"
 							></icon>
 							<icon
 								v-if="isRestrictedPrev"
@@ -128,6 +127,16 @@ const HomeScreen = {
 		window.removeEventListener("resize", this.draw);
 	},
 
+	watch: {
+		filteredactivities: async function (value) {
+			const enabledactivities = await this.activities.filter(activity => value.includes(activity));
+			this.enableActivities(enabledactivities);
+
+			const disabledactivities = await this.activities.filter(activity => !value.includes(activity));
+			this.disableActivities(disabledactivities);
+		}
+	},
+
 	methods: {
 		async getActivities() {
 			const response = await axios.get("/api/v1/activities", {
@@ -177,7 +186,7 @@ const HomeScreen = {
 					}
 					this.activities = this.filterFavorite(list);
 					this.username = response.data.name;
-					this.$emit('activities', list);
+					this.$emit('activities', this.activities);
 					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
 				} else {
 					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
@@ -195,7 +204,7 @@ const HomeScreen = {
 						else if (response.status == 200) {
 							this.activities = this.filterFavorite(activities);
 							this.username = response.data.name;
-							this.$emit('activities', activities);
+							this.$emit('activities', this.activities);
 							this.favactivities = favactivities;
 						}
 					});
@@ -211,6 +220,38 @@ const HomeScreen = {
 		launchActivity(activity) {
 			const location = activity.directory + "/index.html?aid=" + activity.activityId + "&a=" + activity.id + "&n=" + activity.name;
 			document.location.href = location;
+		},
+
+		disableActivities(disabledactivities) {
+			for (let i = 0; i < disabledactivities.length; i++) {
+				let id = disabledactivities[i].id;
+
+				console.log(id);
+				document.getElementById(id).classList.add("web-activity-disable");
+
+				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
+
+				icons.forEach(icon => {
+					icon.removeEventListener('click', this.showPopupFunction);
+					icon.removeEventListener('mouseover', this.showPopupFunction); 
+				});
+			}
+		},
+
+		enableActivities(enabledactivities) {
+			for (let i = 0; i < enabledactivities.length; i++) {
+				let id = enabledactivities[i].id;
+
+				console.log(id);
+				document.getElementById(id).classList.remove("web-activity-disable");
+
+				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
+
+				icons.forEach(icon => {
+					icon.addEventListener('click', this.showPopupFunction);
+					icon.addEventListener('mouseover', this.showPopupFunction);
+				});
+			}
 		},
 
 		getPopupData() {
@@ -455,7 +496,7 @@ const HomeScreen = {
 				newStart = this.restrictedModeInfo.length - this.restrictedModeInfo.count + 1;
 				this.isRestrictedNext = false;
 				this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.count + 2)
-				
+
 				this.restrictedModeInfo.start = newStart;
 				this.restrictedModeInfo.activities = activities.slice(this.restrictedModeInfo.start, this.restrictedModeInfo.start + this.restrictedModeInfo.count)
 				return;

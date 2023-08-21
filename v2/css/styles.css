@@ -961,6 +961,10 @@ a {
 	position: absolute;
 }
 
+.web-activity-disable {
+	opacity: 0.5;
+}
+
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
