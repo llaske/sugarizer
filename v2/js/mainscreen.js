@@ -91,7 +91,7 @@ const MainScreen = {
 		},
 
 		searchFunction(searchInput) {
-			this.filteredactvities = this.activities.filter((activity) => {
+			this.filteredactivities = this.activities.filter((activity) => {
 				return activity.name.toUpperCase().includes(searchInput.toUpperCase())
 			})
 		},
