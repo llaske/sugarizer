@@ -7,6 +7,9 @@ define(["sugar-web/graphics/palette",
   var timerPalette = {};
 
   timerPalette.TimerPalette = function(invokingButton, state) {
+    window.addEventListener("localized", function (e) {
+      document.getElementById("no-timer-button").innerText = e.detail.l10n.get("NoTimer");
+    }, { once: true });
 
     palette.Palette.call(this, invokingButton);
 

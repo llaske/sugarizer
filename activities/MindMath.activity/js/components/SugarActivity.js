@@ -1,12 +1,13 @@
-Vue.component('sugar-activity', {
+const SugarActivity= {
 	name: 'SugarActivity',
+	render() {},
 	data: function() {
 		return {
 			activity: null,
 			environment: null
 		}
 	},
-	mounted() {
+	mounted: function() {
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 			vm.activity = activity;
@@ -26,4 +27,4 @@ Vue.component('sugar-activity', {
 			return this.environment;
 		}
 	}
-})
+}
