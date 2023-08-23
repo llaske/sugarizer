@@ -9,6 +9,7 @@ const HomeScreen = {
 								<icon
 									size="55"
 									:id="activity.id"
+									:ref="'activity'+activity.id"
 									class="home-icon"
 									:svgfile="activity.directory + '/' + activity.icon"
 									:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : activityPositions[index].x"
@@ -89,6 +90,8 @@ const HomeScreen = {
 			popup: null, // singular popup data
 			username: null,
 			buddycolor: null,
+			jid: null,
+			journalEntries: [],
 			constant: {
 				iconSpacingFactor: 1.1,
 				ringInitSpaceFactor: 2.2,
@@ -104,7 +107,7 @@ const HomeScreen = {
 			spiralPositions: [],
 			isRestrictedPrev: false,
 			isRestrictedNext: false,
-			buttonpositions:{
+			buttonpositions: {
 				next: {},
 				prev: {}
 			},
@@ -174,6 +177,7 @@ const HomeScreen = {
 						return el.fill === color.fill && el.stroke === color.stroke;
 					});
 				});
+				this.jid = response.data.private_journal;
 				if (response.data.favorites !== undefined) {
 					const list = activities;
 					for (let i = 0; i < list.length; i++) {
@@ -212,6 +216,72 @@ const HomeScreen = {
 				this.draw();
 			}
 		},
+
+		async getJournal() {
+			const response = await axios.get(`/api/v1/journal/${this.jid}`, {
+				headers: {
+					'x-key': this.token.x_key,
+					'x-access-token': this.token.access_token,
+				},
+			});
+
+			if (response.status != 200) {
+				throw new Error('Unable to load the journal');
+			}
+			if (response.status == 200) {
+				console.log(response.data);
+				const entries = response.data.entries;
+				const filteredEntries = entries.filter(entry => {
+					const activityId = entry.metadata.activity;
+					return this.activities.find(activity => activity.id === activityId);
+				}).map(entry => {
+					const activityId = entry.metadata.activity;
+					const matchingActivity = this.activities.find(activity => activity.id === activityId);
+
+					if (matchingActivity) {
+						const { ...restActivityData } = matchingActivity;
+						const dataToPush = {
+							...entry,
+							iconpath: restActivityData.directory + "/" + restActivityData.icon,
+						};
+						return dataToPush;
+					}
+				});
+
+				for (let i = 0; i < filteredEntries.length; i++) {
+					const entry = filteredEntries[i];
+					console.log(entry.metadata.activity)
+					const activityid = entry.metadata.activity;
+
+					setInterval(() => {
+						let iconRef = this.$refs["activity" + activityid][0];
+						if (iconRef !== undefined) {
+							iconRef.colorData = this.buddycolor;
+							clearInterval();
+						}
+					}, 1000);
+				}
+
+				this.journalEntries = filteredEntries;
+			}
+		},
+
+		getJournalPopupData() {
+			const journalEntries = this.journalEntries;
+
+			for (let i = 0; i < journalEntries.length; i++) {
+				const entry = journalEntries[i];
+				const activityid = entry.metadata.activity;
+
+
+				if (!this.popupData[activityid].itemList) {
+					this.popupData[activityid].itemList = []; // Initialize the itemList if not already defined
+				}
+				this.popupData[activityid].itemList.push({ icon: { id: entry.objectId, iconData: entry.iconpath, size: 20, color: this.buddycolor, isNative: "true" }, name: entry.metadata.title });
+				this.popupData[activityid].icon.color = this.buddycolor;
+			}
+		},
+
 
 		filterFavorite(activities) {
 			return activities.filter(activity => activity.favorite);
@@ -265,7 +335,6 @@ const HomeScreen = {
 					icon: {
 						id: activity.id + "_popup",
 						iconData: activity.directory + "/" + activity.icon,
-						color: this.buddycolor,
 						size: 30,
 						isNative: "true"
 					},
@@ -282,6 +351,7 @@ const HomeScreen = {
 		async showPopupFunction(e) {
 			let itemId, x, y;
 			await this.getPopupData();
+			await this.getJournalPopupData();
 
 			if (e.target.tagName == 'svg') {
 				itemId = e.target.parentElement.id
@@ -481,6 +551,7 @@ const HomeScreen = {
 					this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.start + 1, nextcount - 1);
 				}
 			}
+			this.getJournal();
 		},
 
 		showNextRestrictedList() {
