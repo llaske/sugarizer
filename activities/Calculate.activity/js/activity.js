@@ -15,8 +15,8 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
   CalculateApp.libs.activity = activity;
   CalculateApp.libs.mustache = mustache;
 
-  requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'webL10n', 'sugar-web/datastore', "tutorial"], function(doc, trigoPaletteLib, algebraPaletteLib, webL10n, datastore, tutorial) {
-    CalculateApp.libs.webL10n = webL10n;
+  requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'l10n', 'sugar-web/datastore', "tutorial"], function(doc, trigoPaletteLib, algebraPaletteLib, l10n, datastore, tutorial) {
+    CalculateApp.libs.l10n = l10n;
     CalculateApp.libs.trigopalette = trigoPaletteLib;
     CalculateApp.libs.algebrapalette = algebraPaletteLib;
 
@@ -35,8 +35,8 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
           return;
         }
         if (preferences.language !== undefined) {
-          if (CalculateApp.libs.webL10n.language.code !== preferences.language)
-            CalculateApp.libs.webL10n.language.code = preferences.language;
+          if (CalculateApp.libs.l10n.language.code !== preferences.language)
+            CalculateApp.libs.l10n.language.code = preferences.language;
         }
       }
 
