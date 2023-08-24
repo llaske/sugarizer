@@ -5,7 +5,7 @@ const SugarIcon= {
 			icon: null
 		}
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["sugar-web/graphics/icon"], function (icon) {
 			vm.icon = icon;

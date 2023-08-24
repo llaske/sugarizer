@@ -5,7 +5,7 @@ const SugarPopup= {
 			humane: null
 		}
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["humane"], function (humane) {
 			vm.humane = humane;

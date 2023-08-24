@@ -10,7 +10,7 @@ const SugarPresence= {
 			isHost: false
 		}
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "lz-string"], function (activity, env, LZString) {
 			vm.activity = activity;

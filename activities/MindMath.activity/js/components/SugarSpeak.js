@@ -11,7 +11,7 @@ Vue.component('sugar-speak', {
 			pitch: 50
 		}
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["sugar-web/env"], function(env) {
 			env.getEnvironment(function(err, environment) {

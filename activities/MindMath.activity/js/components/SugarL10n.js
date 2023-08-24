@@ -16,7 +16,7 @@ const SugarLocalization = {
 			],
 		};
 	},
-	mounted: function () {
+	created: function () {
 		const vm = this;
 
 		requirejs(["sugar-web/env"], function (env) {

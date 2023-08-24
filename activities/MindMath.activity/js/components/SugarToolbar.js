@@ -34,7 +34,7 @@ const SugarToolitem= {
 			el.style.visibility = !!binding.value ? 'visible' : 'hidden';
 		}
 	},
-	mounted: function () {
+	created: function () {
 		// Create palette if present
 		var vm = this;
 		if (vm.id && vm.paletteClass && vm.paletteFile) {
