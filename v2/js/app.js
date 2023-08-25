@@ -18,6 +18,10 @@ const app = Vue.createApp({
 			l10n: {
 				mainscreen: {
 					stringSearchHome: "",
+					stringMySettings: "",
+					stringLogOff: "",
+					stringStartNew: "",
+					stringNameActivity: "",
 				},
 				firstscreen: {
 					stringNewUser: "",

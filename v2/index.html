@@ -27,7 +27,7 @@
 			<firstscreen @showmainscreen="setIsFirstScreen" :l10n="l10n.firstscreen"/>
 		</div>
 		<div v-else-if="!isFirstScreen && isFirstScreen !== null">
-			<mainscreen ref="mainscreen" :searchhome="l10n.mainscreen.stringSearchHome" />
+			<mainscreen ref="mainscreen" :l10n="l10n.mainscreen" />
 		</div>
 	</div>
 
