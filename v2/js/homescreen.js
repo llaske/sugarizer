@@ -1,5 +1,5 @@
 /* @ HomeScreen
- * @desc: HomeScreen is a class that is used to create a list view screen.
+ * @desc: HomeScreen is a class that is used to create a home screen. It renders the icons of the activities in a spiral or ring shape.
  */
 
 const HomeScreen = {
@@ -71,6 +71,7 @@ const HomeScreen = {
 						v-on:mouseleave="removePopupFunction($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
+					<settings ref="settings" v-if="showSettings"></settings>
 				`,
 
 	components: {
@@ -92,6 +93,7 @@ const HomeScreen = {
 			buddycolor: null,
 			jid: null,
 			journalEntries: [],
+			showSettings: false,
 			constant: {
 				iconSpacingFactor: 1.1,
 				ringInitSpaceFactor: 2.2,
@@ -229,7 +231,6 @@ const HomeScreen = {
 				throw new Error('Unable to load the journal');
 			}
 			if (response.status == 200) {
-				console.log(response.data);
 				const entries = response.data.entries;
 				const filteredEntries = entries.filter(entry => {
 					const activityId = entry.metadata.activity;
@@ -250,7 +251,6 @@ const HomeScreen = {
 
 				for (let i = 0; i < filteredEntries.length; i++) {
 					const entry = filteredEntries[i];
-					console.log(entry.metadata.activity)
 					const activityid = entry.metadata.activity;
 
 					setInterval(() => {
@@ -296,7 +296,6 @@ const HomeScreen = {
 			for (let i = 0; i < disabledactivities.length; i++) {
 				let id = disabledactivities[i].id;
 
-				console.log(id);
 				document.getElementById(id).classList.add("web-activity-disable");
 
 				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
@@ -312,7 +311,6 @@ const HomeScreen = {
 			for (let i = 0; i < enabledactivities.length; i++) {
 				let id = enabledactivities[i].id;
 
-				console.log(id);
 				document.getElementById(id).classList.remove("web-activity-disable");
 
 				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');

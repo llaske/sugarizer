@@ -4,7 +4,7 @@ const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
 					<div class="tool_leftitems">
-						<searchfield :placeholder="searchhome" v-on:input-changed="searchFunction"/> 
+						<searchfield :placeholder="l10n.stringSearchHome" v-on:input-changed="searchFunction"/> 
 						<icon 
 							class="toolbutton"
 							id="toolbar-help-btn"
@@ -62,9 +62,7 @@ const MainScreen = {
 		'listview': ListView,
 		'homescreen': HomeScreen
 	},
-	props: {
-		searchhome: String,
-	},
+	props: ['l10n'],
 
 	data: function () {
 		return {
