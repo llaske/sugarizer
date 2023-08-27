@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Migrating Measure activity to i18next #1362
 - Unable to create password mainly based on numbers #1380
 - QR activity Photo Loading Icon Overlaping #1268
+- Fototoon Activity: interactive buttons appears under the box shape #1221
 
 ## [1.7.0] - 2023-03-28
 ### Added
