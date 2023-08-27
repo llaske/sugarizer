@@ -11,7 +11,15 @@ const SugarPresence= {
 		}
 	},
 	created() {
+		this.l10n = null;
 		var vm = this;
+		window.addEventListener(
+			"localized",
+			function (e) {
+				vm.l10n = e.detail.l10n;
+			},
+			{ once: true },
+		);
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "lz-string"], function (activity, env, LZString) {
 			vm.activity = activity;
 			vm.LZString = LZString;
@@ -88,9 +96,9 @@ const SugarPresence= {
 				let stringToDisplay = '';
 
 				// Get localized string
-				if(this.$root.$refs.SugarL10n) {
+				if(this.l10n) {
 					let userStringToGet = "User" + (msg.move == 1 ? "Joined" : "Left");
-					stringToDisplay = this.$root.$refs.SugarL10n.get(userStringToGet, { name: msg.user.name });
+					stringToDisplay = this.l10n.get(userStringToGet, { name: msg.user.name });
 				} else {
 					stringToDisplay = "User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left");
 				}
