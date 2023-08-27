@@ -410,7 +410,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
 	 								console.log("image saved in journal.");
 									humane.log(_("ImageSaved"));
 								}
-	 						    that.hideWait();
+	 							that.hideWait();
 	 						}, imgAsDataURL);
 	 					}
 	 				});
@@ -509,12 +509,12 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
 	            if (that.canRemove) {
 	                createAsyncBitmapButton(that, './icons/remove.svg',
 	                    function(comicBox, button) {
-                            button.x = 0;
-                            button.y = comicBox._height - button.height;
-                            button.visible = true;
-                            comicBox._removeButton = button;
-                            comicBox._backContainer.addChildAt(button, 1);
-                            comicBox._backContainer.updateCache();
+	                        button.x = 0;
+	                        button.y = comicBox._height - button.height;
+	                        button.visible = true;
+	                        comicBox._removeButton = button;
+	                        comicBox._backContainer.addChildAt(button, 1);
+	                        comicBox._backContainer.updateCache();
 
 	                        button.on('click', function(event) {
 	                            comicBox.remove();
@@ -630,10 +630,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             var width = 100;
             var height = 50;
             globeData = {'globe_type': globeType, 'x': 100, 'y': 100,
-                        'width': width, 'height': height,
-                        'point_0': width / 2, 'point_1': height / 2,
-                        'radio': 100, 'direction': DIR_DOWN,
-                        'mode': MODE_NORMAL};
+                         'width': width, 'height': height,
+                         'point_0': width / 2, 'point_1': height / 2,
+                         'radio': 100, 'direction': DIR_DOWN,
+                         'mode': MODE_NORMAL};
 
             if (globeType == TYPE_WHISPER) {
                 globeData['globe_type'] = TYPE_GLOBE;
@@ -678,9 +678,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 // text properties
                 globeData['text_text'] = globe._textViewer.getText();
                 globeData['text_font_description'] =
-                    globe._textViewer.getCairoFontFormat();
+                     globe._textViewer.getCairoFontFormat();
                 globeData['text_color'] =
-                    globe._textViewer.HtmlToGdkColor(
+                     globe._textViewer.HtmlToGdkColor(
                     globe._textViewer._color);
                 globeData['text_width'] = globe._textViewer._width;
                 globeData['text_height'] = globe._textViewer._height;
@@ -718,9 +718,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             if (this._globeData != null) {
                 /* example of the text data in the json globe data stored
                 {"text_font_description": "Sans 10",
-                "text_text": "Hmm, esto parece estar funcionando",
-                "text_color": [0, 0, 0],
-                "text_width": 78, "text_height": 22}
+                 "text_text": "Hmm, esto parece estar funcionando",
+                 "text_color": [0, 0, 0],
+                 "text_width": 78, "text_height": 22}
 
                 NOTE: color components are in the range 0-65535
                 https://developer.gnome.org/pygtk/stable/class-gdkcolor.html#constructor-gdkcolor
@@ -826,8 +826,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._globe._stage.removeChild(this._textView);
             };
             this._textView = new createjs.Text(this._text,
-                                                this.getFontDescription(),
-                                                this._color);
+                                               this.getFontDescription(),
+                                               this._color);
             this._textView.textAlign = 'center';
             this._textView.lineWidth = this._globe._width * 2;
             this._textView.x = this._globe._x;
@@ -957,7 +957,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._width = 100;
                 this._height = 50;
                 this._point = [this._width / 2,
-                            this._height / 2];
+                               this._height / 2];
                 this._radio = 100;
                 this._direction = DIR_DOWN;
                 this._textViewer = new TextViewer(this, null);
@@ -968,7 +968,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 /* example of the json data stored
 
                 {"direction": "abajo", "text_font_description": "Sans 10",
-                    "globe_type": "GLOBE",
+                     "globe_type": "GLOBE",
                     "text_text": "Hmm, esto parece estar funcionando",
                     "height": 36.66666666666667, "width": 130.0,
                     "text_color": [0, 0, 0], "radio": 30, "mode": "normal",
@@ -983,7 +983,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._height = globeData['height'];
                 if (this._type != TYPE_RECTANGLE) {
                     this._point = [globeData['point_0'],
-                                    globeData['point_1']];
+                                   globeData['point_1']];
                 } else {
                     this._point = [0, 0];
                 };
@@ -1265,9 +1265,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 };
 
                 if ((this._direction == DIR_DOWN && i == 6) ||
-                    (this._direction == DIR_RIGHT && i == 0) ||
-                    (this._direction == DIR_LEFT && i == 12) ||
-                    (this._direction == DIR_UP && i == 18)) {
+                   (this._direction == DIR_RIGHT && i == 0) ||
+                   (this._direction == DIR_LEFT && i == 12) ||
+                   (this._direction == DIR_UP && i == 18)) {
 
                     pos = this.getPointPosition(true);
                     xi = pos[0];
@@ -1302,6 +1302,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             if (this._shapeControls == null) {
                 this._shapeControls = new createjs.Shape();
                 this._shapeControls.name = 'control_rect';
+
                 // draw dotted rectangle around the globe
                 this._shapeControls.graphics.setStrokeStyle(1, "round");
                 this._shapeControls.graphics.beginStroke(WHITE);
@@ -1313,6 +1314,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._shapeControls.graphics.beginStroke(BLACK);
                 this._shapeControls.graphics.rect(- w ,- h, w * 2, h * 2);
                 this._shapeControls.graphics.endStroke();
+
                 this._shapeControls.visible = this.getSelected();
                 this._stage.addChildAt(this._shapeControls, this._stage.children.length - 1);
 
@@ -1321,6 +1323,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._shapeControls.x = x;
                 this._shapeControls.y = y;
             };
+
             // point position
             this._stage.addChild(this._shapeControls);
             if (this._type != TYPE_RECTANGLE) {
@@ -1340,7 +1343,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                     point_pos = this.getPointPositionRelative();
                     this._pointerControl.graphics.beginStroke(BLACK);
                     this._pointerControl.graphics.arc(point_pos[0], point_pos[1],
-                                                    SIZE_RESIZE_AREA / 2,
+                                                     SIZE_RESIZE_AREA / 2,
                                                      0, 2 * Math.PI);
                     this._pointerControl.graphics.endStroke();
 
@@ -1385,7 +1388,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                             this._width = Math.max(globe._x - event.stageX,
                                                     SIZE_RESIZE_AREA / 2);
                             this._height = Math.max(globe._y - event.stageY,
-                                                    SIZE_RESIZE_AREA / 2);
+                                                     SIZE_RESIZE_AREA / 2);
                             this._shapeChanged = true;
                             this.update();
                         }, globe);
