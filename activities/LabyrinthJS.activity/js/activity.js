@@ -538,7 +538,7 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 		// HACK: dynamically compute need size putting the string in a hidden div element
 		var computeStringSize = function(text, fontfamily, fontsize, bold, italic) {
 			var computer = document.getElementById("fontsizecomputer");
-			computer.innerHTML = text.replace("<","&lt;").replace(">","&gt;");
+			computer.innerText = text;
 			computer.style.fontFamily = fontfamily;
 			computer.style.fontSize = fontsize+"px";
 			if (bold) computer.style.fontWeight = "bold";
