@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","webL10n","toon","tutorial", "picoModal"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon, tutorial, picoModal) {
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","textpalette","sugar-web/graphics/menupalette","sugar-web/graphics/journalchooser","lzstring","l10n","toon","tutorial", "picoModal"], function (activity, datastore, env, textpalette, menupalette, journalchooser, lzstring, l10n, toon, tutorial, picoModal) {
 
 
     // initialize canvas size
@@ -9,7 +9,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
         	language = environment.user ? environment.user.language : defaultLanguage;
-		l10n.language.code = language;
+		l10n.init(language);
 		console.log('LANG ' + language);
 	});
 
@@ -271,7 +271,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 
         // Launch tutorial
 	    document.getElementById("help-button").addEventListener('click', function(e) {
-            l10n.language.code=language;
+            l10n.init(language);
             var once=1;
             window.addEventListener("localized", function() {
                 if (once) {
