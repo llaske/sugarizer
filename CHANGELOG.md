@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Unable to create password mainly based on numbers #1380
 - QR activity Photo Loading Icon Overlaping #1268
 - Fototoon Activity: interactive buttons appears under the box shape #1221
+- "Help" pop-ups nearly impossible to close in Chrome on Mobile #1403
 
 ## [1.7.0] - 2023-03-28
 ### Added
