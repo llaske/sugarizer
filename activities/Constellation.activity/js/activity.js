@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpalette", "webL10n", "tutorial"], function (activity, env, worldpalette, viewpalette, webL10n, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpalette", "l10n", "tutorial"], function (activity, env, worldpalette, viewpalette, l10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -52,7 +52,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 				//Set current language
 				var currentLang = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18.getUILanguage() : navigator.language;
 				var language = environment.user ? environment.user.language : currentLang;
-				webL10n.language.code = language;
+				l10n.init(language);
 
 				planetarium.loadLanguage(language); //Set the star chart's language to Sugarizer's language
 				document.getElementById("locale-date").innerHTML = language; //Localize date
@@ -100,35 +100,35 @@ define(["sugar-web/activity/activity","sugar-web/env", "worldpalette", "viewpale
 			});
 			//Things to localize
 			function toLocalize() {
-				document.getElementById("add-button").title = webL10n.get("AddDay");
-				document.getElementById("minus-button").title = webL10n.get("MinusDay");
-				document.getElementById("const-button").title = webL10n.get("ToggleConst");
-				document.getElementById("star-button").title = webL10n.get("ToggleStar");
-				document.getElementById("location-button").title = webL10n.get("Location");
-				document.getElementById("world-button").title = webL10n.get("WorldList");
-				document.getElementById("view-button").title = webL10n.get("View");
-				document.getElementById("55.3781,-3.4360").innerHTML = webL10n.get("Britain");
-				document.getElementById("23.6345,-102.5528").innerHTML = webL10n.get("Mexico");
-				document.getElementById("40.4637,-3.7492").innerHTML = webL10n.get("Spain");
-				document.getElementById("51.1657,10.4515").innerHTML = webL10n.get("Germany");
-				document.getElementById("40.3399,127.5101").innerHTML = webL10n.get("NorthKorea");
-				document.getElementById("23.8859,45.0792").innerHTML = webL10n.get("SaudiArabia");
-				document.getElementById("35.9078,127.7669").innerHTML = webL10n.get("SouthKorea");
-				document.getElementById("46.2276,2.2137").innerHTML = webL10n.get("France");
-				document.getElementById("51.9194,19.1451").innerHTML = webL10n.get("Poland");
-				document.getElementById("41.8719,12.5674").innerHTML = webL10n.get("Italy");
-				document.getElementById("20.5937,78.9629").innerHTML = webL10n.get("India");
-				document.getElementById("9.0820,8.6753").innerHTML = webL10n.get("Nigeria");
-				document.getElementById("0.7893,113.9213").innerHTML = webL10n.get("Indonesia");
-				document.getElementById("-14.2350,-51.9253").innerHTML = webL10n.get("Brazil");
-				document.getElementById("54.5260,-105.2551").innerHTML = webL10n.get("NorthAmerica");
-				document.getElementById("-8.7832,-55.4915").innerHTML = webL10n.get("SouthAmerica");
-				document.getElementById("-8.7832,34.5085").innerHTML = webL10n.get("Africa");
-				document.getElementById("-25.2744,133.7751").innerHTML = webL10n.get("Australia");
-				document.getElementById("12.8797,121.7740").innerHTML = webL10n.get("Philippines");
-				document.getElementById("4.2105,101.9758").innerHTML = webL10n.get("Malaysia");
-				document.getElementById("36.2048,138.2529").innerHTML = webL10n.get("Japan");
-				document.getElementById("39.9042,116.4074").innerHTML = webL10n.get("China");
+				document.getElementById("add-button").title = l10n.get("AddDay");
+				document.getElementById("minus-button").title = l10n.get("MinusDay");
+				document.getElementById("const-button").title = l10n.get("ToggleConst");
+				document.getElementById("star-button").title = l10n.get("ToggleStar");
+				document.getElementById("location-button").title = l10n.get("Location");
+				document.getElementById("world-button").title = l10n.get("WorldList");
+				document.getElementById("view-button").title = l10n.get("View");
+				document.getElementById("55.3781,-3.4360").innerHTML = l10n.get("Britain");
+				document.getElementById("23.6345,-102.5528").innerHTML = l10n.get("Mexico");
+				document.getElementById("40.4637,-3.7492").innerHTML = l10n.get("Spain");
+				document.getElementById("51.1657,10.4515").innerHTML = l10n.get("Germany");
+				document.getElementById("40.3399,127.5101").innerHTML = l10n.get("NorthKorea");
+				document.getElementById("23.8859,45.0792").innerHTML = l10n.get("SaudiArabia");
+				document.getElementById("35.9078,127.7669").innerHTML = l10n.get("SouthKorea");
+				document.getElementById("46.2276,2.2137").innerHTML = l10n.get("France");
+				document.getElementById("51.9194,19.1451").innerHTML = l10n.get("Poland");
+				document.getElementById("41.8719,12.5674").innerHTML = l10n.get("Italy");
+				document.getElementById("20.5937,78.9629").innerHTML = l10n.get("India");
+				document.getElementById("9.0820,8.6753").innerHTML = l10n.get("Nigeria");
+				document.getElementById("0.7893,113.9213").innerHTML = l10n.get("Indonesia");
+				document.getElementById("-14.2350,-51.9253").innerHTML = l10n.get("Brazil");
+				document.getElementById("54.5260,-105.2551").innerHTML = l10n.get("NorthAmerica");
+				document.getElementById("-8.7832,-55.4915").innerHTML = l10n.get("SouthAmerica");
+				document.getElementById("-8.7832,34.5085").innerHTML = l10n.get("Africa");
+				document.getElementById("-25.2744,133.7751").innerHTML = l10n.get("Australia");
+				document.getElementById("12.8797,121.7740").innerHTML = l10n.get("Philippines");
+				document.getElementById("4.2105,101.9758").innerHTML = l10n.get("Malaysia");
+				document.getElementById("36.2048,138.2529").innerHTML = l10n.get("Japan");
+				document.getElementById("39.9042,116.4074").innerHTML = l10n.get("China");
 			}
 
 			//Necessary variables
