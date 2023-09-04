@@ -722,27 +722,21 @@ a {
 }
 
 .dialog-items {
-	display: flex;
-	text-align: center;
-	flex-wrap: wrap;
-	overscroll-behavior-y: contain;
-	overflow-y: auto;
-	height: inherit;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 3 columns in each row */
+	gap: 50px; 
+	padding: 30px 20px;
 }
 
 .dialog-items > div{
-	display: grid;
-	flex: 1 1 auto;
-	margin: 10px;
-	padding: 5px 40px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 }
 
 .dialog-item-text {
 	padding-top: 4px;
-}
-.dialog-icon {
-	padding: 10px;
 }
 
 .dialog-item-disable {
@@ -963,6 +957,46 @@ a {
 
 .web-activity-disable {
 	opacity: 0.5;
+}
+
+/* settings screen */
+.settings-screen {
+	position: fixed; 
+	top: calc(15vh + 55px);
+}
+
+.settings-subscreen {
+	background-color: #ffffff;
+	height: 100%;
+}
+
+.aboutme-box {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 20px;
+}
+
+.aboutme-iconbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.aboutme-cicon {
+	border-color: #808080;
+	border-style: none solid none solid;
+	border-width: 3px;
+}
+
+.aboutme-input {
+	margin: 30px auto 0px auto;
+}
+
+.aboutme-warning {
+	color: #808080;
+	display: flex;
+	align-items: center;
 }
 
 /* Handle small screen resolution */

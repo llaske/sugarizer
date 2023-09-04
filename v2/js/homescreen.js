@@ -71,12 +71,13 @@ const HomeScreen = {
 						v-on:mouseleave="removePopupFunction($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
-					<settings ref="settings" v-if="showSettings"></settings>
+					<settings ref="settings" :buddycolor="buddycolor" :username="username"></settings>
 				`,
 
 	components: {
 		'icon': Icon,
 		'popup': Popup,
+		'settings': Settings,
 	},
 
 	emits: ['activities'],
@@ -93,7 +94,6 @@ const HomeScreen = {
 			buddycolor: null,
 			jid: null,
 			journalEntries: [],
-			showSettings: false,
 			constant: {
 				iconSpacingFactor: 1.1,
 				ringInitSpaceFactor: 2.2,
@@ -401,11 +401,8 @@ const HomeScreen = {
 		},
 
 		itemisClicked(item) {
-			let favIcon = this.popup.id + "_Favorite";
-			if (item == favIcon) {
-				this.toggleFavorite(this.popup);
-			} else if (item == "buddy_Settings" || item == "buddy_" + this.username) {
-				console.log(item);
+			if (item == "buddy_Settings" || item == "buddy_" + this.username) {
+				this.$refs.settings.openSettingsModal("settingModal");
 			} else if (item == "buddy_Logout") {
 				this.logout();
 			} else {
@@ -592,3 +589,5 @@ const HomeScreen = {
 		}
 	},
 };
+
+if (typeof module !== 'undefined') module.exports = { HomeScreen }
