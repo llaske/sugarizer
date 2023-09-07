@@ -461,7 +461,6 @@ div[slider] > input[type=range]::-ms-tooltip {
 	max-width: 512px;
 }
 
-
 @media screen and (max-width: 750px) {
 	.family-image-container {
 		width: 256px;

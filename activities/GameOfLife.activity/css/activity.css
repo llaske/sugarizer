@@ -200,11 +200,6 @@ canvas {
   overflow: hidden;
 }
 
-textarea {
-  resize: vertical !important;
-  max-height: 70vh !important;
-}
-
 .customTooltip .introjs-nextbutton::before {
   content: "";
   margin-right: 6px;

@@ -259,7 +259,6 @@ body {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-
 @media screen and (orientation: portrait) {
   #canvas {
     font-size: 18px;
