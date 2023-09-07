@@ -205,7 +205,3 @@ body {
 	border: 2px solid #808080;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}

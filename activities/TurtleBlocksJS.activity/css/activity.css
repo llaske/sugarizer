@@ -105,10 +105,6 @@ div.back:active {
     height: 100%;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 nav {
     position: fixed;

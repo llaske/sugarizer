@@ -113,10 +113,6 @@ blockquote {
 	padding: 10px;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 @media screen and (max-width: 480px) {
 	#wmd-showHidePreview-button

@@ -7,10 +7,6 @@
   max-width: none !important;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 /*}*/
 

@@ -93,10 +93,6 @@ body {
 #circle-button, #box-button, #triangle-button, #polygon-button, #gravity-button, #sensor-button, #apple-button, #clear-button, #run-button, #fullscreen-button, #help-button {
   display: none;
 }
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 @media only screen and (min-width: 220px) {
   #fullscreen-button {

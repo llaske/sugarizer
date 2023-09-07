@@ -5,10 +5,6 @@ body, html {
     display: flex;
     flex-direction: column;
 }
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 .palette {
     z-index: 10;
 }

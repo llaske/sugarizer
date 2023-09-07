@@ -210,8 +210,3 @@ body {
   z-index: 5;
 }
 
-
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}

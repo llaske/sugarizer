@@ -63,8 +63,3 @@ button.add {
   background-image: url(../icons/list-add.svg);
 }
 
-
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}

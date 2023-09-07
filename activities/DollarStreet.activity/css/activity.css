@@ -461,10 +461,6 @@ div[slider] > input[type=range]::-ms-tooltip {
 	max-width: 512px;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 @media screen and (max-width: 750px) {
 	.family-image-container {

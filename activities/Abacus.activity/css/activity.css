@@ -325,8 +325,3 @@ introjs-overlay {
 	background-color: #808080;
 	border: 2px solid #808080;
 }
-
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}

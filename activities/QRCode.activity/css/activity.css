@@ -31,10 +31,6 @@
 	opacity: 0.6 !important;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 .customTooltip .introjs-tooltip-header {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

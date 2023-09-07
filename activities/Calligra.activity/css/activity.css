@@ -546,8 +546,3 @@ body {
 	border-width: 2px;
 	border-color: #d0d0d0 #f3f3f3 #f3f3f3 #d0d0d0;
 }
-
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}

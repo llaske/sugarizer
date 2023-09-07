@@ -165,10 +165,6 @@ body {
   margin-bottom: 5.5px;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 .ql-font-arial {
   font-family: 'Arial';

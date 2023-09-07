@@ -154,10 +154,6 @@
   color: #dbdce8 !important;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 @media screen and (max-height: 500px) {
   #container{

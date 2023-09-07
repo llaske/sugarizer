@@ -136,10 +136,6 @@ textarea {
     color: #000 !important;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 @media screen and (min-width: 590px) and (max-width: 654px){
     .toolbar{

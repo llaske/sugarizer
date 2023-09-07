@@ -7,10 +7,6 @@ body {
   background-color: #ffffff;
 }
 
-textarea {
-	resize: vertical !important;
-	max-height: 70vh !important;
-}
 
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
