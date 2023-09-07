@@ -421,22 +421,6 @@ input[type='radio']:checked {
   background-image: url(../icons/actions/radio-active.svg);
 }
 /* Textarea */
-
-.palette textarea#description.expand {
-  resize: vertical !important;
-  max-height: 70vh !important;
-}
-
-#description .row expand {
-  resize: vertical !important;
-  max-height: 70vh !important;; 
-} 
-
-textarea #description.expand {
-  resize: vertical !important;
-  max-height: 70vh !important;
-}
-
 textarea {
   margin: 2px;
   border: 2px solid #808080;
