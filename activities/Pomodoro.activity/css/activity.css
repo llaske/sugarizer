@@ -154,7 +154,6 @@
   color: #dbdce8 !important;
 }
 
-
 @media screen and (max-height: 500px) {
   #container{
     flex-direction: row;

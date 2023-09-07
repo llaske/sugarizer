@@ -136,7 +136,6 @@ textarea {
     color: #000 !important;
 }
 
-
 @media screen and (min-width: 590px) and (max-width: 654px){
     .toolbar{
         padding: 0 25px;
