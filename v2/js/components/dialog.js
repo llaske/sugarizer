@@ -15,7 +15,7 @@
  const Dialog ={
 	name: 'Dialog',
 	template: `
-		<div v-if="showDialog" class="modal-overlay" @click="cancelClicked">
+		<div v-if="showDialog" class="modal-overlay" ref="dialogbox" @click="cancelClicked">
 			<div class="modal" @click.stop>
 				<div class="dialog-content">
 					<div class="toolbar">
@@ -28,8 +28,8 @@
 							placeholder="Search in settings"
 							v-on:input-changed="searchSettings($event)"
 						></search-field>
-						<div v-if="cancelButton=='true'" class="toolbutton module-cancel-button" @click="cancelClicked"></div>
-						<div v-if="okButton=='true'" class="toolbutton module-ok-button" @click="okClicked"></div>
+						<div v-if="cancelButton=='true'" class="toolbutton settings-tool-button module-cancel-button" @click="cancelClicked"></div>
+						<div v-if="okButton=='true'" class="toolbutton settings-tool-button module-ok-button" @click="okClicked"></div>
 					</div>
 					<slot></slot>
 				</div>	
@@ -46,6 +46,15 @@
 			showDialog: false,
 		}
 	},
+	watch: {
+		showDialog: function(val) {
+			if (val == true) {
+				this.$nextTick(() => {
+					this.centerDialog();
+				});
+			}
+		}
+	},
 	methods: {
 		cancelClicked() {
 			this.$emit('onCancel');
@@ -55,7 +64,22 @@
 		},
 		searchSettings(query) {
 			this.$emit('searchInput',query)
-		}
+		},
+		computeMargin(size, maxpercent) {
+			let canvas = document.getElementById("canvas");
+			let canvas_height = canvas.offsetHeight;
+			let canvas_width = canvas.offsetWidth;
+			let size_width = (size.width <= canvas_width ? size.width : maxpercent.width*canvas_width);
+			let size_height = (size.height <= canvas_height ? size.height : maxpercent.height*canvas_height);
+			return { left: parseFloat(canvas_width-size_width)/2.0, top: parseFloat(canvas_height-size_height)/2.0, width: size_width, height: size_height };
+		},
+		centerDialog() {
+			const margin = this.computeMargin({width: 800, height: 500}, {width: 0.95, height: 0.95});
+			const dialogbox = this.$refs.dialogbox;
+			dialogbox.style.marginLeft = margin.left+"px";
+			dialogbox.style.marginTop = (margin.top-55)+"px";
+			return margin;
+		},
 	}
 };
 

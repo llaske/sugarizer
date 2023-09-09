@@ -576,16 +576,15 @@ a {
 
 .modal-overlay {
 	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	width: 95%;
+	max-width: 800px;
+	height: 95%;
+	max-height: 500px;
 	display: flex;
 	justify-content: center;
 }
 
 .modal {
-	margin-top: 4%;
 	z-index: 5;
 	width: 800px;
 	height: 500px;
@@ -613,13 +612,15 @@ a {
 	width: 350px;
 }
 
-.settings-close-button {
-	background-image: url(../icons/dialog-cancel.svg);
-	position: absolute !important;
-	top: 5px;
-	right: 30px;
-	width: 35px !important;
-	height: 35px !important;
+.settings-tool-button {
+	color: transparent;
+	background-color: transparent;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 0;
+	border-radius: 5.5px;
+	margin: 4px 2px;
 }
 
 .toolbar {
@@ -960,11 +961,6 @@ a {
 }
 
 /* settings screen */
-.settings-screen {
-	position: fixed; 
-	top: calc(15vh + 55px);
-}
-
 .settings-subscreen {
 	background-color: #ffffff;
 	height: 100%;

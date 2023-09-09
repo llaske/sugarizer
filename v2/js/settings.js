@@ -9,7 +9,6 @@ const Settings = {
 						search-field="true"
 						ok-button="false" 
 						cancel-button="true"
-						class="settings-screen"
 						v-on:search-input="searchSettingsBox" 
 						v-on:on-cancel="closeSettings('settingModal')"
 					>
