@@ -93,7 +93,7 @@ const app = new Vue({
 		},
 
 		deleteMessage(key) {
-			this.messages = this.messages.filter(msg => msg.key !== key);
+			this.messages = this.messages.filter((msg) => msg.key !== key);
 			this.sendMessageToList(key, "delete-message");
 		},
 
@@ -101,6 +101,9 @@ const app = new Vue({
 			const { name, networkId } = msg.user;
 			console.log("Recieved", msg.action);
 			switch (msg.action) {
+				case "init":
+					this.messages = msg.content;
+					break;
 				case "start-typing":
 					this.$set(this.usersTyping, networkId, { name: name });
 					break;
@@ -113,7 +116,7 @@ const app = new Vue({
 					break;
 				case "delete-message":
 					const key = msg.content;
-					this.messages = this.messages.filter(msg => msg.key !== key);
+					this.messages = this.messages.filter((msg) => msg.key !== key);
 					break;
 			}
 		},
@@ -130,6 +133,10 @@ const app = new Vue({
 			};
 			this.messages.push(statusMsg);
 			this.scrollLatestMsg();
+
+			if (this.SugarPresence.isHost && msg.move === 1) {
+				this.sendMessageToList(this.messages, "init");
+			}
 		},
 
 		shouldShowUsername(idx) {
