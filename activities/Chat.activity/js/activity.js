@@ -26,8 +26,7 @@ const app = new Vue({
 			id: "",
 			color: "",
 		},
-		// usersTyping: {},
-		usersTyping: { "44848484": {name: "Utkarsh"} }, //TODO remove
+		usersTyping: {},
 		l10n: {},
 		isFullscreen: false,
 		isShared: true, //TODO !share
@@ -93,9 +92,9 @@ const app = new Vue({
 			}, 50);
 		},
 
-		deleteMessage(idx) {
-			this.messages.splice(idx, 1);
-			this.sendMessageToList(idx, "delete-message");
+		deleteMessage(key) {
+			this.messages = this.messages.filter(msg => msg.key !== key);
+			this.sendMessageToList(key, "delete-message");
 		},
 
 		onNetworkDataReceived(msg) {
@@ -113,7 +112,8 @@ const app = new Vue({
 					this.scrollLatestMsg();
 					break;
 				case "delete-message":
-					this.messages.splice(msg.content, 1);
+					const key = msg.content;
+					this.messages = this.messages.filter(msg => msg.key !== key);
 					break;
 			}
 		},

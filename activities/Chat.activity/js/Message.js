@@ -1,5 +1,5 @@
 const Message = {
-	props: ["msg", "type", "name", "fill", "stroke", "sender", "index"],
+	props: ["id", "msg", "type", "name", "fill", "stroke", "sender", "index"],
 	template: `
 		<div
 			class="message"
@@ -23,7 +23,7 @@ const Message = {
 	`,
 	methods: {
 		deleteMessage() {
-			this.$emit("delete-msg", this.index);
+			this.$emit("delete-msg", this.id);
 		},
 	},
 };

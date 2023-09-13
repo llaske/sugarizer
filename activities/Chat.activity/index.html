@@ -37,8 +37,9 @@
 			<div class="messages-container" ref="msgContainer">
 				<transition-group name="list">
 					<message
-						v-for="({ msg, type, userName, userId, fill, stroke, key}, idx) in messages"
+						v-for="({ msg, type, userName, userId, fill, stroke, key }, idx) in messages"
 						:key="key"
+						:id="key"
 						:msg="msg"
 						:type="type"
 						:name="shouldShowUsername(idx) ? userName : ''"

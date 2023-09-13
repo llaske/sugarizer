@@ -8,13 +8,28 @@ const TypingEffect = {
 			  <span class="dot"></span>
 			</div>
 			<div>
-				<span v-for="(user, userId) in usersTyping" :key="userId">{{user.name}}</span>
-				<span style="font-weight: normal"> is typing ...</span>
+			    <div v-html="typingString"></div>
 			</div>
 		<div>
 	`,
-	created() {
+	created() {},
+	computed: {
+		typingString() {
+			let users = this.usersTyping;		
+			let keys = Object.keys(users);
+			if (keys.length <= 0) {
+				return "";
+			} else if (keys.length === 1) {
+				return `<strong>${users[keys[0]].name}</strong> is typing`;
+			} else if (keys.length === 2) {
+				return `<strong>${users[keys[0]].name}</strong> and <strong>${users[keys[1]].name}</strong> are typing`;
+			} else {
+				const lastKey = keys.pop();
+				console.log(keys, lastKey);
+				const usersList = keys.map((key) => `<strong>${users[key].name}</strong>`).join(", ");
+				return `${usersList}, and <strong>${users[lastKey].name}</strong> are typing`;
+			}
+		},
 	},
-	methods: {
-	},
+	methods: {},
 };
