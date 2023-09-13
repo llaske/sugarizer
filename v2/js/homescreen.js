@@ -71,7 +71,7 @@ const HomeScreen = {
 						v-on:mouseleave="removePopupFunction($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
-					<settings ref="settings" :buddycolor="buddycolor" :username="username"></settings>
+					<settings ref="settings" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n"></settings>
 				`,
 
 	components: {
@@ -116,7 +116,7 @@ const HomeScreen = {
 		}
 	},
 
-	props: ['filteredactivities'],
+	props: ['filteredactivities', 'SugarL10n'],
 
 	mounted() {
 		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
@@ -337,9 +337,9 @@ const HomeScreen = {
 						isNative: "true"
 					},
 					name: activity.name,
-					title: activity.name + " Activity",
+					title: this.SugarL10n.get("NameActivity", { name: activity.name }),
 					footerList: [
-						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: "Start New" }
+						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: this.SugarL10n.get("StartNew") }
 					],
 				};
 			});
@@ -382,8 +382,8 @@ const HomeScreen = {
 					name: this.username,
 					title: null,
 					itemList: [
-						{ icon: { id: 1, iconData: "icons/preferences-system.svg", color: 256, size: 22 }, name: "Settings" },
-						{ icon: { id: 2, iconData: "icons/system-shutdown.svg", color: 256, size: 22, isNative: "true" }, name: "Logout" },
+						{ icon: { id: 1, iconData: "icons/preferences-system.svg", color: 256, size: 22 }, name: this.SugarL10n.get("MySettings") },
+						{ icon: { id: 2, iconData: "icons/system-shutdown.svg", color: 256, size: 22, isNative: "true" }, name: this.SugarL10n.get("Logoff") },
 					],
 				};
 				this.popup = popupData[itemId];
@@ -401,7 +401,7 @@ const HomeScreen = {
 		},
 
 		itemisClicked(item) {
-			if (item == "buddy_Settings" || item == "buddy_" + this.username) {
+			if (item == "buddy_" + this.SugarL10n.get("MySettings") || item == "buddy_" + this.username) {
 				this.$refs.settings.openSettingsModal("settingModal");
 			} else if (item == "buddy_Logout") {
 				this.logout();

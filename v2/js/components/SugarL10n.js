@@ -20,38 +20,42 @@ const SugarL10n = {
 		};
 	},
 
-	computed: {
-		readyToEmit: function () {
-			return this.dictionary != null;
-		},
-	},
 
-	watch: {
-		readyToEmit: function (newVal, oldVal) {
-			try {
-				if (newVal) {
-					this.$emit('localized');
-					this.eventReceived = true;
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		},
-	},
-
-	mounted: function () {
-
+	created: async function () {
 		const vm = this;
-		if (vm.l10n == null) {
-			vm.language = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-
-			const language = vm.language;
+		vm.language = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+		if (localStorage.getItem("sugar_settings") !== null && localStorage.getItem("sugar_settings") !== undefined && localStorage.getItem("sugar_settings") !== "{}") {
+			const token = JSON.parse(localStorage.getItem("sugar_settings")).token;
+			await axios.get(`/api/v1/users/${token.x_key}`, {
+				headers: {
+					'x-key': token.x_key,
+					'x-access-token': token.access_token,
+				},
+			}).then((response) => {
+				if (response.status == 200) {
+					vm.language = response.data.language;
+					const language = vm.language.substr(0, 2);
+					vm.loadLanguageFile(language);
+				}
+			})
+		} else {
+			const language = vm.language.substr(0, 2);
+			vm.loadLanguageFile(language)
 			console.log('Language: ' + language);
-			vm.loadLanguageFile(language);
 		}
 	},
 
 	methods: {
+		emitLocalized() {
+			const vm = this;
+			const customEvent = new CustomEvent("localized", {
+				detail: {
+					l10n: vm,
+				},
+			});
+			window.dispatchEvent(customEvent);
+		},
+
 		loadLanguageFile: function (language) {
 			const vm = this;
 			requirejs(['lib/i18next.min.js'], function (i18next) {
@@ -59,7 +63,6 @@ const SugarL10n = {
 					i18next.init({
 						lng: language,
 						fallbackLng: 'en',
-						debug: true,
 						resources: {
 							[language]: {
 								translation: response.data
@@ -69,23 +72,11 @@ const SugarL10n = {
 						vm.l10n = i18next;
 						vm.code = i18next.language;
 						vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
-						vm.subscribeLanguageChange();
+						vm.emitLocalized();
 					});
 				}).catch((error) => {
 					vm.loadLanguageFile('en'); // Load default language
 					console.log(error);
-				});
-			});
-		},
-
-		subscribeLanguageChange: function () {
-			const vm = this;
-			requirejs(['lib/i18next.min.js'], function (i18next) {
-				i18next.on('languageChanged', (lng) => {
-					vm.code = lng;
-					vm.dictionary = i18next.getResourceBundle(lng, 'translation'); // Update dictionary with new language
-					vm.$emit('localized');
-					vm.eventReceived = true;
 				});
 			});
 		},

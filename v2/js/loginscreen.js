@@ -127,7 +127,6 @@ const LoginScreen = {
 			isNewuser: Boolean,
 			isPrevUser: Object,
 		},
-		l10n: Object,
 	},
 
 	data() {
@@ -147,10 +146,29 @@ const LoginScreen = {
 				password: '',
 				color: null,
 			},
+			l10n: {
+				stringServerUrl: '',
+				stringName: '',
+				stringPassword: '',
+				stringClickToColor: '',
+				stringCookieConsent: '',
+				stringPolicyLink: '',
+				stringBack: '',
+				stringNext: '',
+				stringDone: '',
+				stringUserAlreadyExist: '',
+				stringInvalidUser: '',
+			},
 		}
 	},
 
 	emits: ['propModified', 'updateIsFirstScreen'],
+
+	created: function () {
+		window.addEventListener('localized', (e) => {
+			e.detail.l10n.localize(this.l10n);
+		}, { once: true });
+	},
 
 	watch: {
 		userType: {

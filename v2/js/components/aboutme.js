@@ -7,14 +7,14 @@ const AboutMe = {
 				<dialog-box 
 						ref="aboutMeModal"
 						iconData="./icons/owner-icon.svg"
-						titleData="About me"
+						:titleData="SugarL10n ? SugarL10n.get('AboutMe') : ''"
 						ok-button="true"
 						cancel-button="true"
 						v-on:on-ok="okClicked"
 						v-on:on-cancel="close('aboutMeModal')"
 					>
 						<div class="settings-subscreen aboutme-box">
-							<div class="firstscreen_text">Click to change color:</div>
+							<div class="firstscreen_text">{{SugarL10n ? SugarL10n.get('ClickToColor') : ''}}</div>
 							<div class="aboutme-iconbox">
 								<icon id="psicon" ref="psicon" svgfile="./icons/owner-icon.svg" size="98" @click="setcolor('psicon')" />
 								<icon id="nsicon" ref="nsicon" svgfile="./icons/owner-icon.svg" size="98" @click="setcolor('nsicon')" />
@@ -43,7 +43,7 @@ const AboutMe = {
 		'icon': Icon,
 	},
 
-	props: ['buddycolor', 'username'],
+	props: ['buddycolor', 'username', 'SugarL10n'],
 
 	data() {
 		return {
@@ -224,7 +224,7 @@ const AboutMe = {
 			}
 			if (nameChanged && await this.checkifUserExists(this.name)) {
 				this.warning.show = true;
-				this.warning.text = "User already exist";
+				this.warning.text = this.SugarL10n ? this.SugarL10n.get('UserAlreadyExist') : 'User Already Exists';
 				return;
 			}
 			await this.updateUser(this.name, this.currentcolor);

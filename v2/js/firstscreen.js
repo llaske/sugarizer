@@ -20,7 +20,6 @@ const FirstScreen = {
                     <div class="firstscreen_login" v-show="showLoginScreen" >
                         <login-screen
                             :userType="userType"
-									 :l10n="l10n"
                             @propModified="handleLoginScreenPropModified" 
                             @updateIsFirstScreen="setIsFirstScreen2"
                         />
@@ -79,8 +78,6 @@ const FirstScreen = {
 
 	emits: ['showmainscreen'],
 
-	props: ['l10n'],
-
 	data() {
 		return {
 			prevUsers: [],
@@ -91,6 +88,10 @@ const FirstScreen = {
 				isPrevUser: null,
 			},
 			isFirstScreen: true,
+			l10n: {
+				stringNewUser: '',
+				stringLogin: '',
+			},
 		}
 	},
 
@@ -100,7 +101,10 @@ const FirstScreen = {
 		}
 	},
 
-	mounted() {
+	created() {
+		window.addEventListener('localized', (e) => {
+			e.detail.l10n.localize(this.l10n);
+		}, { once: true });
 		this.getPrevUsers()
 	},
 

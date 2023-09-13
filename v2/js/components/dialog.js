@@ -25,7 +25,7 @@
 						<div v-if="titleData" class="module-text">{{titleData}}</div>
 						<search-field class="settings-filter-text"
 							v-if="searchField=='true'"
-							placeholder="Search in settings"
+							:placeholder="searchPlaceholder"
 							v-on:input-changed="searchSettings($event)"
 						></search-field>
 						<div v-if="cancelButton=='true'" class="toolbutton settings-tool-button module-cancel-button" @click="cancelClicked"></div>
@@ -36,7 +36,7 @@
 			</div>
 		</div>
 	`,
-	props: ['searchField', 'okButton', 'cancelButton', 'iconData', 'titleData'],
+	props: ['searchField', 'searchPlaceholder','okButton', 'cancelButton', 'iconData', 'titleData'],
 	components: {
 		'icon': Icon, 
 		'search-field': SearchField,

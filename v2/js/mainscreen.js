@@ -51,8 +51,8 @@ const MainScreen = {
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
-						<listview v-if="screentype==='list'" @activities="setActivities" :filteredactivities="filteredactivities"/>
-						<homescreen v-else-if="screentype==='home'" @activities="setActivities" :filteredactivities="filteredactivities"/>
+						<listview v-if="screentype==='list'" @activities="setActivities" :filteredactivities="filteredactivities" :SugarL10n="SugarL10n"/>
+						<homescreen v-else-if="screentype==='home'" @activities="setActivities" :filteredactivities="filteredactivities" :SugarL10n="SugarL10n"/>
 						<div v-else-if="screentype==='neighbor'"> Neighbor </div>
 					</div>
 					`,
@@ -62,14 +62,31 @@ const MainScreen = {
 		'listview': ListView,
 		'homescreen': HomeScreen
 	},
-	props: ['l10n'],
 
 	data: function () {
 		return {
 			screentype: 'home',
 			activities: [],
 			filteredactivities: [],
+			SugarL10n: null,
+			l10n: {
+				stringSearchHome: "",
+			},
 		}
+	},
+
+	created: function () {
+		window.addEventListener('localized', (e) => {
+			e.detail.l10n.localize(this.l10n);
+			this.SugarL10n = {
+				localize: (l10n) => {
+					e.detail.l10n.localize(l10n);
+				},
+				get: (key, params) => {
+					return e.detail.l10n.get(key, params);
+				}
+			}
+		}, { once: true });
 	},
 
 	watch: {

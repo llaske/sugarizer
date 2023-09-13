@@ -22,12 +22,12 @@
 
   <body id="body">
 	<div id="app">
-		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-localization v-if="isFirstScreen !== null" :key="isFirstScreen"></sugar-localization>
 		<div class="sugarizer-canvas" v-if="isFirstScreen">
-			<firstscreen @showmainscreen="setIsFirstScreen" :l10n="l10n.firstscreen"/>
+			<firstscreen @showmainscreen="setIsFirstScreen"/>
 		</div>
 		<div v-else-if="!isFirstScreen && isFirstScreen !== null">
-			<mainscreen ref="mainscreen" :l10n="l10n.mainscreen" />
+			<mainscreen ref="mainscreen" />
 		</div>
 	</div>
 

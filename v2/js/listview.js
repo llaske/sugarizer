@@ -67,7 +67,7 @@ const ListView = {
 		}
 	},
 
-	props: ['filteredactivities'],
+	props: ['filteredactivities', 'SugarL10n'],
 
 	mounted() {
 		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
@@ -222,8 +222,6 @@ const ListView = {
 			activities.forEach(activity => {
 				popupData[activity.id] = {
 					id: activity.id,
-					favorite: activity.favorite,
-					directory: activity.directory,
 					icon: {
 						id: activity.id + "_popup",
 						iconData: activity.directory + "/" + activity.icon,
@@ -234,8 +232,8 @@ const ListView = {
 					name: activity.name,
 					title: null,
 					itemList: [
-						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: "Start New" },
-						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? this.buddycolor : 256, size: 20 }, name: "Favorite" },
+						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: this.SugarL10n.get("StartNew") },
+						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? this.buddycolor : 256, size: 20 }, name: activity.favorite ? this.SugarL10n.get("RemoveFavorite") : this.SugarL10n.get("MakeFavorite") },
 					],
 				};
 			});

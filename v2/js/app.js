@@ -14,45 +14,16 @@ const app = Vue.createApp({
 	},
 	data() {
 		return {
-			SugarL10n: null,
-			l10n: {
-				mainscreen: {
-					stringSearchHome: "",
-					stringMySettings: "",
-					stringLogOff: "",
-					stringStartNew: "",
-					stringNameActivity: "",
-				},
-				firstscreen: {
-					stringNewUser: "",
-					stringLogin: "",
-					stringServerUrl: "",
-					stringName: "",
-					stringPassword: "",
-					stringClickToColor: "",
-					stringCookieConsent: "",
-					stringPolicyLink: "",
-					stringBack: "",
-					stringNext: "",
-					stringDone: "",
-					stringUserAlreadyExist: "",
-					stringInvalidUser: "",
-				},
-			},
 			isFirstScreen: null,
 			token: null,
 		}
 	},
-	mounted() {
+	
+	created: function () {
 		this.checkUserLoggedIn();
-		this.SugarL10n = this.$refs.SugarL10n;
 	},
-	methods: {
-		localized(){
-			this.SugarL10n.localize(this.l10n.mainscreen);
-			this.SugarL10n.localize(this.l10n.firstscreen);
-		},
 
+	methods: {
 		setIsFirstScreen(value) {
 			this.isFirstScreen = value;
 		},
