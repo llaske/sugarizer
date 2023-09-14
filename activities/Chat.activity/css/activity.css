@@ -152,7 +152,7 @@ body,
 	display: flex;
 	margin: 0 auto 16px auto;
 	border-radius: 8px;
-	border: 2px solid #a9a9a9;
+	border: 2px solid #565656;
 	position: relative;
 }
 .chat-input, .loader-container {
@@ -185,6 +185,13 @@ body,
 }
 .chat-textarea::-webkit-scrollbar-thumb {
 	background-color: transparent;
+}
+.chat-textarea.disabled {
+	cursor: not-allowed;
+}
+.chat-textarea.disabled::placeholder {
+	color: #565656;
+	opacity: 1;
 }
 
 #insert-journal {

@@ -29,7 +29,7 @@ const app = new Vue({
 		usersTyping: {},
 		l10n: {},
 		isFullscreen: false,
-		isShared: true, //TODO !share
+		isShared: false,
 	},
 
 	mounted() {
@@ -40,6 +40,8 @@ const app = new Vue({
 
 	methods: {
 		initialized() {
+			// Launched with a shared id, activity is already shared
+			if (window.top.sugar.environment.sharedId) this.isShared = true;
 			const currentUser = this.$refs.SugarActivity.getEnvironment().user;
 			this.userInfo = {
 				name: currentUser.name,
@@ -148,6 +150,10 @@ const app = new Vue({
 		onJournalDataLoaded(data, metadata) {
 			this.messages = data.messages;
 			this.scrollLatestMsg();
+		},
+		onShared(event, paletteObject) {
+			this.SugarPresence.onShared(event, paletteObject);
+			this.isShared = true;
 		},
 
 		onHelp() {

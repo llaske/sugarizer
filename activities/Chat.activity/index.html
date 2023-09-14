@@ -24,7 +24,7 @@
 						palette-file="sugar-web/graphics/presencepalette"
 						palette-class="PresencePalette"
 						palette-event="shared"
-						@shared="SugarPresence.onShared"
+						@shared="onShared"
 						v-if="SugarPresence"
 					></sugar-toolitem>
 
@@ -52,15 +52,13 @@
 					</message>
 				</transition-group>
 			</div>
-			
+
 			<typing-effect :users-typing="usersTyping"></typing-effect>
-			<transition name="fade">
-				<chat-input v-if="isShared" @journal-click="handleSendFromJournal" @send-to-list="sendMessageToList" @send-msg="sendMessage"></chat-input>
-			</transition>
+			<chat-input :is-shared="isShared" @journal-click="handleSendFromJournal" @send-to-list="sendMessageToList" @send-msg="sendMessage"></chat-input>
 
 			<sugar-activity @initialized="initialized" ref="SugarActivity"></sugar-activity>
 			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
-			<sugar-presence ref="SugarPresence" @shared="isShared = true" @data-received="onNetworkDataReceived" @user-changed="onNetworkUserChanged"></sugar-presence>
+			<sugar-presence ref="SugarPresence" @disconnect="isShared = false" @data-received="onNetworkDataReceived" @user-changed="onNetworkUserChanged"></sugar-presence>
 			<sugar-journal ref="SugarJournal" @journal-data-loaded="onJournalDataLoaded" @journal-new-instance="onJournalNewInstance"></sugar-journal>
 			<sugar-localization @localized="localized" ref="SugarL10n"></sugar-localization>
 		</div>

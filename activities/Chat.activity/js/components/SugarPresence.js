@@ -1,4 +1,5 @@
 Vue.component('sugar-presence', {
+	
 	data: function () {
 		return {
 			activity: null,
@@ -26,6 +27,10 @@ Vue.component('sugar-presence', {
 					}
 					network.onDataReceived(vm.onNetworkDataReceived);
 					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
+					
+					network.onConnectionClosed(function () {
+						vm.$emit("disconnect");
+					});
 				});
 			});
 		});
@@ -59,7 +64,6 @@ Vue.component('sugar-presence', {
 			console.log("Want to share");
 			this.presence.createSharedActivity(this.bundleId, function (groupId) {
 				console.log("Activity shared");
-				vm.$emit("shared");
 				vm.isHost = true;
 			});
 		},
