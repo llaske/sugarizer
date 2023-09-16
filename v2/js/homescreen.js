@@ -403,12 +403,11 @@ const HomeScreen = {
 		itemisClicked(item) {
 			if (item == "buddy_" + this.SugarL10n.get("MySettings") || item == "buddy_" + this.username) {
 				this.$refs.settings.openSettingsModal("settingModal");
-			} else if (item == "buddy_Logout") {
+			} else if (item == "buddy_" + this.SugarL10n.get("Logoff")) {
 				this.logout();
 			} else {
 				this.launchActivity(this.popup);
 			}
-			console.log(item);
 		},
 
 		logout() {
