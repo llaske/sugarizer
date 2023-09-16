@@ -34,15 +34,12 @@ const SugarL10n = {
 			}).then((response) => {
 				if (response.status == 200) {
 					vm.language = response.data.language;
-					const language = vm.language.substr(0, 2);
-					vm.loadLanguageFile(language);
 				}
 			})
-		} else {
-			const language = vm.language.substr(0, 2);
-			vm.loadLanguageFile(language)
-			console.log('Language: ' + language);
 		}
+		const language = vm.language.substr(0, 2);
+		vm.loadLanguageFile(language)
+		console.log('Language: ' + language);	
 	},
 
 	methods: {
