@@ -91,6 +91,10 @@ const Settings = {
 			return data;
 		}
 	},
+	
+	mounted() {
+		this.filtersettings = this.settingsData;
+	},
 
 	watch: {
 		settingsData(val) {
