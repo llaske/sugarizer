@@ -84,7 +84,8 @@ const MainScreen = {
 				},
 				get: (key, params) => {
 					return e.detail.l10n.get(key, params);
-				}
+				},
+				language: e.detail.l10n.language,
 			}
 		}, { once: true });
 	},

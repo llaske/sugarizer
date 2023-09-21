@@ -53,12 +53,14 @@ const Settings = {
 						</div>
 					</dialog-box> 
 					<about-me ref="aboutMeModal" v-if="subscreen === 'aboutMeModal'" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-me>
+					<languagebox ref="languageModal" v-if="subscreen === 'languageModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></languagebox>
 	`,
 
 	components: {
 		'dialog-box': Dialog,
 		'icon': Icon,
 		'about-me': AboutMe,
+		'languagebox': LanguageBox,
 	},
 
 	props: ['buddycolor', 'username', 'SugarL10n'],

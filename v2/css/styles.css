@@ -699,7 +699,7 @@ a {
 }
 
 .module-text {
-	margin: 20px 10px 0px 0px;
+	margin-left: 20px;
 	color: white;
 	word-wrap: break-word;
 }
@@ -995,6 +995,21 @@ a {
 	align-items: center;
 }
 
+#language-btn {
+	display: flex;
+	width: max-content;
+	border-radius: 22px;
+	padding: 0px 0px 0px 20px;
+	height: 35px;
+	color: white;
+	background-color: #808080;
+	border: 2px solid #808080;
+	margin-left: 20px;
+	align-items: center;
+	text-align: center;
+	justify-content: space-around;
+	width: 180px;
+}
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
