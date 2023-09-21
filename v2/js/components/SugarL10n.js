@@ -35,9 +35,13 @@ const SugarL10n = {
 				if (response.status == 200) {
 					vm.language = response.data.language;
 				}
-			})
+			}).catch((error) => {
+				vm.language = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+
+			});
 		}
-		const language = vm.language.substr(0, 2);
+
+		const language = vm.language.split('-')[0];
 		vm.loadLanguageFile(language)
 		console.log('Language: ' + language);	
 	},
