@@ -699,6 +699,8 @@ enyo.kind({
 		this.$.timer.stop();
 		this.$.timerMonster.stop();
 		FoodChain.goHome();
+		FoodChain.context.score = 0;
+		this.$.score.setContent(String("0000"+FoodChain.context.score).slice(-4));	
 		return true; // Prevent event from bubbling up and causing "clickToMove" to be triggered
 	}
 });
