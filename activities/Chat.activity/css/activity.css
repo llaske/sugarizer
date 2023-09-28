@@ -232,6 +232,7 @@ body,
 .smiley-btn:hover {
 	border: none;
 	background: transparent;
+	color: #282828;
 }
 .smiley-btn:hover,
 .smiley-btn:focus-visible {
@@ -279,6 +280,7 @@ body,
 	background: none;
 	font-size: 23px;
 	border-radius: 8px;
+	color: #282828;
 }
 
 /* Loader */
