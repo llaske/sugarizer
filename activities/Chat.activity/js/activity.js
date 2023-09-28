@@ -136,8 +136,18 @@ const app = new Vue({
 			this.messages.push(statusMsg);
 			this.scrollLatestMsg();
 
-			if (this.SugarPresence.isHost && msg.move === 1) {
-				this.sendMessageToList(this.messages, "init");
+			if (msg.move === 1) {
+				if (this.SugarPresence.isHost) {
+					this.sendMessageToList(this.messages, "init");
+				}
+				this.$refs.ChatInput.sentTypingStatus();
+			} else if (msg.move === -1) {
+				if (this.userInfo.id === msg.user.networkId) {
+					this.usersTyping = {};
+					this.isShared = false;
+					return;
+				}
+				this.$delete(this.usersTyping, msg.user.networkId);
 			}
 		},
 

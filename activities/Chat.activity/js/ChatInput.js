@@ -9,9 +9,7 @@ const ChatInput = {
 				ref="chatInput"
 				class="chat-textarea"
 				@input="handleUserTyping"
-				@focus="startTyping"
 				:value="message"
-				@blur="stopTyping"
 				@keydown.enter="handleSendMsg"
 				tabindex="0"
 				:placeholder="isShared ? 'Type your message ...' : 'Please Share the activity or check the connection'"
@@ -55,12 +53,6 @@ const ChatInput = {
 			this.isUserTyping = false;
 			this.checkAndSendTypingStatus();
 		},
-		startTyping() {
-			if (this.message) {
-				this.isUserTyping = true;
-				this.checkAndSendTypingStatus();
-			}
-		},
 
 		handleUserTyping(e) {
 			if (e.target.value) this.isUserTyping = true;
@@ -72,10 +64,13 @@ const ChatInput = {
 		checkAndSendTypingStatus() {
 			if (this.prevTypingStatus !== this.isUserTyping) {
 				this.prevTypingStatus = this.isUserTyping;
-
-				const action = this.isUserTyping ? "start-typing" : "stop-typing";
-				this.$emit("send-to-list", null, action);
+				this.sentTypingStatus();
 			}
+		},
+
+		sentTypingStatus() {
+			const action = this.isUserTyping ? "start-typing" : "stop-typing";
+			this.$emit("send-to-list", null, action);
 		},
 
 		handleSendMsg(e) {

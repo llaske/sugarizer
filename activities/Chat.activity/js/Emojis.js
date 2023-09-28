@@ -1,4 +1,3 @@
-//TODO replace with unicode
 const Emojis = {
 	template: `
 		<div class="emojis-container">

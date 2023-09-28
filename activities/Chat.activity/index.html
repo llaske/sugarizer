@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -54,7 +54,7 @@
 			</div>
 
 			<typing-effect :users-typing="usersTyping"></typing-effect>
-			<chat-input :is-shared="isShared" @journal-click="handleSendFromJournal" @send-to-list="sendMessageToList" @send-msg="sendMessage"></chat-input>
+			<chat-input ref="ChatInput" :is-shared="isShared" @journal-click="handleSendFromJournal" @send-to-list="sendMessageToList" @send-msg="sendMessage"></chat-input>
 
 			<sugar-activity @initialized="initialized" ref="SugarActivity"></sugar-activity>
 			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
