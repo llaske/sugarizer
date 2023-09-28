@@ -27,6 +27,7 @@
 						@shared="onShared"
 						v-if="SugarPresence"
 					></sugar-toolitem>
+					<sugar-toolitem @click="clearHistory" id="clear-button" title="clear chat history"></sugar-toolitem>
 
 					<sugar-toolitem @click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 					<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right" title="l10n.stringFullscreen"></sugar-toolitem>

@@ -26,6 +26,10 @@ body {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #clear-button {
+	background-image: url(../icons/clear.svg);
+}
+
 #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
 }
@@ -155,7 +159,8 @@ body,
 	border: 2px solid #565656;
 	position: relative;
 }
-.chat-input, .loader-container {
+.chat-input,
+.loader-container {
 	width: 95vw;
 	max-width: 950px;
 }

@@ -99,6 +99,10 @@ const app = new Vue({
 			this.sendMessageToList(key, "delete-message");
 		},
 
+		clearHistory() {
+			this.messages = [];
+		},
+
 		onNetworkDataReceived(msg) {
 			const { name, networkId } = msg.user;
 			console.log("Recieved", msg.action);
