@@ -1,19 +1,20 @@
-Vue.component('sugar-activity', {
-	name: 'SugarActivity',
-	data: function() {
+const SugarActivity = {
+	name: "SugarActivity",
+	render() {},
+	data: function () {
 		return {
 			activity: null,
-			environment: null
-		}
+			environment: null,
+		};
 	},
-	mounted() {
+	created: function () {
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
 			vm.activity = activity;
 			env.getEnvironment(function (err, environment) {
 				vm.environment = environment;
 				activity.setup();
-				vm.$emit('initialized');
+				vm.$emit("initialized");
 			});
 		});
 	},
@@ -24,6 +25,6 @@ Vue.component('sugar-activity', {
 
 		getEnvironment: function () {
 			return this.environment;
-		}
-	}
-})
+		},
+	},
+};

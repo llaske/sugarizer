@@ -324,8 +324,7 @@ body,
 .fade-enter-active {
 	transition: opacity 0.3s;
 }
-/* .fade-enter-from { TODO*/
-.fade-enter {
+.fade-enter-from {
 	opacity: 0;
 }
 
@@ -335,7 +334,7 @@ body,
 	transition: all 0.5s;
 }
 
-.list-enter {
+.list-enter-from {
 	opacity: 0;
 	transform: translateY(-10px);
 }

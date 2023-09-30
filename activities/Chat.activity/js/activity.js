@@ -8,28 +8,37 @@ requirejs.config({
 });
 
 // APP
-const app = new Vue({
-	el: "#app",
+const app = Vue.createApp({
 	components: {
 		message: Message,
 		"chat-input": ChatInput,
 		"typing-effect": TypingEffect,
+		"sugar-activity": SugarActivity,
+		"sugar-toolitem": SugarToolitem,
+		"sugar-toolbar": SugarToolbar,
+		"sugar-journal": SugarJournal,
+		"sugar-localization": SugarLocalization,
+		"sugar-presence": SugarPresence,
+		"sugar-tutorial": SugarTutorial,
+		"sugar-icon": SugarIcon,
 	},
 
-	data: {
-		SugarL10n: null,
-		SugarPresence: null,
-		SugarJournal: null,
-		messages: [],
-		userInfo: {
-			name: "",
-			id: "",
-			color: "",
-		},
-		usersTyping: {},
-		l10n: {},
-		isFullscreen: false,
-		isShared: false,
+	data: function () {
+		return {
+			SugarL10n: null,
+			SugarPresence: null,
+			SugarJournal: null,
+			messages: [],
+			userInfo: {
+				name: "",
+				id: "",
+				color: "",
+			},
+			usersTyping: {},
+			l10n: {},
+			isFullscreen: false,
+			isShared: false,
+		};
 	},
 
 	mounted() {
@@ -111,10 +120,10 @@ const app = new Vue({
 					this.messages = msg.content;
 					break;
 				case "start-typing":
-					this.$set(this.usersTyping, networkId, { name: name });
+					this.usersTyping[networkId] = { name: name };
 					break;
 				case "stop-typing":
-					this.$delete(this.usersTyping, networkId);
+					delete this.usersTyping[networkId];
 					break;
 				case "add-message":
 					this.messages.push(msg.content);
@@ -151,7 +160,7 @@ const app = new Vue({
 					this.isShared = false;
 					return;
 				}
-				this.$delete(this.usersTyping, msg.user.networkId);
+				delete this.usersTyping[msg.user.networkId];
 			}
 		},
 
@@ -186,3 +195,5 @@ const app = new Vue({
 		},
 	},
 });
+
+app.mount("#app");

@@ -1,10 +1,11 @@
-Vue.component('sugar-icon', {
+const SugarIcon = {
+	render() {},
 	data: function () {
 		return {
-			icon: null
-		}
+			icon: null,
+		};
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["sugar-web/graphics/icon"], function (icon) {
 			vm.icon = icon;
@@ -29,18 +30,17 @@ Vue.component('sugar-icon', {
 			let vm = this;
 			return new Promise((resolve, reject) => {
 				var path = getBackgroundURL(element);
-				vm.generateIconWithColors(path, colors)
-					.then(src => {
-						element.style.backgroundImage = `url(${src})`;
-						resolve();
-					});
+				vm.generateIconWithColors(path, colors).then((src) => {
+					element.style.backgroundImage = `url(${src})`;
+					resolve();
+				});
 			});
-		}
-	}
-})
+		},
+	},
+};
 
 let getBackgroundURL = function (el) {
-	var style = el.currentStyle || window.getComputedStyle(el, '');
+	var style = el.currentStyle || window.getComputedStyle(el, "");
 	// Remove prefix 'url(' and suffix ')' before return
 	var res = style.backgroundImage.slice(4, -1);
 	var last = res.length - 1;
@@ -48,4 +48,4 @@ let getBackgroundURL = function (el) {
 		res = res.slice(1, last);
 	}
 	return res;
-}
+};
