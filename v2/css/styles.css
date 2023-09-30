@@ -67,6 +67,26 @@ html, button {
 	background-color: white;
 }
 
+input[type="checkbox"], input[type="radio"] {
+	width: 22px;
+	height: 22px;
+	margin: 2px 2px 4px 2px;
+	margin-left: 2px;
+	vertical-align: middle;
+	background-position: center;
+	background-size: contain;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+ }
+
+input[type="checkbox"]:checked {
+	background-image: url(../icons/checkbox-checked.svg);
+}
+
+input[type="checkbox"] {
+	background-image: url(../icons/checkbox-unchecked.svg);
+}
 a {
 	color: #0076c3;
 	text-decoration: none;
@@ -1010,6 +1030,44 @@ a {
 	justify-content: space-around;
 	width: 180px;
 }
+
+.aboutserver-subbox {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-top: 10px;
+}
+
+.aboutserver-detailbox {
+	display: grid;
+	justify-content: center;
+}
+
+.aboutserver-leftitem {
+	width: 150px;
+	text-align: right;
+}
+
+.aboutserver-rightitem {
+	width: 300px;
+	text-align: left;
+	color: black;
+}
+
+.aboutserver-checkbox {
+	position: absolute;
+	left: 10px;
+	margin-top: 20px;
+}
+
+.aboutserver-username {
+	width: 200px;
+}
+
+#aboutserver-serverurl {
+	margin-top: 60px;
+}
+
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {

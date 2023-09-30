@@ -21,14 +21,14 @@ const Settings = {
 								<div class="dialog-item-text">{{localizedL10n.stringAboutMe}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringAboutMyComputer).includes(v))) ? '' :'dialog-item-disable'">
-								<div v-on:click="openModal('aboutmycomputerModal')">
-									<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" size="72" is-native="true" @click="openModal('aboutmycomputerModal')"
+								<div v-on:click="openModal('aboutComputerModal')">
+									<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" size="72" is-native="true" @click="openModal('aboutComputerModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringAboutMyComputer}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringServer).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="33" svgfile="icons/cloud-settings.svg" color="256" size="72" is-native="true" @click="openModal('aboutmyserverModal')"
+									<icon id="33" svgfile="icons/cloud-settings.svg" color="256" size="72" is-native="true" @click="openModal('aboutMyServerModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringServer}}</div>
 							</div>
@@ -53,6 +53,8 @@ const Settings = {
 						</div>
 					</dialog-box> 
 					<about-me ref="aboutMeModal" v-if="subscreen === 'aboutMeModal'" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-me>
+					<about-computer ref="aboutComputerModal" v-if="subscreen === 'aboutComputerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-computer>
+					<aboutmyserver ref="aboutMyServerModal" v-if="subscreen === 'aboutMyServerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></aboutmyserver>
 					<languagebox ref="languageModal" v-if="subscreen === 'languageModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></languagebox>
 	`,
 
@@ -60,6 +62,7 @@ const Settings = {
 		'dialog-box': Dialog,
 		'icon': Icon,
 		'about-me': AboutMe,
+		"aboutmyserver": AboutMyServer,
 		'languagebox': LanguageBox,
 	},
 
