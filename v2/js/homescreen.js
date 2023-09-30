@@ -2,6 +2,8 @@
  * @desc: HomeScreen is a class that is used to create a home screen. It renders the icons of the activities in a spiral or ring shape.
  */
 
+const timerPopupDuration = 1000;
+
 const HomeScreen = {
 	name: 'HomeScreen',
 	template: ` <div class="homescreen" ref="homescreen">
@@ -15,20 +17,21 @@ const HomeScreen = {
 									:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : activityPositions[index].x"
        							:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : activityPositions[index].y"
 									isNative="true"
-									v-on:mouseover="showPopupFunction($event)"
-									v-on:mouseleave="removePopupFunction($event)"
+									v-on:mouseover="showPopupTimer($event)"
+									v-on:mouseout="removePopupTimer($event)"
 								/>
 							</div>
 							<icon 
 								id="buddy"
+								:ref="'buddyIcon'"
 								svgfile="./icons/owner-icon.svg"
 								class="home-icon"
 								:color="buddycolor"
 								size="104"
 								:x="canvasCenter.x - 52"
 								:y="canvasCenter.y - 52"
-								v-on:mouseover="showPopupFunction($event)"
-								v-on:mouseleave="removePopupFunction($event)"
+								v-on:mouseover="showPopupTimer($event)"
+								v-on:mouseout="removePopupTimer($event)"
 							></icon>
 							<icon
 								id="journal-btn"
@@ -68,7 +71,7 @@ const HomeScreen = {
 					<popup 
 						ref="popup" 
 						v-bind:item="popup"
-						v-on:mouseleave="removePopupFunction($event)"
+						v-on:mouseout="removePopupTimer($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
 					<settings ref="settings" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n"></settings>
@@ -113,6 +116,9 @@ const HomeScreen = {
 				next: {},
 				prev: {}
 			},
+			timer: null,
+			popupShown: false,
+			popupIcon: null,
 		}
 	},
 
@@ -254,10 +260,12 @@ const HomeScreen = {
 					const activityid = entry.metadata.activity;
 
 					setInterval(() => {
-						let iconRef = this.$refs["activity" + activityid][0];
-						if (iconRef !== undefined) {
-							iconRef.colorData = this.buddycolor;
-							clearInterval();
+						if (this.$refs["activity" + activityid]) {
+							let iconRef = this.$refs["activity" + activityid][0];
+							if (iconRef !== undefined) {
+								iconRef.colorData = this.buddycolor;
+								clearInterval();
+							}
 						}
 					}, 1000);
 				}
@@ -301,8 +309,8 @@ const HomeScreen = {
 				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
 
 				icons.forEach(icon => {
-					icon.removeEventListener('click', this.showPopupFunction);
-					icon.removeEventListener('mouseover', this.showPopupFunction); 
+					icon.removeEventListener('click', this.showPopupTimer);
+					icon.removeEventListener('mouseover', this.showPopupTimer); 
 				});
 			}
 		},
@@ -316,8 +324,8 @@ const HomeScreen = {
 				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
 
 				icons.forEach(icon => {
-					icon.addEventListener('click', this.showPopupFunction);
-					icon.addEventListener('mouseover', this.showPopupFunction);
+					icon.addEventListener('click', this.showPopupTimer);
+					icon.addEventListener('mouseover', this.showPopupTimer);
 				});
 			}
 		},
@@ -346,11 +354,24 @@ const HomeScreen = {
 			this.popupData = popupData;
 		},
 
-		async showPopupFunction(e) {
+		async showPopupTimer(e) {
+			if (this.popupShown) {
+				return;
+			}
+			if (this.timer != null) {
+				window.clearInterval(this.timer);
+			}
+			this.timer = window.setInterval(this.showPopup.bind(this), timerPopupDuration, e);
+		},
+
+		async showPopup(e) {
 			let itemId, x, y;
 			await this.getPopupData();
 			await this.getJournalPopupData();
 
+			this.popupShown = true;
+			window.clearInterval(this.timer);
+			this.timer = null;
 			if (e.target.tagName == 'svg') {
 				itemId = e.target.parentElement.id
 				x = e.clientX - 4;
@@ -387,16 +408,32 @@ const HomeScreen = {
 					],
 				};
 				this.popup = popupData[itemId];
+				this.popupIcon = this.$refs["buddyIcon"];
 			} else {
 				const obj = JSON.parse(JSON.stringify(this.popupData))
 				this.popup = obj[itemId];
+				this.popupIcon = this.$refs["activity" + itemId][0];
 			}
 			this.$refs.popup.show(x, y);
 		},
 
-		removePopupFunction(e) {
-			if (!this.$refs.popup.isCursorInside(e.clientX, e.clientY)) {
+		async removePopupTimer(e) {
+			if (!this.popupShown) {
+				return;
+			}
+			if (this.timer != null) {
+				window.clearInterval(this.timer);
+			}
+			this.timer = window.setInterval(this.removePopup.bind(this), timerPopupDuration, e);
+		},
+
+				
+		async removePopup(e) {
+			if (!this.$refs.popup.isCursorInside(e.clientX, e.clientY) && !this.popupIcon.isCursorInside(e.clientX, e.clientY)) {
 				this.$refs.popup.hide();
+				this.popupShown = false;
+				window.clearInterval(this.timer);
+				this.timer = null;
 			}
 		},
 

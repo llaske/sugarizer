@@ -140,7 +140,7 @@ const Popup ={
 			if(ele) {
 				var popupXmin= this.xData;
 				var popupXmax= this.xData + ele.clientWidth;
-				var popupYmin= this.yData+15;
+				var popupYmin= this.yData;
 				var popupYmax= this.yData + ele.clientHeight;
 				if((x>= popupXmin && x<=popupXmax && y>=popupYmin && y<=popupYmax))
 					return true;
