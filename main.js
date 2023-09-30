@@ -3,9 +3,9 @@
 var electron = require('electron'),
 	fs = require('fs'),
 	temp = require('tmp'),
-	ini = require('ini'),
 	path = require('path'),
-	requirejs = require('requirejs');
+	requirejs = require('requirejs'),
+	l10n = require('./lib/l10n');
 
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
@@ -21,40 +21,6 @@ var frameless = true;
 var reinit = false;
 var logoff = false;
 
-
-// Localization features
-l10n = {
-	ini: null,
-	language: '*',
-
-	init: function() {
-		this.language = app.getLocale() || "*";
-		this.ini = ini.parse(fs.readFileSync(app.getAppPath()+'/locale.ini', 'utf-8'));
-	},
-
-	setLanguage: function(lang) {
-		this.language = lang;
-	},
-
-	getLanguage: function() {
-		return this.language;
-	},
-
-	get: function(text, params) {
-		var locales = this.ini[this.language];
-		if (!locales) {
-			locales = this.ini['*'];
-		}
-		if (!locales[text]) {
-			return text;
-		}
-		var translate = locales[text];
-		for (var param in params) {
-			translate = translate.replace('{{'+param+'}}', params[param]);
-		}
-		return translate;
-	}
-}
 
 // Save a file
 function saveFile(file, arg, sender) {
@@ -131,7 +97,7 @@ function createWindow () {
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.webContents.once('did-finish-load', function() {
 		// Initialize locales
-		l10n.init();
+		l10n.init(app.getLocale() || "en");
 
 		// Handle save file dialog
 		ipc.on('save-file-dialog', function(event, arg) {
