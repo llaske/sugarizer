@@ -13,8 +13,8 @@ const LanguageBox = {
 						cancel-button="true"
 						v-on:on-cancel="close('languageModal')"
 						v-on:on-ok="okClicked"
-					>
-						<div class="settings-subscreen aboutme-box">
+				>
+					<div class="settings-subscreen aboutme-box">
 						<div class="firstscreen_text">{{SugarL10n ? SugarL10n.get('ChooseLanguage') : ''}}</div>
 						<div
 						ref="languageButton"
@@ -24,14 +24,14 @@ const LanguageBox = {
 						{{SugarL10n ? languages[languageCode][0] + " (" + SugarL10n.get(languages[languageCode][1]) + ")" : ''}}
 						<img src="./icons/control-popup-arrow.svg" class="arrow-down" />
 						</div>
-						</div>
-						</dialog-box> 
-						<popup 
-							ref="popup"
-							v-bind:item="popup"
-							v-on:mouseleave="removePopupFunction($event)"
-							v-on:itemis-clicked="itemisClicked($event)"
-						></popup>
+					</div>
+				</dialog-box> 
+				<popup 
+					ref="popup"
+					v-bind:item="popup"
+					v-on:mouseleave="removePopupFunction($event)"
+					v-on:itemis-clicked="itemisClicked($event)"
+				></popup>
 	`,
 	components: {
 		'dialog-box': Dialog,
@@ -71,9 +71,8 @@ const LanguageBox = {
 
 		close(ref) {
 			this.$refs[ref].showDialog = false;
-			this.$refs[ref].$emit('close', null);
-
-		},
+			this.$emit('close', null);
+		},	
 
 		openModal(ref) {
 			this.$refs[ref].showDialog = true;
@@ -123,7 +122,6 @@ const LanguageBox = {
 		},
 
 		itemisClicked(e) {
-			// this.$refs.languageButton.innerText = e.slice(4).split(" ")[0];
 			const languages = this.languages;
 			for (const key in languages) {
 				if (languages[key][0] === e.slice(4).split(" ")[0]) {
