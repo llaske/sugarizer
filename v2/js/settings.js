@@ -125,6 +125,7 @@ const Settings = {
 			this.subscreen = ref;
 			await this.$nextTick();
 			this.$refs[ref].$refs[ref].showDialog = true;
+			this.$refs.settingModal.showDialog = false;
 		},
 
 		openSettingsModal(ref) {
@@ -132,6 +133,7 @@ const Settings = {
 		},
 
 		setSubScreen(value) {
+			this.$refs.settingModal.showDialog = true;
 			this.subscreen = value;
 		}
 	},
