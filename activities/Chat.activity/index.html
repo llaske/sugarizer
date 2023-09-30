@@ -14,9 +14,9 @@
 	</head>
 
 	<body>
-		<div v-cloak id="app" :class="{fullscreen: isFullscreen}">
+		<div v-cloak id="app">
 			<transition name="fade" appear>
-				<sugar-toolbar ref="SugarToolbar">
+				<sugar-toolbar ref="SugarToolbar" :class="{fullscreen: isFullscreen}">
 					<sugar-toolitem id="activity-button"></sugar-toolitem>
 					<sugar-toolitem
 						id="network-button"

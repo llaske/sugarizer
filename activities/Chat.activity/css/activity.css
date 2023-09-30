@@ -38,6 +38,22 @@ body {
 	background-image: url(../icons/view-fullscreen.svg);
 }
 
+#main-toolbar.fullscreen {
+	height: 0;
+	overflow: hidden;
+}
+#main-toolbar {
+	transition: height 0.2s;
+}
+
+#main-toolbar.fullscreen #fullscreen-button {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background-color: #282828;
+	z-index: 1;
+}
+
 #private-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 	width: 47px;
@@ -95,6 +111,7 @@ body,
 	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
+	overflow-wrap: break-word;
 }
 .message.sent {
 	align-items: flex-end;
