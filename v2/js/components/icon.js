@@ -220,6 +220,29 @@ const Icon ={
 				}
 			}
 		},
+		/** 
+		 * @memberOf module:Icon.methods
+		 * @method isCursorInside
+		 * @desc check if cursor is inside the icon component or not
+		 * @param {Number} x - x position of cursor
+		 * @param {Number} y - y position of cursor
+		 * @returns {Boolean}
+		 */
+		isCursorInside(x, y) {
+			var ele= this.$refs.icon;
+			let sizeData = parseInt(this.sizeData);
+			if(ele) {
+				var popupXmin= this.xData;
+				var popupXmax= popupXmin + sizeData;
+				var popupYmin= this.yData + (ele.getBoundingClientRect().y-this.yData);
+				var popupYmax= popupYmin + sizeData;
+				if((x>= popupXmin && x<=popupXmax && y>=popupYmin && y<=popupYmax))
+					return true;
+				else
+					return false;
+			} else 
+				return false;
+		},
 	}
 };
 
