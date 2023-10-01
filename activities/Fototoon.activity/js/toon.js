@@ -1,10 +1,10 @@
-define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], function (easel, datastore, env, l10n, humane) {
+define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function (easel, datastore, env, l10n, humane) {
 
 
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		var language = environment.user ? environment.user.language : defaultLanguage;
-		l10n.language.code = language;
+		l10n.init(language);
 		console.log('LANG ' + language);
 	});
 
