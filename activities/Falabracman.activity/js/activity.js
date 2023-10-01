@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activity/resources", "activity/paladict", "data/en/dict.js", "webL10n", "tutorial"], function(activity, env, Game, Resources, Paladict, dictEn, webL10n, tutorial) {
+define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activity/resources", "activity/paladict", "data/en/dict.js", "l10n", "tutorial"], function(activity, env, Game, Resources, Paladict, dictEn, l10n, tutorial) {
 
   // Manipulate the DOM only when it is ready.
   requirejs(['domReady!'], function(doc) {
@@ -48,19 +48,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     canvas.height = window.innerHeight - toolbarElem.offsetHeight - 3;
 
     var paladict = new Paladict(dictEn);
-    var game = new Game(canvas, resources, paladict, webL10n);
+    var game = new Game(canvas, resources, paladict, l10n);
 
     env.getEnvironment(function(env, environment) {
       currentEnv = environment;
 
       var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
       var language = environment.user ? environment.user.language : defaultLanguage;
-      webL10n.language.code = language;
+      l10n.init(language);
 
       //translating for setting Screen
       window.addEventListener('localized', function() {
-        document.getElementById('WordHeading').innerHTML = webL10n.get('Word');
-        document.getElementById('DictHeading').innerHTML = webL10n.get('Dictionary');
+        document.getElementById('WordHeading').innerHTML = l10n.get('Word');
+        document.getElementById('DictHeading').innerHTML = l10n.get('Dictionary');
 
         resources.onReady(function() {
           if (!environment.objectId) {
@@ -355,7 +355,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "activity/game", "activi
     deleteAllWordsButton.addEventListener('click', function() {
       if (!game.customDictWordEdit) {
         game.menuAudio.play();
-        var firstWord = webL10n.get('Play');
+        var firstWord = l10n.get('Play');
         game.customDict = [firstWord];
         wordInputElem.value = "";
         game.wordInSetting = null;
