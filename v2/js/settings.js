@@ -62,6 +62,7 @@ const Settings = {
 		'dialog-box': Dialog,
 		'icon': Icon,
 		'about-me': AboutMe,
+		'about-computer': AboutComputer,
 		"aboutmyserver": AboutMyServer,
 		'languagebox': LanguageBox,
 	},
