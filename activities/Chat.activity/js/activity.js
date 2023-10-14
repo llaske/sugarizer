@@ -1,5 +1,4 @@
 // Rebase require directory
-//TODO humane logs
 requirejs.config({
 	baseUrl: "lib",
 	paths: {
@@ -35,10 +34,39 @@ const app = Vue.createApp({
 				color: "",
 			},
 			usersTyping: {},
-			l10n: {},
+			l10n: {
+				stringTutoExplainTitle: "",
+				stringTutoExplainContent: "",
+				stringTutoNetworkTitle: "",
+				stringTutoNetworkContent: "",
+				stringTutoClearChat: "",
+				stringTutoClearChatContent: "",
+				stringTutoStopTitle: "",
+				stringTutoStopContent: "",
+				stringTutoMessageTitle: "",
+				stringTutoMessageContent: "",
+				stringTutoEmojisContent: "",
+				stringImageTitle: "",
+				stringTutoImageContent: "",
+				stringFullscreen: "",
+				stringJoin: "",
+				stringLeave: "",
+				stringChat: "",
+			},
 			isFullscreen: false,
 			isShared: false,
 		};
+	},
+
+	created() {
+		var vm = this;
+		window.addEventListener(
+			"localized",
+			(e) => {
+				e.detail.l10n.localize(vm.l10n);
+			},
+			{ once: true },
+		);
 	},
 
 	mounted() {
@@ -57,10 +85,6 @@ const app = Vue.createApp({
 				id: currentUser.networkId,
 				color: currentUser.colorvalue,
 			};
-		},
-
-		localized() {
-			this.SugarL10n.localize(this.l10n);
 		},
 
 		handleSendFromJournal() {
@@ -181,15 +205,50 @@ const app = Vue.createApp({
 
 		onHelp() {
 			const steps = [
-				// {
-				// 	element: "#export-img-button",
-				// 	position: "bottom",
-				// 	title: this.l10n.stringSaveImage,
-				// 	intro: this.l10n.stringTutoSaveImage,
-				// },
+				{
+					title: this.l10n.stringTutoExplainTitle,
+					intro: this.l10n.stringTutoExplainContent,
+				},
+				{
+					element: "#network-button",
+					position: "bottom",
+					title: this.l10n.stringTutoNetworkTitle,
+					intro: this.l10n.stringTutoNetworkContent,
+				},
+				{
+					element: "#clear-button",
+					position: "bottom",
+					title: this.l10n.stringTutoClearChat,
+					intro: this.l10n.stringTutoClearChatContent,
+				},
+				{
+					element: "#stop-button",
+					position: "bottom",
+					title: this.l10n.stringTutoStopTitle,
+					intro: this.l10n.stringTutoStopContent,
+				},
+				{
+					element: ".chat-input",
+					title: this.l10n.stringTutoMessageTitle,
+					intro: this.l10n.stringTutoMessageContent,
+				},
 			];
-			// this.$refs.SugarTutorial.show(steps);
+			if (this.isShared)
+				steps.push(
+					{
+						element: "#insert-journal",
+						title: this.l10n.stringImageTitle,
+						intro: this.l10n.stringTutoImageContent,
+					},
+					{
+						element: ".emojis-container",
+						title: "Emojis",
+						intro: this.l10n.stringTutoEmojisContent,
+					},
+				);
+			this.$refs.SugarTutorial.show(steps);
 		},
+
 		onStop() {
 			this.$refs.SugarJournal.saveData({ messages: this.messages });
 		},
