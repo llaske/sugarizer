@@ -1,9 +1,9 @@
-const SugarPopup= {
+const SugarPopup = {
 	render() {},
 	data: function () {
 		return {
-			humane: null
-		}
+			humane: null,
+		};
 	},
 	created() {
 		var vm = this;
@@ -14,6 +14,6 @@ const SugarPopup= {
 	methods: {
 		log(text) {
 			this.humane.log(text);
-		}
-	}
+		},
+	},
 };

@@ -22,8 +22,15 @@ const SugarLocalization = {
 		requirejs(["sugar-web/env"], function (env) {
 			env.getEnvironment((err, environment) => {
 				// Get default language
-				const defaultLanguage = typeof chrome !== "undefined" && chrome.app && chrome.app.runtime ? chrome.i18n.getUILanguage() : navigator.language;
-				const language = environment.user ? environment.user.language : defaultLanguage;
+				const defaultLanguage =
+					typeof chrome !== "undefined" &&
+					chrome.app &&
+					chrome.app.runtime
+						? chrome.i18n.getUILanguage()
+						: navigator.language;
+				const language = environment.user
+					? environment.user.language
+					: defaultLanguage;
 
 				vm.loadLanguageFile(language);
 			});
@@ -42,33 +49,39 @@ const SugarLocalization = {
 		},
 		loadLanguageFile: function (language) {
 			const vm = this;
-			requirejs(["lib/i18next.min.js", "lib/axios.min.js"], function (i18next, axios) {
-				axios
-					.get(`./locales/${language}.json`)
-					.then((response) => {
-						i18next.init(
-							{
-								lng: language,
-								fallbackLng: "en",
-								resources: {
-									[language]: {
-										translation: response.data,
+			requirejs(
+				["lib/i18next.min.js", "lib/axios.min.js"],
+				function (i18next, axios) {
+					axios
+						.get(`./locales/${language}.json`)
+						.then((response) => {
+							i18next.init(
+								{
+									lng: language,
+									fallbackLng: "en",
+									resources: {
+										[language]: {
+											translation: response.data,
+										},
 									},
 								},
-							},
-							() => {
-								vm.l10n = i18next;
-								vm.code = i18next.language;
-								vm.dictionary = i18next.getResourceBundle(i18next.language, "translation");
-								vm.emitLocalized();
-							},
-						);
-					})
-					.catch((error) => {
-						vm.loadLanguageFile("en"); // Load default language
-						console.log(error);
-					});
-			});
+								() => {
+									vm.l10n = i18next;
+									vm.code = i18next.language;
+									vm.dictionary = i18next.getResourceBundle(
+										i18next.language,
+										"translation",
+									);
+									vm.emitLocalized();
+								},
+							);
+						})
+						.catch((error) => {
+							vm.loadLanguageFile("en"); // Load default language
+							console.log(error);
+						});
+				},
+			);
 		},
 
 		// Get a string with parameter
@@ -115,7 +128,13 @@ const SugarLocalization = {
 				if (elapsed_units > 0) {
 					if (levels > 0) time_period += ",";
 
-					time_period += " " + elapsed_units + " " + (elapsed_units == 1 ? this.get(this.units[i].name + "_one") : this.get(this.units[i].name + "_other"));
+					time_period +=
+						" " +
+						elapsed_units +
+						" " +
+						(elapsed_units == 1
+							? this.get(this.units[i].name + "_one")
+							: this.get(this.units[i].name + "_other"));
 
 					elapsed_seconds -= elapsed_units * factor;
 				}

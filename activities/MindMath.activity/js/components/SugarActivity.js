@@ -1,22 +1,25 @@
-const SugarActivity= {
-	name: 'SugarActivity',
+const SugarActivity = {
+	name: "SugarActivity",
 	render() {},
-	data: function() {
+	data: function () {
 		return {
 			activity: null,
-			environment: null
-		}
+			environment: null,
+		};
 	},
-	created: function() {
+	created: function () {
 		var vm = this;
-		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env) {
-			vm.activity = activity;
-			env.getEnvironment(function (err, environment) {
-				vm.environment = environment;
-				activity.setup();
-				vm.$emit('initialized');
-			});
-		});
+		requirejs(
+			["sugar-web/activity/activity", "sugar-web/env"],
+			function (activity, env) {
+				vm.activity = activity;
+				env.getEnvironment(function (err, environment) {
+					vm.environment = environment;
+					activity.setup();
+					vm.$emit("initialized");
+				});
+			},
+		);
 	},
 	methods: {
 		getActivity: function () {
@@ -25,6 +28,6 @@ const SugarActivity= {
 
 		getEnvironment: function () {
 			return this.environment;
-		}
-	}
-}
+		},
+	},
+};
