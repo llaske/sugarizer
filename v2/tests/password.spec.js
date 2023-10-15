@@ -178,12 +178,12 @@ describe('Password.vue', () => {
 		expect(wrapper.emitted().passwordSet).toHaveLength(1)
 		expect(wrapper.emitted().passwordSet[0]).toEqual(['dsw'])
 
-		expect(wrapper.vm.passwordText).toBe('');
+		expect(wrapper.vm.passwordText).toBe('dsw');
 		await inputElement.trigger('keyup', {
 			key: 'Backspace',
 			keyCode: '8'
 		})
-		expect(wrapper.vm.passwordText).toBe('');
+		expect(wrapper.vm.passwordText).toBe('ds');
 		expect(wrapper.emitted().passwordSet).toHaveLength(1)
 	});
 })

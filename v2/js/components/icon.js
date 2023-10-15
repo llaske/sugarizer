@@ -81,14 +81,14 @@ const Icon ={
 		},
 		xData: function(newX, oldX) {
 			var iconDiv = this.$refs.icon;
-			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0 0 "+newX+"px"+this._generateOriginalColor());
+			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+newX+"px"+this._generateOriginalColor());
 		}, 
 		x: function(newX, oldX) {
 			this.xData=newX;
 		},
 		yData: function(newY, oldX) {
 			var iconDiv = this.$refs.icon;
-			iconDiv.setAttribute("style", "margin: "+newY+"px 0 0 "+this.xData+"px"+this._generateOriginalColor());
+			iconDiv.setAttribute("style", "margin: "+newY+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
 		},		
 		y: function(newY, oldX) {
 			this.yData=newY;
@@ -112,7 +112,7 @@ const Icon ={
 			if (size) {
 				svgElement.setAttribute("width", size+"px");
 				svgElement.setAttribute("height", size+"px");
-				svgElement.setAttribute("style", "margin: "+this.yData+"px 0 0 "+this.xData+"px"+this._generateOriginalColor());
+				svgElement.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
 				svgElement.setAttribute("preserveAspectRatio", "xMidYMid meet");
 				var img = new Image();
 				img.onload = function() {
@@ -209,7 +209,7 @@ const Icon ={
 				}
 				// Set Position
 				const iconDiv = this.$refs.icon;
-				iconDiv.setAttribute("style", "margin: "+vm.yData+"px 0 0 "+vm.xData+"px"+this._generateOriginalColor());
+				iconDiv.setAttribute("style", "margin: "+vm.yData+"px 0px 0px "+vm.xData+"px"+this._generateOriginalColor());
 
 				// Set size
 				element.setAttribute("width", size+"px");

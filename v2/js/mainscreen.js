@@ -4,7 +4,7 @@ const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
 					<div class="tool_leftitems">
-						<searchfield :placeholder="l10n.stringSearchHome" v-on:input-changed="searchFunction"/> 
+						<searchfield ref="searchfield" :placeholder="l10n.stringSearchHome" v-on:input-changed="searchFunction"/> 
 						<icon 
 							class="toolbutton"
 							id="toolbar-help-btn"
@@ -76,8 +76,10 @@ const MainScreen = {
 	},
 
 	created: function () {
+		let vm = this;
 		window.addEventListener('localized', (e) => {
 			e.detail.l10n.localize(this.l10n);
+			vm.$refs.searchfield.placeholderData = this.l10n.stringSearchHome;
 			this.SugarL10n = {
 				localize: (l10n) => {
 					e.detail.l10n.localize(l10n);
