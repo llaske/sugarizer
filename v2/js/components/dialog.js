@@ -67,8 +67,8 @@
 		},
 		computeMargin(size, maxpercent) {
 			let canvas = document.getElementById("canvas");
-			let canvas_height = canvas.offsetHeight;
-			let canvas_width = canvas.offsetWidth;
+			let canvas_height = canvas ? canvas.offsetHeight : 0;
+			let canvas_width = canvas ? canvas.offsetWidth : 0;
 			let size_width = (size.width <= canvas_width ? size.width : maxpercent.width*canvas_width);
 			let size_height = (size.height <= canvas_height ? size.height : maxpercent.height*canvas_height);
 			return { left: parseFloat(canvas_width-size_width)/2.0, top: parseFloat(canvas_height-size_height)/2.0, width: size_width, height: size_height };
