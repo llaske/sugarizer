@@ -32,11 +32,11 @@ const Settings = {
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringServer}}</div>
 							</div>
-							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMyPrivacy).includes(v))) ? '' :'dialog-item-disable'">
+							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMySecurity).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="34" svgfile="icons/login-icon.svg" color="256" size="72" is-native="true" @click="openModal('myprivacyModal')"
+									<icon id="34" svgfile="icons/login-icon.svg" color="256" size="72" is-native="true" @click="openModal('mysecurityModal')"
 								></icon></div>
-								<div class="dialog-item-text">{{localizedL10n.stringMyPrivacy}}</div>
+								<div class="dialog-item-text">{{localizedL10n.stringMySecurity}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMySecurity).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
@@ -55,6 +55,7 @@ const Settings = {
 					<about-me ref="aboutMeModal" v-if="subscreen === 'aboutMeModal'" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-me>
 					<about-computer ref="aboutComputerModal" v-if="subscreen === 'aboutComputerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-computer>
 					<aboutmyserver ref="aboutMyServerModal" v-if="subscreen === 'aboutMyServerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></aboutmyserver>
+					<mysecurity ref="mysecurityModal" v-if="subscreen === 'mysecurityModal'" :SugarL10n="SugarL10n" :username="username" @close="setSubScreen(value)"></mysecurity>
 					<languagebox ref="languageModal" v-if="subscreen === 'languageModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></languagebox>
 	`,
 
@@ -64,6 +65,7 @@ const Settings = {
 		'about-me': AboutMe,
 		'about-computer': AboutComputer,
 		"aboutmyserver": AboutMyServer,
+		'mysecurity': MySecurity,
 		'languagebox': LanguageBox,
 	},
 
