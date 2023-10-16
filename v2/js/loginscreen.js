@@ -158,6 +158,7 @@ const LoginScreen = {
 				stringDone: '',
 				stringUserAlreadyExist: '',
 				stringInvalidUser: '',
+				stringUserLoginInvalid: '',
 			},
 		}
 	},
@@ -345,7 +346,7 @@ const LoginScreen = {
 				if (error.response && error.response.status === 401) {
 					console.log(error.response.data);
 					this.warning.show = true;
-					this.warning.text = "Invalid username or images";
+					this.warning.text = this.l10n.stringUserLoginInvalid;
 				} else {
 					console.log(error);
 				}
