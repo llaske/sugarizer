@@ -8,6 +8,7 @@
 		<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css" />
 		<link rel="stylesheet" href="css/introjs.css" />
 		<link rel="stylesheet" href="css/activity.css" />
+		<link rel="stylesheet" href="css/libnotify.css" />
 		<script src="lib/vue.global.prod.js"></script>
 		<script src="lib/intro.js"></script>
 		<script src="lib/require.js"></script>
@@ -65,6 +66,8 @@
 			<sugar-presence ref="SugarPresence" @disconnect="isShared = false" @data-received="onNetworkDataReceived" @user-changed="onNetworkUserChanged"></sugar-presence>
 			<sugar-journal ref="SugarJournal" @journal-data-loaded="onJournalDataLoaded" @journal-new-instance="onJournalNewInstance"></sugar-journal>
 			<sugar-localization @localized="localized" ref="SugarL10n"></sugar-localization>
+			<sugar-popup ref="SugarPopup"></sugar-popup>
+			<sugar-icon ref="SugarIcon"></sugar-icon>
 		</div>
 
 		<script src="js/components/SugarTutorial.js"></script>
@@ -74,6 +77,7 @@
 		<script src="js/components/SugarActivity.js"></script>
 		<script src="js/components/SugarToolbar.js"></script>
 		<script src="js/components/SugarIcon.js"></script>
+		<script src="js/components/SugarPopup.js"></script>
 		<script src="js/Message.js"></script>
 		<script src="js/Emojis.js"></script>
 		<script src="js/ChatInput.js"></script>

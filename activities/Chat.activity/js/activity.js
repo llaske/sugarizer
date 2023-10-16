@@ -20,6 +20,7 @@ const app = Vue.createApp({
 		"sugar-presence": SugarPresence,
 		"sugar-tutorial": SugarTutorial,
 		"sugar-icon": SugarIcon,
+		"sugar-popup": SugarPopup,
 	},
 
 	data: function () {
@@ -52,6 +53,7 @@ const app = Vue.createApp({
 				stringJoin: "",
 				stringLeave: "",
 				stringChat: "",
+				stringNewMsgFrom: "",
 			},
 			isFullscreen: false,
 			isShared: false,
@@ -92,7 +94,6 @@ const app = Vue.createApp({
 			this.SugarJournal.insertFromJournal(filters).then((data, metadata) => {
 				if (!data) return;
 				this.sendMessage(data, "image");
-				this.scrollLatestMsg();
 			});
 		},
 
@@ -127,6 +128,13 @@ const app = Vue.createApp({
 			}, 50);
 		},
 
+		handleNetworkMessage(msgRecieved) {
+			const distanceFromBottom = this.$refs.msgContainer.scrollHeight - this.$refs.msgContainer.scrollTop - this.$refs.msgContainer.clientHeight;
+			if (distanceFromBottom < 180) this.scrollLatestMsg();
+			else this.$refs.SugarPopup.log(this.l10n.stringNewMsgFrom + " " + msgRecieved.userName);
+			this.messages.push(msgRecieved);
+		},
+
 		deleteMessage(key) {
 			this.messages = this.messages.filter((msg) => msg.key !== key);
 			this.sendMessageToList(key, "delete-message");
@@ -150,8 +158,7 @@ const app = Vue.createApp({
 					delete this.usersTyping[networkId];
 					break;
 				case "add-message":
-					this.messages.push(msg.content);
-					this.scrollLatestMsg();
+					this.handleNetworkMessage(msg.content);
 					break;
 				case "delete-message":
 					const key = msg.content;
@@ -170,8 +177,7 @@ const app = Vue.createApp({
 				stroke: msg.user.colorvalue.stroke,
 				key: new Date().getTime(),
 			};
-			this.messages.push(statusMsg);
-			this.scrollLatestMsg();
+			this.handleNetworkMessage(statusMsg);
 
 			if (msg.move === 1) {
 				if (this.SugarPresence.isHost) {
