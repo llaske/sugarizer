@@ -11,15 +11,7 @@ const SugarPresence = {
 		};
 	},
 	created() {
-		this.l10n = null;
 		var vm = this;
-		window.addEventListener(
-			"localized",
-			function (e) {
-				vm.l10n = e.detail.l10n;
-			},
-			{ once: true },
-		);
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "lz-string"], function (activity, env, LZString) {
 			vm.activity = activity;
 			vm.LZString = LZString;
@@ -90,33 +82,6 @@ const SugarPresence = {
 			this.$emit("user-changed", msg);
 
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
-			let vm = this;
-			// Show popup
-			if (this.$root.$refs.SugarPopup) {
-				let stringToDisplay = "";
-
-				// Get localized string
-				if (this.l10n) {
-					let userStringToGet = "User" + (msg.move == 1 ? "Joined" : "Left");
-					stringToDisplay = this.l10n.get(userStringToGet, { name: msg.user.name });
-				} else {
-					stringToDisplay = "User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left");
-				}
-
-				// Show icon
-				if (this.$root.$refs.SugarIcon) {
-					this.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", msg.user.colorvalue).then((src) => {
-						let html = `<div style="display: flex; align-items:center;">`;
-						let img = "<img style='height:40px; margin:10px; vertical-align: middle;' src='" + src + "'>";
-						html += `${img}`;
-						html += `<span>${stringToDisplay}</span>`;
-						html += `</div>`;
-						vm.$root.$refs.SugarPopup.log(html);
-					});
-				} else {
-					this.$root.$refs.SugarPopup.log(stringToDisplay);
-				}
-			}
 		},
 	},
 };
