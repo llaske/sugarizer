@@ -7,6 +7,11 @@ define(["sugar-web/graphics/palette",
   var difficultyPalette = {};
 
   difficultyPalette.DifficultyPalette = function(invokingButton, state) {
+    window.addEventListener("localized", function (e) {
+      const l10n = e.detail.l10n;
+      document.getElementById("easy-button").title = l10n.get("EasyLevel");
+      document.getElementById("medium-button").title = l10n.get("MediumLevel");
+    }, { once: true });
 
     palette.Palette.call(this, invokingButton);
 
