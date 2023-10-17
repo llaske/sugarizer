@@ -23,6 +23,7 @@ const IconButton ={
 					:key="componentKey"
 					:id=this.id
 					:svgfile=this.iconData
+					:isNative=this.isNative
 					:color=this.color
 					:size=this.size
 					:x=this.x
@@ -34,6 +35,7 @@ const IconButton ={
 		text: String,
 		id: String,
 		svgfile: String,
+		isNative: String,
 		color: String,
 		size: String,
 		x: String,
