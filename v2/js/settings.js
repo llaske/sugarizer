@@ -38,11 +38,11 @@ const Settings = {
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringMySecurity}}</div>
 							</div>
-							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMySecurity).includes(v))) ? '' :'dialog-item-disable'">
+							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMyPrivacy).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="35" svgfile="icons/privacy.svg" color="256" size="72" is-native="true" @click="openModal('mysecurityModal')"
+									<icon id="35" svgfile="icons/privacy.svg" color="256" size="72" is-native="true" @click="openModal('myprivacyModal')"
 								></icon></div>
-								<div class="dialog-item-text">{{localizedL10n.stringMySecurity}}</div>
+								<div class="dialog-item-text">{{localizedL10n.stringMyPrivacy}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringLanguage).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
@@ -56,6 +56,7 @@ const Settings = {
 					<about-computer ref="aboutComputerModal" v-if="subscreen === 'aboutComputerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-computer>
 					<aboutmyserver ref="aboutMyServerModal" v-if="subscreen === 'aboutMyServerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></aboutmyserver>
 					<mysecurity ref="mysecurityModal" v-if="subscreen === 'mysecurityModal'" :SugarL10n="SugarL10n" :username="username" @close="setSubScreen(value)"></mysecurity>
+					<myprivacy ref="myprivacyModal" v-if="subscreen === 'myprivacyModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></myprivacy>
 					<languagebox ref="languageModal" v-if="subscreen === 'languageModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></languagebox>
 	`,
 
@@ -66,6 +67,7 @@ const Settings = {
 		'about-computer': AboutComputer,
 		"aboutmyserver": AboutMyServer,
 		'mysecurity': MySecurity,
+		'myprivacy': MyPrivacy,
 		'languagebox': LanguageBox,
 	},
 
