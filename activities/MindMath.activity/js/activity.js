@@ -180,8 +180,6 @@ const app = Vue.createApp({
       if (vm.slots[vm.qNo].length != 0) {
         currentRes = vm.slots[vm.qNo][vm.slots[vm.qNo].length - 1].res;
         if (vm.compulsoryOpsRem.length === 0 && currentRes === vm.questions[vm.qNo].targetNum) {
-          //notifying user
-          vm.sugarPopup.log("You Got the Target Number")
           return true;
         } else {
           return false;

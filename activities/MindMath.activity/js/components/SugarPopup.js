@@ -1,11 +1,11 @@
-const SugarPopup= {
+const SugarPopup = {
 	render() {},
 	data: function () {
 		return {
-			humane: null
-		}
+			humane: null,
+		};
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["humane"], function (humane) {
 			vm.humane = humane;
@@ -14,6 +14,6 @@ const SugarPopup= {
 	methods: {
 		log(text) {
 			this.humane.log(text);
-		}
-	}
+		},
+	},
 };
