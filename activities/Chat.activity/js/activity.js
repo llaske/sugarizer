@@ -1,5 +1,4 @@
 // Rebase require directory
-//TODO humane logs
 requirejs.config({
 	baseUrl: "lib",
 	paths: {
@@ -8,28 +7,68 @@ requirejs.config({
 });
 
 // APP
-const app = new Vue({
-	el: "#app",
+const app = Vue.createApp({
 	components: {
 		message: Message,
 		"chat-input": ChatInput,
 		"typing-effect": TypingEffect,
+		"sugar-activity": SugarActivity,
+		"sugar-toolitem": SugarToolitem,
+		"sugar-toolbar": SugarToolbar,
+		"sugar-journal": SugarJournal,
+		"sugar-localization": SugarLocalization,
+		"sugar-presence": SugarPresence,
+		"sugar-tutorial": SugarTutorial,
+		"sugar-icon": SugarIcon,
+		"sugar-popup": SugarPopup,
 	},
 
-	data: {
-		SugarL10n: null,
-		SugarPresence: null,
-		SugarJournal: null,
-		messages: [],
-		userInfo: {
-			name: "",
-			id: "",
-			color: "",
-		},
-		usersTyping: {},
-		l10n: {},
-		isFullscreen: false,
-		isShared: false,
+	data: function () {
+		return {
+			SugarL10n: null,
+			SugarPresence: null,
+			SugarJournal: null,
+			messages: [],
+			userInfo: {
+				name: "",
+				id: "",
+				color: "",
+			},
+			usersTyping: {},
+			l10n: {
+				stringTutoExplainTitle: "",
+				stringTutoExplainContent: "",
+				stringTutoNetworkTitle: "",
+				stringTutoNetworkContent: "",
+				stringTutoClearChat: "",
+				stringTutoClearChatContent: "",
+				stringTutoStopTitle: "",
+				stringTutoStopContent: "",
+				stringTutoMessageTitle: "",
+				stringTutoMessageContent: "",
+				stringTutoEmojisContent: "",
+				stringImageTitle: "",
+				stringTutoImageContent: "",
+				stringFullscreen: "",
+				stringJoin: "",
+				stringLeave: "",
+				stringChat: "",
+				stringNewMsgFrom: "",
+			},
+			isFullscreen: false,
+			isShared: false,
+		};
+	},
+
+	created() {
+		var vm = this;
+		window.addEventListener(
+			"localized",
+			(e) => {
+				e.detail.l10n.localize(vm.l10n);
+			},
+			{ once: true },
+		);
 	},
 
 	mounted() {
@@ -50,16 +89,11 @@ const app = new Vue({
 			};
 		},
 
-		localized() {
-			this.SugarL10n.localize(this.l10n);
-		},
-
 		handleSendFromJournal() {
 			var filters = [{ mimetype: "image/png" }, { mimetype: "image/jpeg" }];
 			this.SugarJournal.insertFromJournal(filters).then((data, metadata) => {
 				if (!data) return;
 				this.sendMessage(data, "image");
-				this.scrollLatestMsg();
 			});
 		},
 
@@ -94,9 +128,20 @@ const app = new Vue({
 			}, 50);
 		},
 
+		handleNetworkMessage(msgRecieved) {
+			const distanceFromBottom = this.$refs.msgContainer.scrollHeight - this.$refs.msgContainer.scrollTop - this.$refs.msgContainer.clientHeight;
+			if (distanceFromBottom < 180) this.scrollLatestMsg();
+			else this.$refs.SugarPopup.log(this.l10n.stringNewMsgFrom + " " + msgRecieved.userName);
+			this.messages.push(msgRecieved);
+		},
+
 		deleteMessage(key) {
 			this.messages = this.messages.filter((msg) => msg.key !== key);
 			this.sendMessageToList(key, "delete-message");
+		},
+
+		clearHistory() {
+			this.messages = [];
 		},
 
 		onNetworkDataReceived(msg) {
@@ -107,14 +152,13 @@ const app = new Vue({
 					this.messages = msg.content;
 					break;
 				case "start-typing":
-					this.$set(this.usersTyping, networkId, { name: name });
+					this.usersTyping[networkId] = { name: name };
 					break;
 				case "stop-typing":
-					this.$delete(this.usersTyping, networkId);
+					delete this.usersTyping[networkId];
 					break;
 				case "add-message":
-					this.messages.push(msg.content);
-					this.scrollLatestMsg();
+					this.handleNetworkMessage(msg.content);
 					break;
 				case "delete-message":
 					const key = msg.content;
@@ -133,11 +177,20 @@ const app = new Vue({
 				stroke: msg.user.colorvalue.stroke,
 				key: new Date().getTime(),
 			};
-			this.messages.push(statusMsg);
-			this.scrollLatestMsg();
+			this.handleNetworkMessage(statusMsg);
 
-			if (this.SugarPresence.isHost && msg.move === 1) {
-				this.sendMessageToList(this.messages, "init");
+			if (msg.move === 1) {
+				if (this.SugarPresence.isHost) {
+					this.sendMessageToList(this.messages, "init");
+				}
+				this.$refs.ChatInput.sentTypingStatus();
+			} else if (msg.move === -1) {
+				if (this.userInfo.id === msg.user.networkId) {
+					this.usersTyping = {};
+					this.isShared = false;
+					return;
+				}
+				delete this.usersTyping[msg.user.networkId];
 			}
 		},
 
@@ -158,17 +211,54 @@ const app = new Vue({
 
 		onHelp() {
 			const steps = [
-				// {
-				// 	element: "#export-img-button",
-				// 	position: "bottom",
-				// 	title: this.l10n.stringSaveImage,
-				// 	intro: this.l10n.stringTutoSaveImage,
-				// },
+				{
+					title: this.l10n.stringTutoExplainTitle,
+					intro: this.l10n.stringTutoExplainContent,
+				},
+				{
+					element: "#network-button",
+					position: "bottom",
+					title: this.l10n.stringTutoNetworkTitle,
+					intro: this.l10n.stringTutoNetworkContent,
+				},
+				{
+					element: "#clear-button",
+					position: "bottom",
+					title: this.l10n.stringTutoClearChat,
+					intro: this.l10n.stringTutoClearChatContent,
+				},
+				{
+					element: "#stop-button",
+					position: "bottom",
+					title: this.l10n.stringTutoStopTitle,
+					intro: this.l10n.stringTutoStopContent,
+				},
+				{
+					element: ".chat-input",
+					title: this.l10n.stringTutoMessageTitle,
+					intro: this.l10n.stringTutoMessageContent,
+				},
 			];
-			// this.$refs.SugarTutorial.show(steps);
+			if (this.isShared)
+				steps.push(
+					{
+						element: "#insert-journal",
+						title: this.l10n.stringImageTitle,
+						intro: this.l10n.stringTutoImageContent,
+					},
+					{
+						element: ".emojis-container",
+						title: "Emojis",
+						intro: this.l10n.stringTutoEmojisContent,
+					},
+				);
+			this.$refs.SugarTutorial.show(steps);
 		},
+
 		onStop() {
 			this.$refs.SugarJournal.saveData({ messages: this.messages });
 		},
 	},
 });
+
+app.mount("#app");

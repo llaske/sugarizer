@@ -1,17 +1,25 @@
-Vue.component('sugar-presence', {
-	
+const SugarPresence = {
+	render() {},
 	data: function () {
 		return {
 			activity: null,
 			LZString: null,
-			bundleId: '',
+			bundleId: "",
 			palette: null,
 			presence: null,
-			isHost: false
-		}
+			isHost: false,
+		};
 	},
-	mounted() {
+	created() {
+		this.l10n = null;
 		var vm = this;
+		window.addEventListener(
+			"localized",
+			function (e) {
+				vm.l10n = e.detail.l10n;
+			},
+			{ once: true },
+		);
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "lz-string"], function (activity, env, LZString) {
 			vm.activity = activity;
 			vm.LZString = LZString;
@@ -27,16 +35,11 @@ Vue.component('sugar-presence', {
 					}
 					network.onDataReceived(vm.onNetworkDataReceived);
 					network.onSharedActivityUserChanged(vm.onNetworkUserChanged);
-					
-					network.onConnectionClosed(function () {
-						vm.$emit("disconnect");
-					});
 				});
 			});
 		});
 	},
 	methods: {
-		
 		isConnected: function () {
 			return this.presence != null && this.presence.isConnected();
 		},
@@ -72,49 +75,48 @@ Vue.component('sugar-presence', {
 			var decompressedMsg = JSON.parse(this.LZString.decompressFromUTF16(msg));
 
 			if (this.getUserInfo().networkId === decompressedMsg.user.networkId) {
-				return;  	// Return if data was sent by the user
+				return; // Return if data was sent by the user
 			}
 
-			this.$emit('data-received', decompressedMsg);
+			this.$emit("data-received", decompressedMsg);
 		},
 
 		onNetworkUserChanged: function (msg) {
 			// NOT REQUIRED IN CHAT ACTVITY
 			// if (this.getUserInfo().networkId === msg.user.networkId) {
-			// 	return;  	// Return if user himself changed
+			// 	return; // Return if user himself changed
 			// }
 
-			this.$emit('user-changed', msg);
+			this.$emit("user-changed", msg);
 
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left"));
 			let vm = this;
 			// Show popup
 			if (this.$root.$refs.SugarPopup) {
-				let stringToDisplay = '';
+				let stringToDisplay = "";
 
 				// Get localized string
-				if(this.$root.$refs.SugarL10n) {
+				if (this.l10n) {
 					let userStringToGet = "User" + (msg.move == 1 ? "Joined" : "Left");
-					stringToDisplay = this.$root.$refs.SugarL10n.get(userStringToGet, { name: msg.user.name });
+					stringToDisplay = this.l10n.get(userStringToGet, { name: msg.user.name });
 				} else {
 					stringToDisplay = "User " + msg.user.name + " " + (msg.move == 1 ? "joined" : "left");
 				}
 
 				// Show icon
-				if(this.$root.$refs.SugarIcon) {
-					this.$root.$refs.SugarIcon.generateIconWithColors('../icons/owner-icon.svg', msg.user.colorvalue)
-						.then(src => {
-							let html = `<div style="display: flex; align-items:center;">`;
-							let img = "<img style='height:40px; margin:10px; vertical-align: middle;' src='" + src + "'>";
-							html += `${img}`;
-							html += `<span>${stringToDisplay}</span>`
-							html += `</div>`;
-							vm.$root.$refs.SugarPopup.log(html);
-						});
+				if (this.$root.$refs.SugarIcon) {
+					this.$root.$refs.SugarIcon.generateIconWithColors("../icons/owner-icon.svg", msg.user.colorvalue).then((src) => {
+						let html = `<div style="display: flex; align-items:center;">`;
+						let img = "<img style='height:40px; margin:10px; vertical-align: middle;' src='" + src + "'>";
+						html += `${img}`;
+						html += `<span>${stringToDisplay}</span>`;
+						html += `</div>`;
+						vm.$root.$refs.SugarPopup.log(html);
+					});
 				} else {
 					this.$root.$refs.SugarPopup.log(stringToDisplay);
 				}
 			}
-		}
-	}
-});
+		},
+	},
+};

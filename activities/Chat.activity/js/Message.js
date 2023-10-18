@@ -1,5 +1,5 @@
 const Message = {
-	props: ["id", "msg", "type", "name", "fill", "stroke", "sender", "index"],
+	props: ["id", "msg", "type", "name", "fill", "stroke", "sender", "index", "joinString", "leaveString"],
 	template: `
 		<div
 			class="message"
@@ -17,7 +17,7 @@ const Message = {
 			</div>
 			<div class="msg-tag" v-else>
 				<span class="msg-tag-name">{{ name }}</span>
-				<span>{{ msg === 1 ? " Joined" : " Left" }}</span>
+				<span>{{ msg === 1 ? " " + joinString : " " + leaveString }}</span>
 			</div>
 		</div>
 	`,

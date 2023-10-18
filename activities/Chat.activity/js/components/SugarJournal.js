@@ -1,11 +1,12 @@
-Vue.component('sugar-journal', {
+const SugarJournal = {
+	render() {},
 	data: function () {
 		return {
 			activity: null,
-			LZString: null
-		}
+			LZString: null,
+		};
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["sugar-web/activity/activity", "sugar-web/env", "lz-string"], function (activity, env, LZString) {
 			vm.activity = activity;
@@ -15,15 +16,15 @@ Vue.component('sugar-journal', {
 					vm.activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
 						if (error == null && data != null) {
 							var loadedData = LZString.decompressFromUTF16(data);
-							vm.$emit('journal-data-loaded', JSON.parse(loadedData), metadata);
+							vm.$emit("journal-data-loaded", JSON.parse(loadedData), metadata);
 						} else {
-							vm.$emit('journal-load-error', error);
+							vm.$emit("journal-load-error", error);
 						}
 					});
 				} else if (environment.sharedId) {
-					vm.$emit('journal-shared-instance');
+					vm.$emit("journal-shared-instance");
 				} else {
-					vm.$emit('journal-new-instance');
+					vm.$emit("journal-new-instance");
 				}
 			});
 		});
@@ -50,19 +51,25 @@ Vue.component('sugar-journal', {
 			return new Promise((resolve, reject) => {
 				requirejs(["sugar-web/datastore", "sugar-web/graphics/journalchooser"], function (datastore, journalchooser) {
 					setTimeout(function () {
-						journalchooser.show(function (entry) {
-							if (!entry) {
-								return;
-							}
-							var dataentry = new datastore.DatastoreObject(entry.objectId);
-							dataentry.loadAsText(function (err, metadata, data) {
-								if (!err) {
-									resolve(data, metadata);
-								} else {
-									console.error(err);
+						journalchooser.show(
+							function (entry) {
+								if (!entry) {
+									return;
 								}
-							});
-						}, typeParameters[0], typeParameters[1], typeParameters[2], typeParameters[3]);
+								var dataentry = new datastore.DatastoreObject(entry.objectId);
+								dataentry.loadAsText(function (err, metadata, data) {
+									if (!err) {
+										resolve(data, metadata);
+									} else {
+										console.error(err);
+									}
+								});
+							},
+							typeParameters[0],
+							typeParameters[1],
+							typeParameters[2],
+							typeParameters[3],
+						);
 					}, 0);
 				});
 			});
@@ -71,11 +78,15 @@ Vue.component('sugar-journal', {
 		createEntry: function (data, metadata) {
 			return new Promise((resolve, reject) => {
 				requirejs(["sugar-web/datastore"], function (datastore) {
-					datastore.create(metadata, function () {
-						resolve();
-					}, data);
+					datastore.create(
+						metadata,
+						function () {
+							resolve();
+						},
+						data,
+					);
 				});
 			});
-		}
-	}
-});
+		},
+	},
+};

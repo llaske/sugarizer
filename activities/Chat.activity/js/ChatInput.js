@@ -9,22 +9,20 @@ const ChatInput = {
 				ref="chatInput"
 				class="chat-textarea"
 				@input="handleUserTyping"
-				@focus="startTyping"
 				:value="message"
-				@blur="stopTyping"
 				@keydown.enter="handleSendMsg"
 				tabindex="0"
-				:placeholder="isShared ? 'Type your message ...' : 'Please Share the activity or check the connection'"
+				:placeholder="isShared ? l10n.stringWriteYourMessage : l10n.stringShareActivity"
 				:disabled="!isShared"
 				:class="{ disabled : !isShared }"
 			></textarea>
 			<div class="chat-group" v-if="isShared">
 				<div class="toolbar">
-					<button @click="onJournalClick" id="insert-journal" title="" class="toolbutton" type="button"></button>
+					<button @click="onJournalClick" id="insert-journal" :title="l10n.stringImageTitle" class="toolbutton" type="button"></button>
 				</div>
 				<emojis @emoji-select="addEmoji"></emojis>
 			</div>
-			<button type="submit" class="send-btn" :disabled="!isShared">
+			<button :title="l10n.stringSend" type="submit" class="send-btn" :disabled="!isShared">
 				<svg width="30" height="50" viewBox="0 0 61 52" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M0.827148 51.0244L60.0745 25.6305L0.827148 0.239258L0.85586 20.8906L36.4136 25.6305L0.85586 30.3731L0.827148 51.0244Z" fill="#282828"/>
 				</svg>
@@ -34,12 +32,26 @@ const ChatInput = {
 	data() {
 		return {
 			message: "",
+			l10n: {
+				stringSend: "",
+				stringShareActivity: "",
+				stringWriteYourMessage: "",
+				stringImageTitle: "",
+			},
 		};
 	},
 
 	created() {
 		this.isUserTyping = false;
 		this.prevTypingStatus = false;
+		var vm = this;
+		window.addEventListener(
+			"localized",
+			(e) => {
+				e.detail.l10n.localize(vm.l10n);
+			},
+			{ once: true },
+		);
 	},
 
 	methods: {
@@ -55,12 +67,6 @@ const ChatInput = {
 			this.isUserTyping = false;
 			this.checkAndSendTypingStatus();
 		},
-		startTyping() {
-			if (this.message) {
-				this.isUserTyping = true;
-				this.checkAndSendTypingStatus();
-			}
-		},
 
 		handleUserTyping(e) {
 			if (e.target.value) this.isUserTyping = true;
@@ -72,10 +78,13 @@ const ChatInput = {
 		checkAndSendTypingStatus() {
 			if (this.prevTypingStatus !== this.isUserTyping) {
 				this.prevTypingStatus = this.isUserTyping;
-
-				const action = this.isUserTyping ? "start-typing" : "stop-typing";
-				this.$emit("send-to-list", null, action);
+				this.sentTypingStatus();
 			}
+		},
+
+		sentTypingStatus() {
+			const action = this.isUserTyping ? "start-typing" : "stop-typing";
+			this.$emit("send-to-list", null, action);
 		},
 
 		handleSendMsg(e) {

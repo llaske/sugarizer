@@ -26,12 +26,32 @@ body {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #clear-button {
+	background-image: url(../icons/clear.svg);
+}
+
 #main-toolbar #help-button {
 	background-image: url(../icons/help.svg);
 }
 
 #main-toolbar #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar.fullscreen {
+	height: 0;
+	overflow: hidden;
+}
+#main-toolbar {
+	transition: height 0.2s;
+}
+
+#main-toolbar.fullscreen #fullscreen-button {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background-color: #282828;
+	z-index: 1;
 }
 
 #private-button {
@@ -91,6 +111,7 @@ body,
 	margin-bottom: 1rem;
 	display: flex;
 	flex-direction: column;
+	overflow-wrap: break-word;
 }
 .message.sent {
 	align-items: flex-end;
@@ -155,7 +176,8 @@ body,
 	border: 2px solid #565656;
 	position: relative;
 }
-.chat-input, .loader-container {
+.chat-input,
+.loader-container {
 	width: 95vw;
 	max-width: 950px;
 }
@@ -227,6 +249,7 @@ body,
 .smiley-btn:hover {
 	border: none;
 	background: transparent;
+	color: #282828;
 }
 .smiley-btn:hover,
 .smiley-btn:focus-visible {
@@ -274,6 +297,7 @@ body,
 	background: none;
 	font-size: 23px;
 	border-radius: 8px;
+	color: #282828;
 }
 
 /* Loader */
@@ -317,8 +341,7 @@ body,
 .fade-enter-active {
 	transition: opacity 0.3s;
 }
-/* .fade-enter-from { TODO*/
-.fade-enter {
+.fade-enter-from {
 	opacity: 0;
 }
 
@@ -328,7 +351,7 @@ body,
 	transition: all 0.5s;
 }
 
-.list-enter {
+.list-enter-from {
 	opacity: 0;
 	transform: translateY(-10px);
 }

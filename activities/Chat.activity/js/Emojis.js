@@ -1,8 +1,7 @@
-//TODO replace with unicode
 const Emojis = {
 	template: `
 		<div class="emojis-container">
-			<button class="smiley-btn" @click="toggleEmojiPopup" type="button">{{ getEmoji(128515) }}</button>
+			<button class="smiley-btn" title="Emoji" @click="toggleEmojiPopup" type="button">{{ getEmoji(128515) }}</button>
 
 			<transition name="bounce">
 				<div v-if="showEmojiPopup" class="emoji-popup">
