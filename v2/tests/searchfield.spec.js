@@ -1,5 +1,5 @@
 const { mount } = require('@vue/test-utils');
-const { SearchField } = require('../js/searchfield.js');
+const { SearchField } = require('../js/components/searchfield.js');
 
 describe('SearchField.vue', () => {
 	let wrapper;

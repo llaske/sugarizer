@@ -23,6 +23,7 @@ const Popup ={
 							:size=itemData.icon.size
 							:x=itemData.icon.iconx
 							:y=itemData.icon.icony
+							:isNative=itemData.icon.isNative
 						>
 						</icon>
 						<div>
@@ -45,6 +46,7 @@ const Popup ={
 										:size=ele.icon.size
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
 									></icon>
 									<div class="item-name">{{ ele.name }}</div>
 								</div>
@@ -66,6 +68,7 @@ const Popup ={
 										:size=ele.icon.size
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
 									></icon>
 									<div class="item-name">{{ ele.name }}</div>
 								</div>
@@ -87,9 +90,12 @@ const Popup ={
 		}
 	},
 	watch: {
-		item: async function(newItem, oldItem){
-			this.itemData= newItem;
-			this.iconKey= !this.iconKey;
+		item: {
+			deep: true,
+			handler: function(newItem) {
+				this.itemData= newItem;
+				this.iconKey= !this.iconKey;
+			}
 		}
 	},
 	updated: function() {
@@ -134,7 +140,7 @@ const Popup ={
 			if(ele) {
 				var popupXmin= this.xData;
 				var popupXmax= this.xData + ele.clientWidth;
-				var popupYmin= this.yData+15;
+				var popupYmin= this.yData;
 				var popupYmax= this.yData + ele.clientHeight;
 				if((x>= popupXmin && x<=popupXmax && y>=popupYmin && y<=popupYmax))
 					return true;

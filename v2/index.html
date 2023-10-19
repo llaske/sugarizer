@@ -22,40 +22,36 @@
 
   <body id="body">
 	<div id="app">
-		<div class="filterBox-demo">
-			<icon
-				id="2"
-				svgfile="../icons/view-radial.svg" 
-				color="512"
-				size="60"
-				x="-2"
-				is-native="true"
-				v-on:click="this.homeClicked()"
-				style="margin-left: auto; margin-right: 10px;"
-			></icon>
+		<sugar-localization v-if="isFirstScreen !== null" :key="isFirstScreen"></sugar-localization>
+		<div class="sugarizer-canvas" v-if="isFirstScreen">
+			<firstscreen @showmainscreen="setIsFirstScreen"/>
 		</div>
-
-		<h2>Sugarizer Home v2</h2>
-		<icon
-			id="1"
-			svgfile="activities/Gridpaint.activity/activity/activity-icon.svg" 
-			color="120"
-			size="60"
-			x="-2"
-			is-native="true"
-			v-on:click="this.iconClicked()"
-		></icon>
-
+		<div v-else-if="!isFirstScreen && isFirstScreen !== null">
+			<mainscreen ref="mainscreen" />
+		</div>
 	</div>
 
-	<script src="js/icon.js"></script>
-	<script src="js/iconbutton.js"></script>
-	<script src="js/searchfield.js"></script>
-	<script src="js/popup.js"></script>
-	<script src="js/selectbox.js"></script>
-	<script src="js/filterbox.js"></script>
-	<script src="js/password.js"></script>
-	<script src="js/dialog.js"></script>
+	<script src="js/components/SugarL10n.js"></script>
+	<script src="js/components/icon.js"></script>
+	<script src="js/components/iconbutton.js"></script>
+	<script src="js/components/password.js"></script>
+	<script src="js/loginscreen.js"></script>
+	<script src="js/firstscreen.js"></script>
+	<script src="js/components/searchfield.js"></script>
+	<script src="js/components/popup.js"></script>
+	<script src="js/components/selectbox.js"></script>
+	<script src="js/components/filterbox.js"></script>
+	<script src="js/components/dialog.js"></script>
+	<script src="js/aboutme.js"></script>
+	<script src="js/aboutcomputer.js"></script>
+	<script src="js/aboutmyserver.js"></script>
+	<script src="js/mysecurity.js"></script>
+	<script src="js/myprivacy.js"></script>
+	<script src="js/languagebox.js"></script>
+	<script src="js/settings.js"></script>
+	<script src="js/homescreen.js"></script>
+	<script src="js/listview.js"></script>
+	<script src="js/mainscreen.js"></script>
 	<script src="js/app.js"></script>
   </body>
 </html>

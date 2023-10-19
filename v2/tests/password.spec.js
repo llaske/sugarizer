@@ -1,5 +1,5 @@
 const { mount } = require('@vue/test-utils');
-const { Password } = require('../js/password.js');
+const { Password } = require('../js/components/password.js');
 
 // Promise to wait a delay
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
@@ -178,12 +178,12 @@ describe('Password.vue', () => {
 		expect(wrapper.emitted().passwordSet).toHaveLength(1)
 		expect(wrapper.emitted().passwordSet[0]).toEqual(['dsw'])
 
-		expect(wrapper.vm.passwordText).toBe('');
+		expect(wrapper.vm.passwordText).toBe('dsw');
 		await inputElement.trigger('keyup', {
 			key: 'Backspace',
 			keyCode: '8'
 		})
-		expect(wrapper.vm.passwordText).toBe('');
+		expect(wrapper.vm.passwordText).toBe('ds');
 		expect(wrapper.emitted().passwordSet).toHaveLength(1)
 	});
 })

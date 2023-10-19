@@ -1,6 +1,6 @@
 const { mount } = require('@vue/test-utils');
-if (typeof Icon == 'undefined') Icon = require('../js/icon.js').Icon;
-const { FilterBox } = require('../js/filterbox.js');
+if (typeof Icon == 'undefined') Icon = require('../js/components/icon.js').Icon;
+const { FilterBox } = require('../js/components/filterbox.js');
 
 const path = require('path');
 const filename = path.dirname(__filename);

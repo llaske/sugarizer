@@ -76,14 +76,23 @@ const Icon ={
 			var element = this._element;
 			element.setAttribute("class", "xo-color"+newColor);
 		}, 
+		color: function(newColor, oldColor) {
+			this.colorData=newColor;
+		},
 		xData: function(newX, oldX) {
-			var element = this._element;
-			element.setAttribute("style", "margin: "+newX+"px "+this.yData+"px"+this._generateOriginalColor());
+			var iconDiv = this.$refs.icon;
+			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+newX+"px"+this._generateOriginalColor());
 		}, 
+		x: function(newX, oldX) {
+			this.xData=newX;
+		},
 		yData: function(newY, oldX) {
-			var element = this._element;
-			element.setAttribute("style", "margin: "+this.xData+"px "+newY+"px"+this._generateOriginalColor());
+			var iconDiv = this.$refs.icon;
+			iconDiv.setAttribute("style", "margin: "+newY+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
 		},		
+		y: function(newY, oldX) {
+			this.yData=newY;
+		},
 		sizeData: function(newSize, oldSize) {
 			var element = this._element;
 			element.setAttribute("width", newSize+"px");
@@ -103,7 +112,7 @@ const Icon ={
 			if (size) {
 				svgElement.setAttribute("width", size+"px");
 				svgElement.setAttribute("height", size+"px");
-				svgElement.setAttribute("style", "margin: "+this.xData+"px "+this.yData+"px"+this._generateOriginalColor());
+				svgElement.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
 				svgElement.setAttribute("preserveAspectRatio", "xMidYMid meet");
 				var img = new Image();
 				img.onload = function() {
@@ -199,7 +208,8 @@ const Icon ={
 					iheight = Math.round(parseInt(iheight.replace("pt",""),10)*96/72); // Convert pt to px
 				}
 				// Set Position
-				element.setAttribute("style", "margin: "+vm.xData+"px "+vm.yData+"px"+this._generateOriginalColor());
+				const iconDiv = this.$refs.icon;
+				iconDiv.setAttribute("style", "margin: "+vm.yData+"px 0px 0px "+vm.xData+"px"+this._generateOriginalColor());
 
 				// Set size
 				element.setAttribute("width", size+"px");
@@ -209,6 +219,29 @@ const Icon ={
 					element.setAttribute("viewBox", "0 0 "+iwidth+" "+iheight);
 				}
 			}
+		},
+		/** 
+		 * @memberOf module:Icon.methods
+		 * @method isCursorInside
+		 * @desc check if cursor is inside the icon component or not
+		 * @param {Number} x - x position of cursor
+		 * @param {Number} y - y position of cursor
+		 * @returns {Boolean}
+		 */
+		isCursorInside(x, y) {
+			var ele= this.$refs.icon;
+			let sizeData = parseInt(this.sizeData);
+			if(ele) {
+				var popupXmin= this.xData;
+				var popupXmax= popupXmin + sizeData;
+				var popupYmin= this.yData + (ele.getBoundingClientRect().y-this.yData);
+				var popupYmax= popupYmin + sizeData;
+				if((x>= popupXmin && x<=popupXmax && y>=popupYmin && y<=popupYmax))
+					return true;
+				else
+					return false;
+			} else 
+				return false;
 		},
 	}
 };

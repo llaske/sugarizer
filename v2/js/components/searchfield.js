@@ -13,7 +13,7 @@ const SearchField ={
 			<input 
 				class="search-field-input" id="text" ref="text"
 				type="text" v-model="searchQuery" 
-				:placeholder="this.placeholderData" 
+				:placeholder="placeholderData" 
 				@focus="onFocus" @blur="onBlur"
 			/>
 			<div v-if="showCancel"
@@ -32,8 +32,9 @@ const SearchField ={
 	},
 	watch: {
 		placeholderData: function(newData, oldData) {
-			this.placeholderData= newData
-		}, 
+			var element = this.$refs.searchField;
+			element.placeholder = newData;
+		},
 		searchQuery: function(value) {
 			this.$emit('inputChanged',value)
 			if(value.length>0)

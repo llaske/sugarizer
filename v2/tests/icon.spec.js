@@ -18,7 +18,7 @@ if (typeof axios == 'undefined') axios = {
         }
     }
 }
-const { Icon } = require('../js/icon.js');
+const { Icon } = require('../js/components/icon.js');
 
 const path = require('path');
 const filename = path.dirname(__dirname);
@@ -83,13 +83,13 @@ describe('Icon.vue', () => {
 		await delay(1000);
 
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color5'); // HACK: get SVG directly in data _element 
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: -2px -4px');
+		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: -4px 0px 0px -2px');
 
 		await wrapper.setData({colorData: '6'});
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color6');
 
 		await wrapper.setData({xData: 100, yData: 200});
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: 100px 200px');
+		expect(wrapper.vm.$refs.icon.getAttribute("style")).toBe('margin: 200px 0px 0px 100px');
 
 		await wrapper.setData({sizeData: 200});
 		expect(wrapper.vm._element.getAttribute("width")).toBe('200px');
@@ -108,7 +108,7 @@ describe('Icon.vue', () => {
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color512');
 		expect(wrapper.vm._element.getAttribute("height")).toBe('55px');
 		expect(wrapper.vm._element.getAttribute("width")).toBe('55px');
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: 0px 0px');
+		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: 0px 0px 0px 0px');
 	});
 
 	it('should not render icon if svgfile data is empty when passed', async () => {
@@ -171,13 +171,13 @@ describe('Icon.vue', () => {
 		await delay(1000);
 
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color5'); // HACK: get SVG directly in data _element 
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: -2px -4px');
+		expect(wrapper.vm.$refs.icon.getAttribute("style")).toBe('margin: -4px 0px 0px -2px');
 
 		await wrapper.setData({colorData: '6'});
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color6');
 
 		await wrapper.setData({xData: 100, yData: 200});
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: 100px 200px');
+		expect(wrapper.vm.$refs.icon.getAttribute("style")).toBe('margin: 200px 0px 0px 100px');
 	});
 
 	it('should not render icon if svgfile data is empty when passed for isSugarNative is true', async () => {
@@ -208,9 +208,9 @@ describe('Icon.vue', () => {
 		})
 
 		await delay(1000);
-		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color512');
+		expect(wrapper.vm._element.getAttribute("class")).toBeNull();
 		expect(wrapper.vm._element.getAttribute("height")).toBe('55px');
 		expect(wrapper.vm._element.getAttribute("width")).toBe('55px');
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: 0px 0px');
+		expect(wrapper.vm.$refs.icon.getAttribute("style")).toBe('margin: 0px 0px 0px 0px;--stroke-color:#000000;--fill-color:#999999;');
 	});
 })

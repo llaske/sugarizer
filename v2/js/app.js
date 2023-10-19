@@ -6,35 +6,49 @@ requirejs.config({
 	}
 });
 
-const activity = {
-	"id": "org.olpcfrance.Gridpaint", 
-	"name": "Grid Paint from v2", 
-	"version": 2, 
-	"directory": "activities/Gridpaint.activity", 
-	"icon": "activity/activity-icon.svg", 
-	"favorite": true, 
-	"activityId": null
-};
-
 const app = Vue.createApp({
 	components: {
-		"icon": Icon
+		"sugar-localization": SugarL10n,
+		"firstscreen": FirstScreen,
+		"mainscreen": MainScreen,
 	},
 	data() {
 		return {
-			message: ""
+			isFirstScreen: null,
+			token: null,
 		}
 	},
-	mounted() {
+	
+	created: function () {
+		this.checkUserLoggedIn();
 	},
+
 	methods: {
-		iconClicked() {
-			let location = activity.directory+"/index.html?aid="+activity.activityId+"&a="+activity.id+"&n="+activity.name;
-			document.location.href = location;
+		setIsFirstScreen(value) {
+			this.isFirstScreen = value;
 		},
-		homeClicked() {
-			let location = "../index.html";
-			document.location.href = location;
+
+		checkUserLoggedIn() {
+			if (localStorage.getItem("sugar_settings") !== null && localStorage.getItem("sugar_settings") !== undefined && localStorage.getItem("sugar_settings") !== "{}") {
+				this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
+				axios.get("/api/v1/users/" + this.token.x_key, {
+					headers: {
+						'x-key': this.token.x_key,
+						'x-access-token': this.token.access_token,
+					},
+				}).then((response) => {
+					if (response.status == 200) {
+						this.setIsFirstScreen(false);
+					} else {
+						this.setIsFirstScreen(true);
+					}
+				}).catch((error) => {
+					console.log("Error: ", error);
+					this.setIsFirstScreen(true);
+				});
+			} else {
+				this.setIsFirstScreen(true);
+			}
 		},
 	},
 });

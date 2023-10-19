@@ -1,5 +1,6 @@
 .xo-color256 { --stroke-color: #666666; --fill-color: #ffffff; }
 .xo-color512 { --stroke-color: #000000; --fill-color: #999999; }
+.xo-color768 { --stroke-color: #ffffff; --fill-color: #282828; }
 .xo-color1024 { --stroke-color: #000000; --fill-color: #ffffff; }
 
 .xo-color0 { --stroke-color: #B20008; --fill-color: #FF2B34; }

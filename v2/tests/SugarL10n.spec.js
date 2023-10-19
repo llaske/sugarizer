@@ -1,5 +1,5 @@
 const { mount } = require('@vue/test-utils');
-const { SugarL10n } = require('../js/SugarL10n.js');
+const { SugarL10n } = require('../js/components/SugarL10n.js');
 
 const axiosGetMock = jest.fn().mockResolvedValue({ data: {} });
 const i18nextInitMock = jest.fn();
@@ -36,7 +36,7 @@ describe('SugarL10n.js', () => {
         };
 
         // Mock the subscribeLanguageChange method
-        const subscribeLanguageChangeMock = jest.spyOn(wrapper.vm, 'subscribeLanguageChange');
+        const subscribeLanguageChangeMock = jest.spyOn(wrapper.vm, 'emitLocalized');
 
         await axiosGetMock.mockResolvedValue(mockResponse);
 
@@ -48,7 +48,6 @@ describe('SugarL10n.js', () => {
         expect(i18nextInitMock).toHaveBeenCalledWith({
             lng: 'en',
             fallbackLng: 'en',
-            debug: true,
             resources: {
                 en: {
                     translation: mockResponse.data,
@@ -78,7 +77,6 @@ describe('SugarL10n.js', () => {
         expect(i18next.init).toHaveBeenCalledWith({
             lng: 'en',
             fallbackLng: 'en',
-            debug: true,
             resources: {
                 en: {
                     translation: require('../locales/en.json'),
@@ -94,22 +92,30 @@ describe('SugarL10n.js', () => {
         const mockResponse = {
             data: frStrings,
         };
-        axios.get.mockResolvedValueOnce(mockResponse);
 
-        wrapper.vm.subscribeLanguageChange('fr');
+        const subscribeLanguageChangeMock = jest.spyOn(wrapper.vm, 'emitLocalized');
 
-        const languageChangedCallback = window.i18next.on.mock.calls[0][1];
-        languageChangedCallback('fr');
+        await axiosGetMock.mockResolvedValue(mockResponse);
 
-        // Wait for promises to resolve
-        await wrapper.vm.$nextTick();
+        await wrapper.vm.loadLanguageFile('fr');
+        window.i18next.language = 'fr';
+        i18nextInitMock.mock.calls[0][1]();
+        expect(axios.get).toHaveBeenCalledWith('./locales/fr.json');
+
+        expect(i18next.init).toHaveBeenCalledWith({
+            lng: 'fr',
+            fallbackLng: 'en',
+            resources: {
+                fr: {
+                    translation: mockResponse.data,
+                }
+            }
+        }, expect.any(Function));
 
         // Check if the code and dictionary have been updated
         expect(wrapper.vm.code).toEqual('fr');
         expect(wrapper.vm.dictionary).toEqual(frStrings && {});
-
-        // Check if the eventReceived flag has been set to true
-        expect(wrapper.vm.eventReceived).toBe(true);
+        expect(subscribeLanguageChangeMock).toHaveBeenCalled();
     });
 
 

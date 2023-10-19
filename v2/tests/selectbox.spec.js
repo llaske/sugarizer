@@ -1,7 +1,7 @@
 const { mount } = require('@vue/test-utils');
-if (typeof Icon == 'undefined') Icon = require('../js/icon.js').Icon;
-if (typeof Popup == 'undefined') Popup = require('../js/popup.js').Popup;
-const { SelectBox } = require('../js/selectbox.js');
+if (typeof Icon == 'undefined') Icon = require('../js/components/icon.js').Icon;
+if (typeof Popup == 'undefined') Popup = require('../js/components/popup.js').Popup;
+const { SelectBox } = require('../js/components/selectbox.js');
 
 const path = require('path');
 const filename = path.dirname(__filename);
