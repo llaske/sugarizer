@@ -27,7 +27,7 @@
 	{"id": "org.olpcfrance.FoodChain", "name": "FoodChain", "version": 4, "directory": "activities/FoodChain.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpc-france.labyrinthjs", "name": "Labyrinth JS", "version": 1, "directory": "activities/LabyrinthJS.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.TankOp", "name": "Tank Operation", "version": 1, "directory": "activities/TankOp.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.sugarlabs.ChatPrototype", "name": "ChatPrototype", "version": 1, "directory": "activities/ChatPrototype.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.Chat", "name": "Chat", "version": 2, "directory": "activities/Chat.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.Gridpaint", "name": "Grid Paint", "version": 2, "directory": "activities/Gridpaint.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpc-france.LOLActivity", "name": "Last One Loses", "version": 1, "directory": "activities/LastOneLoses.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.olpcfrance.sharednotes", "name": "Shared Notes", "version": 1, "directory": "activities/SharedNotes.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},

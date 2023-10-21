@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Allow any files to be copied from device on Android/iOS
 
 ### Changed
+- Rewrite of Chat activity
 - Migrate localization to i18next
 
 ### Fixed
