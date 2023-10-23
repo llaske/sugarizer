@@ -289,7 +289,7 @@
 	"TutoActivityBlockrainactivity": "Blockrain is a clone of the classic Tetris game. The objective of the game is to manipulate blocks to create horizontal lines.",
 	"TutoActivityCalculateactivity": "Calculate is a calculator. The interface provides the simplest functions directly, but it also supports more complicated math and variables and even basic plotting.",
 	"TutoActivityChartactivity": "Twórz wykresy i ogranizuj swoje informacje! Wypróbuj najlepszy wykres dla Twoich danych.",
-	"TutoActivityChatPrototypeactivity": "Chat provides a simple interface for collaborative discussion between users through the network. Use Neighborhood View to share a conversation.",
+	"TutoActivityChatactivity": "Chat provides a simple interface for collaborative discussion between users through the network. Use Neighborhood View to share a conversation.",
 	"TutoActivityChessactivity": "Chess activity is a fun way to learn and challenge your friends to a game of Chess.",
 	"TutoActivityClockactivity": "Clock is a simple activity to learn how to read and tell the time.",
 	"TutoActivityColorMyWorldactivity": "Color My World activity let you explore the world and its countries. Fill countries with color you like or use the interactive mode to find location of countries on the offline map.",
