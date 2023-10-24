@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Rewrite of Chat activity
 - Migrate localization to i18next
+- Updated Etoys activity, supports (local) saving now
 
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
