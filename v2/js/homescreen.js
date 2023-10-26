@@ -2,7 +2,6 @@
  * @desc: HomeScreen is a class that is used to create a home screen. It renders the icons of the activities in a spiral or ring shape.
  */
 
-const timerPopupDuration = 1000;
 
 const HomeScreen = {
 	name: 'HomeScreen',
@@ -106,6 +105,8 @@ const HomeScreen = {
 				ringAdjustAngleFactor: 3.6,
 				ringAdjustSizeFactor: 0.9,
 				ringMinRadiusSize: 10,
+				maxPopupHistory: 5,
+				timerPopupDuration: 1000,
 			},
 			canvasCenter: {},
 			restrictedModeInfo: { start: 0 },
@@ -119,6 +120,7 @@ const HomeScreen = {
 			timer: null,
 			popupShown: false,
 			popupIcon: null,
+			xocolors: null,
 		}
 	},
 
@@ -126,11 +128,14 @@ const HomeScreen = {
 
 	mounted() {
 		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
+		let vm = this;
+		requirejs(['xocolor'], (xocolor) => {
+			vm.xocolors = xocolor.colors;
+		});
 		this.getActivities();
 
 		this.getCanvasCenter();
 		window.addEventListener("resize", this.draw);
-
 	},
 
 	beforeUnmount() {
@@ -179,11 +184,9 @@ const HomeScreen = {
 				throw new Error('Unable to load the user');
 			}
 			if (response.status == 200) {
-				requirejs(['xocolor'], (xocolor) => {
-					const color = response.data.color;
-					this.buddycolor = xocolor.colors.findIndex(el => {
-						return el.fill === color.fill && el.stroke === color.stroke;
-					});
+				const color = response.data.color;
+				this.buddycolor = this.xocolors.findIndex(el => {
+					return el.fill === color.fill && el.stroke === color.stroke;
 				});
 				this.jid = response.data.private_journal;
 				if (response.data.favorites !== undefined) {
@@ -226,7 +229,7 @@ const HomeScreen = {
 		},
 
 		async getJournal() {
-			const response = await axios.get(`/api/v1/journal/${this.jid}`, {
+			const response = await axios.get(`/api/v1/journal/${this.jid}?limit=100`, {
 				headers: {
 					'x-key': this.token.x_key,
 					'x-access-token': this.token.access_token,
@@ -255,22 +258,16 @@ const HomeScreen = {
 					}
 				});
 
-				for (let i = 0; i < filteredEntries.length; i++) {
-					const entry = filteredEntries[i];
-					const activityid = entry.metadata.activity;
-
-					setInterval(() => {
-						if (this.$refs["activity" + activityid]) {
-							let iconRef = this.$refs["activity" + activityid][0];
-							if (iconRef !== undefined) {
-								iconRef.colorData = this.buddycolor;
-								clearInterval();
-							}
-						}
-					}, 1000);
-				}
+				filteredEntries.sort((a, b) => {
+					return new Date(b.metadata.timestamp) - new Date(a.metadata.timestamp);
+				});
 
 				this.journalEntries = filteredEntries;
+
+				setInterval(() => {
+					this.getPopupData();
+					this.getJournalPopupData();
+				}, 1000);
 			}
 		},
 
@@ -281,15 +278,32 @@ const HomeScreen = {
 				const entry = journalEntries[i];
 				const activityid = entry.metadata.activity;
 
-
 				if (!this.popupData[activityid].itemList) {
 					this.popupData[activityid].itemList = []; // Initialize the itemList if not already defined
 				}
-				this.popupData[activityid].itemList.push({ icon: { id: entry.objectId, iconData: entry.iconpath, size: 20, color: this.buddycolor, isNative: "true" }, name: entry.metadata.title });
-				this.popupData[activityid].icon.color = this.buddycolor;
+				let color = this.buddycolor;
+				if (this.popupData[activityid].itemList.length < this.constant.maxPopupHistory) {
+					if (entry.metadata.buddy_color) {
+						color = this.xocolors.findIndex(el => {
+							return el.fill === entry.metadata.buddy_color.fill && el.stroke === entry.metadata.buddy_color.stroke;
+						});
+					}
+					this.popupData[activityid].itemList.push({
+						icon: { id: entry.objectId, iconData: entry.iconpath, size: 20, color: color, isNative: "true" },
+						name: entry.metadata.title
+					});
+				}
+				if (this.popupData[activityid].itemList.length == 1) {
+					this.popupData[activityid].icon.color = color;
+					if (this.$refs["activity" + activityid]) {
+						let iconRef = this.$refs["activity" + activityid][0];
+						if (iconRef !== undefined) {
+							iconRef.colorData = color;
+						}
+					}
+				}
 			}
 		},
-
 
 		filterFavorite(activities) {
 			return activities.filter(activity => activity.favorite);
@@ -361,13 +375,13 @@ const HomeScreen = {
 			if (this.timer != null) {
 				window.clearInterval(this.timer);
 			}
-			this.timer = window.setInterval(this.showPopup.bind(this), timerPopupDuration, e);
+			this.timer = window.setInterval(this.showPopup.bind(this), this.constant.timerPopupDuration, e);
 		},
 
 		async showPopup(e) {
 			let itemId, x, y;
-			await this.getPopupData();
-			await this.getJournalPopupData();
+			//await this.getPopupData();
+			//await this.getJournalPopupData();
 
 			this.popupShown = true;
 			window.clearInterval(this.timer);
@@ -424,7 +438,7 @@ const HomeScreen = {
 			if (this.timer != null) {
 				window.clearInterval(this.timer);
 			}
-			this.timer = window.setInterval(this.removePopup.bind(this), timerPopupDuration, e);
+			this.timer = window.setInterval(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
 		},
 
 				
