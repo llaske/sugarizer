@@ -8,7 +8,7 @@ const HomeScreen = {
 	template: ` <div class="homescreen" ref="homescreen">
 							<div v-for="(activity, index) in restrictedModeInfo.activities || activities" :key="activity.id">
 								<icon
-									size="55"
+									:size="constant.iconSizeStandard"
 									:id="activity.id"
 									:ref="'activity'+activity.id"
 									class="home-icon"
@@ -26,9 +26,9 @@ const HomeScreen = {
 								svgfile="./icons/owner-icon.svg"
 								class="home-icon"
 								:color="buddycolor"
-								size="104"
-								:x="canvasCenter.x - 52"
-								:y="canvasCenter.y - 52"
+								:size="constant.sizeOwner"
+								:x="canvasCenter.x - constant.sizeOwner/2"
+								:y="canvasCenter.y - constant.sizeOwner/2"
 								v-on:mouseover="showPopupTimer($event)"
 								v-on:mouseout="removePopupTimer($event)"
 							></icon>
@@ -36,9 +36,9 @@ const HomeScreen = {
 								id="journal-btn"
 								svgfile="./icons/activity-journal.svg"
 								class="home-icon"
-								size="40"
-								:x="canvasCenter.x - 40/2"
-								:y="canvasCenter.y + 104 - 40 + canvasCenter.jdeltay"
+								:size="constant.sizeJournal"
+								:x="canvasCenter.x - constant.sizeJournal/2"
+								:y="canvasCenter.y + constant.sizeOwner - constant.sizeJournal + canvasCenter.jdeltay"
 								:color="buddycolor"
 								isNative="true"
 							></icon>
@@ -47,7 +47,7 @@ const HomeScreen = {
 								id="restricted-prev"
 								svgfile="./icons/activity-etc.svg"
 								class="home-icon"
-								size="55"
+								:size="constant.iconSizeStandard"
 								:x="buttonpositions.prev.x"
 								:y="buttonpositions.prev.y"
 								color="512"
@@ -59,7 +59,7 @@ const HomeScreen = {
 								id="restricted-next"
 								svgfile="./icons/activity-etc.svg"
 								class="home-icon"
-								size="55"
+								:size="constant.iconSizeStandard"
 								:x="buttonpositions.next.x"
 								:y="buttonpositions.next.y"
 								color="512"
@@ -107,6 +107,11 @@ const HomeScreen = {
 				ringMinRadiusSize: 10,
 				maxPopupHistory: 5,
 				timerPopupDuration: 1000,
+				sizeOwner: 100,
+				sizeJournal: 40,
+				iconSizeStandard: 55,
+				iconSizeList: 40,
+				iconSizeFavorite: 20,
 			},
 			canvasCenter: {},
 			restrictedModeInfo: { start: 0 },
@@ -289,7 +294,7 @@ const HomeScreen = {
 						});
 					}
 					this.popupData[activityid].itemList.push({
-						icon: { id: entry.objectId, iconData: entry.iconpath, size: 20, color: color, isNative: "true" },
+						icon: { id: entry.objectId, iconData: entry.iconpath, size: this.constant.iconSizeFavorite, color: color, isNative: "true" },
 						name: entry.metadata.title
 					});
 				}
@@ -355,13 +360,13 @@ const HomeScreen = {
 					icon: {
 						id: activity.id + "_popup",
 						iconData: activity.directory + "/" + activity.icon,
-						size: 30,
+						size: this.constant.iconSizeList,
 						isNative: "true"
 					},
 					name: activity.name,
 					title: this.SugarL10n.get("NameActivity", { name: activity.name }),
 					footerList: [
-						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: this.SugarL10n.get("StartNew") }
+						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("StartNew") }
 					],
 				};
 			});
@@ -380,8 +385,6 @@ const HomeScreen = {
 
 		async showPopup(e) {
 			let itemId, x, y;
-			//await this.getPopupData();
-			//await this.getJournalPopupData();
 
 			this.popupShown = true;
 			window.clearInterval(this.timer);
@@ -412,13 +415,13 @@ const HomeScreen = {
 						id: "buddy_popup",
 						iconData: "icons/owner-icon.svg",
 						color: this.buddycolor,
-						size: 34,
+						size: this.constant.iconSizeList,
 					},
 					name: this.username,
 					title: null,
 					itemList: [
-						{ icon: { id: 1, iconData: "icons/preferences-system.svg", color: 256, size: 22 }, name: this.SugarL10n.get("MySettings") },
-						{ icon: { id: 2, iconData: "icons/system-shutdown.svg", color: 256, size: 22, isNative: "true" }, name: this.SugarL10n.get("Logoff") },
+						{ icon: { id: 1, iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.SugarL10n.get("MySettings") },
+						{ icon: { id: 2, iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("Logoff") },
 					],
 				};
 				this.popup = popupData[itemId];
@@ -507,7 +510,7 @@ const HomeScreen = {
 			// Compute center and radius
 			let constant = this.constant;
 			let canvas_center = this.getCanvasCenter();
-			let icon_size = 55;
+			let icon_size = constant.iconSizeStandard;
 			let icon_padding = icon_size * constant.iconSpacingFactor;
 			let semi_size = icon_size / 2;
 			let jdeltay = (canvas_center.dy < 480) ? -12 : 0;
