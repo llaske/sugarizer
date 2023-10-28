@@ -1,5 +1,5 @@
 /* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env","activity/paint-activity","activity/paint-app","sugar-web/graphics/presencepalette","activity/palettes/color-palette","activity/palettes/stamp-palette","activity/palettes/text-palette","activity/palettes/drawings-palette","activity/palettes/filters-palette","activity/buttons/size-button","activity/buttons/clear-button","activity/buttons/undo-button","activity/buttons/redo-button","activity/modes/modes-pen","activity/modes/modes-eraser","activity/modes/modes-bucket","activity/modes/modes-text","activity/modes/modes-stamp","activity/modes/modes-copy","activity/modes/modes-paste","activity/collaboration","activity/buttons/insertimage-button"], function (activity,tutorial,webL10n,env,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21) {
+define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activity/paint-activity","activity/paint-app","sugar-web/graphics/presencepalette","activity/palettes/color-palette","activity/palettes/stamp-palette","activity/palettes/text-palette","activity/palettes/drawings-palette","activity/palettes/filters-palette","activity/buttons/size-button","activity/buttons/clear-button","activity/buttons/undo-button","activity/buttons/redo-button","activity/modes/modes-pen","activity/modes/modes-eraser","activity/modes/modes-bucket","activity/modes/modes-text","activity/modes/modes-stamp","activity/modes/modes-copy","activity/modes/modes-paste","activity/collaboration","activity/buttons/insertimage-button"], function (activity,tutorial,l10n,env,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20,p21) {
   window.PaintApp = p2;
 
   PaintApp.libs.activity = activity;
@@ -48,7 +48,7 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env","acti
       // Set current language to Sugarizer
       var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
       var language = environment.user ? environment.user.language : defaultLanguage;
-      webL10n.language.code = language;
+      l10n.init(language);
     });
 
     // Export as PNG image
@@ -57,14 +57,14 @@ define(["sugar-web/activity/activity","tutorial","webL10n","sugar-web/env","acti
       var inputData = document.getElementById("paint-canvas").toDataURL(mimetype, 1);
       var metadata = {
         mimetype: mimetype,
-        title: webL10n.get("PaintBy", { name: currentenv.user.name }),
+        title: l10n.get("PaintBy", { name: currentenv.user.name }),
         activity: "org.olpcfrance.MediaViewerActivity",
         timestamp: new Date().getTime(),
         creation_time: new Date().getTime(),
         file_size: 0
       };
       datastore.create(metadata, function () {
-        humane.log(webL10n.get('PaintImageSaved'))
+        humane.log(l10n.get('PaintImageSaved'))
         console.log("export done.")
       }, inputData);
     });
