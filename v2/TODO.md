@@ -4,6 +4,7 @@ TODO list
 * [x] Activities popup should use colors from the icon
 * [x] Fix size of buddy icon
 * [x] Use constants everywhere
+* [x] Colorize about me dialog icon
 * [ ] Review hard coded target test in show popup
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 

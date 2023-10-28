@@ -7,6 +7,7 @@ const AboutMe = {
 				<dialog-box 
 						ref="aboutMeModal"
 						iconData="./icons/owner-icon.svg"
+						:iconColorData="buddycolor"
 						:titleData="SugarL10n ? SugarL10n.get('AboutMe') : ''"
 						ok-button="true"
 						cancel-button="true"
@@ -16,18 +17,18 @@ const AboutMe = {
 						<div class="settings-subscreen aboutme-box">
 							<div class="firstscreen_text">{{SugarL10n ? SugarL10n.get('ClickToColor') : ''}}</div>
 							<div class="aboutme-iconbox">
-								<icon id="psicon" ref="psicon" svgfile="./icons/owner-icon.svg" size="98" @click="setcolor('psicon')" />
-								<icon id="nsicon" ref="nsicon" svgfile="./icons/owner-icon.svg" size="98" @click="setcolor('nsicon')" />
-								<div class="aboutme-cicon"><icon id="cicon" ref="cicon" svgfile="./icons/owner-icon.svg" size="98" @click="setcolor('cicon')" /></div>
-								<icon id="pficon" ref="pficon" svgfile="./icons/owner-icon.svg" size="98" @click="setcolor('pficon')" />
-								<icon id="nficon" ref="nficon" svgfile="./icons/owner-icon.svg" size="98" @click="setcolor('nficon')" />
+								<icon id="psicon" ref="psicon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('psicon')" />
+								<icon id="nsicon" ref="nsicon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('nsicon')" />
+								<div class="aboutme-cicon"><icon id="cicon" ref="cicon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('cicon')" /></div>
+								<icon id="pficon" ref="pficon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('pficon')" />
+								<icon id="nficon" ref="nficon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('nficon')" />
 							</div>
 							<input ref="nameInput" class="input_field aboutme-input"  v-model="name" />
 							<div class="aboutme-warning" v-show="warning.show">
 								<icon 
 									id="warning-icon"
 									svgfile="./icons/emblem-warning.svg"
-									size="18"
+									:size="constant.sizeWarning"
 									color="256"
 									x="0"
 									y="0"
@@ -54,6 +55,10 @@ const AboutMe = {
 				text: ''
 			},
 			name: this.username,
+			constant: {
+				sizeOwner: 100,
+				sizeWarning: 18,
+			}
 		}
 	},
 

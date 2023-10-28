@@ -645,6 +645,7 @@ a {
 
 .toolbar {
 	height: 55px;
+	min-height: 55px;
 	padding: 0 35px 0 55px;
 	color: white;
 	background-color: #282828;
