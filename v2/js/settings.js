@@ -16,37 +16,37 @@ const Settings = {
 						<div class="dialog-items">
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringAboutMe).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="31" svgfile="icons/owner-icon.svg" :color="buddycolor" size="72" @click="openModal('aboutMeModal')"
+									<icon id="31" svgfile="icons/owner-icon.svg" :color="buddycolor" :size="constant.sizeSettings" @click="openModal('aboutMeModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringAboutMe}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringAboutMyComputer).includes(v))) ? '' :'dialog-item-disable'">
 								<div v-on:click="openModal('aboutComputerModal')">
-									<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" size="72" is-native="true" @click="openModal('aboutComputerModal')"
+									<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('aboutComputerModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringAboutMyComputer}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringServer).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="33" svgfile="icons/cloud-settings.svg" color="256" size="72" is-native="true" @click="openModal('aboutMyServerModal')"
+									<icon id="33" svgfile="icons/cloud-settings.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('aboutMyServerModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringServer}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMySecurity).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="34" svgfile="icons/login-icon.svg" color="256" size="72" is-native="true" @click="openModal('mysecurityModal')"
+									<icon id="34" svgfile="icons/login-icon.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('mysecurityModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringMySecurity}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMyPrivacy).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="35" svgfile="icons/privacy.svg" color="256" size="72" is-native="true" @click="openModal('myprivacyModal')"
+									<icon id="35" svgfile="icons/privacy.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('myprivacyModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringMyPrivacy}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringLanguage).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="36" svgfile="icons/module-language.svg" color="256" size="72" is-native="true" @click="openModal('languageModal')"
+									<icon id="36" svgfile="icons/module-language.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('languageModal')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringLanguage}}</div>
 							</div>
@@ -85,6 +85,9 @@ const Settings = {
 				stringMyPrivacy: '',
 				stringMySecurity: '',
 				stringLanguage: '',
+			},
+			constant: {
+				sizeSettings: 70,
 			}
 		}
 	},

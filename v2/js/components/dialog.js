@@ -28,7 +28,7 @@
 							:placeholder="searchPlaceholder"
 							v-on:input-changed="searchSettings($event)"
 						></search-field>
-						<div v-if="cancelButton=='true'" class="toolbutton settings-tool-button module-cancel-button" @click="cancelClicked"></div>
+						<div v-if="cancelButton=='true'" :class="'toolbutton settings-tool-button '+(okButton=='true'?'module-cancel-button':'module-cancel-button-only')" @click="cancelClicked"></div>
 						<div v-if="okButton=='true'" class="toolbutton settings-tool-button module-ok-button" @click="okClicked"></div>
 					</div>
 					<slot></slot>

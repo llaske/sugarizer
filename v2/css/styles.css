@@ -628,7 +628,7 @@ a {
 .settings-filter-text {
 	position: relative;
 	margin-left: 10px;
-	margin-top: 5px;
+	margin-top: 0px;
 	width: 350px;
 }
 
@@ -736,6 +736,15 @@ a {
 
 .module-ok-button {
 	background-image: url(../icons/dialog-ok.svg);
+	position: absolute !important;
+	top: 5px;
+	right: 15px;
+	width: 35px !important;
+	height: 35px !important;
+}
+
+.module-cancel-button-only {
+	background-image: url(../icons/dialog-cancel.svg);
 	position: absolute !important;
 	top: 5px;
 	right: 15px;
