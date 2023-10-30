@@ -455,6 +455,12 @@ const HomeScreen = {
 		},
 
 		itemisClicked(item) {
+			if (this.popupShown) {
+				this.$refs.popup.hide();
+				this.popupShown = false;
+				window.clearInterval(this.timer);
+				this.timer = null;
+			}
 			if (item == "buddy_" + this.SugarL10n.get("MySettings") || item == "buddy_" + this.username) {
 				this.$refs.settings.openSettingsModal("settingModal");
 			} else if (item == "buddy_" + this.SugarL10n.get("Logoff")) {
