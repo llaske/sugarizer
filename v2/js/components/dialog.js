@@ -20,7 +20,7 @@
 				<div class="dialog-content">
 					<div class="toolbar">
 						<div v-if="iconData" class="module-icon">
-							<icon id="37" :svgfile="this.iconData" :isNative="this.isNative" :color="iconColorData ? iconColorData : 256" x="4" y="4" size="40"
+							<icon id="37" :svgfile="this.iconData" :isNative="this.isNative" :color="iconColorData ? iconColorData : 256" x="4" y="4" :size="constant.sizeToolbar"
 						></icon></div>
 						<div v-if="titleData" class="module-text">{{titleData}}</div>
 						<search-field class="settings-filter-text"
@@ -44,6 +44,9 @@
 	data() {
 		return {
 			showDialog: false,
+			constant: {
+				sizeToolbar: 40
+			}
 		}
 	},
 	watch: {
