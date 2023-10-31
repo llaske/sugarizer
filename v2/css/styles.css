@@ -14,7 +14,7 @@ body {
 	font-family: 'Helvetica Neue', 'Nimbus Sans L', Arial, sans-serif;
 	font-size: 10pt;
 	background-color: #c0c0c0;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 html, button {
 	cursor: url(../icons/ArrowSmall.cur), default;

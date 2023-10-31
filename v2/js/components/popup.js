@@ -101,13 +101,18 @@ const Popup ={
 	updated: function() {
 		var ele= this.$refs.homePopup;
 		if(ele) {
-			var deltaX= this.xData + ele.clientWidth - window.innerWidth;
+			var deltaX= this.xData + ele.clientWidth - window.innerWidth + 5;
+			var deltaY= this.yData + ele.clientHeight - window.innerHeight + 5;
+			var dataX = this.xData;
+			var dataY = this.yData;
 			// check if popup component is out of screen window, then adjust it by extra width
 			if (deltaX >= 1) {
-				ele.setAttribute("style", "left: "+(this.xData - deltaX)+"px; top: "+this.yData+"px;");
-			} else {
-				ele.setAttribute("style", "left: "+this.xData+"px; top: "+this.yData+"px;");
+				dataX = this.xData - deltaX;
 			}
+			if (deltaY >= 1) {
+				dataY = this.yData - deltaY;
+			}
+			ele.setAttribute("style", "left: "+dataX+"px; top: "+dataY+"px;");
 		}
 	},
 	methods: {
