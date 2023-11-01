@@ -131,12 +131,16 @@ const HomeScreen = {
 
 	props: ['filteredactivities', 'SugarL10n'],
 
-	mounted() {
-		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
+	created() {
 		let vm = this;
 		requirejs(['xocolor'], (xocolor) => {
 			vm.xocolors = xocolor.colors;
 		});
+	},
+
+	mounted() {
+		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
+
 		this.getActivities();
 
 		this.getCanvasCenter();
