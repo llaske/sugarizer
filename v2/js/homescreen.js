@@ -378,9 +378,6 @@ const HomeScreen = {
 		},
 
 		async showPopupTimer(e) {
-			if (this.popupShown) {
-				return;
-			}
 			if (this.timer != null) {
 				window.clearInterval(this.timer);
 			}
@@ -390,6 +387,9 @@ const HomeScreen = {
 		async showPopup(e) {
 			let itemId, x, y;
 
+			if (this.popupShown) {
+				this.removeCurrentPopup();
+			}
 			this.popupShown = true;
 			window.clearInterval(this.timer);
 			this.timer = null;
@@ -439,9 +439,6 @@ const HomeScreen = {
 		},
 
 		async removePopupTimer(e) {
-			if (!this.popupShown) {
-				return;
-			}
 			if (this.timer != null) {
 				window.clearInterval(this.timer);
 			}
@@ -450,20 +447,21 @@ const HomeScreen = {
 
 				
 		async removePopup(e) {
-			if (!this.$refs.popup.isCursorInside(e.clientX, e.clientY) && !this.popupIcon.isCursorInside(e.clientX, e.clientY)) {
-				this.$refs.popup.hide();
-				this.popupShown = false;
-				window.clearInterval(this.timer);
-				this.timer = null;
+			if (this.$refs.popup && !this.$refs.popup.isCursorInside(e.clientX, e.clientY) && this.popupIcon && !this.popupIcon.isCursorInside(e.clientX, e.clientY)) {
+				this.removeCurrentPopup();
 			}
+		},
+
+		removeCurrentPopup() {
+			this.$refs.popup.hide();
+			this.popupShown = false;
+			window.clearInterval(this.timer);
+			this.timer = null;
 		},
 
 		itemisClicked(item) {
 			if (this.popupShown) {
-				this.$refs.popup.hide();
-				this.popupShown = false;
-				window.clearInterval(this.timer);
-				this.timer = null;
+				this.removeCurrentPopup();
 			}
 			if (item == "buddy_" + this.SugarL10n.get("MySettings") || item == "buddy_" + this.username) {
 				this.$refs.settings.openSettingsModal("settingModal");
