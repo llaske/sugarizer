@@ -260,7 +260,6 @@ const ListView = {
 			}
 			const obj = JSON.parse(JSON.stringify(this.popupData))
 			this.popup = obj[itemId];
-			console.log(this.popup)
 			this.$refs.popup.show(x, y);
 		},
 		removePopupFunction(e) {
