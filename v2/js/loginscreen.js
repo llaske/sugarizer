@@ -338,10 +338,12 @@ const LoginScreen = {
 						"x_key": response.data.user._id,
 						"access_token": response.data.token,
 					},
+					"name": response.data.user.name,
+					"colorvalue": response.data.user.color,
 				}
 				localStorage.setItem('sugar_settings', JSON.stringify(data));
+				app.updateFavicon();
 				this.$emit('updateIsFirstScreen', false);
-				console.log(response);
 			}).catch((error) => {
 				if (error.response && error.response.status === 401) {
 					console.log(error.response.data);
