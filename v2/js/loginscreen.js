@@ -359,13 +359,11 @@ const LoginScreen = {
 			if (this.userType.isNewuser) {
 				const colorNumber = this.$refs.buddyIcon.colorData;
 
-				requirejs(['lib/xocolor.js'], (xocolor) => {
-					this.details.color = xocolor.colors[colorNumber];
-					console.log(this.details.color);
+				this.details.color = sugarizer.modules.xocolor.colors[colorNumber];
+				console.log(this.details.color);
 
-					this.details.password = this.$refs.passwordInput.passwordText;
-					this.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color);
-				});
+				this.details.password = this.$refs.passwordInput.passwordText;
+				this.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color);
 			}
 
 			if (this.userType.isLogin) {

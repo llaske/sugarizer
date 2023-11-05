@@ -49,7 +49,6 @@ const AboutMe = {
 	data() {
 		return {
 			currentcolor: this.buddycolor,
-			xoPalette: null,
 			warning: {
 				show: false,
 				text: ''
@@ -63,10 +62,9 @@ const AboutMe = {
 	},
 
 	mounted() {
-		requirejs(['xocolor'], (xocolor) => {
-			this.xoPalette = xocolor;
+		window.setTimeout(() => {
 			this.colorize();
-		});
+		}, 0);
 	},
 
 	methods: {
@@ -92,13 +90,12 @@ const AboutMe = {
 
 		getNextStrokeColor(color) {
 			let current = color;
-			let xoPalette = this.xoPalette;
 
 			if (current == -1) {
 				return color;
 			}
 			let next = this.nextIndex(current);
-			while (xoPalette.colors[next].stroke != xoPalette.colors[current].stroke) {
+			while (sugarizer.modules.xocolor.colors[next].stroke != sugarizer.modules.xocolor.colors[current].stroke) {
 				next = this.nextIndex(next);
 			}
 			return next;
@@ -106,13 +103,12 @@ const AboutMe = {
 
 		getPreviousStrokeColor(color) {
 			let current = color;
-			let xoPalette = this.xoPalette;
 
 			if (current == -1) {
 				return color;
 			}
 			let previous = this.previousIndex(current);
-			while (xoPalette.colors[previous].stroke != xoPalette.colors[current].stroke) {
+			while (sugarizer.modules.xocolor.colors[previous].stroke != sugarizer.modules.xocolor.colors[current].stroke) {
 				previous = this.previousIndex(previous);
 			}
 			return previous;
@@ -120,13 +116,12 @@ const AboutMe = {
 
 		getNextFillColor(color) {
 			let current = color;
-			let xoPalette = this.xoPalette;
 
 			if (current == -1) {
 				return color;
 			}
 			let next = this.nextIndex(current);
-			while (xoPalette.colors[next].fill != xoPalette.colors[current].fill) {
+			while (sugarizer.modules.xocolor.colors[next].fill != sugarizer.modules.xocolor.colors[current].fill) {
 				next = this.nextIndex(next);
 			}
 			return next;
@@ -134,12 +129,11 @@ const AboutMe = {
 
 		getPreviousFillColor(color) {
 			let current = color;
-			let xoPalette = this.xoPalette;
 			if (current == -1) {
 				return color;
 			}
 			let previous = this.previousIndex(current);
-			while (xoPalette.colors[previous].fill != xoPalette.colors[current].fill) {
+			while (sugarizer.modules.xocolor.colors[previous].fill != sugarizer.modules.xocolor.colors[current].fill) {
 				previous = this.previousIndex(previous);
 			}
 			return previous;
@@ -147,8 +141,7 @@ const AboutMe = {
 
 		nextIndex(index) {
 			let next = index + 1;
-			let xoPalette = this.xoPalette;
-			if (next == xoPalette.colors.length) {
+			if (next == sugarizer.modules.xocolor.colors.length) {
 				next = 0;
 			}
 			return next;
@@ -156,9 +149,8 @@ const AboutMe = {
 
 		previousIndex(index) {
 			let previous = index - 1;
-			let xoPalette = this.xoPalette;
 			if (previous < 0) {
-				previous = xoPalette.colors.length - 1;
+				previous = sugarizer.modules.xocolor.colors.length - 1;
 			}
 			return previous;
 		},
@@ -205,7 +197,7 @@ const AboutMe = {
 
 		async updateUser(name, colorIndex) {
 			const token = await JSON.parse(localStorage.getItem("sugar_settings")).token;
-			const color = this.xoPalette.colors[colorIndex];
+			const color = sugarizer.modules.xocolor.colors[colorIndex];
 
 			const response = await axios.put("/api/v1/users/" + token.x_key, ({
 				"user": JSON.stringify({ name: name, color: color }),
