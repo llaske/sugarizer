@@ -35,6 +35,15 @@ const appVue = Vue.createApp({
 					} else {
 						this.setIsFirstScreen(true);
 					}
+					const data = {
+						"token": {
+							"x_key": this.token.x_key,
+							"access_token": this.token.access_token,
+						},
+						"name": response.data.name,
+						"colorvalue": response.data.color,
+					}
+					localStorage.setItem('sugar_settings', JSON.stringify(data));
 					this.updateFavicon();
 				}).catch((error) => {
 					console.log("Error: ", error);
