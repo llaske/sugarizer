@@ -1,10 +1,3 @@
-// Rebase require directory
-requirejs.config({
-	baseUrl: "lib",
-	paths: {
-		activity: "../js"
-	}
-});
 
 const appVue = Vue.createApp({
 	components: {

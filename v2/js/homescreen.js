@@ -125,18 +125,10 @@ const HomeScreen = {
 			timer: null,
 			popupShown: false,
 			popupIcon: null,
-			xocolors: null,
 		}
 	},
 
 	props: ['filteredactivities', 'SugarL10n'],
-
-	created() {
-		let vm = this;
-		requirejs(['xocolor'], (xocolor) => {
-			vm.xocolors = xocolor.colors;
-		});
-	},
 
 	mounted() {
 		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
@@ -194,7 +186,7 @@ const HomeScreen = {
 			}
 			if (response.status == 200) {
 				const color = response.data.color;
-				this.buddycolor = this.xocolors.findIndex(el => {
+				this.buddycolor = sugarizer.modules.xocolor.colors.findIndex(el => {
 					return el.fill === color.fill && el.stroke === color.stroke;
 				});
 				this.jid = response.data.private_journal;
@@ -293,7 +285,7 @@ const HomeScreen = {
 				let color = this.buddycolor;
 				if (this.popupData[activityid].itemList.length < this.constant.maxPopupHistory) {
 					if (entry.metadata.buddy_color) {
-						color = this.xocolors.findIndex(el => {
+						color = sugarizer.modules.xocolor.colors.findIndex(el => {
 							return el.fill === entry.metadata.buddy_color.fill && el.stroke === entry.metadata.buddy_color.stroke;
 						});
 					}

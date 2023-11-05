@@ -111,11 +111,9 @@ const ListView = {
 				throw new Error('Unable to load the user');
 			}
 			if (response.status == 200) {
-				requirejs(['xocolor'], (xocolor) => {
-					const color = response.data.color;
-					this.buddycolor = xocolor.colors.findIndex(el => {
-						return el.fill === color.fill && el.stroke === color.stroke;
-					});
+				const color = response.data.color;
+				this.buddycolor = sugarizer.modules.xocolor.colors.findIndex(el => {
+					return el.fill === color.fill && el.stroke === color.stroke;
 				});
 				if (response.data.favorites !== undefined) {
 					const list = activities;
