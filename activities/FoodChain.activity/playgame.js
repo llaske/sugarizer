@@ -670,6 +670,7 @@ enyo.kind({
 
 	// Resume game
 	play: function() {
+		this.addScore(-FoodChain.context.score);
 		this.$.timer.resume();
 		this.$.play.hide();
 		this.$.pause.show();
@@ -698,6 +699,7 @@ enyo.kind({
 	home: function() {
 		this.$.timer.stop();
 		this.$.timerMonster.stop();
+		this.addScore(-FoodChain.context.score);
 		FoodChain.goHome();
 		return true; // Prevent event from bubbling up and causing "clickToMove" to be triggered
 	}
