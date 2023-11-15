@@ -309,14 +309,12 @@ const LoginScreen = {
 				},
 				"role": "student",
 			}
-			console.log(signupData);
 
 			axios.post(`${baseurl}/auth/signup`, JSON.stringify({ user: JSON.stringify(signupData) }), {
 				headers: {
 					'Content-Type': 'application/json; charset=UTF-8'
 				}
 			}).then((response) => {
-				console.log(response);
 				this.login(baseurl, name, password);
 			}).catch((error) => {
 				console.log(error);
@@ -360,15 +358,12 @@ const LoginScreen = {
 				const colorNumber = this.$refs.buddyIcon.colorData;
 
 				this.details.color = sugarizer.modules.xocolor.colors[colorNumber];
-				console.log(this.details.color);
 
 				this.details.password = this.$refs.passwordInput.passwordText;
 				this.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color);
 			}
 
 			if (this.userType.isLogin) {
-				console.log(this.details.serverAddress)
-				console.log(this.details.name)
 				this.details.password = this.$refs.passwordInput.passwordText;
 
 				this.login(this.details.serverAddress, this.details.name, this.details.password);
