@@ -6,10 +6,19 @@ requirejs.config({
 	}
 });
 
-// Load modules
+// Sugarizer context
 let sugarizer = {
 	modules: {},
+
+	// Init function
+	init: async function() {	
+		return new Promise(function(resolve, reject) {
+			// Load modules
+			requirejs(["xocolor","server"], function(xocolor, server) {
+				sugarizer.modules.xocolor = xocolor;
+				sugarizer.modules.server = server;
+				resolve();
+			});
+		});
+	}
 };
-requirejs(["xocolor"], function(xocolor) {
-	sugarizer.modules.xocolor = xocolor;
-});

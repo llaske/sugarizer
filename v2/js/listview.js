@@ -58,7 +58,6 @@ const ListView = {
 
 	data() {
 		return {
-			token: null,
 			favactivities: [],
 			activities: [],
 			popupData: null,
@@ -70,7 +69,6 @@ const ListView = {
 	props: ['filteredactivities', 'SugarL10n'],
 
 	mounted() {
-		this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
 		this.getActivities();
 	},
 
@@ -82,74 +80,45 @@ const ListView = {
 
 	methods: {
 		async getActivities() {
-			const response = await axios.get("/api/v1/activities", {
-				headers: {
-					'x-key': this.token.x_key,
-					'x-access-token': this.token.access_token,
-				}
-			});
-
-			if (response.status != 200) {
-				throw new Error('Unable to load the activities');
-			}
-
-			if (response.status == 200 || response.status == 304) {
-				const activities = response.data;
+			sugarizer.modules.server.getActivities((activities) => {
 				this.getUser(activities);
-			}
+			}, (error) => {
+				throw new Error('Unable to load the activities, error ' + error);
+			});
 		},
 
 		async getUser(activities) {
-			const response = await axios.get("/api/v1/users/" + this.token.x_key, {
-				headers: {
-					'x-key': this.token.x_key,
-					'x-access-token': this.token.access_token,
-				},
-			});
-
-			if (response.status != 200) {
-				throw new Error('Unable to load the user');
-			}
-			if (response.status == 200) {
-				const color = response.data.color;
+			sugarizer.modules.server.getUser(null, (user) => {
+				const color = user.color;
 				this.buddycolor = sugarizer.modules.xocolor.colors.findIndex(el => {
 					return el.fill === color.fill && el.stroke === color.stroke;
 				});
-				if (response.data.favorites !== undefined) {
+				if (user.favorites !== undefined) {
 					const list = activities;
 					for (let i = 0; i < list.length; i++) {
 						list[i].favorite = false;
-						for (var j = 0; j < response.data.favorites.length; j++) {
-							if (response.data.favorites[j] == list[i].id) {
+						for (let j = 0; j < user.favorites.length; j++) {
+							if (user.favorites[j] == list[i].id) {
 								list[i].favorite = true;
 							}
 						}
 					}
 					this.activities = list;
-					this.$emit('activities', list);
+					this.$emit('activities', this.activities);
 					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
 				} else {
 					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
-					await axios.put("/api/v1/users/" + this.token.x_key, ({
-						"user": JSON.stringify({ "favorites": favactivities }),
-					}), {
-						headers: {
-							'x-key': this.token.x_key,
-							'x-access-token': this.token.access_token,
-						},
-					}).then((response) => {
-						if (response.status != 200) {
-							throw new Error('Unable to update the user');
-						}
-						else if (response.status == 200) {
-							this.activities = activities;
-							this.$emit('activities', activities);
-							this.favactivities = favactivities;
-						}
+					sugarizer.modules.server.putUser(null, {"favorites": favactivities }, (user) => {
+						this.activities = this.filterFavorite(activities);
+						this.$emit('activities', this.activities);
+						this.favactivities = favactivities;
+					}, (error) => {
+						throw new Error('Unable to update the user, error ' + error);
 					});
-
 				}
-			}
+			}, (error) => {
+				throw new Error('Unable to load the user, error ' + error);
+			})
 		},
 
 		async toggleFavorite(activity) {
@@ -162,20 +131,7 @@ const ListView = {
 
 			}
 
-			const response = await axios.put("/api/v1/users/" + this.token.x_key, ({
-				"user": JSON.stringify({ "favorites": this.favactivities }),
-			}), {
-				headers: {
-					'x-key': this.token.x_key,
-					'x-access-token': this.token.access_token,
-				},
-			});
-
-			if (response.status != 200) {
-				throw new Error('Unable to update the user');
-			}
-
-			if (response.status == 200) {
+			sugarizer.modules.server.putUser(null, {"favorites": this.favactivities }, (user) => {
 				const iconRef = this.$refs["star" + activity.id][0];
 				activity.favorite = !activity.favorite;
 				if (iconRef.colorData == this.buddycolor) {
@@ -188,8 +144,9 @@ const ListView = {
 				this.popupData[activity.id].itemList[1].icon.color = activity.favorite ? this.buddycolor : 256;
 				this.popup.favorite = activity.favorite;
 				this.popup.itemList[1].icon.color = activity.favorite ? this.buddycolor : 256;
-			}
-
+			}, (error) => {
+				throw new Error('Unable to update the user, error ' + error);
+			});
 		},
 
 		sortObjectArray(array) {

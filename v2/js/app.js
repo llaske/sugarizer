@@ -7,8 +7,7 @@ const appVue = Vue.createApp({
 	},
 	data() {
 		return {
-			isFirstScreen: null,
-			token: null,
+			isFirstScreen: null
 		}
 	},
 	
@@ -23,29 +22,19 @@ const appVue = Vue.createApp({
 
 		checkUserLoggedIn() {
 			if (localStorage.getItem("sugar_settings") !== null && localStorage.getItem("sugar_settings") !== undefined && localStorage.getItem("sugar_settings") !== "{}") {
-				this.token = JSON.parse(localStorage.getItem("sugar_settings")).token;
-				axios.get("/api/v1/users/" + this.token.x_key, {
-					headers: {
-						'x-key': this.token.x_key,
-						'x-access-token': this.token.access_token,
-					},
-				}).then((response) => {
-					if (response.status == 200) {
-						this.setIsFirstScreen(false);
-					} else {
-						this.setIsFirstScreen(true);
-					}
+				sugarizer.modules.server.getUser(null, (user) => {
+					this.setIsFirstScreen(false);
 					const data = {
 						"token": {
-							"x_key": this.token.x_key,
-							"access_token": this.token.access_token,
+							"x_key": sugarizer.modules.server.getToken().x_key,
+							"access_token": sugarizer.modules.server.getToken().access_token,
 						},
-						"name": response.data.name,
-						"colorvalue": response.data.color,
+						"name": user.name,
+						"colorvalue": user.color,
 					}
 					localStorage.setItem('sugar_settings', JSON.stringify(data));
 					this.updateFavicon();
-				}).catch((error) => {
+				},(error) => {
 					console.log("Error: ", error);
 					this.setIsFirstScreen(true);
 					this.updateFavicon();
@@ -88,4 +77,7 @@ const appVue = Vue.createApp({
 	},
 });
 
-const app = appVue.mount('#app');
+let app;
+sugarizer.init().then(() => {
+	app = appVue.mount('#app');
+});

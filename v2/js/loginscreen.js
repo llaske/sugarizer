@@ -37,7 +37,7 @@ const LoginScreen = {
 				 ref="buddyIcon"
 				 id="buddy_icon"
 				 svgfile="/icons/owner-icon.svg"
-				 :color="Math.floor(Math.random() * 180)"
+				 :color="details.color"
 				 size="125"
 				 x="0"
 				 is-native="true"
@@ -144,7 +144,7 @@ const LoginScreen = {
 				serverAddress: '',
 				name: '',
 				password: '',
-				color: null,
+				color: Math.floor(Math.random() * 180),
 			},
 			l10n: {
 				stringServerUrl: '',
@@ -283,19 +283,15 @@ const LoginScreen = {
 					beforeSignup: "true"
 				};
 
-				axios.post(`${baseurl}/auth/signup`, JSON.stringify({ user: JSON.stringify(data) }), {
-					headers: {
-						'Content-Type': 'application/json; charset=UTF-8'
-					}
-				}).then((response) => {
-					resolve(response.data.exists);
-				}).catch((error) => {
-					if (error.response && error.response.status === 401) {
-						resolve(error.response.data.exists);
+				sugarizer.modules.server.postUser(data, (user) => {
+					resolve(false);
+				}, (error) => {
+					if (error === 22) {
+						resolve(true);
 					} else {
-						reject(error);
+						reject(false);
 					}
-				});
+				}, baseurl);
 			});
 		},
 
@@ -310,15 +306,11 @@ const LoginScreen = {
 				"role": "student",
 			}
 
-			axios.post(`${baseurl}/auth/signup`, JSON.stringify({ user: JSON.stringify(signupData) }), {
-				headers: {
-					'Content-Type': 'application/json; charset=UTF-8'
-				}
-			}).then((response) => {
+			sugarizer.modules.server.postUser(signupData, (user) => {
 				this.login(baseurl, name, password);
-			}).catch((error) => {
+			}, (error) => {
 				console.log(error);
-			});
+			}, baseurl);
 		},
 
 		login(baseurl, name, password) {
@@ -326,31 +318,27 @@ const LoginScreen = {
 				"name": `${name}`,
 				"password": `${password}`,
 			}
-			axios.post(`${baseurl}/auth/login`, { user: JSON.stringify(loginData) }, {
-				headers: {
-					'Content-Type': 'application/json; charset=UTF-8'
-				}
-			}).then((response) => {
+
+			sugarizer.modules.server.loginUser(loginData, (response) => {
 				const data = {
 					"token": {
-						"x_key": response.data.user._id,
-						"access_token": response.data.token,
+						"x_key": response.user._id,
+						"access_token": response.token,
 					},
-					"name": response.data.user.name,
-					"colorvalue": response.data.user.color,
+					"name": response.user.name,
+					"colorvalue": response.user.color,
 				}
 				localStorage.setItem('sugar_settings', JSON.stringify(data));
 				app.updateFavicon();
 				this.$emit('updateIsFirstScreen', false);
-			}).catch((error) => {
-				if (error.response && error.response.status === 401) {
-					console.log(error.response.data);
+			}, (error) => {
+				if (error === 1) {
 					this.warning.show = true;
 					this.warning.text = this.l10n.stringUserLoginInvalid;
 				} else {
 					console.log(error);
 				}
-			});
+			}, baseurl);
 		},
 
 		makeLoginRequest() {
