@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n", "sugar-web/graphics/journalchooser", "activity/backgroundColorChooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser, backgroundColorChooser) {
+define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "l10n", "sugar-web/graphics/journalchooser", "activity/backgroundColorChooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser, backgroundColorChooser) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
