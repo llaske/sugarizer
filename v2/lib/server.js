@@ -35,20 +35,11 @@ define([], function() {
 
 	// Get token util
 	server.getToken = function() {
-		var settings = JSON.parse(localStorage.getItem("sugar_settings"));
+		let settings = sugarizer.modules.settings.getUser();
 		if (settings && settings.token) {
 			return settings.token;
 		}
 		return null;
-	}
-
-	// Set token util
-	var setToken = function(token) {
-		var settings = JSON.parse(localStorage.getItem("sugar_settings"));
-		if (settings) {
-			settings.token = token;
-			localStorage.setItem("sugar_settings", JSON.stringify(settings));
-		}
 	}
 
 	// Set header util
@@ -72,7 +63,7 @@ define([], function() {
 	var sessionExpired = function() {
 		if (getClientType() == constant.webAppType) {
 			// For web app, force deconnection
-			localStorage.removeItem("sugar_settings");
+			sugarizer.modules.settings.removeUser();
 			restartApp();
 			return true;
 		} else {

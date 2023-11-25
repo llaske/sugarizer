@@ -12,9 +12,9 @@ TODO list
 * [x] Display new popup when mouse move from one icon to another
 * [x] Change window title with icon and user
 * [x] Factorize xocolor library
-* [ ] Bug on buddy popup when a new user is created
-* [ ] Factorize user handling
-* [ ] Factorize server functions
+* [x] Bug on buddy popup when a new user is created
+* [x] Factorize user handling
+* [x] Factorize server functions
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
 * [x] Now that the popup has a timer, we see that the popup should be hidden when there is a click on a item.

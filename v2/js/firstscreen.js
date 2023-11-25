@@ -111,7 +111,7 @@ const FirstScreen = {
 	methods: {
 		getPrevUsers() {
 			try {
-				this.prevUsers = JSON.parse(localStorage.getItem('sugar_history')).reverse();
+				this.prevUsers = sugarizer.modules.settings.getHistory().reverse();
 			} catch (error) {
 				this.prevUsers = [];
 			}

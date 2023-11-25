@@ -427,7 +427,7 @@ const HomeScreen = {
 		},
 
 		logout() {
-			localStorage.removeItem("sugar_settings");
+			sugarizer.modules.settings.removeUser();
 			window.location.reload();
 		},
 

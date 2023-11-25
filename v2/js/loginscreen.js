@@ -328,7 +328,7 @@ const LoginScreen = {
 					"name": response.user.name,
 					"colorvalue": response.user.color,
 				}
-				localStorage.setItem('sugar_settings', JSON.stringify(data));
+				sugarizer.modules.settings.setUser(data);
 				app.updateFavicon();
 				this.$emit('updateIsFirstScreen', false);
 			}, (error) => {
