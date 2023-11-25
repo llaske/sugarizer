@@ -4,8 +4,6 @@ define([], function() {
 	var server = {};
 
 	const constant = {
-		webAppType: 0,
-		appType: 1,
 		dynamicInitActivitiesURL: "/api/v1/activities/",
 		serverInformationURL: "/api/",
 		loginURL: "/auth/login/",
@@ -15,11 +13,6 @@ define([], function() {
 		submitAssignment:"/api/v1/assignments/deliveries/submit/",
 		statsURL: "/api/v1/stats/",
 	};
-
-	// Get client type util
-	var getClientType = function() {
-		return (document.location.protocol.substr(0,4) == "http") ? constant.webAppType : constant.appType;
-	}
 
 	// Get current server URL util
 	var getCurrentServerUrl = function() {
@@ -61,7 +54,7 @@ define([], function() {
 
 	// Session expired
 	var sessionExpired = function() {
-		if (getClientType() == constant.webAppType) {
+		if (sugarizer.getClientType() == sugarizer.constant.webAppType) {
 			// For web app, force deconnection
 			sugarizer.modules.settings.removeUser();
 			restartApp();
@@ -74,7 +67,7 @@ define([], function() {
 
 	// Retrieve current server name
 	server.getServer = function() {
-		return (getClientType() == constant.webAppType) ? getCurrentServerUrl() : "http://localhost";
+		return (sugarizer.getClientType() == sugarizer.constant.webAppType) ? getCurrentServerUrl() : "http://localhost";
 	}
 
 	// Retrieve current server URL
