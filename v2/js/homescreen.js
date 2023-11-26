@@ -153,7 +153,7 @@ const HomeScreen = {
 
 	methods: {
 		async getActivities() {
-			sugarizer.modules.server.getActivities((activities) => {
+			sugarizer.modules.activities.load().then((activities) => {
 				this.getUser(activities);
 			}, (error) => {
 				throw new Error('Unable to load the activities, error ' + error);
@@ -167,33 +167,12 @@ const HomeScreen = {
 					return el.fill === color.fill && el.stroke === color.stroke;
 				});
 				this.jid = user.private_journal;
-				if (user.favorites !== undefined) {
-					const list = activities;
-					for (let i = 0; i < list.length; i++) {
-						list[i].favorite = false;
-						for (let j = 0; j < user.favorites.length; j++) {
-							if (user.favorites[j] == list[i].id) {
-								list[i].favorite = true;
-							}
-						}
-					}
-					this.activities = this.filterFavorite(list);
-					this.username = user.name;
-					this.$emit('activities', this.activities);
-					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
-					this.draw();
-				} else {
-					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
-					sugarizer.modules.server.putUser(null, {"favorites": favactivities }, (user) => {
-						this.activities = this.filterFavorite(activities);
-						this.username = user.name;
-						this.$emit('activities', this.activities);
-						this.favactivities = favactivities;
-						this.draw();
-					}, (error) => {
-						throw new Error('Unable to update the user, error ' + error);
-					});
-				}
+				sugarizer.modules.activities.updateFavorites(user.favorites);
+				this.activities = sugarizer.modules.activities.getFavorites();
+				this.username = user.name;
+				this.$emit('activities', this.activities);
+				this.favactivities = sugarizer.modules.activities.getFavoritesName();
+				this.draw();
 			}, (error) => {
 				throw new Error('Unable to load the user, error ' + error);
 			});
@@ -201,29 +180,9 @@ const HomeScreen = {
 
 		async getJournal() {
 			sugarizer.modules.server.getJournal(this.jid, { limit: 100 }, (journal) => {
-				const entries = journal.entries;
-				const filteredEntries = entries.filter(entry => {
-					const activityId = entry.metadata.activity;
-					return this.activities.find(activity => activity.id === activityId);
-				}).map(entry => {
-					const activityId = entry.metadata.activity;
-					const matchingActivity = this.activities.find(activity => activity.id === activityId);
-
-					if (matchingActivity) {
-						const { ...restActivityData } = matchingActivity;
-						const dataToPush = {
-							...entry,
-							iconpath: restActivityData.directory + "/" + restActivityData.icon,
-						};
-						return dataToPush;
-					}
-				});
-
-				filteredEntries.sort((a, b) => {
+				this.journalEntries = journal.entries.sort((a, b) => {
 					return new Date(b.metadata.timestamp) - new Date(a.metadata.timestamp);
 				});
-
-				this.journalEntries = filteredEntries;
 
 				setInterval(() => {
 					this.getPopupData();
@@ -240,7 +199,11 @@ const HomeScreen = {
 			for (let i = 0; i < journalEntries.length; i++) {
 				const entry = journalEntries[i];
 				const activityid = entry.metadata.activity;
+				const activity = sugarizer.modules.activities.getById(activityid);
 
+				if (!this.popupData[activityid]) {
+					continue;
+				}
 				if (!this.popupData[activityid].itemList) {
 					this.popupData[activityid].itemList = []; // Initialize the itemList if not already defined
 				}
@@ -252,7 +215,7 @@ const HomeScreen = {
 						});
 					}
 					this.popupData[activityid].itemList.push({
-						icon: { id: entry.objectId, iconData: entry.iconpath, size: this.constant.iconSizeFavorite, color: color, isNative: "true" },
+						icon: { id: entry.objectId, iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, color: color, isNative: "true" },
 						name: entry.metadata.title
 					});
 				}

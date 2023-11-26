@@ -93,32 +93,13 @@ const ListView = {
 				this.buddycolor = sugarizer.modules.xocolor.colors.findIndex(el => {
 					return el.fill === color.fill && el.stroke === color.stroke;
 				});
-				if (user.favorites !== undefined) {
-					const list = activities;
-					for (let i = 0; i < list.length; i++) {
-						list[i].favorite = false;
-						for (let j = 0; j < user.favorites.length; j++) {
-							if (user.favorites[j] == list[i].id) {
-								list[i].favorite = true;
-							}
-						}
-					}
-					this.activities = list;
-					this.$emit('activities', this.activities);
-					this.favactivities = list.filter(list => list.favorite).map((list) => list.id);
-				} else {
-					const favactivities = activities.filter(activities => activities.favorite).map((activities) => activities.id);
-					sugarizer.modules.server.putUser(null, {"favorites": favactivities }, (user) => {
-						this.activities = this.filterFavorite(activities);
-						this.$emit('activities', this.activities);
-						this.favactivities = favactivities;
-					}, (error) => {
-						throw new Error('Unable to update the user, error ' + error);
-					});
-				}
+				sugarizer.modules.activities.updateFavorites(user.favorites);
+				this.activities = sugarizer.modules.activities.get();
+				this.$emit('activities', this.activities);
+				this.favactivities = sugarizer.modules.activities.getFavoritesName();
 			}, (error) => {
 				throw new Error('Unable to load the user, error ' + error);
-			})
+			});
 		},
 
 		async toggleFavorite(activity) {
@@ -158,7 +139,8 @@ const ListView = {
 		},
 
 		getStarColor(activity) {
-			if (activity.favorite) {
+			const favorites = sugarizer.modules.activities.getFavoritesName();
+			if (favorites.indexOf(activity.id) !== -1) {
 				return this.buddycolor;
 			} else {
 				return 256;

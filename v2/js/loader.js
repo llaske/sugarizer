@@ -35,10 +35,11 @@ let sugarizer = {
 	init: async function() {	
 		return new Promise(function(resolve, reject) {
 			// Load modules
-			requirejs(["xocolor","server","settings"], function(xocolor, server, settings) {
+			requirejs(["xocolor","server","settings","activities"], function(xocolor, server, settings, activities) {
 				sugarizer.modules.xocolor = xocolor;
 				sugarizer.modules.server = server;
 				sugarizer.modules.settings = settings;
+				sugarizer.modules.activities = activities;
 				resolve();
 			});
 		});
