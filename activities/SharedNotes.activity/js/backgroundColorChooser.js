@@ -1,4 +1,4 @@
-define(['mustache', 'webL10n', 'sugar-web/graphics/journalchooser'], function(mustache, l10n, journalchooser) {
+define(['mustache', 'l10n', 'sugar-web/graphics/journalchooser'], function(mustache, l10n, journalchooser) {
 	
 	function backgroundColorFill() {
 		featureBackgroundColor.database = [
