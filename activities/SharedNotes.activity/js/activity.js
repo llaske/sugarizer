@@ -711,9 +711,9 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 					tutorial.start(tutorial.tourInit);
 				}, 500);
 			}
-				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-				var language = environment.user ? environment.user.language : defaultLanguage;
-        			l10n.init(language);
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			l10n.init(language);
 		});
 
 		// Handle localization
