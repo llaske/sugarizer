@@ -345,7 +345,7 @@ const LoginScreen = {
 			if (this.userType.isNewuser) {
 				const colorNumber = this.$refs.buddyIcon.colorData;
 
-				this.details.color = sugarizer.modules.xocolor.colors[colorNumber];
+				this.details.color = sugarizer.modules.xocolor.get(colorNumber);
 
 				this.details.password = this.$refs.passwordInput.passwordText;
 				this.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color);

@@ -197,7 +197,7 @@ const AboutMe = {
 
 		async updateUser(name, colorIndex) {
 			const token = await JSON.parse(localStorage.getItem("sugar_settings")).token;
-			const color = sugarizer.modules.xocolor.colors[colorIndex];
+			const color = sugarizer.modules.xocolor.get(colorIndex);
 
 			const response = await axios.put("/api/v1/users/" + token.x_key, ({
 				"user": JSON.stringify({ name: name, color: color }),

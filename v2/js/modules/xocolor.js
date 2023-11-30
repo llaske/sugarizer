@@ -727,5 +727,15 @@ define(function () {
 		}
 	];
 
+	xocolor.get = function(index) {
+		return xocolor.colors[index];
+	};
+	
+	xocolor.findIndex = function(color) {
+		return xocolor.colors.findIndex(el => {
+			return el.fill === color.fill && el.stroke === color.stroke;
+		});
+	};
+
 	return xocolor;
 });

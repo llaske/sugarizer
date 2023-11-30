@@ -89,10 +89,7 @@ const ListView = {
 
 		async getUser(activities) {
 			sugarizer.modules.server.getUser(null, (user) => {
-				const color = user.color;
-				this.buddycolor = sugarizer.modules.xocolor.colors.findIndex(el => {
-					return el.fill === color.fill && el.stroke === color.stroke;
-				});
+				this.buddycolor = sugarizer.modules.xocolor.findIndex(user.color);
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.get();
 				this.$emit('activities', this.activities);

@@ -162,10 +162,7 @@ const HomeScreen = {
 
 		async getUser(activities) {
 			sugarizer.modules.server.getUser(null, (user) => {
-				const color = user.color;
-				this.buddycolor = sugarizer.modules.xocolor.colors.findIndex(el => {
-					return el.fill === color.fill && el.stroke === color.stroke;
-				});
+				this.buddycolor = sugarizer.modules.xocolor.findIndex(user.color);
 				this.jid = user.private_journal;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.getFavorites();
@@ -210,9 +207,7 @@ const HomeScreen = {
 				let color = this.buddycolor;
 				if (this.popupData[activityid].itemList.length < this.constant.maxPopupHistory) {
 					if (entry.metadata.buddy_color) {
-						color = sugarizer.modules.xocolor.colors.findIndex(el => {
-							return el.fill === entry.metadata.buddy_color.fill && el.stroke === entry.metadata.buddy_color.stroke;
-						});
+						color = sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color);
 					}
 					this.popupData[activityid].itemList.push({
 						icon: { id: entry.objectId, iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, color: color, isNative: "true" },
