@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datastore","sugar-web/activity/activity"], function (palette,env,l10n,datastore,activity) {
+define(["sugar-web/graphics/palette","sugar-web/env","l10n","sugar-web/datastore","sugar-web/activity/activity"], function (palette,env,l10n,datastore,activity) {
 
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext('2d');

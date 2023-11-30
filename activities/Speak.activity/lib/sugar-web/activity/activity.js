@@ -1,5 +1,4 @@
-define(["webL10n",
-        "sugar-web/activity/shortcut",
+define(["sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
         "sugar-web/datastore",
@@ -21,8 +20,6 @@ define(["webL10n",
 
     activity.setup = function () {
         bus.listen();
-
-        l10n.start();
 
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
@@ -173,7 +170,7 @@ define(["webL10n",
                 });
             }
         }
-
+        console.log(bus);
         bus.sendMessage("activity.get_xo_color", [], onResponseReceived);
     };
 
