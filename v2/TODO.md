@@ -16,6 +16,7 @@ TODO list
 * [x] Factorize user handling
 * [x] Factorize server functions
 * [x] Factorize activities functions
+* [x] Reorganize files
 * [ ] Factorize journal functions
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 

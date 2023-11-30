@@ -2,7 +2,8 @@
 requirejs.config({
 	baseUrl: "lib",
 	paths: {
-		activity: "../js"
+		activity: "../js",
+		modules: "../js/modules",
 	}
 });
 
@@ -35,7 +36,7 @@ let sugarizer = {
 	init: async function() {	
 		return new Promise(function(resolve, reject) {
 			// Load modules
-			requirejs(["xocolor","server","settings","activities"], function(xocolor, server, settings, activities) {
+			requirejs(["modules/xocolor","modules/server","modules/settings","modules/activities"], function(xocolor, server, settings, activities) {
 				sugarizer.modules.xocolor = xocolor;
 				sugarizer.modules.server = server;
 				sugarizer.modules.settings = settings;
