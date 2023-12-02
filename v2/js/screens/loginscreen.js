@@ -325,8 +325,7 @@ const LoginScreen = {
 						"x_key": response.user._id,
 						"access_token": response.token,
 					},
-					"name": response.user.name,
-					"colorvalue": response.user.color,
+					...response.user
 				}
 				sugarizer.modules.settings.setUser(data);
 				app.updateFavicon();

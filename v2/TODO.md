@@ -17,7 +17,9 @@ TODO list
 * [x] Factorize server functions
 * [x] Factorize activities functions
 * [x] Reorganize files
-* [ ] Factorize journal functions
+* [x] Factorize journal functions
+* [ ] Convert server functions to async/await
+* [ ] Factorize user functions
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
 * [x] Now that the popup has a timer, we see that the popup should be hidden when there is a click on a item.

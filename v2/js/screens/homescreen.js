@@ -176,50 +176,50 @@ const HomeScreen = {
 		},
 
 		async getJournal() {
-			sugarizer.modules.server.getJournal(this.jid, { limit: 100 }, (journal) => {
-				this.journalEntries = journal.entries.sort((a, b) => {
-					return new Date(b.metadata.timestamp) - new Date(a.metadata.timestamp);
-				});
-
-				setInterval(() => {
+			sugarizer.modules.journal.load().then(() => {
+				setTimeout(() => {
 					this.getPopupData();
 					this.getJournalPopupData();
 				}, 1000);
-			}, (error) => {
-				throw new Error('Unable to load the journal, error ' + error);
 			});
 		},
 
 		getJournalPopupData() {
-			const journalEntries = this.journalEntries;
-
-			for (let i = 0; i < journalEntries.length; i++) {
-				const entry = journalEntries[i];
-				const activityid = entry.metadata.activity;
-				const activity = sugarizer.modules.activities.getById(activityid);
-
-				if (!this.popupData[activityid]) {
+			for (let activityId in this.popupData) {
+				if (!this.popupData.hasOwnProperty(activityId)) {
 					continue;
 				}
-				if (!this.popupData[activityid].itemList) {
-					this.popupData[activityid].itemList = []; // Initialize the itemList if not already defined
+				const popup = this.popupData[activityId];
+				if (!popup.itemList) {
+					popup.itemList = [];
 				}
-				let color = this.buddycolor;
-				if (this.popupData[activityid].itemList.length < this.constant.maxPopupHistory) {
-					if (entry.metadata.buddy_color) {
-						color = sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color);
+				let iconColor = -1;
+				let activity = sugarizer.modules.activities.getById(activityId);
+				let entries = sugarizer.modules.journal.getByActivity(activityId);
+				for (let i = 0 ; i < entries.length ; i++) {
+					const entry = entries[i];
+					if (popup.itemList.length < this.constant.maxPopupHistory) {
+						if (iconColor == -1) {
+							iconColor = sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color);
+						}
+						popup.itemList.push({
+							icon: {
+								id: entry.objectId, 
+								iconData: activity.directory + "/" + activity.icon, 
+								size: this.constant.iconSizeFavorite, 
+								color: entry.metadata.buddy_color ? sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color) : this.buddycolor, 
+								isNative: "true" 
+							},
+							name: entry.metadata.title
+						});
 					}
-					this.popupData[activityid].itemList.push({
-						icon: { id: entry.objectId, iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, color: color, isNative: "true" },
-						name: entry.metadata.title
-					});
 				}
-				if (this.popupData[activityid].itemList.length == 1) {
-					this.popupData[activityid].icon.color = color;
-					if (this.$refs["activity" + activityid]) {
-						let iconRef = this.$refs["activity" + activityid][0];
+				if (popup.itemList.length >= 1) {
+					popup.icon.color = iconColor;
+					if (this.$refs["activity" + popup.id]) {
+						let iconRef = this.$refs["activity" + popup.id][0];
 						if (iconRef !== undefined) {
-							iconRef.colorData = color;
+							iconRef.colorData = iconColor;
 						}
 					}
 				}

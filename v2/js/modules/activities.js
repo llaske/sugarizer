@@ -90,7 +90,6 @@ define([], function() {
 			return new Promise(function(resolve, reject) {
 				sugarizer.modules.server.getActivities(function(response) {
 					updateList(response);
-					activities.loadEntries();
 					updateSugarizerOS(function() {
 						resolve(list);
 					});
@@ -98,7 +97,6 @@ define([], function() {
 					// Error on server, try to load it locally
 					axios.get(constant.staticInitActivitiesURL).then(function(response) {
 						updateList(response.data);
-						activities.loadEntries();
 						updateSugarizerOS(function() {
 							resolve(list);
 						});
@@ -113,7 +111,6 @@ define([], function() {
 		return new Promise(function(resolve, reject) {
 			axios.get(constant.staticInitActivitiesURL).then(function(response) {
 				updateList(response.data);
-				activities.loadEntries();
 				updateSugarizerOS(function() {
 					resolve(list);
 				});
@@ -194,19 +191,6 @@ define([], function() {
 	};
 	activities.genericActivity = function() {
 		return genericActivity;
-	};
-
-	// Update journal entries for each activity
-	activities.loadEntries = function() {
-		// TODO: load journal entries
-		/*var length = list ? list.length : 0;
-		for (var i = 0 ; i < length ; i++) {
-			var activity = list[i];
-			activity.instances = datastore.find(activity.id);
-			activity.instances.sort(function(e0, e1) {
-				return parseInt(e1.metadata.timestamp) - parseInt(e0.metadata.timestamp);
-			});
-		}*/
 	};
 
 	return activities;
