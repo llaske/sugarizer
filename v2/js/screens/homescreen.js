@@ -190,14 +190,14 @@ const HomeScreen = {
 					continue;
 				}
 				const popup = this.popupData[activityId];
-				if (!popup.itemList) {
-					popup.itemList = [];
-				}
 				let iconColor = -1;
 				let activity = sugarizer.modules.activities.getById(activityId);
 				let entries = sugarizer.modules.journal.getByActivity(activityId);
 				for (let i = 0 ; i < entries.length ; i++) {
 					const entry = entries[i];
+					if (!popup.itemList) {
+						popup.itemList = [];
+					}
 					if (popup.itemList.length < this.constant.maxPopupHistory) {
 						if (iconColor == -1) {
 							iconColor = sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color);
@@ -214,7 +214,7 @@ const HomeScreen = {
 						});
 					}
 				}
-				if (popup.itemList.length >= 1) {
+				if (popup.itemList && popup.itemList.length >= 1) {
 					popup.icon.color = iconColor;
 					if (this.$refs["activity" + popup.id]) {
 						let iconRef = this.$refs["activity" + popup.id][0];

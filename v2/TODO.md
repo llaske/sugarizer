@@ -19,7 +19,7 @@ TODO list
 * [x] Reorganize files
 * [x] Factorize journal functions
 * [x] Convert server functions to promises
-* [ ] Fix display of activity popup when there is no history
+* [x] Fix display of activity popup when there is no history
 * [ ] Factorize user functions
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
