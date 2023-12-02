@@ -22,7 +22,7 @@ const appVue = Vue.createApp({
 
 		checkUserLoggedIn() {
 			if (sugarizer.modules.settings.getUser() != null) {
-				sugarizer.modules.server.getUser(null, (user) => {
+				sugarizer.modules.server.getUser().then((user) => {
 					this.setIsFirstScreen(false);
 					const data = {
 						"token": {

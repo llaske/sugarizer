@@ -88,7 +88,7 @@ define([], function() {
 		// Get activities list from server
 		if (sugarizer.getClientType() == sugarizer.constant.webAppType) {
 			return new Promise(function(resolve, reject) {
-				sugarizer.modules.server.getActivities(function(response) {
+				sugarizer.modules.server.getActivities().then(function(response) {
 					updateList(response);
 					updateSugarizerOS(function() {
 						resolve(list);

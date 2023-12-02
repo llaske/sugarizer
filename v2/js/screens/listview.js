@@ -80,7 +80,7 @@ const ListView = {
 
 	methods: {
 		async getActivities() {
-			sugarizer.modules.server.getActivities((activities) => {
+			sugarizer.modules.server.getActivities().then((activities) => {
 				this.getUser(activities);
 			}, (error) => {
 				throw new Error('Unable to load the activities, error ' + error);
@@ -88,7 +88,7 @@ const ListView = {
 		},
 
 		async getUser(activities) {
-			sugarizer.modules.server.getUser(null, (user) => {
+			sugarizer.modules.server.getUser().then((user) => {
 				this.buddycolor = sugarizer.modules.xocolor.findIndex(user.color);
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.get();
@@ -109,7 +109,7 @@ const ListView = {
 
 			}
 
-			sugarizer.modules.server.putUser(null, {"favorites": this.favactivities }, (user) => {
+			sugarizer.modules.server.putUser(null, {"favorites": this.favactivities }).then((user) => {
 				const iconRef = this.$refs["star" + activity.id][0];
 				activity.favorite = !activity.favorite;
 				if (iconRef.colorData == this.buddycolor) {

@@ -90,318 +90,356 @@ define([], function() {
 	}
 
 	// Get server information
-	server.getServerInformation = function(serverurl, response, error) {
-		var serverUrl = serverurl;
-		if (serverUrl.length && serverUrl[serverurl.length-1] == '/') {
-			serverUrl = serverUrl.substr(0, serverUrl.length-1);
-		}
-		var ajax = axios.create({
-			responseType: "json"
-		});
-		ajax.get(serverUrl + constant.serverInformationURL).then(function(inResponse) {
-			if (response) response(null, inResponse.data);
-		}).catch(function(inResponse) {
-			if (error) error(inResponse, getErrorCode(inResponse));
+	server.getServerInformation = function(serverurl) {
+		return new Promise(function(resolve, reject) {
+			var serverUrl = serverurl;
+			if (serverUrl.length && serverUrl[serverurl.length-1] == '/') {
+				serverUrl = serverUrl.substr(0, serverUrl.length-1);
+			}
+			var ajax = axios.create({
+				responseType: "json"
+			});
+			ajax.get(serverUrl + constant.serverInformationURL).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				reject(getErrorCode(inResponse));
+			});
 		});
 	}
 
 	// Get activities
-	server.getActivities = function(response, error) {
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(server.getToken())
-		});
-		ajax.get(server.getServerUrl() + constant.dynamicInitActivitiesURL).then(function(inResponse) {
-			if (response) response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+	server.getActivities = function() {
+		return new Promise(function(resolve, reject) {
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(server.getToken())
+			});
+			ajax.get(server.getServerUrl() + constant.dynamicInitActivitiesURL).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
 				}
-			}
-			if (error) error(code);
+				reject(code);
+			});
 		});
 	}
 
 	// Get user information
-	server.getUser = function(userId, response, error, optserver) {
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(server.getToken())
-		});
-		if (!userId) {
-			userId = server.getToken().x_key;
-		}
-		ajax.get((optserver ? optserver : server.getServerUrl()) + constant.initNetworkURL + userId).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
-				}
+	server.getUser = function(userId, optserver) {
+		return new Promise(function(resolve, reject) {
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(server.getToken())
+			});
+			if (!userId) {
+				userId = server.getToken().x_key;
 			}
-			if (error) error(code);
+			ajax.get((optserver ? optserver : server.getServerUrl()) + constant.initNetworkURL + userId).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
+				}
+				reject(code);
+			});
 		});
 	}
 
 	// Create a new user
 	server.postUser = function(user, response, error, optserver) {
-		var ajax = axios.create({
-			responseType: "json"
-		});
-		ajax.post((optserver ? optserver : server.getServerUrl()) + constant.signupURL, {user: JSON.stringify(user)}).then(function(inResponse) {
-			if (response) response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+		return new Promise(function(resolve, reject) {
+			var ajax = axios.create({
+				responseType: "json"
+			});
+			ajax.post((optserver ? optserver : server.getServerUrl()) + constant.signupURL, {user: JSON.stringify(user)}).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
 				}
-			}
-			if (error) error(code);
+				reject(code);
+			});
 		});
 	}
 
 	// Create a new user
-	server.loginUser = function(user, response, error, optserver) {
-		var userValue = user;
-		userValue.role = ["student","teacher"];
-		var ajax = axios.create({
-			responseType: "json"
-		});
-		ajax.post((optserver ? optserver : server.getServerUrl()) + constant.loginURL, {user: JSON.stringify(userValue)}).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+	server.loginUser = function(user, optserver) {
+		return new Promise(function(resolve, reject) {
+			var userValue = user;
+			userValue.role = ["student","teacher"];
+			var ajax = axios.create({
+				responseType: "json"
+			});
+			ajax.post((optserver ? optserver : server.getServerUrl()) + constant.loginURL, {user: JSON.stringify(userValue)}).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
 				}
-			}
-			if (error) error(code);
+				reject(code);
+			});
 		});
 	}
 
 	// Update user
-	server.putUser = function(userId, settings, response, error) {
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(server.getToken())
-		});
-		if (!userId) {
-			userId = server.getToken().x_key;
-		}
-		ajax.put(server.getServerUrl() + constant.initNetworkURL + userId, {user: JSON.stringify(settings)}).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
-				}
+	server.putUser = function(userId, settings) {
+		return new Promise(function(resolve, reject) {
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(server.getToken())
+			});
+			if (!userId) {
+				userId = server.getToken().x_key;
 			}
-			if (error) error(code);
+			ajax.put(server.getServerUrl() + constant.initNetworkURL + userId, {user: JSON.stringify(settings)}).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
+				}
+				reject(code);
+			});
 		});
 	}
 
 	// Delete user
-	server.deleteUser = function(userId, response, error) {
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(server.getToken())
-		});
-		ajax.delete(server.getServerUrl() + constant.initNetworkURL + userId).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+	server.deleteUser = function(userId) {
+		return new Promise(function(resolve, reject) {
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(server.getToken())
+			});
+			ajax.delete(server.getServerUrl() + constant.initNetworkURL + userId).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
 				}
-			}
-			if (error) error(code);
+				reject(code);
+			});
 		});
 	}
 
 	// Get journal content optionally filter by typeactivity, time, favorite, ...
-	server.getJournal = function(journalId, request, response, error) {
-		var typeactivity = request.typeactivity;
-		var stime = request.stime;
-		var favorite = request.favorite;
-		var assignment = request.assignment;
-		var field = request.field;
-		var limit = request.limit;
-		var offset = request.offset;
-		var title = request.title;
-		var sort = request.sort;
-		var url = server.getServerUrl() + constant.sendCloudURL + journalId + "?limit="+limit;
-		var params = {};
-		if (typeactivity !== undefined) {
-			params.aid = typeactivity;
-		}
-		if (stime !== undefined) {
-			params.stime = stime;
-		}
-		if (favorite !== undefined) {
-			params.favorite = favorite;
-		}
-		if (assignment !== undefined) {
-			params.assignment = assignment;
-		}
-		if (offset !== undefined) {
-			params.offset = offset;
-		}
-		if (title !== undefined) {
-			params.title = title;
-		}
-		if (sort !== undefined) {
-			params.sort = sort;
-		} else {
-			params.sort = "-timestamp";
-		}
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(server.getToken()),
-			params: params
-		});
-		ajax.get(url).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
-				}
+	server.getJournal = function(journalId, request) {
+		return new Promise(function(resolve, reject) {
+			var typeactivity = request.typeactivity;
+			var stime = request.stime;
+			var favorite = request.favorite;
+			var assignment = request.assignment;
+			var field = request.field;
+			var limit = request.limit;
+			var offset = request.offset;
+			var title = request.title;
+			var sort = request.sort;
+			var url = server.getServerUrl() + constant.sendCloudURL + journalId + "?limit="+limit;
+			var params = {};
+			if (typeactivity !== undefined) {
+				params.aid = typeactivity;
 			}
-			if (error) error(code);
+			if (stime !== undefined) {
+				params.stime = stime;
+			}
+			if (favorite !== undefined) {
+				params.favorite = favorite;
+			}
+			if (assignment !== undefined) {
+				params.assignment = assignment;
+			}
+			if (offset !== undefined) {
+				params.offset = offset;
+			}
+			if (title !== undefined) {
+				params.title = title;
+			}
+			if (sort !== undefined) {
+				params.sort = sort;
+			} else {
+				params.sort = "-timestamp";
+			}
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(server.getToken()),
+				params: params
+			});
+			ajax.get(url).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
+				}
+				reject(code);
+			});
 		});
 	}
 
 	// Get an entry in a journal
-	server.getJournalEntry = function(journalId, objectId, response, error) {
-		var params = {};
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(server.getToken()),
-			params: {
-				oid: objectId,
-				fields: "text,metadata"
-			}
-		});
-		ajax.get(server.getServerUrl() + constant.sendCloudURL + journalId).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+	server.getJournalEntry = function(journalId, objectId) {
+		return new Promise(function(resolve, reject) {
+			var params = {};
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(server.getToken()),
+				params: {
+					oid: objectId,
+					fields: "text,metadata"
 				}
-			}
-			if (error) error(code);
+			});
+			ajax.get(server.getServerUrl() + constant.sendCloudURL + journalId).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
+				}
+				reject(code);
+			});
 		});
 	}
 
 	// Add an entry in a journal
-	server.postJournalEntry = function(journalId, entry, response, error) {
-		var token = server.getToken();
-		entry.metadata.user_id = token.x_key;
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(token)
-		});
-		ajax.post(server.getServerUrl() + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+	server.postJournalEntry = function(journalId, entry) {
+		return new Promise(function(resolve, reject) {
+			var token = server.getToken();
+			entry.metadata.user_id = token.x_key;
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(token)
+			});
+			ajax.post(server.getServerUrl() + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
 				}
-			}
-			if (error) error(code);
+				reject(code);
+			});
 		});
 	}
 
 	// Update an entry in a journal
-	server.putJournalEntry = function(journalId, objectId, entry, response, error) {
-		var token = server.getToken();
-		entry.metadata.user_id = token.x_key;
-		var ajax = axios.create({
-			responseType: "json",
-			params: {
-				oid: objectId
-			},
-			headers: computeHeader(token)
-		});
-		ajax.put(server.getServerUrl() + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+	server.putJournalEntry = function(journalId, objectId, entry) {
+		return new Promise(function(resolve, reject) {
+			var token = server.getToken();
+			entry.metadata.user_id = token.x_key;
+			var ajax = axios.create({
+				responseType: "json",
+				params: {
+					oid: objectId
+				},
+				headers: computeHeader(token)
+			});
+			ajax.put(server.getServerUrl() + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
 				}
-			}
-			if (error) error(code);
+				reject(code);
+			});
 		});
 	}
 
 	// Delete an entry in a journal
-	server.deleteJournalEntry = function(journalId, objectId, response, error) {
-		var ajax = axios.create({
-			responseType: "json",
-			params: {
-				oid: objectId,
-				type: 'partial'
-			},
-			headers: computeHeader(server.getToken())
-		});
-		ajax.delete(server.getServerUrl() + constant.sendCloudURL + journalId).then(function(inResponse) {
-			response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (code == 3) {
-				if (sessionExpired()) {
-					return;
+	server.deleteJournalEntry = function(journalId, objectId) {
+		return new Promise(function(resolve, reject) {
+			var ajax = axios.create({
+				responseType: "json",
+				params: {
+					oid: objectId,
+					type: 'partial'
+				},
+				headers: computeHeader(server.getToken())
+			});
+			ajax.delete(server.getServerUrl() + constant.sendCloudURL + journalId).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				if (code == 3) {
+					if (sessionExpired()) {
+						reject(code);
+						return;
+					}
 				}
-			}
-			if (error) error(code);
+				reject(code);
+			});
 		});
 	}
 
 	// Create a new user
-	server.postStats = function(stats, response, error) {
-		var ajax = axios.create({
-			responseType: "json",
-			headers: computeHeader(server.getToken())
-		});
-		ajax.post(server.getServerUrl() + constant.statsURL, {stats: JSON.stringify(stats)}).then(function(inResponse) {
-			if (response) response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (error) error(code);
+	server.postStats = function(stats) {
+		return new Promise(function(resolve, reject) {
+			var ajax = axios.create({
+				responseType: "json",
+				headers: computeHeader(server.getToken())
+			});
+			ajax.post(server.getServerUrl() + constant.statsURL, {stats: JSON.stringify(stats)}).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				reject(code);
+			});
 		});
 	}
 
 	//submit assignment
-	server.postAssignment = function(assignmentId, objectId, response, error) {
-		var params = {};
-		var ajax = axios.create({
-			responseType: "json",
-			params: {
-				oid: objectId,
-			},
-			headers: computeHeader(server.getToken())
-		});
-		ajax.put(server.getServerUrl() + constant.submitAssignment + assignmentId).then(function(inResponse) {
-			if (response) response(inResponse.data);
-		}).catch(function(inResponse) {
-			var code = getErrorCode(inResponse);
-			if (error) error(code);
-		});
-		
+	server.postAssignment = function(assignmentId, objectId) {
+		return new Promise(function(resolve, reject) {
+			var params = {};
+			var ajax = axios.create({
+				responseType: "json",
+				params: {
+					oid: objectId,
+				},
+				headers: computeHeader(server.getToken())
+			});
+			ajax.put(server.getServerUrl() + constant.submitAssignment + assignmentId).then(function(inResponse) {
+				resolve(inResponse.data);
+			}).catch(function(inResponse) {
+				var code = getErrorCode(inResponse);
+				reject(code);
+			});
+		});	
 	}
 
 	return server;

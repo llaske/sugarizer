@@ -13,7 +13,7 @@ define([], function() {
 			if (user == null) {
 				reject();
 			}
-			sugarizer.modules.server.getJournal(user.private_journal, { limit: 100 }, (journal) => {
+			sugarizer.modules.server.getJournal(user.private_journal, { limit: 100 }).then((journal) => {
 				entries = journal.entries.sort((a, b) => {
 					return new Date(b.metadata.timestamp) - new Date(a.metadata.timestamp);
 				});

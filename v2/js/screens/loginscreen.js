@@ -283,7 +283,7 @@ const LoginScreen = {
 					beforeSignup: "true"
 				};
 
-				sugarizer.modules.server.postUser(data, (user) => {
+				sugarizer.modules.server.postUser(data).then((user) => {
 					resolve(false);
 				}, (error) => {
 					if (error === 22) {
@@ -306,7 +306,7 @@ const LoginScreen = {
 				"role": "student",
 			}
 
-			sugarizer.modules.server.postUser(signupData, (user) => {
+			sugarizer.modules.server.postUser(signupData).then((user) => {
 				this.login(baseurl, name, password);
 			}, (error) => {
 				console.log(error);
@@ -319,7 +319,7 @@ const LoginScreen = {
 				"password": `${password}`,
 			}
 
-			sugarizer.modules.server.loginUser(loginData, (response) => {
+			sugarizer.modules.server.loginUser(loginData, baseurl).then((response) => {
 				const data = {
 					"token": {
 						"x_key": response.user._id,
@@ -337,7 +337,7 @@ const LoginScreen = {
 				} else {
 					console.log(error);
 				}
-			}, baseurl);
+			});
 		},
 
 		makeLoginRequest() {

@@ -161,7 +161,7 @@ const HomeScreen = {
 		},
 
 		async getUser(activities) {
-			sugarizer.modules.server.getUser(null, (user) => {
+			sugarizer.modules.server.getUser().then((user) => {
 				this.buddycolor = sugarizer.modules.xocolor.findIndex(user.color);
 				this.jid = user.private_journal;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
