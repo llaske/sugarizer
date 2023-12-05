@@ -9,8 +9,7 @@ requirejs.config({
     paths: {
         "sugar-web": ".",
         "mustache": "lib/mustache",
-        "text": "lib/text",
-        "webL10n": "lib/webL10n"
+        "text": "lib/text"
     },
 
     // ask Require.js to load these files (all our tests)

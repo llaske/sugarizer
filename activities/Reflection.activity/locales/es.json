@@ -1,0 +1,43 @@
+{
+    "tutoprev": {
+        "prev": "Ant"
+    },
+    "tutonext": {
+        "next": "Sig"
+    },
+    "tutoend": {
+        "end": "Fin"
+    },
+    "tutoexplaintitle": {
+        "reflection-activity": "Actividad \"Reflejo\""
+    },
+    "tutoexplaincontent-welcome-into-the-reflection-act": "Bienvenido a la actividad \"Reflejo\". \"Reflejo\" es un juego en el que el alumno aprenderá más acerca de la simetría asociada a los reflejos",
+    "tutobuddytitle": {
+        "your-colors": "Tus colores"
+    },
+    "tutobuddycontent-click-here-to-use-your-buddy-colo": "Haz clic aquí para usar los colores de tu avatar en tus fichas. Podrás escoger entre 4 colores diferentes para cada ficha",
+    "tutorainbowtitle": {
+        "rainbow-colors": "Colores del arcoíris"
+    },
+    "tutorainbowcontent-click-here-to-use-colors-of-rai": "Haz clic aquí para usar los colores del arcoíris para tus fichas. Podrás escoger entre 8 colores diferentes para cada ficha",
+    "tutohorizontaltitle": {
+        "horizontal-symmetry": "Simetría horizontal"
+    },
+    "tutohorizontalcontent-click-here-to-play-with-hori": "Haz clic aquí para jugar con la simetría horizontal. El lado izquierdo de la pantalla debería ser idéntico al lado derecho",
+    "tutoverticaltitle": {
+        "vertical-symmetry": "Simetría vertical"
+    },
+    "tutoverticalcontent-click-here-to-play-with-vertic": "Haz clic aquí para jugar con la simetría vertical. El lado superior de la pantalla debería ser idéntico al lado inferior",
+    "tutobilateraltitle": {
+        "bilateral-symmetry": "Simetría bilateral"
+    },
+    "tutobilateralcontent-click-here-to-play-with-both-": "Haz clic aquí para jugar con la simetría horizontal y vertical a la vez. Las cuatro partes de la pantalla deberían ser idénticas",
+    "tutorobottitle": {
+        "robot-mode": "Modo \"Robot\""
+    },
+    "tutorobotcontent-click-here-to-toggle-robot-mode-i": "Haz clic aquí para activar el modo \"Robot\". En este modo, al hacer clic en una ficha, el color de la ficha simétrica cambiará a la vez. ¡Demasiado fácil!",
+    "tutocanvastitle": {
+        "board": "Tablero"
+    },
+    "tutocanvascontent-click-on-tokens-to-change-their-": "Haz clic en las fichas para cambiar sus colores y hacer que la imagen sea simétrica"
+}

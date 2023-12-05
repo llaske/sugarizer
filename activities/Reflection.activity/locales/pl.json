@@ -1,0 +1,43 @@
+{
+    "tutoprev": {
+        "prev": "Poprz"
+    },
+    "tutonext": {
+        "next": "Dalej"
+    },
+    "tutoend": {
+        "end": "Koniec"
+    },
+    "tutoexplaintitle": {
+        "reflection-activity": "Odbicie"
+    },
+    "tutoexplaincontent-welcome-into-the-reflection-act": "Witaj w aplikacji Odbicie. Odbicie to gra o symetri względem osi.",
+    "tutobuddytitle": {
+        "your-colors": "Kolory Ludzika"
+    },
+    "tutobuddycontent-click-here-to-use-your-buddy-colo": "Kliknij aby ustawić kolory Ludzika.",
+    "tutorainbowtitle": {
+        "rainbow-colors": "Kolory tęczy"
+    },
+    "tutorainbowcontent-click-here-to-use-colors-of-rai": "Kliknij aby ustawić kolory tęczy.",
+    "tutohorizontaltitle": {
+        "horizontal-symmetry": "Oś pionowa"
+    },
+    "tutohorizontalcontent-click-here-to-play-with-hori": "Kliknij aby wybrać oś pionową.",
+    "tutoverticaltitle": {
+        "vertical-symmetry": "Oś pozioma"
+    },
+    "tutoverticalcontent-click-here-to-play-with-vertic": "Kliknij aby wybrać oś poziomą.",
+    "tutobilateraltitle": {
+        "bilateral-symmetry": "Oś pionowa i pozioma"
+    },
+    "tutobilateralcontent-click-here-to-play-with-both-": "Kliknij aby wybrać obie osie.",
+    "tutorobottitle": {
+        "robot-mode": "Robot"
+    },
+    "tutorobotcontent-click-here-to-toggle-robot-mode-i": "Kliknij tutaj aby zmieniać kolory bo każdej stronie osi w tym samym czasie.",
+    "tutocanvastitle": {
+        "board": "Plansza"
+    },
+    "tutocanvascontent-click-on-tokens-to-change-their-": "Musisz tak zmodyfikować obrazek aby był on symetryczny względem każdej osi."
+}
