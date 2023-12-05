@@ -159,6 +159,6 @@ define(["l10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-
     	} else {
 		canvas.style.pointerEvents = "auto"; // Re-enable click events on the canvas
     	}
-		
-  });
+	});
+	
 });
