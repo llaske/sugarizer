@@ -146,4 +146,19 @@ define(["l10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-
 			loadpreference();
 		}
 	});
+
+	// disabling canvas pointer events
+  	document.body.addEventListener("click", function (e) {
+    const isIntrojsElement = document.querySelector(".introjsFloatingElement");
+
+    // if introjsElement is present block all click events in canvas
+    if (isIntrojsElement) {
+    	const canvas = document.getElementById("canvas");
+    	canvas.style.pointerEvents = "none";
+    	console.log("Block click");
+    } else {
+    	canvas.style.pointerEvents = "auto"; // Re-enable click events on the canvas
+    }
+	
+  });
 });
