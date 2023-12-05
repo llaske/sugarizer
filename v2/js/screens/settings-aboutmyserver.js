@@ -74,23 +74,15 @@ const AboutMyServer = {
 		},
 
 		async getServerDetails() {
-			const response = await axios.get('/api');
-			
-			this.details.serverAddress = response.request.responseURL.slice(0, -4);
-			this.details.serverName = response.data.name;
-			this.details.Description = response.data.description;
+			const server = await sugarizer.modules.server.getServerInformation(sugarizer.modules.server.getServer());		
+			this.details.serverAddress = sugarizer.modules.server.getServer();
+			this.details.serverName = server.name;
+			this.details.Description = server.description;
 		},
 
 		async getUserName() {
-			const token = await JSON.parse(localStorage.getItem("sugar_settings")).token;
-			const response = await axios.get('/api/v1/users/' + token.x_key, {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				},
-			});
-
-			this.details.username = response.data.name;
+			const user = await sugarizer.modules.user.get();
+			this.details.username = user.name;
 		},
 
 	}

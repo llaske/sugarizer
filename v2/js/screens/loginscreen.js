@@ -235,7 +235,7 @@ const LoginScreen = {
 				}
 
 				else if (this.index.currentIndex === 1) {
-					const userexists = await this.checkifUserExists(this.details.serverAddress, this.details.name);
+					const userexists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.name);
 					if (this.userType.isNewuser && !userexists) {
 						this.index.currentIndex++;
 					} else if (this.userType.isNewuser && userexists) {
@@ -275,59 +275,8 @@ const LoginScreen = {
 			}
 		},
 
-		checkifUserExists(baseurl, name) {
-			return new Promise((resolve, reject) => {
-				const data = {
-					name: name,
-					role: "student",
-					beforeSignup: "true"
-				};
-
-				sugarizer.modules.server.postUser(data).then((user) => {
-					resolve(false);
-				}, (error) => {
-					if (error === 22) {
-						resolve(true);
-					} else {
-						reject(false);
-					}
-				}, baseurl);
-			});
-		},
-
-		signup(baseurl, name, password, color) {
-			const signupData = {
-				"name": `${name}`,
-				"password": `${password}`,
-				"color": {
-					"stroke": `${color.stroke}`,
-					"fill": `${color.fill}`,
-				},
-				"role": "student",
-			}
-
-			sugarizer.modules.server.postUser(signupData).then((user) => {
-				this.login(baseurl, name, password);
-			}, (error) => {
-				console.log(error);
-			}, baseurl);
-		},
-
 		login(baseurl, name, password) {
-			const loginData = {
-				"name": `${name}`,
-				"password": `${password}`,
-			}
-
-			sugarizer.modules.server.loginUser(loginData, baseurl).then((response) => {
-				const data = {
-					"token": {
-						"x_key": response.user._id,
-						"access_token": response.token,
-					},
-					...response.user
-				}
-				sugarizer.modules.settings.setUser(data);
+			sugarizer.modules.user.login(baseurl, name, password).then((user) => {
 				app.updateFavicon();
 				this.$emit('updateIsFirstScreen', false);
 			}, (error) => {
@@ -347,7 +296,11 @@ const LoginScreen = {
 				this.details.color = sugarizer.modules.xocolor.get(colorNumber);
 
 				this.details.password = this.$refs.passwordInput.passwordText;
-				this.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color);
+				sugarizer.modules.user.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color).then((user) => {
+					this.login(this.details.serverAddress, this.details.name, this.details.password);
+				}, (error) => {
+					console.log(error);
+				});
 			}
 
 			if (this.userType.isLogin) {

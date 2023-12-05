@@ -36,14 +36,18 @@ let sugarizer = {
 	init: async function() {	
 		return new Promise(function(resolve, reject) {
 			// Load modules
-			requirejs(["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal"], function(xocolor, server, settings, activities, journal) {
-				sugarizer.modules.xocolor = xocolor;
-				sugarizer.modules.server = server;
-				sugarizer.modules.settings = settings;
-				sugarizer.modules.activities = activities;
-				sugarizer.modules.journal = journal;
-				resolve();
-			});
+			requirejs(
+				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user"],
+				function(xocolor, server, settings, activities, journal, user) {
+					sugarizer.modules.xocolor = xocolor;
+					sugarizer.modules.server = server;
+					sugarizer.modules.settings = settings;
+					sugarizer.modules.activities = activities;
+					sugarizer.modules.journal = journal;
+					sugarizer.modules.user = user;
+					resolve();
+				}
+			);
 		});
 	},
 
@@ -107,5 +111,15 @@ let sugarizer = {
 	// Get sugarizer version
 	getVersion() {
 		return this.constant.sugarizerVersion;
+	},
+
+	// Restart app
+	restart: function() {
+		if (this.getClientType() == this.constant.webAppType) {
+			this.modules.settings.removeUser();
+			location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
+		} else {
+			// TODO: For app, display a message and mark token expired
+		}
 	},
 };

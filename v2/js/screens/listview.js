@@ -88,7 +88,7 @@ const ListView = {
 		},
 
 		async getUser(activities) {
-			sugarizer.modules.server.getUser().then((user) => {
+			sugarizer.modules.user.get().then((user) => {
 				this.buddycolor = sugarizer.modules.xocolor.findIndex(user.color);
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.get();
@@ -109,7 +109,7 @@ const ListView = {
 
 			}
 
-			sugarizer.modules.server.putUser(null, {"favorites": this.favactivities }).then((user) => {
+			sugarizer.modules.user.update({"favorites": this.favactivities }).then((user) => {
 				const iconRef = this.$refs["star" + activity.id][0];
 				activity.favorite = !activity.favorite;
 				if (iconRef.colorData == this.buddycolor) {

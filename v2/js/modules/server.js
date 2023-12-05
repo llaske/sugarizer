@@ -21,11 +21,6 @@ define([], function() {
 		return url.substring(0, url.lastIndexOf('/'));
 	}
 
-	// Restart app util
-	var restartApp = function() {
-		location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
-	}
-
 	// Get token util
 	server.getToken = function() {
 		let settings = sugarizer.modules.settings.getUser();
@@ -54,15 +49,7 @@ define([], function() {
 
 	// Session expired
 	var sessionExpired = function() {
-		if (sugarizer.getClientType() == sugarizer.constant.webAppType) {
-			// For web app, force deconnection
-			sugarizer.modules.settings.removeUser();
-			restartApp();
-			return true;
-		} else {
-			// TODO: For app, display a message and mark token expired
-			return false;
-		}
+		sugarizer.restart();
 	}
 
 	// Retrieve current server name
@@ -155,7 +142,7 @@ define([], function() {
 	}
 
 	// Create a new user
-	server.postUser = function(user, response, error, optserver) {
+	server.postUser = function(user, optserver) {
 		return new Promise(function(resolve, reject) {
 			var ajax = axios.create({
 				responseType: "json"
@@ -230,6 +217,9 @@ define([], function() {
 				responseType: "json",
 				headers: computeHeader(server.getToken())
 			});
+			if (!userId) {
+				userId = server.getToken().x_key;
+			}
 			ajax.delete(server.getServerUrl() + constant.initNetworkURL + userId).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {

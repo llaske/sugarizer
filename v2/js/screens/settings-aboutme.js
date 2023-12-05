@@ -87,7 +87,6 @@ const AboutMe = {
 			this.$refs.nsicon.colorData = this.getNextStrokeColor(this.currentcolor);
 		},
 
-
 		getNextStrokeColor(color) {
 			let current = color;
 
@@ -171,45 +170,11 @@ const AboutMe = {
 			return true;
 		},
 
-		checkifUserExists(name) {
-			return new Promise((resolve, reject) => {
-				const data = {
-					name: name,
-					role: "student",
-					beforeSignup: "true"
-				};
-
-				axios.post("/auth/signup", JSON.stringify({ user: JSON.stringify(data) }), {
-					headers: {
-						'Content-Type': 'application/json; charset=UTF-8'
-					}
-				}).then((response) => {
-					resolve(response.data.exists);
-				}).catch((error) => {
-					if (error.response && error.response.status === 401) {
-						resolve(error.response.data.exists);
-					} else {
-						reject(error);
-					}
-				});
-			});
-		},
-
 		async updateUser(name, colorIndex) {
-			const token = await JSON.parse(localStorage.getItem("sugar_settings")).token;
 			const color = sugarizer.modules.xocolor.get(colorIndex);
-
-			const response = await axios.put("/api/v1/users/" + token.x_key, ({
-				"user": JSON.stringify({ name: name, color: color }),
-			}), {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				},
-			});
-			if (response.status == 200) {
+			sugarizer.modules.user.update({ name: name, color: color }).then(() => {
 				window.location.reload();
-			}
+			});
 		},
 
 		async okClicked() {
@@ -219,7 +184,7 @@ const AboutMe = {
 				this.close('aboutMeModal');
 				return;
 			}
-			if (nameChanged && await this.checkifUserExists(this.name)) {
+			if (nameChanged && await sugarizer.modules.user.checkIfExists(null, this.name)) {
 				this.warning.show = true;
 				this.warning.text = this.SugarL10n ? this.SugarL10n.get('UserAlreadyExist') : 'User Already Exists';
 				return;

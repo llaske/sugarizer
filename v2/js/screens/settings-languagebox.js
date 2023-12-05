@@ -133,19 +133,9 @@ const LanguageBox = {
 		},
 
 		async updateLanguage() {
-			const token = await JSON.parse(localStorage.getItem("sugar_settings")).token;
-
-			const response = await axios.put("/api/v1/users/" + token.x_key, ({
-				"user": JSON.stringify({ language: this.languageCode }),
-			}), {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				},
-			});
-			if (response.status == 200) {
+			sugarizer.modules.user.update({ language: this.languageCode }).then(() => {
 				window.location.reload();
-			}
+			});
 		},
 
 		okClicked() {

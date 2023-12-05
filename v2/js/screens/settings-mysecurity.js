@@ -96,33 +96,13 @@ const MySecurity = {
 		login() {
 			const password = this.$refs.password.passwordText;
 
-			const loginData = {
-				"name": `${this.username}`,
-				"password": `${password}`,
-			}
-			axios.post(`/auth/login`, { user: JSON.stringify(loginData) }, {
-				headers: {
-					'Content-Type': 'application/json; charset=UTF-8'
-				}
-			}).then((response) => {
-				if (response.status == 200) {
-					const data = {
-						"token": {
-							"x_key": response.data.user._id,
-							"access_token": response.data.token,
-						},
-					}
-					localStorage.setItem('sugar_settings', JSON.stringify(data));
-
-					this.step++;
-
-					this.$nextTick(() => {
-						this.$refs.newpassword.$refs.password.focus();
-					});
-				}
-			}).catch((error) => {
-				if (error.response && error.response.status === 401) {
-					console.log(error.response.data);
+			sugarizer.modules.user.login(null, this.username, password).then((user) => {
+				this.step++;
+				this.$nextTick(() => {
+					this.$refs.newpassword.$refs.password.focus();
+				});
+			}, (error) => {
+				if (error === 1) {
 					this.warning.show = true;
 					this.warning.text = this.SugarL10n ? this.SugarL10n.get('InvalidPassword') : "Invalid Password";
 				} else {
@@ -132,25 +112,16 @@ const MySecurity = {
 		},
 
 		updatePassword() {
-			const token = JSON.parse(localStorage.getItem("sugar_settings")).token;
 			const password = this.$refs.newpassword.passwordText;
 
 			if (password.length < 4) {
 				return;
 			}
 
-			axios.put(`/api/v1/users/${token.x_key}`, { "user": JSON.stringify({ password: password }), }, {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				}
-			}).then((response) => {
-				if (response.status == 200) {
-					this.step++;
-				}
+			sugarizer.modules.user.update({ password: password }).then((user) => {
+				this.step++;
 			}).catch((error) => {
-				if (error.response && error.response.status === 401) {
-					console.log(error.response.data);
+				if (error === 1) {
 					this.warning.show = true;
 					this.warning.text = this.SugarL10n ? this.SugarL10n.get('InvalidPassword') : "Invalid Password";
 				} else {

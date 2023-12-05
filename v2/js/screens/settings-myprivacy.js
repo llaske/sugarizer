@@ -16,8 +16,8 @@ const MyPrivacy = {
 					>
 					<div class="computer-content">
 						<div class="settings-warningbox" v-show="warning.show">
-							<div class="warningbox-title" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningtitle">Warning</div>
-							<div class="warningbox-message" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningmessage">Changes require restart</div>
+							<div class="warningbox-title" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningtitle">{{ SugarL10n.get('Warning') }}</div>
+							<div class="warningbox-message" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningmessage">{{ SugarL10n.get('ChangesRequireRestart') }}</div>
 							<icon-button 
 								id="myprivacy-cancel-btn"
 								class="warningbox-cancel-button"
@@ -113,17 +113,9 @@ const MyPrivacy = {
 		},
 
 		getUserDetails() {
-			const token = localStorage.getItem('sugar_settings') ? JSON.parse(localStorage.getItem('sugar_settings')).token : null;
-
-			axios.get('/api/v1/users/' + token.x_key, {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				},
-			})
-				.then((response) => {
-					this.checkbox.stats = !response.data.options.stats;
-					this.checkbox.sync = !response.data.options.sync;
+			sugarizer.modules.user.get().then((user) => {
+					this.checkbox.stats = !user.options.stats;
+					this.checkbox.sync = !user.options.sync;
 				})
 				.catch((error) => {
 					console.log(error);
@@ -136,19 +128,11 @@ const MyPrivacy = {
 		},
 
 		updateOptions() {
-			const token = JSON.parse(localStorage.getItem("sugar_settings")).token;
-			const options = {
-				stats: !this.checkbox.stats,
-				sync: !this.checkbox.sync,
-			}
-
-			axios.put('/api/v1/users/' + token.x_key, ({
-				"user": JSON.stringify({ options: options }),
-			}), {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				},
+			sugarizer.modules.user.update({ 
+				options: {
+					stats: !this.checkbox.stats,
+					sync: !this.checkbox.sync,
+				}
 			});
 		},
 
@@ -159,16 +143,9 @@ const MyPrivacy = {
 		},
 
 		deleteAccount() {
-			const token = JSON.parse(localStorage.getItem("sugar_settings")).token;
-			axios.delete('/api/v1/users/' + token.x_key, {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				},
-			})
+			sugarizer.modules.server.deleteUser()
 				.then((response) => {
-					localStorage.removeItem('sugar_settings');
-					window.location.reload();
+					sugarizer.restart();
 				})
 				.catch((error) => {
 					console.log(error);
