@@ -153,11 +153,10 @@ define(["l10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-
 
         // if introjsElement is present block all click events in canvas
         if (isIntrojsElement) {
-		const canvas = document.getElementById("canvas");
-		canvas.style.pointerEvents = "none";
-		console.log("Block click");
+			const canvas = document.getElementById("canvas");
+			canvas.style.pointerEvents = "none";
     	} else {
-		canvas.style.pointerEvents = "auto"; // Re-enable click events on the canvas
+			canvas.style.pointerEvents = "auto"; // Re-enable click events on the canvas
     	}
 	});
 	
