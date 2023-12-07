@@ -1,43 +1,21 @@
 {
-    "tutoprev": {
-        "prev": "Prev"
-    },
-    "tutonext": {
-        "next": "Next"
-    },
-    "tutoend": {
-        "end": "End"
-    },
-    "tutoexplaintitle": {
-        "reflection-activity": "Reflection Activity"
-    },
-    "tutoexplaincontent-welcome-into-the-reflection-act": "Welcome into the Reflection activity. Reflection is a game to learn reflective symmetry",
-    "tutobuddytitle": {
-        "your-colors": "Your colors"
-    },
-    "tutobuddycontent-click-here-to-use-your-buddy-colo": "Click here to use your Buddy colors for tokens. It will give choice for each token between 4 different colors",
-    "tutorainbowtitle": {
-        "rainbow-colors": "Rainbow colors"
-    },
-    "tutorainbowcontent-click-here-to-use-colors-of-rai": "Click here to use colors of rainbow for tokens. It will give choice for each token between 8 different colors",
-    "tutohorizontaltitle": {
-        "horizontal-symmetry": "Horizontal Symmetry"
-    },
-    "tutohorizontalcontent-click-here-to-play-with-hori": "Click here to play with horizontal symmetry. The left side of the screen should be identical to the right side of the screen",
-    "tutoverticaltitle": {
-        "vertical-symmetry": "Vertical Symmetry"
-    },
-    "tutoverticalcontent-click-here-to-play-with-vertic": "Click here to play with vertical symmetry. The upper side of the screen should be identical to the lower side of the screen",
-    "tutobilateraltitle": {
-        "bilateral-symmetry": "Bilateral Symmetry"
-    },
-    "tutobilateralcontent-click-here-to-play-with-both-": "Click here to play with both- horizontal and vertical symmetry. All 4 parts of the screen should be identical",
-    "tutorobottitle": {
-        "robot-mode": "Robot mode"
-    },
-    "tutorobotcontent-click-here-to-toggle-robot-mode-i": "Click here to toggle Robot mode. In Robot mode when you click on a token the symmetric token color is changed at the same time. Too easy!",
-    "tutocanvastitle": {
-        "board": "Board"
-    },
-    "tutocanvascontent-click-on-tokens-to-change-their-": "Click on tokens to change their colors until the image become symmetric"
+    "TutoPrev": "Prev",
+    "TutoNext": "Next",
+    "TutoEnd": "End",
+    "TutoExplainTitle": "Reflection Activity",
+    "TutoExplainContent": "Welcome into the Reflection activity. Reflection is a game to learn reflective symmetry",
+    "TutoBuddyTitle": "Your colors",
+    "TutoBuddyContent": "Click here to use your Buddy colors for tokens. It will give choice for each token between 4 different colors",
+    "TutoRainbowTitle": "Rainbow colors",
+    "TutoRainbowContent": "Click here to use colors of rainbow for tokens. It will give choice for each token between 8 different colors",
+    "TutoHorizontalTitle": "Horizontal Symmetry",
+    "TutoHorizontalContent": "Click here to play with horizontal symmetry. The left side of the screen should be identical to the right side of the screen",
+    "TutoVerticalTitle": "Vertical Symmetry",
+    "TutoVerticalContent": "Click here to play with vertical symmetry. The upper side of the screen should be identical to the lower side of the screen",
+    "TutoBilateralTitle": "Bilateral Symmetry",
+    "TutoBilateralContent": "Click here to play with both- horizontal and vertical symmetry. All 4 parts of the screen should be identical",
+    "TutoRobotTitle": "Robot mode",
+    "TutoRobotContent": "Click here to toggle Robot mode. In Robot mode when you click on a token the symmetric token color is changed at the same time. Too easy!",
+    "TutoCanvasTitle": "Board",
+    "TutoCanvasContent": "Click on tokens to change their colors until the image become symmetric"
 }
