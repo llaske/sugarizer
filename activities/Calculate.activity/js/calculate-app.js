@@ -152,6 +152,21 @@ var CalculateApp = {
     CalculateApp._graph(equation, valueForZero, graphFn);
   },
 
+
+  tooltip: function translateTooltips() {
+    // Select all elements with data-l10n-id attribute
+    var elements = document.querySelectorAll('[data-l10n-id]');
+
+    // Loop through each element
+    for (var i = 0; i < elements.length; i++) {
+        // Get the l10n id
+        var l10nId = elements[i].getAttribute('data-l10n-id');
+
+        // Use i18next to translate the tooltip
+        elements[i].title = i18next.t(l10nId);
+    }
+  },
+
   /* Display a graph using full mode */
   graphMathJS: function(equation) {
     var valueForZero = CalculateApp.evalFunctionAtZero(equation);
@@ -255,17 +270,18 @@ var CalculateApp = {
   },
 
   /* Translation of the Gui */
-  transateGui: function() {
-    if (CalculateApp.libs.webL10n.get("calcul") !== undefined && CalculateApp.libs.webL10n.get("calcul").length > 0) {
-      CalculateApp.elements.calcInput.placeholder = CalculateApp.libs.webL10n.get("calcul");
+  translateGui: function() {
+    if (i18next.t('calcul') !== undefined && i18next.t('calcul').length > 0) {
+        CalculateApp.elements.calcInput.placeholder = i18next.t('calcul');
     }
-    if (CalculateApp.libs.webL10n.get("label") !== undefined && CalculateApp.libs.webL10n.get("label").length > 0) {
-      CalculateApp.elements.labelInput.placeholder = CalculateApp.libs.webL10n.get("label");
+    if (i18next.t('label') !== undefined && i18next.t('label').length > 0) {
+        CalculateApp.elements.labelInput.placeholder = i18next.t('label');
     }
-    if (CalculateApp.libs.webL10n.get("clear") !== undefined && CalculateApp.libs.webL10n.get("clear").length > 0) {
-      CalculateApp.elements.calcButtonClear.innerHTML = CalculateApp.libs.webL10n.get("clear");
+    if (i18next.t('clear') !== undefined && i18next.t('clear').length > 0) {
+        CalculateApp.elements.calcButtonClear.innerHTML = i18next.t('clear');
     }
   },
+
 
   /* We clear the result box and display all previous calculations */
   displayAllCalculations: function() {
