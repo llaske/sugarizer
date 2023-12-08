@@ -59,6 +59,16 @@ let l10ndefine = function (i18next, axios) {
 		}
 	};
 
+	l10n.updateDocument = () => {
+		const elements = document.getElementsByTagName("*");
+		for (let i = 0; i < elements.length; i++) {
+		  const element = elements[i];
+		  const key = element.getAttribute("data-i18n");
+		  if (key !== null) {
+			element.innerHTML = i18next.t(key);
+		  }
+		}
+	};
 
 	function triggerLocalizedEvent() {
 		if (typeof module === 'undefined') {

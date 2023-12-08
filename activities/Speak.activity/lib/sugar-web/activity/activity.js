@@ -169,7 +169,6 @@ define(["sugar-web/activity/shortcut",
                 });
             }
         }
-        console.log(bus);
         bus.sendMessage("activity.get_xo_color", [], onResponseReceived);
     };
 
