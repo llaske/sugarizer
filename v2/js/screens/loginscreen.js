@@ -40,7 +40,6 @@ const LoginScreen = {
 				 :color="details.color"
 				 size="125"
 				 x="0"
-				 is-native="true"
 				 @click="changeColor()"
 				 v-model="details.color"
 			></icon>
