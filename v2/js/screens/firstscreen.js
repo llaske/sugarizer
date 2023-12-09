@@ -9,7 +9,7 @@ const FirstScreen = {
 						  <div class="firstscreen_help">
 								<icon
 									id="help-icon"
-									svgfile="/icons/help.svg"
+									svgfile="./icons/help.svg"
 									size="50"
 									x="0"
 									y="0"
@@ -29,7 +29,7 @@ const FirstScreen = {
                             <div class="column">
                                 <icon
                                     id="newuser-icon"
-                                    svgfile="/icons/newuser-icon.svg"
+                                    svgfile="./icons/newuser-icon.svg"
                                     size="154"
                                     x="0"
                                     y="0"
@@ -43,7 +43,7 @@ const FirstScreen = {
                             <div class="column">
                                 <icon
                                     id="login-icon"
-                                    svgfile="/icons/login.svg"
+                                    svgfile="./icons/login.svg"
                                     size="154"
                                     x="0"
                                     y="0"

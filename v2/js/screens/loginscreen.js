@@ -10,7 +10,7 @@ const LoginScreen = {
 	<div class="loginscreen_help">
 		<icon 
 			 id="help-icon"
-			 svgfile="/icons/help.svg"
+			 svgfile="./icons/help.svg"
 			 size="50"
 			 x="0"
 			 y="0"
@@ -36,7 +36,7 @@ const LoginScreen = {
 			<icon 
 				 ref="buddyIcon"
 				 id="buddy_icon"
-				 svgfile="/icons/owner-icon.svg"
+				 svgfile="./icons/owner-icon.svg"
 				 :color="details.color"
 				 size="125"
 				 x="0"
