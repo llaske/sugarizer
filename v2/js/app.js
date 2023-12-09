@@ -22,16 +22,8 @@ const appVue = Vue.createApp({
 
 		checkUserLoggedIn() {
 			if (sugarizer.modules.settings.getUser() != null) {
-				sugarizer.modules.server.getUser().then((user) => {
+				sugarizer.modules.user.get().then((user) => {
 					this.setIsFirstScreen(false);
-					const data = {
-						"token": {
-							"x_key": sugarizer.modules.server.getToken().x_key,
-							"access_token": sugarizer.modules.server.getToken().access_token,
-						},
-						...user
-					}
-					sugarizer.modules.settings.setUser(data);
 					this.updateFavicon();
 				},(error) => {
 					console.log("Error: ", error);

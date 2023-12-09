@@ -143,6 +143,7 @@ const MyPrivacy = {
 		},
 
 		deleteAccount() {
+			// TODO: Not doable when not connected to a server
 			sugarizer.modules.server.deleteUser()
 				.then((response) => {
 					sugarizer.restart();

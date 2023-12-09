@@ -74,6 +74,14 @@ define([], function() {
 	user.get = function() {
 		return new Promise((resolve, reject) => {
 			sugarizer.modules.server.getUser().then((user) => {
+				const data = {
+					"token": {
+						"x_key": sugarizer.modules.server.getToken().x_key,
+						"access_token": sugarizer.modules.server.getToken().access_token,
+					},
+					...user
+				}
+				sugarizer.modules.settings.setUser(data);
 				resolve(user);
 			}, (error) => {
 				reject(error);

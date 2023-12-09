@@ -80,7 +80,7 @@ const ListView = {
 
 	methods: {
 		async getActivities() {
-			sugarizer.modules.server.getActivities().then((activities) => {
+			sugarizer.modules.activities.load().then((activities) => {
 				this.getUser(activities);
 			}, (error) => {
 				throw new Error('Unable to load the activities, error ' + error);

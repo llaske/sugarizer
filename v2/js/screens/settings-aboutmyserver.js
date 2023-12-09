@@ -74,6 +74,7 @@ const AboutMyServer = {
 		},
 
 		async getServerDetails() {
+			// TODO: Not doable when not connected to a server
 			const server = await sugarizer.modules.server.getServerInformation(sugarizer.modules.server.getServer());		
 			this.details.serverAddress = sugarizer.modules.server.getServer();
 			this.details.serverName = server.name;
