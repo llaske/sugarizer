@@ -37,14 +37,15 @@ let sugarizer = {
 		return new Promise(function(resolve, reject) {
 			// Load modules
 			requirejs(
-				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user"],
-				function(xocolor, server, settings, activities, journal, user) {
+				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", 'lib/i18next.min.js'],
+				function(xocolor, server, settings, activities, journal, user, i18next) {
 					sugarizer.modules.xocolor = xocolor;
 					sugarizer.modules.server = server;
 					sugarizer.modules.settings = settings;
 					sugarizer.modules.activities = activities;
 					sugarizer.modules.journal = journal;
 					sugarizer.modules.user = user;
+					sugarizer.modules.i18next = i18next;
 					resolve();
 				}
 			);

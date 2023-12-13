@@ -4,9 +4,16 @@ define([], function() {
 
 	var user = {};
 
-	// Check if user exists on the server
+	// Check if user exists
 	user.checkIfExists = function(baseurl, name) {
 		return new Promise((resolve, reject) => {
+			// In the app, only one user can be created
+			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+				resolve(false);
+				return;
+			}
+
+			// Check on the server
 			const data = {
 				name: name,
 				role: "student",
@@ -36,8 +43,17 @@ define([], function() {
 					"fill": `${color.fill}`,
 				},
 				"role": "student",
+				"language": sugarizer.modules.i18next.language,
 			}
 
+			// In the app, create the user locally
+			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+				sugarizer.modules.settings.setUser(signupData);
+				resolve(signupData);
+				return;
+			}
+
+			// Create user on the server
 			sugarizer.modules.server.postUser(signupData).then((user) => {
 				resolve(user);
 			}, (error) => {
@@ -73,6 +89,13 @@ define([], function() {
 	// Get user information
 	user.get = function() {
 		return new Promise((resolve, reject) => {
+			// In the app, get the user locally
+			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+				resolve(sugarizer.modules.settings.getUser());
+				return;
+			}
+
+			// Get user from the server
 			sugarizer.modules.server.getUser().then((user) => {
 				const data = {
 					"token": {

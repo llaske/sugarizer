@@ -208,7 +208,7 @@ const LoginScreen = {
 			} else if (this.userType.isNewuser) {
 				this.index.currentIndex = 1;
 				this.index.minIndex = 1;
-				this.index.maxIndex = 4;
+				this.index.maxIndex = (sugarizer.getClientType() === sugarizer.constant.appType ? 3 : 4);
 			} else if (this.userType.isPrevUser !== null) {
 				this.index.currentIndex = 2;
 				this.index.minIndex = 2;
@@ -229,14 +229,17 @@ const LoginScreen = {
 			this.warning.show = false;
 
 			if (this.index.currentIndex < this.index.maxIndex) {
-				if (this.index.currentIndex === 0) {
+				if (this.index.currentIndex === 0) { // server address
 					this.index.currentIndex++;
 				}
 
-				else if (this.index.currentIndex === 1) {
+				else if (this.index.currentIndex === 1) { // name
 					const userexists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.name);
 					if (this.userType.isNewuser && !userexists) {
 						this.index.currentIndex++;
+						if (sugarizer.getClientType() === sugarizer.constant.appType) {
+							this.index.currentIndex++;
+						}
 					} else if (this.userType.isNewuser && userexists) {
 						this.warning.show = true;
 						this.warning.text = this.l10n.stringUserAlreadyExist;
@@ -247,13 +250,13 @@ const LoginScreen = {
 						this.warning.text = this.l10n.stringInvalidUser;
 					}
 				}
-				else if (this.index.currentIndex === 2) {
+				else if (this.index.currentIndex === 2) { // password
 					this.index.currentIndex++;
 				}
-				else if (this.index.currentIndex === 3) {
+				else if (this.index.currentIndex === 3) { // icon
 					this.index.currentIndex++;
 				}
-				else {
+				else { // privacy
 					this.index.currentIndex++;
 				}
 			}
@@ -275,6 +278,11 @@ const LoginScreen = {
 		},
 
 		login(baseurl, name, password) {
+			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+				app.updateFavicon();
+				this.$emit('updateIsFirstScreen', false);
+				return;
+			}
 			sugarizer.modules.user.login(baseurl, name, password).then((user) => {
 				app.updateFavicon();
 				this.$emit('updateIsFirstScreen', false);

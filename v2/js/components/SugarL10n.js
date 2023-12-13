@@ -25,22 +25,10 @@ const SugarL10n = {
 		const vm = this;
 		vm.language = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		if (localStorage.getItem("sugar_settings") !== null && localStorage.getItem("sugar_settings") !== undefined && localStorage.getItem("sugar_settings") !== "{}") {
-			const token = JSON.parse(localStorage.getItem("sugar_settings")).token;
-			await axios.get(`/api/v1/users/${token.x_key}`, {
-				headers: {
-					'x-key': token.x_key,
-					'x-access-token': token.access_token,
-				},
-			}).then((response) => {
-				if (response.status == 200) {
-					if (response.data.language !== null && response.data.language !== undefined) {
-						vm.language = response.data.language;
-					}
-				}
-			}).catch((error) => {
-				vm.language = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-
-			});
+			const language = JSON.parse(localStorage.getItem("sugar_settings")).language;
+			if (language !== null && language !== undefined) {
+				vm.language = language;
+			}
 		}
 
 		const language = vm.language.split('-')[0];

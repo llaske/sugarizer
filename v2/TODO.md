@@ -21,6 +21,9 @@ TODO list
 * [x] Convert server functions to promises
 * [x] Fix display of activity popup when there is no history
 * [x] Factorize user functions
+* [ ] Handle running app offline
+* [ ] Display cookie screen only when server settings are not set
+* [ ] Fix running of activities
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
 * [x] Now that the popup has a timer, we see that the popup should be hidden when there is a click on a item.
