@@ -288,6 +288,8 @@ enyo.kind({
 		} else if (this.step == 2) {
 			var name = this.$.name.getValue().trim();
 			if (name.length == 0) {
+				this.$.warningmessage.setContent(l10n.get("ErrorUsernameEmpty"));
+				this.$.warningmessage.setShowing(true);
 				return;
 			}
 
