@@ -172,7 +172,7 @@ enyo.kind({
 
 		case 2: // Type name
 			this.scrollToField(this.$.namebox);
-			vnamebox = vnext = vprevious = true;
+			vnamebox = vnext = vprevious=true;
 			this.$.nametext.setContent(l10n.get(this.createnew ? "ChooseName" : "Name"));
 			this.$.next.setText(l10n.get("Next"));
 			break;
@@ -288,6 +288,8 @@ enyo.kind({
 		} else if (this.step == 2) {
 			var name = this.$.name.getValue().trim();
 			if (name.length == 0) {
+				this.$.warningmessage.setContent(l10n.get("ErrorUsernameEmpty"));
+				this.$.warningmessage.setShowing(true);
 				return;
 			}
 
