@@ -1,5 +1,5 @@
 // Interface to activities
-define([], function() {
+define(["sugar-web/datastore"], function (datastore) {
 	var activities = {};
 
 	var list = [];
@@ -193,5 +193,33 @@ define([], function() {
 		return genericActivity;
 	};
 
+	// Run activity
+	activities.runActivity = function(activity, objectId, name, sharedId, help) {
+		if (activity.type != null && activity.type == "native") {
+			if (sugarizerOS) {
+				sugarizerOS.runActivity(activity.id);
+				sugarizerOS.addApplicationToJournal(sugarizerOS.log, activity, datastore);
+				return;
+			}
+			console.log("No sugarizerOS instance found");
+		}
+		if (activity.activityId == null) {
+			activity.activityId = datastore.createUUID();
+		}
+		var location = activity.directory+"/index.html?aid="+activity.activityId+"&a="+activity.id;
+		if (objectId != null) {
+			location = location + "&o=" + objectId + "&n="+name;
+		} else {
+			location = location + "&n=" +activity.name;
+		}
+		if (sharedId) {
+			location = location + "&s=" + sharedId;
+		}
+		if (help) {
+			location = location + "&h=1";
+		}
+		window.location = location;
+	};
+	
 	return activities;
 });

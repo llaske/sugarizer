@@ -23,8 +23,8 @@ const ListView = {
 									:svgfile="activity.directory + '/' + activity.icon"
 									size="40"
 									isNative="true"
-									v-on:mouseover="showPopupFunction($event)"
-									v-on:mouseleave="removePopupFunction($event)"
+									v-on:mouseover="showPopupTimer($event)"
+									v-on:mouseleave="removePopupTimer($event)"
 									@click="launchActivity(activity)"
 									style="padding: 2px;"
 								></icon>
@@ -44,7 +44,7 @@ const ListView = {
 					<popup 
 						ref="popup" 
 						v-bind:item="popup"
-						v-on:mouseleave="removePopupFunction($event)"
+						v-on:mouseleave="removePopupTimer($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
 				`,
@@ -63,6 +63,10 @@ const ListView = {
 			popupData: null,
 			popup: null, //singular popup data
 			buddycolor: null,
+			timer: null,
+			constant: {
+				timerPopupDuration: 1000,
+			},
 		}
 	},
 
@@ -81,15 +85,15 @@ const ListView = {
 	methods: {
 		async getActivities() {
 			sugarizer.modules.activities.load().then((activities) => {
-				this.getUser(activities);
+				this.getUser();
 			}, (error) => {
 				throw new Error('Unable to load the activities, error ' + error);
 			});
 		},
 
-		async getUser(activities) {
+		async getUser() {
 			sugarizer.modules.user.get().then((user) => {
-				this.buddycolor = sugarizer.modules.xocolor.findIndex(user.color);
+				this.buddycolor = user.color;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.get();
 				this.$emit('activities', this.activities);
@@ -109,19 +113,16 @@ const ListView = {
 
 			}
 
+			this.$refs.popup.hide();
 			sugarizer.modules.user.update({"favorites": this.favactivities }).then((user) => {
 				const iconRef = this.$refs["star" + activity.id][0];
-				activity.favorite = !activity.favorite;
 				if (iconRef.colorData == this.buddycolor) {
 					iconRef.colorData = 256;
 				} else if (iconRef.colorData == 256) {
 					iconRef.colorData = this.buddycolor;
 				};
 
-				this.popupData[activity.id].favorite = activity.favorite;
-				this.popupData[activity.id].itemList[1].icon.color = activity.favorite ? this.buddycolor : 256;
-				this.popup.favorite = activity.favorite;
-				this.popup.itemList[1].icon.color = activity.favorite ? this.buddycolor : 256;
+				sugarizer.modules.activities.updateFavorites(this.favactivities);
 			}, (error) => {
 				throw new Error('Unable to update the user, error ' + error);
 			});
@@ -145,14 +146,12 @@ const ListView = {
 		},
 
 		launchActivity(activity) {
-			const location = activity.directory + "/index.html?aid=" + activity.activityId + "&a=" + activity.id + "&n=" + activity.name;
-			document.location.href = location;
-			console.log(activity.activityId);
+			sugarizer.modules.activities.runActivity(activity, null, activity.title);
 		},
 
 		getPopupData() {
 			const popupData = {};
-			const activities = this.activities;
+			const activities = sugarizer.modules.activities.get();
 			activities.forEach(activity => {
 				popupData[activity.id] = {
 					id: activity.id,
@@ -166,16 +165,30 @@ const ListView = {
 					name: activity.name,
 					title: null,
 					itemList: [
-						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: this.SugarL10n.get("StartNew") },
-						{ icon: { id: 2, iconData: "icons/star.svg", color: activity.favorite ? this.buddycolor : 256, size: 20 }, name: activity.favorite ? this.SugarL10n.get("RemoveFavorite") : this.SugarL10n.get("MakeFavorite") },
+						{ icon: { id: 'new', iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: this.SugarL10n.get("StartNew") },
+						{ icon: { id: 'favorite', iconData: "icons/star.svg", color: !activity.favorite ? this.buddycolor : 256, size: 20 }, name: activity.favorite ? this.SugarL10n.get("RemoveFavorite") : this.SugarL10n.get("MakeFavorite") },
 					],
+					activity: activity,
 				};
 			});
 			this.popupData = popupData;
 		},
 
-		async showPopupFunction(e) {
+		async showPopupTimer(e) {
+			if (this.timer != null) {
+				window.clearInterval(this.timer);
+			}
+			this.timer = window.setInterval(this.showPopup.bind(this), this.constant.timerPopupDuration, e);
+		},
+
+		async showPopup(e) {
 			let itemId, x, y;
+			if (this.popupShown) {
+				this.removeCurrentPopup();
+			}
+			this.popupShown = true;
+			window.clearInterval(this.timer);
+			this.timer = null;
 			await this.getPopupData();
 			if (e.target.tagName == 'svg') {
 				itemId = e.target.parentElement.id
@@ -196,17 +209,33 @@ const ListView = {
 			this.popup = obj[itemId];
 			this.$refs.popup.show(x, y);
 		},
-		removePopupFunction(e) {
+
+		async removePopupTimer(e) {
+			if (this.timer != null) {
+				window.clearInterval(this.timer);
+			}
+			this.timer = window.setInterval(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
+		},
+
+		async removePopup(e) {
 			if (!this.$refs.popup.isCursorInside(e.clientX, e.clientY)) {
-				this.$refs.popup.hide();
+				this.removeCurrentPopup();
 			}
 		},
+
+		removeCurrentPopup() {
+			this.$refs.popup.hide();
+			this.popupShown = false;
+			window.clearInterval(this.timer);
+			this.timer = null;
+		},
+
 		itemisClicked(item) {
-			let favIcon = this.popup.id + "_Favorite";
+			let favIcon = this.popup.id + "_favorite";
 			if (item == favIcon) {
 				this.toggleFavorite(this.popup);
 			} else {
-				this.launchActivity(this.popup);
+				this.launchActivity(this.popup.activity);
 			}
 		},
 	},

@@ -13,7 +13,7 @@ const Popup ={
 	template: ` <div ref="homePopup" class="home-activity-popup" 
 					v-if="itemData && isShown && itemData.icon && itemData.name"
 				>
-					<div class="popup-title" @click="itemClicked(itemData.id+'_'+itemData.name)">
+					<div class="popup-title" @click="itemClicked(itemData.id+'_'+itemData.icon.id)">
 						<icon 
 							:key="iconKey"
 							class="item-icon-title"
@@ -36,7 +36,7 @@ const Popup ={
 							<div class="item-list">
 								<div class="item-list-item" 
 									v-for="ele in itemData.itemList" key="ele.index"
-									@click="itemClicked(itemData.id+'_'+ele.name)"
+									@click="itemClicked(itemData.id+'_'+ele.icon.id)"
 								>
 									<icon class="item-icon"
 										:key="iconKey"
@@ -58,7 +58,7 @@ const Popup ={
 							<div class="item-list">
 								<div class="item-list-item" 
 									v-for="ele in itemData.footerList" key="ele.index"
-									@click="itemClicked(itemData.id+'_'+ele.name)"
+									@click="itemClicked(itemData.id+'_'+ele.icon.id)"
 								>
 									<icon class="item-icon"
 										:key="iconKey"

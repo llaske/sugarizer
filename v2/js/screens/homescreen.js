@@ -16,6 +16,7 @@ const HomeScreen = {
 									:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : (activityPositions[index] ? activityPositions[index].x : 0)"
        								:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : (activityPositions[index] ? activityPositions[index].y : 0)"
 									isNative="true"
+									v-on:click="runActivity(activity)"
 									v-on:mouseover="showPopupTimer($event)"
 									v-on:mouseout="removePopupTimer($event)"
 								/>
@@ -154,16 +155,16 @@ const HomeScreen = {
 	methods: {
 		async getActivities() {
 			sugarizer.modules.activities.load().then((activities) => {
-				this.getUser(activities);
+				this.getUser();
 			}, (error) => {
 				throw new Error('Unable to load the activities, error ' + error);
 			});
 		},
 
-		async getUser(activities) {
+		async getUser() {
 			sugarizer.modules.user.get().then((user) => {
-				this.buddycolor = sugarizer.modules.xocolor.findIndex(user.color);
-				this.jid = user.private_journal;
+				this.buddycolor = user.color;
+				this.jid = user.privateJournal;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.getFavorites();
 				this.username = user.name;
@@ -230,9 +231,39 @@ const HomeScreen = {
 			return activities.filter(activity => activity.favorite);
 		},
 
-		launchActivity(activity) {
-			const location = activity.directory + "/index.html?aid=" + activity.activityId + "&a=" + activity.id + "&n=" + activity.name;
-			document.location.href = location;
+		runActivity(activity) {
+			let objectId = null;
+			let name = this.SugarL10n.get("NameActivity", { name: activity.name });
+			let entries = sugarizer.modules.journal.getByActivity(activity.id);
+			for (let i = 0 ; i < entries.length ; i++) {
+				objectId = entries[i].objectId;
+				name = entries[i].metadata.title;
+				break;
+			}
+			sugarizer.modules.activities.runActivity(activity, objectId, name);
+		},
+
+		launchActivity(activity, item) {
+			let objectId = item.slice(item.indexOf("_")+1);
+			let name = activity.title;
+			if (objectId == "new") {
+				objectId = null;
+			} else if (objectId == "latest") {
+				if (activity.itemList && activity.itemList.length > 0) {
+					objectId = activity.itemList[0].icon.id;
+					name = activity.itemList[0].name;
+				} else {
+					objectId = null;
+				}
+			} else {
+				for (let i = 0 ; i < activity.itemList.length ; i++) {
+					if (activity.itemList[i].icon.id == objectId) {
+						name = activity.itemList[i].name;
+						break;
+					}
+				}
+			}
+			sugarizer.modules.activities.runActivity(activity.activity, objectId, name);
 		},
 
 		disableActivities(disabledactivities) {
@@ -274,7 +305,7 @@ const HomeScreen = {
 					favorite: activity.favorite,
 					directory: activity.directory,
 					icon: {
-						id: activity.id + "_popup",
+						id: "latest",
 						iconData: activity.directory + "/" + activity.icon,
 						size: this.constant.iconSizeList,
 						isNative: "true"
@@ -282,8 +313,9 @@ const HomeScreen = {
 					name: activity.name,
 					title: this.SugarL10n.get("NameActivity", { name: activity.name }),
 					footerList: [
-						{ icon: { id: 1, iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("StartNew") }
+						{ icon: { id: "new", iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("StartNew") }
 					],
+					activity: activity,
 				};
 			});
 			this.popupData = popupData;
@@ -336,8 +368,8 @@ const HomeScreen = {
 					name: this.username,
 					title: null,
 					itemList: [
-						{ icon: { id: 1, iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.SugarL10n.get("MySettings") },
-						{ icon: { id: 2, iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("Logoff") },
+						{ icon: { id: 'preferences', iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.SugarL10n.get("MySettings") },
+						{ icon: { id: 'shutdown', iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("Logoff") },
 					],
 				};
 				this.popup = popupData[itemId];
@@ -356,7 +388,6 @@ const HomeScreen = {
 			}
 			this.timer = window.setInterval(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
 		},
-
 				
 		async removePopup(e) {
 			if (this.$refs.popup && !this.$refs.popup.isCursorInside(e.clientX, e.clientY) && this.popupIcon && !this.popupIcon.isCursorInside(e.clientX, e.clientY)) {
@@ -375,12 +406,12 @@ const HomeScreen = {
 			if (this.popupShown) {
 				this.removeCurrentPopup();
 			}
-			if (item == "buddy_" + this.SugarL10n.get("MySettings") || item == "buddy_" + this.username) {
+			if (item == "buddy_preferences" || item == "buddy_buddy_popup") {
 				this.$refs.settings.openSettingsModal("settingModal");
-			} else if (item == "buddy_" + this.SugarL10n.get("Logoff")) {
+			} else if (item == "buddy_shutdown" ) {
 				this.logout();
 			} else {
-				this.launchActivity(this.popup);
+				this.launchActivity(this.popup, item);
 			}
 		},
 

@@ -4,6 +4,18 @@ define([], function() {
 
 	var user = {};
 
+	// Convert user fields to math local storage format in v1
+	let convertFields = function(user) {
+		user.colorvalue = user.color;
+		user.color = sugarizer.modules.xocolor.findIndex(user.colorvalue);
+		user.privateJournal = user.private_journal;
+		user.sharedJournal = user.shared_journal;
+		user.private_journal = undefined;
+		user.shared_journal = undefined;
+		user.activities = sugarizer.modules.activities.get();
+		return user;
+	}
+
 	// Check if user exists
 	user.checkIfExists = function(baseurl, name) {
 		return new Promise((resolve, reject) => {
@@ -71,13 +83,14 @@ define([], function() {
 			}
 
 			sugarizer.modules.server.loginUser(loginData, baseurl).then((response) => {
-				const data = {
+				let data = {
 					"token": {
 						"x_key": response.user._id,
 						"access_token": response.token,
 					},
 					...response.user
 				}
+				data = convertFields(data);
 				sugarizer.modules.settings.setUser(data);
 				resolve(data);
 			}, (error) => {
@@ -97,15 +110,16 @@ define([], function() {
 
 			// Get user from the server
 			sugarizer.modules.server.getUser().then((user) => {
-				const data = {
+				let data = {
 					"token": {
 						"x_key": sugarizer.modules.server.getToken().x_key,
 						"access_token": sugarizer.modules.server.getToken().access_token,
 					},
 					...user
 				}
+				data = convertFields(data);
 				sugarizer.modules.settings.setUser(data);
-				resolve(user);
+				resolve(data);
 			}, (error) => {
 				reject(error);
 			});

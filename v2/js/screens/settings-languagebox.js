@@ -88,7 +88,7 @@ const LanguageBox = {
 						return {
 							id: key,
 							name: `${value[0]} (${this.SugarL10n.get(value[1])})`,
-							icon: {},
+							icon: {id: key},
 						}
 					})
 				},
@@ -124,7 +124,7 @@ const LanguageBox = {
 		itemisClicked(e) {
 			const languages = this.languages;
 			for (const key in languages) {
-				if (languages[key][0] === e.slice(4).split(" ")[0]) {
+				if (key === e.slice(4)) {
 					this.languageCode = key;
 					break;
 				}
