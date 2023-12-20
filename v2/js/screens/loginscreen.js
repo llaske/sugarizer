@@ -55,7 +55,7 @@ const LoginScreen = {
 				 isNative="true"
 			></icon>
 			<div class="login-policytext" id="loginscreen_cookietext" v-html="l10n.stringCookieConsent"></div>
-			<div class="login-policytext" id="loginscreen_policytext" v-html="l10n.stringPolicyLink"></div>
+			<div ref="policytext" class="login-policytext" id="loginscreen_policytext" v-html="l10n.stringPolicyLink"></div>
 		</div>
 	</form>
 </div>
@@ -159,6 +159,9 @@ const LoginScreen = {
 				stringInvalidUser: '',
 				stringUserLoginInvalid: '',
 			},
+			l10nRef: null,
+			consentNeed: false,
+			consentPolicy: '',
 		}
 	},
 
@@ -167,7 +170,12 @@ const LoginScreen = {
 	created: function () {
 		window.addEventListener('localized', (e) => {
 			e.detail.l10n.localize(this.l10n);
+			this.l10nRef = e.detail.l10n;
 		}, { once: true });
+
+		if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
+			this.details.serverAddress = sugarizer.modules.server.getServerUrl();
+		}
 	},
 
 	watch: {
@@ -234,11 +242,19 @@ const LoginScreen = {
 				}
 
 				else if (this.index.currentIndex === 1) { // name
+					if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
+						const info = await sugarizer.modules.server.getServerInformation(this.details.serverAddress);
+						this.consentNeed = info.options['consent-need'];
+						this.consentPolicy = info.options['policy-url'];
+						this.$refs.policytext.innerHTML = this.l10nRef.get('PolicyLink', { url: this.consentPolicy });
+					}
 					const userexists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.name);
 					if (this.userType.isNewuser && !userexists) {
 						this.index.currentIndex++;
 						if (sugarizer.getClientType() === sugarizer.constant.appType) {
 							this.index.currentIndex++;
+						} else if (!this.consentNeed) {
+							this.index.maxIndex = 3;
 						}
 					} else if (this.userType.isNewuser && userexists) {
 						this.warning.show = true;
@@ -269,7 +285,7 @@ const LoginScreen = {
 		},
 
 		handlePasswordSet(password) {
-			if (this.index.maxIndex === 4) {
+			if (this.index.maxIndex === 4 || (this.index.maxIndex === 3 && sugarizer.getClientType() === sugarizer.constant.webAppType && !this.consentNeed)) {
 				this.nextItem();
 			}
 			else if (this.index.maxIndex === 2) {

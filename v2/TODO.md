@@ -22,7 +22,8 @@ TODO list
 * [x] Fix display of activity popup when there is no history
 * [x] Factorize user functions
 * [ ] Handle running app offline
-* [ ] Display cookie screen only when server settings are not set
+* [x] Display cookie screen only when server settings are not set
+* [ ] Handle history
 * [x] Fix running of activities
 * [ ] Fix reordering of activities when passing from listview to homescreen
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
