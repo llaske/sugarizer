@@ -24,8 +24,9 @@ TODO list
 * [ ] Handle running app offline
 * [x] Display cookie screen only when server settings are not set
 * [ ] Handle history
+* [ ] Fix search is not working when passing from listview to homescreen
 * [x] Fix running of activities
-* [ ] Fix reordering of activities when passing from listview to homescreen
+* [x] Fix reordering of activities when passing from listview to homescreen
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
 * [x] Now that the popup has a timer, we see that the popup should be hidden when there is a click on a item.

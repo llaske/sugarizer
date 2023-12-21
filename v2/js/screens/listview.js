@@ -4,7 +4,7 @@
 
 const ListView = {
 	name: 'ListView',
-	template: ` <div class="listview" v-for="activity in sortObjectArray(activities)" :key="activity.id">
+	template: ` <div class="listview" v-for="activity in sortByName(activities)" :key="activity.id">
 						<div class="listview_left" >
 							<icon
 								:ref="'star' + activity.id"
@@ -128,8 +128,8 @@ const ListView = {
 			});
 		},
 
-		sortObjectArray(array) {
-			return array.sort(function (a, b) {
+		sortByName(array) {
+			return [...array].sort(function (a, b) {
 				let x = a.name.toLowerCase();
 				let y = b.name.toLowerCase();
 				return x < y ? -1 : x > y ? 1 : 0;
