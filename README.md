@@ -24,15 +24,15 @@ Sugarizer on Android is also available as a launcher to replace the current laun
 
 You could also build yourself the Sugarizer Application APK using instruction below.
 
-<a href="https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer">![](images/googleplay.png)</a>
-<a href="http://www.amazon.com/gp/product/B00NKK7PZA">![](images/amazonstore.png)</a>
-<a href="https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer">![](images/fdroid.png)</a>
+<a href="https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer"><img src="images/googleplay.png" alt="Google Play" width="20%" ></a>
+<a href="http://www.amazon.com/gp/product/B00NKK7PZA"><img src="images/amazonstore.png" alt="Amazon Store" width="20%" ></a>
+<a href="https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer"><img src="images/fdroid.png" alt="F-Droid" width="20%" ></a>
 
 
 
 To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
 
-<a href="https://apps.apple.com/us/app/sugarizer/id978495303">![](images/applestore.png)</a>
+<a href="https://apps.apple.com/us/app/sugarizer/id978495303"><img src="images/applestore.png" alt="Apple Store" width="20%" ></a>
 
 To run **Sugarizer Application on GNU Linux/Mac OS/Windows**, download it [here](https://sugarizer.org#desktop).
 The Sugarizer desktop application has four possible arguments:
