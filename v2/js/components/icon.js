@@ -15,11 +15,12 @@
  * @vue-data {Number} [colorData=512] - to change the color data
  * @vue-data {Number} [xData=0] - to change the left-right margin data
  * @vue-data {Number} [yData=0] - to change the top-bottom margin data
+ * @vue-data {Boolean} [disabledData=false] - to change the disability condition
 */
 const Icon ={
 	name: 'Icon',
-	template: `<div class="icon" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
-	props: ['id','svgfile','color','size','x','y','isNative'],
+	template: `<div :class="this.disabledData? 'web-activity-disable icon': 'icon'" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
+	props: ['id','svgfile','color','size','x','y','isNative','disabled'],
 	data() {
 		return {
 			_svg: null,
@@ -30,6 +31,7 @@ const Icon ={
 			colorData: this.color? this.color: (this.isNative=="true" ? 0 : 512),
 			xData: this.x ? this.x: 0,
 			yData: this.y ? this.y: 0,
+			disabledData: this.disabled ? this.disabled: false,
 			_originalColor: { fill: null, stroke: null},
 			_element: null
 		}
@@ -92,6 +94,9 @@ const Icon ={
 		},		
 		y: function(newY, oldX) {
 			this.yData=newY;
+		},
+		disabledData: function(newDisabled, oldDisabled) {
+			this.disabledData = newDisabled;
 		},
 		sizeData: function(newSize, oldSize) {
 			var element = this._element;

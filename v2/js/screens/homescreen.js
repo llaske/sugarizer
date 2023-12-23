@@ -16,6 +16,7 @@ const HomeScreen = {
 									:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : (activityPositions[index] ? activityPositions[index].x : 0)"
        								:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : (activityPositions[index] ? activityPositions[index].y : 0)"
 									isNative="true"
+									:disabled="false"
 									v-on:click="runActivity(activity)"
 									v-on:mouseover="showPopupTimer($event)"
 									v-on:mouseout="removePopupTimer($event)"
@@ -227,14 +228,10 @@ const HomeScreen = {
 		},
 
 		filterSearch(filter) {
-			const enabledactivities = this.activities.filter((activity) => {
-				return activity.name.toUpperCase().includes(filter.toUpperCase())
-			});
-			this.enableActivities(enabledactivities);
-			const disabledactivities = this.activities.filter((activity) => {
-				return !activity.name.toUpperCase().includes(filter.toUpperCase())
-			});
-			this.disableActivities(disabledactivities);
+			for (let i = 0; i < this.activities.length; i++) {
+				let ref = this.$refs["activity" + this.activities[i].id];
+				ref[0].disabledData = !this.activities[i].name.toUpperCase().includes(filter.toUpperCase());
+			}
 		},
 
 		runActivity(activity) {
@@ -270,36 +267,6 @@ const HomeScreen = {
 				}
 			}
 			sugarizer.modules.activities.runActivity(activity.activity, objectId, name);
-		},
-
-		disableActivities(disabledactivities) {
-			for (let i = 0; i < disabledactivities.length; i++) {
-				let id = disabledactivities[i].id;
-
-				document.getElementById(id).classList.add("web-activity-disable");
-
-				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
-
-				icons.forEach(icon => {
-					icon.removeEventListener('click', this.showPopupTimer);
-					icon.removeEventListener('mouseover', this.showPopupTimer); 
-				});
-			}
-		},
-
-		enableActivities(enabledactivities) {
-			for (let i = 0; i < enabledactivities.length; i++) {
-				let id = enabledactivities[i].id;
-
-				document.getElementById(id).classList.remove("web-activity-disable");
-
-				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
-
-				icons.forEach(icon => {
-					icon.addEventListener('click', this.showPopupTimer);
-					icon.addEventListener('mouseover', this.showPopupTimer);
-				});
-			}
 		},
 
 		getPopupData() {
