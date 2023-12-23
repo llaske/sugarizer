@@ -54,8 +54,6 @@ const ListView = {
 		'popup': Popup,
 	},
 
-	emits: ['activities'],
-
 	data() {
 		return {
 			favactivities: [],
@@ -70,15 +68,17 @@ const ListView = {
 		}
 	},
 
-	props: ['filteredactivities', 'SugarL10n'],
+	props: ['filter', 'SugarL10n'],
 
 	mounted() {
 		this.getActivities();
 	},
 
 	watch: {
-		filteredactivities: function (value) {
-			this.activities = value;
+		filter: function (value) {
+			this.activities = sugarizer.modules.activities.get().filter((activity) => {
+				return activity.name.toUpperCase().includes(value.toUpperCase())
+			});
 		}
 	},
 
@@ -95,8 +95,9 @@ const ListView = {
 			sugarizer.modules.user.get().then((user) => {
 				this.buddycolor = user.color;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
-				this.activities = sugarizer.modules.activities.get();
-				this.$emit('activities', this.activities);
+				this.activities = sugarizer.modules.activities.get().filter((activity) => {
+					return activity.name.toUpperCase().includes(this.filter.toUpperCase())
+				});
 				this.favactivities = sugarizer.modules.activities.getFavoritesName();
 			}, (error) => {
 				throw new Error('Unable to load the user, error ' + error);

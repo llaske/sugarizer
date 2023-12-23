@@ -83,8 +83,6 @@ const HomeScreen = {
 		'settings': Settings,
 	},
 
-	emits: ['activities'],
-
 	data() {
 		return {
 			favactivities: [],
@@ -128,7 +126,7 @@ const HomeScreen = {
 		}
 	},
 
-	props: ['filteredactivities', 'SugarL10n'],
+	props: ['filter', 'SugarL10n'],
 
 	mounted() {
 		this.getActivities();
@@ -143,12 +141,8 @@ const HomeScreen = {
 	},
 
 	watch: {
-		filteredactivities: async function (value) {
-			const enabledactivities = await this.activities.filter(activity => value.includes(activity));
-			this.enableActivities(enabledactivities);
-
-			const disabledactivities = await this.activities.filter(activity => !value.includes(activity));
-			this.disableActivities(disabledactivities);
+		filter: async function (value) {
+			this.filterSearch(value);
 		}
 	},
 
@@ -181,6 +175,7 @@ const HomeScreen = {
 				setTimeout(() => {
 					this.getPopupData();
 					this.getJournalPopupData();
+					this.filterSearch(this.filter);
 				}, 1000);
 			});
 		},
@@ -229,6 +224,17 @@ const HomeScreen = {
 
 		filterFavorite(activities) {
 			return activities.filter(activity => activity.favorite);
+		},
+
+		filterSearch(filter) {
+			const enabledactivities = this.activities.filter((activity) => {
+				return activity.name.toUpperCase().includes(filter.toUpperCase())
+			});
+			this.enableActivities(enabledactivities);
+			const disabledactivities = this.activities.filter((activity) => {
+				return !activity.name.toUpperCase().includes(filter.toUpperCase())
+			});
+			this.disableActivities(disabledactivities);
 		},
 
 		runActivity(activity) {
