@@ -20,7 +20,7 @@
 	<script>if (window.module) module = window.module;</script>
   </head>
 
-  <body id="body">
+  <body id="body" style="overflow-y: visible !important;">
 	<div id="app">
 		<h2>Hello Sugarizer</h2>
 		<h3>{{ message }}</h3>
@@ -90,7 +90,7 @@
 			size="28"
 			color="256"
 			v-on:button-click="openModal('aboutmycomputerModal')"
-			v-bind:disabled=false
+			v-bind:disabled="false"
 		></icon-button>
 
 		<dialog-box 
@@ -183,7 +183,7 @@
 			size="28"
 			color="256"
 			v-on:button-click="buttonfunc1"
-			v-bind:disabled=false
+			v-bind:disabled="false"
 		></icon-button>
 		<icon-button ref="buttonIcon2"
 			text="button two"
@@ -192,7 +192,7 @@
 			size="28"
 			color="256"
 			v-on:button-click="buttonfunc2"
-			v-bind:disabled=false
+			v-bind:disabled="false"
 		></icon-button>
 		<icon ref="popupIcon"
 			id="4"
@@ -231,11 +231,10 @@
 			</li>
 		</ul>
 		<locales ref="locales"></locales>
-		<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+		<sugar-localization ref="SugarL10n"></sugar-localization>
 	</div>
 
 	<script src="js/components/SugarL10n.js"></script>
-	<script src="js/locales.js"></script>
 	<script src="js/components/icon.js"></script>
 	<script src="js/components/iconbutton.js"></script>
 	<script src="js/components/searchfield.js"></script>
@@ -244,6 +243,6 @@
 	<script src="js/components/filterbox.js"></script>
 	<script src="js/components/password.js"></script>
 	<script src="js/components/dialog.js"></script>
-	<script src="js/sandbox.js"></script>
+	<script src="js/screens/sandbox.js"></script>
   </body>
 </html>
