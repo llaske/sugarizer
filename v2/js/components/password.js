@@ -11,7 +11,7 @@ const Password ={
 					<div class="password-input">
 						<input 
 							class="password-value" id="text" ref="password"
-							v-on:keyup="keyEntered"
+							v-on:keyup="keyEntered" name="password"
 							type="text"
 							v-bind:value="passwordValue"
 						/>

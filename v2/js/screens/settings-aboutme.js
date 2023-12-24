@@ -23,7 +23,7 @@ const AboutMe = {
 								<icon id="pficon" ref="pficon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('pficon')" />
 								<icon id="nficon" ref="nficon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('nficon')" />
 							</div>
-							<input ref="nameInput" class="input_field aboutme-input"  v-model="name" />
+							<input ref="nameInput" name="name" class="input_field aboutme-input"  v-model="name" />
 							<div class="aboutme-warning" v-show="warning.show">
 								<icon 
 									id="warning-icon"

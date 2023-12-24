@@ -11,7 +11,7 @@ const SearchField ={
 		<div id="searchField" ref="searchField" class="search-field-border search-field-border-nofocus">
 			<div class="search-field-iconsearch"></div>
 			<input 
-				class="search-field-input" id="text" ref="text"
+				class="search-field-input" id="text" ref="text" name="search"
 				type="text" v-model="searchQuery" 
 				:placeholder="placeholderData" 
 				@focus="onFocus" @blur="onBlur"

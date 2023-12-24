@@ -43,7 +43,7 @@ const MyPrivacy = {
 						<input class="toggle privacy-synccheckbox" type="checkbox" v-model="checkbox.sync">
 						<div class="privacy-syncmessage">Do not synchronize my local journal with the server</div>
 						<div id="desktop_dialogSettings_dialogPrivacy_control2"></div>
-						<input ref="deletecheckbox" class="enyo-input toggle privacy-removecheckbox" type="checkbox" v-model="checkbox.delete">
+						<input ref="deletecheckbox" class="toggle privacy-removecheckbox" type="checkbox" v-model="checkbox.delete">
 						<div class="privacy-removemessage">Display delete account features</div>
 						<div v-show="checkbox.delete">
 							<div class="privacy-removeremotebutton">

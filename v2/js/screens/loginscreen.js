@@ -21,11 +21,11 @@ const LoginScreen = {
 	<form>
 		<div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
 			<div class="firstscreen_text" id="serverurl">{{l10n.stringServerUrl}}</div>
-			<input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
+			<input ref="serverAddress" name="server" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
 			<div class="firstscreen_text" id="name">{{l10n.stringName}}</div>
-			<input ref="nameInput" type="text" class="input_field" v-model="details.name" @keyup="handleEnterKey">
+			<input ref="nameInput" type="text" name="name" class="input_field" v-model="details.name" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
 			<div class="firstscreen_text" id="pass_text">{{l10n.stringPassword}}</div>
