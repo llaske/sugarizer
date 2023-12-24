@@ -21,7 +21,7 @@ TODO list
 * [x] Convert server functions to promises
 * [x] Fix display of activity popup when there is no history
 * [x] Factorize user functions
-* [ ] Handle running app offline
+* [x] Handle running app offline
 * [x] Display cookie screen only when server settings are not set
 * [ ] Handle history
 * [x] Fix search is not working when passing from listview to homescreen

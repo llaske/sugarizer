@@ -163,7 +163,6 @@ const HomeScreen = {
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.getFavorites();
 				this.username = user.name;
-				this.$emit('activities', this.activities);
 				this.favactivities = sugarizer.modules.activities.getFavoritesName();
 				this.draw();
 			}, (error) => {
@@ -230,6 +229,9 @@ const HomeScreen = {
 		filterSearch(filter) {
 			for (let i = 0; i < this.activities.length; i++) {
 				let ref = this.$refs["activity" + this.activities[i].id];
+				if (!ref || ref.length == 0) {
+					continue;
+				}
 				ref[0].disabledData = !this.activities[i].name.toUpperCase().includes(filter.toUpperCase());
 			}
 		},

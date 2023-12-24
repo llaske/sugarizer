@@ -60,8 +60,16 @@ define([], function() {
 
 			// In the app, create the user locally
 			if (sugarizer.getClientType() === sugarizer.constant.appType) {
-				sugarizer.modules.settings.setUser(signupData);
-				resolve(signupData);
+				signupData.colorvalue = signupData.color;
+				signupData.color = sugarizer.modules.xocolor.findIndex(signupData.colorvalue);
+				signupData.options = {stats: false, sync: false};
+				sugarizer.modules.activities.load().then((activities) => {
+					signupData.activities = activities;
+					sugarizer.modules.settings.setUser(signupData);
+					resolve(signupData);
+				}, (error) => {
+					throw new Error('Unable to load the activities, error ' + error);
+				});
 				return;
 			}
 
