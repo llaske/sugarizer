@@ -31,15 +31,6 @@ define([], function() {
 	settings.removeUser = function() {
 		localStorage.removeItem("sugar_settings");
 	}
-
-	// Load history
-	settings.getHistory = function() {
-		var history = localStorage.getItem("sugar_history");
-		if (history !== null && history !== undefined && history !== "{}") {
-			return JSON.parse(history);
-		}
-		return [];
-	}
 	
 	return settings;
 });

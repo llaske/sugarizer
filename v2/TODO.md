@@ -23,7 +23,7 @@ TODO list
 * [x] Factorize user functions
 * [x] Handle running app offline
 * [x] Display cookie screen only when server settings are not set
-* [ ] Handle history
+* [x] Handle history
 * [x] Fix search is not working when passing from listview to homescreen
 * [x] Fix running of activities
 * [x] Fix reordering of activities when passing from listview to homescreen

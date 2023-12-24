@@ -205,7 +205,7 @@ const LoginScreen = {
 
 	methods: {
 		changeColor() {
-			this.$refs.buddyIcon.colorData = Math.floor(Math.random() * 180);
+			this.details.color = this.$refs.buddyIcon.colorData = Math.floor(Math.random() * 180);
 		},
 
 		checkMethodType() {
@@ -296,11 +296,13 @@ const LoginScreen = {
 		login(baseurl, name, password) {
 			if (sugarizer.getClientType() === sugarizer.constant.appType) {
 				app.updateFavicon();
+				sugarizer.modules.history.addUser({ name: name, color: this.details.color, server: { url: baseurl } });
 				this.$emit('updateIsFirstScreen', false);
 				return;
 			}
 			sugarizer.modules.user.login(baseurl, name, password).then((user) => {
 				app.updateFavicon();
+				sugarizer.modules.history.addUser({ name: user.name, color: user.color, server: { url: baseurl } });
 				this.$emit('updateIsFirstScreen', false);
 			}, (error) => {
 				if (error === 1) {
@@ -316,10 +318,8 @@ const LoginScreen = {
 			if (this.userType.isNewuser) {
 				const colorNumber = this.$refs.buddyIcon.colorData;
 
-				this.details.color = sugarizer.modules.xocolor.get(colorNumber);
-
 				this.details.password = this.$refs.passwordInput.passwordText;
-				sugarizer.modules.user.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color).then((user) => {
+				sugarizer.modules.user.signup(this.details.serverAddress, this.details.name, this.details.password, sugarizer.modules.xocolor.get(colorNumber)).then((user) => {
 					this.login(this.details.serverAddress, this.details.name, this.details.password);
 				}, (error) => {
 					console.log(error);
