@@ -121,7 +121,10 @@ let sugarizer = {
 			this.modules.settings.removeUser();
 			location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
 		} else {
-			// TODO: For app, display a message and mark token expired
+			this.modules.settings.removeUser();
+			this.modules.journal.cleanLocal().then(() => {
+				location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
+			});
 		}
 	},
 };

@@ -1,6 +1,6 @@
 
 // Interface to Journal
-define([], function() {
+define(["sugar-web/datastore"], function(datastore) {
 
 	var journal = {};
 
@@ -14,9 +14,9 @@ define([], function() {
 				reject();
 			}
 
-			// TODO: In the app, get the journal locally
+			// In the app, get the journal locally
 			if (sugarizer.getClientType() === sugarizer.constant.appType) {
-				entries = [];
+				entries = datastore.find();
 				resolve();
 				return;
 			}
@@ -42,6 +42,28 @@ define([], function() {
 	// Get entries by activity
 	journal.getByActivity = function(activity) {
 		return entries.filter((entry) => entry.metadata.activity == activity);
+	}
+
+	// Clean local journal
+	journal.cleanLocal = function() {
+		return new Promise(function(resolve, reject) {
+			var results = datastore.find();
+			var i = 0;
+			var removeOneEntry = function(err) {
+				if (++i < results.length) {
+					datastore.remove(results[i].objectId, removeOneEntry);
+				} else {
+					entries = [];
+					resolve();
+				}
+			};
+			if (results.length) {
+				datastore.remove(results[i].objectId, removeOneEntry);
+			} else {
+				entries = [];
+				resolve();
+			}
+		});
 	}
 	
 	return journal;

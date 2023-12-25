@@ -137,6 +137,14 @@ define([], function() {
 	// Update user information
 	user.update = function(data) {
 		return new Promise((resolve, reject) => {
+			// In the app, set the user locally
+			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+				sugarizer.modules.settings.setUser(data);
+				resolve(sugarizer.modules.settings.getUser());
+				return;
+			}
+
+			// Update user on the server
 			sugarizer.modules.server.putUser(null, data).then((user) => {
 				resolve(user);
 			}, (error) => {

@@ -391,8 +391,8 @@ const HomeScreen = {
 		},
 
 		logout() {
-			sugarizer.modules.settings.removeUser();
-			window.location.reload();
+			// TODO: On local app disconnected a warning should be displayed to confirm lost of data 
+			sugarizer.restart();
 		},
 
 		getCanvasCenter() {
