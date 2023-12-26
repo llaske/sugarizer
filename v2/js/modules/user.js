@@ -63,6 +63,7 @@ define([], function() {
 				signupData.colorvalue = signupData.color;
 				signupData.color = sugarizer.modules.xocolor.findIndex(signupData.colorvalue);
 				signupData.options = {stats: false, sync: false};
+				signupData.server = {url: ""};
 				sugarizer.modules.activities.load().then((activities) => {
 					signupData.activities = activities;
 					sugarizer.modules.settings.setUser(signupData);
@@ -99,8 +100,11 @@ define([], function() {
 					...response.user
 				}
 				data = convertFields(data);
-				sugarizer.modules.settings.setUser(data);
-				resolve(data);
+				sugarizer.modules.server.getServerInformation(baseurl).then((server) => {
+					data.server = server;
+					sugarizer.modules.settings.setUser(data);
+					resolve(data);
+				});
 			}, (error) => {
 				reject(error);
 			});
@@ -126,8 +130,12 @@ define([], function() {
 					...user
 				}
 				data = convertFields(data);
-				sugarizer.modules.settings.setUser(data);
-				resolve(data);
+				let server = sugarizer.modules.settings.getUser().server;
+				sugarizer.modules.server.getServerInformation(server ? server.url : '').then((server) => {
+					data.server = server;
+					sugarizer.modules.settings.setUser(data);
+					resolve(data);
+				});
 			}, (error) => {
 				reject(error);
 			});

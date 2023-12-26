@@ -80,13 +80,17 @@ define([], function() {
 	server.getServerInformation = function(serverurl) {
 		return new Promise(function(resolve, reject) {
 			var serverUrl = serverurl;
-			if (serverUrl.length && serverUrl[serverurl.length-1] == '/') {
+			if (!serverUrl || !serverUrl.length) {
+				serverUrl = server.getServerUrl();
+			}
+			if (serverUrl.length && serverUrl[serverUrl.length-1] == '/') {
 				serverUrl = serverUrl.substr(0, serverUrl.length-1);
 			}
 			var ajax = axios.create({
 				responseType: "json"
 			});
 			ajax.get(serverUrl + constant.serverInformationURL).then(function(inResponse) {
+				inResponse.data.url = serverUrl;
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				reject(getErrorCode(inResponse));
@@ -162,7 +166,7 @@ define([], function() {
 		});
 	}
 
-	// Create a new user
+	// Log an user
 	server.loginUser = function(user, optserver) {
 		return new Promise(function(resolve, reject) {
 			var userValue = user;
