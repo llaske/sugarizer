@@ -20,7 +20,7 @@ define(["sugar-web/datastore"], function(datastore) {
 		for (var i = 0 ; i < history.length ; i++) {
 			if (user.name.toLowerCase() == history[i].name.toLowerCase() &&
 					((user.server == null && history[i].server == null) ||
-					(user.server && user.server.url && history[i].server && history[i].server.url && user.server.url == history[i].server.url))
+					(user.server && history[i].server && user.server.url == history[i].server.url))
 				) {
 				history[i] = history[history.length-1];
 				history[history.length-1] = user;

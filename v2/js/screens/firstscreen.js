@@ -135,6 +135,7 @@ const FirstScreen = {
 							this.userType.isPrevUser = {
 								name: user.name,
 								url: user.server.url,
+								color: user.color,
 							}
 						}
 					});

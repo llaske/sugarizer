@@ -218,6 +218,15 @@ const LoginScreen = {
 				this.index.minIndex = 1;
 				this.index.maxIndex = (sugarizer.getClientType() === sugarizer.constant.appType ? 3 : 4);
 			} else if (this.userType.isPrevUser !== null) {
+				if (this.userType.isPrevUser.url == '' && sugarizer.getClientType() === sugarizer.constant.appType) {
+					this.details.color = this.userType.isPrevUser.color;
+					sugarizer.modules.user.signup(this.userType.isPrevUser.url, this.userType.isPrevUser.name, '', sugarizer.modules.xocolor.get(this.details.color)).then((user) => {
+						this.login(this.userType.isPrevUser.url, this.userType.isPrevUser.name, '');
+					}, (error) => {
+						console.log(error);
+					});
+					return;
+				}
 				this.index.currentIndex = 2;
 				this.index.minIndex = 2;
 				this.index.maxIndex = 2;
