@@ -76,6 +76,9 @@ const Icon ={
 	watch: {
 		colorData: function(newColor, oldColor) {
 			var element = this._element;
+			if (!element) {
+				return;
+			}
 			element.setAttribute("class", "xo-color"+newColor);
 		}, 
 		color: function(newColor, oldColor) {
@@ -83,6 +86,9 @@ const Icon ={
 		},
 		xData: function(newX, oldX) {
 			var iconDiv = this.$refs.icon;
+			if (!iconDiv) {
+				return;
+			}
 			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+newX+"px"+this._generateOriginalColor());
 		}, 
 		x: function(newX, oldX) {
@@ -90,6 +96,9 @@ const Icon ={
 		},
 		yData: function(newY, oldX) {
 			var iconDiv = this.$refs.icon;
+			if (!iconDiv) {
+				return;
+			}
 			iconDiv.setAttribute("style", "margin: "+newY+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
 		},		
 		y: function(newY, oldX) {
@@ -100,6 +109,9 @@ const Icon ={
 		},
 		sizeData: function(newSize, oldSize) {
 			var element = this._element;
+			if (!element) {
+				return;
+			}
 			element.setAttribute("width", newSize+"px");
 			element.setAttribute("height", newSize+"px");
 		}
