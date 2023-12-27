@@ -158,6 +158,7 @@ const LoginScreen = {
 				stringUserAlreadyExist: '',
 				stringInvalidUser: '',
 				stringUserLoginInvalid: '',
+				stringErrorLoadingRemote: '',
 			},
 			l10nRef: null,
 			consentNeed: false,
@@ -247,7 +248,13 @@ const LoginScreen = {
 
 			if (this.index.currentIndex < this.index.maxIndex) {
 				if (this.index.currentIndex === 0 && this.details.serverAddress.length > 0) { // server address
-					this.index.currentIndex++;
+					await sugarizer.modules.server.getServerInformation(this.details.serverAddress).then((info) => {
+						this.index.currentIndex++;
+					}, (error) => {
+						console.log(error);
+						this.warning.show = true;
+						this.warning.text = this.l10n.stringErrorLoadingRemote;
+					});
 				}
 
 				else if (this.index.currentIndex === 1 && this.details.name.length > 0) { // name
