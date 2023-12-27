@@ -86,9 +86,9 @@ define(["sugar-web/datastore"], function (datastore) {
 	// Load activities, return a Promise object
 	activities.load = function() {
 		// Get activities list from server
-		if (sugarizer.getClientType() == sugarizer.constant.webAppType) {
+		if (sugarizer.getClientType() == sugarizer.constant.webAppType || sugarizer.modules.user.isConnected()) {
 			return new Promise(function(resolve, reject) {
-				sugarizer.modules.server.getActivities().then(function(response) {
+				sugarizer.modules.server.getActivities(sugarizer.modules.user.getServerURL()).then(function(response) {
 					updateList(response);
 					updateSugarizerOS(function() {
 						resolve(list);

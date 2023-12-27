@@ -14,15 +14,15 @@ define(["sugar-web/datastore"], function(datastore) {
 				reject();
 			}
 
-			// In the app, get the journal locally
-			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+			// In the app, get the journal locally except if the user is connected to a server
+			if (sugarizer.getClientType() === sugarizer.constant.appType && !sugarizer.modules.user.isConnected()) {
 				entries = datastore.find();
 				resolve();
 				return;
 			}
 
 			// Load journal from server
-			sugarizer.modules.server.getJournal(user.privateJournal, { limit: 100 }).then((journal) => {
+			sugarizer.modules.server.getJournal(user.privateJournal, { limit: 100 }, sugarizer.modules.user.getServerURL()).then((journal) => {
 				entries = journal.entries.sort((a, b) => {
 					return new Date(b.metadata.timestamp) - new Date(a.metadata.timestamp);
 				});

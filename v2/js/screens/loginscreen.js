@@ -210,7 +210,7 @@ const LoginScreen = {
 
 		checkMethodType() {
 			if (this.userType.isLogin) {
-				this.index.currentIndex = 1;
+				this.index.currentIndex = (sugarizer.getClientType() === sugarizer.constant.appType ? 0 : 1);
 				this.index.minIndex = 1;
 				this.index.maxIndex = 2;
 			} else if (this.userType.isNewuser) {
@@ -246,12 +246,12 @@ const LoginScreen = {
 			this.warning.show = false;
 
 			if (this.index.currentIndex < this.index.maxIndex) {
-				if (this.index.currentIndex === 0) { // server address
+				if (this.index.currentIndex === 0 && this.details.serverAddress.length > 0) { // server address
 					this.index.currentIndex++;
 				}
 
-				else if (this.index.currentIndex === 1) { // name
-					if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
+				else if (this.index.currentIndex === 1 && this.details.name.length > 0) { // name
+					if (sugarizer.getClientType() === sugarizer.constant.webAppType || this.details.serverAddress.length > 0) {
 						const info = await sugarizer.modules.server.getServerInformation(this.details.serverAddress);
 						this.consentNeed = info.options['consent-need'];
 						this.consentPolicy = info.options['policy-url'];
@@ -260,7 +260,7 @@ const LoginScreen = {
 					const userexists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.name);
 					if (this.userType.isNewuser && !userexists) {
 						this.index.currentIndex++;
-						if (sugarizer.getClientType() === sugarizer.constant.appType) {
+						if (this.details.serverAddress.length == 0) {
 							this.index.currentIndex++;
 						} else if (!this.consentNeed) {
 							this.index.maxIndex = 3;
@@ -281,7 +281,7 @@ const LoginScreen = {
 				else if (this.index.currentIndex === 3) { // icon
 					this.index.currentIndex++;
 				}
-				else { // privacy
+				else if (this.index.currentIndex === 4) { // privacy
 					this.index.currentIndex++;
 				}
 			}
@@ -294,7 +294,7 @@ const LoginScreen = {
 		},
 
 		handlePasswordSet(password) {
-			if (this.index.maxIndex === 4 || (this.index.maxIndex === 3 && sugarizer.getClientType() === sugarizer.constant.webAppType && !this.consentNeed)) {
+			if (this.index.maxIndex === 4 || (this.index.maxIndex === 3 && this.details.name.length > 0 && !this.consentNeed)) {
 				this.nextItem();
 			}
 			else if (this.index.maxIndex === 2) {
@@ -303,7 +303,7 @@ const LoginScreen = {
 		},
 
 		login(baseurl, name, password) {
-			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+			if (sugarizer.getClientType() === sugarizer.constant.appType && this.details.serverAddress.length == 0) {
 				app.updateFavicon();
 				sugarizer.modules.history.addUser({ name: name, color: this.details.color, server: { url: baseurl } });
 				this.$emit('updateIsFirstScreen', false);

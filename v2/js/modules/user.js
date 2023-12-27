@@ -16,11 +16,29 @@ define([], function() {
 		return user;
 	}
 
+	// Test if the user is connected
+	user.isConnected = function() {
+		// In the web, the user is always connected
+		if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
+			return true;
+		}
+
+		// In the app, the user is connected if the server url is set
+		let settings = sugarizer.modules.settings.getUser();
+		return settings && settings.server && settings.server.url && settings.server.url.length > 0;
+	}
+
+	// Get server url
+	user.getServerURL = function() {
+		let settings = sugarizer.modules.settings.getUser();
+		return settings && settings.server && settings.server.url ? settings.server.url : '';
+	}
+
 	// Check if user exists
 	user.checkIfExists = function(baseurl, name) {
 		return new Promise((resolve, reject) => {
-			// In the app, only one user can be created
-			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+			// In the app, only one user can be created except if the server url is set
+			if (sugarizer.getClientType() === sugarizer.constant.appType && (!baseurl || baseurl.length === 0)) {
 				resolve(false);
 				return;
 			}
@@ -114,14 +132,14 @@ define([], function() {
 	// Get user information
 	user.get = function() {
 		return new Promise((resolve, reject) => {
-			// In the app, get the user locally
-			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+			// In the app, get the user locally except if the user is connected to a server
+			if (sugarizer.getClientType() === sugarizer.constant.appType && !sugarizer.modules.user.isConnected()) {
 				resolve(sugarizer.modules.settings.getUser());
 				return;
 			}
 
 			// Get user from the server
-			sugarizer.modules.server.getUser().then((user) => {
+			sugarizer.modules.server.getUser(null, sugarizer.modules.user.getServerURL()).then((user) => {
 				let data = {
 					"token": {
 						"x_key": sugarizer.modules.server.getToken().x_key,
@@ -145,8 +163,8 @@ define([], function() {
 	// Update user information
 	user.update = function(data) {
 		return new Promise((resolve, reject) => {
-			// In the app, set the user locally
-			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+			// In the app, set the user locally except if the user is connected to a server
+			if (sugarizer.getClientType() === sugarizer.constant.appType && !sugarizer.modules.user.isConnected()) {
 				sugarizer.modules.settings.setUser(data);
 				resolve(sugarizer.modules.settings.getUser());
 				return;
