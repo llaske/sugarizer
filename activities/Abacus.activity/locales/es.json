@@ -1,0 +1,17 @@
+{
+	"TutoPrev": "Ant",
+	"TutoNext": "Sig",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Actividad \"Ábaco\"",
+	"TutoExplainContent": "Bienvenido a la actividad \"Ábaco\". Con \"Ábaco\", el alumno aprenderá diferentes formas de representar números, usando mecanismos para contar desarrollados por las antiguas civilizaciones romana y china",
+	"TutoAbacusTitle": "Tipo de ábaco",
+	"TutoAbacusContent": "Haz clic aquí para elegir un tipo de ábaco. Algunos de ellos te permitirán usar números con decimales, con otros manejarás fracciones y con algunos incluso podrás expresar números en base 2. Por último, también podrás crear tu propio ábaco",
+	"TutoCustomTitle": "Personalizar",
+	"TutoCustomContent": "Haz clic aquí para crear un ábaco personalizado. Elige tu propio número de cuentas, líneas y base numérica",
+	"TutoCopyTitle": "Copiar",
+	"TutoCopyContent": "Haz clic aquí para copiar el valor actual en el portapapeles",
+	"TutoClearTitle": "Reiniciar",
+	"TutoClearContent": "Haz clic aquí para devolver el valor del ábaco a 0",
+	"TutoCanvasTitle": "Ábaco",
+	"TutoCanvasContent": "Este es tu ábaco. Haz clic o arrastra las cuentas al centro para escribir números"
+}
