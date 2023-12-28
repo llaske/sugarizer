@@ -29,6 +29,11 @@ TODO list
 * [x] Fix reordering of activities when passing from listview to homescreen
 * [x] Add a disable property on icon an factorize enable/disable code
 * [x] Add a ping check when a server is typed 
+* [x] Add an animated sync icon on the home screen
+* [x] Add an offline icon on the home screen
+* [ ] Handle synchronization of local Journal with server
+* [ ] Handle connection to server when offline
+* [ ] Don't propose an always random color when creating a new user, should be incremental
 * [ ] Display a confirmation dialog when disconnecting from the app when not connected to a server
 * [ ] Display a message when there is no activity matching the search in listview
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587

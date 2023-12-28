@@ -15,6 +15,26 @@ const MainScreen = {
 							color="768"
 							isNative="true"
 						></icon>
+						<icon v-if="false"
+							class="toolbutton sync-gear"
+							id="toolbar-sync-btn"
+							svgfile="./icons/sync.svg"
+							size="47"
+							x="0"
+							y="0"
+							color="768"
+							isNative="true"
+						></icon>
+						<icon v-if="offline"
+							class="toolbutton"
+							id="toolbar-offline-btn"
+							svgfile="./icons/cloud-warning.svg"
+							size="47"
+							x="0"
+							y="0"
+							color="256"
+							isNative="true"
+						></icon>
 					</div>
 					<div class="tool_rightitems">
 						<icon
@@ -71,6 +91,7 @@ const MainScreen = {
 			l10n: {
 				stringSearchHome: "",
 			},
+			offline: false,
 		}
 	},
 
@@ -89,6 +110,7 @@ const MainScreen = {
 				language: e.detail.l10n.language,
 			}
 		}, { once: true });
+		vm.offline = !sugarizer.modules.user.isConnected();
 	},
 
 	watch: {

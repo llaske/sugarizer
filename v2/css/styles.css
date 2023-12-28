@@ -990,6 +990,24 @@ a {
 	opacity: 0.5;
 }
 
+.sync-gear {
+	animation-name: sync-frame;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes sync-frame {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(-180deg);
+	}
+	100% {
+		transform: rotate(-360deg);
+	}
+}
+
 /* settings screen */
 .settings-subscreen {
 	background-color: #ffffff;
