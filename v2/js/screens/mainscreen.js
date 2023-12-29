@@ -15,7 +15,7 @@ const MainScreen = {
 							color="768"
 							isNative="true"
 						></icon>
-						<icon v-if="false"
+						<icon v-if="sync"
 							class="toolbutton sync-gear"
 							id="toolbar-sync-btn"
 							svgfile="./icons/sync.svg"
@@ -92,6 +92,7 @@ const MainScreen = {
 				stringSearchHome: "",
 			},
 			offline: false,
+			sync: false,
 		}
 	},
 
@@ -110,6 +111,17 @@ const MainScreen = {
 				language: e.detail.l10n.language,
 			}
 		}, { once: true });
+		window.addEventListener('synchronization', (e) => {
+			if (e.detail.step === 'compute') {
+				vm.sync = true;
+			} else if (e.detail.step === 'start') {
+				if (e.detail.local+e.detail.remote > 0) {
+					sugarizer.modules.humane.log(this.SugarL10n.get("RetrievingJournal"));
+				}
+			} else if (e.detail.step === 'end') {
+				vm.sync = false;
+			}
+		});
 		vm.offline = !sugarizer.modules.user.isConnected();
 	},
 

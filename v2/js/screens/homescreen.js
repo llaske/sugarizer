@@ -93,8 +93,6 @@ const HomeScreen = {
 			popup: null, // singular popup data
 			username: null,
 			buddycolor: null,
-			jid: null,
-			journalEntries: [],
 			constant: {
 				iconSpacingFactor: 1.1,
 				ringInitSpaceFactor: 2.2,
@@ -159,7 +157,6 @@ const HomeScreen = {
 		async getUser() {
 			sugarizer.modules.user.get().then((user) => {
 				this.buddycolor = user.color;
-				this.jid = user.privateJournal;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.getFavorites();
 				this.username = user.name;
@@ -171,7 +168,7 @@ const HomeScreen = {
 		},
 
 		async getJournal() {
-			sugarizer.modules.journal.load().then(() => {
+			sugarizer.modules.journal.synchronize().then(() => {
 				setTimeout(() => {
 					this.getPopupData();
 					this.getJournalPopupData();
@@ -350,7 +347,10 @@ const HomeScreen = {
 				this.popup = popupData[itemId];
 				this.popupIcon = this.$refs["buddyIcon"];
 			} else {
-				const obj = JSON.parse(JSON.stringify(this.popupData))
+				const obj = JSON.parse(JSON.stringify(this.popupData));
+				if (!obj) {
+					return;
+				}
 				this.popup = obj[itemId];
 				this.popupIcon = this.$refs["activity" + itemId][0];
 			}
@@ -432,7 +432,6 @@ const HomeScreen = {
 		},
 
 		draw() {
-
 			// Compute center and radius
 			let constant = this.constant;
 			let canvas_center = this.getCanvasCenter();
@@ -445,7 +444,6 @@ const HomeScreen = {
 			// Compute ring size and shape
 			let activitiesList = this.activities;
 			let activitiesCount = activitiesList.length;
-			let activitiesIndex = 0;
 			let radiusx, radiusy, base_angle, spiralMode, restrictedMode;
 			let PI2 = Math.PI * 2.0;
 			radiusx = radiusy = Math.max(constant.ringMinRadiusSize, Math.min(canvas_center.x - icon_size, canvas_center.y - icon_size));
@@ -481,7 +479,6 @@ const HomeScreen = {
 			let angle = -Math.PI / 2.0 - base_angle;
 			for (let i = 0; i < activitiesList.length; i++) {
 				// Compute icon position
-				let activity = activitiesList[i];
 				let ix, iy;
 				let previousAngle = angle;
 				if (!spiralMode) {
@@ -508,7 +505,6 @@ const HomeScreen = {
 					}
 				}
 				this.activityPositions.push({ x: ix, y: iy });
-
 			}
 			if (restrictedMode) {
 				const nextcount = this.restrictedModeInfo.start + this.restrictedModeInfo.count;

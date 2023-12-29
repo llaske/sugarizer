@@ -31,7 +31,7 @@ TODO list
 * [x] Add a ping check when a server is typed 
 * [x] Add an animated sync icon on the home screen
 * [x] Add an offline icon on the home screen
-* [ ] Handle synchronization of local Journal with server
+* [x] Handle synchronization of local Journal with server
 * [ ] Handle connection to server when offline
 * [ ] Don't propose an always random color when creating a new user, should be incremental
 * [ ] Display a confirmation dialog when disconnecting from the app when not connected to a server

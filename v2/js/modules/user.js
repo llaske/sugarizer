@@ -34,6 +34,24 @@ define([], function() {
 		return settings && settings.server && settings.server.url ? settings.server.url : '';
 	}
 
+	// Get option
+	user.getOption = function(name) {
+		let settings = sugarizer.modules.settings.getUser();
+		return settings && settings.options ? settings.options[name] : null;
+	}
+
+	// Get private journal
+	user.getPrivateJournal = function() {
+		let settings = sugarizer.modules.settings.getUser();
+		return settings && settings.privateJournal ? settings.privateJournal : null;
+	}
+
+	// Get shared journal
+	user.getSharedJournal = function() {
+		let settings = sugarizer.modules.settings.getUser();
+		return settings && settings.sharedJournal ? settings.sharedJournal : null;
+	}
+
 	// Check if user exists
 	user.checkIfExists = function(baseurl, name) {
 		return new Promise((resolve, reject) => {
@@ -74,6 +92,7 @@ define([], function() {
 				},
 				"role": "student",
 				"language": sugarizer.modules.i18next.language,
+				"options": {stats: true, sync: true},
 			}
 
 			// In the app, create the user locally
