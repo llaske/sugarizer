@@ -233,6 +233,11 @@ body {
   margin-top: 25px;
 }
 
+.info p{
+  font-size: 14px;
+  margin: 4px;
+  font-weight: 600;
+}
 canvas {
   position: absolute;
   top: 0;
