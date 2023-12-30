@@ -36,12 +36,12 @@ const HomeScreen = {
 							></icon>
 							<icon
 								id="journal-btn"
+								:ref="'journalIcon'"
 								svgfile="./icons/activity-journal.svg"
 								class="home-icon"
 								:size="constant.sizeJournal"
 								:x="canvasCenter.x - constant.sizeJournal/2"
 								:y="canvasCenter.y + constant.sizeOwner - constant.sizeJournal + canvasCenter.jdeltay"
-								:color="buddycolor"
 								isNative="true"
 							></icon>
 							<icon
@@ -170,6 +170,9 @@ const HomeScreen = {
 		async getJournal() {
 			sugarizer.modules.journal.synchronize().then(() => {
 				setTimeout(() => {
+					if (sugarizer.modules.journal.get().length > 0) {
+						this.$refs["journalIcon"].colorData = this.buddycolor;
+					}
 					this.getPopupData();
 					this.getJournalPopupData();
 					this.filterSearch(this.filter);
