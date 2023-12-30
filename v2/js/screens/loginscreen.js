@@ -206,7 +206,7 @@ const LoginScreen = {
 
 	methods: {
 		changeColor() {
-			this.details.color = this.$refs.buddyIcon.colorData = Math.floor(Math.random() * 180);
+			this.details.color = sugarizer.modules.xocolor.next(this.$refs.buddyIcon.colorData);
 		},
 
 		checkMethodType() {

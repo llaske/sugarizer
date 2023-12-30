@@ -737,5 +737,10 @@ define(function () {
 		});
 	};
 
+	xocolor.next = function(index) {
+		index = (index + 1) % xocolor.colors.length;
+		return index;
+	};
+
 	return xocolor;
 });
