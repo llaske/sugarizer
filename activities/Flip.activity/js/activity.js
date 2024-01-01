@@ -17,7 +17,12 @@ define(["sugar-web/activity/activity", "l10n", 'easeljs','tweenjs','activity/gam
 				var language = environment.user ? environment.user.language : defaultLanguage;
 				l10n.init(language);
 			});
-				});
+		});
+
+		//localization for turntext
+		window.addEventListener("localized", function() {
+			document.getElementById("turntext").innerText = l10n.get("turntext");
+		});
 	});
 
 });
