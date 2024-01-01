@@ -236,6 +236,9 @@ body {
 .info p{
   font-size: 14px;
   margin: 4px;
+  
+}
+.info p:first-of-type{
   font-weight: 600;
 }
 canvas {
