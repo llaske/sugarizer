@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/game','activity/flipdot'], function (act, webL10n) {
+define(["sugar-web/activity/activity", "l10n", 'easeljs','tweenjs','activity/game','activity/flipdot'], function (act, l10n) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -15,7 +15,7 @@ define(["sugar-web/activity/activity", "webL10n", 'easeljs','tweenjs','activity/
 				// Set current language to Sugarizer
 				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 				var language = environment.user ? environment.user.language : defaultLanguage;
-				webL10n.language.code = language;
+				l10n.init(language);
 			});
 				});
 	});
