@@ -1,4 +1,4 @@
-# Migrate Vue.JS Activity to i18next internationalization framework
+# Migrate Vanilla.JS Activity to i18next internationalization framework
 To migrate a Vanilla.JS Activity you would need to follow the steps mentioned below.
 
 ## Step1: Downloading dependencies
