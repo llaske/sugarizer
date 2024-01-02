@@ -38,6 +38,8 @@ TODO list
 * [ ] Implement privacy settings
 * [ ] Display a confirmation dialog when disconnecting from the app when not connected to a server
 * [ ] Display a message when there is no activity matching the search in listview
+* [ ] Use the same button for next and done in the first screen
+* [ ] Add spinner when connecting to a server
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
 * [x] Now that the popup has a timer, we see that the popup should be hidden when there is a click on a item.

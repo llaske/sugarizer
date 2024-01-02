@@ -1096,6 +1096,36 @@ a {
 	margin-top: 60px;
 }
 
+#aboutserver-warning {
+	margin-top: 60px;
+}
+
+.aboutserver-passwordtext {
+	margin-top: 50px;
+}
+
+.aboutserver-password {
+	color: black;
+}
+
+.aboutserver-nextbutton {
+	margin-top: 20px;
+}
+
+.aboutserver-privacybox {
+	display: grid;
+	margin-top: 80px;
+	justify-content: center;
+}
+
+.aboutserver-privacy {
+	margin-top: 20px;
+}
+
+.aboutserver-policytext {
+	margin-top: 10px;
+}
+
 .security-message {
 	position: absolute;
 	left: 20px;

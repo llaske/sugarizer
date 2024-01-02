@@ -25,7 +25,7 @@ define([], function() {
 
 		// In the app, the user is connected if the server url is set
 		let settings = sugarizer.modules.settings.getUser();
-		return settings && settings.server && settings.server.url && settings.server.url.length > 0;
+		return (!settings || !settings.server || !settings.server.url || settings.server.url.length == 0) ? false : true;
 	}
 
 	// Get server url
@@ -74,7 +74,7 @@ define([], function() {
 				if (error === 22) {
 					resolve(true);
 				} else {
-					reject(false);
+					reject(error);
 				}
 			});
 		});
@@ -96,7 +96,7 @@ define([], function() {
 			}
 
 			// In the app, create the user locally
-			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+			if (sugarizer.getClientType() === sugarizer.constant.appType && (!baseurl || baseurl.length === 0)) {
 				signupData.colorvalue = signupData.color;
 				signupData.color = sugarizer.modules.xocolor.findIndex(signupData.colorvalue);
 				signupData.options = {stats: false, sync: false};
@@ -106,13 +106,13 @@ define([], function() {
 					sugarizer.modules.settings.setUser(signupData);
 					resolve(signupData);
 				}, (error) => {
-					throw new Error('Unable to load the activities, error ' + error);
+					reject(error);
 				});
 				return;
 			}
 
 			// Create user on the server
-			sugarizer.modules.server.postUser(signupData).then((user) => {
+			sugarizer.modules.server.postUser(signupData, baseurl).then((user) => {
 				resolve(user);
 			}, (error) => {
 				reject(error);

@@ -34,6 +34,7 @@ const MainScreen = {
 							y="0"
 							color="256"
 							isNative="true"
+							@click="displayServerSettings()"
 						></icon>
 					</div>
 					<div class="tool_rightitems">
@@ -72,7 +73,7 @@ const MainScreen = {
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
 						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n"/>
-						<homescreen v-else-if="screentype==='home'" :filter="filter" :SugarL10n="SugarL10n"/>
+						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" :SugarL10n="SugarL10n"/>
 						<div v-else-if="screentype==='neighbor'"> Neighbor </div>
 					</div>
 					`,
@@ -139,6 +140,12 @@ const MainScreen = {
 	methods: {
 		searchFunction(searchInput) {
 			this.filter = searchInput;
+		},
+
+		displayServerSettings() {
+			if (this.screentype === 'home') {
+				this.$refs.home.$refs.settings.openModal('aboutMyServerModal');
+			}
 		},
 	},
 };

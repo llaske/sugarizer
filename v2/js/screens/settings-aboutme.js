@@ -173,7 +173,7 @@ const AboutMe = {
 		async updateUser(name, colorIndex) {
 			const color = sugarizer.modules.xocolor.get(colorIndex);
 			sugarizer.modules.user.update({ name: name, color: color }).then(() => {
-				window.location.reload();
+				sugarizer.reload();
 			});
 		},
 

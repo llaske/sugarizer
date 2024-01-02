@@ -116,6 +116,11 @@ let sugarizer = {
 		return this.constant.sugarizerVersion;
 	},
 
+	// Reload app
+	reload: function() {
+		window.location.reload();
+	},
+
 	// Restart app
 	restart: function() {
 		this.modules.settings.removeUser();
