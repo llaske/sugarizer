@@ -276,7 +276,7 @@ a {
 	z-index: 1;
 }
 
-.item-list-item :hover{
+.item-list-item:hover{
 	background-color: #808080;
 }
 
