@@ -2,7 +2,7 @@
 
 # What is Sugarizer ?
 
-Sugarizer is a free/libre learning platform. The Sugarizer UI use ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
+Sugarizer is a free/libre learning platform. The Sugarizer UI uses ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
 
 Sugarizer runs on every device: laptops, desktops, tiny computers, tablets or smartphones.
 
@@ -16,13 +16,13 @@ Sugarizer is available as:
 
 # Sugarizer Application
 
-Sugarizer Application is a cross-platform application for installing on any GNU+Linux, Windows, Mac OS, Android or iOS device.
+Sugarizer Application is a cross-platform application for installation on any GNU+Linux, Windows, Mac OS, Android or iOS device.
 
 To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
-Sugarizer on Android is also available as a launcher to replace the current launcher of your device so you could launch native Android applications from Sugarizer. You could download this Sugarizer version on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizeros).
+Sugarizer on Android is also available as a launcher to replace the current launcher of your device so you can launch native Android applications from Sugarizer. You can download this Sugarizer version on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizeros).
 
-You could also build yourself the Sugarizer Application APK using instruction below.
+You could also build yourself the Sugarizer Application APK using the instructions below.
 
 <a href="https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer">![](images/googleplay.png)</a>
 <a href="http://www.amazon.com/gp/product/B00NKK7PZA">![](images/amazonstore.png)</a>
@@ -30,7 +30,7 @@ You could also build yourself the Sugarizer Application APK using instruction be
 
 
 
-To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using instructions below.
+To run **Sugarizer Application on iOS**, download it on [Apple Store](https://itunes.apple.com/us/app/sugarizer/id978495303) or build yourself the Sugarizer Application IPA using the instructions below.
 
 <a href="https://apps.apple.com/us/app/sugarizer/id978495303">![](images/applestore.png)</a>
 
@@ -42,7 +42,7 @@ The Sugarizer desktop application has four possible arguments:
 * `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
 
-If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
+If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First, install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
 	npm install
 
@@ -104,9 +104,9 @@ Sugarizer Web App is a web application that runs on any device with a recent ver
 
 As a web application, it does not run offline and requires a permanent network connection to a **Sugarizer Server**.
 
-Sugarizer Server allow deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network.
+Sugarizer Server allows deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network.
 
-To install your own Sugarizer Server, follow instructions on
+To install your own Sugarizer Server, follow the instructions on
 [Sugarizer Server repository](https://github.com/llaske/sugarizer-server)
 
 
@@ -119,13 +119,13 @@ If you're a developer and you want to learn more about Sugarizer architecture, s
 
 # Activities distribution
 
-All activities could be found in the [activities](activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](activities/Abecedarium.activity)
+All activities can be found in the [activities](activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](activities/Abecedarium.activity)
 
 You could distribute Sugarizer with whatever activities you want.
 To do that, you first need to adapt the content of the [activities](activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
 
 Then you need to update the [activities.json](activities.json) file to reflect your choice.
-Here an example of this file:
+Here is an example of this file:
 
 	[
 		{"id": "org.sugarlabs.GearsActivity", "name": "Gears", "version": 6, "directory": "activities/Gears.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
@@ -178,7 +178,7 @@ With Sugarizer, it's easy to create an activity with a bunch of HTML and JavaScr
 
 ![](images/tutorial_teaser.png)
 
-If you're interested to create your own activity, a full tutorial will guide you between all development steps:
+If you're interested in creating your own activity, a full tutorial will guide you between all the development steps:
 
 * **Step 1**: create the activity from a template
 * **Step 2**: customize icon and content
@@ -214,15 +214,15 @@ Refer [this](docs/ios/ios_doc.md) documentation for building sugarizer for iOS.
 
 # Reduce package size
 
-The current size of Sugarizer is more than 400 Mb. This huge size is related to media content and resources include in three activities:
+The current size of Sugarizer is more than 400 Mb. This huge size is related to media content and resources included in three activities:
 
 * **Abecedarium activity**: about 150 Mb
 * **Etoys activity**: about 100 Mb
 * **Scratch activity**: about 50 Mb
 
-By the way, these activities are able to retrieve the content remotely if its not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those three activities or just remove the media content of these activities.
+By the way, these activities are able to retrieve the content remotely if it's not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those three activities or just remove the media content of these activities.
 
-To remove activities, just remove these activities directory and update [activities.json](activities.json) file as explain above.
+To remove activities, just remove these activities directory and update [activities.json](activities.json) file as explained above.
 
 To remove media content for **Abecedarium**, remove directories:
 
@@ -239,19 +239,19 @@ To remove resources for **Scratch**, remove directory [activities/Scratch.activi
 
 # Optimize performance
 
-If you want to optimize JavaScript performance, you could generate an optimized version of Sugarizer with [Grunt](http://gruntjs.com). This optimized version will minimize and reduce size of all JavaScript files.
+If you want to optimize JavaScript performance, you could generate an optimized version of Sugarizer with [Grunt](http://gruntjs.com). This optimized version will minimize and reduce the size of all JavaScript files.
 
-First ensure than Node.js and npm is installed on your machine. See [here](http://nodejs.org/) for more information.
+First, ensure that Node.js and npm are installed on your machine. See [here](http://nodejs.org/) for more information.
 
 The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
 
 	npm install -g grunt-cli
 
-Then install specific component for Sugarizer by running:
+Then install the specific component for Sugarizer by running:
 
 	npm install --only=dev
 
-Finally launch:
+Finally, launch:
 
 	grunt -v
 
@@ -264,7 +264,7 @@ If you're not a developer and you want to translate Sugarizer into your own lang
 
 Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
 
-Here how to add a new translation. See a video tutorial [here](https://youtu.be/vTPVegrVm5A).
+Here is how to add a new translation. See a video tutorial [here](https://youtu.be/vTPVegrVm5A).
 
 All strings are localized in the [locale.ini](locale.ini) file at the root of the repository.
 If you want to add a new translation, copy the whole [en] section at the end of the file and:
@@ -290,7 +290,7 @@ Sugarizer settings display a list of all available languages. You need to add yo
 
 		French=French
 
-* Add the same line for all languages/sections in the file. If you're able to do that, translate the right side of the "=" character with the localized string for the name of your language. If you don't know how to translate it, just let the English word. For example:
+* Add the same line for all languages/sections in the file. If you're able to do that, translate the right side of the "=" character with the localized string for the name of your language. If you don't know how to translate it, just use the English word. For example:
 
 		French=Français
 
