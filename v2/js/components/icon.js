@@ -16,11 +16,28 @@
  * @vue-data {Number} [xData=0] - to change the left-right margin data
  * @vue-data {Number} [yData=0] - to change the top-bottom margin data
  * @vue-data {Boolean} [disabledData=false] - to change the disability condition
+ * @vue-data {Boolean} [includeIconClass=true] - to change icon class inclusion
 */
 const Icon ={
 	name: 'Icon',
-	template: `<div class="icon" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
-	props: ['id','svgfile','color','size','x','y','isNative'],
+	template: `<div :class="[
+		this.disabledData ? 'web-activity-disable' : '',
+		includeIconClass ? 'icon' : '',
+		].join(' ')" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
+	props: {
+		id: Number,
+		svgfile: String,
+		color: Number,
+		size: Number,
+		x: Number,
+		y: Number,
+		isNative: String,
+		disabled: Boolean,
+		includeIconClass: {
+			type: Boolean,
+			default: true,
+		},
+	},
 	data() {
 		return {
 			_svg: null,
