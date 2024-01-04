@@ -18,8 +18,20 @@
 */
 const Icon ={
 	name: 'Icon',
-	template: `<div class="icon" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
-	props: ['id','svgfile','color','size','x','y','isNative'],
+	template: `<div :class="{'icon': includeIconClass}" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
+	props: {
+		id: String,
+		svgfile: String,
+		color: String,
+		size: Number,
+		x: Number,
+		y: Number,
+		isNative: Boolean,
+		includeIconClass: {
+			type: Boolean,
+			default: true, 
+		},
+	},
 	data() {
 		return {
 			_svg: null,

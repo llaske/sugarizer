@@ -24,6 +24,7 @@ const Popup ={
 							:x=itemData.icon.iconx
 							:y=itemData.icon.icony
 							:isNative=itemData.icon.isNative
+							:includeIconClass="false"
 						>
 						</icon>
 						<div>
@@ -47,6 +48,7 @@ const Popup ={
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
 										:isNative=ele.icon.isNative
+										:includeIconClass="false"
 									></icon>
 									<div class="item-name">{{ ele.name }}</div>
 								</div>
@@ -69,6 +71,7 @@ const Popup ={
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
 										:isNative=ele.icon.isNative
+										:includeIconClass="false"
 									></icon>
 									<div class="item-name">{{ ele.name }}</div>
 								</div>
