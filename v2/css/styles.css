@@ -990,6 +990,24 @@ a {
 	opacity: 0.5;
 }
 
+.sync-gear {
+	animation-name: sync-frame;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes sync-frame {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(-180deg);
+	}
+	100% {
+		transform: rotate(-360deg);
+	}
+}
+
 /* settings screen */
 .settings-subscreen {
 	background-color: #ffffff;
@@ -1076,6 +1094,36 @@ a {
 
 #aboutserver-serverurl {
 	margin-top: 60px;
+}
+
+#aboutserver-warning {
+	margin-top: 60px;
+}
+
+.aboutserver-passwordtext {
+	margin-top: 50px;
+}
+
+.aboutserver-password {
+	color: black;
+}
+
+.aboutserver-nextbutton {
+	margin-top: 20px;
+}
+
+.aboutserver-privacybox {
+	display: grid;
+	margin-top: 80px;
+	justify-content: center;
+}
+
+.aboutserver-privacy {
+	margin-top: 20px;
+}
+
+.aboutserver-policytext {
+	margin-top: 10px;
 }
 
 .security-message {

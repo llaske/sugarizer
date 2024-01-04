@@ -15,23 +15,12 @@
  * @vue-data {Number} [colorData=512] - to change the color data
  * @vue-data {Number} [xData=0] - to change the left-right margin data
  * @vue-data {Number} [yData=0] - to change the top-bottom margin data
+ * @vue-data {Boolean} [disabledData=false] - to change the disability condition
 */
 const Icon ={
 	name: 'Icon',
-	template: `<div :class="{'icon': includeIconClass}" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
-	props: {
-		id: String,
-		svgfile: String,
-		color: String,
-		size: Number,
-		x: Number,
-		y: Number,
-		isNative: Boolean,
-		includeIconClass: {
-			type: Boolean,
-			default: true, 
-		},
-	},
+	template: `<div class="icon" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
+	props: ['id','svgfile','color','size','x','y','isNative'],
 	data() {
 		return {
 			_svg: null,
@@ -42,6 +31,7 @@ const Icon ={
 			colorData: this.color? this.color: (this.isNative=="true" ? 0 : 512),
 			xData: this.x ? this.x: 0,
 			yData: this.y ? this.y: 0,
+			disabledData: this.disabled ? this.disabled: false,
 			_originalColor: { fill: null, stroke: null},
 			_element: null
 		}
@@ -86,6 +76,9 @@ const Icon ={
 	watch: {
 		colorData: function(newColor, oldColor) {
 			var element = this._element;
+			if (!element) {
+				return;
+			}
 			element.setAttribute("class", "xo-color"+newColor);
 		}, 
 		color: function(newColor, oldColor) {
@@ -93,6 +86,9 @@ const Icon ={
 		},
 		xData: function(newX, oldX) {
 			var iconDiv = this.$refs.icon;
+			if (!iconDiv) {
+				return;
+			}
 			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+newX+"px"+this._generateOriginalColor());
 		}, 
 		x: function(newX, oldX) {
@@ -100,13 +96,22 @@ const Icon ={
 		},
 		yData: function(newY, oldX) {
 			var iconDiv = this.$refs.icon;
+			if (!iconDiv) {
+				return;
+			}
 			iconDiv.setAttribute("style", "margin: "+newY+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
 		},		
 		y: function(newY, oldX) {
 			this.yData=newY;
 		},
+		disabledData: function(newDisabled, oldDisabled) {
+			this.disabledData = newDisabled;
+		},
 		sizeData: function(newSize, oldSize) {
 			var element = this._element;
+			if (!element) {
+				return;
+			}
 			element.setAttribute("width", newSize+"px");
 			element.setAttribute("height", newSize+"px");
 		}

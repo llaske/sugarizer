@@ -32,7 +32,7 @@ const Settings = {
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringServer}}</div>
 							</div>
-							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMySecurity).includes(v))) ? '' :'dialog-item-disable'">
+							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMySecurity).includes(v))) ? '' :'dialog-item-disable'" v-if="connected">
 								<div >
 									<icon id="34" svgfile="icons/login-icon.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('mysecurityModal')"
 								></icon></div>

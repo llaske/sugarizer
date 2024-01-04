@@ -16,6 +16,7 @@ const HomeScreen = {
 									:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : (activityPositions[index] ? activityPositions[index].x : 0)"
        								:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : (activityPositions[index] ? activityPositions[index].y : 0)"
 									isNative="true"
+									:disabled="false"
 									v-on:click="runActivity(activity)"
 									v-on:mouseover="showPopupTimer($event)"
 									v-on:mouseout="removePopupTimer($event)"
@@ -35,12 +36,12 @@ const HomeScreen = {
 							></icon>
 							<icon
 								id="journal-btn"
+								:ref="'journalIcon'"
 								svgfile="./icons/activity-journal.svg"
 								class="home-icon"
 								:size="constant.sizeJournal"
 								:x="canvasCenter.x - constant.sizeJournal/2"
 								:y="canvasCenter.y + constant.sizeOwner - constant.sizeJournal + canvasCenter.jdeltay"
-								:color="buddycolor"
 								isNative="true"
 							></icon>
 							<icon
@@ -83,8 +84,6 @@ const HomeScreen = {
 		'settings': Settings,
 	},
 
-	emits: ['activities'],
-
 	data() {
 		return {
 			favactivities: [],
@@ -94,8 +93,6 @@ const HomeScreen = {
 			popup: null, // singular popup data
 			username: null,
 			buddycolor: null,
-			jid: null,
-			journalEntries: [],
 			constant: {
 				iconSpacingFactor: 1.1,
 				ringInitSpaceFactor: 2.2,
@@ -128,7 +125,7 @@ const HomeScreen = {
 		}
 	},
 
-	props: ['filteredactivities', 'SugarL10n'],
+	props: ['filter', 'SugarL10n'],
 
 	mounted() {
 		this.getActivities();
@@ -143,12 +140,8 @@ const HomeScreen = {
 	},
 
 	watch: {
-		filteredactivities: async function (value) {
-			const enabledactivities = await this.activities.filter(activity => value.includes(activity));
-			this.enableActivities(enabledactivities);
-
-			const disabledactivities = await this.activities.filter(activity => !value.includes(activity));
-			this.disableActivities(disabledactivities);
+		filter: async function (value) {
+			this.filterSearch(value);
 		}
 	},
 
@@ -164,11 +157,9 @@ const HomeScreen = {
 		async getUser() {
 			sugarizer.modules.user.get().then((user) => {
 				this.buddycolor = user.color;
-				this.jid = user.privateJournal;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.getFavorites();
 				this.username = user.name;
-				this.$emit('activities', this.activities);
 				this.favactivities = sugarizer.modules.activities.getFavoritesName();
 				this.draw();
 			}, (error) => {
@@ -177,10 +168,14 @@ const HomeScreen = {
 		},
 
 		async getJournal() {
-			sugarizer.modules.journal.load().then(() => {
+			sugarizer.modules.journal.synchronize().then(() => {
 				setTimeout(() => {
+					if (sugarizer.modules.journal.get().length > 0) {
+						this.$refs["journalIcon"].colorData = this.buddycolor;
+					}
 					this.getPopupData();
 					this.getJournalPopupData();
+					this.filterSearch(this.filter);
 				}, 1000);
 			});
 		},
@@ -231,6 +226,16 @@ const HomeScreen = {
 			return activities.filter(activity => activity.favorite);
 		},
 
+		filterSearch(filter) {
+			for (let i = 0; i < this.activities.length; i++) {
+				let ref = this.$refs["activity" + this.activities[i].id];
+				if (!ref || ref.length == 0) {
+					continue;
+				}
+				ref[0].disabledData = !this.activities[i].name.toUpperCase().includes(filter.toUpperCase());
+			}
+		},
+
 		runActivity(activity) {
 			let objectId = null;
 			let name = this.SugarL10n.get("NameActivity", { name: activity.name });
@@ -264,36 +269,6 @@ const HomeScreen = {
 				}
 			}
 			sugarizer.modules.activities.runActivity(activity.activity, objectId, name);
-		},
-
-		disableActivities(disabledactivities) {
-			for (let i = 0; i < disabledactivities.length; i++) {
-				let id = disabledactivities[i].id;
-
-				document.getElementById(id).classList.add("web-activity-disable");
-
-				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
-
-				icons.forEach(icon => {
-					icon.removeEventListener('click', this.showPopupTimer);
-					icon.removeEventListener('mouseover', this.showPopupTimer); 
-				});
-			}
-		},
-
-		enableActivities(enabledactivities) {
-			for (let i = 0; i < enabledactivities.length; i++) {
-				let id = enabledactivities[i].id;
-
-				document.getElementById(id).classList.remove("web-activity-disable");
-
-				const icons = this.$refs.homescreen.querySelectorAll('.web-activity-disable');
-
-				icons.forEach(icon => {
-					icon.addEventListener('click', this.showPopupTimer);
-					icon.addEventListener('mouseover', this.showPopupTimer);
-				});
-			}
 		},
 
 		getPopupData() {
@@ -375,7 +350,10 @@ const HomeScreen = {
 				this.popup = popupData[itemId];
 				this.popupIcon = this.$refs["buddyIcon"];
 			} else {
-				const obj = JSON.parse(JSON.stringify(this.popupData))
+				const obj = JSON.parse(JSON.stringify(this.popupData));
+				if (!obj) {
+					return;
+				}
 				this.popup = obj[itemId];
 				this.popupIcon = this.$refs["activity" + itemId][0];
 			}
@@ -416,8 +394,8 @@ const HomeScreen = {
 		},
 
 		logout() {
-			sugarizer.modules.settings.removeUser();
-			window.location.reload();
+			// TODO: On local app disconnected a warning should be displayed to confirm lost of data 
+			sugarizer.restart();
 		},
 
 		getCanvasCenter() {
@@ -457,7 +435,6 @@ const HomeScreen = {
 		},
 
 		draw() {
-
 			// Compute center and radius
 			let constant = this.constant;
 			let canvas_center = this.getCanvasCenter();
@@ -470,7 +447,6 @@ const HomeScreen = {
 			// Compute ring size and shape
 			let activitiesList = this.activities;
 			let activitiesCount = activitiesList.length;
-			let activitiesIndex = 0;
 			let radiusx, radiusy, base_angle, spiralMode, restrictedMode;
 			let PI2 = Math.PI * 2.0;
 			radiusx = radiusy = Math.max(constant.ringMinRadiusSize, Math.min(canvas_center.x - icon_size, canvas_center.y - icon_size));
@@ -506,7 +482,6 @@ const HomeScreen = {
 			let angle = -Math.PI / 2.0 - base_angle;
 			for (let i = 0; i < activitiesList.length; i++) {
 				// Compute icon position
-				let activity = activitiesList[i];
 				let ix, iy;
 				let previousAngle = angle;
 				if (!spiralMode) {
@@ -533,7 +508,6 @@ const HomeScreen = {
 					}
 				}
 				this.activityPositions.push({ x: ix, y: iy });
-
 			}
 			if (restrictedMode) {
 				const nextcount = this.restrictedModeInfo.start + this.restrictedModeInfo.count;

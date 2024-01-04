@@ -21,11 +21,11 @@ const LoginScreen = {
 	<form>
 		<div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
 			<div class="firstscreen_text" id="serverurl">{{l10n.stringServerUrl}}</div>
-			<input ref="serverAddress" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
+			<input ref="serverAddress" name="server" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
 			<div class="firstscreen_text" id="name">{{l10n.stringName}}</div>
-			<input ref="nameInput" type="text" class="input_field" v-model="details.name" @keyup="handleEnterKey">
+			<input ref="nameInput" type="text" name="name" class="input_field" v-model="details.name" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
 			<div class="firstscreen_text" id="pass_text">{{l10n.stringPassword}}</div>
@@ -158,6 +158,7 @@ const LoginScreen = {
 				stringUserAlreadyExist: '',
 				stringInvalidUser: '',
 				stringUserLoginInvalid: '',
+				stringErrorLoadingRemote: '',
 			},
 			l10nRef: null,
 			consentNeed: false,
@@ -205,12 +206,12 @@ const LoginScreen = {
 
 	methods: {
 		changeColor() {
-			this.$refs.buddyIcon.colorData = Math.floor(Math.random() * 180);
+			this.details.color = sugarizer.modules.xocolor.next(this.$refs.buddyIcon.colorData);
 		},
 
 		checkMethodType() {
 			if (this.userType.isLogin) {
-				this.index.currentIndex = 1;
+				this.index.currentIndex = (sugarizer.getClientType() === sugarizer.constant.appType ? 0 : 1);
 				this.index.minIndex = 1;
 				this.index.maxIndex = 2;
 			} else if (this.userType.isNewuser) {
@@ -218,6 +219,15 @@ const LoginScreen = {
 				this.index.minIndex = 1;
 				this.index.maxIndex = (sugarizer.getClientType() === sugarizer.constant.appType ? 3 : 4);
 			} else if (this.userType.isPrevUser !== null) {
+				if (this.userType.isPrevUser.url == '' && sugarizer.getClientType() === sugarizer.constant.appType) {
+					this.details.color = this.userType.isPrevUser.color;
+					sugarizer.modules.user.signup(this.userType.isPrevUser.url, this.userType.isPrevUser.name, '', sugarizer.modules.xocolor.get(this.details.color)).then((user) => {
+						this.login(this.userType.isPrevUser.url, this.userType.isPrevUser.name, '');
+					}, (error) => {
+						console.log(error);
+					});
+					return;
+				}
 				this.index.currentIndex = 2;
 				this.index.minIndex = 2;
 				this.index.maxIndex = 2;
@@ -237,12 +247,18 @@ const LoginScreen = {
 			this.warning.show = false;
 
 			if (this.index.currentIndex < this.index.maxIndex) {
-				if (this.index.currentIndex === 0) { // server address
-					this.index.currentIndex++;
+				if (this.index.currentIndex === 0 && this.details.serverAddress.length > 0) { // server address
+					await sugarizer.modules.server.getServerInformation(this.details.serverAddress).then((info) => {
+						this.index.currentIndex++;
+					}, (error) => {
+						console.log(error);
+						this.warning.show = true;
+						this.warning.text = this.l10n.stringErrorLoadingRemote;
+					});
 				}
 
-				else if (this.index.currentIndex === 1) { // name
-					if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
+				else if (this.index.currentIndex === 1 && this.details.name.length > 0) { // name
+					if (sugarizer.getClientType() === sugarizer.constant.webAppType || this.details.serverAddress.length > 0) {
 						const info = await sugarizer.modules.server.getServerInformation(this.details.serverAddress);
 						this.consentNeed = info.options['consent-need'];
 						this.consentPolicy = info.options['policy-url'];
@@ -251,7 +267,7 @@ const LoginScreen = {
 					const userexists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.name);
 					if (this.userType.isNewuser && !userexists) {
 						this.index.currentIndex++;
-						if (sugarizer.getClientType() === sugarizer.constant.appType) {
+						if (this.details.serverAddress.length == 0) {
 							this.index.currentIndex++;
 						} else if (!this.consentNeed) {
 							this.index.maxIndex = 3;
@@ -272,7 +288,7 @@ const LoginScreen = {
 				else if (this.index.currentIndex === 3) { // icon
 					this.index.currentIndex++;
 				}
-				else { // privacy
+				else if (this.index.currentIndex === 4) { // privacy
 					this.index.currentIndex++;
 				}
 			}
@@ -285,7 +301,7 @@ const LoginScreen = {
 		},
 
 		handlePasswordSet(password) {
-			if (this.index.maxIndex === 4 || (this.index.maxIndex === 3 && sugarizer.getClientType() === sugarizer.constant.webAppType && !this.consentNeed)) {
+			if (this.index.maxIndex === 4 || (this.index.maxIndex === 3 && this.details.name.length > 0 && !this.consentNeed)) {
 				this.nextItem();
 			}
 			else if (this.index.maxIndex === 2) {
@@ -294,13 +310,15 @@ const LoginScreen = {
 		},
 
 		login(baseurl, name, password) {
-			if (sugarizer.getClientType() === sugarizer.constant.appType) {
+			if (sugarizer.getClientType() === sugarizer.constant.appType && this.details.serverAddress.length == 0) {
 				app.updateFavicon();
+				sugarizer.modules.history.addUser({ name: name, color: this.details.color, server: { url: baseurl } });
 				this.$emit('updateIsFirstScreen', false);
 				return;
 			}
 			sugarizer.modules.user.login(baseurl, name, password).then((user) => {
 				app.updateFavicon();
+				sugarizer.modules.history.addUser({ name: user.name, color: user.color, server: { url: baseurl } });
 				this.$emit('updateIsFirstScreen', false);
 			}, (error) => {
 				if (error === 1) {
@@ -316,10 +334,8 @@ const LoginScreen = {
 			if (this.userType.isNewuser) {
 				const colorNumber = this.$refs.buddyIcon.colorData;
 
-				this.details.color = sugarizer.modules.xocolor.get(colorNumber);
-
 				this.details.password = this.$refs.passwordInput.passwordText;
-				sugarizer.modules.user.signup(this.details.serverAddress, this.details.name, this.details.password, this.details.color).then((user) => {
+				sugarizer.modules.user.signup(this.details.serverAddress, this.details.name, this.details.password, sugarizer.modules.xocolor.get(colorNumber)).then((user) => {
 					this.login(this.details.serverAddress, this.details.name, this.details.password);
 				}, (error) => {
 					console.log(error);

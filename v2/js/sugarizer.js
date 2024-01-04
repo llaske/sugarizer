@@ -37,15 +37,17 @@ let sugarizer = {
 		return new Promise(function(resolve, reject) {
 			// Load modules
 			requirejs(
-				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", 'lib/i18next.min.js'],
-				function(xocolor, server, settings, activities, journal, user, i18next) {
+				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", 'lib/i18next.min.js', "lib/humane.js",],
+				function(xocolor, server, settings, activities, journal, user, history, i18next, humane) {
 					sugarizer.modules.xocolor = xocolor;
 					sugarizer.modules.server = server;
 					sugarizer.modules.settings = settings;
 					sugarizer.modules.activities = activities;
 					sugarizer.modules.journal = journal;
 					sugarizer.modules.user = user;
+					sugarizer.modules.history = history;
 					sugarizer.modules.i18next = i18next;
+					sugarizer.modules.humane = humane;
 					resolve();
 				}
 			);
@@ -114,13 +116,16 @@ let sugarizer = {
 		return this.constant.sugarizerVersion;
 	},
 
+	// Reload app
+	reload: function() {
+		window.location.reload();
+	},
+
 	// Restart app
 	restart: function() {
-		if (this.getClientType() == this.constant.webAppType) {
-			this.modules.settings.removeUser();
+		this.modules.settings.removeUser();
+		this.modules.journal.cleanLocal().then(() => {
 			location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
-		} else {
-			// TODO: For app, display a message and mark token expired
-		}
+		});
 	},
 };

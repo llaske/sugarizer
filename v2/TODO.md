@@ -21,11 +21,25 @@ TODO list
 * [x] Convert server functions to promises
 * [x] Fix display of activity popup when there is no history
 * [x] Factorize user functions
-* [ ] Handle running app offline
+* [x] Handle running app offline
 * [x] Display cookie screen only when server settings are not set
-* [ ] Handle history
+* [x] Handle history
+* [x] Fix search is not working when passing from listview to homescreen
 * [x] Fix running of activities
-* [ ] Fix reordering of activities when passing from listview to homescreen
+* [x] Fix reordering of activities when passing from listview to homescreen
+* [x] Add a disable property on icon an factorize enable/disable code
+* [x] Add a ping check when a server is typed 
+* [x] Add an animated sync icon on the home screen
+* [x] Add an offline icon on the home screen
+* [x] Handle synchronization of local Journal with server
+* [ ] Handle connection to server when offline
+* [x] Journal icon should not be colored when the journal is empty
+* [x] Don't propose an always random color when creating a new user, should be incremental
+* [ ] Implement privacy settings
+* [ ] Display a confirmation dialog when disconnecting from the app when not connected to a server
+* [ ] Display a message when there is no activity matching the search in listview
+* [ ] Use the same button for next and done in the first screen
+* [ ] Add spinner when connecting to a server
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
 * [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
 * [x] Now that the popup has a timer, we see that the popup should be hidden when there is a click on a item.

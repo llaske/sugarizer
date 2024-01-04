@@ -80,13 +80,17 @@ define([], function() {
 	server.getServerInformation = function(serverurl) {
 		return new Promise(function(resolve, reject) {
 			var serverUrl = serverurl;
-			if (serverUrl.length && serverUrl[serverurl.length-1] == '/') {
+			if (!serverUrl || !serverUrl.length) {
+				serverUrl = server.getServerUrl();
+			}
+			if (serverUrl.length && serverUrl[serverUrl.length-1] == '/') {
 				serverUrl = serverUrl.substr(0, serverUrl.length-1);
 			}
 			var ajax = axios.create({
 				responseType: "json"
 			});
 			ajax.get(serverUrl + constant.serverInformationURL).then(function(inResponse) {
+				inResponse.data.url = serverUrl;
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				reject(getErrorCode(inResponse));
@@ -95,13 +99,13 @@ define([], function() {
 	}
 
 	// Get activities
-	server.getActivities = function() {
+	server.getActivities = function(optserver) {
 		return new Promise(function(resolve, reject) {
 			var ajax = axios.create({
 				responseType: "json",
 				headers: computeHeader(server.getToken())
 			});
-			ajax.get(server.getServerUrl() + constant.dynamicInitActivitiesURL).then(function(inResponse) {
+			ajax.get((optserver ? optserver : server.getServerUrl()) + constant.dynamicInitActivitiesURL).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -162,7 +166,7 @@ define([], function() {
 		});
 	}
 
-	// Create a new user
+	// Log an user
 	server.loginUser = function(user, optserver) {
 		return new Promise(function(resolve, reject) {
 			var userValue = user;
@@ -186,7 +190,7 @@ define([], function() {
 	}
 
 	// Update user
-	server.putUser = function(userId, settings) {
+	server.putUser = function(userId, settings, optserver) {
 		return new Promise(function(resolve, reject) {
 			var ajax = axios.create({
 				responseType: "json",
@@ -195,7 +199,7 @@ define([], function() {
 			if (!userId) {
 				userId = server.getToken().x_key;
 			}
-			ajax.put(server.getServerUrl() + constant.initNetworkURL + userId, {user: JSON.stringify(settings)}).then(function(inResponse) {
+			ajax.put((optserver ? optserver : server.getServerUrl()) + constant.initNetworkURL + userId, {user: JSON.stringify(settings)}).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -211,7 +215,7 @@ define([], function() {
 	}
 
 	// Delete user
-	server.deleteUser = function(userId) {
+	server.deleteUser = function(userId, optserver) {
 		return new Promise(function(resolve, reject) {
 			var ajax = axios.create({
 				responseType: "json",
@@ -220,7 +224,7 @@ define([], function() {
 			if (!userId) {
 				userId = server.getToken().x_key;
 			}
-			ajax.delete(server.getServerUrl() + constant.initNetworkURL + userId).then(function(inResponse) {
+			ajax.delete((optserver ? optserver : server.getServerUrl()) + constant.initNetworkURL + userId).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -236,7 +240,7 @@ define([], function() {
 	}
 
 	// Get journal content optionally filter by typeactivity, time, favorite, ...
-	server.getJournal = function(journalId, request) {
+	server.getJournal = function(journalId, request, optserver) {
 		return new Promise(function(resolve, reject) {
 			var typeactivity = request.typeactivity;
 			var stime = request.stime;
@@ -247,7 +251,7 @@ define([], function() {
 			var offset = request.offset;
 			var title = request.title;
 			var sort = request.sort;
-			var url = server.getServerUrl() + constant.sendCloudURL + journalId + "?limit="+limit;
+			var url = (optserver ? optserver : server.getServerUrl()) + constant.sendCloudURL + journalId + "?limit="+limit;
 			var params = {};
 			if (typeactivity !== undefined) {
 				params.aid = typeactivity;
@@ -293,7 +297,7 @@ define([], function() {
 	}
 
 	// Get an entry in a journal
-	server.getJournalEntry = function(journalId, objectId) {
+	server.getJournalEntry = function(journalId, objectId, optserver) {
 		return new Promise(function(resolve, reject) {
 			var params = {};
 			var ajax = axios.create({
@@ -304,7 +308,7 @@ define([], function() {
 					fields: "text,metadata"
 				}
 			});
-			ajax.get(server.getServerUrl() + constant.sendCloudURL + journalId).then(function(inResponse) {
+			ajax.get((optserver ? optserver : server.getServerUrl()) + constant.sendCloudURL + journalId).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -320,7 +324,7 @@ define([], function() {
 	}
 
 	// Add an entry in a journal
-	server.postJournalEntry = function(journalId, entry) {
+	server.postJournalEntry = function(journalId, entry, optserver) {
 		return new Promise(function(resolve, reject) {
 			var token = server.getToken();
 			entry.metadata.user_id = token.x_key;
@@ -328,7 +332,7 @@ define([], function() {
 				responseType: "json",
 				headers: computeHeader(token)
 			});
-			ajax.post(server.getServerUrl() + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
+			ajax.post((optserver ? optserver : server.getServerUrl()) + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -344,7 +348,7 @@ define([], function() {
 	}
 
 	// Update an entry in a journal
-	server.putJournalEntry = function(journalId, objectId, entry) {
+	server.putJournalEntry = function(journalId, objectId, entry, optserver) {
 		return new Promise(function(resolve, reject) {
 			var token = server.getToken();
 			entry.metadata.user_id = token.x_key;
@@ -355,7 +359,7 @@ define([], function() {
 				},
 				headers: computeHeader(token)
 			});
-			ajax.put(server.getServerUrl() + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
+			ajax.put((optserver ? optserver : server.getServerUrl()) + constant.sendCloudURL + journalId, {journal: JSON.stringify(entry)}).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -371,7 +375,7 @@ define([], function() {
 	}
 
 	// Delete an entry in a journal
-	server.deleteJournalEntry = function(journalId, objectId) {
+	server.deleteJournalEntry = function(journalId, objectId, optserver) {
 		return new Promise(function(resolve, reject) {
 			var ajax = axios.create({
 				responseType: "json",
@@ -381,7 +385,7 @@ define([], function() {
 				},
 				headers: computeHeader(server.getToken())
 			});
-			ajax.delete(server.getServerUrl() + constant.sendCloudURL + journalId).then(function(inResponse) {
+			ajax.delete((optserver ? optserver : server.getServerUrl()) + constant.sendCloudURL + journalId).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -397,13 +401,13 @@ define([], function() {
 	}
 
 	// Create a new user
-	server.postStats = function(stats) {
+	server.postStats = function(stats, optserver) {
 		return new Promise(function(resolve, reject) {
 			var ajax = axios.create({
 				responseType: "json",
 				headers: computeHeader(server.getToken())
 			});
-			ajax.post(server.getServerUrl() + constant.statsURL, {stats: JSON.stringify(stats)}).then(function(inResponse) {
+			ajax.post((optserver ? optserver : server.getServerUrl()) + constant.statsURL, {stats: JSON.stringify(stats)}).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);
@@ -413,7 +417,7 @@ define([], function() {
 	}
 
 	//submit assignment
-	server.postAssignment = function(assignmentId, objectId) {
+	server.postAssignment = function(assignmentId, objectId, optserver) {
 		return new Promise(function(resolve, reject) {
 			var params = {};
 			var ajax = axios.create({
@@ -423,7 +427,7 @@ define([], function() {
 				},
 				headers: computeHeader(server.getToken())
 			});
-			ajax.put(server.getServerUrl() + constant.submitAssignment + assignmentId).then(function(inResponse) {
+			ajax.put((optserver ? optserver : server.getServerUrl()) + constant.submitAssignment + assignmentId).then(function(inResponse) {
 				resolve(inResponse.data);
 			}).catch(function(inResponse) {
 				var code = getErrorCode(inResponse);

@@ -15,6 +15,27 @@ const MainScreen = {
 							color="768"
 							isNative="true"
 						></icon>
+						<icon v-if="sync"
+							class="toolbutton sync-gear"
+							id="toolbar-sync-btn"
+							svgfile="./icons/sync.svg"
+							size="47"
+							x="0"
+							y="0"
+							color="768"
+							isNative="true"
+						></icon>
+						<icon v-if="offline"
+							class="toolbutton"
+							id="toolbar-offline-btn"
+							svgfile="./icons/cloud-warning.svg"
+							size="47"
+							x="0"
+							y="0"
+							color="256"
+							isNative="true"
+							@click="displayServerSettings()"
+						></icon>
 					</div>
 					<div class="tool_rightitems">
 						<icon
@@ -51,8 +72,8 @@ const MainScreen = {
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
-						<listview v-if="screentype==='list'" @activities="setActivities" :filteredactivities="filteredactivities" :SugarL10n="SugarL10n"/>
-						<homescreen v-else-if="screentype==='home'" @activities="setActivities" :filteredactivities="filteredactivities" :SugarL10n="SugarL10n"/>
+						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n"/>
+						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" :SugarL10n="SugarL10n"/>
 						<div v-else-if="screentype==='neighbor'"> Neighbor </div>
 					</div>
 					`,
@@ -66,12 +87,13 @@ const MainScreen = {
 	data: function () {
 		return {
 			screentype: 'home',
-			activities: [],
-			filteredactivities: [],
+			filter: '',
 			SugarL10n: null,
 			l10n: {
 				stringSearchHome: "",
 			},
+			offline: false,
+			sync: false,
 		}
 	},
 
@@ -90,6 +112,18 @@ const MainScreen = {
 				language: e.detail.l10n.language,
 			}
 		}, { once: true });
+		window.addEventListener('synchronization', (e) => {
+			if (e.detail.step === 'compute') {
+				vm.sync = true;
+			} else if (e.detail.step === 'start') {
+				if (e.detail.local+e.detail.remote > 0) {
+					sugarizer.modules.humane.log(this.SugarL10n.get("RetrievingJournal"));
+				}
+			} else if (e.detail.step === 'end') {
+				vm.sync = false;
+			}
+		});
+		vm.offline = !sugarizer.modules.user.isConnected();
 	},
 
 	watch: {
@@ -104,14 +138,14 @@ const MainScreen = {
 	},
 
 	methods: {
-		setActivities: function (activities) {
-			this.activities = activities;
+		searchFunction(searchInput) {
+			this.filter = searchInput;
 		},
 
-		searchFunction(searchInput) {
-			this.filteredactivities = this.activities.filter((activity) => {
-				return activity.name.toUpperCase().includes(searchInput.toUpperCase())
-			})
+		displayServerSettings() {
+			if (this.screentype === 'home') {
+				this.$refs.home.$refs.settings.openModal('aboutMyServerModal');
+			}
 		},
 	},
 };

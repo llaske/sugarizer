@@ -111,7 +111,7 @@ const FirstScreen = {
 	methods: {
 		getPrevUsers() {
 			try {
-				this.prevUsers = sugarizer.modules.settings.getHistory().reverse();
+				this.prevUsers = sugarizer.modules.history.get().reverse();
 			} catch (error) {
 				this.prevUsers = [];
 			}
@@ -135,6 +135,7 @@ const FirstScreen = {
 							this.userType.isPrevUser = {
 								name: user.name,
 								url: user.server.url,
+								color: user.color,
 							}
 						}
 					});

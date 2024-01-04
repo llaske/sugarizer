@@ -6,6 +6,52 @@ requirejs.config({
 	}
 });
 
+// Locales component
+const Locales = {
+	name: 'Locales',
+	emits: ['click'],
+	template: `
+	<div class="locales">
+		<div class="locales-title">
+			<p>Locals</p>
+			<button class="locales-button" v-on:click="switchLang('en')">English</button>
+			<button class="locales-button" v-on:click="switchLang('fr')">French</button>
+			<button class="locales-button" v-on:click="switchLang('es')">Spanish</button>
+			<button class="locales-button" v-on:click="switchLang('de')">German</button>
+			<button class="locales-button" v-on:click="switchLang('pt')">Portuguese</button>
+			<button class="locales-button" v-on:click="switchLang('ibo')">Igbo</button>
+			<button class="locales-button" v-on:click="switchLang('pl')">Polish</button>
+			<button class="locales-button" v-on:click="switchLang('ar')">Arabic</button>
+			<button class="locales-button" v-on:click="switchLang('yor')">Yoruba</button>
+		</div>
+		<div class="locales" >
+			<div id="ByUser">MESSAGE</div>
+			<div id="TutoActivityTurtleBlocksJSactivity">MESSAGE</div>
+			<div id="TutoOfflineContent">MESSAGE</div>
+			<div id="LicenseTerms">MESSAGE</div>
+			<div id="MISSING-TEXT">----</div>
+		</div>
+	</div>
+	<br><br>
+	`,
+
+	methods: {
+		switchLang: function (lng) {
+			//save the language preference in the local storage (TEMPORARY SOLUTION TILL WE HAVE CONNECTION FEATURE)
+			var sugar = localStorage.getItem("sugar_settings");
+			if (sugar !== null && sugar !== undefined && sugar !== "{}") {
+				settings = JSON.parse(sugar);
+				settings.language = lng;
+				localStorage.setItem('sugar_settings', JSON.stringify(settings));
+			} else {
+				localStorage.setItem('sugar_settings', JSON.stringify({ language: lng }));
+			}
+			window.location.reload();
+		}
+	},
+};
+
+// Sandbox component
 const app = Vue.createApp({
 	components: {
 		"icon": Icon,
@@ -115,11 +161,17 @@ const app = Vue.createApp({
 			contributorsUrl: "https://github.com/llaske/sugarizer/blob/dev/docs/credits.md"
 		}
 	},
+	created() {
+		window.addEventListener('localized', (e) => {
+			this.localized();
+		}, { once: true });
+	},
 	mounted() {
 		this.filterProducts = this.products
 		this.filtersettings = this.settingsData
 		this.computerData = this.getComputerData();
 		this.SugarL10n = this.$refs.SugarL10n;
+		
 	},
 	watch: {
 		filterProducts: function (newData, oldData) {

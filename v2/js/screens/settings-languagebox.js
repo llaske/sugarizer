@@ -134,7 +134,7 @@ const LanguageBox = {
 
 		async updateLanguage() {
 			sugarizer.modules.user.update({ language: this.languageCode }).then(() => {
-				window.location.reload();
+				sugarizer.reload();
 			});
 		},
 
