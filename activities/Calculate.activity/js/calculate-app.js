@@ -256,14 +256,14 @@ var CalculateApp = {
 
   /* Translation of the Gui */
   transateGui: function() {
-    if (CalculateApp.libs.webL10n.get("calcul") !== undefined && CalculateApp.libs.webL10n.get("calcul").length > 0) {
-      CalculateApp.elements.calcInput.placeholder = CalculateApp.libs.webL10n.get("calcul");
+    if (CalculateApp.libs.l10n.get("calcul") !== undefined && CalculateApp.libs.l10n.get("calcul").length > 0) {
+      CalculateApp.elements.calcInput.placeholder = CalculateApp.libs.l10n.get("calcul");
     }
-    if (CalculateApp.libs.webL10n.get("label") !== undefined && CalculateApp.libs.webL10n.get("label").length > 0) {
-      CalculateApp.elements.labelInput.placeholder = CalculateApp.libs.webL10n.get("label");
+    if (CalculateApp.libs.l10n.get("label") !== undefined && CalculateApp.libs.l10n.get("label").length > 0) {
+      CalculateApp.elements.labelInput.placeholder = CalculateApp.libs.l10n.get("label");
     }
-    if (CalculateApp.libs.webL10n.get("clear") !== undefined && CalculateApp.libs.webL10n.get("clear").length > 0) {
-      CalculateApp.elements.calcButtonClear.innerHTML = CalculateApp.libs.webL10n.get("clear");
+    if (CalculateApp.libs.l10n.get("clear") !== undefined && CalculateApp.libs.l10n.get("clear").length > 0) {
+      CalculateApp.elements.calcButtonClear.innerHTML = CalculateApp.libs.l10n.get("clear");
     }
   },
 
