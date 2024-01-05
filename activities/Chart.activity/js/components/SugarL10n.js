@@ -6,7 +6,6 @@ Vue.component('sugar-localization', {
 			l10n: null,
 			code: null,
 			dictionary: null,
-			eventReceived: false,
 			activityInitialized: false,
 			units: [
 				{ name: 'Years', factor: 356 * 24 * 60 * 60 },
@@ -16,70 +15,92 @@ Vue.component('sugar-localization', {
 				{ name: 'Hours', factor: 60 * 60 },
 				{ name: 'Minutes', factor: 60 }
 			],
-		}
+		};
 	},
 	computed: {
 		readyToEmit: function () {
-			return (this.dictionary != null) && this.activityInitialized;
-		}
+			return this.dictionary != null && this.activityInitialized;
+		},
 	},
 	watch: {
 		readyToEmit: function (newVal, oldVal) {
 			if (newVal) {
-				this.$emit("localized");
-				this.eventReceived = true;
+				this.$emit('localized');
 			}
-		}
+		},
 	},
 	mounted: function () {
-		var vm = this;
-		if (vm.l10n == null) {
-			requirejs(["sugar-web/env", "webL10n"], function (env, webL10n) {
-				env.getEnvironment(function (err, environment) {
-					vm.l10n = webL10n;
-					var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-					var language = environment.user ? environment.user.language : defaultLanguage;
-					webL10n.language.code = language;
-					window.addEventListener("localized", function () {
-						if (!vm.eventReceived) {
-							vm.code = language;
-							vm.dictionary = vm.l10n.dictionary;
-						} else if (webL10n.language.code != language) {
-							webL10n.language.code = language;
+		const vm = this;
+
+		requirejs(['sugar-web/env'], function (env) {
+			env.getEnvironment((err, environment) => {
+				// Get default language
+				const defaultLanguage =
+					typeof chrome !== 'undefined' &&
+						chrome.app &&
+						chrome.app.runtime
+						? chrome.i18n.getUILanguage()
+						: navigator.language;
+				const language = environment.user
+					? environment.user.language
+					: defaultLanguage;
+
+				vm.loadLanguageFile(language);
+			});
+		});
+
+		// Activity initialization check
+		const SugarActivity = vm.$root.$children.find(function (child) {
+			return child.$options.name == 'SugarActivity';
+		});
+		SugarActivity.$on('initialized', function () {
+			vm.activityInitialized = true;
+		});
+	},
+
+	methods: {
+		loadLanguageFile: function (language) {
+			const vm = this;
+			requirejs(['lib/i18next.min.js', 'lib/axios.min.js'], function (i18next, axios) {
+				axios.get(`./locales/${language}.json`).then((response) => {
+					i18next.init(
+						{
+							lng: language,
+							fallbackLng: 'en',
+							resources: {
+								[language]: {
+									translation: response.data
+								}
+							},
+						},
+						() => {
+							vm.l10n = i18next;
+							vm.code = i18next.language;
+							vm.dictionary = i18next.getResourceBundle(i18next.language, 'translation');
 						}
-					});
+					);
+				}).catch((error) => {
+					vm.loadLanguageFile('en'); // Load default language
+					console.log(error);
 				});
 			});
-			//Activity initialization check
-			var SugarActivity = vm.$root.$children.find(function (child) {
-				return child.$options.name == 'SugarActivity';
-			});
-			SugarActivity.$on('initialized', function () {
-				vm.activityInitialized = true;
-			});
-		}
-	},
-	methods: {
-		// Get a string with parameters
+		},
+
+		// Get a string with parameter
 		get: function (str, params) {
-			var out = '';
-			
+			let out = '';
+
 			if (!this.dictionary) {
 				out = str;
 			} else {
-				var item = this.dictionary[str];
-				if (!item || !item.textContent) {
-					out = str;
-				} else {
-					out = item.textContent;
-				}
+				out = this.dictionary[str] || str;
 			}
-			
+
 			// Check params
-			if(params) {
-				var paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
-				for (var i in paramsInString) {
-					var param = paramsInString[i].match(/[\w\.]+/)[0];
+			if (params) {
+				let paramsInString = out.match(/{{\s*[\w\.]+\s*}}/g);
+				for (let i in paramsInString) {
+					let param = paramsInString[i].match(/[\w\.]+/)[0];
 					if (params[param]) {
 						out = out.replace(paramsInString[i], params[param]);
 					}
@@ -90,22 +111,22 @@ Vue.component('sugar-localization', {
 
 		// Get values for a set of strings on the form of {stringKey1: '', stringKey2: '', ...}
 		localize: function (strings) {
-			var vm = this;
-			Object.keys(strings).forEach(function (key, index) {
+			const vm = this;
+			Object.keys(strings).forEach((key, index) => {
 				strings[key] = vm.get(key.substr(6));
 			});
 		},
 
 		// Convert a UNIX timestamp to Sugarizer time elapsed string
 		localizeTimestamp: function (timestamp) {
-			var maxlevel = 2;
-			var levels = 0;
-			var time_period = '';
-			var elapsed_seconds = ((new Date().getTime()) - timestamp) / 1000;
-			for (var i = 0; i < this.units.length; i++) {
-				var factor = this.units[i].factor;
+			const maxlevel = 2;
+			const levels = 0;
+			let time_period = '';
+			let elapsed_seconds = (Date.now() - timestamp) / 1000;
+			for (let i = 0; i < this.units.length; i++) {
+				let factor = this.units[i].factor;
 
-				var elapsed_units = Math.floor(elapsed_seconds / factor);
+				let elapsed_units = Math.floor(elapsed_seconds / factor);
 				if (elapsed_units > 0) {
 					if (levels > 0)
 						time_period += ',';
@@ -123,10 +144,10 @@ Vue.component('sugar-localization', {
 			}
 
 			if (levels == 0) {
-				return this.get("SecondsAgo");
+				return this.get('SecondsAgo');
 			}
 
-			return this.get("Ago", { time: time_period });
-		}
-	}
+			return this.get('Ago', { time: time_period });
+		},
+	},
 });
