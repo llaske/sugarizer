@@ -19,9 +19,12 @@ define(["sugar-web/activity/activity", "l10n", 'easeljs','tweenjs','activity/gam
 			});
 		});
 
-		//localization for turntext
+		//localization
 		window.addEventListener("localized", function() {
 			document.getElementById("turntext").innerText = l10n.get("turntext");
+			document.getElementById("activity-button").setAttribute('title', l10n.get("activity-button.title"));
+			document.getElementById("new-game-button").setAttribute('title', l10n.get("new-game-button.title"));
+			document.getElementById("size-button").setAttribute('title', l10n.get("size-button.title"));
 		});
 	});
 
