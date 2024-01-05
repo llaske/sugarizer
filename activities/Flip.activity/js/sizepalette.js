@@ -14,6 +14,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 		var fourbutton = document.createElement('button');
 		fourbutton.className = 'toolbutton';
 		fourbutton.setAttribute('id','four-button');
+		fourbutton.setAttribute('data-l10n-id','four-button');
 		fourbutton.setAttribute('title','4x4 grid');
 		fourbutton.onclick = function() {
 			that.setSize(4);
@@ -22,6 +23,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 		var fivebutton = document.createElement('button');
 		fivebutton.className = 'toolbutton';
 		fivebutton.setAttribute('id','five-button');
+		fivebutton.setAttribute('data-l10n-id','five-button');
 		fivebutton.setAttribute('title','5x5 grid');
 		fivebutton.onclick = function() {
 			that.setSize(5);
@@ -30,6 +32,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 		var sixbutton = document.createElement('button');
 		sixbutton.className = 'toolbutton';
 		sixbutton.setAttribute('id','six-button');
+		sixbutton.setAttribute('data-l10n-id','six-button');
 		sixbutton.setAttribute('title','6x6 grid');
 		sixbutton.onclick = function() {
 			that.setSize(6);
@@ -38,6 +41,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 		var sevenbutton = document.createElement('button');
 		sevenbutton.className = 'toolbutton';
 		sevenbutton.setAttribute('id','seven-button');
+		sevenbutton.setAttribute('data-l10n-id','seven-button');
 		sevenbutton.setAttribute('title','7x7 grid');
 		sevenbutton.onclick = function() {
 			that.setSize(7);
@@ -82,7 +86,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 					break;
 			}
 		}
-
+		
 		div.appendChild(fourbutton);
 		div.appendChild(fivebutton);
 		div.appendChild(sixbutton);
