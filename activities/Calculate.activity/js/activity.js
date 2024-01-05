@@ -16,6 +16,18 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
   CalculateApp.libs.mustache = mustache;
 
   requirejs(['domReady!', 'activity/trigo-palette', 'activity/algebra-palette', 'l10n', 'sugar-web/datastore', "tutorial", "sugar-web/env"], function(doc, trigoPaletteLib, algebraPaletteLib, l10n, datastore, tutorial, env) {
+    
+    //Localization handling
+    env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			l10n.init(language);
+		});
+
+    window.addEventListener("localized", function() {
+      CalculateApp.transateGui();
+		});
+    
     CalculateApp.libs.l10n = l10n;
     CalculateApp.libs.trigopalette = trigoPaletteLib;
     CalculateApp.libs.algebrapalette = algebraPaletteLib;
@@ -27,13 +39,7 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
       tutorial.start();
     });
 
-    //Localization handling
-    env.getEnvironment(function(err, environment) {
-			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-			var language = environment.user ? environment.user.language : defaultLanguage;
-			l10n.init(language);
-		});
-
+    
     //We auto focus if needed
     CalculateApp.focus();
 
