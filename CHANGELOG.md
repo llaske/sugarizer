@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fototoon Activity: interactive buttons appears under the box shape #1221
 - "Help" pop-ups nearly impossible to close in Chrome on Mobile #1403
 - XSS injections on Labyrinth JS and Paint Activity #787
+- Style for Planet Info in Planet Activity is Hard to See #1448
 
 ## [1.7.0] - 2023-03-28
 ### Added
