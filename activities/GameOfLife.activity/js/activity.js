@@ -1,10 +1,10 @@
-define(['sugar-web/activity/activity', "webL10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette',"tutorial"], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette,tutorial) {
+define(['sugar-web/activity/activity', "L10n", 'activity/Board', 'activity/vanilla-state', 'activity/patterns', 'activity/shadeColor','sugar-web/env', 'genSpeedPalette','gridSizePalette',"tutorial"], function (activity, l10n, Board, State, patterns, shadeColor, env, genSpeedPalette, gridSizePalette,tutorial) {
   requirejs(['domReady!'], function (doc) {
     activity.setup();
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		var language = environment.user ? environment.user.language : defaultLanguage;
-		l10n.language.code = language;
+		l10n.init(language);
 		window.addEventListener('localized', function () {
           document.querySelector('.generation-status').innerText = l10n.get('Generation');
           document.querySelector('#speedlabel').innerText = l10n.get('speed');
