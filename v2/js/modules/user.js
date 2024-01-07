@@ -198,5 +198,22 @@ define([], function() {
 		});
 	}
 
+	// Logout user
+	user.logout = function() {
+		return new Promise((resolve, reject) => {
+			if (sugarizer.getClientType() === sugarizer.constant.webAppType || !sugarizer.modules.user.isConnected()) {
+				resolve();
+				return;
+			}
+
+			// Remove server url settings
+			let data = sugarizer.modules.settings.getUser();
+			data.server = {url: ""};
+			data.token = undefined;
+			sugarizer.modules.settings.setUser(data);
+			resolve();
+		});
+	}
+
 	return user;
 });

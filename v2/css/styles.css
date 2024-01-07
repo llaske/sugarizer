@@ -1126,6 +1126,11 @@ a {
 	margin-top: 10px;
 }
 
+.privacy-removelocalbutton {
+	display: inline-block;
+	margin-left: 70px;
+}
+
 .security-message {
 	position: absolute;
 	left: 20px;

@@ -37,24 +37,35 @@ const MyPrivacy = {
 								@click="deleteAccount"
 							></icon-button>
 						</div>
-						<input class="toggle privacy-statscheckbox" type="checkbox" v-model="checkbox.stats">
-						<div class="privacy-statsmessage">Do not send to the server statistics about my usage of the app</div>
+						<input class="toggle privacy-statscheckbox" type="checkbox" v-model="checkbox.stats" v-if="connected">
+						<div class="privacy-statsmessage" v-if="connected">{{SugarL10n ? SugarL10n.get('PrivacyStats') : ''}}</div>
 						<div id="desktop_dialogSettings_dialogPrivacy_control"></div>
-						<input class="toggle privacy-synccheckbox" type="checkbox" v-model="checkbox.sync">
-						<div class="privacy-syncmessage">Do not synchronize my local journal with the server</div>
+						<input class="toggle privacy-synccheckbox" type="checkbox" v-model="checkbox.sync" v-if="connected">
+						<div class="privacy-syncmessage" v-if="connected">{{SugarL10n ? SugarL10n.get('PrivacySync') : ''}}</div>
 						<div id="desktop_dialogSettings_dialogPrivacy_control2"></div>
 						<input ref="deletecheckbox" class="toggle privacy-removecheckbox" type="checkbox" v-model="checkbox.delete">
-						<div class="privacy-removemessage">Display delete account features</div>
+						<div class="privacy-removemessage">{{SugarL10n ? SugarL10n.get('PrivacyRemove') : ''}}</div>
 						<div v-show="checkbox.delete">
-							<div class="privacy-removeremotebutton">
+							<div class="privacy-removelocalbutton" v-if="sugarizerapp">
 							<icon-button
-								id="myprivacy-delete-btn"
+								id="myprivacy-delete-local-btn"
+								svgfile="icons/module-about_my_computer.svg"
+								isNative="true"
+								size="28"
+								color="256"
+								:text="SugarL10n ? SugarL10n.get('PrivacyRemoveLocal') : ''"
+								@click="showWarning('local')"
+							></icon-button>
+							</div>
+							<div class="privacy-removeremotebutton" v-if="connected">
+							<icon-button
+								id="myprivacy-delete-remote-btn"
 								svgfile="icons/cloud-settings.svg"
 								isNative="true"
 								size="28"
 								color="256"
 								:text="SugarL10n ? SugarL10n.get('PrivacyRemoveRemote') : ''"
-								@click="showWarning"
+								@click="showWarning('remote')"
 							></icon-button>
 							</div>
 						</div>
@@ -76,6 +87,9 @@ const MyPrivacy = {
 
 	data() {
 		return {
+			sugarizerapp: sugarizer.getClientType() == sugarizer.constant.appType,
+			connected: sugarizer.modules.user.isConnected(),
+			deletefrom: '',
 			warning: {
 				show: false,
 				text: "xxx"
@@ -136,21 +150,28 @@ const MyPrivacy = {
 			});
 		},
 
-		showWarning() {
+		showWarning(from) {
+			this.deletefrom = from;
 			this.warning.show = true;
 			this.warning.text = this.SugarL10n ? this.SugarL10n.get('AllDataWillBeLost') : "Are you sure you want to delete your account? This action cannot be undone.";
 			this.$refs.deletecheckbox.disabled = true;
 		},
 
 		deleteAccount() {
-			// TODO: Not doable when not connected to a server
-			sugarizer.modules.server.deleteUser()
-				.then((response) => {
-					sugarizer.restart();
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+			if (this.deletefrom == 'local') {
+				sugarizer.restart();
+			} else {
+				sugarizer.modules.server.deleteUser(null, sugarizer.modules.user.getServerURL())
+					.then((response) => {
+						sugarizer.modules.user.logout()
+							.then(() => {
+								sugarizer.reload();
+							});
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
 		}
 	}
 

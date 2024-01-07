@@ -77,6 +77,7 @@ const Settings = {
 		return {
 			filtersettings: null,
 			subscreen: null,
+			connected: sugarizer.modules.user.isConnected(),
 			l10n: {
 				stringSearchSettings: '',
 				stringAboutMe: '',
