@@ -86,7 +86,7 @@ define(["sugar-web/graphics/palette"], function (palette) {
 					break;
 			}
 		}
-		
+
 		div.appendChild(fourbutton);
 		div.appendChild(fivebutton);
 		div.appendChild(sixbutton);

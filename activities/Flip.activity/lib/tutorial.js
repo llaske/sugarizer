@@ -48,7 +48,7 @@ define(["l10n"], function (l10n) {
 				document.querySelector(step.element).style.display != "none" &&
 				document.querySelector(step.element).getBoundingClientRect().y != 0)
 		  );
-	  
+
 		  introJs()
 			.setOptions({
 			  tooltipClass: "customTooltip",
@@ -61,6 +61,6 @@ define(["l10n"], function (l10n) {
 			})
 			.start();
 		};
-	  
+
 		return tutorial;
 });
