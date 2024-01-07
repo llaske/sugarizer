@@ -25,7 +25,7 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
 		});
 
     window.addEventListener("localized", function() {
-      CalculateApp.transateGui();
+      CalculateApp.translateGui();
 		});
     
     CalculateApp.libs.l10n = l10n;

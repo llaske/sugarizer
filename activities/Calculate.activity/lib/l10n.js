@@ -45,6 +45,16 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
         }
     };
 
+    l10n.updateDocumentTitles = () => {
+		const elements = document.getElementsByTagName("*");
+		for (let i = 0; i < elements.length; i++) {
+		  const element = elements[i];
+		  const key = element.getAttribute("data-i18n");
+		  if (key !== null) {
+			element.setAttribute('title', i18next.t(key+".title"));
+		  }
+		}
+	};
 
     function triggerLocalizedEvent() {
         const event = new Event("localized");

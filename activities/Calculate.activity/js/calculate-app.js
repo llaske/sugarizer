@@ -255,7 +255,7 @@ var CalculateApp = {
   },
 
   /* Translation of the Gui */
-  transateGui: function() {
+  translateGui: function() {
     if (CalculateApp.libs.l10n.get("calcul") !== undefined && CalculateApp.libs.l10n.get("calcul").length > 0) {
       CalculateApp.elements.calcInput.placeholder = CalculateApp.libs.l10n.get("calcul");
     }
@@ -264,21 +264,6 @@ var CalculateApp = {
     }
     if (CalculateApp.libs.l10n.get("clear") !== undefined && CalculateApp.libs.l10n.get("clear").length > 0) {
       CalculateApp.elements.calcButtonClear.innerHTML = CalculateApp.libs.l10n.get("clear");
-    }
-    if (CalculateApp.libs.l10n.get("trigo.title") !== undefined && CalculateApp.libs.l10n.get("trigo.title").length > 0) {
-      CalculateApp.elements.trigoPaletteDiv.setAttribute('title', CalculateApp.libs.l10n.get("trigo.title"));
-    }
-    if (CalculateApp.libs.l10n.get("algebra.title") !== undefined && CalculateApp.libs.l10n.get("algebra.title").length > 0) {
-      CalculateApp.elements.algebraPaletteDiv.setAttribute('title', CalculateApp.libs.l10n.get("algebra.title"));
-    }
-    if (CalculateApp.libs.l10n.get("base.title") !== undefined && CalculateApp.libs.l10n.get("base.title").length > 0) {
-      CalculateApp.elements.basePaletteDiv.setAttribute('title', CalculateApp.libs.l10n.get("base.title"));
-    }
-    if (CalculateApp.libs.l10n.get("angle.title") !== undefined && CalculateApp.libs.l10n.get("angle.title").length > 0) {
-      CalculateApp.elements.radianDegreePalette.setAttribute('title', CalculateApp.libs.l10n.get("angle.title"));
-    }
-    if (CalculateApp.libs.l10n.get("digit.title") !== undefined && CalculateApp.libs.l10n.get("digit.title").length > 0) {
-      CalculateApp.elements.outputDigitsPalette.setAttribute('title', CalculateApp.libs.l10n.get("digit.title"));
     }
   },
 
