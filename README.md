@@ -1,6 +1,6 @@
 ![](images/sugarizer_logo_with_text.svg)
 
-# What is Sugarizer ?
+# What is Sugarizer?
 
 Sugarizer is a free/libre learning platform. The Sugarizer UI uses ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
 
@@ -44,44 +44,44 @@ The Sugarizer desktop application has four possible arguments:
 
 If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First, install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
-    npm install
+	npm install
 
 Then launch Sugarizer for GNU Linux with:
 
-    npm start > /dev/null
+	npm start > /dev/null
 
 Or, for Mac OS/Windows, just:
 
-    npm start
+	npm start
 
-You could use Sugarizer desktop arguments using "--" after the start. For example:
+You could use Sugarizer desktop arguments using "--" after start. For example:
 
-    npm start -- --window
+	npm start -- --window
 
 To run locally **Sugarizer Application into the Web Browser** (GNU Linux/Mac OS/Windows), you should launch it with a special option to enable access to local files.
 
 For **Chrome**, close ALL running instances of Chrome and re-launch it using the command line:
 
-    chrome --allow-file-access-from-files file:\\\<Directory>\sugarizer\index.html
+ 	chrome --allow-file-access-from-files file:\\\<Directory>\sugarizer\index.html
 
 In the path above, `<Directory>` is where you have stored/cloned your sugarizer repo into.
 
 In Windows, \ is the way path is written and / is the way for Linux/MacOS backward and forward slashes differ here, hence path for Linux/MacOS will be:
 
-    chrome --allow-file-access-from-files file:///<Directory>/sugarizer/index.html
+	chrome --allow-file-access-from-files file:///<Directory>/sugarizer/index.html
 
 
 On Windows, you should launch:
 
-    "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files <path>
+	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files <path>
 
 On Mac OS, you should launch:
 
-    open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files <path>
+	open -n /Applications/Google\ Chrome.app --args --allow-file-access-from-files <path>
 
 On Linux, you should launch:
 
-    google-chrome-stable --allow-file-access-from-files <path>
+	google-chrome-stable --allow-file-access-from-files <path>
 
 > Note: `google-chrome-stable` is the name of Chrome in Ubuntu but it could be different on other distribution, you can get the package-name for Chrome by running `sudo dpkg -l | grep chrome`
 
@@ -127,33 +127,6 @@ To do that, you first need to adapt the content of the [activities](activities) 
 Then you need to update the [activities.json](activities.json) file to reflect your choice.
 Here is an example of this file:
 
-    [
-        {"id": "org.sugarlabs.GearsActivity", "name": "Gears", "version": 6, "directory": "activities/Gears.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.MazeWebActivity", "name": "Maze Web", "version": 2, "directory": "activities/MazeWeb.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.PaintActivity", "name": "Paint", "version": 1, "directory": "activities/Paint.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.TamTamMicro", "name": "TamTam Micro", "version": 1, "directory": "activities/TamTamMicro.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.MemorizeActivity", "name": "Memorize", "version": 1, "directory": "activities/Memorize.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpg-france.physicsjs", "name": "Physics JS", "version": 1, "directory": "activities/PhysicsJS.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.CalculateActivity", "name": "Calculate", "version": 1, "directory": "activities/Calculate.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.TurtleBlocksJS", "name": "Turtle Blocks JS", "version": 1, "directory": "activities/TurtleBlocksJS.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.Clock", "name": "Clock Web", "version": 1, "directory": "activities/Clock.activity", "icon": "activity/activity-clock.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.RecordActivity", "name": "Record", "version": 1, "directory": "activities/Record.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.Abecedarium", "name": "Abecedarium", "version": 5, "directory": "activities/Abecedarium.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.KAView", "name": "KA View", "version": 1, "directory": "activities/KAView.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.FoodChain", "name": "FoodChain", "version": 4, "directory": "activities/FoodChain.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpc-france.labyrinthjs", "name": "Labyrinth JS", "version": 1, "directory": "activities/LabyrinthJS.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.TankOp", "name": "Tank Operation", "version": 1, "directory": "activities/TankOp.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.ChatPrototype", "name": "ChatPrototype", "version": 1, "directory": "activities/ChatPrototype.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpcfrance.Gridpaint", "name": "Grid Paint", "version": 2, "directory": "activities/Gridpaint.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.olpc-france.LOLActivity", "name": "Last One Loses Activity", "version": 1, "directory": "activities/LastOneLoses.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.StopwatchActivity", "name": "Stopwatch", "version": 1, "directory": "activities/Stopwatch.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.Markdown", "name": "Markdown", "version": 3, "directory": "activities/Markdown.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.sugarlabs.GTDActivity", "name": "Get Things Done", "version": 1, "directory": "activities/GetThingsDone.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-        {"id": "org.laptop.WelcomeWebActivity", "name": "WelcomeWeb", "version": 1, "directory": "activities/WelcomeWeb.activity", "icon": "activity/welcome-activity.svg", "favorite": true, "activityId": null},
-        {"id": "org.vpri.EtoysActivity", "name": "Etoys", "version": 1, "directory": "activities/Etoys.activity", "icon": "activity/activity-etoys.svg", "favorite": false, "activityId": null},
-        {"id": "io.cordova.all_in_one_plugin_sample", "name": "Cordova", "version": 1, "directory": "activities/Cordova.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
-        {"id": "org.olpcfrance.MediaViewerActivity", "name": "MediaViewer", "version": 1, "directory": "activities/MediaViewer.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null}
-    ]
 	[
 		{"id": "org.sugarlabs.GearsActivity", "name": "Gears", "version": 6, "directory": "activities/Gears.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 		{"id": "org.sugarlabs.MazeWebActivity", "name": "Maze Web", "version": 2, "directory": "activities/MazeWeb.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
@@ -231,7 +204,7 @@ Sugarizer Application could be packaged as an Android or iOS application using [
 
 For Android:
 
-A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allows you to create the Android packaging without any Android knowledge.
+A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allow you to create the Android packaging without any Android knowledge.
 
 If you want to build it yourself, you could adapt the [source code](https://github.com/llaske/sugarizer-apkbuilder/blob/master/src/make_android.sh) of this tool.
 
@@ -260,7 +233,7 @@ To remove media content for **Abecedarium**, remove directories:
 
 The activity will look for media content on the server referenced in [activities/Abecedarium.activity/database/db_url.json](activities/Abecedarium.activity/database/db_url.json), by default `http://server.sugarizer.org/activities/Abecedarium.activity/`.
 
-To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example, `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
+To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
 
 To remove resources for **Scratch**, remove directory [activities/Scratch.activity/static/internal-assets](activities/Scratch.activity/static/internal-assets) and remove the value `class="offlinemode"` in [activities/Scratch.activity/index.html](activities/Scratch.activity/index.html).
 
@@ -272,15 +245,15 @@ First, ensure that Node.js and npm are installed on your machine. See [here](htt
 
 The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
 
-    npm install -g grunt-cli
+	npm install -g grunt-cli
 
 Then install the specific component for Sugarizer by running:
 
-    npm install --only=dev
+	npm install --only=dev
 
 Finally, launch:
 
-    grunt -v
+	grunt -v
 
 At the end of the process, all JavaScript files in all directories have been replaced by an optimized version.
 
@@ -299,31 +272,31 @@ If you want to add a new translation, copy the whole [en] section at the end of 
 * Replace "en" by the [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) of your language. For example, "fr" for French,
 * Substitute the right side of the "=" character on each line by the string localized in your language. For example:
 
-        [fr]
-        StartNew=Commencer un nouveau
-        NameActivity=Activité {{name}}
-        RemoveFavorite=Retirer le favori
+		[fr]
+		StartNew=Commencer un nouveau
+		NameActivity=Activité {{name}}
+		RemoveFavorite=Retirer le favori
 
 Warning: Note that text inside {{}} must not be localized. So here, **{{name}}** is not translated.
 
 Sugarizer automatically detects the navigator language. To enable this detection, you need to update the settings.init function in the [lib/settings.js](lib/settings.js) file. Add a test on your language code. For example in French:
 
-    else if (navigatorLanguage.indexOf("fr") != -1)
-        this.language = "fr";
+	else if (navigatorLanguage.indexOf("fr") != -1)
+		this.language = "fr";
 
 Sugarizer settings display a list of all available languages. You need to add your language in this dialog. For this you have to:
 
 * Add a new string in [locale.ini](locale.ini) with the name of your language in English. For example:
 
-        French=French
+		French=French
 
 * Add the same line for all languages/sections in the file. If you're able to do that, translate the right side of the "=" character with the localized string for the name of your language. If you don't know how to translate it, just use the English word. For example:
 
-        French=Français
+		French=Français
 
 * Add your string in the [js/dialog.js](js/dialog.js) file in the create function of the Enyo class Sugar.DialogLanguage. You should give the ISO 639-1 language code and the new string for your language name. For example:
 
-        {code: "fr", icon: null, name: l10n.get("French")},
+		{code: "fr", icon: null, name: l10n.get("French")},
 
 That's all. Test the result in your browser.
 
