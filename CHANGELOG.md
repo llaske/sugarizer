@@ -10,9 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Assignments support
 
 ### Changed
-- Replace Bootstrap Tour by IntroJS in Sugarizer Core
+- Replace Bootstrap Tour with IntroJS in Sugarizer Core
 - Replace Bootstrap Tour by IntroJS in activities #1090
-- Fix touch support on smart board and touch PC
+- Fix touch support on the smart board and touch the PC
 - Better compatibility with iPad on iOS 13+
 - Add statistics feature in activities
 
@@ -21,43 +21,43 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Wrong arrow icon in Exerciser activity #748
 - Improve responsive in Calculate activity #982
 - Overlap hover effect in circular mode view #974
-- No tooltip on home page and journal page #913
-- Localize and detail tooltip in Paint activity #1004
+- No tooltip on the home page and journal page #913
+- Localize and detail tooltip in Paint Activity #1004
 - Off-center pictures in Abecedarium Activity #1001
 - Generate QRCode with enter in QRCode activity #1007
 - Implode Activity: fix Warning message button alignment #1025
 - Hover effect to Planet Activity #1029
 - Fraction jump tutorial navigation text issue #1035
-- Some button text is not in centre with the icon #1052
+- Some button text is not in center with the icon #1052
 - Dollar street activity not loading #985
-- Overlapping of "activity-palette" with "back-button" in Tangran and Curriculum activity #1055
-- Settings of Falabracman activity was overlapping with activity palette #1060
+- Overlapping of "activity-palette" with "back-button" in Tangran and Curriculum Activity #1055
+- Settings of Falabracman activity were overlapping with activity palette #1060
 - Overlapping of "activity-palette" in LabyrinthJS.activity #1073
 - Blank screen after using Sugarizer Server Dashboard #1079
 - Planet type is not localized in Planets activity #1076
 - Displaying message when MediaViewer activity is empty #1003
 - Add Previous/Next button in DollarStreet activity to navigate in images #1075
-- Fix SharedNotes tutorial don't start at end of home tutorial
+- Fix the SharedNotes tutorial don't start at the end of the home tutorial
 - Fix SharedNotes content is lost once disconnected #1144 
 - Tutorial steps missing at first launch #1089
-- Disabling Text selection for buttons #1151
-- Physics element are coming above toolbar #1064
-- Forbid create elements in Physics that're Bigger than canvas #1171
-- Template container interfering the Calligra Activity #1174
-- Background color of journal-container and body are same in some activities #1181
-- Bad handling of multitouch in Physics activity #849
+- Disabling Text selection for button #1151
+- Physics elements are coming above toolbar #1064
+- Forbid creates elements in Physics that are Bigger than canvas #1171
+- Template container interfering with the Calligra Activity #1174
+- Background color of the journal-container and body are the same in some activities #1181
+- Bad handling of multitouch in Physics Activity #849
 - Add score counter in Fractions Activity #1032
 - Increase Record video limit to 15s, remove size limit
-- Chess Activity : Step Number are not visible after 99 #1196
+- Chess Activity : Step Numbers are not visible after 99 #1196
 - Speak activity UI enhancement #1201
-- TamTam Micro : Piano Color keys doesn't work when pressed near Black keys #1206
+- TamTam Micro : Piano Color keys don't work when pressed near Black keys #1206
 - Dollar Street Activity sliders can overlap #1212
 - Blockrain Activity : rotate button unaligned #1232
 - Get Things Done Activity : plus button unaligned #1245
 - QR code Activity: buttons are unaligned #1253
 - Markdown Activity: Mouse pointer UI issue on scrollbar #1255
 - Physics Js Activity : Navbar still active in fullscreen mode #1290
-- Abecedarium Activity: Unexpected behaviour with language change button #1321
+- Abecedarium Activity: Unexpected behavior with language change button #1321
 - VideoViewer Activity add key mapping #1274
 - Chess Activity Moves Alignment Fix #1329
 - Stopwatch activity: Activity dropdown UI issue #1297
@@ -74,18 +74,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Refactor activities and preferences loading
 - Refactor browser and device detection
-- Force token expiration when a local account is connected and server unavailable
-- Enhancement in multiplayer mode of Memorize activity #795
-- Position of scrollbar in listview is saved #945
+- Force token expiration when a local account is connected and the server is unavailable
+- Enhancement in the multiplayer mode of Memorize activity #795
+- Position of the scrollbar in listview is saved #945
 
 ### Fixed
 - Name and XO visible even after removing in Memorize Activity #794
-- Calculate activity outputs incorrect error message if variable is changed in function #798
+- Calculate activity outputs an incorrect error message if the variable is changed in function #798
 - Popup to connect local user freeze on Android/iOS
 - Calligra touch responsiveness is really bad on smartphone #955
 - Journal updates on favorite and name are not synchronized
 - Impossible to open PDF on iOS #967
-- Screen doesn't use the full size on iPhone X #968
+The screen doesn't use the full size on iPhone X #968
 
 
 ## [1.5.0] - 2021-04-27
@@ -102,7 +102,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add option in Paint to export the current drawing to the journal as an image #911
 - Add country flag in Color My World activity #920
 - Add a feature to change background in Shared Notes activity #799
-- Add a full 24h mode in Clock activity #921
+- Add a full 24h mode in Clock Activity #921
 - Add an option to change default server at login
 - Add a popup when image is exported in Planets Activity #927
 
@@ -193,7 +193,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Splitbar in toolbar of Clock activity are half sized in Chrome #789
 - Wrong title of blinker button in Game Of Life activity #792
 - Alert "user already exists" should come earlier #580
-- Wrong song is play on slow device/connection in TamTam activity #803
+- Wrong song is played on slow device/connection in TamTam activity #803
 - Removed resize option in Shared Notes
 - When connected to server, activities get shared automatically #810
 - Private button in presence palette shares the activity #811
