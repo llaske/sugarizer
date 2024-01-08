@@ -94,11 +94,11 @@ enyo.kind({
 
 		// At first launch, display tutorial
 		var that = this;
-		window.setTimeout(function() {
-			if (that.history.length == 0) {
+		window.addEventListener("localized", function () {
+			if (that.history.length === 0) {
 				that.startTutorial();
 			}
-		}, constant.timerBeforeTutorial);
+		}, {once : true})
 	},
 
 	localize: function() {

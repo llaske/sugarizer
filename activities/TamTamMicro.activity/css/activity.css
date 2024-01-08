@@ -91,10 +91,10 @@ body{
 	background-size: 25px 25px;
 	margin-top: 2px;
 	padding: 0px;
-	text-indent: 100%;
 	white-space: nowrap;
-	overflow: hidden;
-}  
+	color: #808080;
+	line-height: 27px;
+} 
 
 .customTooltip .introjs-nextbutton::before {
 	content: "";

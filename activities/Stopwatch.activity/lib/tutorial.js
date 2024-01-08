@@ -43,7 +43,13 @@ define(["webL10n"], function (l10n) {
                 position: "left",
                 title: l10n.get("TutoRemoveTitle"),
                 intro: l10n.get("TutoRemoveContent")
-            }
+            },
+            {
+                element: "#export-csv-button",
+                position: "bottom",
+                title: l10n.get("exportAsCSV"),
+                intro: l10n.get("TutoCsvButton")
+            },
         ];
 
         steps = steps.filter(function (obj) {

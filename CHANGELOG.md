@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Chart Activity
+- Word Puzzle Template in Exerciser activity
+- CSV support in the Journal
+- Export CSV instead of TXT in Measure.activity
+- Export CSV in Stopwatch activity
+- Allow any files to be copied from device on Android/iOS
+
+### Changed
+- Rewrite of Chat activity
+- Migrate localization to i18next
+- Updated Etoys activity, supports (local) saving now
+
+### Fixed
+- Chess multiplayer bug when a third player join #1047
+- Undefined tutorial step in curriculum activity #1293
+- Bad cursor pointer on scrollbar #1281
+- Extra white space to right side of the buttons #1124
+- Migrating Measure activity to i18next #1362
+- Unable to create password mainly based on numbers #1380
+- QR activity Photo Loading Icon Overlaping #1268
+- Fototoon Activity: interactive buttons appears under the box shape #1221
+- "Help" pop-ups nearly impossible to close in Chrome on Mobile #1403
+- XSS injections on Labyrinth JS and Paint Activity #787
+- Style for Planet Info in Planet Activity is Hard to See #1448
+
 ## [1.7.0] - 2023-03-28
 ### Added
 - Evaluation mode in Exerciser activity

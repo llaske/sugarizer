@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datastore","sugar-web/activity/activity"], function (palette,env,l10n,datastore,activity) {
+define(["sugar-web/graphics/palette","sugar-web/env","l10n","sugar-web/datastore","sugar-web/activity/activity"], function (palette,env,l10n,datastore,activity) {
 
 	var canvas = document.getElementById("canvas");
 	var ctx = canvas.getContext('2d');
@@ -66,6 +66,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			if (!environment.user) environment.user = { language: defaultLanguage };
 			sugarSettings = environment.user;
+			l10n.init(defaultLanguage);
 			speech.init(sugarSettings);
 			// If not IE, setup mouse for capture
 			if (!IE){
@@ -77,7 +78,7 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 			}, 1000/FPS);
 			window.addEventListener('localized', function() {
 				if (first) {
-					l10n.language.code = sugarSettings.language;
+					l10n.init(sugarSettings.language);
 					first = false;
 					return;
 				} else {
@@ -389,40 +390,18 @@ define(["sugar-web/graphics/palette","sugar-web/env","webL10n","sugar-web/datast
 	}
 
 	function localize() {
-		document.getElementById('gamemode1-button').title = l10n.get("TypeSomethingToHear");
-		document.getElementById('gamemode2-button').title = l10n.get("AskRobot");
-		document.getElementById('gamemode3-button').title = l10n.get("VoiceChat");
-		document.getElementById('language-button').title = l10n.get("Language");
-		document.getElementById('speech-button').title = l10n.get("Speech");
-		document.getElementById('face-button').title = l10n.get("Face");
-		document.getElementById('ratelabel').innerHTML = l10n.get("ratelabel");
-		document.getElementById('pitchlabel').innerHTML = l10n.get("pitchlabel");
-		document.getElementById('eyesnumber').innerHTML = l10n.get("eyesnumber");
-		document.getElementById('eyes').title = l10n.get("eyes");
-		document.getElementById('glasses').title = l10n.get("glasses");
-		document.getElementById('speakText').title = l10n.get("speak");
-		document.getElementById('lang-en').innerHTML = l10n.get('langen');
-		document.getElementById('lang-ca').innerHTML = l10n.get('langca');
-		document.getElementById('lang-cs').innerHTML = l10n.get('langcs');
-		document.getElementById('lang-de').innerHTML = l10n.get('langde');
-		document.getElementById('lang-el').innerHTML = l10n.get('langel');
-		document.getElementById('lang-eo').innerHTML = l10n.get('langeo');
-		document.getElementById('lang-es').innerHTML = l10n.get('langes');
-		document.getElementById('lang-fi').innerHTML = l10n.get('langfi');
-		document.getElementById('lang-fr').innerHTML = l10n.get('langfr');
-		document.getElementById('lang-hu').innerHTML = l10n.get('langhu');
-		document.getElementById('lang-it').innerHTML = l10n.get('langit');
-		document.getElementById('lang-kn').innerHTML = l10n.get('langkn');
-		document.getElementById('lang-la').innerHTML = l10n.get('langla');
-		document.getElementById('lang-lv').innerHTML = l10n.get('langlv');
-		document.getElementById('lang-nl').innerHTML = l10n.get('langnl');
-		document.getElementById('lang-pl').innerHTML = l10n.get('langpl');
-		document.getElementById('lang-pt').innerHTML = l10n.get('langpt');
-		document.getElementById('lang-ro').innerHTML = l10n.get('langro');
-		document.getElementById('lang-sk').innerHTML = l10n.get('langsk');
-		document.getElementById('lang-sv').innerHTML = l10n.get('langsv');
-		document.getElementById('lang-tr').innerHTML = l10n.get('langtr');
-		document.getElementById('lang-zh').innerHTML = l10n.get('langzh');
+		var ids = ["gamemode1-button", "gamemode2-button", "gamemode3-button", "language-button", "speech-button", "face-button", "ratelabel", "pitchlabel", "eyesnumber", "eyes", "glasses", "speakText", "lang-en", "lang-ca", "lang-cs", "lang-de", "lang-el", "lang-eo", "lang-es"];
+		var properties = ["title", "title", "title", "title", "title", "title", "innerHTML", "innerHTML", "innerHTML", "title", "title", "title", "innerHTML", "innerHTML", "innerHTML", "innerHTML", "innerHTML", "innerHTML", "innerHTML"];
+		var l10nKeys = ["TypeSomethingToHear", "AskRobot", "VoiceChat", "Language", "Speech", "Face", "ratelabel", "pitchlabel", "eyesnumber", "eyes", "glasses", "speak", "langen", "langca", "langcs", "langde", "langel", "langeo", "langes"];
+	
+		for (var i = 0; i < ids.length; i++) {
+			var element = document.getElementById(ids[i]);
+			if (element) {
+				element[properties[i]] = l10n.get(l10nKeys[i]);
+			} else {
+				console.warn('Element with id ' + ids[i] + ' not found');
+			}
+		}
 	}
 
 	init();

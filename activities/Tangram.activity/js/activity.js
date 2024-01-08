@@ -326,7 +326,7 @@ var app = new Vue({
       for (var i = 0; i < this.DataSetHandler.AllCategories.length; i++) {
         let index = this.DataSetHandler.currentCategories.findIndex(ele => ele === this.DataSetHandler.AllCategories[i]);
         let ct = this.SugarL10n.dictionary ? this.SugarL10n.dictionary["Data" + this.DataSetHandler.AllCategories[i].replace(/ /g, "")] : null;
-        let categoryTitle = ct ? ct.textContent : this.DataSetHandler.AllCategories[i];
+        let categoryTitle = ct ? ct : this.DataSetHandler.AllCategories[i];
         categoryButtonsContent += `<div id="category-button-` + (i + 1) + `" tangramcategory="` + this.DataSetHandler.AllCategories[i] + `" class="palette-item` + (index !== -1 ? ` palette-item-selected` : ``) + `">` + categoryTitle + `</div>`;
         if (this.DataSetHandler.AllCategories[i] === this.tangramCategories[0]) {
           changeCategory = false;

@@ -407,7 +407,7 @@ var app = new Vue({
 
         }
       } else {
-        if (vm.opponentuser != null) {
+        if (vm.opponentuser != null && vm.opponentuser.networkId == msg.user.networkId) {
           vm.opponentuser = null;
           vm.ishost = true;
           if ((vm.$refs.chessgame.state.to_play && !vm.$refs.chessgame.playercolor) || (!vm.$refs.chessgame.state.to_play && vm.$refs.chessgame.playercolor) ) {

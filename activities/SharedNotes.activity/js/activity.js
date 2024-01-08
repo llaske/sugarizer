@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "webL10n", "sugar-web/graphics/journalchooser", "activity/backgroundColorChooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser, backgroundColorChooser) {
+define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "tutorial", "sugar-web/env", "l10n", "sugar-web/graphics/journalchooser", "activity/backgroundColorChooser"], function (activity, datastore, notepalette, zoompalette, presencepalette, humane, tutorial, env, l10n, journalchooser, backgroundColorChooser) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -711,16 +711,13 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 					tutorial.start(tutorial.tourInit);
 				}, 500);
 			}
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			l10n.init(language);
 		});
 
 		// Handle localization
 		window.addEventListener('localized', function() {
-			env.getEnvironment(function(err, environment) {
-				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-				var language = environment.user ? environment.user.language : defaultLanguage;
-				if (l10n_s.language.code != language) {
-					l10n_s.language.code = language;
-				};
 				var oldDefaultText = defaultText;
 				defaultText = l10n_s.get("YourNewIdea");
 				nodetextButton.title = l10n_s.get("nodetextTitle");
@@ -749,7 +746,6 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 						}
 					}
 				}
-			});
 		}, false);
 
 		// --- Cytoscape handling
