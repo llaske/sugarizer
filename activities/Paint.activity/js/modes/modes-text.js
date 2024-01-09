@@ -28,7 +28,7 @@ define([], function () {
 
       /* We create a floating element with the text where the user clicked */
       var element = document.createElement('span');
-      element.innerHTML = text;
+      element.innerText = text;
       element.style.position = 'absolute';
       element.style.padding = '0px';
       element.size = text.length + 1;
@@ -86,7 +86,7 @@ define([], function () {
         return;
       }
 
-      var txt = PaintApp.data.currentElement.element.innerHTML;
+      var txt = PaintApp.data.currentElement.element.innerText;
       var top = PaintApp.data.currentElement.element.getBoundingClientRect().top - 55 + PaintApp.data.currentElement.element.getBoundingClientRect().height;
 
       /* We draw the text inside the canvas */

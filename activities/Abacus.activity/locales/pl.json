@@ -1,0 +1,17 @@
+{
+	"TutoPrev": "Poprz",
+	"TutoNext": "Dalej",
+	"TutoEnd": "Koniec",
+	"TutoExplainTitle": "Liczydło",
+	"TutoExplainContent": "Witaj w Liczydle. Liczydło pozwala poznać użytkownikowi różne reprezentacje liczb wykorzystując różne mechanizmy stworzone przez starożytnych Rzymian i Chińczyków.",
+	"TutoAbacusTitle": "Lista liczydł",
+	"TutoAbacusContent": "Tutaj możesz wybrać różne rodzaje liczydła.",
+	"TutoCustomTitle": "Personalizuj",
+	"TutoCustomContent": "Kliknij aby stworzyć własne liczydło.",
+	"TutoCopyTitle": "Kopiuj",
+	"TutoCopyContent": "Kliknij aby skopiować otrzymaną wartość.",
+	"TutoClearTitle": "Wyczyść",
+	"TutoClearContent": "Kliknij aby wyczyścić liczydło.",
+	"TutoCanvasTitle": "Liczydło",
+	"TutoCanvasContent": "Tutaj znajduje się liczydło. Klinij na koraliki aby dodać do wartości."
+}

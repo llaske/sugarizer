@@ -1,0 +1,17 @@
+{
+	"TutoPrev": "Prev",
+	"TutoNext": "Next",
+	"TutoEnd": "End",
+	"TutoExplainTitle": "Abacus Activity",
+	"TutoExplainContent": "Welcome into the Abacus activity. Abacus lets the learner explore different representations of numbers using different mechanical counting systems developed by the ancient Romans and Chinese",
+	"TutoAbacusTitle": "Abacus Choice",
+	"TutoAbacusContent": "Click here to select the type of Abacus to use. Some Abacus handle decimals, some handle fractions, some handle number in base 2 and you could even create your own abacus",
+	"TutoCustomTitle": "Custom",
+	"TutoCustomContent": "Click here to create a custom abacus. You could define number of rods, lines and base",
+	"TutoCopyTitle": "Copy",
+	"TutoCopyContent": "Click here to copy the current value into the clipboard",
+	"TutoClearTitle": "Clear",
+	"TutoClearContent": "Click here to reinit the value of abacus to 0",
+	"TutoCanvasTitle": "Abacus",
+	"TutoCanvasContent": "Here is the abacus. Click or drag the beads toward the central zone to set numbers"
+}

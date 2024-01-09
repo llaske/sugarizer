@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env", "webL10n", "tutorial"], function (activity,env, webL10n, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], function (activity,env, l10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -8,7 +8,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "webL10n", "tutorial"], f
 		env.getEnvironment(function(err, environment) {
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			webL10n.language.code = language;
+			l10n.init(language);
 		});
 		var myHighestScore = 0;
 

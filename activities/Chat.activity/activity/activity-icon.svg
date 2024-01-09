@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+[
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#000000">
+]>
+<svg width="55" height="55" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <g>
+    <g id="activity-helloworld" display="block">
+      <path id="svg_1" stroke-width="3" stroke="&stroke_color;" fill="&fill_color;" d="m9.263,48.396c0.681999,1.152 6.026999,0.059002 8.246,-1.463001c2.101999,-1.431999 3.206999,-2.595997 4.335999,-2.595997c1.133001,0 12.539999,0.919998 20.934999,-5.715c7.225002,-5.707001 9.773003,-13.788002 4.52,-21.437002c-5.251999,-7.643999 -13.832001,-9.08 -20.877998,-8.559999c-9.616001,0.717 -22.198001,8.285 -21.745001,19.688c0.264,6.710999 3.357,9.143002 4.922,10.702999c1.562,1.566002 4.545,1.566002 2.992,5.588001c-0.61,1.578999 -3.837999,2.917999 -3.327999,3.792z"/>
+    </g>
+    <circle cx="18" cy="27" r="3" fill="&stroke_color;" />
+    <circle cx="28" cy="27" r="3" fill="&stroke_color;" />
+    <circle cx="38" cy="27" r="3" fill="&stroke_color;" />
+  </g>
+</svg>
