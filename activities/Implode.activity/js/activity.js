@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", "tutorial"], function (activity, env, picoModal, webL10n, tutorial) {
+define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "l10n", "tutorial"], function (activity, env, picoModal, l10n, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -736,8 +736,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
         }
 
         function lose(){
-            var continue_button_title = webL10n.get("Continue");
-            var msg_content = webL10n.get("StuckMessage");
+            var continue_button_title = l10n.get("Continue");
+            var msg_content = l10n.get("StuckMessage");
             picoModal({
                 content:"<div style = 'width:400px;margin-bottom:60px'>" +
                     "<div style='width:40vw;float:left;margin-left:20px;'>" +
@@ -927,7 +927,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
             // Set current language to Sugarizer
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
-            webL10n.language.code = language;
+            l10n.init(language);
 
             // Load from datastore
             if (!environment.objectId) {
@@ -1042,13 +1042,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
 
         // Process localize event
         window.addEventListener("localized", function() {
-            document.getElementById("new-game").title = webL10n.get("NewGame");
-            document.getElementById("replay").title = webL10n.get("Replay");
-            document.getElementById("undo").title = webL10n.get("Undo");
-            document.getElementById("redo").title = webL10n.get("Redo");
-            document.getElementById("easy").title = webL10n.get("Easy");
-            document.getElementById("medium").title = webL10n.get("Medium");
-            document.getElementById("hard").title = webL10n.get("Hard");
+            document.getElementById("new-game").title = l10n.get("NewGame");
+            document.getElementById("replay").title = l10n.get("Replay");
+            document.getElementById("undo").title = l10n.get("Undo");
+            document.getElementById("redo").title = l10n.get("Redo");
+            document.getElementById("easy").title = l10n.get("Easy");
+            document.getElementById("medium").title = l10n.get("Medium");
+            document.getElementById("hard").title = l10n.get("Hard");
         });
 
     });
