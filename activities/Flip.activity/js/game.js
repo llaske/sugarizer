@@ -289,6 +289,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	this.init = function(){
 		//console.log(activity.getDatastoreObject());
 		this.palette = new sizepalette.SizePalette(this,doc.getElementById('size-button'),undefined);
+		l10n.updateDocument();
 		activity.getDatastoreObject().getMetadata(this.init_canaccessdatastore.bind(this));
 		document.getElementById("turnno").innerHTML = " " + (this.turns);
 		this.drawIndicator();
