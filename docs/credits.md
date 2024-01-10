@@ -1,12 +1,11 @@
 
 # Credits details
 
-
 Sugarizer is initially based on the work done on Sugar Web by Daniel Narvaez and Gonzalo Odiard. Sugar Web was thought to allow development of Sugar activities using only HTML5/JavaScript.
 
 Lionel Laské have encapsulated this work to develop an engine that mimics Sugar features and give a way to run Sugar Web activities outside of Sugar with the Journal stored in the browser. It was the Sugarizer Core. Later, a GSoC student, Suraj Gillespie, added the presence part.
 
-Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abecedarium, Tank Operation) and Manuel Quiñones (Clock, Gears, Maze, Get Things Done, StopWatch). TurtleJS was added shortly after wrote by Walter Bender. Each new Sugarizer version added new activities. Here's a non exhaustive list with original authors:
+Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abecedarium, Tank Operation) and Manuel Quiñones (Clock, Gears, Maze, Get Things Done, StopWatch). TurtleJS was added shortly after wrote by Walter Bender. Each new Sugarizer version added new activities. Here's a non exhaustive list with original authors:
 
 * Paint, Memorize, Record, Calculate and Media Viewer by Michaël Ohayon
 * Gridpaint by Brian Silverman
@@ -34,7 +33,7 @@ Initial activities in Sugarizer was developped by Lionel Laské (FoodChain, Abec
 You could see credits details in the README file in the directory for each activity.
 
 Encapsulation in Cordova for Android, Cordova for iOS then Electron for Windows/GNU Linux and MacOS was realized by Lionel Laské.
-The Sugarizer OS version for Android was developped by Jeremie Amsellem and Michaël Ohayon during GSoC.
+The Sugarizer OS version for Android was developed by Jeremie Amsellem and Michaël Ohayon during GSoC.
 
 Lot of students contributed to Sugarizer during GSoC and GCI.
 

@@ -1,6 +1,6 @@
 ![](images/sugarizer_logo_with_text.svg)
 
-# What is Sugarizer ?
+# What is Sugarizer?
 
 Sugarizer is a free/libre learning platform. The Sugarizer UI uses ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
 
@@ -104,7 +104,7 @@ Sugarizer Web App is a web application that runs on any device with a recent ver
 
 As a web application, it does not run offline and requires a permanent network connection to a **Sugarizer Server**.
 
-Sugarizer Server allows deployment of Sugarizer on a local server, for example on a school server, so expose locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network.
+Sugarizer Server allows deployment of Sugarizer on a local server, for example on a school server, so exposes locally Web Application (without Internet access). Sugarizer Server can also be used to provide collaboration features for Sugarizer Application on the network.
 
 To install your own Sugarizer Server, follow the instructions on
 [Sugarizer Server repository](https://github.com/llaske/sugarizer-server)
@@ -122,7 +122,7 @@ If you're a developer and you want to learn more about Sugarizer architecture, s
 All activities can be found in the [activities](activities) directory. Each activity has its own subdirectory. So for example, the *Abecedarium* activity is located in [activities/Abecedarium.activity](activities/Abecedarium.activity)
 
 You could distribute Sugarizer with whatever activities you want.
-To do that, you first need to adapt the content of the [activities](activities) directory  to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
+To do that, you first need to adapt the content of the [activities](activities) directory to match your wish: removing activities you don't want to distribute and adding in this directory new activities you want to include.
 
 Then you need to update the [activities.json](activities.json) file to reflect your choice.
 Here is an example of this file:
