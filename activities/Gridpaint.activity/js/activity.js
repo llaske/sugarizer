@@ -27,7 +27,7 @@
 // If you want to add features please make a fork with a different name.
 // Thanks in advance
 
-define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","webL10n","tutorial"], function (_activity, datastore, env, l10n, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","l10n","tutorial"], function (_activity, datastore, env, l10n, tutorial) {
     activity = _activity;
 
     // Manipulate the DOM only when it is ready.
@@ -40,7 +40,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","web
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			l10n.language.code = language;
+			l10n.init(language);
 		});
 
 		// Init activity and launch it
