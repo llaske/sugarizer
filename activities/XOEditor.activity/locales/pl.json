@@ -1,0 +1,13 @@
+{
+	"TutoPrev": "Poprz",
+	"TutoNext": "Dalej",
+	"TutoEnd": "Koniec",
+	"TutoExplainTitle": "Edytor XO",
+	"TutoExplainContent": "Witaj w Edytorze XO. Edytorze kolorów twojego ludzika.",
+	"TutoSaveTitle": "Zapisz kolory",
+	"TutoSaveContent": "Kliknij aby zapisać kolory ludzika.",
+	"TutoResetTitle": "Resetuj kolory",
+	"TutoResetContent": "Kliknij aby zrestować kolory ludzika.",
+	"TutoCanvasTitle": "Kombinacje kolorów",
+	"TutoCanvasContent": "Tutaj możesz wybrać zestaw kolorów. Pojawi się on na ludziku na środku ekranu. Możesz także ruszać kolorowymi kółkami po całej planszy."
+}

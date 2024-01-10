@@ -1,4 +1,4 @@
-define(["webL10n"], function(l10n) {
+define(["l10n"], function(l10n) {
 	var tutorial = {};
 
 	tutorial.start = function() {
@@ -36,7 +36,7 @@ define(["webL10n"], function(l10n) {
 				document.querySelector(step.element).style.display != "none" &&
 				document.querySelector(step.element).getBoundingClientRect().y != 0)
 		  );
-	
+
 		  introJs()
 		  .setOptions({
 			tooltipClass: "customTooltip",
