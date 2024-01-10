@@ -4,7 +4,7 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/editor','act
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		requirejs(['sugar-web/graphics/xocolor',"sugar-web/env","sugar-web/datastore","tutorial","webL10n"], function(xocol,env,datastore,tutorial,webL10n) {
+		requirejs(['sugar-web/graphics/xocolor',"sugar-web/env","sugar-web/datastore","tutorial","l10n"], function(xocol,env,datastore,tutorial,l10n) {
 			act.setup();
 			env.getEnvironment(function(err, environment) {
 				currentenv = environment;
@@ -12,7 +12,7 @@ define(["sugar-web/activity/activity",'easeljs','tweenjs','activity/editor','act
 				// Set current language to Sugarizer
 				var defaultLanguage =(typeof chrome != "undefined" && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage(): navigator.language;
 				var language = environment.user ? environment.user.language : defaultLanguage;
-				webL10n.language.code = language;
+				l10n.init(language);
 			});
 			act.getXOColor(function (error, colors) {
 				runactivity(act,xocol,doc,colors,env,datastore,tutorial);
@@ -69,7 +69,7 @@ function runactivity(act,xocolor,doc,colors,env,datastore,tutorial){
         document.getElementById("stop-button").addEventListener('click', function (event) {
 	        e.stop();
 		});
-		
+
 		// Full screen.
         document.getElementById("fullscreen-button").addEventListener('click', function() {
             document.getElementById("main-toolbar").style.opacity = 0;
@@ -100,4 +100,3 @@ function runactivity(act,xocolor,doc,colors,env,datastore,tutorial){
 	}
 	init();
 }
-

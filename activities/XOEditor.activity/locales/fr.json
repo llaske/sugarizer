@@ -1,0 +1,13 @@
+{
+	"TutoPrev": "Préc",
+	"TutoNext": "Suiv",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Activité XO Editor",
+	"TutoExplainContent": "Bienvenue dans l'activité XO Editor. L'activité XO Editor vous permet de changer facilement votre couleur favorite qui est utilisée pour tous les icônes du Sugarizer",
+	"TutoSaveTitle": "Enregistrer couleurs",
+	"TutoSaveContent": "Cliquer ici pour enregistrer la couleur actuelle au milieu de l'écran comme votre couleur favorite",
+	"TutoResetTitle": "Réinitialiser",
+	"TutoResetContent": "Cliquez ici pour initialiser le plateau comme il était au début. C'est utile si vous vous êtes amusé à bouger les combinaisons de couleurs",
+	"TutoCanvasTitle": "Palette de couleurs",
+	"TutoCanvasContent": "Ceci sont toutes le combinaisons de couleurs possibles pour Sugarizer. Cliquez sur une combinaison et vous pourrez l'essayer sur l'icône du milieu pour voir si elle vous plait. Si c'est le cas et que vous voulez la conserver, cliquez sur le bouton Enregistrer et voilà !"
+}
