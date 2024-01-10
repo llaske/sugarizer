@@ -6,5 +6,9 @@
       "sugar-web": "github:sugarlabs/sugar-web/master",
       "domReady": "github:requirejs/domReady/2.0.1"
     }
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "js-ini": "^1.6.0"
   }
 }
