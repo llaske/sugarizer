@@ -1,12 +1,11 @@
-define(["webL10n",
-        "sugar-web/activity/shortcut",
+define(["sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
         "sugar-web/datastore",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette"], function (
-    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette) {
+    shortcut, bus, env, datastore, presence, icon, activitypalette) {
 
     'use strict';
 
@@ -22,7 +21,6 @@ define(["webL10n",
     activity.setup = function () {
         bus.listen();
 
-        l10n.start();
 
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
@@ -100,7 +98,7 @@ define(["webL10n",
 
         env.getEnvironment(function (error, environment) {
             user = environment.user;
-            var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
+            var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","pl":"Działalność {{name}}","de":"Aktivität {{name}}"};
             var activityName = "";
             for (var i = 0 ; i < environment.user.activities.length ; i++) {
                 if (environment.user.activities[i].id == environment.bundleId) {
