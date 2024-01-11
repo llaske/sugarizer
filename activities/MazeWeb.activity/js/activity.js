@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "webL10n", "sugar-web/graphics/palette", "rot", "humane", "tutorial"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, webL10n, palette, ROT, humane, tutorial) {
+define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar-web/graphics/presencepalette", "sugar-web/env",  "sugar-web/graphics/icon", "l10n", "sugar-web/graphics/palette", "rot", "humane", "tutorial"], function (activity, TWEEN, rAF, directions, presencepalette, env, icon, l10n, palette, ROT, humane, tutorial) {
 
     requirejs(['domReady!'], function (doc)   {
         activity.setup();
@@ -25,7 +25,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			webL10n.language.code = language;
+			l10n.init(language);
 
             // Shared instances
             if (environment.sharedId) {
@@ -94,7 +94,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
                     oponentEnded++;
 					var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 					var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
-					humane.log(html + webL10n.get("PlayerEndLevel",{user: userName}));
+					humane.log(html + l10n.get("PlayerEndLevel",{user: userName}));
                     break;
             }
 
@@ -106,10 +106,10 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 			if (msg.move === 1) {
 				oponentCount++;
-				humane.log(html + webL10n.get("PlayerJoin",{user: userName}));
+				humane.log(html + l10n.get("PlayerJoin",{user: userName}));
 			} else if (msg.move === -1) {
 				oponentCount--;
-				humane.log(html + webL10n.get("PlayerLeave",{user: userName}));
+				humane.log(html + l10n.get("PlayerLeave",{user: userName}));
 			}
             if (isHost) {
                 presence.sendMessage(presence.getSharedInfo().id, {
@@ -464,7 +464,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 	                });
 	            } else {
 					var waitCount = (oponentCount-oponentEnded-1);
-					humane.log(webL10n.get((waitCount > 1 ?"PlayersWaitMany":"PlayersWaitOne"), {count: waitCount}));
+					humane.log(l10n.get((waitCount > 1 ?"PlayersWaitMany":"PlayersWaitOne"), {count: waitCount}));
 				}
 
 			}

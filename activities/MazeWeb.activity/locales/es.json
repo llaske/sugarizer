@@ -1,0 +1,18 @@
+{
+	"PlayerEndLevel": "{{user}} acaba de terminar el nivel",
+	"PlayerJoin": "{{user}} se ha unido",
+	"PlayerLeave": "{{user}} ha abandonado",
+	"PlayersWaitOne": "Esperando a {{count}} jugador más",
+	"PlayersWaitMany": "Esperando a {{count}} jugadores más",
+	"TutoPrev": "Ant",
+	"TutoNext": "Sig",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Actividad \"Laberinto\"",
+	"TutoExplainContent": "Bienvenido a la actividad \"Laberinto\". Como su nombre indica, en \"Laberinto\" el alumno tendrá que recorrer los pasillos de un laberinto hasta encontrar una salida. Cada nuevo laberinto será más grande y difícil que el anterior",
+	"TutoNetworkTitle": "Compartir en red",
+	"TutoNetworkContent": "Haz clic aquí y comparte tu actividad para que otros usuarios conectados puedan jugar contigo",
+	"TutoRestartTitle": "Reiniciar",
+	"TutoRestartContent": "Haz clic aquí para reiniciar el juego. Si lo haces, volverás al primer nivel de dificultad",
+	"TutoCanvasTitle": "Laberinto",
+	"TutoCanvasContent": "Este es el laberinto. Usa las teclas de dirección o haz clic en el lugar al que quieres mover a tu personaje hasta que llegue a la salida: la caja coloreada. Deberás detenerte en cada cruce para decidir cuál será tu siguiente paso"
+}
