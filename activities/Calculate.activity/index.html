@@ -31,7 +31,7 @@
     <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
   </div>
   <button class="toolbutton pull-right" id="unfullscreen-button" title="UnFullscreen"></button>
-   <div class="bootstrap-container-fluid" >
+   <div class="bootstrap-container-fluid scrollbar">
     <div class="bootstrap-row-fluid calc-container">
       <div id="calc-input-div" class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
         <div style="padding:5px;">
@@ -118,3 +118,12 @@
 </body>
 
 </html>
+
+<style>
+  .scrollbar {
+    @media (max-width: 992px) and (orientation: landscape) {
+      overflow-y: scroll;
+      height:350px;
+    }
+  }
+</style>
