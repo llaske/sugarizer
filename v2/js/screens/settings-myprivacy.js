@@ -5,13 +5,13 @@ const MyPrivacy = {
 	name: 'MyPrivacy',
 	template: ` 
 				<dialog-box 
-					ref="myprivacyModal"
+					ref="privacy"
 					iconData="./icons/privacy.svg"
 					isNative="true"
 					:titleData="SugarL10n ? SugarL10n.get('MyPrivacy') : ''"
 					ok-button="true"
 					cancel-button="true"
-					v-on:on-cancel="close('myprivacyModal')"
+					v-on:on-cancel="close('privacy')"
 					v-on:on-ok="okClicked"
 					>
 					<div class="computer-content">
@@ -25,7 +25,7 @@ const MyPrivacy = {
 								size="20"
 								color="1024"
 								:text="SugarL10n ? SugarL10n.get('CancelChanges') : ''"
-								@click="close('myprivacyModal')"
+								@click="close('privacy')"
 							></icon-button>								
 							<icon-button
 								id="myprivacy-restar-btn"
@@ -138,7 +138,7 @@ const MyPrivacy = {
 
 		async okClicked() {
 			await this.updateOptions();
-			this.close('myprivacyModal');
+			this.close('privacy');
 		},
 
 		updateOptions() {

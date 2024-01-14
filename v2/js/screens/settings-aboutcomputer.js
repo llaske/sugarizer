@@ -5,13 +5,13 @@ const AboutComputer = {
 	name: 'AboutComputer',
 	template: ` 
 				<dialog-box 
-						ref="aboutComputerModal"
+						ref="about_my_computer"
 						iconData="./icons/module-about_my_computer.svg"
 						isNative="true"
 						:titleData="SugarL10n ? SugarL10n.get('AboutMyComputer') : ''"
 						ok-button="true"
 						cancel-button="true"
-						v-on:on-cancel="close('aboutComputerModal')"
+						v-on:on-cancel="close('about_my_computer')"
 						v-on:on-ok="okClicked"
 				>
 					<div class="computer-content" >
@@ -79,7 +79,7 @@ const AboutComputer = {
 		},
 
 		okClicked() {
-			this.close('aboutComputerModal');
+			this.close('about_my_computer');
 		},
 
 		onContributorsLinkClick() {

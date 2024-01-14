@@ -385,8 +385,10 @@ const HomeScreen = {
 				this.removeCurrentPopup();
 			}
 			if (item == "buddy_preferences" || item == "buddy_buddy_popup") {
+				sugarizer.modules.stats.trace('home_view', 'click', 'my_settings');
 				this.$refs.settings.openSettingsModal("settingModal");
 			} else if (item == "buddy_shutdown" ) {
+				sugarizer.modules.stats.trace('home_view', 'click', 'logoff');
 				this.logout();
 			} else {
 				this.launchActivity(this.popup, item);

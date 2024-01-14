@@ -218,6 +218,8 @@ define(["sugar-web/datastore"], function (datastore) {
 		if (help) {
 			location = location + "&h=1";
 		}
+		// TODO: Should be the current view instead of home
+		sugarizer.modules.stats.trace('home_view', (objectId ? 're' : '') + 'launch_activity', activity.id, objectId);
 		window.location = location;
 	};
 	

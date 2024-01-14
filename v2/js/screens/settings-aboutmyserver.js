@@ -5,14 +5,14 @@ const AboutMyServer = {
 	name: 'AboutMyServer',
 	template: ` 
 				<dialog-box 
-						ref="aboutMyServerModal"
+						ref="about_my_server"
 						iconData="./icons/cloud-settings.svg"
 						isNative="true"
 						:titleData="SugarL10n ? SugarL10n.get('Server') : ''"
 						ok-button="true"
 						cancel-button="true"
-						v-on:on-cancel="close('aboutMyServerModal')"
-						v-on:on-ok="close('aboutMyServerModal')"
+						v-on:on-cancel="close('about_my_server')"
+						v-on:on-ok="close('about_my_server')"
 				>
 					<div class="settings-subscreen column firstscreen_text">
 						<div class="aboutserver-subbox aboutserver-checkbox">

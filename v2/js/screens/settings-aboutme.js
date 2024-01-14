@@ -5,14 +5,14 @@ const AboutMe = {
 	name: 'AboutMe',
 	template: ` 
 				<dialog-box 
-						ref="aboutMeModal"
+						ref="about_me"
 						iconData="./icons/owner-icon.svg"
 						:iconColorData="buddycolor"
 						:titleData="SugarL10n ? SugarL10n.get('AboutMe') : ''"
 						ok-button="true"
 						cancel-button="true"
 						v-on:on-ok="okClicked"
-						v-on:on-cancel="close('aboutMeModal')"
+						v-on:on-cancel="close('about_me')"
 					>
 						<div class="settings-subscreen aboutme-box">
 							<div class="firstscreen_text">{{SugarL10n ? SugarL10n.get('ClickToColor') : ''}}</div>
@@ -181,7 +181,7 @@ const AboutMe = {
 			this.name = this.$refs.nameInput.value;
 			const nameChanged = this.nameChanged();
 			if (!nameChanged && this.currentcolor == this.buddycolor) {
-				this.close('aboutMeModal');
+				this.close('about_me');
 				return;
 			}
 			if (nameChanged && await sugarizer.modules.user.checkIfExists(null, this.name)) {
@@ -190,6 +190,7 @@ const AboutMe = {
 				return;
 			}
 			await this.updateUser(this.name, this.currentcolor);
+			sugarizer.modules.stats.trace('my_settings_about_me', 'change', 'name_color', null);
 		},
 	},
 

@@ -16,48 +16,48 @@ const Settings = {
 						<div class="dialog-items">
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringAboutMe).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="31" svgfile="icons/owner-icon.svg" :color="buddycolor" :size="constant.sizeSettings" @click="openModal('aboutMeModal')"
+									<icon id="31" svgfile="icons/owner-icon.svg" :color="buddycolor" :size="constant.sizeSettings" @click="openModal('about_me')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringAboutMe}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringAboutMyComputer).includes(v))) ? '' :'dialog-item-disable'">
-								<div v-on:click="openModal('aboutComputerModal')">
-									<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('aboutComputerModal')"
+								<div v-on:click="openModal('about_my_computer')">
+									<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('about_my_computer')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringAboutMyComputer}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringServer).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="33" svgfile="icons/cloud-settings.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('aboutMyServerModal')"
+									<icon id="33" svgfile="icons/cloud-settings.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('about_my_server')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringServer}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMySecurity).includes(v))) ? '' :'dialog-item-disable'" v-if="connected">
 								<div >
-									<icon id="34" svgfile="icons/login-icon.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('mysecurityModal')"
+									<icon id="34" svgfile="icons/login-icon.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('security')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringMySecurity}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringMyPrivacy).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="35" svgfile="icons/privacy.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('myprivacyModal')"
+									<icon id="35" svgfile="icons/privacy.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('privacy')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringMyPrivacy}}</div>
 							</div>
 							<div v-bind:class="(filtersettings.find(v => (localizedL10n.stringLanguage).includes(v))) ? '' :'dialog-item-disable'">
 								<div >
-									<icon id="36" svgfile="icons/module-language.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('languageModal')"
+									<icon id="36" svgfile="icons/module-language.svg" color="256" :size="constant.sizeSettings" is-native="true" @click="openModal('language')"
 								></icon></div>
 								<div class="dialog-item-text">{{localizedL10n.stringLanguage}}</div>
 							</div>
 						</div>
 					</dialog-box> 
-					<about-me ref="aboutMeModal" v-if="subscreen === 'aboutMeModal'" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-me>
-					<about-computer ref="aboutComputerModal" v-if="subscreen === 'aboutComputerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-computer>
-					<aboutmyserver ref="aboutMyServerModal" v-if="subscreen === 'aboutMyServerModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></aboutmyserver>
-					<mysecurity ref="mysecurityModal" v-if="subscreen === 'mysecurityModal'" :SugarL10n="SugarL10n" :username="username" @close="setSubScreen(value)"></mysecurity>
-					<myprivacy ref="myprivacyModal" v-if="subscreen === 'myprivacyModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></myprivacy>
-					<languagebox ref="languageModal" v-if="subscreen === 'languageModal'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></languagebox>
+					<about-me ref="about_me" v-if="subscreen === 'about_me'" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-me>
+					<about-computer ref="about_my_computer" v-if="subscreen === 'about_my_computer'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></about-computer>
+					<aboutmyserver ref="about_my_server" v-if="subscreen === 'about_my_server'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></aboutmyserver>
+					<mysecurity ref="security" v-if="subscreen === 'security'" :SugarL10n="SugarL10n" :username="username" @close="setSubScreen(value)"></mysecurity>
+					<myprivacy ref="privacy" v-if="subscreen === 'privacy'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></myprivacy>
+					<languagebox ref="language" v-if="subscreen === 'language'" :SugarL10n="SugarL10n" @close="setSubScreen(value)"></languagebox>
 	`,
 
 	components: {
@@ -120,6 +120,7 @@ const Settings = {
 
 	methods: {
 		searchSettingsBox(input) {
+			sugarizer.modules.stats.trace('my_settings', 'search', 'q='+input, null);
 			this.filtersettings = this.settingsData.filter((setting) => {
 				return setting.toUpperCase().includes(input.toUpperCase())
 			})
@@ -131,6 +132,7 @@ const Settings = {
 		},
 
 		async openModal(ref) {
+			sugarizer.modules.stats.trace('my_settings', 'click', ref, null);
 			this.subscreen = ref;
 			await this.$nextTick();
 			this.$refs[ref].$refs[ref].showDialog = true;

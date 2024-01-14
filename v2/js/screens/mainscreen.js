@@ -47,17 +47,17 @@ const MainScreen = {
 							color="768"
 							size="47"
 							isNative="true"
-							@click="screentype='home'"
+							@click="changeView('home')"
 						></icon>
 						<icon
 							class="toolbutton"
-							v-bind:class="{ active: screentype === 'neighbor' }"
-							id="view_neighbor_button"
+							v-bind:class="{ active: screentype === 'neighborhood' }"
+							id="view_neighborhood_button"
 							svgfile="./icons/view-neighborhood.svg"
 							color="768"
 							size="47"
 							isNative="true"
-							@click="screentype='neighbor'"
+							@click="changeView('neighborhood')"
 						></icon>
 						<icon
 							class="toolbutton"
@@ -67,14 +67,14 @@ const MainScreen = {
 							color="768"
 							size="47"
 							isNative="true"
-							@click="screentype='list'"
+							@click="changeView('list')"
 						></icon>
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
 						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n"/>
 						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" :SugarL10n="SugarL10n"/>
-						<div v-else-if="screentype==='neighbor'"> Neighbor </div>
+						<div v-else-if="screentype==='neighborhood'"> Neighborhood </div>
 					</div>
 					`,
 	components: {
@@ -138,7 +138,13 @@ const MainScreen = {
 	},
 
 	methods: {
+		changeView(view) {
+			sugarizer.modules.stats.trace(this.screentype+'_view', 'change_view', view+'_view', null);
+			this.screentype = view;
+		},
+
 		searchFunction(searchInput) {
+			sugarizer.modules.stats.trace(this.screentype+'_view', 'search', 'q='+searchInput, null);
 			this.filter = searchInput;
 		},
 

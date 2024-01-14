@@ -105,6 +105,7 @@ const ListView = {
 		},
 
 		async toggleFavorite(activity) {
+			sugarizer.modules.stats.trace('list_view', 'switch_favorite', activity.id, null);
 
 			const index = this.favactivities.indexOf(activity.id);
 			if (index === -1) {

@@ -28,6 +28,12 @@ define([], function() {
 		return (!settings || !settings.server || !settings.server.url || settings.server.url.length == 0) ? false : true;
 	}
 
+	// Get server information
+	user.getServerInformation = function() {
+		let settings = sugarizer.modules.settings.getUser();
+		return settings && settings.server ? settings.server : null;
+	}
+
 	// Get server url
 	user.getServerURL = function() {
 		let settings = sugarizer.modules.settings.getUser();
@@ -190,7 +196,8 @@ define([], function() {
 			}
 
 			// Update user on the server
-			sugarizer.modules.server.putUser(null, data).then((user) => {
+			sugarizer.modules.server.putUser(null, data, sugarizer.modules.user.getServerURL()).then((user) => {
+				sugarizer.modules.settings.setUser(data);
 				resolve(user);
 			}, (error) => {
 				reject(error);

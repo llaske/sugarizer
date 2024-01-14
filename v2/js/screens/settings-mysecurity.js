@@ -5,12 +5,12 @@ const MySecurity = {
 	name: 'MySecurity',
 	template: ` 
 				<dialog-box 
-						ref="mysecurityModal"
+						ref="security"
 						iconData="./icons/login-icon.svg"
 						isNative="true"
 						:titleData="SugarL10n ? SugarL10n.get('MySecurity') : ''"
 						cancel-button="true"
-						v-on:on-cancel="close('mysecurityModal')"
+						v-on:on-cancel="close('security')"
 				>
 					<div class="computer-content" >
 						<div v-if="step === 0">

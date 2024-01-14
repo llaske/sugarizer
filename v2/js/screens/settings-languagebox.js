@@ -5,13 +5,13 @@ const LanguageBox = {
 	name: 'LanguageBox',
 	template: ` 
 				<dialog-box 
-						ref="languageModal"
+						ref="language"
 						iconData="./icons/module-language.svg"
 						isNative="true"
 						:titleData="SugarL10n ? SugarL10n.get('Language') : ''"
 						ok-button="true"
 						cancel-button="true"
-						v-on:on-cancel="close('languageModal')"
+						v-on:on-cancel="close('language')"
 						v-on:on-ok="okClicked"
 				>
 					<div class="settings-subscreen aboutme-box">
@@ -140,7 +140,8 @@ const LanguageBox = {
 
 		okClicked() {
 			this.updateLanguage();
-			this.close('languageModal');
+			sugarizer.modules.stats.trace('my_settings_language', 'change', 'language', null);
+			this.close('language');
 		}
 
 	}

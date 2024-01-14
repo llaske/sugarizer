@@ -14,7 +14,7 @@ let sugarizer = {
 	constant: {
 		webAppType: 0,
 		appType: 1,
-		sugarizerVersion: '1.7.0',
+		sugarizerVersion: '2.0.0',
 		noServerMode: false,
 		platform: {
 			ios: /(iPhone|iPad|iPod)/.test(navigator.userAgent),
@@ -37,8 +37,8 @@ let sugarizer = {
 		return new Promise(function(resolve, reject) {
 			// Load modules
 			requirejs(
-				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", 'lib/i18next.min.js', "lib/humane.js",],
-				function(xocolor, server, settings, activities, journal, user, history, i18next, humane) {
+				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", "modules/stats", 'lib/i18next.min.js', "lib/humane.js",],
+				function(xocolor, server, settings, activities, journal, user, history, stats, i18next, humane) {
 					sugarizer.modules.xocolor = xocolor;
 					sugarizer.modules.server = server;
 					sugarizer.modules.settings = settings;
@@ -46,6 +46,7 @@ let sugarizer = {
 					sugarizer.modules.journal = journal;
 					sugarizer.modules.user = user;
 					sugarizer.modules.history = history;
+					sugarizer.modules.stats = stats;
 					sugarizer.modules.i18next = i18next;
 					sugarizer.modules.humane = humane;
 					resolve();
@@ -127,5 +128,6 @@ let sugarizer = {
 		this.modules.journal.cleanLocal().then(() => {
 			location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
 		});
+		this.modules.stats.clean(true);
 	},
 };
