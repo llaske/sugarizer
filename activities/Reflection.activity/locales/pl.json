@@ -1,0 +1,21 @@
+{
+	"TutoPrev": "Poprz",
+	"TutoNext": "Dalej",
+	"TutoEnd": "Koniec",
+	"TutoExplainTitle": "Odbicie",
+	"TutoExplainContent": "Witaj w aplikacji Odbicie. Odbicie to gra o symetri względem osi.",
+	"TutoBuddyTitle": "Kolory Ludzika",
+	"TutoBuddyContent": "Kliknij aby ustawić kolory Ludzika.",
+	"TutoRainbowTitle": "Kolory tęczy",
+	"TutoRainbowContent": "Kliknij aby ustawić kolory tęczy.",
+	"TutoHorizontalTitle": "Oś pionowa",
+	"TutoHorizontalContent": "Kliknij aby wybrać oś pionową.",
+	"TutoVerticalTitle": "Oś pozioma",
+	"TutoVerticalContent": "Kliknij aby wybrać oś poziomą.",
+	"TutoBilateralTitle": "Oś pionowa i pozioma",
+	"TutoBilateralContent": "Kliknij aby wybrać obie osie.",
+	"TutoRobotTitle": "Robot",
+	"TutoRobotContent": "Kliknij tutaj aby zmieniać kolory bo każdej stronie osi w tym samym czasie.",
+	"TutoCanvasTitle": "Plansza",
+	"TutoCanvasContent": "Musisz tak zmodyfikować obrazek aby był on symetryczny względem każdej osi."
+}
