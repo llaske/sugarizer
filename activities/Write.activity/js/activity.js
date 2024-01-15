@@ -10,9 +10,9 @@ define([
 	"sugar-web/env",
 	"sugar-web/graphics/presencepalette",
 	"activity/palettes/export-palette",
-	"webL10n",
+	"l10n",
 	"tutorial"
-], function (activity,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,webL10n,tutorial) {
+], function (activity,formatpalette,listpalette,parapalette,fontPalette,colorpalette , datastore , journalchooser,env,presencepalette,exportpalette,l10n,tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!','humane'], function (doc,humane) {
@@ -47,38 +47,38 @@ define([
 			// Language Settings
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			webL10n.language.code = language;
+			l10n.init(language);
 			window.addEventListener("localized", function() {
-				document.getElementById("network-button").title = webL10n.get("Network");
-				document.getElementById("color-button-1").title = webL10n.get("ForegroundColor");
-				document.getElementById("color-button-2").title = webL10n.get("BackgroundColor");
-				document.getElementById("format-text").title = webL10n.get("Formattext");
-				document.getElementById("paragraph").title = webL10n.get("Paragraph");
-				document.getElementById("list").title = webL10n.get("List");
-				document.getElementById("resize-inc").title = webL10n.get("Increasefontsize");
-				document.getElementById("font-button").title = webL10n.get("ChooseFont");
-				document.getElementById("resize-dec").title = webL10n.get("Decreasefontsize");
-				document.getElementById("insert-picture").title = webL10n.get("Image");
-				document.getElementById("edit-undo").title = webL10n.get("Undo");
-				document.getElementById("edit-redo").title = webL10n.get("Redo");
-				document.getElementById("edit-copy").title = webL10n.get("Copy");
-				document.getElementById("edit-paste").title = webL10n.get("Paste");
-				document.getElementById("export").title = webL10n.get("Export");
-				document.getElementById("super-script").title = webL10n.get("SuperScript");
-				document.getElementById("sub-script").title = webL10n.get("SubScript");
-				document.getElementById(5).title = webL10n.get("Bold");
-				document.getElementById(6).title = webL10n.get("Italic");
-				document.getElementById(7).title = webL10n.get("Underline");
-				document.getElementById(8).title = webL10n.get("Strike");
-				document.getElementById(9).title = webL10n.get("OrderedList");
-				document.getElementById(10).title = webL10n.get("UnorderedList");
-				document.getElementById(11).title = webL10n.get("JustifyLeft");
-				document.getElementById(12).title = webL10n.get("JustifyRight");
-				document.getElementById(13).title = webL10n.get("JustifyCenter");
-				document.getElementById(19).title = webL10n.get("ExportToTxt");
-				document.getElementById(20).title = webL10n.get("ExportToPdf");
-				document.getElementById(21).title = webL10n.get("ExportToDoc");
-				document.getElementById(22).title = webL10n.get("ExportToOdt");
+				document.getElementById("network-button").title = l10n.get("Network");
+				document.getElementById("color-button-1").title = l10n.get("ForegroundColor");
+				document.getElementById("color-button-2").title = l10n.get("BackgroundColor");
+				document.getElementById("format-text").title = l10n.get("Formattext");
+				document.getElementById("paragraph").title = l10n.get("Paragraph");
+				document.getElementById("list").title = l10n.get("List");
+				document.getElementById("resize-inc").title = l10n.get("Increasefontsize");
+				document.getElementById("font-button").title = l10n.get("ChooseFont");
+				document.getElementById("resize-dec").title = l10n.get("Decreasefontsize");
+				document.getElementById("insert-picture").title = l10n.get("Image");
+				document.getElementById("edit-undo").title = l10n.get("Undo");
+				document.getElementById("edit-redo").title = l10n.get("Redo");
+				document.getElementById("edit-copy").title = l10n.get("Copy");
+				document.getElementById("edit-paste").title = l10n.get("Paste");
+				document.getElementById("export").title = l10n.get("Export");
+				document.getElementById("super-script").title = l10n.get("SuperScript");
+				document.getElementById("sub-script").title = l10n.get("SubScript");
+				document.getElementById(5).title = l10n.get("Bold");
+				document.getElementById(6).title = l10n.get("Italic");
+				document.getElementById(7).title = l10n.get("Underline");
+				document.getElementById(8).title = l10n.get("Strike");
+				document.getElementById(9).title = l10n.get("OrderedList");
+				document.getElementById(10).title = l10n.get("UnorderedList");
+				document.getElementById(11).title = l10n.get("JustifyLeft");
+				document.getElementById(12).title = l10n.get("JustifyRight");
+				document.getElementById(13).title = l10n.get("JustifyCenter");
+				document.getElementById(19).title = l10n.get("ExportToTxt");
+				document.getElementById(20).title = l10n.get("ExportToPdf");
+				document.getElementById(21).title = l10n.get("ExportToDoc");
+				document.getElementById(22).title = l10n.get("ExportToOdt");
 			});
 
 			if (!environment.objectId && !environment.sharedId) {
@@ -86,14 +86,14 @@ define([
 				// Intentionally added setTimeout to allow locale.ini file to be loaded
 				setTimeout(function(){
 					editor.setContents([
-						{insert:  webL10n.get('Welcome',{username: environment.user.name}) + '\n' , attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
+						{insert:  l10n.get('Welcome',{username: environment.user.name}) + '\n' , attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
 					]);
 					var length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Write'));
+					editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Write'));
 					length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Writefeatures'));
+					editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Writefeatures'));
 					length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,webL10n.get('Enjoy'));
+					editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Enjoy'));
 					length = editor.getLength();
 					editor.clipboard.dangerouslyPasteHTML(length,"<br></br>");
 					length = editor.getLength();
@@ -393,7 +393,7 @@ define([
 		};
 		datastore.create(metadata, function() {
 			console.log("export done.");
-			humane.log(webL10n.get("Txt"));
+			humane.log(l10n.get("Txt"));
 		}, inputData);
 		});
 
@@ -439,7 +439,7 @@ define([
 				};
 				datastore.create(metadata, function() {
 					console.log("export done.");
-					humane.log(webL10n.get("Pdf"));
+					humane.log(l10n.get("Pdf"));
 				}, inputData);
 			});
 		});
@@ -466,7 +466,7 @@ define([
 			};
 			datastore.create(metadata, function() {
 				console.log("export done.");
-				humane.log(webL10n.get("Doc"));
+				humane.log(l10n.get("Doc"));
 			}, inputData);
 		});
 
@@ -488,7 +488,7 @@ define([
 			};
 			datastore.create(metadata, function() {
 				console.log("export done.");
-				humane.log(webL10n.get("Odt"));
+				humane.log(l10n.get("Odt"));
 				resetXML();
 			}, inputData);
 
@@ -615,13 +615,13 @@ define([
 				console.log(connectedPeople[key].name,key,connectedPeople[key].networkId);
 			}
 			if(msg.move==1){
-				humane.log(html + webL10n.get("PlayerJoin",{user: userName}));
+				humane.log(html + l10n.get("PlayerJoin",{user: userName}));
 				var c = cursors.createCursor(msg.user.networkId, userName, msg.user.colorvalue.stroke);
 				if(myid==msg.user.networkId) {mycursor=c;}
 			}
 			if (msg.move === -1) {
 				cursors.removeCursor(msg.user.networkId);
-				humane.log(html + webL10n.get("PlayerLeave",{user: userName}));
+				humane.log(html + l10n.get("PlayerLeave",{user: userName}));
 				if(msg.user.networkId == connectedPeople[0].networkId){
 					if(connectedPeople[1].networkId == myid){
 						document.getElementById(3).style.display = "inline";
