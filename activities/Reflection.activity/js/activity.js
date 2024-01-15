@@ -4,7 +4,7 @@ define(["sugar-web/activity/activity", 'easeljs', 'tweenjs', 'activity/game', 'a
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
-		requirejs(["sugar-web/env", "sugar-web/datastore", "tutorial", "webL10n"], function (env, datastore, tutorial, webL10n) {
+		requirejs(["sugar-web/env", "sugar-web/datastore", "tutorial", "l10n"], function (env, datastore, tutorial, l10n) {
 			act.setup();
 			env.getEnvironment(function (err, environment) {
 				currentenv = environment;
@@ -12,7 +12,7 @@ define(["sugar-web/activity/activity", 'easeljs', 'tweenjs', 'activity/game', 'a
 				// Set current language to Sugarizer
 				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 				var language = environment.user ? environment.user.language : defaultLanguage;
-				webL10n.language.code = language;
+				l10n.init(language);
 			});
 			act.getXOColor(function (error, colors) {
 				runactivity(act, doc, colors, env, datastore, tutorial);
