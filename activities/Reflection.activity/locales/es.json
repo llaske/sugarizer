@@ -19,14 +19,14 @@
 	"TutoCanvasTitle": "Tablero",
 	"TutoCanvasContent": "Haz clic en las fichas para cambiar sus colores y hacer que la imagen sea simétrica",
 	"activity-button.title": "Reflection Activity",
-	"buddy-button.title": "New Game with Buddy Colours",
-	"rainbow-button.title": "New Game with Rainbow Colours",
-	"horizontal-button.title": "New Game with Horizontal Symmetry",
-	"vertical-button.title": "New Game with Vertical Symmetry",
-	"bilateral-button.title": "New Game with Bilateral Symmetry",
-	"robot-button.title": "Turn on the Robot",
-	"stop-button.title": "Stop",
-	"fullscreen-button.title": "Fullscreen",
+	"buddy-button.title": "Nuevo Juego con Colores de Amigo",
+	"rainbow-button.title": "Nuevo Juego con Colores Arcoíris",
+	"horizontal-button.title": "Nuevo Juego con Simetría Horizontal",
+	"vertical-button.title": "Nuevo Juego con Simetría Vertical",
+	"bilateral-button.title": "Nuevo Juego con Simetría Bilateral",
+	"robot-button.title": "Activar el Robot",
+	"stop-button.title": "Detener",
+	"fullscreen-button.title": "Pantalla Completa",
 	"help-button.title": "Tutorial",
-	"unfullscreen-button.title": "UnFullscreen"
+	"unfullscreen-button.title": "Salir de Pantalla Completa"
 }
