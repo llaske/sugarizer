@@ -16,13 +16,13 @@
  * @vue-data {Number} [xData=0] - to change the left-right margin data
  * @vue-data {Number} [yData=0] - to change the top-bottom margin data
  * @vue-data {Boolean} [disabledData=false] - to change the disability condition
- * @vue-data {Boolean} [includeIconClass=true] - to change icon class inclusion
+ * @vue-data {Boolean} [disableHoverEffect=false] - to disable hover effect
 */
 const Icon ={
 	name: 'Icon',
 	template: `<div :class="[
 		this.disabledData ? 'web-activity-disable' : '',
-		includeIconClass ? 'icon' : '',
+		disableHoverEffect ? '' : 'icon',
 		].join(' ')" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
 	props: {
 		id: Number,
@@ -33,10 +33,7 @@ const Icon ={
 		y: Number,
 		isNative: String,
 		disabled: Boolean,
-		includeIconClass: {
-			type: Boolean,
-			default: true,
-		},
+		disableHoverEffect: Boolean
 	},
 	data() {
 		return {
