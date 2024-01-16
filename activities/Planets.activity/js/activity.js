@@ -1,5 +1,5 @@
 var currentview = "ListView";
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "webL10n", "tutorial", "humane"], function (activity, env, datastore, l10n, tutorial, humane) {
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "l10n", "tutorial", "humane"], function (activity, env, datastore, l10n, tutorial, humane) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -62,7 +62,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			//Set current language
 			var currentLang = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : currentLang;
-			l10n.language.code = language;
+			l10n.init(language);
 
 			//Init Sun
 			initPosition("Sun", "Star", null);
