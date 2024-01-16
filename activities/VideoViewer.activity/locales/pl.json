@@ -1,0 +1,19 @@
+{
+	"TutoPrev": "Poprz",
+	"TutoNext": "Dalej",
+	"TutoEnd": "Koniec",
+	"TutoExplainTitle": "Video Viewer",
+	"TutoExplainContent": "Witaj w Video Viewer! To wyszukiwarka i przeglądarka filmów Khan Academy i Canopé.",
+	"TutoFilterTitle": "Filtruj",
+	"TutoFilterContent": "Kliknij aby filtrować filmy",
+	"TutoFavoriteTitle": "Ulubione",
+	"TutoFavoriteContent": "Kliknij aby zobaczyć filmy oznaczone przez Ciebie jako ulubione.",
+	"TutoLibraryTitle": "Biblioteki",
+	"TutoLibraryContent": "Kliknij aby wybrać pomiędzy filmami Khan Academy i Canopé.",
+	"TutoExportvideoTitle": "Eksportuj",
+	"TutoExportvideoContent": "Kliknij aby zapisać film w Dzienniku.",
+	"TutoVideoTitle": "Wideo",
+	"TutoVideoContent": "Kliknij tutaj aby odtworzyć film.",
+	"TutoSearchTitle": "Wyszukaj",
+	"TutoSearchContent": "Zacznij pisać aby wyszukać film."
+}
