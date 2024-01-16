@@ -74,6 +74,17 @@ msgctxt "EarthDays"
 msgid "{{year}} Earth days"
 msgstr "{{year}} Jours Terrestre"
 
+#. Do not translate {{days}}
+#: EarthHours
+msgctxt "EarthHours"
+msgid "{{day}} Earth Hours"
+msgstr "{{day}} Heures terrestres"
+
+#: Gravtiy
+msgctxt "Gravtiy"
+msgid "Surface Gravtiy:"
+msgstr "Gravité de surface:"
+
 #: Mass
 msgctxt "Mass"
 msgid "Mass:"
