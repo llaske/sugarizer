@@ -1,0 +1,23 @@
+{
+	"PlayerJoin": "{{user}} ingressou",
+	"PlayerLeave": "{{user}} saiu",
+	"TutoPrev": "Anterior",
+	"TutoNext": "Próximo",
+	"TutoEnd": "Fim",
+	"TutoExplainTitle": "Last One Loses Activity",
+	"TutoExplainContent": "Welcome into the Last One Loses activity. Last One Loses is a small game where each player should avoid to take the last item on the board. You could play against the computer or against another player on the network",
+	"TutoNetworkTitle": "Network",
+	"TutoNetworkContent": "Clique aqui para compartilhar o jogo na rede. Assim, um oponente poderá jogar contra você",
+	"TutoNewgameTitle": "Novo jogo",
+	"TutoNewgameContent": "Clique aqui para iniciar um novo jogo. Isso reiniciará o quadro com 13 itens.",
+	"TutoEasyTitle": "Nível fácil",
+	"TutoEasyContent": "Click here to select the level of difficulty easy. At this level the computer will be equivalent to a beginner opponent",
+	"TutoMediumTitle": "Nível médio",
+	"TutoMediumContent": "Click here to select the level of difficulty medium. At this level the computer will be equivalent to an average opponent",
+	"TutoHardTitle": "Nível difícil",
+	"TutoHardContent": "Click here to select the level of difficulty hard. At this level the computer will be equivalent to an expert opponent",
+	"TutoSwitchTitle": "Mudar de jogador",
+	"TutoSwitchContent": "Click here to let your opponent begin the game. It will work only at the begining of the game",
+	"TutoBoardTitle": "Tabuleiro",
+	"TutoBoardContent": "The game starts with 13 items on the board. At its turn, each player has to get between 1 to 3 items on the board by clicking on them, then by clicking on the validate button. The player which get the last item on the board loses the game"
+}

@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon", "sugar-web/datastore", "webL10n", "humane", "tutorial"], function (activity, radioButtonsGroup, presencepalette, env, icon, datastore, webL10n, humane, tutorial) {
+define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/graphics/presencepalette", "sugar-web/env", "sugar-web/graphics/icon", "sugar-web/datastore", "l10n", "humane", "tutorial"], function (activity, radioButtonsGroup, presencepalette, env, icon, datastore, l10n, humane, tutorial) {
 	var app;
 	var presence=null;
 	var isHost=false;
@@ -19,13 +19,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 		// Set current language to Sugarizer
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		var language = environment.user ? environment.user.language : defaultLanguage;
-		window.addEventListener('localized', function(e) {
-			if (e.language != language) {
-				setTimeout(function() {
-				  webL10n.language.code = language;
-				}, 50);
-			}
-		});
+		l10n.init(language);
 
 		// Shared instances
 		if (environment.sharedId) {
@@ -297,7 +291,7 @@ define(["sugar-web/activity/activity", "sugar-web/graphics/radiobuttonsgroup", "
 
 		onNetworkUserChanged: function(msg) {
 			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
-			humane.log(html + webL10n.get((msg.move == 1 ? "PlayerJoin":"PlayerLeave"),{user: msg.user.name}));
+			humane.log(html + l10n.get((msg.move == 1 ? "PlayerJoin":"PlayerLeave"),{user: msg.user.name}));
 			console.log("User "+msg.user.name+" "+(msg.move == 1 ? "join": "leave"));
 			if (msg.move == 1) {
 				if (isHost) {
