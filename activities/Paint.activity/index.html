@@ -5,7 +5,6 @@
   <meta charset="utf-8" />
   <title>Paint Activity</title>
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
-  <link rel="prefetch" type="application/l10n" href="translate.ini" />
   <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
   <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 
@@ -22,28 +21,42 @@
 <body style="background-color:#fff; color:#fff; height:100%; margin:0; overflow:hidden;">
   <div id="main-toolbar" class="toolbar">
     <button class="toolbutton" id="activity-button" title="My Activity"></button>
-    <button class="toolbutton" id="network-button" data-l10n-id="network" title="Network"></button>
-    <button class="toolbutton active" id="colors-button-fill" data-l10n-id="colorfill" title="Fill Color"></button>
-    <button class="toolbutton" id="colors-button-stroke" data-l10n-id="colorstroke" title="Stroke Color"></button>
-    <button class="toolbutton" id="undo-button" data-l10n-id="undo" title="Undo"></button>
-    <button class="toolbutton" id="redo-button" data-l10n-id="redo" title="Redo"></button>
-    <button class="toolbutton" id="size-button" data-l10n-id="size" title="Size"></button>
-    <button class="toolbutton" id="pen-button" data-l10n-id="pen" title="Pen"></button>
-    <button class="toolbutton" id="eraser-button" data-l10n-id="eraser" title="Eraser"></button>
-    <button class="toolbutton" id="stamps-button" data-l10n-id="stamps" title="Stamps"></button>
-    <button class="toolbutton" id="text-button" data-l10n-id="text" title="Text"></button>
-    <button class="toolbutton" id="insertimage-button" data-l10n-id="image" title="Insert image"></button>
-    <button class="toolbutton" id="drawings-button" data-l10n-id="drawing" title="Drawings"></button>
-    <button class="toolbutton" id="bucket-button" data-l10n-id="bucket" title="Bucket"></button>
-    <button class="toolbutton" id="filters-button" data-l10n-id="filters" title="Filters"></button>
-    <button class="toolbutton" id="copy-button" data-l10n-id="copy" title="Copy"></button>
-    <button class="toolbutton" id="paste-button" data-l10n-id="paste" title="Paste"></button>
-    <button class="toolbutton" id="save-image-button" data-l10n-id="save" title="Save As Image">
-    <button class="toolbutton" id="clear-button" data-l10n-id="clear" title="Clear"></button>
-    <button class="toolbutton pull-right" id="stop-button" data-l10n-id="stop" title="Stop"></button>
-    <button class="toolbutton pull-right" id="help-button" data-l10n-id="help" title="Help"></button>
+    <button class="toolbutton" id="network-button" data-i18n="network" title="Network"></button>
+    <button class="toolbutton active" id="colors-button-fill" data-i18n="colorfill" title="Fill Color"></button>
+    <button class="toolbutton" id="colors-button-stroke" data-i18n="colorstroke" title="Stroke Color"></button>
+    <button class="toolbutton" id="undo-button" data-i18n="undo" title="Undo"></button>
+    <button class="toolbutton" id="redo-button" data-i18n="redo" title="Redo"></button>
+    <button class="toolbutton" id="size-button" data-i18n="size" title="Size"></button>
+    <button class="toolbutton" id="pen-button" data-i18n="pen" title="Pen"></button>
+    <button class="toolbutton" id="eraser-button" data-i18n="eraser" title="Eraser"></button>
+    <button class="toolbutton" id="stamps-button" data-i18n="stamps" title="Stamps"></button>
+    <button class="toolbutton" id="text-button" data-i18n="text" title="Text"></button>
+    <button class="toolbutton" id="insertimage-button" data-i18n="image" title="Insert image"></button>
+    <button class="toolbutton" id="drawings-button" data-i18n="drawing" title="Drawings"></button>
+    <button class="toolbutton" id="bucket-button" data-i18n="bucket" title="Bucket"></button>
+    <button class="toolbutton" id="filters-button" data-i18n="filters" title="Filters"></button>
+    <button class="toolbutton" id="copy-button" data-i18n="copy" title="Copy"></button>
+    <button class="toolbutton" id="paste-button" data-i18n="paste" title="Paste"></button>
+    <button class="toolbutton" id="save-image-button" data-i18n="save" title="Save As Image">
+    <button class="toolbutton" id="clear-button" data-i18n="clear" title="Clear"></button>
+    <button class="toolbutton pull-right" id="stop-button" data-i18n="stop" title="Stop"></button>
+    <button class="toolbutton pull-right" id="help-button" data-i18n="help" title="Help"></button>
   </div>
   <canvas id="paint-canvas" style="width:100%; "></canvas>
 </body>
-
+<script type="text/javascript">
+	requirejs.config({
+		baseUrl: "js",
+		paths: {
+			activity: "../js"
+		}
+	});
+	var l10n = null;
+	requirejs(["../lib/l10n"], function (il10n) {
+		l10n = il10n;
+	});
+	window.addEventListener('localized', function() {
+		l10n.updateDocument();
+	}, false);
+</script>
 </html>
