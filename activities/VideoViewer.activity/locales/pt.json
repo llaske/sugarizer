@@ -1,0 +1,19 @@
+{
+	"TutoPrev": "Anterior",
+	"TutoNext": "Próximo",
+	"TutoEnd": "Fim",
+	"TutoExplainTitle": "Atividade Visualizar Vídeo",
+	"TutoExplainContent": "Welcome to the Video Viewer Activity. A browser and a viewer for Khan Academy, Canopé videos and more.",
+	"TutoFilterTitle": "Filter",
+	"TutoFilterContent": "Click here to filter the videos by category",
+	"TutoFavoriteTitle": "Vídeos favoritos",
+	"TutoFavoriteContent": "Click here to see the videos marked by you as favorite",
+	"TutoLibraryTitle": "Bibliotecas",
+	"TutoLibraryContent": "Click here to choose between Khan Academy, Canopé videos or to add your own library",
+	"TutoExportvideoTitle": "Exportar vídeos",
+	"TutoExportvideoContent": "Click here to save a video in the Journal. First click here then click on the video you want to save",
+	"TutoVideoTitle": "Video",
+	"TutoVideoContent": "Clicar aqui para executar um vídeo",
+	"TutoSearchTitle": "Pesquisar",
+	"TutoSearchContent": "Digite aqui para pesquisar um vídeo pelo seu nome"
+}

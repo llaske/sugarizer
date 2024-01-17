@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env","filterpalette","tutorial", "webL10n"], function (activity, env, filterpalette, tutorial, webL10n) {
+define(["sugar-web/activity/activity","sugar-web/env","filterpalette","tutorial", "l10n"], function (activity, env, filterpalette, tutorial, l10n) {
 	var isFavorite = false;
 
 	// Manipulate the DOM only when it is ready.
@@ -11,8 +11,7 @@ define(["sugar-web/activity/activity","sugar-web/env","filterpalette","tutorial"
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			webL10n.language.code = language;
-		
+			l10n.init(language);
 		});
 
 		// Create palette
