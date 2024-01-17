@@ -1,0 +1,21 @@
+{
+	"TutoPrev": "Prev",
+	"TutoNext": "Next",
+	"TutoEnd": "End",
+	"TutoExplainTitle": "Stopwatch Activity",
+	"TutoExplainContent": "Welcome to the Stopwatch activity. Stopwatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent",
+	"TutoAddTitle": "Add",
+	"TutoAddContent": "Press this icon to add a new Stopwatch",
+	"TutoCounterTitle": "Counter",
+	"TutoCounterContent": "Displays the current time of the Stopwatch",
+	"TutoStartStopTitle": "Start/Stop",
+	"TutoStartStopContent": "Press this icon to Start/Stop the Stopwatch",
+	"TutoResetTitle": "Reset",
+	"TutoResetContent": "Press this icon to reset the Stopwatch",
+	"TutoMarkTitle": "Lap",
+	"TutoMarkContent": "Press this icon to add an intermediate time lap",
+	"TutoRemoveTitle": "Remove",
+	"TutoRemoveContent": "Press this icon to remove this Stopwatch from list",
+	"TutoCsvButton": "This button generates a CSV file that contains all the stopwatch marks with their corresponding counter number and time of marks in seconds.",
+	"exportAsCSV": "Export as csv"
+}

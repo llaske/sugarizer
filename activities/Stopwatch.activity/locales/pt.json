@@ -1,0 +1,21 @@
+{
+	"TutoPrev": "Anterior",
+	"TutoNext": "Próximo",
+	"TutoEnd": "Fim",
+	"TutoExplainTitle": "Atividade Cronômetro",
+	"TutoExplainContent": "Welcome to the Stopwatch activity. Stopwatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent",
+	"TutoAddTitle": "Adicionar",
+	"TutoAddContent": "Clique sobre este ícone para adicionar um novo cronômetro",
+	"TutoCounterTitle": "Contador",
+	"TutoCounterContent": "Exibir o tempo atual do cronômetro",
+	"TutoStartStopTitle": "Start/Stop",
+	"TutoStartStopContent": "Clique sobre o ícone para iniciar/parar o cronômetro",
+	"TutoResetTitle": "Reset",
+	"TutoResetContent": "Clique sobre o ícone para reiniciar o cronômetro",
+	"TutoMarkTitle": "Lap",
+	"TutoMarkContent": "Press this icon to add an intermediate time lap",
+	"TutoRemoveTitle": "Remover",
+	"TutoRemoveContent": "Clique sobre o ícone para remover este cronômetro da lista",
+	"TutoCsvButton": "Este botão gera um arquivo CSV que contém todas as marcas do cronômetro com seu respectivo número do contador e tempo das marcas em segundos.",
+	"exportAsCSV": "Exportar como CSV"
+}
