@@ -1,0 +1,14 @@
+{
+  "by": "par",
+  "TutoPrev": "Préc",
+  "TutoNext": "Suiv",
+  "TutoEnd": "Fin",
+  "TutoExplainTitle": "Activité Record",
+  "TutoExplainContent": "Bienvenue dans l'activité Record. Record est un outil simple de capture de contenu multimédia. Il vous permet de capturer des photos, vidéos et/ou audios depuis votre machine",
+  "TutoPhotoTitle": "Photo",
+  "TutoPhotoContent": "Cliquez ici pour commencer à prendre une photo. La photo sera prise dans 3 secondes. Souriez !",
+  "TutoVideoTitle": "Vidéo",
+  "TutoVideoContent": "Cliquez ici pour commencer à prendre une vidéo. La vidéo démarre immédiatement et peut faire jusqu'à 5 secondes",
+  "TutoAudioTitle": "Audio",
+  "TutoAudioContent": "Cliquez ici pour commencer à enregister un son depuis votre micro. L'enregistrement démarre immédiatement et peut faire jusqu'à 5 secondes"
+}
