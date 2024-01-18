@@ -1,4 +1,4 @@
-define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sugar-web/datastore', 'moment-with-locales.min', 'humane'], function(DataModel, Draw, l10n, env, datastore, moment, humane) {
+define(['activity/data-model', 'activity/draw', 'l10n', 'sugar-web/env', 'sugar-web/datastore', 'moment-with-locales.min', 'humane'], function(DataModel, Draw, l10n, env, datastore, moment, humane) {
 
     'use strict';
 
@@ -13,21 +13,19 @@ define(['activity/data-model', 'activity/draw', 'webL10n', 'sugar-web/env', 'sug
 	var first = true;
 
 
-	l10n.ready(function() {
-		if (first) {
-			first = false;
-			env.getEnvironment(function(err, environment) {
-				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-				var language = environment.user ? environment.user.language : defaultLanguage;
-				l10n.language.code = language;
-				moment.locale(language);
-				var refreshTime = setTimeout(function() {
-					clearTimeout(refreshTime);
-					updateView();
-				}, 50);
-			});
-		}
-	});
+    if (first) {
+        first = false;
+        env.getEnvironment(function(err, environment) {
+            var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+            var language = environment.user ? environment.user.language : defaultLanguage;
+            l10n.init(language);
+            moment.locale(language);
+            var refreshTime = setTimeout(function() {
+                clearTimeout(refreshTime);
+                updateView();
+            }, 50);
+        });
+    }
 
     var IMAGE_SIZE, HALF_SIZE, updateTimeout;
     var showGrid, showSouth;
