@@ -1,0 +1,14 @@
+{
+  "by": "by",
+  "TutoPrev": "Poprz",
+  "TutoNext": "Dalej",
+  "TutoEnd": "Koniec",
+  "TutoExplainTitle": "Record",
+  "TutoExplainContent": "Witaj w Record. Record to aplikacja, która nagrywa dźwięk oraz obraz",
+  "TutoPhotoTitle": "Zdjęcie",
+  "TutoPhotoContent": "Kliknij aby zrobić zdjęcie",
+  "TutoVideoTitle": "Wideo",
+  "TutoVideoContent": "Kliknij aby nagrać wideo",
+  "TutoAudioTitle": "Dźwięk",
+  "TutoAudioContent": "Kliknij aby nagrać dźwięk z mikrofonu"
+}
