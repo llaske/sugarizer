@@ -24,6 +24,7 @@ const Popup ={
 							:x=itemData.icon.iconx
 							:y=itemData.icon.icony
 							:isNative=itemData.icon.isNative
+							:disableHoverEffect="true"
 						>
 						</icon>
 						<div>

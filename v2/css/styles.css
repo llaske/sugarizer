@@ -229,6 +229,10 @@ a {
 	z-index: 1;
 }
 
+.popup-title:hover{
+	background-color: #808080;
+}
+
 .item-icon-title {
 	margin: 0px 4px;
 	padding: 4px;
