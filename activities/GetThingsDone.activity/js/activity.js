@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity, webL10n, datastore, model, view, controller) {
+define(["sugar-web/activity/activity","l10n","sugar-web/datastore","activity/model","activity/view","activity/controller"], function (activity, l10n, datastore, model, view, controller) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
