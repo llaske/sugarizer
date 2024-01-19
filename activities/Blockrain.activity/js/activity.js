@@ -14,7 +14,7 @@ define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], func
 
 		//Loads highest score from Journal
 		loadHighScore();
-
+		var paused = false;
 		var $game = $('#canvas').blockrain({
       speed: 20,
       theme: 'candy',
@@ -99,9 +99,29 @@ define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], func
       $game.blockrain('theme', themes[currentIx]);
     }
 
+	function handlePausePlay() {
+		var playPauseButton = document.getElementById('play-button');
+		if(paused) {
+			$game.blockrain('resume');
+			$game.blockrain('controls', true);
+			playPauseButton.classList.remove('play');
+			playPauseButton.classList.add('pause');
+		}
+		else {
+			$game.blockrain('pause');
+			$game.blockrain('controls', false);
+			playPauseButton.classList.remove('pause');
+        	playPauseButton.classList.add('play');
+		}
+		paused = !paused;
+	}
+
     document.getElementById("btn-next").onclick = function() {
         switchTheme(true);
     };
+	document.getElementById('play-button').addEventListener('click', function () {
+		handlePausePlay();
+	});
 	document.getElementById("help-button").addEventListener('click', function(e) {
 		tutorial.start();
 	});
