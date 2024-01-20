@@ -14,7 +14,8 @@ define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], func
 
 		//Loads highest score from Journal
 		loadHighScore();
-		var paused = false;
+		var paused = true;
+		var gameStarted = false;
 		var $game = $('#canvas').blockrain({
       speed: 20,
       theme: 'candy',
@@ -24,7 +25,10 @@ define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], func
 		  autoBlockSize: 24,
 		  touchControls: true,
 			highestScore: myHighestScore,
-      onStart: function(){},
+		onStart: function(){			
+			gameStarted = true;
+			handlePausePlay();
+		},
 		  onRestart: function(){
 				loadHighScore(); // loads highscore when game is restarted.
 			},
@@ -101,19 +105,24 @@ define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], func
 
 	function handlePausePlay() {
 		var playPauseButton = document.getElementById('play-button');
-		if(paused) {
-			$game.blockrain('resume');
-			$game.blockrain('controls', true);
-			playPauseButton.classList.remove('play');
-			playPauseButton.classList.add('pause');
+		if(!gameStarted){
+			$game.blockrain('start');
 		}
-		else {
-			$game.blockrain('pause');
-			$game.blockrain('controls', false);
-			playPauseButton.classList.remove('pause');
-        	playPauseButton.classList.add('play');
+		else{
+			if(paused) {
+				$game.blockrain('resume');
+				$game.blockrain('controls', true);
+				playPauseButton.classList.remove('play');
+				playPauseButton.classList.add('pause');
+			}
+			else {
+				$game.blockrain('pause');
+				$game.blockrain('controls', false);
+				playPauseButton.classList.remove('pause');
+				playPauseButton.classList.add('play');
+			}
+			paused = !paused;
 		}
-		paused = !paused;
 	}
 
     document.getElementById("btn-next").onclick = function() {
