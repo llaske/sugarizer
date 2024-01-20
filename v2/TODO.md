@@ -40,7 +40,7 @@ TODO list
 * [ ] Display a message when there is no activity matching the search in listview
 * [ ] Use the same button for next and done in the first screen
 * [ ] Add spinner when connecting to a server
-* [ ] Preload emojis font
+* [x] Preload emojis font
 * [x] Handle stats
 * [ ] Handle view at startup
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587

@@ -1272,6 +1272,13 @@ a {
 	margin-top: 10px;
 }
 
+.hidden-emoji {
+	font-family: "Noto Emoji";
+	position: absolute;
+	top: -10000px;
+	left: -10000px;
+}
+
 /* Handle small screen resolution */
 @media screen and (max-width: 410px) {
 	.search-field-border {
