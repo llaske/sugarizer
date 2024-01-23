@@ -32,14 +32,13 @@
 
 #speakText {
 	height:45px;
-	width:50px;
-	margin:8px;
-	right:4px;
-	bottom: -1.1vh;
+	width:45px;
+	margin:1px;
+	right: 4px;
 	z-index:1;
 	position:absolute;
 	background-image: url(../icons/go-right.svg);
-	background-size: 55px 50px;
+	background-size: 50px 50px;
 	background-position: 50% 50%;
 }
 
