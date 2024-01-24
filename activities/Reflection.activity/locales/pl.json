@@ -17,5 +17,16 @@
 	"TutoRobotTitle": "Robot",
 	"TutoRobotContent": "Kliknij tutaj aby zmieniać kolory bo każdej stronie osi w tym samym czasie.",
 	"TutoCanvasTitle": "Plansza",
-	"TutoCanvasContent": "Musisz tak zmodyfikować obrazek aby był on symetryczny względem każdej osi."
+	"TutoCanvasContent": "Musisz tak zmodyfikować obrazek aby był on symetryczny względem każdej osi.",
+	"activity-button.title": "Reflection Activity",
+	"buddy-button.title": "Nowa Gra z Kolorami Kolegi",
+	"rainbow-button.title": "Nowa Gra z Kolorami Tęczy",
+	"horizontal-button.title": "Nowa Gra z Symetrią Poziomą",
+	"vertical-button.title": "Nowa Gra z Symetrią Pionową",
+	"bilateral-button.title": "Nowa Gra z Symetrią Dwustronną",
+	"robot-button.title": "Włącz Robota",
+	"stop-button.title": "Zatrzymaj",
+	"fullscreen-button.title": "Pełny Ekran",
+	"help-button.title": "Samouczek",
+	"unfullscreen-button.title": "Wyjdź z Pełnego Ekranu"
 }
