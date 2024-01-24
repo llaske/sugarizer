@@ -7,7 +7,7 @@
     "TutoCanvasTitle": "Reglas",
     "TutoCanvasContent": "El objetivo del juego es manipular los bloques que aparezcan con una serie limitada de movimientos que te permitan crear líneas horizontales. Al rellenar espacios vacíos en horizontal, eliminarás la línea asociada. La partida se terminará si tus piezas alcanzan la parte superior de la pantalla",
     "TutoPlayTitle": "Jugar/Pausar",
-	"TutoPlayContent": "Usa este botón para jugar o pausar tu partida",
+    "TutoPlayContent": "Usa este botón para jugar o pausar tu partida",
     "TutoThemeTitle": "Temática",
     "TutoThemeContent": "Haz clic aquí para cambiar la temática del juego",
     "TutoRotateTitle": "Rotar",

@@ -7,7 +7,7 @@
     "TutoCanvasTitle": "Rules",
     "TutoCanvasContent": "The objective of the game is to manipulate blocks to create horizontal lines. You can only move the pieces in specific ways, your game is over if your pieces reach the top of the screen, and you can only remove pieces from the screen by filling all the blank space in a line (horizontally)",
     "TutoPlayTitle": "Play/Pause",
-	"TutoPlayContent": "Use this button to play or pause your game",
+    "TutoPlayContent": "Use this button to play or pause your game",
     "TutoThemeTitle": "Theme",
     "TutoThemeContent": "Click here to change the theme of the game",
     "TutoRotateTitle": "Rotate",
