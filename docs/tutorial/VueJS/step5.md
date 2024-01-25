@@ -13,7 +13,7 @@ If you choose another language, this new language will be used for all activitie
 
 ## Identify strings to localize
 
-Sugarizer and Sugar-Web use the [webL10n](https://github.com/fabi1cazenave/webL10n) JavaScript library to handle localization.
+Sugarizer uses [i18next](https://www.i18next.com/) JavaScript library to handle localization.
 
 The first step when you localize an activity is to identify strings to localize. It means replace hard-coded string in your HTML or JavaScript files by localization resources. In the Pawn activity we've got three strings to localize:
 
@@ -21,54 +21,50 @@ The first step when you localize an activity is to identify strings to localize.
 * *"{user} played!"*: when the user played a pawn
 * *"Add pawn"*: the helper message on the toolbar button
 
-With the webL10n library, all strings have to be defined in a specific file where all translations for each string should be set. We call this file `locale.ini`. 
+To enable localization, store all the language-specific strings in the 'locales' folder using language-specific JSON files (e.g., locales/en.json, locales/fr.json).
 
 This file is already present in the root of your activity, open it. You'll observe some content is already present inside, mainly some strings related to timestamps. These string are important for the functioning on another SugarL10n method, `localizeTimestamp(timestamp)` which converts a UNIX timestamp to a Sugarizer time-elapsed string.
 
-This file is decomposed into sections. One section for each language with the language code between brackets as section name (**en**, **fr**, **es**, ...) and a special section (**\***) for unknown language.
 
-Now, in each section below the strings already present, add the following content:
-```ini
-[*]
-.
-.
-Hello=Hello {{name}}!
-Played={{name}} played
-AddPawn=Add pawn
+Now, add the following content to each file:
 
-[en]
-.
-.
-Hello=Hello {{name}}!
-Played={{name}} played
-AddPawn=Add pawn
-
-[fr]
-.
-.
-Hello=Bonjour {{name}} !
-Played={{name}} a joué
-AddPawn=Ajouter pion
-
-[es]
-.
-.
-Hello=Hola {{name}} !
-Played={{name}} jugó
-AddPawn=Agrega un peón
+`locales/en.json:`
+```json
+{
+  "Hello": "Hello {{name}}!",
+  "Played": "{{name}} played",
+  "AddPawn": "Add pawn",
+}
 ```
 
-In each section, you have to define translations for each string. The left side of the equal sign is the id of the string (**Hello**, **Played**, **AddPawn**), the right side of the equal sign is the translated string.
+`locales/fr.json:`
+```json
+{
+  "Hello": "Bonjour {{name}} !",
+  "Played": "{{name}} a joué",
+  "AddPawn": "Ajouter pion",
+}
+```
+
+`locales/es.json:`
+```json
+{
+  "Hello": "Hola {{name}} !",
+  "Played": "{{name}} jugó",
+  "AddPawn": "Agrega un peón",
+}
+```
+
+
+In each file, you have to define translations for each string. The left side of the equal sign is the id of the string (**Hello**, **Played**, **AddPawn**), the right side of the equal sign is the translated string.
 
 For parameterized strings (i.e. strings where a value is inside the string), the double curved bracket **\{\{\}\}** notation is used.
-
-If you notice, the file is already included in `index.html` with an HTML `link` tag and has a `application/l10n` type to be recognized by webL10n library.
 
 ## Initialize localization
 
 We will now see how to initialize localization into the activity source code.
 
-Once again we will have first to integrate a new component. So let's add the `SugarL10n` to `index.html` and create an instance:
+Once again we will have first to integrate a new component. So let's add the `SugarL10n` to `index.html` and Register it in app instance:
 ```html
 		...
 		<!-- Inside app element -->
@@ -81,46 +77,65 @@ Once again we will have first to integrate a new component. So let's add the `Su
 	<script src="js/activity.js"></script>
 </body>
 ```
-
-Now in `js/activity.js`, let's keep a data variable as a reference to this component instance as it might be used multiple times in the activity.
 ```js
-data: {
-	currentenv: null,
-	SugarL10n: null,
-	...
-},
-mounted: function () {
-	this.SugarL10n = this.$refs.SugarL10n;
-},
+const app = Vue.createApp({
+	components: {
+		"sugar-localization": SugarLocalization,
+		...
+	},
 ```
 
-The `SugarL10n` component automatically detects the language set by the user using the environment and configures the webL10n library accordingly.
+Use the following code to get the SugarL10n (localization) object 
+```js
+data: function () {
+	return {..., SugarL10n: null}
+},
+created: function () {
+    var vm = this;
+    window.addEventListener(
+        "localized",
+        (e) => {
+			// Access the localization object using -> e.detail.l10n
+			vm.SugarL10n = e.detail.l10n;
+        },
+        { once: true },
+    );
+},
+```
+This code listens for the "localized" event emitted by the SugarL10n.js component and provides access to the l10n object, which exposes methods such as 'get', 'localize', and 'localizeTimestamp', allowing you to utilize these methods for localization purposes.
+
+
+The `SugarL10n` component automatically detects the language set by the user using the environment and configures the i18next library accordingly.
 
 ## Set strings value depending on the language
 
-To get the localized version of a string, the webL10n framework provide a simple `get` method. You pass to the method the id of the string (the left side of the plus sign in the INI file) and, if need, the string parameter. You can call the `get` method of the Sugar component which will work the same way. The `SugarL10n` also provides a `localize(object)` method to localize a JavaScript object containing string id's. 
+To get the localized version of a string with params, use `get` method. You pass to the method the key of the string and, if need, the string parameters.
 
 So for the welcome message, here is the line to write in `js/activity.js`:
 ```js
 this.displayText = this.SugarL10n.get("Hello", { name: this.currentenv.user.name });
 ```
-As you could see the first `get` parameter is the id of the string (**Hello**) and the second parameter is a JavaScript object where each property is the name of the parameter (the one provided inside double curved brackets **\{\{\}\}**, **name** here). The result of the function is the string localized in the current language set in webL10n.
+As you could see the first `get` parameter is the id of the string (**Hello**) and the second parameter is a JavaScript object where each property is the name of the parameter (the one provided inside double curved brackets **\{\{\}\}**, **name** here). The result of the function is the string localized in the current sugarizer language.
 
 In a same way, the pawn played message could be rewrite as: 
 ```js
 this.displayText = this.SugarL10n.get("Played", { name: this.currentenv.user.name });
 ```
 
-To set localized titles to toolbar items, let's define a JavaScript object `l10n` which will store string id's of the strings we want (strings here should be static, i.e. without parameters)
+To set localized titles to toolbar items, let's define a JavaScript object `l10n` which will store keys of the strings we want (strings here should be static, i.e. without parameters)
 ```js
-data: {
-	...
-	l10n: {
-		stringAddPawn: ''
+data: function () {
+	return {
+		//...
+		l10n: {
+			stringAddPawn: "" 
+			// ... (add more keys as needed)
+		},
 	}
-}
+},
 ```
-***NOTE:*** *The string id's inside the object should be prefixed by the word "string". For example in this case we want the string for `AddPawn`, so in the object we will write `stringAddPawn: ''`.*
+
+***NOTE:*** *The string key inside the object should be prefixed by the word "string". For example in this case we want the string for `AddPawn`, so in the object we will write `stringAddPawn: ''`.*
 
 We can localize this object by calling the `localize` method: 
 ```js
@@ -129,32 +144,46 @@ this.SugarL10n.localize(this.l10n);
 
 Let's bind this to the title of add-button in `index.html`:
 ```html
-<sugar-toolitem id="add-button" v-bind:title="l10n.stringAddPawn" v-on:click="onAddClick"></sugar-toolitem>
+<sugar-toolitem id="add-button" :title="l10n.stringAddPawn" @click="onAddClick"></sugar-toolitem>
 ```
 
-One point however: we need to wait to initialize strings that the `locale.ini` is read. It's possible because the webL10n framework raises a new `localized` event on the window when the language is ready. Our `SugarL10n` component will emit a Vue event called `localized` as well, that too only after the activity has been initialized.
 
-So we will now initialize the welcome message in the `localized` event listener, which we add in `js/activity.js` file:
+Remember, we wait for the strings in `locales/<lang>.json` to initialize. Our `SugarL10n` component signals a `localized` event on the window when these strings are ready.
+
 ```js
-initialized: function () {
-	// Initialize Sugarizer
-	this.currentenv = this.$refs.SugarActivity.getEnvironment();
-	// (Removed displayText definition from here)
-},
-
 // Handles localized event
-localized: function () {
-	this.displayText = this.SugarL10n.get("Hello", { name: this.currentenv.user.name });
-	this.SugarL10n.localize(this.l10n);
+created: function () {
+    var vm = this;
+    window.addEventListener(
+        "localized",
+        (e) => {
+			// We Cannot use "vm.currentenv.user.name" here as activity might not be initialized.
+			// For that you might want to store the SugarL10n in to the data(state of vue) and use computed values for it
+			vm.SugarL10n = e.detail.l10n;
+			vm.SugarL10n.localize(vm.l10n);
+        },
+        { once: true },
+    );
 },
+
+computed: {
+	// Recomputes 'helloString' when SugarL10n or currentenv changes.
+	helloString: function() {
+		if (!this.SugarL10n || !this.currentenv) return "";
+		return this.SugarL10n.get("Hello", { name: this.currentenv.user.name });;
+	},
+},
+
 ```
 
-And let's add this listener to the `v-on` directive too. Make these changes to the `sugar-localization` instance created in `index.html`:
+So now i can use `helloString` inside `index.html` if there's no `displayText`
 ```html
-<sugar-localization ref="SugarL10n" v-on:localized="localized"></sugar-localization>
+<h1>{{ displayText || helloString }}</h1>
 ```
 
-Everything is now ready to handle localization.
+It's worth noting that in simpler cases, direct use of `SugarL10n.localize()` with the `l10n` object may be adequate.
+
+Okay, everything is now ready to handle localization.
 
 Let's test it. Change the Sugarizer language to French and let's see the result.
 

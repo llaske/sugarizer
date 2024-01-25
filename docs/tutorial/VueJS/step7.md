@@ -75,7 +75,7 @@ The `journalchooser` has been baked into the `SugarJournal` component too! Hurra
 
 First add a click listener to the picture-button in `index.html`:
 ```html
-<sugar-toolitem id="insert-button" v-on:click="insertBackground" title="Change Background"></sugar-toolitem>
+<sugar-toolitem id="insert-button" @click="insertBackground" title="Change Background"></sugar-toolitem>
 ```
 
 And define the following method in `js/activity.js`:
