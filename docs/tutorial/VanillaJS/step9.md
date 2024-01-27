@@ -227,7 +227,7 @@ We need also to define custom CSS class `customTooltip` used here. To do that, a
   margin-top: 2px;
   padding: 0px;
   white-space: nowrap;
-  color: #808080;
+  color: transparent;
   line-height: 27px;
 }
 

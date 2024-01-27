@@ -635,7 +635,7 @@ div[slider] > input[type=range]::-ms-tooltip {
 	margin-top: 2px;
 	padding: 0px;
 	white-space: nowrap;
-	color: #808080;
+	color: transparent;
 	line-height: 27px;
 }  
 
