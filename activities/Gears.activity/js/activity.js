@@ -87,13 +87,13 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             }
             if(gearSketch.selectedButton == "playButton"){
                 gearSketch.selectButton(null);
-				playButton.classList.remove('pause');
-				playButton.classList.add('play');
+                playButton.classList.remove('pause');
+                playButton.classList.add('play');
             }
             else{
                 gearSketch.selectButton("playButton");
-				playButton.classList.remove('play');
-				playButton.classList.add('pause');
+                playButton.classList.remove('play');
+                playButton.classList.add('pause');
             }
         });
 
