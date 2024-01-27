@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Rewrite of Chat activity
 - Migrate localization to i18next
 - Updated Etoys activity, supports (local) saving now
+- Add pause button in Gears Activity #1506
 
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
