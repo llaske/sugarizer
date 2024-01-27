@@ -247,7 +247,6 @@
   }
   .introjs-skipbutton:focus,
   .introjs-skipbutton:hover {
-    color: #212121;
     outline: 0;
     text-decoration: none;
   }
