@@ -227,6 +227,11 @@ let app = new Vue({
 		},
 
 		changeGameState: function () {
+			if (this.onSlope && this.bounceCount > 0) {
+				// If the condition is true, do not allow pausing
+				return;
+			}
+
 			this.paused = !this.paused;
 			if (!this.paused) {
 				this.launch();
