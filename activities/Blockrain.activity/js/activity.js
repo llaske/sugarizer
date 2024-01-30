@@ -31,9 +31,16 @@ define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], func
 		},
 		  onRestart: function(){
 				loadHighScore(); // loads highscore when game is restarted.
+				gameStarted = true;
+				handlePausePlay();
 			},
 		  onGameOver: function(score){
 				saveHighestScore();
+				gameStarted=false;
+				paused=true;
+				var playPauseButton = document.getElementById('play-button');
+				playPauseButton.classList.remove('pause');
+				playPauseButton.classList.add('play');
 			},
 
 		  onLine: function(lines, scoreIncrement, score){
