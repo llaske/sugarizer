@@ -77,9 +77,11 @@
 
     pause: function() {
       this._board.paused = true;
+      this._unbindButtons();
     },
 
     resume: function() {
+      if(this._board.paused) this._setupTouchControls(false);
       this._board.paused = false;
     },
 
@@ -1612,12 +1614,18 @@
         game._$touchRotateRight.hide();
         game._$touchDrop.hide();
       }
-	  $("#left-arrow").bind('touchstart click', function(event) {moveLeft(event); endMoveLeft(event)});
-	  $("#right-arrow").bind('touchstart click', function(event) {moveRight(event); endMoveRight(event)});
-	  $("#up-arrow").bind('touchstart click', rotateRight);
-	  $("#down-arrow").bind('touchstart click', function(event) {drop(event); endDrop(event)});
-    }
+      $("#left-arrow").bind('touchstart click', function(event) {moveLeft(event); endMoveLeft(event)});
+      $("#right-arrow").bind('touchstart click', function(event) {moveRight(event); endMoveRight(event)});
+      $("#up-arrow").bind('touchstart click', rotateRight);
+      $("#down-arrow").bind('touchstart click', function(event) {drop(event); endDrop(event)});
+    },
 
+    _unbindButtons: function(){
+      $("#left-arrow").unbind('touchstart click');
+      $("#right-arrow").unbind('touchstart click');
+      $("#up-arrow").unbind('touchstart click');
+      $("#down-arrow").unbind('touchstart click');
+    }
   });
 
 })(jQuery));

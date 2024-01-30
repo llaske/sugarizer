@@ -12,6 +12,13 @@ body {
   background-image: url(../activity/activity-icon.svg);
 }
 
+#main-toolbar #play-button.play {
+  background-image: url(../icons/play.svg);
+}
+#main-toolbar #play-button.pause {
+  background-image: url(../icons/pause.svg);
+}
+
 #btn-next {
   background-image: url(../assets/themeChanger.svg);
 }

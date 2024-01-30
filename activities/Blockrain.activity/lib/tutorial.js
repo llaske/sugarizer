@@ -38,6 +38,12 @@ define(["l10n"], function (l10n) {
 				intro: l10n.get("TutoRightContent")
 			},
 			{
+				element: "#play-button",
+				position: "bottom",
+				title: l10n.get("TutoPlayTitle"),
+				intro: l10n.get("TutoPlayContent")
+			},
+			{
 				element: "#btn-next",
 				position: "bottom",
 				title: l10n.get("TutoThemeTitle"),
