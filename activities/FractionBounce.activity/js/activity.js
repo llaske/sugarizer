@@ -33,6 +33,7 @@ let app = new Vue({
 		onSlope: true,
 		SugarL10n: null,
 
+		isFirstPauseClick: true,
 		frameInterval: 20,
 		launchDelay: 1000,
 		height: 100,
@@ -110,6 +111,10 @@ let app = new Vue({
 			} else {
 				return this.l10n.stringHelpBounceToPosition + ' ' + this.answer + "/" + this.parts + ' ' + this.l10n.stringHelpOfTheWay;
 			}
+		},
+
+		isPauseAvailable: function () {
+			return !this.onSlope || this.isFirstPauseClick;
 		}
 	},
 
@@ -128,6 +133,16 @@ let app = new Vue({
 		}
 
 		this.SugarL10n = this.$refs.SugarL10n;
+	},
+
+	watch: {
+		bounceCount: function (newVal) {
+			if (newVal === 0) {
+				this.isFirstPauseClick = true;
+				this.changeGameState();
+				this.isFirstPauseClick = true;
+			}
+		}
 	},
 
 	methods: {
@@ -227,7 +242,12 @@ let app = new Vue({
 		},
 
 		changeGameState: function () {
-			this.paused = !this.paused;
+			if (this.isPauseAvailable) {
+				this.paused = !this.paused;
+			} else {
+				return;
+			}
+
 			if (!this.paused) {
 				this.launch();
 				if(this.count==30){
@@ -236,6 +256,11 @@ let app = new Vue({
 			        Score.innerHTML = " ";	
 				}
 			}
+
+			if (this.isFirstPauseClick) {
+				this.isFirstPauseClick = false;
+			}
+
 			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
 		},
 
@@ -248,6 +273,7 @@ let app = new Vue({
 				if (this.bounceCount == 0) {
 					this.log = {};
 					this.correctAnswers = 0;
+					this.isFirstPauseClick = true;
 				}
 
 				this.vy = -1 * Math.sqrt(window.innerHeight) / 3.90;

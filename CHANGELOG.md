@@ -33,6 +33,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Style for Planet Info in Planet Activity is Hard to See #1448
 - Misaligned button in Speak activity #1504
 - Added pause functionality to Blockrain activity #1501
+- Fraction Bounce Activity, trick to cheat the score #1511
 
 ## [1.7.0] - 2023-03-28
 ### Added
