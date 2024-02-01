@@ -17,5 +17,16 @@
 	"TutoRobotTitle": "Modo \"Robot\"",
 	"TutoRobotContent": "Haz clic aquí para activar el modo \"Robot\". En este modo, al hacer clic en una ficha, el color de la ficha simétrica cambiará a la vez. ¡Demasiado fácil!",
 	"TutoCanvasTitle": "Tablero",
-	"TutoCanvasContent": "Haz clic en las fichas para cambiar sus colores y hacer que la imagen sea simétrica"
+	"TutoCanvasContent": "Haz clic en las fichas para cambiar sus colores y hacer que la imagen sea simétrica",
+	"activity-button.title": "Reflection Activity",
+	"buddy-button.title": "Nuevo Juego con Colores de Amigo",
+	"rainbow-button.title": "Nuevo Juego con Colores Arcoíris",
+	"horizontal-button.title": "Nuevo Juego con Simetría Horizontal",
+	"vertical-button.title": "Nuevo Juego con Simetría Vertical",
+	"bilateral-button.title": "Nuevo Juego con Simetría Bilateral",
+	"robot-button.title": "Activar el Robot",
+	"stop-button.title": "Detener",
+	"fullscreen-button.title": "Pantalla Completa",
+	"help-button.title": "Tutorial",
+	"unfullscreen-button.title": "Salir de Pantalla Completa"
 }
