@@ -135,6 +135,16 @@ let app = new Vue({
 		this.SugarL10n = this.$refs.SugarL10n;
 	},
 
+	watch: {
+		bounceCount: function (newVal) {
+			if (newVal === 0) {
+				this.isFirstPauseClick = true;
+				this.changeGameState();
+				this.isFirstPauseClick = true;
+			}
+		}
+	},
+
 	methods: {
 
 		initialized: function () {
@@ -263,6 +273,7 @@ let app = new Vue({
 				if (this.bounceCount == 0) {
 					this.log = {};
 					this.correctAnswers = 0;
+					this.isFirstPauseClick = true;
 				}
 
 				this.vy = -1 * Math.sqrt(window.innerHeight) / 3.90;
