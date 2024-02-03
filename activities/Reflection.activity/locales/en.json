@@ -25,6 +25,7 @@
 	"vertical-button.title": "New Game with Vertical Symmetry",
 	"bilateral-button.title": "New Game with Bilateral Symmetry",
 	"robot-button.title": "Turn on the Robot",
+	"robot-button-off.title": "Turn off the Robot",
 	"stop-button.title": "Stop",
 	"fullscreen-button.title": "Fullscreen",
 	"help-button.title": "Tutorial",

@@ -1,4 +1,4 @@
-function Game(stage,xocolor,doc,datastore,activity){
+function Game(stage,xocolor,doc,datastore,activity,l10n){
 	this.margin = 0;
 	//These must be even
 	this.gridwidth = 10;
@@ -291,14 +291,14 @@ function Game(stage,xocolor,doc,datastore,activity){
 
 	this.robotOff = function(){
 		var robo = doc.getElementById("robot-button");
-		robo.title="Turn on the Robot";
+		robo.title=l10n.get("robot-button.title");
 		robo.style.backgroundImage = "url('./icons/robot-off.svg')";
 		this.robot = false;
 	}
 
 	this.robotOn = function(){
 		var robo = doc.getElementById("robot-button");
-		robo.title="Turn off the Robot";
+		robo.title=l10n.get("robot-button-off.title");
 		robo.style.backgroundImage = "url('./icons/robot-on.svg')";
 		this.robot = true;
 	}

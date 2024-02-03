@@ -25,6 +25,7 @@
 	"vertical-button.title": "Nouveau Jeu avec Symétrie Verticale",
 	"bilateral-button.title": "Nouveau Jeu avec Symétrie Bilatérale",
 	"robot-button.title": "Activer le Robot",
+	"robot-button-off.title": "Désactiver le Robot",
 	"stop-button.title": "Arrêter",
 	"fullscreen-button.title": "Plein écran",
 	"help-button.title": "Tutoriel",
