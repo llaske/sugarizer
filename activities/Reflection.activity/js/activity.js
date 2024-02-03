@@ -15,14 +15,14 @@ define(["sugar-web/activity/activity", 'easeljs', 'tweenjs', 'activity/game', 'a
 				l10n.init(language);
 			});
 			act.getXOColor(function (error, colors) {
-				runactivity(act, doc, colors, env, datastore, tutorial);
+				runactivity(act, doc, colors, env, datastore, tutorial, l10n);
 			});
 		});
 	});
 
 });
 
-function runactivity(act, doc, colors, env, datastore, tutorial) {
+function runactivity(act, doc, colors, env, datastore, tutorial, l10n) {
 	var canvas;
 	var stage;
 	var g;
@@ -41,7 +41,7 @@ function runactivity(act, doc, colors, env, datastore, tutorial) {
 		function handleTick() {
 			stage.update();
 		}
-		g = new Game(stage,colors,doc,datastore,act);
+		g = new Game(stage,colors,doc,datastore,act,l10n);
 		setTimeout(function(){ g.init(); }, 500);
 		var hasBeenResized = false;
 		window.addEventListener('resize', resizeCanvas, false);

@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Misaligned button in Speak activity #1504
 - Added pause functionality to Blockrain activity #1501
 - Fraction Bounce Activity, trick to cheat the score #1511
+- Tooltips not localized in Reflection activity #1508
 
 ## [1.7.0] - 2023-03-28
 ### Added
