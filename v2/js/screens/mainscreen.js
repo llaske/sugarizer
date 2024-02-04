@@ -87,6 +87,7 @@ const MainScreen = {
 	data: function () {
 		return {
 			screentype: 'home',
+			views: ['home', 'list', 'journal', 'neighborhood', 'assignment'],
 			filter: '',
 			SugarL10n: null,
 			l10n: {
@@ -99,6 +100,7 @@ const MainScreen = {
 
 	created: function () {
 		let vm = this;
+		this.initView();
 		window.addEventListener('localized', (e) => {
 			e.detail.l10n.localize(this.l10n);
 			vm.$refs.searchfield.placeholderData = this.l10n.stringSearchHome;
@@ -138,9 +140,19 @@ const MainScreen = {
 	},
 
 	methods: {
+		initView() {
+			let view = sugarizer.modules.settings.getUser().view;
+			if (view === undefined || view === null || view < 0 || view >= this.views.length) {
+				this.screentype = this.views[0];
+			} else {
+				this.screentype = this.views[view];
+			}
+		},
+
 		changeView(view) {
 			sugarizer.modules.stats.trace(this.screentype+'_view', 'change_view', view+'_view', null);
 			this.screentype = view;
+			sugarizer.modules.settings.setUser({'view': this.views.indexOf(view)});
 		},
 
 		searchFunction(searchInput) {
