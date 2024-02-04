@@ -49,28 +49,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
       var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
       var language = environment.user ? environment.user.language : defaultLanguage;
       l10n.init(language);
-      window.addEventListener("localized",function(){
-        document.getElementById("network-button").title = l10n.get("network.title");
-        document.getElementById("colors-button-fill").title = l10n.get("colorfill.title");
-        document.getElementById("colors-button-stroke").title = l10n.get("colorstroke.title");
-        document.getElementById("undo-button").title = l10n.get("undo.title");
-        document.getElementById("redo-button").title = l10n.get("redo.title");
-        document.getElementById("size-button").title = l10n.get("size.title");
-        document.getElementById("pen-button").title = l10n.get("pen.title");
-        document.getElementById("eraser-button").title = l10n.get("eraser.title");
-        document.getElementById("stamps-button").title = l10n.get("stamps.title");
-        document.getElementById("text-button").title = l10n.get("text.title");
-        document.getElementById("insertimage-button").title = l10n.get("image.title");
-        document.getElementById("drawings-button").title = l10n.get("drawing.title");
-        document.getElementById("bucket-button").title = l10n.get("bucket.title");
-        document.getElementById("filters-button").title = l10n.get("filters.title");
-        document.getElementById("copy-button").title = l10n.get("copy.title");
-        document.getElementById("paste-button").title = l10n.get("paste.title");
-        document.getElementById("save-image-button").title = l10n.get("save.title");
-        document.getElementById("clear-button").title = l10n.get("clear.title");
-        document.getElementById("stop-button").title = l10n.get("stop.title");
-        document.getElementById("help-button").title = l10n.get("help.title");
-      });
+      
     });
 
     // Export as PNG image
