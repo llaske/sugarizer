@@ -163,11 +163,11 @@ const MyPrivacy = {
 			} else {
 				sugarizer.modules.user.get()
     				.then(userData => {
-						sugarizer.modules.history.removeUser(userData);
+					sugarizer.modules.history.removeUser(userData);
     				})
     				.catch(error => {
         				console.error('Error fetching user data:', error);
-    			});
+    				});
 				sugarizer.modules.server.deleteUser(null, sugarizer.modules.user.getServerURL())
 					.then((response) => {
 						sugarizer.modules.user.logout()
@@ -177,15 +177,10 @@ const MyPrivacy = {
 					})
 					.catch((error) => {
 						console.log(error);
-
-					
 					});
-
-					
 			}
 		}
 	}
-
 };
 
 if (typeof module !== 'undefined') module.exports = { MyPrivacy }
