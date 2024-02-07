@@ -156,11 +156,18 @@ const MyPrivacy = {
 			this.warning.text = this.SugarL10n ? this.SugarL10n.get('AllDataWillBeLost') : "Are you sure you want to delete your account? This action cannot be undone.";
 			this.$refs.deletecheckbox.disabled = true;
 		},
-
+		
 		deleteAccount() {
 			if (this.deletefrom == 'local') {
 				sugarizer.restart();
 			} else {
+				sugarizer.modules.user.get()
+    				.then(userData => {
+						sugarizer.modules.history.removeUser(userData);
+    				})
+    				.catch(error => {
+        				console.error('Error fetching user data:', error);
+    			});
 				sugarizer.modules.server.deleteUser(null, sugarizer.modules.user.getServerURL())
 					.then((response) => {
 						sugarizer.modules.user.logout()
@@ -170,7 +177,11 @@ const MyPrivacy = {
 					})
 					.catch((error) => {
 						console.log(error);
+
+					
 					});
+
+					
 			}
 		}
 	}
