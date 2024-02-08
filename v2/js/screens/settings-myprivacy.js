@@ -158,32 +158,21 @@ const MyPrivacy = {
 		},
 		
 		deleteAccount() {
-			if (this.deletefrom == 'local') {
+			if (this.deletefrom === 'local') {
 				sugarizer.restart();
-			} else {
-				sugarizer.modules.user.get()
-    				.then(userData => {
-						sugarizer.modules.history.removeUser(userData);
-    				})
-    				.catch(error => {
-        				console.error('Error fetching user data:', error);
-    			});
-				sugarizer.modules.server.deleteUser(null, sugarizer.modules.user.getServerURL())
-					.then((response) => {
-						sugarizer.modules.user.logout()
-							.then(() => {
-								sugarizer.reload();
-							});
-					})
-					.catch((error) => {
-						console.log(error);
-
-					
-					});
-
-					
+				return;
 			}
+		
+			sugarizer.modules.user.get()
+				.then(userData => {
+					sugarizer.modules.history.removeUser(userData);
+					return sugarizer.modules.server.deleteUser(null, sugarizer.modules.user.getServerURL());
+				})
+				.then(() => sugarizer.modules.user.logout())
+				.then(() => sugarizer.reload())
+				.catch(error => console.error('Error deleting account:', error));
 		}
+		
 	}
 
 };
