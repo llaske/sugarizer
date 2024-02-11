@@ -324,6 +324,16 @@ label {
 .palette .row.small {
   height: 22px;
 }
+.palette textarea#description.expand {
+  resize: vertical !important;
+  max-height: 70vh !important;
+}
+
+.palette .row .expand {
+  resize: vertical !important;
+  max-height: 70vh !important;
+}
+
 .palette .row.expand {
   height: auto;
 }
