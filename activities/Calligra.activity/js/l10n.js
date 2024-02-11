@@ -14,12 +14,12 @@ var Localization = {
 	mounted: function() {
 		var vm = this;
 		if (vm.l10n == null) {
-			requirejs(["sugar-web/env", "webL10n"], function (env, webL10n) {
+			requirejs(["sugar-web/env", "i18next.min"], function (env, i18next) {
 				env.getEnvironment(function(err, environment) {
-					vm.l10n = webL10n;
+					vm.l10n = i18next;
 					var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 					var language = environment.user ? environment.user.language : defaultLanguage;
-					webL10n.language.code = language;
+					vm.l10n.init(language);
 					window.addEventListener("localized", function() {
 						if (!vm.eventReceived) {
 							vm.code = language;

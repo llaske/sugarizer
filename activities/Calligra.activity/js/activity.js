@@ -47,36 +47,54 @@ var app = new Vue({
 	},
 
 	mounted: function() {
-		// Load last library from Journal
 		var vm = this;
+	
+		// Load required modules
 		requirejs(["sugar-web/activity/activity", "sugar-web/env"], function(activity, env) {
+			// Retrieve environment information
 			env.getEnvironment(function(err, environment) {
-					// Use buddy color for background
-					env.getEnvironment(function(err, environment) {
-						vm.color = environment.user.colorvalue;
-						document.getElementById("canvas").style.backgroundColor = vm.color.fill;
-					});
-
-				// Load context
+				// Set background color based on user's color value
+				vm.color = environment.user.colorvalue;
+				document.getElementById("canvas").style.backgroundColor = vm.color.fill;
+	
+				// Load context if available
 				if (environment.objectId) {
-					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
-						if (error==null && data!=null) {
-							var parsed = JSON.parse(data);
-							vm.currentLibrary = parsed.library;
-							vm.currentTemplate = parsed.library[parsed.template];
-							document.getElementById("template-button").style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
-							vm.$refs.toolbar.$refs.templatebutton.paletteObject.getPalette().children[0].style.backgroundImage = "url(icons/"+vm.currentTemplate.name+".svg)";
+					// Check if activity is available
+					if (activity) {
+						// Check if getDatastoreObject() is available
+						if (typeof activity.getDatastoreObject === 'function') {
+							activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+								if (error == null && data != null) {
+									// Parse and process data if available
+									var parsed = JSON.parse(data);
+									vm.currentLibrary = parsed.library;
+									vm.currentTemplate = parsed.library[parsed.template];
+									document.getElementById("template-button").style.backgroundImage = "url(icons/" + vm.currentTemplate.name + ".svg)";
+									vm.$refs.toolbar.$refs.templatebutton.paletteObject.getPalette().children[0].style.backgroundImage = "url(icons/" + vm.currentTemplate.name + ".svg)";
+								} else {
+									// Handle case when data is not available or there's an error
+									vm.currentLibrary = defaultTemplates;
+									vm.currentTemplate = defaultTemplates[0];
+								}
+							});
 						} else {
+							// Handle case when getDatastoreObject() is not available
 							vm.currentLibrary = defaultTemplates;
 							vm.currentTemplate = defaultTemplates[0];
 						}
-					});
+					} else {
+						// Handle case when activity is not available
+						vm.currentLibrary = defaultTemplates;
+						vm.currentTemplate = defaultTemplates[0];
+					}
 				} else {
+					// Handle case when environment.objectId is not available
 					vm.currentLibrary = defaultTemplates;
 					vm.currentTemplate = defaultTemplates[0];
 				}
 			});
 		});
+	
 
 		// Handle resize
 		window.addEventListener("resize", function() {
