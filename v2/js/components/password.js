@@ -176,29 +176,42 @@ const Password ={
 		keyEntered(e) {
 			var key = e.key;
 			var keyCode = e.keyCode;
-		
-			if (e.ctrlKey && key === 'a') {
-				// If ctrl + a is pressed, let the default action (text selection) happen
-			} else if (e.ctrlKey && key === 'Backspace') {
-				e.preventDefault();
-				if (this.passwordText !== "") {
-					this.passwordText = ''; 
-					this.passwordValue = '';
+			if (e.repeat) {
+				if (key === "Backspace") {
+					if (this.passwordText !== '') {
+						this.char = this.passwordText[this.passwordText.length -   1];
+						this.passwordText = this.passwordText.slice(0, -1);
+						this.passwordValue = this.passwordValue.slice(0, -1);
+					}
+				} else if ((keyCode >   64 && keyCode <   91) || (keyCode >   96 && keyCode <   123) || (keyCode >   47 && keyCode <   58)) {
+					this.passwordText += key;
+					this.passwordValue += String.fromCodePoint(this._convertToEmoji(key));
 				}
-			} else if (key === "Backspace") {
-				if (this.passwordText === '')
-					return;
-				this.char = this.passwordText[this.passwordText.length - 1];
-				this.passwordText = this.passwordText.substring(0, this.passwordText.length - 1);
-	
-				this.lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(this.char)));
-				this.passwordValue = this.passwordValue.substring(0, this.lastIndex);
-			} else if (key === "Enter") {
-				this.$emit('passwordSet', this.passwordText);
-			} else if ((keyCode > 64 && keyCode < 91) || (keyCode > 96 && keyCode < 123) || (keyCode > 47 && keyCode < 58)) {
-				this.passwordText = this.passwordText + key;
-				this.passwordValue = this.passwordValue + String.fromCodePoint(this._convertToEmoji(key));
+			} else {
+				if (e.ctrlKey && key === 'a') {
+					e.target.select();
+				} else if (key === "Backspace") {
+					if (e.target.selectionStart ===   0 && e.target.selectionEnd === e.target.value.length) {
+						e.preventDefault();
+						this.passwordText = '';
+						this.passwordValue = '';
+						this.$refs.password.value = '';
+					} else {
+						if (this.passwordText === '')
+							return;
+						this.char = this.passwordText[this.passwordText.length -   1];
+						this.passwordText = this.passwordText.substring(0, this.passwordText.length -   1);
+						this.lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(this.char)));
+						this.passwordValue = this.passwordValue.substring(0, this.lastIndex);
+					}
+				} else if (key === "Enter") {
+					this.$emit('passwordSet', this.passwordText);
+				} else if ((keyCode >   64 && keyCode <   91) || (keyCode >   96 && keyCode <   123) || (keyCode >   47 && keyCode <   58)) {
+					this.passwordText = this.passwordText + key;
+					this.passwordValue = this.passwordValue + String.fromCodePoint(this._convertToEmoji(key));
+				}
 			}
+			this.$refs.password.value = this.passwordValue;
 		},
 		category0Clicked() {
 			if(this.currentIndex==0)
