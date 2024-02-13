@@ -423,7 +423,6 @@ input[type='radio']:checked {
   resize: vertical !important;
   max-height: 70vh !important;
 }
-
 #description .row expand {
   resize: vertical !important;
   max-height: 70vh !important;; 
@@ -435,6 +434,7 @@ textarea #description.expand {
 textarea {
   margin: 2px;
   border: 2px solid #808080;
+  cursor: auto;
 }
 textarea.expand {
   width: calc(100% - 12px);
