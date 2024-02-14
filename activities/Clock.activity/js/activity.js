@@ -311,20 +311,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 this.textTimeElem.style.display = "none";
             }
 
-            if (this.setTime) {
-              this.writeTimeInSetTime();
-            }
-            else {
-              this.updateSizes();
-
-              var date = new Date();
-              var hours = date.getHours();
-              var minutes = date.getMinutes();
-              var seconds = date.getSeconds();
-              this.displayTime(hours, minutes, seconds);
-
-              this.drawBackground();
-            }
+            this.writeTimeInSetTime();
 
         }
 
