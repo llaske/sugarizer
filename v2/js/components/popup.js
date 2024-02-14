@@ -6,7 +6,7 @@
  * @vue-data {Boolean} [isShown=false] - to ensure if popup instance is currently visible in DOM
  * @vue-data {Number} [xData=null] - left position of popup component
  * @vue-data {Number} [yData=null] - top position of popup component
- * @vue-event {String} itemisClicked - Emit selected item when clicked in "'popup component id'_'selected item name'" format
+ * @vue-event {String} itemisClicked - Emit selected item when clicked in "'popup component id'_'selected item id'" format
  */
 const Popup ={
 	name: 'Popup',
