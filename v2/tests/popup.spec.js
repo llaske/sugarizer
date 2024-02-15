@@ -75,20 +75,20 @@ describe('Popup.vue', () => {
 		const item = wrapper.find('.item-icon-title')
 		item.trigger('click')
 		expect(wrapper.emitted('itemisClicked')).toBeTruthy()
-		expect(wrapper.emitted('itemisClicked')[0]).toEqual(["4_Star"])
+		expect(wrapper.emitted('itemisClicked')[0]).toEqual(["4_6"])
 		
 		const itemsIcon= wrapper.findAll('.item-icon')
 		expect(wrapper.findAll('.item-icon').length).toBe(3)
 
-		itemsIcon.at(1).trigger('click')
-		expect(wrapper.emitted('itemisClicked')[1]).toEqual(["4_item2"])
+		itemsIcon[1].trigger('click')
+		expect(wrapper.emitted('itemisClicked')[1]).toEqual(["4_8"])
 
-		itemsIcon.at(2).trigger('click')
-		expect(wrapper.emitted('itemisClicked')[2]).toEqual(["4_footer1"])
+		itemsIcon[2].trigger('click')
+		expect(wrapper.emitted('itemisClicked')[2]).toEqual(["4_9"])
 
 		const itemsName= wrapper.findAll('.item-name')
-		itemsName.at(1).trigger('click')
-		expect(wrapper.emitted('itemisClicked')[3]).toEqual(["4_item2"])
+		itemsName[1].trigger('click')
+		expect(wrapper.emitted('itemisClicked')[3]).toEqual(["4_8"])
 	});
 
 	it('successfully show and hide the popup when passed', async () => {

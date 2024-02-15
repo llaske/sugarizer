@@ -135,7 +135,8 @@ describe('Dialog.vue', () => {
 		})
 		await wrapper.setData({showDialog: true});
 		expect(wrapper.find('.settings-filter-text').exists()).toBe(false)
-		expect(wrapper.find('.module-cancel-button').exists()).toBe(true)
+		expect(wrapper.find('.module-cancel-button').exists()).toBe(false)
 		expect(wrapper.find('.module-ok-button').exists()).toBe(false)
+		expect(wrapper.find('.module-cancel-button-only').exists()).toBe(true)
 	});
 })

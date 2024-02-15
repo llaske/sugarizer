@@ -79,7 +79,7 @@ describe('FilterBox.vue', () => {
 		const items= wrapper.findAll('.filterBox-items-item')
 		expect(wrapper.findAll('.filterBox-items-item').length).toBe(5)
 
-		await items.at(1).trigger('click')
+		await items[1].trigger('click')
 		expect(wrapper.emitted('filterSelected')).toBeTruthy()
 		expect(wrapper.emitted('filterSelected')[0]).toEqual([option1.filterBoxList[1]])
 
