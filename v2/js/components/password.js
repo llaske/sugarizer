@@ -11,7 +11,7 @@ const Password ={
 					<div class="password-input">
 						<input 
 							class="password-value" id="text" ref="password"
-							v-on:keyup="keyEntered" name="password"
+							v-on:keydown="keyEntered" name="password"
 							type="text"
 							v-bind:value="passwordValue"
 						/>
@@ -174,6 +174,7 @@ const Password ={
 			this.passwordValue=this.passwordValue+String.fromCodePoint(this._convertToEmoji(emoji.letter));
 		},
 		keyEntered(e) {
+			e.preventDefault();
 			var key= e.key;
 			var keyCode= e.keyCode;
 			if(key=="Backspace") {
@@ -192,6 +193,8 @@ const Password ={
 				this.passwordText=this.passwordText+key;
 				this.passwordValue=this.passwordValue+String.fromCodePoint(this._convertToEmoji(key));
 			}
+			// have to do it manually as e.preventDefault
+			this.$nextTick(() => e.target.scrollLeft = e.target.scrollWidth)
 		},
 		category0Clicked() {
 			if(this.currentIndex==0)
