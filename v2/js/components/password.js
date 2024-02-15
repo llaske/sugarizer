@@ -11,7 +11,7 @@ const Password ={
 					<div class="password-input">
 						<input 
 							class="password-value" id="text" ref="password"
-							v-on:keyup="keyEntered" name="password"
+							v-on:keydown="keyEntered" name="password"
 							type="text"
 							v-bind:value="passwordValue"
 						/>
@@ -212,6 +212,27 @@ const Password ={
 				}
 			}
 			this.$refs.password.value = this.passwordValue;
+			e.preventDefault();
+			var key= e.key;
+			var keyCode= e.keyCode;
+			if(key=="Backspace") {
+				if(this.passwordText=='')
+					return;
+				var char=this.passwordText[this.passwordText.length-1];
+				this.passwordText=this.passwordText.substring(0, this.passwordText.length - 1);
+				
+				var lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(char)));
+				this.passwordValue = this.passwordValue.substring(0, lastIndex);
+			}
+			else if(key=="Enter") {
+				this.$emit('passwordSet',this.passwordText);
+			}
+			else if((keyCode>64 && keyCode<91) ||(keyCode>96 && keyCode<123) || (keyCode>47 && keyCode<58) ) {
+				this.passwordText=this.passwordText+key;
+				this.passwordValue=this.passwordValue+String.fromCodePoint(this._convertToEmoji(key));
+			}
+			// have to do it manually as e.preventDefault
+			this.$nextTick(() => e.target.scrollLeft = e.target.scrollWidth)
 		},
 		category0Clicked() {
 			if(this.currentIndex==0)
