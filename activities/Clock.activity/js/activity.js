@@ -303,30 +303,17 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
 
         Clock.prototype.changeWriteTime = function (writeTime) {
-            this.writeTime = writeTime;
+          this.writeTime = writeTime;
 
-            if (writeTime) {
-                this.textTimeElem.style.display = "block";
-            } else {
-                this.textTimeElem.style.display = "none";
-            }
+          if (writeTime) {
+              this.textTimeElem.style.display = "block";
+          } else {
+              this.textTimeElem.style.display = "none";
+          }
 
-            if (this.setTime) {
-              this.writeTimeInSetTime();
-            }
-            else {
-              this.updateSizes();
+          this.writeTimeInSetTime();
 
-              var date = new Date();
-              var hours = date.getHours();
-              var minutes = date.getMinutes();
-              var seconds = date.getSeconds();
-              this.displayTime(hours, minutes, seconds);
-
-              this.drawBackground();
-            }
-
-        }
+      }
 
         Clock.prototype.changeWriteDate = function (writeDate) {
             this.writeDate = writeDate;
