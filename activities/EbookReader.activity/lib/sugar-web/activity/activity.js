@@ -1,4 +1,4 @@
-define(["webL10n",
+define([
         "sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
@@ -6,7 +6,7 @@ define(["webL10n",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette"], function (
-    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette) {
+    shortcut, bus, env, datastore, presence, icon, activitypalette) {
 
     'use strict';
 
@@ -22,7 +22,6 @@ define(["webL10n",
     activity.setup = function () {
         bus.listen();
 
-        l10n.start();
 
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
