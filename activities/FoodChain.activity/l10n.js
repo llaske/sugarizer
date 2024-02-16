@@ -1,6 +1,6 @@
 ﻿// Localization API
 
- var l10n;
+ var l10n; //loaded by activity.js
 
 
 // Localization function

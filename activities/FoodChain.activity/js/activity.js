@@ -1,8 +1,8 @@
 ﻿
 
-define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore","tutorial", "sugar-web/env"], function (activity, _l10n, radioButtonsGroup, datastore, tutorial, env) {
-	l10n = _l10n;
+define(["sugar-web/activity/activity","l10n","sugar-web/graphics/radiobuttonsgroup","sugar-web/datastore","tutorial", "sugar-web/env"], function (activity, _l10n, radioButtonsGroup, datastore, tutorial, env) {
 	var app = null;
+	l10n = _l10n
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -16,14 +16,17 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 			document.getElementById("fr-button")]
 		);
 		document.getElementById("en-button").onclick = function() {
+			l10n.init("en");
 			l10n.language.code = "en";
 			FoodChain.setLocale();
 		};
 		document.getElementById("fr-button").onclick = function() {
+			l10n.init("fr");
 			l10n.language.code = "fr";
 			FoodChain.setLocale();
 		};
 		document.getElementById("pt_BR-button").onclick = function() {
+			l10n.init("pt_BR");
 			l10n.language.code = "pt_BR";
 			FoodChain.setLocale();
 		};
@@ -42,8 +45,10 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 					var language = environment.user ? environment.user.language : defaultLanguage;
 					if (language == 'fr' || language == 'en') {
 						l10n.language.code = language;
+						l10n.init(language);
 					} else if (language == 'pt') {
 						l10n.language.code = "pt_BR";
+						l10n.init("pt_BR");
 					}
 
 					// Init sound component
@@ -71,6 +76,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/graphics/radiobuttons
 				FoodChain.setLocale();
 			}
 		};
+		localized_received(); //invoke to init the app
 		window.addEventListener('localized', localized_received, false);
 
         // Stop sound at end of game to sanitize media environment, specifically on Android
