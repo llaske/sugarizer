@@ -6,7 +6,7 @@ define([
     "sugar-web/presence",
     "sugar-web/graphics/icon",
     "sugar-web/graphics/activitypalette"], function (
-        l10n, shortcut, bus, env, datastore, presence, icon, activitypalette) {
+        shortcut, bus, env, datastore, presence, icon, activitypalette) {
 
     'use strict';
 
