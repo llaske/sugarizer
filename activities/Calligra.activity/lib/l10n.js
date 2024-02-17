@@ -66,5 +66,8 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
         window.dispatchEvent(event);
     };
 
+    // Exporting the l10n object to make it accessible globally
+    window.l10n = l10n;
+
     return l10n;
 });

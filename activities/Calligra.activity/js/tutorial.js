@@ -1,57 +1,10 @@
-
 // Tutorial component based on bootstrap tour
 var Tutorial = {
 	template: '<div/>',
-	data: function() {
-		return {
-			l10n: {
-				stringPrevShort: '',
-				stringNextShort: '',
-				stringEndShort: '',
-				stringTutoExplainTitle: '',
-				stringTutoExplainContent: '',
-				stringTutoFullscreenButtonTitle: '',
-				stringTutoFullscreenButtonContent: '',
-				stringTutoEditorItemTitle: '',
-				stringTutoEditorItemContent: '',
-				stringTutoPlayerItemTitle: '',
-				stringTutoPlayerItemContent: '',
-				stringTutoInsertImageButtonTitle: '',
-				stringTutoInsertImageButtonContent: '',
-				stringTutoEditorTemplateButtonTitle: '',
-				stringTutoEditorTemplateButtonContent: '',
-				stringTutoPlayerTemplateButtonTitle: '',
-				stringTutoPlayerTemplateButtonContent: '',
-				stringTutoEditorItemButtonTitle: '',
-				stringTutoEditorItemButtonContent: '',
-				stringTutoPlayerItemButtonTitle: '',
-				stringTutoPlayerItemButtonContent: '',
-				stringTutoLinesButtonTitle: '',
-				stringTutoLinesButtonContent: '',
-				stringTutoZoomButtonTitle: '',
-				stringTutoZoomButtonContent: '',
-				stringTutoBackButtonTitle: '',
-				stringTutoBackButtonContent: '',
-				stringTutoRestartButtonTitle: '',
-				stringTutoRestartButtonContent: '',
-				stringTutoNextButtonTitle: '',
-				stringTutoNextButtonContent: '',
-				stringTutoEditorAddButtonTitle: '',
-				stringTutoEditorAddButtonContent: '',
-				stringTutoEditorRemoveButtonTitle: '',
-				stringTutoEditorRemoveButtonContent: '',
-				stringTutoEditorAddPathButtonTitle: '',
-				stringTutoEditorAddPathButtonContent: '',
-				stringTutoEditorRemovePathButtonTitle: '',
-				stringTutoEditorRemovePathButtonContent: '',
-				stringTutoTemplateButtonTitle: '',
-				stringTutoTemplateButtonContent: ''
-			}
-		}
-	},
+	
 	methods: {
 		localized: function(localization) {
-			localization.localize(this.l10n);
+			// Update the tutorial
 		},
 
 		show: function(options) {
@@ -60,8 +13,8 @@ var Tutorial = {
 			if (options.currentView === TemplateViewer && !options.editMode) {
 				steps.push(
 					{
-						title: this.l10n.stringTutoExplainTitle,
-						intro: this.l10n.stringTutoExplainContent
+						title: window.l10n.get("TutoExplainTitle"),
+						intro: window.l10n.get("TutoExplainContent")
 					}
 				);
 			}
@@ -69,14 +22,14 @@ var Tutorial = {
 				{
 					element: options.templatebutton,
 					position: "bottom",
-					title: this.l10n.stringTutoTemplateButtonTitle,
-					intro: this.l10n.stringTutoTemplateButtonContent
+					title: window.l10n.get("TutoTemplateButtonTitle"),
+					intro: window.l10n.get("TutoTemplateButtonContent")
 				},
 				{
 					element: options.item,
 					position: "right",
-					title: options.editMode?this.l10n.stringTutoEditorItemTitle:this.l10n.stringTutoPlayerItemTitle,
-					intro: options.editMode?this.l10n.stringTutoEditorItemContent:this.l10n.stringTutoPlayerItemContent
+					title: options.editMode ? window.l10n.get("TutoEditorItemTitle") : window.l10n.get("TutoPlayerItemTitle"),
+					intro: options.editMode ? window.l10n.get("TutoEditorItemContent") : window.l10n.get("TutoPlayerItemContent")
 				}
 			]);
 			if (options.currentView === TemplateViewer && options.editMode) {
@@ -84,24 +37,24 @@ var Tutorial = {
 					{
 						element: options.insertimagebutton,
 						position: "bottom",
-						title: this.l10n.stringTutoInsertImageButtonTitle,
-						intro: this.l10n.stringTutoInsertImageButtonContent
+						title: window.l10n.get("TutoInsertImageButtonTitle"),
+						intro: window.l10n.get("TutoInsertImageButtonContent")
 					}
 				);
 			}
-			var settingsItemName = "stringTuto"+(options.editMode?"Player":"Editor")+(options.currentView === TemplateViewer?"Template":"Item")+"Button";
+			var settingsItemName = "stringTuto" + (options.editMode ? "Player" : "Editor") + (options.currentView === TemplateViewer ? "Template" : "Item") + "Button";
 			steps = steps.concat([
 				{
 					element: options.settingsbutton,
 					position: "bottom",
-					title: this.l10n[settingsItemName+"Title"],
-					intro: this.l10n[settingsItemName+"Content"]
+					title: window.l10n.get("TutoEditorTemplateButtonTitle"),
+					intro: window.l10n.get("TutoEditorTemplateButtonContent")
 				},
 				{
 					element: options.fullscreenbutton,
 					position: "bottom",
-					title: this.l10n.stringTutoFullscreenButtonTitle,
-					intro: this.l10n.stringTutoFullscreenButtonContent
+					title: window.l10n.get("TutoFullscreenButtonTitle"),
+					intro: window.l10n.get("TutoFullscreenButtonContent")
 				}
 			]);
 			if (options.currentView !== TemplateViewer) {
@@ -109,56 +62,56 @@ var Tutorial = {
 					{
 						element: options.linesbutton,
 						position: "bottom",
-						title: this.l10n.stringTutoLinesButtonTitle,
-						intro: this.l10n.stringTutoLinesButtonContent
+						title: window.l10n.get("TutoLinesButtonTitle"),
+						intro: window.l10n.get("TutoLinesButtonContent")
 					},
 					{
 						element: options.zoombutton,
 						position: "bottom",
-						title: this.l10n.stringTutoZoomButtonTitle,
-						intro: this.l10n.stringTutoZoomButtonContent
+						title: window.l10n.get("TutoZoomButtonTitle"),
+						intro: window.l10n.get("TutoZoomButtonContent")
 					},
 					{
 						element: options.backbutton,
 						position: "right",
-						title: this.l10n.stringTutoBackButtonTitle,
-						intro: this.l10n.stringTutoBackButtonContent
+						title: window.l10n.get("TutoBackButtonTitle"),
+						intro: window.l10n.get("TutoBackButtonContent")
 					},
 					{
 						element: options.editoraddbutton,
 						position: "left",
-						title: this.l10n.stringTutoEditorAddButtonTitle,
-						intro: this.l10n.stringTutoEditorAddButtonContent
+						title: window.l10n.get("TutoEditorAddButtonTitle"),
+						intro: window.l10n.get("TutoEditorAddButtonContent")
 					},
 					{
 						element: options.editorremovebutton,
 						position: "left",
-						title: this.l10n.stringTutoEditorRemoveButtonTitle,
-						intro: this.l10n.stringTutoEditorRemoveButtonContent
+						title: window.l10n.get("TutoEditorRemoveButtonTitle"),
+						intro: window.l10n.get("TutoEditorRemoveButtonContent")
 					},
 					{
 						element: options.editoraddpathbutton,
 						position: "left",
-						title: this.l10n.stringTutoEditorAddPathButtonTitle,
-						intro: this.l10n.stringTutoEditorAddPathButtonContent
+						title: window.l10n.get("TutoEditorAddPathButtonTitle"),
+						intro: window.l10n.get("TutoEditorAddPathButtonContent")
 					},
 					{
 						element: options.editorremovepathbutton,
 						position: "left",
-						title: this.l10n.stringTutoEditorRemovePathButtonTitle,
-						intro: this.l10n.stringTutoEditorRemovePathButtonContent
+						title: window.l10n.get("TutoEditorRemovePathButtonTitle"),
+						intro: window.l10n.get("TutoEditorRemovePathButtonContent")
 					},
 					{
 						element: options.restartbutton,
 						position: "left",
-						title: this.l10n.stringTutoRestartButtonTitle,
-						intro: this.l10n.stringTutoRestartButtonContent
+						title: window.l10n.get("TutoRestartButtonTitle"),
+						intro: window.l10n.get("TutoRestartButtonContent")
 					},
 					{
 						element: options.nextbutton,
 						position: "left",
-						title: this.l10n.stringTutoNextButtonTitle,
-						intro: this.l10n.stringTutoNextButtonContent
+						title: window.l10n.get("TutoNextButtonTitle"),
+						intro: window.l10n.get("TutoNextButtonContent")
 					}
 				]);
 			}
@@ -168,12 +121,12 @@ var Tutorial = {
 			introJs().setOptions({
 				tooltipClass: 'customTooltip',
 				steps: steps,
-				prevLabel: this.l10n.stringPrevShort,
-				nextLabel: this.l10n.stringNextShort,
+				prevLabel: window.l10n.get("PrevShort"),
+				nextLabel: window.l10n.get("NextShort"),
 				exitOnOverlayClick: false,
 				nextToDone: false,
 				showBullets: false
 			}).start();	
 		}
 	}
-}
+};
