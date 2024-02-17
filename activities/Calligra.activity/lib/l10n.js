@@ -29,6 +29,7 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
 
     l10n.switchTo = (lang) => {
         if (!i18next.hasResourceBundle(lang, "translation")) {
+            lang = "fr";
             console.log("Loading " + lang + " language");
             l10n.loadLanguageResource(lang).then((locales) => {
                 if (locales !== null) {
@@ -65,6 +66,9 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
         const event = new Event("localized");
         window.dispatchEvent(event);
     };
+
+    // Exporting the l10n object to make it accessible globally
+    window.l10n = l10n;
 
     return l10n;
 });
