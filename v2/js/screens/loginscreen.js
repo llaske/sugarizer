@@ -86,32 +86,19 @@ const LoginScreen = {
 			 @click="prevItem"
 			></icon-button>
 	</div>
-	<div class="ls_right_btn" v-show="index.currentIndex !== index.maxIndex">
-		<icon-button 
-			 id="next-btn"
-			 svgfile="./icons/go-right.svg"
-			 class="ls_icon_btn"
-			 size="28"
-			 color="1024"
-			 x="0"
-			 y="0"
-			 :text="l10n.stringNext"
-			 @click="nextItem"
-			></icon-button>
-	</div>
-	<div class="ls_right_btn" v-show="index.currentIndex === index.maxIndex">
+	<div class="ls_right_btn">
 		<icon-button
-			 id="done-btn"
-			 svgfile="./icons/go-right.svg"
-			 class="ls_icon_btn"
-			 size="28"
-			 color="1024"
-			 x="0"
-			 y="0"
-			 :text="l10n.stringDone"
-			 type="submit"
-			 @click="makeLoginRequest()"
-			></icon-button>
+			id="next-done-btn"
+			svgfile="./icons/go-right.svg"
+			class="ls_icon_btn"
+			size="28"
+			color="1024"
+			x="0"
+			y="0"
+			:text="index.currentIndex === index.maxIndex ? l10n.stringDone : l10n.stringNext"
+			type="submit"
+			@click="index.currentIndex === index.maxIndex ? makeLoginRequest() : nextItem()"
+		></icon-button>
 	</div>
 </div>`,
 	components: {

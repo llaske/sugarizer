@@ -17,7 +17,7 @@ const MySecurity = {
 							<div class="security-message" >{{SugarL10n ? SugarL10n.get('SecurityMessage') : ''}}</div>
 							<password-box class="security-password" ref="password" @passwordSet="login"/>
 							<icon-button 
-								id="next-btn"
+								id="next-done-btn"
 								svgfile="./icons/go-right.svg"
 								class="security-rightbutton"
 								size="28"
@@ -35,7 +35,7 @@ const MySecurity = {
 							<div class="security-message" >{{SugarL10n ? SugarL10n.get('SecurityMessageNew', {"min": 4}) : ''}}</div>
 							<password-box class="security-password" ref="newpassword" @passwordSet="updatePassword"/>
 							<icon-button 
-								id="next-btn"
+								id="next-done-btn"
 								svgfile="./icons/go-right.svg"
 								class="security-rightbutton"
 								size="28"
