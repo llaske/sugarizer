@@ -174,65 +174,33 @@ const Password ={
 			this.passwordValue=this.passwordValue+String.fromCodePoint(this._convertToEmoji(emoji.letter));
 		},
 		keyEntered(e) {
+			e.preventDefault();
 			var key = e.key;
 			var keyCode = e.keyCode;
-			if (e.repeat) {
-				if (key === "Backspace") {
-					if (this.passwordText !== '') {
-						this.char = this.passwordText[this.passwordText.length -   1];
-						this.passwordText = this.passwordText.slice(0, -1);
-						this.passwordValue = this.passwordValue.slice(0, -1);
-					}
-				} else if ((keyCode >   64 && keyCode <   91) || (keyCode >   96 && keyCode <   123) || (keyCode >   47 && keyCode <   58)) {
-					this.passwordText += key;
-					this.passwordValue += String.fromCodePoint(this._convertToEmoji(key));
+			if (e.ctrlKey && key === 'a' || key === 'A') {
+				e.target.select();
+			} else if (key === "Backspace") {
+				if (e.target.selectionStart ===   0 && e.target.selectionEnd === e.target.value.length) {
+					e.preventDefault();
+					this.passwordText = '';
+					this.passwordValue = '';
+					this.$refs.password.value = '';
+				} else {
+					if (this.passwordText === '')
+						return;
+					this.char = this.passwordText[this.passwordText.length -   1];
+					this.passwordText = this.passwordText.substring(0, this.passwordText.length -   1);
+					this.lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(this.char)));
+					this.passwordValue = this.passwordValue.substring(0, this.lastIndex);
 				}
-			} else {
-				if (e.ctrlKey && key === 'a') {
-					e.target.select();
-				} else if (key === "Backspace") {
-					if (e.target.selectionStart ===   0 && e.target.selectionEnd === e.target.value.length) {
-						e.preventDefault();
-						this.passwordText = '';
-						this.passwordValue = '';
-						this.$refs.password.value = '';
-					} else {
-						if (this.passwordText === '')
-							return;
-						this.char = this.passwordText[this.passwordText.length -   1];
-						this.passwordText = this.passwordText.substring(0, this.passwordText.length -   1);
-						this.lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(this.char)));
-						this.passwordValue = this.passwordValue.substring(0, this.lastIndex);
-					}
-				} else if (key === "Enter") {
-					this.$emit('passwordSet', this.passwordText);
-				} else if ((keyCode >   64 && keyCode <   91) || (keyCode >   96 && keyCode <   123) || (keyCode >   47 && keyCode <   58)) {
-					this.passwordText = this.passwordText + key;
-					this.passwordValue = this.passwordValue + String.fromCodePoint(this._convertToEmoji(key));
-				}
+			} else if (key === "Enter") {
+				this.$emit('passwordSet', this.passwordText);
+			} else if ((keyCode >   64 && keyCode <   91) || (keyCode >   96 && keyCode <   123) || (keyCode >   47 && keyCode <   58)) {
+				this.passwordText = this.passwordText + key;
+				this.passwordValue = this.passwordValue + String.fromCodePoint(this._convertToEmoji(key));
 			}
-			this.$refs.password.value = this.passwordValue;
-			e.preventDefault();
-			var key= e.key;
-			var keyCode= e.keyCode;
-			if(key=="Backspace") {
-				if(this.passwordText=='')
-					return;
-				var char=this.passwordText[this.passwordText.length-1];
-				this.passwordText=this.passwordText.substring(0, this.passwordText.length - 1);
-				
-				var lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(char)));
-				this.passwordValue = this.passwordValue.substring(0, lastIndex);
-			}
-			else if(key=="Enter") {
-				this.$emit('passwordSet',this.passwordText);
-			}
-			else if((keyCode>64 && keyCode<91) ||(keyCode>96 && keyCode<123) || (keyCode>47 && keyCode<58) ) {
-				this.passwordText=this.passwordText+key;
-				this.passwordValue=this.passwordValue+String.fromCodePoint(this._convertToEmoji(key));
-			}
-			// have to do it manually as e.preventDefault
 			this.$nextTick(() => e.target.scrollLeft = e.target.scrollWidth)
+			this.$refs.password.value = this.passwordValue;
 		},
 		category0Clicked() {
 			if(this.currentIndex==0)
