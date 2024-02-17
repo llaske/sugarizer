@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, webL10n, datastore) {
+define(["sugar-web/activity/activity","l10n","sugar-web/datastore"], function (activity, l10n, datastore) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -9,7 +9,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 				"wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
 				"wmd-undo-button", "wmd-redo-button", "wmd-showHideEditor-button","wmd-showHidePreview-button"];
 		inputTextContent = document.getElementById("wmd-input-second");
-		inputTextContent.value = "#"+l10n_s.get("sample-input");
+		inputTextContent.value = "#"+l10n.get("sample-input");
 
 		//to save and resume the contents from datastore.
 		var datastoreObject = activity.getDatastoreObject();
@@ -28,7 +28,7 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 		});
 
 		for (i = 0; i < buttons.length; i++) {
-			document.getElementById(buttons[i]).title = l10n_s.get(buttons[i]);
+			document.getElementById(buttons[i]).title = l10n.get(buttons[i]);
 		}
 		var journal = document.getElementById("insertText");
 
@@ -125,14 +125,14 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 			var converter2 = new Markdown.Converter();
 
 			var help = function () {
-				alert(l10n_s.get("need-help"));
+				alert(l10n.get("need-help"));
 			}
 			var options = {
 				helpButton: {
 					handler: help
 				},
 				strings: {
-					quoteexample: l10n_s.get("put-it-right-here")
+					quoteexample: l10n.get("put-it-right-here")
 				}
 			};
 

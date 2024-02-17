@@ -1,5 +1,3 @@
-var l10n_s;
-
 requirejs.config({
     baseUrl: "lib",
     paths: {
@@ -12,13 +10,11 @@ requirejs.config({
 
 requirejs(["activity/activity"]);
 
-requirejs(["webL10n","sugar-web/env","moment-with-locales.min","sugar-web/datastore"], function(l10n, env, moment) {
-	l10n_s = l10n; //global declaration of translate interface
-
+requirejs(["l10n","sugar-web/env","moment-with-locales.min","sugar-web/datastore"], function(l10n, env, moment) {
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		var language = environment.user ? environment.user.language : defaultLanguage;
-		l10n_s.language.code = language;
+		l10n.init(language);
 		moment.locale(language);
 	});
 });
