@@ -108,7 +108,7 @@ var app = new Vue({
 						images.push({text: user});
 					}
 					for (let i = 0 ; i < 15 ; i++) {
-						images.push({text: app.$refs.localization.get("Word"+i)});
+						images.push({text: window.l10n.get("Word"+i)});
 					}
 					defaultTemplates[2].images = images;
 				});

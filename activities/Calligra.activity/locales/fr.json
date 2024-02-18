@@ -47,5 +47,20 @@
     "TutoEditorAddPathButtonTitle": "Ajouter un point de tracé",
     "TutoEditorAddPathButtonContent": "Cliquer ici (ou appuyer sur la touche P) pour ajouter un point de tracé. Utiliser les points de tracé pour définir le chemin à suivre pour dessiner l'élément. Il est préférable que les points de tracé ne soient pas trop éloignés les uns des autres. Une fois le point ajouté, utiliser la souris ou les touches flèches pour le déplacer.",
     "TutoEditorRemovePathButtonTitle": "Supprimer point de tracé",
-    "TutoEditorRemovePathButtonContent": "Cliquer ici pour supprimer le dernier point de tracé."
+    "TutoEditorRemovePathButtonContent": "Cliquer ici pour supprimer le dernier point de tracé.",
+    "Word0": "ballon",
+    "Word1": "nuit",
+    "Word2": "jour",
+    "Word3": "classe",
+    "Word4": "souris",
+    "Word5": "lit",
+    "Word6": "quatre",
+    "Word7": "enfant",
+    "Word8": "demain",
+    "Word9": "heure",
+    "Word10": "chaud",
+    "Word11": "piscine",
+    "Word12": "bleu",
+    "Word13": "maison",
+    "Word14": "cerise"
 }
