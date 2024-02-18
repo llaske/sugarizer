@@ -177,7 +177,7 @@ const Password ={
 			e.preventDefault();
 			var key = e.key;
 			var keyCode = e.keyCode;
-			if (e.ctrlKey && key === 'a' || key === 'A') {
+			if ((e.ctrlKey && key === 'a') || (e.ctrlKey && key === 'A')) {
 				e.target.select();
 			} else if (key === "Backspace") {
 				if (e.target.selectionStart !== e.target.selectionEnd) {
@@ -199,18 +199,21 @@ const Password ={
 			} else if (key === "Enter") {
 				this.$emit('passwordSet', this.passwordText);
 			} else if ((keyCode >   64 && keyCode <   91) || (keyCode >   96 && keyCode <   123) || (keyCode >   47 && keyCode <   58)) {
-				if (e.target.selectionStart !== e.target.selectionEnd) {
-					var start = e.target.selectionStart;
-					var end = e.target.selectionEnd;
-					var newEmoji = String.fromCodePoint(this._convertToEmoji(key));
-					this.passwordText = this.passwordText.slice(0, start) + key + this.passwordText.slice(end);
-					this.passwordValue = this.passwordValue.slice(0, start) + newEmoji + this.passwordValue.slice(end);
-					this.$refs.password.value = this.passwordValue;
-					this.$refs.password.selectionStart = start +  1;
-					this.$refs.password.selectionEnd = start +  1;
-				} else {
-					this.passwordText = this.passwordText + key;
-					this.passwordValue = this.passwordValue + String.fromCodePoint(this._convertToEmoji(key));
+				var emojicode = this._convertToEmoji(key);
+				if (emojicode !== "") {
+					if (e.target.selectionStart !== e.target.selectionEnd) {
+						var start = e.target.selectionStart;
+						var end = e.target.selectionEnd;
+						var newEmoji = String.fromCodePoint(this._convertToEmoji(key));
+						this.passwordText = this.passwordText.slice(0, start) + key + this.passwordText.slice(end);
+						this.passwordValue = this.passwordValue.slice(0, start) + newEmoji + this.passwordValue.slice(end);
+						this.$refs.password.value = this.passwordValue;
+						this.$refs.password.selectionStart = start +  1;
+						this.$refs.password.selectionEnd = start +  1;
+					} else {
+						this.passwordText = this.passwordText + key;
+						this.passwordValue = this.passwordValue + String.fromCodePoint(this._convertToEmoji(key));
+					}
 				}
 			}
 			this.$nextTick(() => e.target.scrollLeft = e.target.scrollWidth)
