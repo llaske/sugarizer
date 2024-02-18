@@ -136,7 +136,7 @@ describe('Password.vue', () => {
 		await wrapper.findAll('.emoji-category')[1].trigger('click')
 		await wrapper.findAll('.emoji')[8].trigger('click');
 		expect(inputElement.element.value).toBe(String.fromCodePoint('0x1F434')+String.fromCodePoint('0x1F622'));
-		await inputElement.trigger('keyup', {
+		await inputElement.trigger('keydown', {
 			key: 'w',
 			keyCode: '87'
 		})
@@ -145,7 +145,7 @@ describe('Password.vue', () => {
 			String.fromCodePoint('0x1F622')+
 			String.fromCodePoint('0x1F347')
 		);
-		await inputElement.trigger('keyup', {
+		await inputElement.trigger('keydown', {
 			key: 'Shift',
 			keyCode: '16'
 		})
@@ -161,7 +161,7 @@ describe('Password.vue', () => {
 			String.fromCodePoint('0x1F347')+
 			String.fromCodePoint('0x1F614')
 		);
-		await inputElement.trigger('keyup', {
+		await inputElement.trigger('keydown', {
 			key: 'Backspace',
 			keyCode: '8'
 		})
@@ -170,7 +170,7 @@ describe('Password.vue', () => {
 			String.fromCodePoint('0x1F622')+
 			String.fromCodePoint('0x1F347')
 		);
-		await inputElement.trigger('keyup', {
+		await inputElement.trigger('keydown', {
 			key: 'Enter',
 			keyCode: '13'
 		})
@@ -179,7 +179,7 @@ describe('Password.vue', () => {
 		expect(wrapper.emitted().passwordSet[0]).toEqual(['dsw'])
 
 		expect(wrapper.vm.passwordText).toBe('dsw');
-		await inputElement.trigger('keyup', {
+		await inputElement.trigger('keydown', {
 			key: 'Backspace',
 			keyCode: '8'
 		})
