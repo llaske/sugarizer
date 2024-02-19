@@ -18,24 +18,24 @@ describe('SelectBox.vue', () => {
 	const star="file://"+filename+"\\../icons/star.svg" ;
 	const option1= {
 		id: "7",
-		icon: { id: "8", iconData: star, color: "65", size: "20" },
+		icon: { id: "8", iconData: star, color: 65, size: 20 },
 		name: "Star",
 		itemList: [
-			{ icon: { id: "9", iconData: ownerIcon, color: "65", size: "20" }, name: "item1" },
-			{ icon: { id: "10", iconData: abcd, color: "65", size: "20" }, name: "item2" },
-			{ icon: { id: "11", iconData: write, color: "65", size: "20" }, name: "item3" },
-			{ icon: { id: "12", iconData: star, color: "65", size: "20" }, name: "item4" },
-			{ icon: { id: "13", iconData: abcd, color: "65", size: "20" }, name: "item5" }
+			{ icon: { id: "9", iconData: ownerIcon, color: 65, size: 20 }, name: "item1" },
+			{ icon: { id: "10", iconData: abcd, color: 65, size: 20 }, name: "item2" },
+			{ icon: { id: "11", iconData: write, color: 65, size: 20 }, name: "item3" },
+			{ icon: { id: "12", iconData: star, color: 65, size: 20 }, name: "item4" },
+			{ icon: { id: "13", iconData: abcd, color: 65, size: 20 }, name: "item5" }
 		]
 	};
 	const option2= {
 		id: "2",
-		icon: { id: "3", iconData: write, color: "65", size: "20" },
+		icon: { id: "3", iconData: write, color: 65, size: 20 },
 		name: "Write",
 		itemList: [
-			{ icon: { id: "4", iconData: ownerIcon, color: "65", size: "20" }, name: "item1" },
-			{ icon: { id: "5", iconData: abcd, color: "65", size: "20" }, name: "item2" },
-			{ icon: { id: "6", iconData: write, color: "65", size: "20" }, name: "item3" },
+			{ icon: { id: "4", iconData: ownerIcon, color: 65, size: 20 }, name: "item1" },
+			{ icon: { id: "5", iconData: abcd, color: 65, size: 20 }, name: "item2" },
+			{ icon: { id: "6", iconData: write, color: 65, size: 20 }, name: "item3" },
 		]
 	};
 	beforeEach(() => {

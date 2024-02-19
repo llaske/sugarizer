@@ -15,28 +15,28 @@ describe('Popup.vue', () => {
 	const svgfile2="file://"+filename+"\\../icons/write.svg" ;
 	const item1= {
 		id: "4",
-		icon: { id: "6", iconData:  svgfile1, color: "65", size: "30" },
+		icon: { id: "6", iconData:  svgfile1, color: 65, size: 30 },
 		name: "Star",
 		title: "Star Activity",
 		itemList: [
-			{ icon: { id: "7", iconData:  svgfile1, color: "65", size: "20" }, name: "item1" },
-			{ icon: { id: "8", iconData:  svgfile1, color: "65", size: "20" }, name: "item2" }
+			{ icon: { id: "7", iconData:  svgfile1, color: 65, size: 20 }, name: "item1" },
+			{ icon: { id: "8", iconData:  svgfile1, color: 65, size: 20 }, name: "item2" }
 		],
 		footerList: [
-			{ icon: { id: "9", iconData:  svgfile1, color: "1024", size: "20" }, name: "footer1" },
+			{ icon: { id: "9", iconData:  svgfile1, color: 1024, size: 20 }, name: "footer1" },
 		],
 	};
 	var item2= {
 		id: "5",
-		icon: { id: "11", iconData:  svgfile2, color: "95", size: "30"},
+		icon: { id: "11", iconData:  svgfile2, color: 95, size: 30},
 		name: "Write",
 		title: "Write Activity",
 		itemList: [
-			{ icon: { id: "12", iconData:  svgfile2, color: "95", size: "20" }, name: "item1" },
-			{ icon: { id: "13", iconData:  svgfile2, color: "95", size: "20" }, name: "item2" }
+			{ icon: { id: "12", iconData:  svgfile2, color: 95, size: 20 }, name: "item1" },
+			{ icon: { id: "13", iconData:  svgfile2, color: 95, size: 20 }, name: "item2" }
 		],
 		footerList: [
-			{ icon: { id: "14", iconData:  svgfile2, color: "1024", size: "20" }, name: "footer1" },
+			{ icon: { id: "14", iconData:  svgfile2, color: 1024, size: 20 }, name: "footer1" },
 		],
 	}
 	beforeEach(() => {
@@ -121,11 +121,11 @@ describe('Popup.vue', () => {
 		// itemList not present
 		item2= {
 			id: "5",
-			icon: { id: "11", iconData:  svgfile2, color: "95", size: "30"},
+			icon: { id: "11", iconData:  svgfile2, color: 95, size: 30},
 			name: "Write",
 			title: "Write Activity",
 			footerList: [
-				{ icon: { id: "14", iconData:  svgfile2, color: "1024", size: "20" }, name: "footer1" },
+				{ icon: { id: "14", iconData:  svgfile2, color: 1024, size: 20 }, name: "footer1" },
 			],
 		}
 		wrapper = mount(Popup, {
@@ -140,12 +140,12 @@ describe('Popup.vue', () => {
 		// footerList not present
 		item2= {
 			id: "5",
-			icon: { id: "11", iconData:  svgfile2, color: "95", size: "30"},
+			icon: { id: "11", iconData:  svgfile2, color: 95, size: 30},
 			name: "Write",
 			title: "Write Activity",
 			itemList: [
-				{ icon: { id: "12", iconData:  svgfile2, color: "95", size: "20" }, name: "item1" },
-				{ icon: { id: "13", iconData:  svgfile2, color: "95", size: "20" }, name: "item2" }
+				{ icon: { id: "12", iconData:  svgfile2, color: 95, size: 20 }, name: "item1" },
+				{ icon: { id: "13", iconData:  svgfile2, color: 95, size: 20 }, name: "item2" }
 			]
 		}
 		wrapper = mount(Popup, {
@@ -165,11 +165,11 @@ describe('Popup.vue', () => {
 		// name in the header is not present
 		item2= {
 			id: "5",
-			icon: { id: "11", iconData:  svgfile2, color: "95", size: "30"},
+			icon: { id: "11", iconData:  svgfile2, color: 95, size: 30},
 			title: "Write Activity",
 			itemList: [
-				{ icon: { id: "12", iconData:  svgfile2, color: "95", size: "20" }, name: "item1" },
-				{ icon: { id: "13", iconData:  svgfile2, color: "95", size: "20" }, name: "item2" }
+				{ icon: { id: "12", iconData:  svgfile2, color: 95, size: 20 }, name: "item1" },
+				{ icon: { id: "13", iconData:  svgfile2, color: 95, size: 20 }, name: "item2" }
 			]
 		}
 
@@ -186,11 +186,11 @@ describe('Popup.vue', () => {
 			name: "Write",
 			title: "Write Activity",
 			itemList: [
-				{ icon: { id: "12", iconData:  svgfile2, color: "95", size: "20" }, name: "item1" },
-				{ icon: { id: "13", iconData:  svgfile2, color: "95", size: "20" }, name: "item2" }
+				{ icon: { id: "12", iconData:  svgfile2, color: 95, size: 20 }, name: "item1" },
+				{ icon: { id: "13", iconData:  svgfile2, color: 95, size: 20 }, name: "item2" }
 			],
 			footerList: [
-				{ icon: { id: "14", iconData:  svgfile2, color: "1024", size: "20" }, name: "footer1" },
+				{ icon: { id: "14", iconData:  svgfile2, color: 1024, size: 20 }, name: "footer1" },
 			],
 		}
 		wrapper = mount(Popup, {
