@@ -275,7 +275,7 @@ var app = new Vue({
 		onInsertText: function() {
 			var vm = this;
 			vm.showTypeTextPopup(
-				vm.$refs.localization.get("TextDefault"),
+				window.l10n.get("TextDefault"),
 				function(text) {
 					if (text && text.length) {
 						vm.currentTemplate.images.push({text: text});
@@ -359,9 +359,9 @@ var app = new Vue({
 
 		// Handle type text popup
 		showTypeTextPopup: function(defaultText, callback) {
-			var titleOk = this.$refs.localization.get("Ok"),
-				titleCancel = this.$refs.localization.get("Cancel"),
-				titleSettings = this.$refs.localization.get("TextTitle");
+			var titleOk =  window.l10n.get("Ok"),
+				titleCancel =  window.l10n.get("Cancel"),
+				titleSettings =  window.l10n.get("TextTitle");
 			this.$refs.inserttextpopup.show({
 				data: {
 					defaultText: defaultText,
