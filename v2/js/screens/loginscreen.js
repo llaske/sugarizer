@@ -88,7 +88,7 @@ const LoginScreen = {
 	</div>
 	<div class="ls_right_btn">
 		<icon-button
-			id="next-done-btn"
+			id="next-btn"
 			svgfile="./icons/go-right.svg"
 			class="ls_icon_btn"
 			size="28"

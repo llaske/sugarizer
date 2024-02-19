@@ -60,7 +60,7 @@ const AboutMyServer = {
 						<div class="ls_right_btn aboutserver-nextbutton" v-if='connectingStep > 0'>
 							<icon-button 
 								ref="nextButton"
-								id="next-done-btn"
+								id="next-btn"
 								svgfile="./icons/go-right.svg"
 								class="ls_icon_btn"
 								size="28"
