@@ -151,7 +151,7 @@ const ListView = {
 			sugarizer.modules.activities.runActivity(activity, null, activity.title);
 		},
 
-		getPopupData() {
+		computePopup() {
 			const popupData = {};
 			const activities = sugarizer.modules.activities.get();
 			activities.forEach(activity => {
@@ -191,7 +191,7 @@ const ListView = {
 			this.popupShown = true;
 			window.clearInterval(this.timer);
 			this.timer = null;
-			await this.getPopupData();
+			await this.computePopup();
 			if (e.target.tagName == 'svg') {
 				itemId = e.target.parentElement.id
 				x = e.clientX - 4;
