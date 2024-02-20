@@ -108,7 +108,7 @@ var app = new Vue({
 						images.push({text: user});
 					}
 					for (let i = 0 ; i < 15 ; i++) {
-						images.push({text: app.$refs.localization.get("Word"+i)});
+						images.push({text: window.l10n.get("Word"+i)});
 					}
 					defaultTemplates[2].images = images;
 				});
@@ -275,7 +275,7 @@ var app = new Vue({
 		onInsertText: function() {
 			var vm = this;
 			vm.showTypeTextPopup(
-				vm.$refs.localization.get("TextDefault"),
+				window.l10n.get("TextDefault"),
 				function(text) {
 					if (text && text.length) {
 						vm.currentTemplate.images.push({text: text});
@@ -359,9 +359,9 @@ var app = new Vue({
 
 		// Handle type text popup
 		showTypeTextPopup: function(defaultText, callback) {
-			var titleOk = this.$refs.localization.get("Ok"),
-				titleCancel = this.$refs.localization.get("Cancel"),
-				titleSettings = this.$refs.localization.get("TextTitle");
+			var titleOk =  window.l10n.get("Ok"),
+				titleCancel =  window.l10n.get("Cancel"),
+				titleSettings =  window.l10n.get("TextTitle");
 			this.$refs.inserttextpopup.show({
 				data: {
 					defaultText: defaultText,
