@@ -637,8 +637,20 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 		var maxHistory = 30;
 		var undoButton = document.getElementById("undo-button");
 		undoButton.addEventListener('click', function () { undoState(); }, true);
+		document.addEventListener('keydown', function(event) {
+			if (event.ctrlKey && event.key === 'z') {
+			  // Trigger browser's undo
+			  	undoState();
+			}
+		  },true);
 		var redoButton = document.getElementById("redo-button");
 		redoButton.addEventListener('click', function () { redoState(); }, true);
+		document.addEventListener('keydown', function(event) {
+			if (event.ctrlKey && event.key === 'y') {
+			  // Trigger browser's undo
+			  	redoState();
+			}
+		  },true);
 
 		var reinitState = function() {
 			stateHistory = [];
