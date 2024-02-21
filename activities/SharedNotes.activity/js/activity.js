@@ -454,8 +454,20 @@ define(["sugar-web/activity/activity", "sugar-web/datastore", "notepalette", "zo
 		var maxHistory = 30;
 		var undoButton = document.getElementById("undo-button");
 		undoButton.addEventListener('click', function () { saveAndFinishEdit(); undoState(); }, true);
+		document.addEventListener('keydown', function(event) {
+			if (event.ctrlKey && event.key === 'z') {
+			  // Trigger browser's undo
+			  saveAndFinishEdit(); undoState();
+			}
+		  },true);
 		var redoButton = document.getElementById("redo-button");
 		redoButton.addEventListener('click', function () { saveAndFinishEdit(); redoState(); }, true);
+		document.addEventListener('keydown', function(event) {
+			if (event.ctrlKey && event.key === 'y') {
+			  // Trigger browser's undo
+			  saveAndFinishEdit(); redoState();
+			}
+		  },true);
 
 		var reinitState = function() {
 			stateHistory = [];
