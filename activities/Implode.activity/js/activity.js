@@ -32,10 +32,22 @@ define(["sugar-web/activity/activity", "sugar-web/env", "picoModal", "webL10n", 
                 Undo();
             }
         });
+        document.addEventListener('keydown', function(event) {
+			if(event.ctrlKey && event.key === 'z'){
+			  // Trigger browser's undo
+			    Undo();
+			}
+        });
         document.getElementById("redo").addEventListener("click", function(){
             if(anim_over == true){
                 Redo();
             }
+        });
+        document.addEventListener('keydown', function(event) {
+			if(event.ctrlKey && event.key === 'y'){
+			  // Trigger browser's undo
+			    Redo();
+			}
         });
         document.getElementById("new-game").addEventListener("click", function(){
             new_game(level);
