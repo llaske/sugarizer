@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fraction Bounce Activity, trick to cheat the score #1511
 - Tooltips not localized in Reflection activity #1508
 - Time fluctuations in Clock Activity #1507
+- Resizing textarea in activity palette looks ugly #1303
 
 ## [1.7.0] - 2023-03-28
 ### Added
