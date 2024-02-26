@@ -1,0 +1,28 @@
+<svg width="45" height="48" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="50" width="47" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_18">
+   <ellipse ry="17.98843" rx="17.98843" id="svg_8" cy="20.358296" cx="20.594111" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+   <g id="svg_11">
+    <g id="svg_6">
+     <ellipse ry="9.234025" rx="9.234025" id="svg_3" cy="24.926281" cx="25.91908" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+     <ellipse ry="7.255339" rx="7.255339" id="svg_4" cy="24.952144" cx="25.944943" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+     <path id="svg_5" d="m30.366234,33.139339l2.189896,-1.683222l0,0c0.28685,-0.220478 2.821358,2.595942 5.661652,6.291204c2.839912,3.694767 4.909538,6.868389 4.622688,7.088867l-2.189896,1.683224l0,0c-0.286991,0.220589 -2.821373,-2.595802 -5.661285,-6.290569c-2.840294,-3.695263 -4.910046,-6.868912 -4.623055,-7.089504z" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+    </g>
+    <ellipse ry="0.893731" rx="0.893731" id="svg_9" cy="21.061682" cx="28.907787" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+   </g>
+   <ellipse ry="1.429969" rx="1.429969" id="svg_14" cy="8.191962" cx="28.729043" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+   <ellipse ry="0.714985" rx="0.714985" id="svg_15" cy="11.94563" cx="28.01406" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+   <ellipse ry="0.714985" rx="0.714985" id="svg_16" cy="11.766884" cx="31.410237" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+   <ellipse ry="0.714985" rx="0.714985" id="svg_17" cy="35.758222" cx="18.564619" fill-opacity="null" stroke-opacity="null" stroke="#000" fill="#fff"/>
+  </g>
+ </g>
+</svg>

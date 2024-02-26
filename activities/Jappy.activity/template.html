@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8">
+<body>
+    <script src="lib/browser-polyfill.min.js"></script>
+    <!-- ^^ This is only necessary for very old browser ^^ (such as Webkit1) -->
+    <script src="lib/baselib.js"></script>
+    <style>
+        @font-face {
+            font-family: "Noto Emoji";
+            src: url("fonts/NotoEmoji.woff") format('woff');
+        }
+        .__terminal__ {
+            font-family: "Noto Mono", "DejaVu Sans Mono", monospace;
+            font-size: 16pt;
+        }
+    </style>
+    <div id="__terminal__" class="__terminal__"></div>
+</body>

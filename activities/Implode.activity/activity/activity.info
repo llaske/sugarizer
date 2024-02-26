@@ -1,0 +1,6 @@
+[Activity]
+name = Implode
+activity_version = 1
+bundle_id = org.sugarlabs.Implode
+exec = sugar-activity-web
+icon = activity-icon

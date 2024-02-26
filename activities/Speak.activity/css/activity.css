@@ -1,0 +1,410 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #language-button {
+  background-image: url(../icons/module-language.svg);
+}
+
+#main-toolbar #face-button {
+  background-image: url(../icons/face.svg);
+}
+
+#main-toolbar #speech-button {
+  background-image: url(../icons/voice.svg);
+}
+
+#main-toolbar #gamemode1-button {
+  background-image: url(../icons/mode-type.svg);
+}
+
+#main-toolbar #gamemode2-button {
+  background-image: url(../icons/mode-robot.svg);
+}
+
+#main-toolbar #gamemode3-button {
+  background-image: url(../icons/mode-chat.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+#speakText {
+	height:45px;
+	width:50px;
+	margin:8px;
+	right:4px;
+	bottom: -1.1vh;
+	z-index:1;
+	position:absolute;
+	background-image: url(../icons/go-right.svg);
+	background-size: 55px 50px;
+	background-position: 50% 50%;
+}
+
+.search-field-border {
+	position: relative;
+	border-radius: 22px;
+	margin:5px;
+	top: 2px;
+	margin-left: 8vh;
+	width: 89vw;
+	height: 47px;
+	display: inline-block;
+	vertical-align: top;
+	z-index:0;
+}
+  
+.search-field-border-focus {
+	background-color: white;
+	border: 2px solid white;
+}
+  
+.search-field-border-nofocus {
+	background-color: #e5e5e5;
+	border: 2px solid #e5e5e5;
+}
+
+#userText {
+	opacity: 1;
+	margin-left: 30px;
+	border: 0px;
+	display: inline-block;
+	background-color: #e5e5e5;
+	height:40px;
+	width: 80vw;
+	line-height: 22px;
+	outline: 0;
+	font-size: 25pt;
+	font-weight: bold;
+	position: relative;
+	top: 1px;
+  }
+	  
+@media screen and (max-width: 940px) {
+	#userText{
+		width: 68vw;
+	}
+	
+}
+  
+/** Custom dropdown arrow for select tag **/
+
+.dropdown {
+  position: absolute;
+}
+
+.dropdown:before {
+  content: "";
+  position: absolute;
+	margin-left: 5px;
+  left: 23px;
+  top: 27px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid #000;
+  pointer-events: none;
+}
+
+/** CSS for the select tag to make it look like a button **/
+
+#combo-box {
+  position:absolute;
+  top: 5px;
+  width:2vw;
+  height:25px;
+  line-height:20px;
+  margin:13px;
+  margin-left:3vh;
+  padding:0;
+  font-size: 0;
+}
+
+#combo-box option{
+  font-size: 20px;
+}
+
+
+/** Select tag custom css **/
+
+select {
+    padding:3px;
+    margin: 0;
+    background: transparent;
+    color:#888;
+    border: none !important;;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+}
+
+
+#activity-palette {
+	z-index: 3;
+}
+
+.widepalette {
+	z-index: 3;
+}
+
+.thinpalette {
+	z-index: 3;
+}
+
+body {
+	overflow: hidden;
+	height: 100vh;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
+/** Added @media access for dropdown button to make it responsive **/
+
+@media screen and (min-width: 890px) {
+	.thinpalette .wrapper {
+	  max-width: 66px;
+	  min-width: 61px;
+	  min-height: 51px;
+	  pointer-events: auto;
+	  background-color: black;
+	  border: 2px solid #808080;
+	}
+	.widepalette .wrapper {
+	  max-width: 500px;
+	  min-width: 500px;
+	  min-height: 51px;
+	  pointer-events: auto;
+	  background-color: black;
+	  border: 2px solid #808080;
+	}
+	
+
+}
+
+
+@media screen and (max-width: 504px) {
+	select {
+		position: absolute;
+		right: 460px;
+	}
+
+}
+@media screen and (max-width: 600px) {
+	select {
+		position: absolute;
+		right: 300px;
+	}
+
+}
+@media screen and (max-width: 630px) {
+	select {
+		position: absolute;
+		right: 570px;
+	}
+
+}
+@media screen and (max-width: 740px) {
+	select {
+		position: absolute;
+		right: 670px;
+	}
+
+}
+@media screen and (max-width: 667px) {
+	select {
+		position: absolute;
+		right: 610px;
+	}
+
+}
+
+@media screen and (max-width: 640px) {
+	select {
+		position: absolute;
+		right: 585px;
+	}
+	.dropdown:before {
+		margin-left: -15px;
+	}
+
+}
+@media screen and (max-width: 480px) {
+	select {
+		position: absolute;
+		right: 440px;
+	}
+	.dropdown:before {
+		margin-left:-25px;
+	}
+
+}
+@media screen and (max-width: 375px) {
+	select {
+		position: absolute;
+		right: 365px;
+	}
+
+}
+@media screen and (max-width: 360px) {
+	select {
+		position: absolute;
+		right: 355px;
+	}
+	.dropdown:before {
+		margin-left: -10px;
+	}
+}
+
+
+@media screen and (max-width: 890px) {
+	.toolbar {
+	 padding-left: 10px;
+	}
+
+}
+@media screen and (max-width: 320px) {
+	select {
+		position: absolute;
+		right: 300px;
+	}
+	.dropdown:before {
+		margin-left: -10px;
+	}
+
+}
+
+/* UI styling for introJs-tutorial */
+
+.introjs-overlay {
+	background-color: #000 !important;
+	opacity: .8 !important;
+  }
+  
+  .introjs-tooltip {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+	border-radius: 6px !important;
+	padding: 2px 1px !important;
+	font-size: 14px !important;
+  }
+  
+  .introjs-helperLayer{
+	background: inherit !important;
+	opacity: 0.6 !important;
+  }
+  
+  .customTooltip .introjs-tooltip-header {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color : #ffffff;
+	text-shadow: none;
+	background-color: #808080;
+	margin: 0;
+	padding: 5px 10px;
+	border-bottom: 1px solid #ebebeb;
+	border-radius: 5px 5px 0 0;
+  }
+  
+  .customTooltip .introjs-tooltip-title {
+	font-size: 14px;
+	padding: 0px 8px;
+	font-weight: 800;
+  }
+  
+  .customTooltip .introjs-tooltiptext {
+	color: #000000;
+	line-height: 1.42857143;
+  }
+  
+  .customTooltip .introjs-skipbutton {
+	float: right;
+	cursor: pointer;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 25px;
+	height: 25px;
+	background-size: 25px 25px;
+	margin-top: 2px;
+	padding: 0px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+  }
+  
+  .customTooltip .introjs-nextbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+  }
+  
+  .customTooltip .introjs-prevbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+  }
+  
+  .customTooltip .introjs-tooltipbuttons {
+	display: flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-top: 0px;
+	padding: 0px;
+	text-align: center;
+	white-space: normal;
+  }
+  
+  .customTooltip .introjs-button {
+	text-shadow: none;
+	border-radius: 22px;
+	margin: 5px 8px 8px 8px;
+	width: fit-content;
+	background-color: #808080 !important;
+	display: flex !important;
+	align-items: center !important;
+	color: white !important;
+	padding: 6px 20px 6px 10px;
+	border: 0px;
+  }
+  
+  .customTooltip .introjs-button:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+	background-color: #808080 !important;
+  }
+  
+  .customTooltip .introjs-disabled {
+	color: black !important;
+	border: 0px;
+	opacity: .65;
+  }
+  
+  .customTooltip .introjs-disabled:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+  }
+

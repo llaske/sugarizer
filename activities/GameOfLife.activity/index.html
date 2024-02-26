@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>Game Of Life Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="prefetch" type="application/l10n" href="locale.ini" />
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/introjs.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script>if (window.module) module = window.module;</script>
+<script src="lib/intro.js"></script>
+<script data-main="js/loader" src="lib/require.js"></script>
+<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="My Activity"></button>
+  <!-- Add more buttons here -->
+  <button class="toolbutton" id="play-pause" title="Play/Pause"></button>
+	<button class="toolbutton" id="speed-button" title="Generation Speed"></button>
+	<button class="toolbutton" id="size-button" title="Grid Size"></button>
+	<button class="toolbutton" id="deadCells-button" title="Show trails of cells death"></button>
+  <button class="toolbutton" id="random" title="Random"></button>
+  <button class="toolbutton" id="glider" title="Glider"></button>
+  <button class="toolbutton" id="no" title="Blinker"></button>
+  <button class="toolbutton" id="clear" title="Clear"></button>
+  <!-- Buttons with class="pull-right" will be right aligned -->
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+  <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+  <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+</div>
+
+<!-- The content of your activity goes inside the canvas -->
+<div id="canvas">
+  <div class='main'>
+    <div class='generation-container'>
+      <div class='generation-status'></div>
+      <div class='generation-count'></div>
+    </div>
+    <canvas></canvas>
+  </div>
+</div>
+<button class="toolbutton pull-right" id="unfullscreen-button" title="UnFullscreen"></button>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+<!ENTITY stroke_color "#000000">
+<!ENTITY fill_color "#ffffff">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="square.svg">
+  <metadata
+     id="metadata17">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1369"
+     inkscape:window-height="1011"
+     id="namedview15"
+     showgrid="false"
+     inkscape:zoom="2.36"
+     inkscape:cx="-58.686441"
+     inkscape:cy="50"
+     inkscape:window-x="307"
+     inkscape:window-y="18"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <title
+     id="title4">Corner-to-corner gradient</title>
+  <defs
+     id="defs6">
+    <linearGradient
+       id="g"
+       x1="0%"
+       x2="100%"
+       y1="0%"
+       y2="100%">
+      <stop
+         style="stop-color: red;"
+         offset="0"
+         id="stop9" />
+      <stop
+         style="stop-color: blue;"
+         offset="1"
+         id="stop11" />
+    </linearGradient>
+  </defs>
+  <rect
+     style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:10;"
+     width="100%"
+     height="100%"
+     id="rect13" />
+</svg>

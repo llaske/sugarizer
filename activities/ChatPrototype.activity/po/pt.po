@@ -1,0 +1,155 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Apr 11 2021 11:09:31 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: WriteYourMessage
+msgctxt "WriteYourMessage"
+msgid "Write your message here..."
+msgstr "Escreva sua mensagem aqui..."
+
+#: DisconnectedFromWebSocket
+msgctxt "DisconnectedFromWebSocket"
+msgid "Disconnected From Web Socket."
+msgstr "Desconectado do soquete da web."
+
+#: ConnectionClosed
+msgctxt "ConnectionClosed"
+msgid "Connection Closed"
+msgstr "Conexão encerrada"
+
+#: Connected
+msgctxt "Connected"
+msgid "Connected"
+msgstr "Conectado"
+
+#: Error
+msgctxt "Error"
+msgid "Error"
+msgstr "Erro"
+
+#: status
+msgctxt "status"
+msgid "Click on the Neighborhood icon in the presence palette to start the Chat"
+msgstr "Clique no ícone da vizinhança na paleta de presença para iniciar a conversa"
+
+#: Join
+msgctxt "Join"
+msgid "join"
+msgstr "juntar-se"
+
+#: Leave
+msgctxt "Leave"
+msgid "leave"
+msgstr "sair"
+
+#: Chat
+msgctxt "Chat"
+msgid "the chat"
+msgstr "a conversa"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Anterior"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Próximo"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fim"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Chat Activity"
+msgstr "Atividade Chat"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
+msgstr "Welcome to the Chat activity. This activity is an activity to Chat with other users present on the network"
+
+#: TutoNetworkTitle
+msgctxt "TutoNetworkTitle"
+msgid "Join Network"
+msgstr "Join Network"
+
+#: TutoNetworkContent
+msgctxt "TutoNetworkContent"
+msgid "Want to start a Chat? Click on the Neighborhood icon in this menu"
+msgstr "Want to start a Chat? Click on the Neighborhood icon in this menu"
+
+#: TutoMessageTitle
+msgctxt "TutoMessageTitle"
+msgid "Message"
+msgstr "Message"
+
+#: TutoMessageContent
+msgctxt "TutoMessageContent"
+msgid "Write your message here and hit enter to share it in your conversation"
+msgstr "Write your message here and hit enter to share it in your conversation"
+
+#: TutoStopTitle
+msgctxt "TutoStopTitle"
+msgid "Quit"
+msgstr "Sair"
+
+#: TutoStopContent
+msgctxt "TutoStopContent"
+msgid "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
+msgstr "Talked too much? Click this icon to quit this activity and go back to Sugarizer home"
+
+#: TutoImageTitle
+msgctxt "TutoImageTitle"
+msgid "Share Image"
+msgstr "Compartilhar imagem"
+
+#: TutoImageContent
+msgctxt "TutoImageContent"
+msgid "Click this icon if you want to send an image in your conversation"
+msgstr "Click this icon if you want to send an image in your conversation"
+
+#: TutoSmileyTitle
+msgctxt "TutoSmileyTitle"
+msgid "Smiley Emojis"
+msgstr "Emojis sorridentes"
+
+#: TutoSmileyContent
+msgctxt "TutoSmileyContent"
+msgid "Express Smiles. Send Smiley Emojis in message"
+msgstr "Express Smiles. Send Smiley Emojis in message"
+
+#: TutoSadTitle
+msgctxt "TutoSadTitle"
+msgid "Sad Emojis"
+msgstr "Emojis tristes"
+
+#: TutoSadContent
+msgctxt "TutoSadContent"
+msgid "Express Sadness. Send Sad Emojis in message"
+msgstr "Express Sadness. Send Sad Emojis in message"
+
+#: TutoEmojiTitle
+msgctxt "TutoEmojiTitle"
+msgid "Other Emojis"
+msgstr "Outros Emojis"
+
+#: TutoEmojiContent
+msgctxt "TutoEmojiContent"
+msgid "Have a different expression. Look through the list to send different Emojis"
+msgstr "Have a different expression. Look through the list to send different Emojis"
+

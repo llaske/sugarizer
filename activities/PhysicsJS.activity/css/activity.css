@@ -1,0 +1,327 @@
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#viewport{
+  height: 100vh;
+  width: 100%;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+  z-index: 3;
+}
+
+#main-toolbar #box-button {
+  background-image: url(../icons/box.svg);
+  z-index: 3;
+}
+
+#main-toolbar #circle-button {
+  background-image: url(../icons/circle.svg);
+  z-index: 3;
+}
+
+#main-toolbar #triangle-button {
+  background-image: url(../icons/triangle.svg);
+  z-index: 3;
+}
+
+#main-toolbar #gravity-button {
+  background-image: url(../icons/gravity0.svg);
+  z-index: 3;
+}
+
+#main-toolbar #sensor-button {
+  background-image: url(../icons/sensor.svg);
+  z-index: 3;
+}
+
+#main-toolbar #clear-button {
+  background-image: url(../icons/clear.svg);
+  z-index: 3;
+}
+
+#main-toolbar #polygon-button {
+  background-image: url(../icons/polygon.svg);
+  z-index: 3;
+}
+
+#main-toolbar #apple-button {
+  background-image: url(../icons/apple.svg);
+  z-index: 3;
+}
+
+#run-button {
+	background-image: url(../icons/play.svg);
+	z-index:3;
+}
+
+#run-button.running{
+	background-image: url(../icons/pause.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+  z-index: 3;
+}
+
+#main-toolbar #stop-button {
+  z-index: 3;
+}
+
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+  z-index: 3;
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 3;
+}
+
+#circle-button, #box-button, #triangle-button, #polygon-button, #gravity-button, #sensor-button, #apple-button, #clear-button, #run-button, #fullscreen-button, #help-button {
+  display: none;
+}
+
+@media only screen and (min-width: 220px) {
+  #fullscreen-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 381px) {
+  #run-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 435px) {
+  #circle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 491px) {
+  #box-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 545px) {
+  #triangle-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #polygon-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 701px) {
+  #gravity-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 756px) {
+  #sensor-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 811px) {
+  #apple-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 327px) {
+  #clear-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 271px) {
+  #help-button {
+    display: inline-block;
+  }
+}
+
+body {
+  height: 100vh;
+}
+
+html, body, #viewport {
+  margin: 0; background: #ffffff;
+  overflow: hidden;
+}
+
+.palette {
+  z-index: 10;
+}
+
+.pjs-meta {
+  color: #fff;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: .8 !important;
+}
+
+.introjs-tooltip {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
+}
+
+.introjs-helperLayer {
+  background: inherit !important;
+  opacity: 0.6 !important;
+}
+
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
+}
+
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
+.toolbar {
+  position: relative;
+  z-index: 2;
+}
+
+@media screen and (max-width: 657px) {
+	.toolbar {
+		padding-left: 10px;
+	}
+}

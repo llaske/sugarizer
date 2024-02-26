@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Paint Activity</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+  <link rel="prefetch" type="application/l10n" href="translate.ini" />
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+
+  <link rel="stylesheet" href="css/activity.css">
+  <link rel="stylesheet" href="css/libnotify.css">
+  <link rel="stylesheet" href="css/introjs.css">
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script src="lib/intro.js"></script>
+  <script>if (window.module) module = window.module;</script>
+  <script data-main="js/loader" src="lib/require.js"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body style="background-color:#fff; color:#fff; height:100%; margin:0; overflow:hidden;">
+  <div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="My Activity"></button>
+    <button class="toolbutton" id="network-button" data-l10n-id="network" title="Network"></button>
+    <button class="toolbutton active" id="colors-button-fill" data-l10n-id="colorfill" title="Fill Color"></button>
+    <button class="toolbutton" id="colors-button-stroke" data-l10n-id="colorstroke" title="Stroke Color"></button>
+    <button class="toolbutton" id="undo-button" data-l10n-id="undo" title="Undo"></button>
+    <button class="toolbutton" id="redo-button" data-l10n-id="redo" title="Redo"></button>
+    <button class="toolbutton" id="size-button" data-l10n-id="size" title="Size"></button>
+    <button class="toolbutton" id="pen-button" data-l10n-id="pen" title="Pen"></button>
+    <button class="toolbutton" id="eraser-button" data-l10n-id="eraser" title="Eraser"></button>
+    <button class="toolbutton" id="stamps-button" data-l10n-id="stamps" title="Stamps"></button>
+    <button class="toolbutton" id="text-button" data-l10n-id="text" title="Text"></button>
+    <button class="toolbutton" id="insertimage-button" data-l10n-id="image" title="Insert image"></button>
+    <button class="toolbutton" id="drawings-button" data-l10n-id="drawing" title="Drawings"></button>
+    <button class="toolbutton" id="bucket-button" data-l10n-id="bucket" title="Bucket"></button>
+    <button class="toolbutton" id="filters-button" data-l10n-id="filters" title="Filters"></button>
+    <button class="toolbutton" id="copy-button" data-l10n-id="copy" title="Copy"></button>
+    <button class="toolbutton" id="paste-button" data-l10n-id="paste" title="Paste"></button>
+    <button class="toolbutton" id="save-image-button" data-l10n-id="save" title="Save As Image">
+    <button class="toolbutton" id="clear-button" data-l10n-id="clear" title="Clear"></button>
+    <button class="toolbutton pull-right" id="stop-button" data-l10n-id="stop" title="Stop"></button>
+    <button class="toolbutton pull-right" id="help-button" data-l10n-id="help" title="Help"></button>
+  </div>
+  <canvas id="paint-canvas" style="width:100%; "></canvas>
+</body>
+
+</html>

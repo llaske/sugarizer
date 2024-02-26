@@ -1,0 +1,100 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sat Mar 07 2020 22:13:17 GMT+0100 (GMT+01:00)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Préc"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Suiv"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Stopwatch Activity"
+msgstr "Activité Stopwatch"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome to the Stopwatch activity. Stopwatch is a simple stopwatch. It shows the user a number of digital stopwatches. Each stopwatch is independent"
+msgstr "L'activité StopWatch est un simple chronomètre. Elle affiche plusieurs chronomètres numériques tous indépendants"
+
+#: TutoAddTitle
+msgctxt "TutoAddTitle"
+msgid "Add"
+msgstr "Ajouter"
+
+#: TutoAddContent
+msgctxt "TutoAddContent"
+msgid "Press this icon to add a new Stopwatch"
+msgstr "Cliquez sur cet icône pour ajouter un nouveau chronomètre"
+
+#: TutoCounterTitle
+msgctxt "TutoCounterTitle"
+msgid "Counter"
+msgstr "Compteur"
+
+#: TutoCounterContent
+msgctxt "TutoCounterContent"
+msgid "Displays the current time of the Stopwatch"
+msgstr "Ici s'affiche le temps actuel du chronomètre"
+
+#: TutoStartStopTitle
+msgctxt "TutoStartStopTitle"
+msgid "Start/Stop"
+msgstr "Démarrer/Arrêter"
+
+#: TutoStartStopContent
+msgctxt "TutoStartStopContent"
+msgid "Press this icon to Start/Stop the Stopwatch"
+msgstr "Cliquez sur cet icône pour Démarrer/Arrêter le chronomètre"
+
+#: TutoResetTitle
+msgctxt "TutoResetTitle"
+msgid "Reset"
+msgstr "Effacer"
+
+#: TutoResetContent
+msgctxt "TutoResetContent"
+msgid "Press this icon to reset the Stopwatch"
+msgstr "Cliquez sur cet icône pour réinitialiser le chronomètre"
+
+#: TutoMarkTitle
+msgctxt "TutoMarkTitle"
+msgid "Lap"
+msgstr "Intermédiaire"
+
+#: TutoMarkContent
+msgctxt "TutoMarkContent"
+msgid "Press this icon to add an intermediate time lap"
+msgstr "Cliquez sur cet icône pour créer un temps intermédiaire"
+
+#: TutoRemoveTitle
+msgctxt "TutoRemoveTitle"
+msgid "Remove"
+msgstr "Supprimer"
+
+#: TutoRemoveContent
+msgctxt "TutoRemoveContent"
+msgid "Press this icon to remove this Stopwatch from list"
+msgstr "Cliquez sur cet icône pour supprimer ce chronomètre de la liste"
+

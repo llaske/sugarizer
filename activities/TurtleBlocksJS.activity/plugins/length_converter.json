@@ -1,0 +1,108 @@
+{
+    "HIGHLIGHTSTROKECOLORS": [
+        [
+            "converter",
+            "#000000"
+        ]
+    ],
+    "ARGPLUGINS": [
+        [
+            "from_mm",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {\tcase 'mm':\t    block.value = (arg);\t    break;\tcase'cm':\t    block.value = (arg*1/10);\t    break;\tcase 'm':    \tblock.value = (arg*1/1000);    \tbreak;\tcase 'km':    \tblock.value = (arg*1/1000000);    \tbreak;    case 'in':    \tblock.value = (arg*1/25.4);    \tbreak;    case 'ft':    \tblock.value = (arg*1/304.8);    \tbreak;    case 'yd':    \tblock.value = (arg*1/914.4);    \tbreak;    case 'mi':    \tblock.value = (arg*1/1609344);    \tbreak;    case 'nmi':    \tblock.value = (arg*1/1852000);    \tbreak;}"
+        ],
+        [
+            "from_cm",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit){    case 'mm':    \tblock.value = (arg*1/0.1);    \tbreak;    case 'cm':\t    block.value = (arg);\t    break;    case 'm':\t    block.value = (arg*1/100);\t    break;    case 'km':\t    block.value = (arg*1/100000);\t    break;    case 'in':\t    block.value = (arg*1/2.54);\t    break;    case 'ft':\t    block.value = (arg*1/30.48);\t    break;    case 'yd':\t    block.value = (arg*1/91.44);\t    break;    case 'mi':\t    block.value = (arg*1/160934.4);\t    break;    case 'nmi':\t    block.value = (arg*1/185200);\t    break;}"
+        ],
+        [
+            "from_m",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {    case 'mm':\t    block.value = (arg*1/0.001);\t    break;    case 'cm':\t    block.value = (arg*1/0.01);\t    break;    case 'm':\t    block.value = (arg*1/1);\t    break;    case 'km':\t    block.value = (arg*1/1000);\t    break;    case 'in':\t    block.value = (arg*1/0.0254);\t    break;    case 'ft':\t    block.value = (arg*1/0.3048);\t    break;    case 'yd':\t    block.value = (arg*1/0.9144);\t    break;    case 'mi':\t    block.value = (arg*1/1609.344);\t    break;    case 'nmi':\t    block.value = (arg*1/1852);\t    break;}"
+        ],
+        [
+            "from_km",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {    case 'mm':\t    block.value = (arg*1/0.000001);\t    break;    case 'cm':\t    block.value = (arg*1/0.00001);\t    break;    case 'm':\t    block.value = (arg*1/0.001);\t    break;    case 'km':\t    block.value = (arg*1/1);\t    break;    case 'in':\t    block.value = (arg*1/0.0000254);\t    break;    case 'ft':\t    block.value = (arg*1/0.0003048);\t    break;    case 'yd':\t    block.value = (arg*1/0.0009144);\t    break;    case 'mi':\t    block.value = (arg*1/1.609344);\t    break;    case 'nmi':\t    block.value = (arg*1/1.852);\t    break;}"
+        ],
+        [
+            "from_in",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {    case 'mm':\t    block.value = (arg*1/0.039370078740157);\t    break;    case 'cm':\t    block.value = (arg*1/0.39370078740157);\t    break;    case 'm':\t    block.value = (arg*1/39.370078740157);\t    break;    case 'km':\t    block.value = (arg*1/39370.078740157);\t    break;    case 'in':\t    block.value = (arg*1/1);\t    break;    case 'ft':\t    block.value = (arg*1/12);\t    break;    case 'yd':\t    block.value = (arg*1/36);\t    break;    case 'mi':\t    block.value = (arg*1/63360);\t    break;    case 'nmi':\t    block.value = (arg*1/72913.385826772);\t    break;}"
+        ],
+        [
+            "from_ft",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {    case 'mm':\t    block.value = (arg*1/0.0032808398950131);\t    break;    case 'cm':\t    block.value = (arg*1/0.032808398950131);\t    break;    case 'm':\t    block.value = (arg*1/3.2808398950131);\t    break;    case 'km':\t    block.value = (arg*1/3280.8398950131  );\t    break;    case 'in':\t    block.value = (arg*1/0.083333333333333);\t    break;    case 'ft':\t    block.value = (arg*1/1);\t    break;    case 'yd':\t    block.value = (arg*1/3);\t    break;    case 'mi':\t    block.value = (arg*1/5280);\t    break;    case 'nmi':\t    block.value = (arg*1/ 6076.1154855643);\t    break;}"
+        ],
+        [
+            "from_yd",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {    case 'mm':\t    block.value = (arg*1/0.0010936132983377);\t    break;    case 'cm':\t    block.value = (arg*1/0.0.010936132983377);\t    break;    case 'm':\t    block.value = (arg*1/1.0936132983377);\t    break;    case 'km':\t    block.value = (arg*1/1093.6132983377);\t    break;    case 'in':\t    block.value = (arg*1/0.027777777777778);\t    break;    case 'ft':\t    block.value = (arg*1/0.33333333333333);\t    break;    case 'yd':\t    block.value = (arg*1/1);\t    break;    case 'mi':\t    block.value = (arg*1/1760);\t    break;    case 'nmi':\t    block.value = (arg*1/ 2025.3718285214);\t    break;}"
+        ],
+        [
+            "from_mi",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {    case 'mm':\t    block.value = (arg*1/0.00000062137119223733);\t    break;    case 'cm':\t    block.value = (arg*1/0.0000062137119223733);\t    break;    case 'm':\t    block.value = (arg*1/0.00062137119223733);\t    break;    case 'km':\t    block.value = (arg*1/0.62137119223733);\t    break;    case 'in':\t    block.value = (arg*1/0.000015782828282828);\t    break;    case 'ft':\t    block.value = (arg*1/0.00018939393939394);\t    break;    case 'yd':\t    block.value = (arg*1/0.00056818181818182);\t    break;    case 'mi':\t    block.value = (arg*1/1);\t    break;    case 'nmi':\t    block.value = (arg*1/1.1507794480235);\t    break;}"
+        ],
+        [
+            "from_nmi",
+            "var block = logo.blocks.blockList[blk];var conns = block.connections;var arg = logo.parseArg(logo, turtle, conns[1]);var unit = logo.parseArg(logo, turtle, conns[2]);switch (unit) {    case 'mm':\t    block.value = (arg*1/0.00000053995680345572);\t    break;    case 'cm':\t    block.value = (arg*1/0.0000053995680345572);\t    break;    case 'm':\t    block.value = (arg*1/0.00053995680345572);\t    break;    case 'km':\t    block.value = (arg*1/0.53995680345572);\t    break;    case 'in':\t    block.value = (arg*1/0.000013714902807775);\t    break;    case 'ft':\t    block.value = (arg*1/0.0001645788336933);\t    break;    case 'yd':\t    block.value = (arg*1/0.00049373650107991);\t    break;    case 'mi':\t    block.value = (arg*1/0.86897624190065);\t    break;    case 'nmi':\t    block.value = (arg*1/1);\t    break;}"
+        ]
+    ],
+    "PALETTEHIGHLIGHTCOLORS": [
+        [
+            "converter",
+            "#FF9FFF"
+        ]
+    ],
+    "PALETTEPLUGINS": [
+        [
+            "converter",
+            "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"55\" height=\"55\" viewBox=\"0 0 55 55\"><g transform=\"matrix(1.25 0 0 1.25-7.5-6.25)\"><g font-family=\"Sans\" word-spacing=\"0\" line-height=\"125%\" letter-spacing=\"0\" font-size=\"20\"><text x=\"10\" y=\"10\"><tspan x=\"20\" y=\"35\" fill=\"#fff\">len</tspan></text></g></g><g fill=\"#fff\" stroke=\"#fff\"><path d=\"m10.5 14.5h35\"/><path d=\"m15.5 44.5v-35\"/></g></svg>"
+        ]
+    ],
+    "BLOCKPLUGINS": [
+        [
+            "from_mm",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_mm', 'from mm', 1000, 'mm');"
+        ],
+        [
+            "from_cm",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_cm', 'from cm', 1000, 'cm');"
+        ],
+        [
+            "from_m",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_m', 'from m', 1000, 'm');"
+        ],
+        [
+            "from_km",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_km', 'from km', 1000, 'km');"
+        ],
+        [
+            "from_in",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_in', 'from in', 1000, 'in');"
+        ],
+        [
+            "from_ft",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_ft', 'from ft', 1000, 'ft');"
+        ],
+        [
+            "from_yd",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_yd', 'from yd', 1000, 'yd');"
+        ],
+        [
+            "from_mi",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_mi', 'from mi', 1000, 'mi');"
+        ],
+        [
+            "from_nmi",
+            "var convertBlock = function (name, label, arg1, arg2) {    var protoblock = new ProtoBlock(name);    protoblock.palette = palettes.dict['converter'];    blocks.protoBlockDict[name] = protoblock;    protoblock.staticLabels.push(label, _('number'), _('unit to convert'));    protoblock.adjustWidthToLabel();    protoblock.twoArgMathBlock();    protoblock.dockTypes[2] = 'anyin';    protoblock.defaults.push(arg1);    protoblock.defaults.push(arg2);};convertBlock('from_nmi', 'from nmi', 1000, 'nmi');"
+        ]
+    ],
+    "PALETTEFILLCOLORS": [
+        [
+            "converter",
+            "#ff00ff"
+        ]
+    ],
+    "PALETTESTROKECOLORS": [
+        [
+            "converter",
+            "#C700D3"
+        ]
+    ]
+}

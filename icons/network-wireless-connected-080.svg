@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#ffffff">
+]><svg enable-background="new 0 0 55 55" height="55px" id="Layer_1" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="network-wireless-connected-080">
+	<path d="M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002   c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z" display="inline" fill="&stroke_color;"/>
+	<g display="inline">
+		<g>
+			<defs>
+				<rect height="32" id="SVGID_3_" width="40" x="7.375" y="15.5"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use overflow="visible" xlink:href="#SVGID_3_"/>
+			</clipPath>
+			<path clip-path="url(#SVGID_4_)" d="M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002     c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z" fill="&fill_color;"/>
+		</g>
+	</g>
+	<path d="   M46.375,27.498c0,10.494-8.507,19.002-19,19.002s-19-8.508-19-19.002c0-10.49,8.507-18.998,19-18.998S46.375,17.003,46.375,27.498z   " display="inline" fill="none" stroke="&stroke_color;" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
+	<g display="inline">
+		<path d="M9.471,45.697    c-9.958-9.958-9.959-26.104,0-36.062" fill="none" stroke="&stroke_color;" stroke-linecap="round" stroke-width="3.5"/>
+		<path d="M45.533,9.635    c9.959,9.958,9.958,26.104,0,36.062" fill="none" stroke="&stroke_color;" stroke-linecap="round" stroke-width="3.5"/>
+	</g>
+</g></svg>

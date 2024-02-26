@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#010101">
+]>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="55"
+   height="55"
+   viewBox="0 0 55 55.000001"
+   id="svg3915"
+   xml:space="preserve"><rect
+     width="32.065033"
+     height="32.065033"
+     x="11.467484"
+     y="11.467484"
+     id="rect5100"
+     style="fill:&fill_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:3.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" /><g
+     transform="matrix(1.4241793,0,0,1.4241793,-47.383001,16.670541)"
+     id="dialog-ok"
+     style="display:block"><path
+       d="M 58.679787,4.3034645 51.356615,13.208 46.57309,8.4240355 c -0.551221,-0.549468 -0.551221,-1.442463 -0.0013,-1.991931 0.549468,-0.549906 1.442463,-0.549906 1.992369,0 l 2.588721,2.586969 5.350521,-6.505981 c 0.49382,-0.599419 1.381557,-0.687054 1.982729,-0.191919 0.600296,0.49382 0.687492,1.381557 0.193672,1.982291 z"
+       id="path4856"
+       style="fill:&stroke_color;;display:inline" /></g></svg>

@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+[
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#000000">
+]>
+<svg contentScriptType="text/ecmascript" width="55px" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" zoomAndPan="magnify" contentStyleType="text/css" height="55px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <circle fill="&fill_color;" r="22.5" stroke-width="3.5" cx="27.5" cy="27.5" stroke="&stroke_color;"/>
+    <line x1="27.5" x2="27.5" y1="5.0" y2="11.0" stroke="&stroke_color;" stroke-width="3.5"/>
+    <line x1="27.5" x2="27.5" y1="44" y2="50" stroke="&stroke_color;" stroke-width="3.5"/>
+    <line x1="44" x2="50" y1="28" y2="28" stroke="&stroke_color;" stroke-width="3.5"/>
+    <line x1="5" x2="11" y1="27" y2="27" stroke="&stroke_color;" stroke-width="3.5"/>
+    <line stroke-linecap="round" x1="27.5" x2="21" y1="27.5" y2="37" stroke="&stroke_color;" stroke-width="3.5"/>
+    <line stroke-linecap="round" x1="17" x2="27.5" y1="14" y2="27.5" stroke="&stroke_color;" stroke-width="3.5"/>
+</svg>

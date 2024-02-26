@@ -1,0 +1,397 @@
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #png-button {
+	background-image: url(../icons/png-export.svg);
+}
+
+#main-toolbar #photo-button {
+	background-image: url(../icons/photo.svg);
+}
+
+#main-toolbar #help-button {
+	background-image: url(../icons/help.svg);
+}
+
+.introjs-overlay {
+	background-color: #000 !important;
+	opacity: .8 !important;
+}
+
+.introjs-tooltip {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	border-radius: 6px !important;
+	padding: 2px 1px !important;
+	font-size: 14px !important;
+}
+
+.introjs-helperLayer {
+	background: inherit !important;
+	opacity: 0.6 !important;
+}
+
+.customTooltip .introjs-tooltip-header {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #ffffff;
+	text-shadow: none;
+	background-color: #808080;
+	margin: 0;
+	padding: 0px 10px;
+	border-bottom: 1px solid #ebebeb;
+	border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+	font-size: 14px;
+	padding: 0px 8px;
+	font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+	color: #000000;
+	line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+	float: right;
+	cursor: pointer;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 25px;
+	height: 25px;
+	background-size: 25px 25px;
+	margin-top: 2px;
+	padding: 0px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.customTooltip .introjs-nextbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-top: 0px;
+	padding: 0px;
+	text-align: center;
+	white-space: normal;
+}
+
+.customTooltip .introjs-button {
+	text-shadow: none;
+	border-radius: 22px;
+	margin: 5px 8px 8px 8px;
+	width: fit-content;
+	background-color: #808080 !important;
+	display: flex !important;
+	align-items: center !important;
+	color: white !important;
+	padding: 6px 20px 6px 10px;
+	border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+	background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+	color: black !important;
+	border: 0px;
+	opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+}
+
+.web-activity-icon {
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 2px;
+}
+
+.icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+
+.splitbar {
+	background-image: url(../icons/split.svg);
+	background-position: center;
+	background-repeat: no;
+	width: 3px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+#activity-palette {
+	z-index: 5;
+}
+
+#input-box {
+	position: relative;
+	z-index: 2;
+	background-color: #c0c0c0; 
+	line-height: 47px;	
+	
+	
+	
+}
+
+
+.search-field-border {
+	position: absolute;
+	border-radius: 22px;
+	top: 2px;
+	margin-left: 77px;
+	width: 85vw;
+	height: 45px;
+	display: inline-block;
+	vertical-align: top;
+	z-index: 0;
+  }
+  
+  .search-field-border-focus {
+	background-color: #c0c0c0;
+	border: 2px solid #c0c0c0;
+  }
+  
+  .search-field-border-nofocus {
+	background-color: #e5e5e5;
+	border: 2px solid #e5e5e5;
+  }
+  
+  .search-field-input {
+	  
+	opacity: 1;
+	margin-left: 30px;
+	border: 0px;
+	display: inline-block;
+	background-color: #e5e5e5;
+	width: 79vw;
+	line-height: 22px;
+	outline: 0;
+	font-size: 22pt;
+	font-weight: bold;
+	position: relative;
+	top: 5px;
+	position: absolute;
+  }
+  
+  .search-field-iocancel {
+	position: absolute;
+	background-image: url(../icons/entry-cancel.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #e5e5e5;
+	right: 10px;
+	border: none;
+	background-size: 20px 20px;
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	top: 80%;
+	transform: translateY(-110%);
+	background-size: 27px 27px;
+	background-position: 50% 50%;
+  }
+  
+  .search-field-iocancel:hover {
+	background-color: #e5e5e5
+  }
+
+@media (max-width: 960px) {
+	.search-field-border  {
+		margin-left: 7vw;
+	}
+	.search-field-input{
+		width: 75vw;
+	}
+
+}
+@media (max-width: 600px) {
+	.search-field-border{
+		margin-left: 15vw;
+		
+	}
+	.search-field-input{
+		width: 75vw;
+	}
+}
+
+
+
+.text-url {
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#generate-button {
+	height: 43px;
+	width: 43px;
+	margin: 8px;
+	right: 4px;
+	bottom: 15px;
+	top: -5%;
+	z-index: 1;
+	position: absolute;
+	background-image: url(../icons/go-right.svg);
+	background-size: 43px 43px;
+	background-position: 50% 50%;
+}
+@media (max-width: 600px) {
+	#generate-button{
+		margin-left: 9vw;
+		position: absolute;
+	}
+}
+
+#fullscreen-button {
+	background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+	background-image: url(../icons/view-return.svg);
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	right: 5%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+#close-button {
+	background-image: url(../icons/close.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	background-size: 47px;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	top: 0;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+#switchcamera-button {
+	background-image: url(../icons/switch-camera.svg);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	border: 0;
+	border-radius: 0px;
+	margin: 1px;
+	width: 42px;
+	height: 42px;
+	bottom: 10px;
+	left: 95%;
+	position: absolute;
+	visibility: hidden;
+	z-index: 5;
+}
+
+#qr-code {
+	position: absolute;
+	width: 30%;
+}
+
+#canvas {
+	background-color: white;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+#video-stream {
+	position: absolute;
+	margin-top: 50px;
+}
+
+#qr-canvas {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+}
+
+#loading-spinner {
+	position: absolute;
+	margin-left: 30px;
+	margin-top: 10px;
+	visibility: hidden;
+	z-index: 4;
+}
+#qrtextdropdown {
+	height: 7vh;
+	width: 7vh;
+	background: none;
+	border: none;
+	background-image: url(../icons/go-down.svg);
+	background-size: 55px 50px;
+	background-position: 50% 50%;
+	color: #555;
+	font-size: inherit;
+	overflow: hidden;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 0;
+	height: 45px;
+	width: 50px;
+	margin: 8px;
+	left: -0.4vw;
+	bottom: 15px;
+	top: -5%;
+	z-index: 1;
+	position: absolute;
+}
+@media (min-width: 1140px) {
+	#qrtextdropdown {
+		margin-left: 1.5vw;
+	}
+}
+#qrtextdropdown option {
+	font-size: 20px;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Record Activity</title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+    <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+    <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+          href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+
+    <link rel="stylesheet" href="css/activity.css">
+    <link rel="stylesheet" href="css/introjs.css">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="lib/intro.js"></script>
+    <script>if (window.module) module = window.module;</script>
+    <link rel="prefetch" type="application/l10n" href="translate.ini" />
+    <script data-main="js/loader" src="lib/require.js"></script>
+    <script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="My Activity"></button>
+    <button class="toolbutton" id="photo-button" title="Photo"></button>
+    <button class="toolbutton" id="video-button" title="Video"></button>
+    <button class="toolbutton" id="audio-button" title="Audio"></button>
+    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+</div>
+
+
+<div id="loading">
+    <img id="loading-stop" src="icons/stop.svg">
+
+    <div style="text-align: center;">
+       <center>
+           <video id="vidDisplay" autoplay="true">No video Support</video>
+       </center>
+        <br/>
+        <span id="timer-start"></span>
+        <progress id="loading-progress" style="width:80%; display:inline-block;" max="30" value="0"></progress>
+        <span id="timer-end"></span>
+    </div>
+</div>
+
+<div id="records"></div>
+</body>
+
+</html>

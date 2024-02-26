@@ -1,0 +1,26 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#ffffff">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="55" height="55" viewBox="0 0 55 55" xml:space="preserve">
+	<g transform="matrix(0.58,0,0,0.58,24.53,0.11)">
+		<rect display="inline" fill="&fill_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="7.291" y="7.833"/>
+		<rect display="inline" fill="&stroke_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="22.625" y="7.833"/>
+		<rect display="inline" fill="&fill_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="37.375" y="7.833"/>
+		<rect display="inline" fill="&fill_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="7.291" y="22.75"/>
+		<rect display="inline" fill="&fill_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="22.625" y="22.75"/>
+		<rect display="inline" fill="&stroke_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="37.375" y="22.75"/>
+		<rect display="inline" fill="&stroke_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="7.291" y="37.625"/>
+		<rect display="inline" fill="&stroke_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="22.625" y="37.625"/>
+		<rect display="inline" fill="&stroke_color;" height="10" stroke="&fill_color;" stroke-width="3.5" width="10" x="37.375" y="37.625"/>
+	</g>
+	<g transform="translate(-0.2743801,0.51351)" id="g3036">
+		<path d="M 9.57,38.95 9.39,32.9 M 25.66,50.97 3.63,51.24 3.52,39.25 l 5.85,-6.36 21.26,0 -0.11,12.12 z M 3.63,39.38 l 21.48,0.27 0.33,10.92 m -0.31,-11.05 5.53,-6.64" style="fill:none;stroke:&fill_color;;stroke-width:2.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+		<g transform="matrix(0,-1,-1,0,47.31,85.98)">
+			<g transform="translate(34.08,-1006.42)">
+				<polyline points="51.56,15.31 41.17,16.19 42.05,5.79" style="fill:none;stroke:&fill_color;;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round" transform="matrix(-0.47,0.47,-0.47,-0.47,66.29,1019.03)" />
+				<path d="m 39.36,1033.13 -0.06,9.91 -8.75,0.07" style="fill:none;stroke:&fill_color;;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+			</g>
+		</g>
+	</g>
+</svg>

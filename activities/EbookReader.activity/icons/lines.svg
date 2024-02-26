@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' []>
+<svg xmlns="http://www.w3.org/2000/svg" width="79.5" height="54" viewBox="0 0 79.5 54">
+  <g id="Group_1" data-name="Group 1" transform="translate(-15.5 -24)">
+    <line id="Line_1" data-name="Line 1" x2="51" transform="translate(15.5 26.5)" fill="none" stroke="#fff" stroke-width="4"/>
+    <line id="Line_2" data-name="Line 2" x2="56" transform="translate(15.5 43.5)" fill="none" stroke="#fff" stroke-width="4"/>
+    <line id="Line_3" data-name="Line 3" x2="61" transform="translate(15.5 60.5)" fill="none" stroke="#fff" stroke-width="4"/>
+    <line id="Line_4" data-name="Line 4" x2="44" transform="translate(15.5 75.5)" fill="none" stroke="#fff" stroke-width="4"/>
+    <g id="Rectangle_1" data-name="Rectangle 1" transform="translate(90 24)" fill="#fff" stroke="#fff" stroke-width="1">
+      <rect width="5" height="5" stroke="none"/>
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
+    </g>
+    <g id="Rectangle_2" data-name="Rectangle 2" transform="translate(90 41)" fill="#fff" stroke="#fff" stroke-width="1">
+      <rect width="5" height="5" stroke="none"/>
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
+    </g>
+    <g id="Rectangle_3" data-name="Rectangle 3" transform="translate(90 58)" fill="#fff" stroke="#fff" stroke-width="1">
+      <rect width="5" height="5" stroke="none"/>
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
+    </g>
+    <g id="Rectangle_4" data-name="Rectangle 4" transform="translate(90 73)" fill="#fff" stroke="#fff" stroke-width="1">
+      <rect width="5" height="5" stroke="none"/>
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
+    </g>
+  </g>
+</svg>

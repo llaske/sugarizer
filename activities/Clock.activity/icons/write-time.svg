@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+[
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#000000">
+]>
+<svg contentScriptType="text/ecmascript" width="55px" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" zoomAndPan="magnify" contentStyleType="text/css" height="55px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <rect x="5" y="5" fill="&fill_color;" width="45" height="45" stroke="&stroke_color;" stroke-width="3.5"/>
+    <text x="15" y="42" stroke="&stroke_color;" font-size="40" font-family="'Courier New', 'Courier', 'MS Courier New', 'Prestige', monospace" xml:space="preserve">T</text>
+</svg>

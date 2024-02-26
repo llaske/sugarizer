@@ -1,0 +1,6 @@
+[Activity]
+name = Calligra
+activity_version = 1
+bundle_id = org.olpcfrance.Calligra
+exec = sugar-activity-web
+icon = activity-icon

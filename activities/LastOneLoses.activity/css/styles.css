@@ -1,0 +1,171 @@
+
+
+#canvas {
+	background-color: #C0C0C0;
+}
+
+.level {
+	display: inline-block;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+.player {
+	display: inline-block;
+	margin-left: 200px;
+	margin-bottom: 20px;
+}
+
+.playboard {
+	display: inline-block;
+	margin-top: 5%;
+	width: 100%;
+	height: 400px;
+	max-height: 100%;
+}
+
+.player-image {
+	display: inline-block;
+	width: 200px;
+	max-width: 10%;
+	height: 100%;
+    background-image: url(../icons/player-icon.svg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.computer-image {
+	display: inline-block;
+	width: 200px;
+	max-width: 10%;
+	height: 100%;
+    background-image: url(../icons/computer-icon.svg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.oponent-image {
+	display: inline-block;
+	width: 200px;
+	max-width: 10%;
+	height: 100%;
+    background-image: url(../icons/player-icon.svg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.empty-image {
+    background-image: url(../icons/empty-icon.svg) !important;
+}
+
+.switch {
+	display: inline-block;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+.play {
+	margin-top: 2.7%;
+	margin-left: 45%;
+	-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;
+}
+
+.renew {
+	position: absolute;
+	left: 400px;
+	bottom: 20px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.lol-box {
+	width: 800px;
+	max-width: 80%;
+	height: 400px;
+	display: inline-block;
+	text-align: center;
+	vertical-align: top;
+}
+
+.lol-item {
+	width: 35px;
+	max-width: 4%;
+	height: 100%;
+	margin-top: 10px;
+	margin-left: 3%;
+	display: inline-block;
+	border-width: 1px;
+	border-style: inset;
+	border-color: darkgray;
+	box-shadow: 3px -4px 4px 2px black;
+}
+
+.lol-item-selected {
+}
+
+.end-message {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top: 24%;
+	height: 200px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.end-message-win {
+    background-image: url(../icons/player-win.svg);
+}
+
+.end-message-lost {
+    background-image: url(../icons/computer-win.svg);
+}
+
+.player-lost{
+	background-image: url(../icons/player-lost.svg);
+}
+
+
+@media screen and (max-height: 620px) {
+	.playboard {
+		height: 300px;
+	}
+
+	.lol-box {
+		height: 300px
+	}
+}
+
+
+@media screen and (max-height: 520px) {
+	.playboard {
+		height: 200px;
+	}
+
+	.lol-box {
+		height: 200px
+	}
+
+	.play {
+		width: 50px;
+		height: 50px;
+	}
+}
+
+
+
+@media screen and (max-height: 320px) {
+	.playboard {
+		height: 150px;
+	}
+
+	.lol-box {
+		height: 150px;
+	}
+}

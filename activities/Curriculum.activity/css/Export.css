@@ -1,0 +1,55 @@
+.doc-container {
+	width: 816px;
+  height: 0;
+  overflow: hidden;
+}
+#doc {
+  width: 100%;
+  padding: 3em;
+  background: #ffffff;
+  color: black;
+}
+.profile {
+	text-align: center;
+}
+.profile-photo {
+  width: 100px;
+}
+.doc-categories {
+	padding: 20px 0;
+}
+.doc-categories .doc-category {
+	margin: 30px 0;
+}
+.doc-skills .doc-skill-item {
+  display: flex;
+	align-items: flex-start;
+	margin: 30px 0;
+}
+.doc-skills .doc-skill-image {
+  width: 250px;
+	padding: 10px;
+}
+.doc-skills .doc-skill-info {
+	width: 100%;
+	display: flex; 
+	border-bottom: solid 2px grey; 
+	
+}
+.doc-skills .doc-skill-info .doc-skill-title {
+	margin-left: 10px;
+}
+.doc-uploaded-container {
+	width: 100%;
+}
+.doc-uploaded-container .doc-uploaded {
+	display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.export-form {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: white;
+}

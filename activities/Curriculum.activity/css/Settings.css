@@ -1,0 +1,106 @@
+.settings-active {
+	transform: scale(0.95);
+	cursor: grab;
+}
+.settings-row {
+	display: flex;
+	justify-content: flex-end;
+	transform-origin: right;
+}
+.settings-row button {
+	height: 40px;
+	width: 40px;
+	margin: 0 5px;
+	cursor: pointer;
+}
+.skill-card .settings-row button {
+	margin: 5px;
+}
+.settings-row #edit-button {
+	background-image: url(../icons/edit.svg);
+	background-size: cover;
+	background-position: center;
+}
+.settings-row #delete-button {
+	background-image: url(../icons/delete.svg);
+	background-size: cover;
+	background-position: center;
+}
+
+.settings {
+	padding: 0 10vw;
+}
+.settings .category-card, .settings .skill-card {
+	margin: 10px auto;
+}
+.settings .category-card {
+	width: fit-content;
+}
+.settings form label {
+	font-size: 1.3em;
+	display: block;
+	margin: 15px 0;
+}
+.settings form input {
+	width: 100%;
+	padding: 10px 0;
+	padding-left: 20px;
+}
+.settings form .colors {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.settings form .colors .color {
+	width: 45px;
+	height: 45px;
+	margin: 5px;
+	cursor: pointer;
+	/* transition: all 250ms ease; */
+}
+.settings form .colors .color:hover {
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+.settings form .colors .color.selected {
+	border: solid 2px #000000;
+}
+.settings form .buttons-row {
+	display: flex;
+	flex-wrap: wrap;
+}
+.settings form button {
+	padding: 5px 10px;
+	margin: 20px 5px;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+.settings form button img {
+	width: 20px;
+	height: 20px;
+	border: none;
+	cursor: pointer;
+}
+.settings form button span {
+	margin: 0 10px;
+}
+.settings form img {
+	max-width: 350px;
+	border: solid 1px black;
+}
+.settings .image-label {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.settings .image-label button {
+	margin: 0;
+}
+#image-edit-button {
+	background-image: url(../icons/insert-picture.svg);
+	background-size: cover;
+	background-position: center;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+}

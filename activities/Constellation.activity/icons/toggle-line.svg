@@ -1,0 +1,22 @@
+<svg width="154" height="131" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g>
+  <title>background</title>
+  <rect x="-1" y="-1" width="156" height="133" id="canvas_background" fill="none"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_6" d="m180.985352,180.619614l33.029297,92.660751"/>
+  <path d="m48.710968,21.873894l30.578072,80.152222"/>
+  <path d="m48.710968,21.873894l30.578072,80.152222"/>
+  <line fill="none" stroke="#000" stroke-width="7" stroke-opacity="null" fill-opacity="null" x1="48.710969" y1="21.873894" x2="79.289036" y2="102.026118" id="svg_4" stroke-linejoin="null" stroke-linecap="null" transform="rotate(74.1953, 64, 61.95)"/>
+  <path id="svg_7" d="m233.444016,195.96991l32.093613,91.21347"/>
+  <path fill="#fff" stroke="#000" stroke-width="1.5" d="m6,83.866913l18.334503,0l5.665497,-17.417694l5.665512,17.417694l18.334488,0l-14.832886,10.764618l5.665787,17.417694l-14.832901,-10.764923l-14.832901,10.764923l5.665802,-17.417694l-14.832901,-10.764618z" id="svg_1"/>
+  <path d="m98.710968,32.873894l30.578064,80.152222"/>
+  <path d="m98.710968,30.873894l30.578064,80.152222"/>
+  <line fill="none" stroke="#000" stroke-width="7" stroke-opacity="null" fill-opacity="null" x1="98.710969" y1="30.873894" x2="129.289036" y2="111.026118" id="svg_8" stroke-linejoin="null" stroke-linecap="null" transform="rotate(2.41271, 114, 70.95)"/>
+  <path fill="#fff" stroke="#000" stroke-width="1.5" d="m102,98.504059l17.952515,0l5.547485,-17.05484l5.547485,17.05484l17.952515,0l-14.523895,10.540344l5.547791,17.05481l-14.523895,-10.540619l-14.52388,10.540619l5.547775,-17.05481l-14.523895,-10.540344z" id="svg_2"/>
+  <path fill="#fff" stroke="#000" stroke-width="1.5" d="m73,22.407001l21.008293,0l6.491707,-19.957783l6.49173,19.957783l21.00827,0l-16.996017,12.334438l6.492065,19.957783l-16.996048,-12.334785l-16.996017,12.334785l6.492058,-19.957783l-16.99604,-12.334438z" id="svg_3"/>
+ </g>
+</svg>

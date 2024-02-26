@@ -1,0 +1,7 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+body {
+	height: 100vh;
+}

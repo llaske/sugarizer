@@ -1,0 +1,12 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#666666">
+	<!ENTITY fill_color "#ffffff">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g
+     display="block"
+     id="emblem-favorite"
+     transform="matrix(0.512,0,0,0.512,13.419975,13.235924)"
+     style="display:block"><polygon
+       points="39.251,33.68 42.025,49.852 27.5,42.215 12.976,49.852 15.75,33.68 4,22.224 20.237,19.865 27.5,5.149 34.76,19.865 51,22.224 "
+       id="polygon5"
+	   fill="&fill_color;" stroke="&stroke_color;"
+       style="stroke-width:3.5;stroke-linecap:round" /></g></svg>

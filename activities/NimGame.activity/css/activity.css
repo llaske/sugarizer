@@ -1,0 +1,32 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+body {
+	height: 100vh;
+}
+
+
+/* MAIN GAME */
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+body, #canvas{
+  background-color: #1d1d1d;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.game-row {
+  height: 100px;
+}
+#game-status {
+  min-height: 1.75rem;
+}
+.footer {
+  flex-shrink: none;
+  background-color: #262626;
+}

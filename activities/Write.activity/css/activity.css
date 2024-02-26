@@ -1,0 +1,423 @@
+body {
+  height: 100vh;
+  cursor: default;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #edit-undo {
+  background-image: url(../icons/undo.svg);
+}
+
+#main-toolbar #edit-redo {
+  background-image: url(../icons/redo.svg);
+}
+
+#main-toolbar #edit-copy {
+  background-image: url(../icons/copy.svg);
+}
+
+#main-toolbar #edit-paste {
+  background-image: url(../icons/paste.svg);
+}
+
+#main-toolbar #format-text {
+  background-image: url(../icons/format-text.svg);
+}
+
+#main-toolbar #paragraph {
+  background-image: url(../icons/paragraph.svg);
+}
+
+#main-toolbar #list {
+  background-image: url(../icons/list-none.svg);
+}
+
+#main-toolbar #font-button {
+  background-image: url(../icons/font-text.svg);
+}
+
+#main-toolbar #resize-inc{
+  background-image: url(../icons/resize+.svg);
+}
+
+#main-toolbar #resize-dec{
+  background-image: url(../icons/resize-.svg);
+}
+
+#main-toolbar #insert-picture {
+  background-image: url(../icons/insert-picture.svg);
+}
+
+#main-toolbar #export {
+  background-image: url(../icons/file-export.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+#main-toolbar #network-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#main-toolbar #super-script {
+  background-image: url(../icons/superscript.svg);
+  width: 47px;
+  height: 47px;
+  background-size: 80%;
+}
+
+#main-toolbar #sub-script {
+  background-image: url(../icons/subscript.svg);
+  width: 47px;
+  height: 47px;
+  background-size: 80%;
+}
+
+#private-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#shared-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#editor{
+  font-size: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.palette-button {
+  width: 47px;
+  height: 47px;
+  color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+  margin: 4px;
+}
+
+.palette-button-2 {
+  width: 80px;
+  height: 40px;
+  margin-left: 25px;
+  color: transparent;
+  background-size: 59px;
+  border: 0;
+  border-radius: 5.5px;
+  display: block;
+}
+
+.filter-item {
+  color: white;
+  font-size: 12pt;
+}
+.palette-button-notselected {
+  background-color: transparent;
+}
+
+.colorpalette {
+	z-index: 20;
+}
+.palette .colors {
+  list-style-type: none;
+  border-spacing: 0;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.palette .colors button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-color: white;
+  margin-left: 5.5px;
+  margin-top: 5.5px;
+}
+.palette .colors tr:nth-last-child(1) button {
+  margin-bottom: 5.5px;
+}
+
+.ql-font-arial {
+  font-family: 'Arial';
+}
+
+.ql-font-Verdana {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.ql-font-comic {
+  font-family: 'Comic Sans MS';
+}
+
+.ql-font-Times {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.ql-font-Courier {
+  font-family: "Courier New", Courier New, monospace;
+}
+
+.ql-font-Lucida {
+  font-family: "Lucida Console", Lucida Console, monospace;
+}
+.ql-font-Impact {
+  font-family: "Impact", fantasy;
+}
+.ql-font-Georgia {
+  font-family: "Georgia", serif;
+}
+
+
+
+#edit-undo,#edit-redo, #edit-copy, #edit-paste, #format-text , #paragraph ,#list,#font-button,#resize-inc,#resize-dec,#insert-picture,#insert-table,#export,#color-button-1,#color-button-2,#sub-script,#super-script{
+  display: none;
+}
+
+
+@media only screen and (min-width: 377px) {
+  #color-button-1 {
+    display: inline-block;
+  }
+}
+
+
+@media only screen and (min-width: 431px) {
+  #color-button-2 {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 486px) {
+  #format-text {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 541px) {
+  #paragraph {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 596px) {
+  #list {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  #resize-inc {
+    display: inline-block;
+  }
+  #font-button {
+    display: inline-block;
+  }
+  #resize-dec {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 815px) {
+  #insert-picture {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 981px) {
+  #sub-script {
+    display: inline-block;
+  }
+  #super-script {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1081px) {
+  #edit-undo {
+    display: inline-block;
+  }
+  #edit-redo {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 870px) {
+  #export {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1197px) {
+  #edit-copy {
+    display: inline-block;
+  }
+  #edit-paste {
+    display: inline-block;
+  }
+}
+.icon-tutorial-text {
+  margin-top: 7px;
+  padding-left: 4px;
+  padding-right: 38px;
+  display: inline-block;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
+.pico-overlay {
+  opacity: 0.66 !important;
+}
+.introjs-overlay {
+	background-color: #000 !important;
+	opacity: .8 !important;
+}
+
+.introjs-tooltip {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	border-radius: 6px !important;
+	padding: 2px 1px !important;
+	font-size: 14px !important;
+}
+ 
+.introjs-helperLayer{
+	background: inherit !important;
+	opacity: 0.6 !important;
+}  
+
+.customTooltip .introjs-tooltip-header {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color : #ffffff;
+	text-shadow: none;
+	background-color: #808080;
+	margin: 0;
+	padding: 5px 10px;
+	border-bottom: 1px solid #ebebeb;
+	border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+	font-size: 14px;
+	padding: 0px 8px;
+	font-weight: 800;
+}
+  
+.customTooltip .introjs-tooltiptext {
+	color: #000000;
+	line-height: 1.42857143;
+}
+  
+.customTooltip .introjs-skipbutton {
+	float: right;
+	cursor: pointer;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 25px;
+	height: 25px;
+	background-size: 25px 25px;
+	margin-top: 2px;
+	padding: 0px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}  
+
+.customTooltip .introjs-nextbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+	display: flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-top: 0px;
+	padding: 0px;
+	text-align: center;
+	white-space: normal;
+}
+  
+.customTooltip .introjs-button {
+	text-shadow: none;
+	border-radius: 22px;
+	margin: 5px 8px 8px 8px;
+	width: fit-content;
+	background-color: #808080 !important;
+	display: flex !important;
+	align-items: center !important;
+	color: white !important;
+	padding: 6px 20px 6px 10px;
+	border: 0px;
+}
+  
+.customTooltip .introjs-button:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+	background-color: #808080 !important;
+}
+  
+.customTooltip .introjs-disabled {
+	color: black !important;
+	border: 0px;
+	opacity: .65;
+}
+  
+.customTooltip .introjs-disabled:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+}

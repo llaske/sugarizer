@@ -1,0 +1,69 @@
+:NavBar|La Barra di Navigazione
+NavBarTenereTrovare|Tenere Trovare
+NavBarScegliereLingua|Scegliere Lingua
+:Paint|Gli Strumenti della Vernice
+PaintLineaRetta|Linea Retta
+PaintSecchio|Secchio
+PaintStampiglie|Stampiglie
+PaintTavolozzaColore|Tavolozza Colore
+PaintEllissi|Ellissi
+PaintIPennelli|I Pennelli
+PaintRettangolo|Rettangolo
+PaintPoligono|Poligono
+PaintSelettoreColore|Selettore Colore
+:Halo|I Riferimenti di Aureola
+HaloCrollare|Crollare
+HaloLVisualizzatore|L'Visualizzatore
+HaloMuovere-eElevare|Muovere e Elevare
+HaloMenuControllo|Menu Controllo
+HaloCentro-diRotazione|Centro di Rotazione
+HaloDimostrareAureola|Dimostrare di Aureola
+HaloRifiuti|Rifiuti
+HaloFareMattonella|Fare Mattonella
+HaloMisureColoriCopie|Misure Colori Copie
+HaloColorProprietaColore|Color Proprietà Colore
+HaloFreccia-alCentro|Freccia al Centro
+HaloRuotare|Ruotare
+:Supplies|I Rifornimenti
+SuppliesCatalogoOggetto|Catalogo Oggetto
+SuppliesTesto|Testo
+SuppliesControlloCloche|Controllo Cloche
+SuppliesIlRegistratore|Il Registratore
+SuppliesTutto-deiScript|Tutto dei Script
+:ObjectCat|Il Catalogo Oggetto
+ObjectCatPulsanteMaker|Pulsante Maker
+ObjectCatImmaginiDigital|Immagini Digital
+ObjectCatControlloRemoto|Controllo Remoto
+ObjectCatLazo|Lazo
+ObjectCatAfferrareArea|Afferrare Area
+:Books|I Libri
+BooksControlliEspansi|Controlli Espansi
+BooksNavigazionali|Navigazionali
+BooksLavorare-conStrati|Lavorare con Strati
+BooksIcone-diBordo|Icone di Bordo
+:ScriptTile|Le Mattonelle di Script
+ScriptTileStampVarie|Stamp Varie
+ScriptTileScalaFattore|Scala Fattore
+ScriptTileX-eYLuoghi|X e Y Luoghi
+ScriptTileRimbalzo|Rimbalzo
+ScriptTileIPosizioni|I Posizioni
+ScriptTileTraccieCampo|Traccie Campo
+ScriptTileCategoriaProva|Categoria Prova
+ScriptTileNascondere|Nascondere
+ScriptTileGirare|Girare
+ScriptTileUso-diPenna|Uso di Penna
+ScriptTileINumeriCasuali|I Numeri Casuali
+ScriptTileLaLarghezza|La Larghezza
+ScriptTileAvanzareGirare|Avanzare Girare
+ScriptTileMondoIngresso|Mondo Ingresso
+ScriptTileAvanzare|Avanzare
+ScriptTileCategoriaSuono|Categoria Suono
+ScriptTileDirezione|Direzione
+:Menu|Il Menu
+MenuIconeVisualizzatore|Icone Visualizzatore
+MenuOsservatori|Osservatori
+MenuIcone-diScriptore|Icone di Scriptore
+MenuTicchettareNormale|Ticchettare Normale
+MenuPulsante-perLanciare|Pulsante per Lanciare
+MenuCartaMillimetrata|Carta Millimetrata
+MenuAfferarmiRivelarmi|Afferarmi Rivelarmi

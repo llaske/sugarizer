@@ -1,0 +1,9 @@
+#main-toolbar #run-button {
+    display: none;
+}
+#main-toolbar #break-button {
+    display: none;
+}
+#main-toolbar #export-button {
+    display: none;
+}

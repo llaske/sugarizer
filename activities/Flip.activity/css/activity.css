@@ -1,0 +1,233 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #solve-button {
+  background-image: url(../icons/help-toolbar.svg);
+}
+
+#main-toolbar #new-game-button {
+  background-image: url(../icons/new-game.svg);
+}
+
+#main-toolbar #size-button {
+  background-image: url(../icons/4x4.svg);
+}
+
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 5%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
+body {
+  overflow: hidden;
+}
+
+#four-button {
+  background-image: url(../icons/4x4.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#five-button {
+  background-image: url(../icons/5x5.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#six-button {
+  background-image: url(../icons/6x6.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+
+#seven-button {
+  background-image: url(../icons/7x7.svg);
+ width: 47px;
+height: 47px;
+margin: 4px 2px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: contain;
+border-radius: 5.5px;
+background-color: #C0C0C0;
+}
+#flip-count {
+  flex: 1;
+  text-align: center;
+  font-size: 8vh;
+  font-weight: 800;
+  padding-bottom: 2vh;
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+.icon-tutorial-text {
+	margin-top: 7px;
+	padding-left: 4px;
+	padding-right: 38px;
+	display: inline-block;
+}
+
+.web-activity-icon {
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 2px;
+}
+
+.icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+
+
+.introjs-overlay {
+	background-color: #000 !important;
+	opacity: .8 !important;
+}
+
+.introjs-tooltip {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	border-radius: 6px !important;
+	padding: 2px 1px !important;
+	font-size: 14px !important;
+}
+
+.introjs-helperLayer{
+	background: inherit !important;
+	opacity: 0.6 !important;
+}  
+
+.customTooltip .introjs-tooltip-header {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color : #ffffff;
+	text-shadow: none;
+	background-color: #808080;
+	margin: 0;
+	padding: 5px 10px;
+	border-bottom: 1px solid #ebebeb;
+	border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+	font-size: 14px;
+	padding: 0px 8px;
+	font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+	color: #000000;
+	line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+	float: right;
+	cursor: pointer;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 25px;
+	height: 25px;
+	background-size: 25px 25px;
+	margin-top: 2px;
+	padding: 0px;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}  
+
+.customTooltip .introjs-nextbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+	display: flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-top: 0px;
+	padding: 0px;
+	text-align: center;
+	white-space: normal;
+}
+
+.customTooltip .introjs-button {
+	text-shadow: none;
+	border-radius: 22px;
+	margin: 5px 8px 8px 8px;
+	width: fit-content;
+	background-color: #808080 !important;
+	display: flex !important;
+	align-items: center !important;
+	color: white !important;
+	padding: 6px 20px 6px 10px;
+	border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+	background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+	color: black !important;
+	border: 0px;
+	opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+}

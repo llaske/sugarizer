@@ -1,0 +1,225 @@
+#. extracted from ../locale.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Apr 11 2021 11:31:26 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Prev"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Next"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "End"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "TamTam Micro Activity"
+msgstr "TamTam Micro Activity"
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Tam Tam Micro is an activity to play instruments, sounds and noise of different type"
+msgstr "Tam Tam Micro is an activity to play instruments, sounds and noise of different type"
+
+#: TutoSoundsTitle
+msgctxt "TutoSoundsTitle"
+msgid "Sounds"
+msgstr "Sounds"
+
+#: TutoSoundsContent
+msgctxt "TutoSoundsContent"
+msgid "Click on images to hear each sound"
+msgstr "Click on images to hear each sound"
+
+#: TutoFilterTitle
+msgctxt "TutoFilterTitle"
+msgid "Filter"
+msgstr "Filter"
+
+#: TutoFilterContent
+msgctxt "TutoFilterContent"
+msgid "Click here to filter by category the sounds you want to see and hear"
+msgstr "Click here to filter by category the sounds you want to see and hear"
+
+#: TutoPianoTitle
+msgctxt "TutoPianoTitle"
+msgid "Piano"
+msgstr "Piano"
+
+#: TutoPianoContent
+msgctxt "TutoPianoContent"
+msgid "Click here to make music with your selected sound, or press 1-7 on your keyboard. Pressing ctrl+a number will add a sharp"
+msgstr "Click here to make music with your selected sound, or press 1-7 on your keyboard. Pressing ctrl+a number will add a sharp"
+
+#: TutoPianoInfoTitle
+msgctxt "TutoPianoInfoTitle"
+msgid "Piano Mode"
+msgstr "Piano Mode"
+
+#: TutoPianoInfoContent
+msgctxt "TutoPianoInfoContent"
+msgid "Click here to display a piano where you could make music with your selected sound"
+msgstr "Click here to display a piano where you could make music with your selected sound"
+
+#: TutoCurrentModeTitle
+msgctxt "TutoCurrentModeTitle"
+msgid "Current Instrument"
+msgstr "Current Instrument"
+
+#: TutoCurrentModeContent
+msgctxt "TutoCurrentModeContent"
+msgid "Look here to see the current instrument you have selected. The piano will make music using this sound"
+msgstr "Look here to see the current instrument you have selected. The piano will make music using this sound"
+
+#: TutoSimonModeContent
+msgctxt "TutoSimonModeContent"
+msgid "Look here to see the current instrument you have selected. The simon game will make music using this sound"
+msgstr "Look here to see the current instrument you have selected. The simon game will make music using this sound"
+
+#: TutoSimonTitle
+msgctxt "TutoSimonTitle"
+msgid "Simon Game"
+msgstr "Simon Game"
+
+#: TutoSimonContent
+msgctxt "TutoSimonContent"
+msgid "Click on the red, green, blue and yellow buttons to make music with simon notes"
+msgstr "Click on the red, green, blue and yellow buttons to make music with simon notes"
+
+#: TutoRedTitle
+msgctxt "TutoRedTitle"
+msgid "Red Button"
+msgstr "Red Button"
+
+#: TutoBlueTitle
+msgctxt "TutoBlueTitle"
+msgid "Blue Button"
+msgstr "Blue Button"
+
+#: TutoGreenTitle
+msgctxt "TutoGreenTitle"
+msgid "Green Button"
+msgstr "Green Button"
+
+#: TutoYellowTitle
+msgctxt "TutoYellowTitle"
+msgid "Yellow Button"
+msgstr "Yellow Button"
+
+#: TutoRedContent
+msgctxt "TutoRedContent"
+msgid "Click on this button or press up-arrow key on your keyboard to play A-note"
+msgstr "Click on this button or press up-arrow key on your keyboard to play A-note"
+
+#: TutoBlueContent
+msgctxt "TutoBlueContent"
+msgid "Click on this button or press down-arrow key on your keyboard to play E-note"
+msgstr "Click on this button or press down-arrow key on your keyboard to play E-note"
+
+#: TutoGreenContent
+msgctxt "TutoGreenContent"
+msgid "Click on this button or press right-arrow key on your keyboard to play one octave lower E-note"
+msgstr "Click on this button or press right-arrow key on your keyboard to play one octave lower E-note"
+
+#: TutoYellowContent
+msgctxt "TutoYellowContent"
+msgid "Click on this button or press left-arrow key on your keyboard to play C-sharp-note"
+msgstr "Click on this button or press left-arrow key on your keyboard to play C-sharp-note"
+
+#: SimonStartMsg
+msgctxt "SimonStartMsg"
+msgid "START"
+msgstr "START"
+
+#: SimonScoreMsg
+msgctxt "SimonScoreMsg"
+msgid "SCORE"
+msgstr "SCORE"
+
+#: SimonLevelMsg
+msgctxt "SimonLevelMsg"
+msgid "LEVEL"
+msgstr "LEVEL"
+
+#: SimonWrongMsg
+msgctxt "SimonWrongMsg"
+msgid "WRONG"
+msgstr "WRONG"
+
+#: SimonRightMsg
+msgctxt "SimonRightMsg"
+msgid "RIGHT"
+msgstr "RIGHT"
+
+#: SimonPlayAgain
+msgctxt "SimonPlayAgain"
+msgid "PLAY AGAIN"
+msgstr "PLAY AGAIN"
+
+#: TutoSimonInfoTitle
+msgctxt "TutoSimonInfoTitle"
+msgid "Simon Mode"
+msgstr "Simon Mode"
+
+#: TutoSimonInfoContent
+msgctxt "TutoSimonInfoContent"
+msgid "Click here to play Simon game with selected instrument"
+msgstr "Click here to play Simon game with selected instrument"
+
+#: TutoInstrumentInfoTitle
+msgctxt "TutoInstrumentInfoTitle"
+msgid "Instrument Mode"
+msgstr "Instrument Mode"
+
+#: TutoInstrumentInfoContent
+msgctxt "TutoInstrumentInfoContent"
+msgid "Click here to explore instrument sounds or select instrument"
+msgstr "Click here to explore instrument sounds or select instrument"
+
+#: TutoSimonCentreInfo
+msgctxt "TutoSimonCentreInfo"
+msgid "Simon Control"
+msgstr "Simon Control"
+
+#: TutoSimonCentreContent
+msgctxt "TutoSimonCentreContent"
+msgid "Click here to start game or play again. Shows current step when game playing"
+msgstr "Click here to start game or play again. Shows current step when game playing"
+
+#: TutoSimonLevelInfo
+msgctxt "TutoSimonLevelInfo"
+msgid "Level"
+msgstr "Level"
+
+#: TutoSimonLevelContent
+msgctxt "TutoSimonLevelContent"
+msgid "Shows the curent level of the game. Number of steps in a level is the same as level number"
+msgstr "Shows the curent level of the game. Number of steps in a level is the same as level number"
+
+#: TutoSimonScoreInfo
+msgctxt "TutoSimonScoreInfo"
+msgid "Score"
+msgstr "Score"
+
+#: TutoSimonScoreContent
+msgctxt "TutoSimonScoreContent"
+msgid "Shows the current score. For Nth step in a level you get N points. Score increases when a level is sucessfully completed"
+msgstr "Shows the current score. For Nth step in a level you get N points. Score increases when a level is sucessfully completed"
+

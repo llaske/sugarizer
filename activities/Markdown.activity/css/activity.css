@@ -1,0 +1,272 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#wmd-bold-button-second{
+	background-image: url(../activity/format-text-bold.svg);
+}
+
+#wmd-italic-button-second{
+	background-image: url(../activity/format-text-italic.svg);
+}
+
+#wmd-heading-button{
+	background-image: url(../activity/paragraph-h1.svg);
+}
+
+#wmd-undo-button{
+	background-image: url(../activity/edit-undo.svg);
+}
+
+#wmd-redo-button{
+	background-image: url(../activity/edit-redo.svg);
+}
+
+#wmd-hr-button{
+	background-image: url(../activity/horizontal-line3.svg);
+}
+
+#wmd-ulist-button{
+	background-image: url(../activity/toolbar-bulletlist.svg);
+}
+
+#wmd-olist-button{
+	background-image: url(../activity/toolbar-numbered-list.svg);
+}
+
+#wmd-code-button{
+	background-image: url(../activity/code.svg);
+}
+
+#wmd-quote-button{
+	background-image: url(../activity/quote.svg);
+}
+
+#wmd-link-button{
+	background-image: url(../activity/link.svg);
+}
+
+#insertText{
+	background-image: url(../activity/insert-picture.svg);
+}
+#wmd-showHideEditor-button{
+	background-image:url(../activity/editor.svg);
+}
+#wmd-showHidePreview-button{
+	background-image:url(../activity/preview.svg);
+}
+body 
+{ 
+	background-color: White;
+    font-family: sans-serif;
+}
+
+blockquote {
+	border-left: 2px dotted #888;
+	padding-left: 5px;
+	background: #d0f0ff;
+}
+
+.wmd-panel
+{
+	width: 47%;
+	float: left;
+	margin-left: 1%;
+	margin-top: 1%;	
+}
+
+.wmd-button-bar 
+{
+	width: 100%;
+	background-color: Silver; 
+}
+
+.wmd-input 
+{ 
+	height: 670px;
+	width: 100%;
+	background-color: Gainsboro;
+	border: 3px groove black;
+	padding: 3px;
+}
+
+.wmd-preview 
+{ 
+	background-color: white;
+	color: black;
+	height: 670px;
+	padding: 3px;
+	width: 47%;
+	float: right;
+	margin-right: 1%;
+	margin-top: 1.5%;
+	overflow: auto;
+	border-top: 3px groove black;
+	border-right: 3px groove black;
+	border-bottom: 3px groove black;
+	border-left: 3px groove black;
+}
+
+.wmd-prompt-dialog {
+	background: #282828;
+	color: white;
+	padding: 10px;
+}
+
+
+@media screen and (max-width: 480px) {
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 3%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 3%;
+	}
+}
+
+@media screen and (min-width: 481px) and (max-width: 640px) {	
+	.wmd-input 
+	{ 
+		padding: 5px;
+	}
+
+	.wmd-preview 
+	{ 
+		margin-top: 1.2%;
+		height: 675px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 2%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 2%;
+	}
+}
+
+@media screen and (min-width: 641px) and (max-width: 854px) {
+	.wmd-panel
+	{
+	}
+	
+	.wmd-input 
+	{ 
+		padding: 10px;
+	}
+
+	.wmd-preview 
+	{ 
+		margin-top: 1.3%;
+		height: 684px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.8%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.8%;
+	}
+}
+
+@media screen and (min-width: 855px) and (max-width: 960px) {
+	.wmd-input 
+	{ 
+		padding: 14px;
+	}
+
+	.wmd-preview 
+	{ 
+		margin-top: 1.3%;
+		height: 692px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.4%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1.4%;
+	}
+}
+
+@media screen and (min-width: 961px) and (max-width: 1024px) {
+	.wmd-input 
+	{ 
+		padding: 17px;
+	}
+
+	.wmd-preview 
+	{ 
+		margin-top: 1.2%;
+		height: 698px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 1%;
+	}
+}
+@media screen and (min-width: 1024px) and (max-width: 1200px) {
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.8%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.8%;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.wmd-input 
+	{ 
+		padding: 20px;
+	}
+
+	.wmd-preview 
+	{ 
+		margin-top: 1.2%;
+		height: 704px;
+	}
+	#wmd-showHidePreview-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.7%;
+	}
+	#wmd-showHideEditor-button
+	{
+		width:40px;
+		height:40px;
+		margin-top: 0.7%;
+	}
+}

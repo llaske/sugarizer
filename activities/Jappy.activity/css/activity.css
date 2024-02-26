@@ -1,0 +1,26 @@
+body, html {
+    overflow: hidden;
+}
+.canvas {
+    display: flex;
+    flex-direction: column;
+}
+.palette {
+    z-index: 10;
+}
+button.icon span.pyj {
+    background-image: url(../activity/activity-icon.svg);
+}
+button.icon span.zip {
+    background-image: url(../icons/zip-archive.svg);
+}
+button.icon span.html {
+    background-image: url(../icons/text-html.svg);
+}
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+@font-face {
+    font-family: "Noto Emoji";
+    src: url("../fonts/NotoEmoji.woff") format('woff');
+}

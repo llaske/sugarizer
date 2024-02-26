@@ -1,0 +1,58 @@
+import random
+
+print ("<h1>👥 Memorize</h1><hr>", end='')
+
+pairs = ['🐇','🐈','🐒','🐋','🐎','🐍','🐢','🐝','🐂']
+count = len(pairs)
+nums = list(random.shuffle(pairs))\
+    .concat(list(random.shuffle(pairs)))
+
+def mem_button(num):
+    button = document.createElement('button')
+    button.innerHTML = '&nbsp;'
+    button.onclick = show(num)
+    return (button)
+
+for num in nums:
+    document.body.appendChild(mem_button(num))
+
+window.last_btn = Object()
+def show(num):
+    return def():
+        button = this
+        button.innerHTML = num
+        if button==window.last_btn:
+            return
+        if window.last_btn.innerHTML==button.innerHTML:
+            button.disabled = True
+            window.last_btn.disabled = True
+            button.innerHTML=window.last_btn.innerHTML=num
+            window.last_btn = Object()
+            window.count = count - 1
+            if count==0:
+                win()
+            return
+        window.last_btn.innerHTML = '&nbsp;'
+        window.last_btn = button
+
+def win():
+    print('<span id="prize">🏆</h1>')
+    print('<h2>Congratulations!</h2>')
+    for b in document.getElementsByTagName('button'):
+        b.style.display = 'none'
+
+print('''<style>\
+    body {\
+        text-align: center; }\
+    #prize {\
+        font-size:100pt;\
+        font-family: Noto Emoji;\
+    }\
+    button {\
+        font-size: 48pt;\
+        font-family: Noto Emoji;\
+        margin: 1px;\
+        width:120px;\
+        height:120px;\
+        display: inline;\
+    }</style>'''

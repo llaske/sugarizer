@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#000000">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   id="Icon"
+   width="45"
+   height="45"
+   viewBox="0 0 48.92 43.846"
+   overflow="visible"
+   enable-background="new 0 0 48.92 43.846"
+   xml:space="preserve"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docname="activity-stopwatch.svg"
+   sodipodi:docbase="/home/bens/olpc3d/stopwatch/activity"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"><metadata
+   id="metadata2238"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs2236" /><sodipodi:namedview
+   inkscape:window-height="816"
+   inkscape:window-width="1440"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0.0"
+   guidetolerance="10.0"
+   gridtolerance="10.0"
+   objecttolerance="10.0"
+   borderopacity="1.0"
+   bordercolor="#666666"
+   pagecolor="#ffffff"
+   id="base"
+   inkscape:zoom="9.2824886"
+   inkscape:cx="23.598161"
+   inkscape:cy="22.892568"
+   inkscape:window-x="0"
+   inkscape:window-y="29"
+   inkscape:current-layer="Icon"
+   height="45px"
+   width="45px" />
+
+
+
+
+
+
+
+
+<path
+   sodipodi:type="arc"
+   style="fill:&fill_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:3.02743053;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   id="path2186"
+   sodipodi:cx="21.976866"
+   sodipodi:cy="21.815269"
+   sodipodi:rx="19.606812"
+   sodipodi:ry="19.768406"
+   d="M 41.583677 21.815269 A 19.606812 19.768406 0 1 1  2.3700542,21.815269 A 19.606812 19.768406 0 1 1  41.583677 21.815269 z"
+   transform="matrix(0.9950145,0,0,0.9868809,2.0496201,0.5546025)" /><path
+   style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="M 8.6536187,4.8733103 L 5.7224121,8.1536565"
+   id="path2188"
+   sodipodi:nodetypes="cc" /><path
+   style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="M 23.700541,22.623243 L 37.640481,32.017563"
+   id="path4130"
+   sodipodi:nodetypes="cc" /><path
+   sodipodi:nodetypes="cc"
+   id="path2211"
+   d="M 39.919755,5.4588813 L 42.850961,8.7392275"
+   style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /><path
+   style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:&stroke_color;;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+   d="M 19.307658,-0.39682809 L 29.265715,-0.39567913"
+   id="path2213"
+   sodipodi:nodetypes="cc" /></svg>

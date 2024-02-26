@@ -1,0 +1,147 @@
+#leaderboard-view {
+  width: 100%;
+  height: 80%;
+  flex: auto;
+  display: flex;
+  overflow: none;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.leaderboard-main {
+  height: 80%;
+  width: 98%;
+  overflow: auto;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 0.8%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.leaderboard-main-header {
+  height: 50px;
+  width: 85%;
+  border: 3px solid black;
+  /*border-radius: 25px;*/
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  margin: 0.8vh;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.leaderboard-main-body {
+  height: calc(80% - 50px);
+  width: 98%;
+  overflow: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 1vh;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.leaderboard-panel-container {
+  min-height: 28%;
+  width: 90%;
+  border: 3px solid black;
+  border-radius: 25px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: row;
+  margin: 1vh;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.leaderboard-item {
+  font-size: 30px;
+  height: 100%;
+  font-weight: bold;
+  overflow: auto;
+  display: flex;
+  flex: auto;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.leaderboard-item-rank {
+  width: 20%;
+}
+
+.leaderboard-item-name {
+  width: 40%;
+}
+
+.leaderboard-item-icon {
+  width: 20%;
+  background-image: url(../icons/buddy-icon.svg);
+}
+
+.leaderboard-item-score {
+  width: 20%;
+}
+
+.leaderboard-footer {
+  width: 98%;
+  height: 12%;
+  margin: 0.8%;
+  margin-top: 0%;
+  margin-bottom: 0.5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btn-back-block {
+  margin: 0% 1.5%;
+  background-image: url(../icons/go-left-black.svg);
+}
+
+@media only screen and (max-width: 550px) {
+  .leaderboard-main-header {
+    height: 30px;
+  }
+
+  .leaderboard-main-body {
+    height: calc(80% - 30px);
+  }
+
+  .leaderboard-panel-container {
+    height: 20%;
+  }
+
+  .leaderboard-item {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  .leaderboard-main-header {
+    height: 30px;
+  }
+
+  .leaderboard-main-body {
+    height: calc(80% - 30px);
+  }
+
+  .leaderboard-panel-container {
+    height: 20%;
+  }
+
+  .leaderboard-item {
+    font-size: 15px;
+  }
+}

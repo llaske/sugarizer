@@ -1,0 +1,55 @@
+.layer_table{
+	width:100%;
+	text-align:center;
+}
+.layer_label{
+	color:#fff;
+	height:30px;
+	display: table-cell;
+	vertical-align:middle;
+}
+.hr{
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.icon{
+	height:17px;
+}
+.icon_cell{
+	width:25px;
+	text-align:center;
+}
+
+.popout_panel{
+	position: absolute;
+	width: 0px;
+	height: 200px;
+	left: 260px;
+	text-align: center;
+	line-height: 33px;
+	z-index: 9999999999;
+	background-color: #333333;
+	color: #fff;
+	opacity:0.0;
+	border-radius: 4px;
+	-webkit-transition: opacity .75s ease;
+	transition: opacity .75s ease;
+}
+.popout_panel::before {
+	position: inherit;;
+	width: 12px;
+	height: 12px;
+	left:0px;
+	top: 50%;
+	margin-top: -6px;
+	margin-left: -6px;
+	z-index: inherit;
+	background-color: inherit;
+	transform: rotate(45deg);
+	content: "";
+	opacity:inherit;
+}
+.popout_panel.show{
+	width: 250px;
+	opacity:1.0;
+}

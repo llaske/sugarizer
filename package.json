@@ -1,0 +1,40 @@
+{
+  "name": "Sugarizer",
+  "version": "1.7.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder -mw"
+  },
+  "repository": "https://github.com/llaske/sugarizer",
+  "author": "Lionel Laské <lionel@sugarizer.org>",
+  "description": "The leading learning platform for children",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "electron": "~22.3.1",
+    "ini": "~1.3.6",
+    "requirejs": "~2.3.5",
+    "normalize-url": "~4.5.1",
+    "hosted-git-info": "~2.8.9",
+    "tmp": "~0.1.0"
+  },
+  "devDependencies": {
+    "grunt": "~1.6.0",
+    "terser": "~5.16.0",
+    "grunt-terser": "~2.0.0"
+  },
+  "build": {
+    "appId": "org.olpc-france.sugarizer",
+    "copyright": "Copyright © 2013-2023, Lionel Laské, Sugar Labs Inc. and Contributors",
+    "productName": "Sugarizer",
+    "electronVersion": "22.3.1",
+    "mac": {
+      "category": "public.app-category.education"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
+[
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#000000">
+]>
+<svg contentScriptType="text/ecmascript" width="55px" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" zoomAndPan="magnify" contentStyleType="text/css" height="55px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <g id="Icon">
+        <circle fill="&fill_color;" r="22.5" stroke-width="3.5" cx="27.5" cy="27.5" stroke="&stroke_color;"/>
+        <line fill="none" x1="27.5" x2="27.5" y1="10" y2="14" stroke="&stroke_color;" stroke-width="3.5"/>
+        <line fill="none" x1="27.5" x2="27.5" y1="41" y2="45" stroke="&stroke_color;" stroke-width="3.5"/>
+        <line fill="none" x1="41" x2="45" y1="27.5" y2="27.5" stroke="&stroke_color;" stroke-width="3.5"/>
+        <line fill="none" x1="10" x2="14" y1="27.5" y2="27.5" stroke="&stroke_color;" stroke-width="3.5"/>
+        <line stroke-linecap="round" fill="none" x1="37.5" x2="27.5" y1="14" y2="27.5" stroke="&stroke_color;" stroke-width="3.5"/>
+        <line stroke-linecap="round" fill="none" x1="27.5" x2="38" y1="27.5" y2="34" stroke="&stroke_color;" stroke-width="3.5"/>
+    </g>
+</svg>

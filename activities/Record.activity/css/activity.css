@@ -1,0 +1,193 @@
+#main-toolbar #activity-button {
+    background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #photo-button {
+    background-image: url(../icons/photo.svg);
+}
+
+#main-toolbar #video-button {
+    background-image: url(../icons/video.svg);
+}
+
+#main-toolbar #audio-button {
+    background-image: url(../icons/audio.svg);
+}
+
+#main-toolbar #help-button {
+    background-image: url(../icons/help.svg);
+}
+
+#loading {
+    z-index: 100;
+    background: #ccc;
+    display: none;
+    position: absolute;
+    width: 100%;
+}
+
+#loading-stop {
+    margin-left: auto;
+    margin-right: auto;
+    width: 8%;
+    display: block;
+}
+
+#loading-svg {
+    width: 40%;
+    height: 40%;
+}
+
+.delbtn {
+    position: relative;
+    bottom: 1%;
+    right: 1%;
+    height: 55px;
+    width: 56px;
+}
+
+.delbtn:hover {
+    border-style: none;
+}
+
+.delbtn:focus {
+    border-style: none;
+}
+
+html, body {
+    overflow-y: visible;
+}
+body {
+    overflow: hidden;
+}
+
+.web-activity-icon {
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 2px;
+}
+
+.icon-button {
+    border-radius: 22px;
+    margin-top: 5px;
+    height: 35px;
+    background-color: #808080;
+    border: 2px solid #808080;
+}
+
+/* UI styling for introJs-tutorial */
+
+.introjs-overlay {
+    background-color: #000 !important;
+    opacity: .8 !important;
+  }
+
+.introjs-tooltip {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
+}
+
+.introjs-helperLayer{
+  background: inherit !important;
+  opacity: 0.6 !important;
+}
+
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color : #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 5px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
+}
+
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+}

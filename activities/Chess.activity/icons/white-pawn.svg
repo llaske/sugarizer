@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="55"
+   height="55"
+   id="svg3006">
+  <defs
+     id="defs3008" />
+  <metadata
+     id="metadata3011">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-586.53246,-368.27837)"
+     id="layer1">
+    <path
+       d="m 598.71433,418.87212 c -0.0478,-0.57398 -0.0717,-1.6741 -0.0717,-3.30038 0,-5.88329 1.72194,-10.2838 5.16582,-13.20152 1.14796,-0.95664 2.60677,-1.88936 4.37659,-2.79816 -1.8176,-0.57397 -3.0373,-1.96111 -3.65911,-4.16136 -0.23916,-0.71747 -0.35874,-1.45886 -0.35874,-2.22417 0,-3.20471 1.62627,-5.50064 4.87883,-6.88774 -0.76536,-1.38713 -1.14802,-2.75032 -1.14796,-4.08961 -6e-5,-2.20026 1.07615,-3.82653 3.22863,-4.87883 0.90875,-0.43049 1.8893,-0.64573 2.94164,-0.64573 2.43937,0 4.23305,0.93272 5.38106,2.79816 0.5261,0.81314 0.78917,1.72193 0.78923,2.7264 -6e-5,1.29145 -0.43055,2.65466 -1.29146,4.08961 3.30032,1.33928 4.95052,3.63519 4.95058,6.88774 -6e-5,2.53509 -0.93278,4.44835 -2.79816,5.7398 -0.38271,0.287 -0.8132,0.50224 -1.29145,0.64573 4.30479,2.20026 7.10294,4.99841 8.39447,8.39444 0.81307,2.1046 1.21964,4.63968 1.21969,7.60524 -5e-5,1.57844 -0.024,2.67856 -0.0717,3.30038 l -30.63615,0"
+       id="path1688"
+       style="font-size:12px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.8125;stroke-linecap:square;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;font-family:Bitstream Vera Sans" />
+  </g>
+</svg>

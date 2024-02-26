@@ -1,0 +1,6 @@
+[Activity]
+name = Abacus
+activity_version = 1
+bundle_id = com.homegrownapps.abacus
+exec = sugar-activity-web
+icon = activity-icon

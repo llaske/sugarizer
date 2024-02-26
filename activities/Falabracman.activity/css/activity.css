@@ -1,0 +1,345 @@
+body {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+@font-face {
+    font-family: 'VeraBd';
+    font-weight: 250;
+    src: url('../fonts/VeraBd.ttf');
+}
+
+@font-face {
+    font-family: 'ds_moster';
+    font-weight: 250;
+    src: url('../fonts/Lagunas-9a95.ttf');
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #restart-button {
+  background-image: url(../icons/restart.svg);
+}
+
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
+#settingScreen {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  border-radius: 0px;
+  margin: 1px;
+  width: 10px;
+  height: 10px;
+  top: 10px;
+  left: 10px;
+  font-family: ds_moster;
+  font-size: 20px;
+  position: absolute;
+  visibility: hidden;
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+#panel-body {
+  overflow-y: auto;
+  height: 10px;
+}
+
+.settingMenu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 5px;
+}
+
+#addWord {
+  height: 80px;
+  width: 80px;
+  background-image: url(../icons/add.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#deleteAllWords {
+  height: 80px;
+  width: 80px;
+  background-image: url(../icons/delete.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#saveDict {
+  height: 80px;
+  width: 80px;
+  background-image: url(../icons/save.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#resetDict {
+  height: 80px;
+  width: 80px;
+  background-image: url(../icons/reset.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+button.editWord {
+  height: 50px;
+  width: 50px;
+  background-image: url(../icons/edit.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+button.deleteWord {
+  height: 50px;
+  width: 50px;
+  background-image: url(../icons/minus.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+button.saveEditWord {
+  height: 50px;
+  width: 50px;
+  background-image: url(../icons/ok.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+button.resetEditWord {
+  height: 50px;
+  width: 50px;
+  background-image: url(../icons/delete.svg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.settingButtons {
+  background: transparent;
+  border: none;
+  font-family: ds_moster;
+  color: black
+}
+
+.dictRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fontSettingMain {
+  font-size: 30px;
+}
+
+@media only screen and (max-height: 550px) {
+  #addWord {
+    height: 60px;
+    width: 60px;
+  }
+
+  #deleteAllWords {
+    height: 60px;
+    width: 60px;
+  }
+
+  #saveDict {
+    height: 60px;
+    width: 60px;
+
+  }
+
+  #resetDict {
+    height: 60px;
+    width: 60px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #addWord {
+    height: 60px;
+    width: 60px;
+  }
+
+  #deleteAllWords {
+    height: 60px;
+    width: 60px;
+  }
+
+  #saveDict {
+    height: 60px;
+    width: 60px;
+
+  }
+
+  #resetDict {
+    height: 60px;
+    width: 60px;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .dictRow {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fontSettingMain {
+    font-size: 20px;
+  }
+
+}
+
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: .8 !important;
+}
+
+.introjs-tooltip {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
+}
+
+.introjs-helperLayer {
+  background: inherit !important;
+  opacity: 0.6 !important;
+}
+
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
+}
+
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+}
+
+.web-activity-icon {
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 2px;
+}
+
+.icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}

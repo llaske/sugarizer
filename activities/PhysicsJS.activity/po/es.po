@@ -1,0 +1,140 @@
+#. extracted from ../localize.ini
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Sun Apr 11 2021 11:27:18 GMT+0200 (heure d’été d’Europe centrale)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: ini2po 0.0.1\n"
+
+#: TutoPrev
+msgctxt "TutoPrev"
+msgid "Prev"
+msgstr "Ant"
+
+#: TutoNext
+msgctxt "TutoNext"
+msgid "Next"
+msgstr "Sig"
+
+#: TutoEnd
+msgctxt "TutoEnd"
+msgid "End"
+msgstr "Fin"
+
+#: TutoExplainTitle
+msgctxt "TutoExplainTitle"
+msgid "Physics Activity"
+msgstr "Actividad \"Física\""
+
+#: TutoExplainContent
+msgctxt "TutoExplainContent"
+msgid "Welcome into the Physics activity. Physics is a physical world simulator and playground. You can add squares, circles, triangles and see them come to life with forces (think gravity and Newton) and inertia"
+msgstr "Bienvenido a la actividad \"Física\". En \"Física\", el alumno entrará en un simulador/zona de juegos en un mundo físico, donde podrás añadir cuadrados, círculos y triángulos que cobrarán vida mediante fuerzas (como la gravedad descubierta por Newton) e inercia"
+
+#: TutoCircleTitle
+msgctxt "TutoCircleTitle"
+msgid "Circle"
+msgstr "Círculo"
+
+#: TutoCircleContent
+msgctxt "TutoCircleContent"
+msgid "Click here to set circle mode. The next item created will be a circle"
+msgstr "Haz clic aquí para entrar en el modo \"Círculo\". El próximo objeto generado será un círculo"
+
+#: TutoBoxTitle
+msgctxt "TutoBoxTitle"
+msgid "Box"
+msgstr "Cuadrado"
+
+#: TutoBoxContent
+msgctxt "TutoBoxContent"
+msgid "Click here to set box mode. The next item created will be a box"
+msgstr "Haz clic aquí para entrar en el modo \"Cuadrado\". El próximo objeto generado será un cuadrado"
+
+#: TutoTriangleTitle
+msgctxt "TutoTriangleTitle"
+msgid "Triangle"
+msgstr "Triángulo"
+
+#: TutoTriangleContent
+msgctxt "TutoTriangleContent"
+msgid "Click here to set triangle mode. The next item created will be a triangle"
+msgstr "Haz clic aquí para entrar en el modo \"Triángulo\". El próximo objeto generado será un triángulo"
+
+#: TutoPolygonTitle
+msgctxt "TutoPolygonTitle"
+msgid "Polygon"
+msgstr "Polígono"
+
+#: TutoPolygonContent
+msgctxt "TutoPolygonContent"
+msgid "Click here to set polygon mode. The next item created will be a polygon"
+msgstr "Haz clic aquí para entrar en el modo \"Polígono\". El próximo objeto generado será un polígono"
+
+#: TutoGravityTitle
+msgctxt "TutoGravityTitle"
+msgid "Gravity direction"
+msgstr "Dirección de la gravedad"
+
+#: TutoGravityContent
+msgctxt "TutoGravityContent"
+msgid "Click on this icon to change gravity direction. Each time you click on the button, the gravity is rotated from 45 degrees"
+msgstr "Haz clic aquí para cambiar la dirección de la gravedad. Cada vez que hagas clic en el botón, la gravedad rotará 45 grados"
+
+#: TutoSensorTitle
+msgctxt "TutoSensorTitle"
+msgid "Sensor"
+msgstr "Sensor"
+
+#: TutoSensorContent
+msgctxt "TutoSensorContent"
+msgid "When this icon is active, your device support gravity so you could just turn your device to change the direction of gravity"
+msgstr "Cuando este icono esté activado, tu dispositivo ajustará la gravedad, así que simplemente deberás girarlo para cambiar la gravedad del juego"
+
+#: TutoAppleTitle
+msgctxt "TutoAppleTitle"
+msgid "Newton"
+msgstr "Newton"
+
+#: TutoAppleContent
+msgctxt "TutoAppleContent"
+msgid "Click here to turn on the Newton laws. Objects will attract each other. The strength of attraction depends on size of the object"
+msgstr "Haz clic aquí para revisar las leyes de Newton, que básicamente explican que los objetos se atraen entre sí mediante una fuerza que depende del tamaño de los objetos"
+
+#: TutoClearTitle
+msgctxt "TutoClearTitle"
+msgid "Remove"
+msgstr "Eliminar"
+
+#: TutoClearContent
+msgctxt "TutoClearContent"
+msgid "Click here to pass in remove mode. Every object you will click will be deleted"
+msgstr "Haz clic aquí para activar el modo \"Eliminar\", con el que podrás eliminar cualquier objeto haciendo clic sobre él"
+
+#: TutoPauseTitle
+msgctxt "TutoPauseTitle"
+msgid "Pause"
+msgstr "Pausar"
+
+#: TutoPauseContent
+msgctxt "TutoPauseContent"
+msgid "Click here to freeze the screen or unfreeze it"
+msgstr "Haz clic aquí para pausar/reanudar la actividad"
+
+#: TutoBoardTitle
+msgctxt "TutoBoardTitle"
+msgid "Board"
+msgstr "Tablero"
+
+#: TutoBoardContent
+msgctxt "TutoBoardContent"
+msgid "Here all of your objects will appear. Click anywhere to add a new item of the current type or click on an existing item on the board to move it. All objects will be attracted to the point of gravity"
+msgstr "Aquí aparecerán todos tus objetos. Haz clic en cualquier punto del tablero para añadir un nuevo objeto del tipo seleccionado, o haz clic sobre un objeto ya existente para moverlo. Los objetos se verán atraídos por la gravedad que hayas ajustado"
+

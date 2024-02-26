@@ -1,0 +1,455 @@
+/*For smartphone mode*/
+/** Splitbar only appears on desktop mode. I hid it when window size becomes small. **/
+body {
+  height: 100vh;
+}
+
+.toolbar {
+  padding: 0 30px !important;
+}
+
+.palette .wrapper {
+  max-width: none !important;
+}
+
+.splitbar {
+   display: none !important;
+}
+
+#image-save, #previous-button, #next-button, #add-button, #add-globe, #text-button, #sort-button, #clean-all-button {
+  display: none;
+}
+
+@media only screen and (min-width: 250px) {
+  #text-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 290px) {
+  #image-save {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 330px) {
+  #add-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 390px) {
+  #add-globe {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 440px) {
+  #previous-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  #sort-button {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 550px) {
+  #next-button {
+    display: inline-block;
+  } 
+}
+
+@media only screen and (min-width: 610px) {
+  #clean-all-button {
+    display: inline-block;
+  } 
+}
+
+@media only screen and (min-width: 690px) {
+   .splitbar {
+    display: inline-block !important;
+  }
+}
+
+/****/
+
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/fototoon.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+#doc-open {
+  background-image: url(../icons/document-open.svg);
+}
+
+#doc-save {
+  background-image: url(../icons/document-save.svg);
+}
+
+#image-save {
+  background-image: url(../icons/save-as-image.svg);
+}
+
+#previous-button {
+  background-image: url(../icons/go-previous-paired.svg);
+}
+
+#next-button {
+  background-image: url(../icons/go-next-paired.svg);
+}
+
+#add-button {
+  background-image: url(../icons/insert-picture.svg);
+}
+
+#add-globe {
+  background-image: url(../icons/globe.svg);
+}
+
+#text-button {
+  background-image: url(../icons/format-text-size.svg);
+}
+
+#sort-button {
+  background-image: url(../icons/thumbs-view.svg);
+}
+
+#clean-all-button {
+  background-image: url(../icons/edit-clear.svg);
+}
+
+#text-style-toolbar {
+  padding: 0px 25px;
+}
+
+#text-inc-size {
+  background-image: url(../icons/resize+.svg);
+}
+
+#text-dec-size {
+  background-image: url(../icons/resize-.svg);
+}
+
+#text-set-bold {
+  background-image: url(../icons/format-text-bold.svg);
+}
+
+#text-set-italic {
+  background-image: url(../icons/format-text-italic.svg);
+}
+
+.color-picker {
+  width: 44px;
+  height: 44px;
+  margin: 2px;
+  border-radius: 22px;
+  border-color: white;
+}
+
+#text-palette textarea {
+  height: 75px;
+  resize: none;
+}
+
+/* fix padding on textpalette title */
+#text-palette .row.small {
+    padding: 10px 10px 0px 10px;
+}
+
+/* these are the icons in the globes menu */
+button.icon {
+  background-repeat: no-repeat;
+  background-size: 33px;
+}
+
+button#GLOBE.icon {
+  background-image: url(../icons/globe.svg);
+}
+
+button#EXCLAMATION.icon {
+  background-image: url(../icons/exclamation.svg);
+}
+
+button#WHISPER.icon {
+  background-image: url(../icons/whisper.svg);
+}
+
+button#RECTANGLE.icon {
+  background-image: url(../icons/box.svg);
+}
+
+button#CLOUD.icon {
+  background-image: url(../icons/think.svg);
+}
+
+#canvas {
+background-color: #fff;
+background-image:
+linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
+linear-gradient(#eee .1em, transparent .1em);
+background-size: 100% 1.2em;
+};
+
+#canvas p {
+  margin-top: 25%;
+  text-align: center;
+}
+
+#mainCanvas {
+  background-color: #ffffff;
+  position: absolute;
+}
+
+#sortCanvas {
+  background-color: #ffffff;
+  position: absolute;
+}
+
+#page-counter {
+  color: #ffffff;
+  background-color: #282828;
+  width: 80px;
+  height: 80px;
+  border: solid 2px  white;
+  border-radius: 60px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  text-align: center;
+}
+
+#page-counter span {
+  display: inline-block;
+  vertical-align: middle;
+  /* css trick: line-height bigger than div height to show centered :/ */
+  line-height: 80px;
+  font-family: Sans;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#wait {
+  color: #ffffff;
+  background-color: #282828;
+  text-align: center;
+  width: 120px;
+  height: 120px;
+  border: solid 2px  white;
+  border-radius: 60px;
+  text-align: center;
+  opacity: 0.7;
+  vertical-align: middle;
+  margin: 200px auto;
+}
+
+#wait img {
+  margin-top: 20%;
+  height: 60%;
+}
+
+/* This probably should be upstream (sugar-web, I don't know why
+   the separators in the toolbars are wrong */
+
+.toolbar hr {
+  margin-bottom: 5px;
+}
+
+
+.splitbar {
+	background-image: url(../icons/split.svg);
+	background-position: center;
+	background-repeat: no;
+	width: 3px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: .8 !important;
+} 
+
+.introjs-tooltip {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
+}
+
+.introjs-helperLayer {
+  background: inherit !important;
+  opacity: 0.6 !important;
+}
+
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
+}
+
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+}
+
+.web-activity-icon {
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 2px;
+}
+
+.icon-button {
+	border-radius: 22px;
+	margin-top: 5px;
+	height: 35px;
+	background-color: #808080;
+	border: 2px solid #808080;
+}
+@media screen and (min-width: 775px)
+  {
+    .warningbox-cancel-button {
+	    position: absolute;
+      right: 240px;
+      width: 210px;
+      float:right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
+    }
+    .warningbox-refresh-button {
+      position: absolute;
+      right: 10px;
+      width: 210px;
+      float: right;
+      text-align: left;
+      padding-left: 10px;
+      padding-right: 40px;
+      font-size:15px;
+  }
+  
+}
+@media screen and (max-width: 774px)
+  {
+    .warningbox-cancel-button {
+	    position: absolute;
+      right: 170px;
+      width: 160px;
+      float: right;
+      text-align: left;
+      padding-left: 10px;
+      font-size:15px;
+  }
+  .warningbox-refresh-button {
+    position: absolute;
+    right: 10px;
+    width: 140px;
+    float: right;
+    text-align: left;
+    padding-left: 10px;
+    font-size:15px;
+  }
+  
+}
+
+.pico-overlay {
+  opacity: 0.66 !important;
+}

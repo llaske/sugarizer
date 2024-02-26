@@ -1,0 +1,369 @@
+* {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  overflow: hidden;
+	height: 100vh;
+}
+
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+
+#btn-next {
+  background-image: url(../assets/themeChanger.svg);
+}
+
+/*Add image to fullscreen/unfullscreen button*/
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: .8 !important;
+}
+
+.introjs-tooltip {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
+}
+
+.introjs-helperLayer{
+  background: inherit !important;
+  opacity: 0.6 !important;
+}
+
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color : #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
+}
+
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+}
+
+.web-activity-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2px;
+}
+
+.icon-button {
+  border-radius: 22px;
+  margin-top: 5px;
+  height: 35px;
+  background-color: #808080;
+  border: 2px solid #808080;
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 0;
+  right: 8%;
+  position: absolute;
+  visibility: hidden;
+  z-index: 5;
+}
+
+.blockrain-game-holder {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 140%;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+
+@media only screen and (min-width: 500px) {
+
+.blockrain-game-holder {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+}
+
+/* Touch Controls */
+.blockrain-touch {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: block;
+  border-radius: 100%;
+  border: 1px solid black;
+  background: rgba(255,255,255,0.2);
+  z-index: 10;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  line-height: 50px;
+  text-align: center;
+}
+
+.blockrain-touch:active {
+  background: rgba(255,255,255,0.3);
+}
+
+.blockrain-touch-left {
+  left: -60px;
+  bottom: 10px;
+}
+
+/* Buttons */
+.blockrain-btn {
+  position: relative;
+  display: inline-block;
+  background: none;
+  color: #ffffff;
+  text-decoration: none;
+  border: 2px solid #ffffff;
+  padding: 15px 30px;
+  font-size: 18px;
+  text-align: center;
+  cursor: default;
+}
+
+.blockrain-btn::before {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  border: 2px solid #ffffff;
+  border-top: none;
+  border-right: none;
+  transition: all 0.2s ease;
+}
+
+.blockrain-btn::after {
+  position: absolute;
+  content: "";
+  top: 0px;
+  left: 100%;
+  bottom: 0px;
+  right: 0px;
+  border: 2px solid #ffffff;
+  border-left: none;
+  border-bottom: none;
+  transition: all 0.2s ease;
+}
+
+.blockrain-btn:hover::before {
+  left: 5px;
+  bottom: -8px;
+  right: -8px;
+}
+
+.blockrain-btn:hover::after {
+  top: 5px;
+  bottom: -8px;
+  right: -8px;
+}
+
+/* Score */
+.blockrain-score-holder {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: right;
+}
+
+.blockrain-score-msg {
+  font-size: 14px;
+  line-height: 100%;
+  margin-bottom: 0.2em;
+}
+
+.blockrain-score-num {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* High Score */
+.blockrain-Hscore-holder {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  text-align: left;
+}
+.blockrain-Hscore-msg {
+  font-size: 14px;
+  line-height: 100%;
+  margin-bottom: 0.2em;
+
+}
+.blockrain-Hscore-num {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Menu */
+.blockrain-start-holder, .blockrain-game-over-holder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(0,0,0,0.8);
+  text-align: center;
+}
+
+.blockrain-start, .blockrain-game-over {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+}
+
+.blockrain-start-msg, .blockrain-game-over-msg {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+
+@media only screen and (min-width: 500px) {
+  #canvas {
+    width: 65vw;
+    right: 17.5vw;
+    left: 17.5vw;
+  }
+}
+@media only screen and (min-width: 800px) {
+  #canvas {
+    width: 50vw;
+    right: 25vw;
+    left: 25vw;
+  }
+}
+@media only screen and (min-width: 1100px) {
+  #canvas {
+    width: 40vw;
+    right: 30vw;
+    left: 30vw;
+  }
+}
+
+/*Adjusted unfullscreen button position so it won't overlap with the activity container*/
+@media only screen and (max-width: 500px) {
+  #canvas {
+    width: 100vw;
+    height: 70vh;
+  }
+  #unfullscreen-button
+  {
+    top: 70%;
+    right: 3%;
+  }
+}

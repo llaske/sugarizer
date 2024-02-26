@@ -1,0 +1,33 @@
+<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="129.999869" width="129.999869" y="-1" x="-1"/>
+ </g>
+
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_1">
+   <g stroke="null" id="svg_2">
+    <path stroke="null" fill="#ffffff" id="svg_3" d="m58.685,44l0,448.00001l394.629,0l0,-448.00001l-394.629,0zm364.212,421.38514l-333.794,0l0,-394.77027l333.795,0l0,394.77027l-0.001,0z"/>
+   </g>
+  </g>
+  <g id="svg_25"/>
+  <g id="svg_26"/>
+  <g id="svg_27"/>
+  <g id="svg_28"/>
+  <g id="svg_29"/>
+  <g id="svg_30"/>
+  <g id="svg_31"/>
+  <g id="svg_32"/>
+  <g id="svg_33"/>
+  <g id="svg_34"/>
+  <g id="svg_35"/>
+  <g id="svg_36"/>
+  <g id="svg_37"/>
+  <g id="svg_38"/>
+  <g id="svg_39"/>
+  <text fill="#000000" stroke-width="0" x="129.999998" y="211.435095" id="svg_4" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(19.740739822387695,0,0,1,-2436.2961769104004,0) " stroke="#000"/>
+  <text fill="#000000" stroke-width="0" stroke-opacity="null" fill-opacity="null" x="283.999998" y="311.435095" id="svg_6" font-size="24" font-family="Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve" transform="matrix(19.267961244842894,0,0,5.851312160491943,-5348.409734013467,-1535.8193075582385) " stroke="#000"/>
+  <path stroke="null" id="svg_5" d="m367.479867,341.110603l-29.687018,-55.546065c-8.950526,-16.741438 -23.590339,-44.148504 -32.540919,-60.893181l-29.684244,-55.542692c-8.95941,-16.751259 -23.599213,-16.751259 -32.54677,0l-29.678232,55.542692c-8.950526,16.744676 -23.599258,44.158122 -32.546832,60.893181l-29.681256,55.546065c-8.950509,16.75759 -1.624604,30.454618 16.273452,30.454618l183.800617,0c17.91593,0 25.232764,-13.697038 16.291192,-30.454618l0.000009,0zm-99.708634,8.598959l-17.607281,0l0,-18.263629l17.607281,0l0,18.263629zm-0.848278,-31.720978l-15.895697,0l-1.579705,-78.143333l18.914148,0l-1.438737,78.143333l-0.000009,0z" stroke-opacity="null" stroke-width="null" fill="#ffffff"/>
+ </g>
+</svg>

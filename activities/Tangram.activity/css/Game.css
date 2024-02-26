@@ -1,0 +1,236 @@
+#game-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.game-main {
+  width: 100%;
+  height: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.game-footer {
+  width: 98%;
+  height: 12%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#floating-info-block {
+  z-index: 0;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items:center;
+}
+
+#floating-game-over-block {
+  z-index: 0;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:center;
+}
+
+#floating-celebration-block {
+  z-index: 0;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:center;
+}
+
+.floating-block {
+  z-index: 0;
+  position: absolute;
+  height: 300px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items:flex-start;
+}
+
+.detail-block {
+  width: 47%;
+  height: 90%;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 3.3vh;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.detail-block-logo {
+	width: 40%;
+	height: 100%;
+	background-repeat: no-repeat;
+  background-position: left;
+  background-size: contain;
+}
+
+.detail-block-content {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.detail-block-content div {
+  width:90%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.score-title {
+  width: 65%;
+}
+
+.score-val {
+  width: 35%;
+}
+
+.tangram-name {
+  width: 100%;
+}
+
+.clock-logo {
+	background-image: url(../icons/clock.svg);
+}
+
+.detil-block-content {
+	width: 50%;
+}
+
+
+.gameOver-block {
+  width: 85%;
+  height: 15%;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 3.5vh;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.gameOver-block-logo {
+	width: 50%;
+	height: 100%;
+	background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.gameOver-block-content {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.gameOver-block-content div {
+  width:90%;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.hintsUsed-title {
+  width: 65%;
+}
+
+.hintsUsed-val {
+  width: 35%;
+}
+
+.emoji-won-block{
+  height: 40%;
+  border: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center;
+  background-image: url(../images/smile.svg);
+}
+
+.emoji-lost-block{
+  height: 40%;
+  border: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position:center;
+  background-image: url(../images/sad.svg);
+}
+
+.pulse {
+	-webkit-animation: pulse 0.8s ease both;
+	        animation: pulse 0.8s ease both;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.tangram-name {
+  overflow: hidden;
+}
+
+.tangram-name-content {
+  overflow: hidden;
+  width: 100%;
+}
+
+.tangram-difficulty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 3vh;
+}
+
+@media (orientation: portrait) {
+  .detail-block {
+    font-size: 3.3vw;
+  }
+
+  .gameOver-block {
+    font-size: 3.5vw;
+  }
+}

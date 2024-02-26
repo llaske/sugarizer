@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#000000">
+  <!ENTITY stroke_color "#FFFFFF">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55">
+	<defs>
+		<mask id="Mask" maskUnits="userSpaceOnUse" x="0" y="0" width="55" height="55">
+            <rect x="0" y="0" width="55" height="55" fill="#FFFFFF" stroke="none"/>
+            <line x1="11" y1="19" x2="16" y2="19" stroke="#000000" stroke-width="2.5"/>
+            <line x1="18" y1="19" x2="22" y2="19" stroke="#000000" stroke-width="2.5"/>
+            <line x1="11" y1="24" x2="13" y2="24" stroke="#000000" stroke-width="2.5"/>
+            <line x1="15" y1="24" x2="18" y2="24" stroke="#000000" stroke-width="2.5"/>
+            <line x1="11" y1="29" x2="14" y2="29" stroke="#000000" stroke-width="2.5"/>
+            <path d="M 17 35 l 2 -6 l 19 -19 l 4 3 l -19 19 z" fill="#000000" stroke="#000000" stroke-width="3"/>
+		</mask>
+	</defs>
+    <rect x="8" y="14" width="25" height="27" style="fill:&stroke_color;;stroke:&stroke_color;;stroke-width:3.5" mask="url(#Mask)"/>
+    <path d="M 17 35 l 1 -5 l 4 3 z" fill="&stroke_color;" stroke="none"/>
+    <path d="M 17 35 m 2 -6 l 19 -19 l 4 3 l -19 19 z" fill="&stroke_color;" stroke="none"/>
+    <path d="M 46 17 l 7 7 l -14 0 z" fill="&stroke_color;" stroke="none"/>
+    <path d="M 46 38 l 7 -7 l -14 0 z" fill="&stroke_color;" stroke="none"/>
+</svg>

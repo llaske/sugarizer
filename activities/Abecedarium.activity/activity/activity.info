@@ -1,0 +1,6 @@
+[Activity]
+name = Abecedarium
+activity_version = 5
+bundle_id = org.olpcfrance.Abecedarium
+exec = sugar-activity-web
+icon = activity-icon

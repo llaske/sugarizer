@@ -1,0 +1,123 @@
+#setting-editor-screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+.setting-editor-main {
+  width: 100%;
+  height: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.box2 {
+  text-align: center;
+  font-weight: 900;
+  font-family: arial;
+  position: relative;
+}
+
+.setting-editor-sidebar {
+  width: 29.5%;
+  height: 96%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 1.5vw;
+}
+
+.sb11:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 2vw solid transparent;
+  border-right: 2vw solid white;
+  border-top: 2vw solid transparent;
+  border-bottom: 2vw solid transparent;
+  left: -4vw;
+}
+
+.setting-editor-sidebar-element {
+  width: 90%;
+  height: 10%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3vh;
+  color: black;
+}
+
+select {
+  width: 225px;
+  padding: 4px;
+  line-height: 30px;
+  background-color: #e5e5e5;
+  border: 2px solid #e5e5e5;
+  border-radius: 30px;
+  outline: 0;
+}
+
+.category-chooser {
+  width: 90%;
+  height: 6%;
+}
+
+.setting-editor-sidebar form {
+  width: 90%;
+}
+
+.setting-editor-sidebar form label {
+  font-size: 2.5vh;
+  display: block;
+  margin: 0.5vw;
+}
+
+.setting-editor-sidebar form input {
+  width: 90%;
+  height: 10%;
+  margin: 0.5vw;
+  font-size: 2.5vh;
+}
+
+.valid-shape-display svg {
+  width: 100%;
+  height: 100%;
+}
+
+.setting-editor-footer {
+  width: 98%;
+  height: 12%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-save {
+  background-image: url(../icons/save.svg);
+}
+
+.btn-random {
+  background-image: url(../icons/random.svg);
+}
+
+@media (orientation: portrait) {
+  .setting-editor-sidebar-element {
+    font-size: 3vw;
+  }
+
+  .setting-editor-sidebar form label {
+    font-size: 2.5vw;
+  }
+
+  .setting-editor-sidebar form input {
+    font-size: 2.5vw;
+  }
+}

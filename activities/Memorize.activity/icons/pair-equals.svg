@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="42"
+   height="42"
+   id="svg2"
+   version="1.0">
+  <defs
+     id="defs4" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#4c4d4f;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.57073879;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect7017-3"
+       width="22.068821"
+       height="22.068821"
+       x="1.2632533"
+       y="1.263252"
+       ry="3.3272192" />
+    <rect
+       style="fill:#4c4d4f;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:2.57073879;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect7017-3-3"
+       width="22.068821"
+       height="22.068821"
+       x="18.545357"
+       y="18.790493"
+       ry="3.3272192" />
+    <rect
+       style="fill:#4c4d4f;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.09956658;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect7017-3-3-0"
+       width="16.177425"
+       height="16.177425"
+       x="13.52413"
+       y="12.543583"
+       ry="8.0694647"
+       rx="8.0887127" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="15.688716"
+       y="25.167316"
+       id="text3476"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3478"
+         x="15.688716"
+         y="25.167316"
+         style="font-size:14px;fill:#ffffff">=</tspan></text>
+  </g>
+</svg>
