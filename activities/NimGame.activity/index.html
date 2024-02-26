@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>The Game of Nim</title>
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"
+    />
+    <link
+      rel="stylesheet"
+      media="not screen and (device-width: 1200px) and (device-height: 900px)"
+      href="lib/sugar-web/graphics/css/sugar-96dpi.css"
+    />
+    <link
+      rel="stylesheet"
+      media="screen and (device-width: 1200px) and (device-height: 900px)"
+      href="lib/sugar-web/graphics/css/sugar-200dpi.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/liquidjs/dist/liquid.browser.min.js"></script>
+      <script data-main="js/loader" src="./lib/require.js"></script>
+      <script type="text/javascript" src="../../cordova.js"></script>
+      
+    <!-- ////////////////////////////// -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/activity.css" />
+  </head>
+
+  <body>
+    <div id="main-toolbar" class="toolbar">
+      <button
+        class="toolbutton"
+        id="activity-button"
+        title="My Activity"
+      ></button>
+
+      <!-- Add more buttons here -->
+
+      <!-- Buttons with class="pull-right" will be right aligned -->
+      <button
+        class="toolbutton pull-right"
+        id="stop-button"
+        title="Stop"
+      ></button>
+    </div>
+
+    <!-- The content of your activity goes inside the canvas -->
+    <div id="canvas">
+      <!-- Replace this message with your own content -->
+      <div class="container text-center">
+        <h1 class="mt-5 text-white" data-aos="fade-down" data-aos-delay="50">
+          The Game of Nim
+        </h1>
+        <p class="lead text-white-50" data-aos="fade-down" data-aos-delay="100">
+          There are several rows of coins below. Each player must pick a row and
+          take at least one coin when it is the player's turn.<br />
+          If player is unable to take he loses.
+        </p>
+        <p class="lead text-white-50" data-aos="fade-down" data-aos-delay="150">
+          So the one who takes the last coin is the winner.
+        </p>
+      </div>
+      <div class="container text-center">
+        <h3
+          class="text-light"
+          id="game-status"
+          data-aos="fade-down"
+          data-aos-delay="200"
+        >
+          Click the 'New Game' button below to start the game, or click the
+          'Option' button to set game rules.
+        </h3>
+        <button
+          type="button"
+          class="btn btn-primary my-2"
+          id="option-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#option-modal"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Option
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary my-2"
+          id="new-game-btn"
+          data-aos="fade-left"
+          data-aos-delay="200"
+        >
+          New Game
+        </button>
+        <table
+          class="table table-light noselect"
+          id="game-board"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <tbody>
+            <tr id="game-row-1-tr" class="game-row" data-game-row="0">
+              <td>
+                <span id="game-row-1" class="game-row-coin"></span>
+              </td>
+            </tr>
+            <tr id="game-row-2-tr" class="game-row" data-game-row="1">
+              <td>
+                <span id="game-row-2" class="game-row-coin"></span>
+              </td>
+            </tr>
+            <tr id="game-row-3-tr" class="game-row" data-game-row="2">
+              <td>
+                <span id="game-row-3" class="game-row-coin"></span>
+              </td>
+            </tr>
+            <tr id="game-row-4-tr" class="game-row" data-game-row="3">
+              <td>
+                <span id="game-row-4" class="game-row-coin"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button
+          type="button"
+          class="btn btn-primary my-2"
+          id="turn-over-btn"
+          data-aos="fade-up"
+          data-aos-delay="250"
+        >
+          Pass Turn
+        </button>
+      </div>
+
+      <div
+        class="modal fade noselect"
+        id="option-modal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="option-modal-title"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="option-modal-title">Game Options</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p class="text-dark">Set rules of the game.</p>
+              <hr />
+              <p class="text-dark">
+                Classic Mode<br />(It means a game in which 1, 3, 5, and 7 coins
+                are placed in 4 rows each. If classic mode is on, the computer
+                starts first.)
+              </p>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="is-classic-checkbox"
+                />
+                <label class="form-check-label" for="is-classic-checkbox">
+                  Classic Mode
+                </label>
+              </div>
+              <hr />
+              <p class="text-dark">Set the number of rows of coins.</p>
+              <select
+                class="form-select"
+                aria-label="Coin rows"
+                id="coin-rows-select"
+              >
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+              <hr />
+              <label for="max-coins" class="form-label"
+                >Set the maximum number of coins:
+                <span id="option-now-coin"></span
+              ></label>
+              <input
+                type="range"
+                class="form-range"
+                min="2"
+                max="10"
+                id="max-coins-range"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-success"
+                data-bs-dismiss="modal"
+                id="option-save-btn"
+              >
+                Save and New Game
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer
+        class="footer py-4 text-light"
+        data-aos="fade-up"
+        data-aos-delay="300"
+      >
+        <div class="container text-center">
+          <small>
+            Keyboard: New Game: N | Pass turn: Enter, Space | Options: Esc |
+            First Row: 1 | Second row: 2 | Third row: 3 | Forth row: 4
+          </small>
+        </div>
+      </footer>
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"
+        crossorigin="anonymous"
+      ></script>
+      <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+      <script src="./js/index.js"></script>
+    </div>
+  </body>
+</html>
