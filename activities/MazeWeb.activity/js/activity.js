@@ -37,9 +37,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             }
 
             // Load from datastore
-            if (!environment.objectId) {
-                runLevel();
-            } else {
+            if (environment.objectId) {
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
                     if (error==null && data!=null) {
                         data = JSON.parse(data);
@@ -475,6 +473,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
 
         var nextLevel = function () {
             gameSize *= 1.2;
+            dirtyCells = [];
             runLevel();
         }
 
@@ -644,6 +643,7 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         var restartButton = document.getElementById('restart-button');
         restartButton.addEventListener('click', function(e) {
             gameSize = 60;
+            dirtyCells = [];
             runLevel();
         });
 
