@@ -90,7 +90,7 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 				preview.style.width = "47%";
 				panel.style.width = "47%";
 			}
-			else {
+			else{
 				preview.style.display = "none";
 				preview.style.width = "1%";
 				panel.style.width = "94%";
