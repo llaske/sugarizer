@@ -1,0 +1,19 @@
+{
+	"sample-input": "Exemplo de entrada",
+	"need-help": "Você precisa de ajuda?",
+	"insertText": "Inserir texto",
+	"put-it-right-here": "Escreva aqui oque você estiver citando",
+	"wmd-bold-button-second": "Negrito <strong> Ctrl+B",
+	"wmd-italic-button-second": "Itálico <em> Ctrl+I",
+	"wmd-heading-button": "Título <h1>/<h2> Ctrl+H",
+	"wmd-hr-button": "Linha horizontal <hr> Ctrl+R",
+	"wmd-olist-button": "Lista numerada <ol> Ctrl+O",
+	"wmd-ulist-button": "Lista com pontos <ul> Ctrl+U",
+	"wmd-code-button": "Código de exemplo <pre><code> Ctrl+K",
+	"wmd-quote-button": "Bloco de citação <blockquote> Ctrl+Q",
+	"wmd-link-button": "Hiperlink <a> Ctrl+L",
+	"wmd-undo-button": "Desfazer - Ctrl+Z",
+	"wmd-redo-button": "Refazer - Ctrl+Shift+Z",
+	"wmd-showHideEditor-button": "Mostrar/ocultar editor",
+	"wmd-showHidePreview-button": "Mostrar/ocultar previsão"
+}
