@@ -33,7 +33,6 @@ const SugarL10n = {
 
 		const language = vm.language.split('-')[0];
 		vm.loadLanguageFile(language)
-		console.log('Language: ' + language);	
 	},
 
 	methods: {

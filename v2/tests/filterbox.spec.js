@@ -13,19 +13,19 @@ describe('FilterBox.vue', () => {
 	const write="file://"+filename+"\\../icons/write.svg" ;
 	const star="file://"+filename+"\\../icons/star.svg" ;
 	const option1= {
-        icon: { id: "2", iconData: abcd, color: "1024", size: "18" },
+        icon: { id: "2", iconData: abcd, color: 1024, size: 18 },
         name: "abcd",
         header: "Select FilterBox",
         filterBoxList: [
-            { icon: { id: "3", iconData: ownerIcon, color: "1024", size: "20" }, name: "item1" },
-            { icon: { id: "4", iconData: write, color: "1024", size: "18" }, name: "item2" },
-            { icon: { id: "5", iconData: abcd, color: "1024", size: "18" }, name: "item3" },
-            { icon: { id: "6", iconData: star, color: "1024", size: "18" }, name: "item4" },
-            { icon: { id: "7", iconData: write, color: "1024", size: "18" }, name: "item5" }
+            { icon: { id: "3", iconData: ownerIcon, color: 1024, size: 20 }, name: "item1" },
+            { icon: { id: "4", iconData: write, color: 1024, size: 18 }, name: "item2" },
+            { icon: { id: "5", iconData: abcd, color: 1024, size: 18 }, name: "item3" },
+            { icon: { id: "6", iconData: star, color: 1024, size: 18 }, name: "item4" },
+            { icon: { id: "7", iconData: write, color: 1024, size: 18 }, name: "item5" }
         ]
     };
     var option2= {
-        icon: { id: "8", iconData: "icons/star.svg", color: "1024", size: "18" },
+        icon: { id: "8", iconData: "icons/star.svg", color: 1024, size: 18 },
         name: "Star",
         header: "Select Display",
         filterBoxList: [
@@ -79,7 +79,7 @@ describe('FilterBox.vue', () => {
 		const items= wrapper.findAll('.filterBox-items-item')
 		expect(wrapper.findAll('.filterBox-items-item').length).toBe(5)
 
-		await items.at(1).trigger('click')
+		await items[1].trigger('click')
 		expect(wrapper.emitted('filterSelected')).toBeTruthy()
 		expect(wrapper.emitted('filterSelected')[0]).toEqual([option1.filterBoxList[1]])
 
@@ -102,7 +102,7 @@ describe('FilterBox.vue', () => {
 		expect(wrapper.find('.filterBox-content').exists()).toBe(true);
 		// filterBoxList is null
 		option2= {
-			icon: { id: "8", iconData: "icons/star.svg", color: "1024", size: "18" },
+			icon: { id: "8", iconData: "icons/star.svg", color: 1024, size: 18 },
 			name: "Star",
 			header: "Select Display"
 		};
@@ -119,7 +119,7 @@ describe('FilterBox.vue', () => {
 		expect(wrapper.find('.filterBox-content').exists()).toBe(false);
 		// filterBoxList with length 0
 		option2= {
-			icon: { id: "8", iconData: "icons/star.svg", color: "1024", size: "18" },
+			icon: { id: "8", iconData: "icons/star.svg", color: 1024, size: 18 },
 			name: "Star",
 			header: "Select Display",
 			filterBoxList: []
@@ -158,7 +158,7 @@ describe('FilterBox.vue', () => {
 		expect(wrapper.find('.filterBox').exists()).toBe(true);
 		// filterBox with icon only
 		option2= {
-			icon: { id: "8", iconData: "icons/star.svg", color: "1024", size: "18" },
+			icon: { id: "8", iconData: "icons/star.svg", color: 1024, size: 18 },
 			header: "Select Display",
 			filterBoxList: [
 				{ name: "item1" },

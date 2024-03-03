@@ -48,10 +48,10 @@ const AboutMyServer = {
 							<icon 
 								id="privacy-icon"
 								svgfile="./icons/cookie.svg"
-								size="55"
-								color="256"
-								x="0"
-								y="0"
+								:size="55"
+								:color="256"
+								:x="0"
+								:y="0"
 								isNative="true"
 							></icon>
 							<div class="aboutserver-policytext" id="loginscreen_cookietext" v-html="SugarL10n ? SugarL10n.get('CookieConsent') : ''"></div>
@@ -63,10 +63,10 @@ const AboutMyServer = {
 								id="next-btn"
 								svgfile="./icons/go-right.svg"
 								class="ls_icon_btn"
-								size="28"
-								color="1024"
-								x="0"
-								y="0"
+								:size="28"
+								:color="1024"
+								:x="0"
+								:y="0"
 								:text="SugarL10n ? SugarL10n.get('Next') : ''"
 								@click="nextStep"
 							></icon-button>
