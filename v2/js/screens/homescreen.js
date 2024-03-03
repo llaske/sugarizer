@@ -52,7 +52,7 @@ const HomeScreen = {
 								:size="constant.iconSizeStandard"
 								:x="buttonpositions.prev.x"
 								:y="buttonpositions.prev.y"
-								color="512"
+								:color="512"
 								isNative="true"
 								@click="showPreviousRestrictedList"
 							></icon>
@@ -64,7 +64,7 @@ const HomeScreen = {
 								:size="constant.iconSizeStandard"
 								:x="buttonpositions.next.x"
 								:y="buttonpositions.next.y"
-								color="512"
+								:color="512"
 								isNative="true"
 								@click="showNextRestrictedList"
 							></icon>
@@ -173,53 +173,10 @@ const HomeScreen = {
 					if (sugarizer.modules.journal.get().length > 0) {
 						this.$refs["journalIcon"].colorData = this.buddycolor;
 					}
-					this.getPopupData();
-					this.getJournalPopupData();
+					this.computePopup();
 					this.filterSearch(this.filter);
 				}, 1000);
 			});
-		},
-
-		getJournalPopupData() {
-			for (let activityId in this.popupData) {
-				if (!this.popupData.hasOwnProperty(activityId)) {
-					continue;
-				}
-				const popup = this.popupData[activityId];
-				let iconColor = -1;
-				let activity = sugarizer.modules.activities.getById(activityId);
-				let entries = sugarizer.modules.journal.getByActivity(activityId);
-				for (let i = 0 ; i < entries.length ; i++) {
-					const entry = entries[i];
-					if (!popup.itemList) {
-						popup.itemList = [];
-					}
-					if (popup.itemList.length < this.constant.maxPopupHistory) {
-						if (iconColor == -1) {
-							iconColor = sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color);
-						}
-						popup.itemList.push({
-							icon: {
-								id: entry.objectId, 
-								iconData: activity.directory + "/" + activity.icon, 
-								size: this.constant.iconSizeFavorite, 
-								color: entry.metadata.buddy_color ? sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color) : this.buddycolor, 
-								isNative: "true" 
-							},
-							name: entry.metadata.title
-						});
-					}
-				}
-				if (popup.itemList && popup.itemList.length >= 1) {
-					popup.icon.color = iconColor;
-					if (this.$refs["activity" + popup.id]) {
-						let iconRef = this.$refs["activity" + popup.id][0];
-						if (iconRef !== undefined) {
-							iconRef.colorData = iconColor;
-						}
-					}
-				}
-			}
 		},
 
 		filterFavorite(activities) {
@@ -271,11 +228,11 @@ const HomeScreen = {
 			sugarizer.modules.activities.runActivity(activity.activity, objectId, name);
 		},
 
-		getPopupData() {
+		computePopup() {
 			const popupData = {};
 			const activities = this.activities;
 			activities.forEach(activity => {
-				popupData[activity.id] = {
+				const popup = {
 					id: activity.id,
 					favorite: activity.favorite,
 					directory: activity.directory,
@@ -291,7 +248,38 @@ const HomeScreen = {
 						{ icon: { id: "new", iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("StartNew") }
 					],
 					activity: activity,
+					itemList: []
 				};
+				let iconColor = -1;
+				let entries = sugarizer.modules.journal.getByActivity(activity.id);
+				for (let i = 0 ; i < entries.length ; i++) {
+					const entry = entries[i];
+					if (popup.itemList.length < this.constant.maxPopupHistory) {
+						if (iconColor == -1) {
+							iconColor = sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color);
+						}
+						popup.itemList.push({
+							icon: {
+								id: entry.objectId, 
+								iconData: activity.directory + "/" + activity.icon, 
+								size: this.constant.iconSizeFavorite, 
+								color: entry.metadata.buddy_color ? sugarizer.modules.xocolor.findIndex(entry.metadata.buddy_color) : this.buddycolor, 
+								isNative: "true" 
+							},
+							name: entry.metadata.title
+						});
+					}
+				}
+				if (popup.itemList && popup.itemList.length >= 1) {
+					popup.icon.color = iconColor;
+					if (this.$refs["activity" + popup.id]) {
+						let iconRef = this.$refs["activity" + popup.id][0];
+						if (iconRef !== undefined) {
+							iconRef.colorData = iconColor;
+						}
+					}
+				}
+				popupData[activity.id] = popup;
 			});
 			this.popupData = popupData;
 		},

@@ -175,26 +175,49 @@ const Password ={
 		},
 		keyEntered(e) {
 			e.preventDefault();
-			var key= e.key;
-			var keyCode= e.keyCode;
-			if(key=="Backspace") {
-				if(this.passwordText=='')
-					return;
-				var char=this.passwordText[this.passwordText.length-1];
-				this.passwordText=this.passwordText.substring(0, this.passwordText.length - 1);
-				
-				var lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(char)));
-				this.passwordValue = this.passwordValue.substring(0, lastIndex);
+			var key = e.key;
+			var keyCode = e.keyCode;
+			if ((e.ctrlKey && key === 'a') || (e.ctrlKey && key === 'A')) {
+				e.target.select();
+			} else if (key === "Backspace") {
+				if (e.target.selectionStart !== e.target.selectionEnd) {
+					var start = e.target.selectionStart;
+					var end = e.target.selectionEnd;
+					this.passwordText = this.passwordText.slice(0, start) + this.passwordText.slice(end);
+					this.passwordValue = this.passwordValue.slice(0, start) + this.passwordValue.slice(end);
+					this.$refs.password.value = this.passwordValue;
+					this.$refs.password.selectionStart = start;
+					this.$refs.password.selectionEnd = start;
+				} else {
+					if (this.passwordText === '')
+						return;
+					this.char = this.passwordText[this.passwordText.length -   1];
+					this.passwordText = this.passwordText.substring(0, this.passwordText.length -   1);
+					this.lastIndex = this.passwordValue.lastIndexOf(String.fromCodePoint(this._convertToEmoji(this.char)));
+					this.passwordValue = this.passwordValue.substring(0, this.lastIndex);
+				}
+			} else if (key === "Enter") {
+				this.$emit('passwordSet', this.passwordText);
+			} else if ((keyCode >   64 && keyCode <   91) || (keyCode >   96 && keyCode <   123) || (keyCode >   47 && keyCode <   58)) {
+				var emojicode = this._convertToEmoji(key);
+				if (emojicode !== "") {
+					if (e.target.selectionStart !== e.target.selectionEnd) {
+						var start = e.target.selectionStart;
+						var end = e.target.selectionEnd;
+						var newEmoji = String.fromCodePoint(this._convertToEmoji(key));
+						this.passwordText = this.passwordText.slice(0, start) + key + this.passwordText.slice(end);
+						this.passwordValue = this.passwordValue.slice(0, start) + newEmoji + this.passwordValue.slice(end);
+						this.$refs.password.value = this.passwordValue;
+						this.$refs.password.selectionStart = start +  1;
+						this.$refs.password.selectionEnd = start +  1;
+					} else {
+						this.passwordText = this.passwordText + key;
+						this.passwordValue = this.passwordValue + String.fromCodePoint(this._convertToEmoji(key));
+					}
+				}
 			}
-			else if(key=="Enter") {
-				this.$emit('passwordSet',this.passwordText);
-			}
-			else if((keyCode>64 && keyCode<91) ||(keyCode>96 && keyCode<123) || (keyCode>47 && keyCode<58) ) {
-				this.passwordText=this.passwordText+key;
-				this.passwordValue=this.passwordValue+String.fromCodePoint(this._convertToEmoji(key));
-			}
-			// have to do it manually as e.preventDefault
 			this.$nextTick(() => e.target.scrollLeft = e.target.scrollWidth)
+			this.$refs.password.value = this.passwordValue;
 		},
 		category0Clicked() {
 			if(this.currentIndex==0)

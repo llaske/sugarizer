@@ -10,10 +10,10 @@ const FirstScreen = {
 								<icon
 									id="help-icon"
 									svgfile="./icons/help.svg"
-									size="50"
-									x="0"
-									y="0"
-									color="256"
+									:size="50"
+									:x="0"
+									:y="0"
+									:color="256"
 									isNative="true"
 								></icon>
 						  </div>
@@ -30,9 +30,9 @@ const FirstScreen = {
                                 <icon
                                     id="newuser-icon"
                                     svgfile="./icons/newuser-icon.svg"
-                                    size="154"
-                                    x="0"
-                                    y="0"
+                                    :size="154"
+                                    :x="0"
+                                    :y="0"
                                     isNative="true"
                                     @click="loadLoginScreen('newuser')"
                                  ></icon>
@@ -44,9 +44,9 @@ const FirstScreen = {
                                 <icon
                                     id="login-icon"
                                     svgfile="./icons/login.svg"
-                                    size="154"
-                                    x="0"
-                                    y="0"
+                                    :size="154"
+                                    :x="0"
+                                    :y="0"
                                     isNative="true"
                                     @click="loadLoginScreen('login')"
                                 ></icon>
@@ -60,9 +60,9 @@ const FirstScreen = {
                                     :id="'previoususer-' + index"
                                     svgfile="./icons/owner-icon.svg"
                                     :color="user.color.toString()"
-                                    size="28"
-                                    x="0"
-                                    y="0"
+                                    :size="28"
+                                    :x="0"
+                                    :y="0"
                                     style="width: 150px;"
                                     @click="loadLoginScreen('previoususer', index)"
                                 />

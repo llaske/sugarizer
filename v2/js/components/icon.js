@@ -25,7 +25,7 @@ const Icon ={
 		disableHoverEffect ? '' : 'icon',
 		].join(' ')" ref="icon" v-html="gensvg" :id="this.idData"></div>`,
 	props: {
-		id: Number,
+		id: String,
 		svgfile: String,
 		color: Number,
 		size: Number,

@@ -32,10 +32,10 @@ describe('Icon.vue', () => {
 	const id="1";
 	const svgfileOld="file://"+filename+"/icons/old-owner.svg" ;
 	const svgfileNew="file://"+filename+"/icons/owner-icon.svg" ;
-	const color="5";
-	const size="100";
-	const x="-2";
-	const y="-4";
+	const color=5;
+	const size=100;
+	const x=-2;
+	const y=-4;
 
 	it('renders props when passed', async () => {
 		// HACK: Create parent in document since it's not created during mount

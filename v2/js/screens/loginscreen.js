@@ -11,10 +11,10 @@ const LoginScreen = {
 		<icon 
 			 id="help-icon"
 			 svgfile="./icons/help.svg"
-			 size="50"
-			 x="0"
-			 y="0"
-			 color="256"
+			 :size="50"
+			 :x="0"
+			 :y="0"
+			 :color="256"
 			 isNative="true"
 		 ></icon>
 	</div>
@@ -38,8 +38,8 @@ const LoginScreen = {
 				 id="buddy_icon"
 				 svgfile="./icons/owner-icon.svg"
 				 :color="details.color"
-				 size="125"
-				 x="0"
+				 :size="125"
+				 :x="0"
 				 @click="changeColor()"
 				 v-model="details.color"
 			></icon>
@@ -48,10 +48,10 @@ const LoginScreen = {
 			<icon 
 				 id="privacy-icon"
 				 svgfile="./icons/cookie.svg"
-				 size="55"
-				 color="256"
-				 x="0"
-				 y="0"
+				 :size="55"
+				 :color="256"
+				 :x="0"
+				 :y="0"
 				 isNative="true"
 			></icon>
 			<div class="login-policytext" id="loginscreen_cookietext" v-html="l10n.stringCookieConsent"></div>
@@ -63,10 +63,10 @@ const LoginScreen = {
 	<icon 
 		 id="warning-icon"
 		 svgfile="./icons/emblem-warning.svg"
-		 size="35"
-		 color="256"
-		 x="0"
-		 y="0"
+		 :size="35"
+		 :color="256"
+		 :x="0"
+		 :y="0"
 		 isNative="true"
 	  ></icon>
 	<span id="warning_text">{{ warning.text }}</span>
@@ -78,40 +78,27 @@ const LoginScreen = {
 			 id="back-btn"
 			 svgfile="./icons/go-left.svg"
 			 class="ls_icon_btn"
-			 size="28"
-			 color="1024"
-			 x="0"
-			 y="0"
+			 :size="28"
+			 :color="1024"
+			 :x="0"
+			 :y="0"
 			 :text="l10n.stringBack"
 			 @click="prevItem"
 			></icon-button>
 	</div>
-	<div class="ls_right_btn" v-show="index.currentIndex !== index.maxIndex">
-		<icon-button 
-			 id="next-btn"
-			 svgfile="./icons/go-right.svg"
-			 class="ls_icon_btn"
-			 size="28"
-			 color="1024"
-			 x="0"
-			 y="0"
-			 :text="l10n.stringNext"
-			 @click="nextItem"
-			></icon-button>
-	</div>
-	<div class="ls_right_btn" v-show="index.currentIndex === index.maxIndex">
+	<div class="ls_right_btn">
 		<icon-button
-			 id="done-btn"
-			 svgfile="./icons/go-right.svg"
-			 class="ls_icon_btn"
-			 size="28"
-			 color="1024"
-			 x="0"
-			 y="0"
-			 :text="l10n.stringDone"
-			 type="submit"
-			 @click="makeLoginRequest()"
-			></icon-button>
+			id="next-btn"
+			svgfile="./icons/go-right.svg"
+			class="ls_icon_btn"
+			size="28"
+			color="1024"
+			x="0"
+			y="0"
+			:text="index.currentIndex === index.maxIndex ? l10n.stringDone : l10n.stringNext"
+			type="submit"
+			@click="index.currentIndex === index.maxIndex ? makeLoginRequest() : nextItem()"
+		></icon-button>
 	</div>
 </div>`,
 	components: {
@@ -359,4 +346,3 @@ const LoginScreen = {
 	},
 };
 
-if (typeof module !== 'undefined') module.exports = { LoginScreen }

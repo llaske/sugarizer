@@ -38,7 +38,7 @@ TODO list
 * [x] Implement privacy settings
 * [ ] Display a confirmation dialog when disconnecting from the app when not connected to a server
 * [ ] Display a message when there is no activity matching the search in listview
-* [ ] Use the same button for next and done in the first screen
+* [x] Use the same button for next and done in the first screen
 * [ ] Add spinner when connecting to a server
 * [x] Preload emojis font
 * [x] Handle stats

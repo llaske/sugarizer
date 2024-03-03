@@ -11,7 +11,7 @@ const ListView = {
 								:id="'star' + activity.id"
 								svgfile="./icons/star.svg"
 								:color="getStarColor(activity)"
-								size="22"
+								:size="22"
 								:x=0
 								:y=0
 								@click="toggleFavorite(activity)"
@@ -21,7 +21,7 @@ const ListView = {
 								<icon 
 									:id=activity.id
 									:svgfile="activity.directory + '/' + activity.icon"
-									size="40"
+									:size="40"
 									isNative="true"
 									v-on:mouseover="showPopupTimer($event)"
 									v-on:mouseleave="removePopupTimer($event)"
@@ -36,8 +36,8 @@ const ListView = {
 						<icon 
 							:id="'help' + activity.id"
 							svgfile="./icons/help-rev.svg"
-							color="256"
-							size="44"
+							:color="256"
+							:size="44"
 							isNative="true"
 						></icon>
 					</div>
