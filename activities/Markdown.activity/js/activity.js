@@ -7,8 +7,8 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 		l10n = _l10n
 		activity.setup();
 		var buttons = ["insertText", "wmd-bold-button-second", "wmd-italic-button-second", "wmd-heading-button", "wmd-hr-button",
-			"wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
-			"wmd-undo-button", "wmd-redo-button", "wmd-showHideEditor-button", "wmd-showHidePreview-button"];
+				"wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
+				"wmd-undo-button", "wmd-redo-button", "wmd-showHideEditor-button", "wmd-showHidePreview-button"];
 		inputTextContent = document.getElementById("wmd-input-second");
 		inputTextContent.value = "#" + l10n.get("sample-input");
 
@@ -19,7 +19,7 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 
 			var jsonData = JSON.stringify((inputTextContent.value).toString());
 			datastoreObject.setDataAsText(jsonData);
-			datastoreObject.save(function () { });
+			datastoreObject.save(function () {});
 		};
 		markdownParsing(); //to load for the first time
 		datastoreObject.loadAsText(function (error, metadata, data) {
@@ -57,17 +57,19 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 		var preview = document.getElementById("wmd-preview-second");
 		var textArea = document.getElementById("wmd-input-second");
 
-		function isElementHidden(element) {
+		function isElementHidden(element){
 			return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
 		}
-		showHideEditor.onclick = function () {
+		showHideEditor.onclick = function(){
 
-			if (isElementHidden(preview)) {
+			if (isElementHidden(preview))
+			{
 				preview.style.display = "inline";
 				preview.style.width = "97%";
 				panel.style.width = "1%";
 			}
-			if (isElementHidden(panel)) {
+			if (isElementHidden(panel))
+			{
 				panel.style.display = "inline";
 				panel.style.width = "47%";
 				preview.style.width = "47%";
@@ -80,12 +82,14 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 
 		}
 		showHidePreview.onclick = function () {
-			if (isElementHidden(panel)) {
+			if (isElementHidden(panel))
+			{
 				panel.style.display = "inline";
 				panel.style.width = "97%";
 				preview.style.width = "1%";
 			}
-			if (isElementHidden(preview)) {
+			if (isElementHidden(preview))
+			{
 				preview.style.display = "inline";
 				preview.style.width = "47%";
 				panel.style.width = "47%";
