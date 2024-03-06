@@ -1,5 +1,5 @@
-define(["activity/ol","print","util","colormyworld","humane","flag"],
-	function(ol,print,util,colormyworld,humane,flag){
+define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
+	function(ol,print,util,colormyworld,humane,flag,l10n){
 	var me={};
 	me.map=null;
 	me.featureOverlay=null;
@@ -29,7 +29,7 @@ define(["activity/ol","print","util","colormyworld","humane","flag"],
 					if (!me.tooltipDisplay || target_name!=me.tooltipDisplay) {
 						me.tooltipDisplay=target_name;
 						humane.timeout=1000;
-						humane.log(flag[`${target_name.replace(/ /g,'_')}`]+" "+ document.webL10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
+						humane.log(flag[`${target_name.replace(/ /g,'_')}`]+" "+ l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
 						setTimeout(function() {
 							me.tooltipDisplay=null;
 						}, humane.timeout);
