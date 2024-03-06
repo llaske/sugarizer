@@ -1,4 +1,4 @@
-define(["activity/ol","util","print","l10n/l10n","flag"],function(ol,util,print,l10n,flag){
+define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,flag){
 	var me={};
 	me.popup=document.createElement("div");
 	me.popup.id="popup";
@@ -20,7 +20,7 @@ define(["activity/ol","util","print","l10n/l10n","flag"],function(ol,util,print,
 		//and get back to the same thing.
 		var state={}
 		state['currents']=me.currents;
-		state['lang']=document.webL10n.getLanguage();
+		state['lang']=l10n.getLanguage();
 		state['mode']=me.mode;
 		state['cmw_bg']=me.background_color;
 		//Now dictionary of features with: color, candidate=t/f
@@ -151,7 +151,7 @@ define(["activity/ol","util","print","l10n/l10n","flag"],function(ol,util,print,
 		return rval;
 	}
 	me.updateTitle=function(){
-		var app_name=document.webL10n.get('appname');
+		var app_name=l10n.get('appname');
 		var app_title=app_name.split('');
 		var persistent_title_div=document.getElementById("persistent_title_div");
 		html="";
@@ -473,7 +473,7 @@ define(["activity/ol","util","print","l10n/l10n","flag"],function(ol,util,print,
 	me.toggleRunning=function(){
 		if (me.mode==COLORING) {
 			me.setMode(TOUR);
-			document.getElementById("modelabel").innerHTML=document.webL10n.get(MODE_NAMES[me.mode]);
+			document.getElementById("modelabel").innerHTML=l10n.get(MODE_NAMES[me.mode]);
 		}
 		if(me.RUNNING==true){
 			print("stopMove");
@@ -532,13 +532,13 @@ define(["activity/ol","util","print","l10n/l10n","flag"],function(ol,util,print,
 		var target_name=null;
 		target_name=me.current_feature['feature_name'];
 
-		var target_layer_name=document.webL10n.get(me.current_feature['layer_key']);
+		var target_layer_name=l10n.get(me.current_feature['layer_key']);
 
-		var xhtml="<center><h3>Next:</h3><h1>"+document.webL10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' ')+"</h1><h3>"+target_layer_name+"</h3></center>";
+		var xhtml="<center><h3>Next:</h3><h1>"+l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' ')+"</h1><h3>"+target_layer_name+"</h3></center>";
 		if(me.mode==TOUR){
-			xhtml="<center><h3>"+util.descore(document.webL10n.get(util.enscore('Next')))+":</h3><h1>"+util.descore(flag[`${target_name.replace(/ /g,'_')}`]+" "+document.webL10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
+			xhtml="<center><h3>"+util.descore(l10n.get(util.enscore('Next')))+":</h3><h1>"+util.descore(flag[`${target_name.replace(/ /g,'_')}`]+" "+l10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
 		} else if (me.mode==INTERACTIVE) {
-			xhtml="<center><h3>"+util.descore(document.webL10n.get(util.enscore('Find')))+":</h3><h1>"+util.descore(document.webL10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
+			xhtml="<center><h3>"+util.descore(l10n.get(util.enscore('Find')))+":</h3><h1>"+util.descore(l10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
 		}
 		if(true)print("me.startMove:"+target_name+" "+target_layer_name);
 		me.showPopup(xhtml);
@@ -649,15 +649,15 @@ define(["activity/ol","util","print","l10n/l10n","flag"],function(ol,util,print,
 		catch(e){if(true)print("me.end_game");}
 
 		var xhtml='<center><h1>Congratulations!<br>You Finished!</h1></center>';
-		if(document.webL10n.getLanguage()!='en-us'){
-			xhtml='<center><h1>'+util.descore(document.webL10n.get('Congratulations'))+'!<br>';
-			xhtml+=util.descore(document.webL10n.get('You_Finished'))+'!</h1></center>';
+		if(l10n.getLanguage()!='en-us'){
+			xhtml='<center><h1>'+util.descore(l10n.get('Congratulations'))+'!<br>';
+			xhtml+=util.descore(l10n.get('You_Finished'))+'!</h1></center>';
 		}
 		print(xhtml);
 		me.toggleRunning();
 		me.setMode(COLORING);
 		me.reinit_candidates();
-		document.getElementById("modelabel").innerHTML=document.webL10n.get(MODE_NAMES[me.mode]);
+		document.getElementById("modelabel").innerHTML=l10n.get(MODE_NAMES[me.mode]);
 		me.showPopup(xhtml);
 		//NEED:game stats
 //		document.getElementById("playB").innerHTML='<img src="./static/ggmc/img/flaticon/play.png" class="icon"/>';

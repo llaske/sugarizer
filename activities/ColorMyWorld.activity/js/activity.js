@@ -4,10 +4,10 @@ define([
 		"jquery.min",
 		"activity/ol",
 		"activity/hammer.min",
-		"webL10n",
+		"l10n",
 		"config","colormyworld","map","roll_up_div","util","languagepalette","sugar-web/graphics/colorpalette","filterpalette","modepalette","tutorial","sugar-web/env"
 	],
-	function (activity,messages,print,jquery,ol,hammer,webL10n,config,colormyworld,map,rollupdiv,util,languagepalette,colorpalette,filterpalette,modepalette,tutorial,env){
+	function (activity,messages,print,jquery,ol,hammer,l10n,config,colormyworld,map,rollupdiv,util,languagepalette,colorpalette,filterpalette,modepalette,tutorial,env){
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -19,13 +19,6 @@ define([
 		map.setup_map();
 //		colormyworld.change_areaCB(1,INSTALLED['keys'][0]);
 //		window.onresize=util.updateTitle;
-
-		document.webL10n.getLanguage();
-		if(typeof('lang')=='undefined'){
-			print("setting english");
-			lang='en';
-			document.webL10n.getLanguage(lang);
-		}
 
 		var stopButton = document.getElementById("stop-button");
 		stopButton.addEventListener('click', function (event) {
@@ -53,7 +46,7 @@ define([
 					});
 				}
 			});
-			var app_name=document.webL10n.get('appname');
+			var app_name=l10n.get('appname');
 			if (app_name == "{{appname}}") app_name = '';
 			var app_title=app_name.split('');
 			var persistent_title_div=document.getElementById("persistent_title_div");
@@ -108,7 +101,7 @@ define([
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			document.webL10n.setLanguage(language);
+			l10n.init(language);
 
 		});
 	});
