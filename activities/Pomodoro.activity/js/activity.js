@@ -1,4 +1,4 @@
-define(['sugar-web/activity/activity', 'webL10n', 'activity/progress', 'activity/stopwatch', 'sugar-web/env'], function (activity, l10n, Progress, Stopwatch, env) {
+define(['sugar-web/activity/activity', 'l10n', 'activity/progress', 'activity/stopwatch', 'sugar-web/env'], function (activity, l10n, Progress, Stopwatch, env) {
 
   // Manipulate the DOM only when it is ready.
   requirejs(['domReady!'], function (doc) {
@@ -9,7 +9,10 @@ define(['sugar-web/activity/activity', 'webL10n', 'activity/progress', 'activity
       currentenv = environment;
       var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
       var language = environment.user ? environment.user.language : defaultLanguage;
-      l10n.language.code = language;
+      window.addEventListener('localized', function () {
+        l10n.updateDocument();
+      });
+      l10n.init(language);
       var datastore = activity.getDatastoreObject();
       main(Progress, Stopwatch, l10n, currentenv.user.colorvalue, datastore);
     });
