@@ -117,17 +117,24 @@ const LanguageBox = {
 
 		removePopupFunction(e) {
 			if (!this.$refs.popup.isCursorInside(e.clientX, e.clientY)) {
-				this.$refs.popup.hide();
+				setTimeout(() => {
+					this.$refs.popup.hide();
+				}, 2000);
 			}
 		},
 
 		itemisClicked(e) {
 			const languages = this.languages;
+			let found = false;
 			for (const key in languages) {
 				if (key === e.slice(4)) {
 					this.languageCode = key;
+					found = true;
 					break;
 				}
+			}
+			if (!found) {
+				this.languageCode = 'en';
 			}
 			this.$refs.popup.hide();
 		},
