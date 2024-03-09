@@ -180,6 +180,18 @@ define(function () {
         }
     };
 
+    // Event listener to close the palette when clicking outside the area
+    document.addEventListener('click', function (event) {
+        for (var i = 0; i < palettesGroup.length; i++) {
+            var palette = palettesGroup[i];
+            var paletteElem = palette.getPalette();
+            var invokerElem = palette.invoker;
+            if (!paletteElem.contains(event.target) && event.target !== invokerElem) {
+                palette.popDown();
+            }
+        }
+    });
+    
     return palette;
 
 });
