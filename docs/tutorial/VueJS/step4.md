@@ -61,6 +61,15 @@ First include the `SugarJournal` component in your activity and instantiate it i
 	<script src="js/activity.js"></script>
 </body>
 ```
+Register the component inside Vue app instance:
+```js
+const app = Vue.createApp({
+	components: {
+		"sugar-journal": SugarJournal,
+		...
+	},
+	...
+```
 
 The `ref` property is very important for the Vue.js components, it is how we will access the component throughout the Vue instance. It is also important to follow the naming convention for `ref`, it should always be same as the name of the component file (`js/components/{FileName}.js` => `ref="FileName"`) for Vue.js Sugar components.
 
@@ -72,7 +81,7 @@ So below is the source code to store the context in the datastore.
 
 First, we will define the context object and add the **pawns** array to it, then pass this to the `saveData()` method.
 ```js
-var context = {
+const context = {
 	pawns: this.pawns
 };
 this.$refs.SugarJournal.saveData(context);
@@ -84,7 +93,7 @@ methods: {
 	...
 	onStop: function () {
 		// Save current pawns in Journal on Stop
-		var context = {
+		const context = {
 			pawns: this.pawns
 		};
 		this.$refs.SugarJournal.saveData(context);
@@ -94,7 +103,7 @@ methods: {
 
 Then add the event listener to the stop-button in `index.html`:
 ```html
-<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
 ```
 
 It's the first step: the board is now safely saved in the datastore.
@@ -130,7 +139,7 @@ onJournalLoadError: function(error) {
 
 Add bind them at the component instance inside `index.html`:
 ```html
-<sugar-journal ref="SugarJournal" v-on:journal-data-loaded="onJournalDataLoaded" v-on:journal-load-error="onJournalLoadError" v-on:journal-new-instance="onJournalNewInstance"></sugar-journal>
+<sugar-journal ref="SugarJournal" @journal-data-loaded="onJournalDataLoaded" @journal-load-error="onJournalLoadError" @journal-new-instance="onJournalNewInstance"></sugar-journal>
 ```
 
 Now display the JavaScript console on your browser and test it. Launch the Pawn activity from the **Start new** menu or from List view of activities. Here is the result:

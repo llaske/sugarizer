@@ -144,17 +144,26 @@ As usual, let's first include the magic component `SugarPresence` in the `index.
 <!-- After script loads -->
 <script src="js/components/SugarPresence.js"></script>
 ```
+```js
+// Register the component
+const app = Vue.createApp({
+	components: {
+		"sugar-presence": SugarPresence,
+		...
+	},
+```
 
 Similar to `SugarL10n`, let's keep a data variable as a reference to this component instance too. It will be used multiple times in the activity. Update `js/activity.js` as:
 ```js
-data: {
-	currentenv: null,
-	SugarL10n: null,
-	SugarPresence: null,
-	...
+data: function () {
+	return {
+		currentenv: null,
+		SugarL10n: null,
+		SugarPresence: null,
+		...
+	}
 },
 mounted: function () {
-	this.SugarL10n = this.$refs.SugarL10n;
 	this.SugarPresence = this.$refs.SugarPresence;
 },
 ```
@@ -167,7 +176,7 @@ Now, let's update our Pawn activity to integrate presence. Start first by handli
 	palette-file="sugar-web/graphics/presencepalette" 
 	palette-class="PresencePalette"
 	palette-event="shared"
-	v-on:shared="SugarPresence.onShared"
+	@shared="SugarPresence.onShared"
 	v-if="SugarPresence"
 ></sugar-toolitem>
 ```
@@ -201,7 +210,7 @@ In case you wish to perform some action only when the activity is a shared insta
 
 You can add a handler to this in the `sugar-journal` instance like this in `index.html`:
 ```html
-<sugar-journal ref="SugarJournal" v-on:journal-shared-instance="onJournalSharedInstance"></sugar-journal>
+<sugar-journal ref="SugarJournal" @journal-shared-instance="onJournalSharedInstance"></sugar-journal>
 ```
 
 And add the handler method in `activity.js`:
@@ -224,7 +233,7 @@ onNetworkUserChanged(msg) {
 
 Now bind these to the event directives in `index.html`:
 ```html
-<sugar-presence ref="SugarPresence" v-on:data-received="onNetworkDataReceived" v-on:user-changed="onNetworkUserChanged"></sugar-presence>
+<sugar-presence ref="SugarPresence" @data-received="onNetworkDataReceived" @user-changed="onNetworkUserChanged"></sugar-presence>
 ```
 
 The `onNetworkDataReceived` method each time data is receieved from any other connected user on that activity.
