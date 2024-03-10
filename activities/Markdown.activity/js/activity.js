@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function (activity, _l10n, datastore) {
+define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore", "sugar-web/env"], function (activity, _l10n, datastore, env) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -10,7 +10,6 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 				"wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
 				"wmd-undo-button", "wmd-redo-button", "wmd-showHideEditor-button", "wmd-showHidePreview-button"];
 		inputTextContent = document.getElementById("wmd-input-second");
-		inputTextContent.value = "#" + l10n.get("sample-input");
 
 		//to save and resume the contents from datastore.
 		var datastoreObject = activity.getDatastoreObject();
@@ -21,16 +20,28 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 			datastoreObject.setDataAsText(jsonData);
 			datastoreObject.save(function () {});
 		};
-		markdownParsing(); //to load for the first time
-		datastoreObject.loadAsText(function (error, metadata, data) {
-			markdowntext = JSON.parse(data);
-			inputTextContent.value = markdowntext;
-			markdownParsing(); //to load again when there is a datastore entry
-		});
+		markdownParsing();
+		env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			window.addEventListener('localized', function () {
+				for (i = 0; i < buttons.length; i++) {
+					document.getElementById(buttons[i]).title = l10n.get(buttons[i]);
+				}
+				if (!environment.objectId) {
+					inputTextContent.value = "#" + l10n.get("sample-input");
+					markdownParsing();
+				} else {
+					datastoreObject.loadAsText(function (error, metadata, data) {
+						markdowntext = JSON.parse(data);
+						inputTextContent.value = markdowntext;
+						markdownParsing();
+					});
+				}
+			});
+			l10n.init(language);	
+		})
 
-		for (i = 0; i < buttons.length; i++) {
-			document.getElementById(buttons[i]).title = l10n.get(buttons[i]);
-		}
 		var journal = document.getElementById("insertText");
 
 		journal.onclick = function () {
@@ -119,7 +130,6 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore"], function 
 			} else {
 				myField.value += myValue;
 			}
-			//markdownParsing();
 		}
 
 		function markdownParsing() {
