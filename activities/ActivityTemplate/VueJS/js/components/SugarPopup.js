@@ -1,10 +1,11 @@
-Vue.component('sugar-popup', {
+const SugarPopup = {
+	render() {},
 	data: function () {
 		return {
-			humane: null
-		}
+			humane: null,
+		};
 	},
-	mounted() {
+	created() {
 		var vm = this;
 		requirejs(["humane"], function (humane) {
 			vm.humane = humane;
@@ -13,6 +14,6 @@ Vue.component('sugar-popup', {
 	methods: {
 		log(text) {
 			this.humane.log(text);
-		}
-	}
-});
+		},
+	},
+};

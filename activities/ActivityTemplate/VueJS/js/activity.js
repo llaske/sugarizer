@@ -7,8 +7,17 @@ requirejs.config({
 });
 
 // Vue main app
-var app = new Vue({
-	el: '#app',
-	data: {},
-	methods: {}
+const app = Vue.createApp({
+	components: {
+		"sugar-activity": SugarActivity,
+		"sugar-toolbar": SugarToolbar,
+		"sugar-toolitem": SugarToolitem,
+	},
+
+	data: function () {
+		return {};
+	},
+	methods: {},
 });
+
+app.mount("#app");
