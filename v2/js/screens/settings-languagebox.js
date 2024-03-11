@@ -82,7 +82,7 @@ const LanguageBox = {
 			this.popupData = {
 				"language-btn": {
 					id: "lng",
-					icon: {},
+					icon: {id:"en"},
 					name: "English (" + this.SugarL10n.get("English") + ")",
 					itemList: Object.entries(this.languages).slice(1).map(([key, value]) => {
 						return {
@@ -125,16 +125,12 @@ const LanguageBox = {
 
 		itemisClicked(e) {
 			const languages = this.languages;
-			let found = false;
 			for (const key in languages) {
 				if (key === e.slice(4)) {
 					this.languageCode = key;
 					found = true;
 					break;
 				}
-			}
-			if (!found) {
-				this.languageCode = 'en';
 			}
 			this.$refs.popup.hide();
 		},
