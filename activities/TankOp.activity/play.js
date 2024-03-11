@@ -57,6 +57,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		play = this;
+		pause = this;
 		this.imagesToLoad++;
 		this.endOfGame = false;
 		this.pausedGame = true;
@@ -330,6 +331,11 @@ enyo.kind({
 
 			// Back to app
 			app.renderInto(document.getElementById("board"));
+		}
+		if(this.endOfGame){
+			if(app.renderInto(document.getElementById("board"))){
+				sound.pause();
+			}
 		}
 
 		// Compute direction
