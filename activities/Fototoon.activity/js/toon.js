@@ -626,7 +626,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             });
         };
 
-        this.addGlobe = function (globeType, imageSrc) {
+        this.addGlobe = function (globeType) {
             var width = 100;
             var height = 50;
             globeData = {'globe_type': globeType, 'x': 100, 'y': 100,
@@ -640,9 +640,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 globeData['mode'] = MODE_WHISPER;
             };
 
-            var globe = new Globe(this, globeData, imageSrc);
+            var globe = new Globe(this, globeData);
             this.globes.push(globe);
-            this.stage.update(imageSrc);
+            this.stage.update();
         };
 
         this.getJson = function() {
@@ -936,7 +936,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
     };
 
 
-    function Globe(box, globeData, imageSrc) {
+    function Globe(box, globeData) {
         this._box = box;
         this._stage = box.stage;
         this._shapeControls = null;
@@ -1001,7 +1001,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             this._shape = null;
         };
 
-        this.createShape = function(imageSrc) {
+        this.createShape = function() {
             if (this._shape != null) {
                 this._stage.removeChild(this._shape);
                 if (this._type == TYPE_CLOUD) {
@@ -1019,11 +1019,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this.createShapeCloud(scaled_x, scaled_y, scale_x, scale_y);
             } else if (this._type == TYPE_EXCLAMATION) {
                 this.createShapeExclamation(scaled_x, scaled_y, scale_x, scale_y);
-            } else if (this._type == TYPE_GLOBE) {
-                this.createShapeGlobe(scaled_x, scaled_y, scale_x, scale_y);
+            } else if (this._type == TYPE_RECTANGLE) {
+                this.createShapeRectangle();
             } else {
-                // here i am not able to pass the image file as it showing error
-                this.createShapeRectangle(imageSrc);
+                this.createShapeGlobe(scaled_x, scaled_y, scale_x, scale_y);
             };
 
             this._shape.on('click', function(event) {
@@ -1116,12 +1115,11 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             this._shape.setTransform(0, 0, scale_x, scale_y);
         };
 
-        this.createShapeRectangle = function(imageSrc) {
+        this.createShapeRectangle = function() {
             var x = this._x;
             var y = this._y;
             var w = this._width;
             var h = this._height;
-           
 
             this._shape = new createjs.Shape();
             this._shape.name = 'rect';
@@ -1129,20 +1127,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             this._shape.graphics.setStrokeStyle(LINE_WIDTH, "round",
                                                 null, null, true);
             this._shape.graphics.beginStroke(BLACK);
-
-            var image = document.createElement("img");
-            image.crossOrigin = "Anonymous"; // Should work fine
-            image.src = imageSrc;
-            var bitmap = new createjs.Bitmap(image);
-        
-            // var bitmap = new createjs.Bitmap(image);
-            bitmap.x = x - w;
-            bitmap.y = y - h;
-            bitmap.scaleX = image.width;
-            bitmap.scaleY = image.height;
-
-            this._shape.graphics.beginBitmapFill(bitmap.image, "no-repeat");
-            if(!imageSrc) this._shape.graphics.beginFill(WHITE);
+            this._shape.graphics.beginFill(WHITE);
 
             this._shape.graphics.rect(x - w , y - h, w * 2, h * 2);
             this._shape.graphics.endStroke();
@@ -1519,8 +1504,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             };
         };
 
-        this.update = function(imageSrc) {
-            this.createShape(imageSrc);
+        this.update = function() {
+            this.createShape();
             this._textViewer.update();
             this.createControls();
             this._stage.update();
@@ -1592,7 +1577,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
         };
 
         this.init();
-        this.update(imageSrc);
+        this.update();
     };
 
 

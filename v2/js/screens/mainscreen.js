@@ -1,6 +1,6 @@
 /* @ MainScreen
  @desc This is the main screen component */
-const MainScreen = {
+ const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
 					<div class="tool_leftitems">
@@ -9,30 +9,30 @@ const MainScreen = {
 							class="toolbutton"
 							id="toolbar-help-btn"
 							svgfile="./icons/help.svg"
-							size="47"
-							x="0"
-							y="0"
-							color="768"
+							:size="47"
+							:x="0"
+							:y="0"
+							:color="768"
 							isNative="true"
 						></icon>
 						<icon v-if="sync"
 							class="toolbutton sync-gear"
 							id="toolbar-sync-btn"
 							svgfile="./icons/sync.svg"
-							size="47"
-							x="0"
-							y="0"
-							color="768"
+							:size="47"
+							:x="0"
+							:y="0"
+							:color="768"
 							isNative="true"
 						></icon>
 						<icon v-if="offline"
 							class="toolbutton"
 							id="toolbar-offline-btn"
 							svgfile="./icons/cloud-warning.svg"
-							size="47"
-							x="0"
-							y="0"
-							color="256"
+							:size="47"
+							:x="0"
+							:y="0"
+							:color="256"
 							isNative="true"
 							@click="displayServerSettings()"
 						></icon>
@@ -44,8 +44,8 @@ const MainScreen = {
 							ref="view_home_button"
 							id="view_home_button"
 							svgfile="./icons/view-radial.svg" 
-							color="768"
-							size="47"
+							:color="768"
+							:size="47"
 							isNative="true"
 							@click="changeView('home')"
 						></icon>
@@ -54,8 +54,8 @@ const MainScreen = {
 							v-bind:class="{ active: screentype === 'neighborhood' }"
 							id="view_neighborhood_button"
 							svgfile="./icons/view-neighborhood.svg"
-							color="768"
-							size="47"
+							:color="768"
+							:size="47"
 							isNative="true"
 							@click="changeView('neighborhood')"
 						></icon>
@@ -64,15 +64,15 @@ const MainScreen = {
 							v-bind:class="{ active: screentype === 'list' }"
 							id="view_list_button"
 							svgfile="./icons/view-list.svg" 
-							color="768"
-							size="47"
+							:color="768"
+							:size="47"
 							isNative="true"
 							@click="changeView('list')"
 						></icon>
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
-						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n"/>
+						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n" @clear-searchfield = "clearSearchField"/>
 						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" :SugarL10n="SugarL10n"/>
 						<div v-else-if="screentype==='neighborhood'"> Neighborhood </div>
 					</div>
@@ -164,6 +164,9 @@ const MainScreen = {
 			if (this.screentype === 'home') {
 				this.$refs.home.$refs.settings.openModal('aboutMyServerModal');
 			}
+		},
+		clearSearchField() {
+			this.$refs.searchfield.searchQuery = '';
 		},
 	},
 };
