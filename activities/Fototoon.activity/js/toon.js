@@ -550,7 +550,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             }, false);;
 
             var editor = this._textpalette.editorElem;
-
             var colorButtons = this._textpalette.colorButtons;
             for (var i = 0; i < colorButtons.length; i++) {
                 colorButtons[i].addEventListener('click', function(e) {
@@ -1511,6 +1510,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                 this._stage.removeChild(this._removeButton);
                 this._textViewer.remove();
                 this._stage.update();
+                box.selectGlobe(null);
             };
         };
 
