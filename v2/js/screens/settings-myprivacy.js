@@ -22,8 +22,8 @@ const MyPrivacy = {
 								id="myprivacy-cancel-btn"
 								class="warningbox-cancel-button"
 								svgfile="icons/dialog-cancel.svg"
-								size="20"
-								color="1024"
+								:size="20"
+								:color="1024"
 								:text="SugarL10n ? SugarL10n.get('CancelChanges') : ''"
 								@click="close('privacy')"
 							></icon-button>								
@@ -31,8 +31,8 @@ const MyPrivacy = {
 								id="myprivacy-restar-btn"
 								class="warningbox-refresh-button"
 								svgfile="icons/system-restart.svg"
-								size="20"
-								color="1024"
+								:size="20"
+								:color="1024"
 								:text="SugarL10n ? SugarL10n.get('RestartNow') : ''"
 								@click="deleteAccount"
 							></icon-button>
@@ -51,8 +51,8 @@ const MyPrivacy = {
 								id="myprivacy-delete-local-btn"
 								svgfile="icons/module-about_my_computer.svg"
 								isNative="true"
-								size="28"
-								color="256"
+								:size="28"
+								:color="256"
 								:text="SugarL10n ? SugarL10n.get('PrivacyRemoveLocal') : ''"
 								@click="showWarning('local')"
 							></icon-button>
@@ -62,8 +62,8 @@ const MyPrivacy = {
 								id="myprivacy-delete-remote-btn"
 								svgfile="icons/cloud-settings.svg"
 								isNative="true"
-								size="28"
-								color="256"
+								:size="28"
+								:color="256"
 								:text="SugarL10n ? SugarL10n.get('PrivacyRemoveRemote') : ''"
 								@click="showWarning('remote')"
 							></icon-button>

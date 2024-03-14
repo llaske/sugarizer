@@ -29,9 +29,9 @@ const AboutMe = {
 									id="warning-icon"
 									svgfile="./icons/emblem-warning.svg"
 									:size="constant.sizeWarning"
-									color="256"
-									x="0"
-									y="0"
+									:color="256"
+									:x="0"
+									:y="0"
 									isNative="true"
 								></icon>
 								<span id="warning_text">{{ warning.text }}</span>
