@@ -72,7 +72,7 @@
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
-						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n" @clear-searchfield = "clearSearchField"/>
+						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n"/>
 						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" :SugarL10n="SugarL10n"/>
 						<div v-else-if="screentype==='neighborhood'"> Neighborhood </div>
 					</div>
@@ -164,9 +164,6 @@
 			if (this.screentype === 'home') {
 				this.$refs.home.$refs.settings.openModal('aboutMyServerModal');
 			}
-		},
-		clearSearchField() {
-			this.$refs.searchfield.searchQuery = '';
 		},
 	},
 };

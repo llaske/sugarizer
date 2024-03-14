@@ -52,7 +52,7 @@ const HomeScreen = {
 								:size="constant.iconSizeStandard"
 								:x="buttonpositions.prev.x"
 								:y="buttonpositions.prev.y"
-								color="512"
+								:color="512"
 								isNative="true"
 								@click="showPreviousRestrictedList"
 							></icon>
@@ -64,7 +64,7 @@ const HomeScreen = {
 								:size="constant.iconSizeStandard"
 								:x="buttonpositions.next.x"
 								:y="buttonpositions.next.y"
-								color="512"
+								:color="512"
 								isNative="true"
 								@click="showNextRestrictedList"
 							></icon>

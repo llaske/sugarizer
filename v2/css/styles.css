@@ -1334,27 +1334,3 @@ a {
 	visibility: hidden;
 	}
 }
-
-/*no matching activities display in listview */
-.no-matching-activities {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	display: grid;
-	grid-template-rows: 3;
-	text-align: center;
-}
-
-.no-matching-activities > div {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 10px;
-}  
-.clearSearchField {
-	padding: 10px 30px;
-	background-color: #808080;
-	border-radius: 20px;
-	color : white;
-}
