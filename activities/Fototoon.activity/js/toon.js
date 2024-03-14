@@ -1020,6 +1020,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             } else if (this._type == TYPE_EXCLAMATION) {
                 this.createShapeExclamation(scaled_x, scaled_y, scale_x, scale_y);
             } else if (this._type == TYPE_RECTANGLE) {
+                // this.createShapeRectangle('image/url');
                 this.createShapeRectangle();
             } else {
                 this.createShapeGlobe(scaled_x, scaled_y, scale_x, scale_y);
@@ -1115,11 +1116,12 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             this._shape.setTransform(0, 0, scale_x, scale_y);
         };
 
-        this.createShapeRectangle = function() {
+        this.createShapeRectangle = function(imageSrc) {
             var x = this._x;
             var y = this._y;
             var w = this._width;
             var h = this._height;
+           
 
             this._shape = new createjs.Shape();
             this._shape.name = 'rect';
@@ -1127,7 +1129,20 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             this._shape.graphics.setStrokeStyle(LINE_WIDTH, "round",
                                                 null, null, true);
             this._shape.graphics.beginStroke(BLACK);
-            this._shape.graphics.beginFill(WHITE);
+
+            var image = document.createElement("img");
+            image.crossOrigin = "Anonymous"; // Should work fine
+            image.src = imageSrc;
+            var bitmap = new createjs.Bitmap(image);
+        
+            // var bitmap = new createjs.Bitmap(image);
+            bitmap.x = x - w;
+            bitmap.y = y - h;
+            bitmap.scaleX = image.width;
+            bitmap.scaleY = image.height;
+
+            this._shape.graphics.beginBitmapFill(bitmap.image, "no-repeat");
+            if(!imageSrc) this._shape.graphics.beginFill(WHITE);
 
             this._shape.graphics.rect(x - w , y - h, w * 2, h * 2);
             this._shape.graphics.endStroke();
