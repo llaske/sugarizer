@@ -109,7 +109,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 						element.src = text;
 					}
 					element.onload = function () {
-						toonModel.addImage(element.src);
+                        toonModel.addGlobe(toon.TYPE_RECTANGLE, element.src);
+						// toonModel.addImage(element.src);
 					};
 				});
 			}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' }, { activity: 'org.olpcfrance.PaintActivity'});
