@@ -57,7 +57,6 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		play = this;
-		pause = this;
 		this.imagesToLoad++;
 		this.endOfGame = false;
 		this.pausedGame = true;
