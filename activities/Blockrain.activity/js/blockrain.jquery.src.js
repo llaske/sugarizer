@@ -79,9 +79,11 @@
 
     pause: function() {
       this._board.paused = true;
+      this._unbindButtons();
     },
 
     resume: function() {
+      if(this._board.paused) this._setupTouchControls(false);
       this._board.paused = false;
     },
 
