@@ -29,7 +29,7 @@ const ListView = {
 									style="padding: 2px;"
 								></icon>
 								</div>
-							
+
 							<div class="activity-name">{{ activity.name }}</div>
 						</div>
 						<div class="activity-version">Version {{ activity.version }}</div>
