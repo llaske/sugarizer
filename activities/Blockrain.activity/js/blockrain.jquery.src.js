@@ -1615,6 +1615,12 @@
 	  $("#right-arrow").bind('touchstart click', function(event) {moveRight(event); endMoveRight(event)});
 	  $("#up-arrow").bind('touchstart click', rotateRight);
 	  $("#down-arrow").bind('touchstart click', function(event) {drop(event); endDrop(event)});
+    },
+    _unbindButtons: function(){
+      $("#left-arrow").unbind('touchstart click');
+      $("#right-arrow").unbind('touchstart click');
+      $("#up-arrow").unbind('touchstart click');
+      $("#down-arrow").unbind('touchstart click');
     }
 
   });
