@@ -345,4 +345,3 @@ const LoginScreen = {
 		}
 	},
 };
-
