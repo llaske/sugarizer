@@ -331,6 +331,11 @@ enyo.kind({
 			// Back to app
 			app.renderInto(document.getElementById("board"));
 		}
+		if(this.endOfGame){
+			if(app.renderInto(document.getElementById("board"))){
+				sound.pause();
+			}
+		}
 
 		// Compute direction
 		var screen_width = document.documentElement.clientWidth;
