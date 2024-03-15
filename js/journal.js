@@ -386,7 +386,7 @@ enyo.kind({
 		}
 		this.getToolbar().setMultiselectToolbarVisibility(false);
 	},
-      
+
 	removeSelected: function() {
 		this.dialogAction = constant.journalRemove;
 		this.$.warningbox.setTitle(l10n.get("Erase"));

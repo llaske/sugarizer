@@ -320,7 +320,7 @@ const HomeScreen = {
 			else if (e.target.tagName == 'use') {
 				itemId = e.target.parentElement.parentElement.id
 				x = e.clientX;
-				y = e.clientY; 
+				y = e.clientY;
 			}
 			else {
 				itemId = e.target.id;
