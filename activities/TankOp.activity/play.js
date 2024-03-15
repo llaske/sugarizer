@@ -298,6 +298,8 @@ enyo.kind({
 	goHome: function() {
 		// Click at the end of game
 		if (this.waitForClick) {
+			sound.pause("audio/mission_failed.mp3");
+			app.playTheme();
 			this.gameClick();
 			return;
 		}
