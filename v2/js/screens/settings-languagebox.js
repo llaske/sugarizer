@@ -82,7 +82,7 @@ const LanguageBox = {
 			this.popupData = {
 				"language-btn": {
 					id: "lng",
-					icon: {},
+					icon: {id:"en"},
 					name: "English (" + this.SugarL10n.get("English") + ")",
 					itemList: Object.entries(this.languages).slice(1).map(([key, value]) => {
 						return {
