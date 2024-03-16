@@ -1616,7 +1616,7 @@
 	  $("#left-arrow").bind('touchstart click', function(event) {moveLeft(event); endMoveLeft(event)});
 	  $("#right-arrow").bind('touchstart click', function(event) {moveRight(event); endMoveRight(event)});
 	  $("#up-arrow").bind('touchstart click', rotateRight);
-	  $("#down-arrow").bind('touchstart click', function(event) {drop(event); endDrop(event)});
+	  $("#down-arrow").bind('touchstart click', function(event) {game.start(); drop(event); endDrop(event)});
     },
     _unbindButtons: function(){
       $("#left-arrow").unbind('touchstart click');
