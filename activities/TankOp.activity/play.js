@@ -330,11 +330,7 @@ enyo.kind({
 
 			// Back to app
 			app.renderInto(document.getElementById("board"));
-		}
-		if(this.endOfGame){
-			if(app.renderInto(document.getElementById("board"))){
-				sound.pause();
-			}
+			sound.pause();
 		}
 
 		// Compute direction
