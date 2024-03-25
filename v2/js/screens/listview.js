@@ -65,7 +65,6 @@ const ListView = {
 					></popup>
 				`,
 
-
 	components: {
 		'icon': Icon,
 		'popup': Popup,
