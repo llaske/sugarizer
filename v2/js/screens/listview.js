@@ -41,13 +41,31 @@ const ListView = {
 							isNative="true"
 						></icon>
 					</div>
+					<div class="no-matching-activities" v-if="activities.length === 0">
+						<div>
+							<icon 
+								svgfile="./icons/entry-search.svg"
+								:color="768"
+								:size="44"
+								isNative="true"
+							></icon>
+						</div>
+						<div> {{ SugarL10n.get("NoMatchingActivities") }} </div>
+						<div class="clearSearchField" @click="clearSearchField">
+						<div>
+							{{ SugarL10n.get("ClearSearch") }}
+						<div>
+						</div>
+					</div>
 					<popup 
 						ref="popup" 
 						v-bind:item="popup"
 						v-on:mouseleave="removePopupTimer($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
+					<div>
 				`,
+
 
 	components: {
 		'icon': Icon,
@@ -79,7 +97,7 @@ const ListView = {
 			this.activities = sugarizer.modules.activities.get().filter((activity) => {
 				return activity.name.toUpperCase().includes(value.toUpperCase())
 			});
-		}
+		},
 	},
 
 	methods: {
@@ -239,6 +257,9 @@ const ListView = {
 			} else {
 				this.launchActivity(this.popup.activity);
 			}
+		},
+		clearSearchField() {
+			this.$emit('clear-searchfield'); 
 		},
 	},
 };
