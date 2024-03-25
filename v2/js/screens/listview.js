@@ -63,7 +63,6 @@ const ListView = {
 						v-on:mouseleave="removePopupTimer($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
-					<div>
 				`,
 
 
@@ -97,7 +96,7 @@ const ListView = {
 			this.activities = sugarizer.modules.activities.get().filter((activity) => {
 				return activity.name.toUpperCase().includes(value.toUpperCase())
 			});
-		},
+		}
 	},
 
 	methods: {

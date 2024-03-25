@@ -1,6 +1,6 @@
 /* @ MainScreen
  @desc This is the main screen component */
- const MainScreen = {
+const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
 					<div class="tool_leftitems">
