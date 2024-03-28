@@ -319,9 +319,9 @@ TutoBackgroundContent=Click here to choose a new background for the board.
 ```
 You should add these strings in the `*` section and give their translations for `en`, `fr` and `es` sections.
 
-Now you need to reference the [webL10n](https://github.com/fabi1cazenave/webL10n) JavaScript library into our `lib/tutorial.js`. Update the "define" line like this:
+Now you need to reference the [l10n](https://github.com/eligrey/l10n.js) JavaScript library into our `lib/tutorial.js`. Update the "define" line like this:
 ```js
-define(["webL10n"], function (l10n) {
+define(["l10n"], function (l10n) {
 ```
 We're now able to reference our new resource strings by using call to `l10n.get()` method. First into steps:
 ```js
