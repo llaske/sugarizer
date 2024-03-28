@@ -24,6 +24,7 @@ The first step when you localize an activity is to identify strings to localize.
 * *"Add pawn"*: the helper message on the toolbar button
 
 With the i18next library, all strings have to be defined in specific files where all translations for each string according to their language should be set. These must be json files. Now, create a  new directory called `locales/`. Next, using your text editor create 3 json files for 3 different languages within the `locales` directory. The files should look like this - 
+
 en.json - 
 ```
 {
