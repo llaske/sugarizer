@@ -306,18 +306,18 @@ It's much better now!
 
 We're almost done but we must add a final step to our tutorial. As we've mentioned in Step 5, your activity should be localized to automatically adapt to the user language. The same is true for our tutorial.
 
-So let's first prepare text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the Step 5, update your `locale.ini` file to define new resource strings:
+So let's first prepare text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the Step 5, update your json file to define new resource strings:
 ```
-TutoPrev=Prev
-TutoNext=Next
-TutoExplainTitle=Pawn Activity
-TutoExplainContent=Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.
-TutoAddTitle=Add pawn
-TutoAddContent=Click here to add one to three pawns on the board.
-TutoBackgroundTitle=Change background
-TutoBackgroundContent=Click here to choose a new background for the board.
+"TutoPrev":"Prev",
+"TutoNext":"Next",
+"TutoExplainTitle":"Pawn Activity",
+"TutoExplainContent":"Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.",
+"TutoAddTitle":"Add pawn",
+"TutoAddContent":"Click here to add one to three pawns on the board.",
+"TutoBackgroundTitle":"Change background",
+"TutoBackgroundContent":"Click here to choose a new background for the board.",
 ```
-You should add these strings in the `*` section and give their translations for `en`, `fr` and `es` sections.
+You should add these strings to the `en.json` file and give their translations for the `fr.json` and `es.json` files..
 
 Now you need to reference the [l10n](https://github.com/eligrey/l10n.js) JavaScript library into our `lib/tutorial.js`. Update the "define" line like this:
 ```js
