@@ -6,6 +6,11 @@ define([], function () {
   function initGui() {
     var redoButton = document.getElementById('redo-button');
     PaintApp.elements.redoButton = redoButton;
+    document.querySelector("body").addEventListener("keydown", (event)=> {
+      if(event.key == "y" && event.ctrlKey == true) {
+        redo();
+      }
+    })
     redoButton.addEventListener('click', redo);
   }
   function hideGui() {

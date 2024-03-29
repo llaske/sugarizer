@@ -7,6 +7,11 @@ define([], function() {
   function initGui() {
     var undoButton = document.getElementById('undo-button');
     PaintApp.elements.undoButton = undoButton;
+    document.querySelector("body").addEventListener("keydown", (event)=> {
+      if(event.key == "z" && event.ctrlKey == true) {
+        redo();
+      }
+    })
     undoButton.addEventListener('click', undo);
   }
 
