@@ -560,6 +560,11 @@ let app = new Vue({
 					case 39:
 						this.vx += 10;
 						break;
+					case 40:
+						if (this.vy < 4.5) {
+							this.vy += 1;
+						}
+						break;
 				}
 			}
 			setTimeout(function () {
