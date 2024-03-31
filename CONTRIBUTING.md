@@ -17,6 +17,7 @@ So to send your Pull Request:
 
 Few rules to respect when you fix an issue:
 
+* [ ] Do not send a Pull Request without a related issue that has been approved by a Sugarizer maintainer,
 * [ ] Ensure your pull request contains only update related to the fix,
 * [ ] Respect indentation of the original file,
 * [ ] Mention the issue number in the pull request but not in the commit message
