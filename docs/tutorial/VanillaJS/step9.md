@@ -319,7 +319,7 @@ So let's first prepare text to localize. We need to translate title and content 
 ```
 You should add these strings to the `en.json` file and give their translations for the `fr.json` and `es.json` files..
 
-Now you need to reference the [l10n](https://github.com/eligrey/l10n.js) JavaScript library into our `lib/tutorial.js`. Update the "define" line like this:
+Now you need to reference the l10n library into our `lib/tutorial.js`. Update the "define" line like this:
 ```js
 define(["l10n"], function (l10n) {
 ```

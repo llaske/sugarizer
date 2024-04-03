@@ -60,7 +60,7 @@ For parameterized strings (i.e. strings where a value is inside the string), the
 
 We will now see how to initialize localization into the activity source code.
 
-Once again we will first have to integrate a new dependance. So let's add the l10n library in the first line of `js/activity.js`:
+Once again we will first have to integrate a new dependance. Instead of directly calling i18next, Sugar Web encapsulates it in the l10n library. So let's add the l10n library in the first line of `js/activity.js`:
 ```js
 define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "l10n"], function (activity, env, icon, l10n) {
 ```
@@ -117,7 +117,7 @@ That's all. The right language is now set into l10n at startup.
 
 ## Set strings value depending on the language
 
-To get the localized version of a string, the l10n framework provide a simple `get` method. You pass to the method the id of the string (the left side of the plus sign in the INI file) and, if need, the string parameter. So for the welcome message, here is the line to write:
+To get the localized version of a string, the l10n framework provide a simple `get` method. You pass to the method the id of the string (the left side of the colon in the JSON file) and, if need, the string parameter. So for the welcome message, here is the line to write:
 ```js
 document.getElementById("user").innerHTML = "<h1>"+l10n.get("Hello", {name:currentenv.user.name})+"</h1>";
 ```
