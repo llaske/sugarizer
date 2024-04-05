@@ -1358,3 +1358,9 @@ a {
 	border-radius: 20px;
 	color : white;
 }
+.loading-activities-message {
+	position: fixed;
+	top: 50%;
+	left: 47%;
+	font-size: large;
+}
