@@ -132,6 +132,7 @@ const HomeScreen = {
 
 		this.getCanvasCenter();
 		window.addEventListener("resize", this.draw);
+		this.getJournal();
 	},
 
 	beforeUnmount() {
@@ -514,7 +515,6 @@ const HomeScreen = {
 					this.restrictedModeInfo.positions = this.activityPositions.slice(this.restrictedModeInfo.start + 1, nextcount - 1);
 				}
 			}
-			this.getJournal();
 		},
 
 		showNextRestrictedList() {
