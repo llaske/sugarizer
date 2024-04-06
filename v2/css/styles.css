@@ -100,7 +100,7 @@ a {
     margin:20px;
 }
 .icon {
-	padding: 2px;
+	padding: 6px 2px 2px 0px;
 	width: fit-content;
 }
 
@@ -934,7 +934,7 @@ a {
 }
 
 .ls_icon_btn {
-	width: 120px;
+	width: fit-content;
 }
 
 .loginscreen_warning {
