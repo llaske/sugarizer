@@ -118,7 +118,7 @@ const MainScreen = {
 			if (e.detail.step === 'compute') {
 				vm.sync = true;
 			} else if (e.detail.step === 'start') {
-				if (e.detail.local+e.detail.remote > 0) {
+				if (e.detail.local+e.detail.remote > 0 && this.SugarL10n) {
 					sugarizer.modules.humane.log(this.SugarL10n.get("RetrievingJournal"));
 				}
 			} else if (e.detail.step === 'end') {
