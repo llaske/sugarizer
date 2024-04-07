@@ -102,12 +102,6 @@ let app = new Vue({
 
 	computed: {
 		helpText: function () {
-			console.log(this.paused)
-			console.log(this.bounceCount)
-			console.log(Score.innerHTML)
-
-				console.log(Score.innerHTML.length)
-			
 			if (this.answer == -1) {
 				return this.l10n.stringHelpClickToStart;
 			} else if ((this.paused && this.bounceCount == 0 && Score.innerHTML.length == 0 && this.mode == 'percents') || (this.paused && this.bounceCount == 0 && Score.innerHTML == " " && this.mode == 'percents')) {
