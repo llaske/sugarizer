@@ -42,7 +42,7 @@ const ListView = {
 						></icon>
 					</div>
 					<div v-if="!activitiesLoaded" class="loading-activities-message">
-					{{ SugarL10n.get("Loading") }}
+						<img src="./../images/spinner-light.gif">
 					</div>
 					<div v-if="activities.length === 0">
 						<div v-if="activitiesLoaded" class="no-matching-activities">
