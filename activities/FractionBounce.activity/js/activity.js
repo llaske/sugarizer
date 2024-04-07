@@ -102,11 +102,17 @@ let app = new Vue({
 
 	computed: {
 		helpText: function () {
+			console.log(this.paused)
+			console.log(this.bounceCount)
+			console.log(Score.innerHTML)
+
+				console.log(Score.innerHTML.length)
+			
 			if (this.answer == -1) {
 				return this.l10n.stringHelpClickToStart;
-			} else if (this.paused && this.bounceCount == 0 && Score.innerHTML == " " && this.mode == 'percents') {
+			} else if ((this.paused && this.bounceCount == 0 && Score.innerHTML.length == 0 && this.mode == 'percents') || (this.paused && this.bounceCount == 0 && Score.innerHTML == " " && this.mode == 'percents')) {
 				return this.l10n.stringHelpBounceToPosition + ' ' + Math.floor(this.answer / this.parts * 100) + '%' + ' ' + this.l10n.stringHelpOfTheWay;
-			} else if (this.paused && this.bounceCount == 0 && Score.innerHTML == " ") {
+			} else if ((this.paused && this.bounceCount == 0 && Score.innerHTML.length == 0) || (this.paused && this.bounceCount == 0 && Score.innerHTML == " ")) {
 				return this.l10n.stringHelpBounceToPosition + ' ' + this.answer + "/" + this.parts + ' ' + this.l10n.stringHelpOfTheWay;
 			} else if (this.paused && this.bounceCount == 0) {
 				return this.l10n.stringHelpGameOver;
