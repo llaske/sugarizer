@@ -44,5 +44,5 @@ TODO list
 * [x] Handle stats
 * [x] Handle view at startup
 * [ ] Optimize icon coloring https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562587
-* [ ] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
+* [x] Do not reload Journal at each draw https://github.com/llaske/sugarizer/pull/1370#discussion_r1306562742 
 * [x] Now that the popup has a timer, we see that the popup should be hidden when there is a click on a item.
