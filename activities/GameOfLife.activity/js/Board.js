@@ -39,10 +39,14 @@ function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCel
 
     canvas.addEventListener('mouseup', function () {
         isMouseDown = false;
+        _this.nowX = -1;
+            _this.nowY = -1
     });
 
     canvas.addEventListener('touchend', function () {
         isMouseDown = false;
+        _this.nowX = -1;
+            _this.nowY = -1
     });
 
     canvas.addEventListener('mousemove', dragEvent);
