@@ -125,7 +125,7 @@ enyo.kind({
         this.timeouts = [];
         
         var that = this;
-        requirejs(["webL10n"], function(webL10n) {
+        requirejs(["l10n"], function(webL10n) {
             that.START_MSG = webL10n.get("SimonStartMsg");
             that.SCORE_MSG = webL10n.get("SimonScoreMsg");
             that.LEVEL_MSG = webL10n.get("SimonLevelMsg");

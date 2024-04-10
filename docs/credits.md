@@ -10,7 +10,9 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Paint, Memorize, Record, Calculate and Media Viewer by Michaël Ohayon
 * Gridpaint by Brian Silverman
 * Speak by Vishal Batchu
-* Chat, Markdown by Suraj Gillespie
+* Chat by Utkarsh Siddhpura
+* Chart by Utkarsh Siddhpura 
+* Markdown by Suraj Gillespie
 * Moon by Shirsh Zibbu
 * EToys by Vanessa Freudenberg
 * Abacus, Reflection, XOEditor, Flip by Euan Ong  
@@ -21,7 +23,7 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Fototoon by Gonzalo Odiard
 * Game of Life, Pomodoro by Sanatan Kumar
 * Sprint Math by Mankirat Singh
-* Exerciser by Mankirat Singh and Avinash Agarwal
+* Exerciser by Mankirat Singh, Avinash Agarwal and Utkarsh Siddhpura
 * Write by Ashish Aggarval
 * Constellation, Planets by Andrea Gonzales
 * Falabracman, Chess, MindMath, Tangram by Prakash Ujjwal

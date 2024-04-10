@@ -183,6 +183,10 @@ function createWindow () {
 			};
 			menu.submenu[0].label = l10n.get("Quit");
 			template.unshift(menu);
+
+			const { systemPreferences } = require('electron')
+			systemPreferences.askForMediaAccess('microphone');
+			systemPreferences.askForMediaAccess('camera');
 		}
 		var menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);
