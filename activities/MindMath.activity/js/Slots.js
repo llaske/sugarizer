@@ -42,7 +42,7 @@ var Slots = {
         >{{slot.res}}</div>
 
       </div>
-      <template>
+      <div>
         <div
           v-bind:style="{
             visibility: emptyLinesAllowed != null ? 'visible' : 'hidden'
@@ -59,7 +59,7 @@ var Slots = {
           <div class="slotChild symbol"> = </div>
           <div class="slotChild empty-slot"></div>
         </div>
-      </template>
+      </div>
 
     </div>
   `,

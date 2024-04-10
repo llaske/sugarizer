@@ -1,5 +1,5 @@
 var currentview = "ListView";
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "webL10n", "tutorial", "humane"], function (activity, env, datastore, l10n, tutorial, humane) {
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "l10n", "tutorial", "humane"], function (activity, env, datastore, l10n, tutorial, humane) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -62,7 +62,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			//Set current language
 			var currentLang = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : currentLang;
-			l10n.language.code = language;
+			l10n.init(language);
 
 			//Init Sun
 			initPosition("Sun", "Star", null);
@@ -334,14 +334,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					planetInfo.appendChild(information);
 				}
 
-				document.getElementById("Name").innerHTML = '<p>' + l10n.get("PlanetName") + '</br>' + l10n.get(name) + '</p>';
-				document.getElementById("Type").innerHTML = '<p>' + l10n.get("PlanetType") + '</br>' + l10n.get(type.replace(/\s+/g, '')) + '</p>';
-				document.getElementById("Year").innerHTML = '<p>' + l10n.get("YearLength") + '</br>' + l10n.get("EarthDays", {year:year}) + '</p>';
-				document.getElementById("Mass").innerHTML = '<p>' + l10n.get("Mass") + '</br>' + mass + '</p>';
-				document.getElementById("Temperature").innerHTML = '<p>' + l10n.get("SurfaceTemperature") + '</br>' + temperature + '</p>';
-				document.getElementById("Moons").innerHTML = '<p>' + l10n.get("NumberOfMoons") + '</br>' + moons + '</p>';
-				document.getElementById("Radius").innerHTML = '<p>' + l10n.get("PlanetRadius") + '</br>' + radius + '</p>';
-				document.getElementById("SunDistance").innerHTML = '<p>' + l10n.get("SunDistance") + '</br>' + sunDistance + '</p>';
+				document.getElementById("Name").innerHTML = '<p>' + l10n.get("PlanetName") + '</p><p>' + l10n.get(name) + '</p>';
+				document.getElementById("Type").innerHTML = '<p>' + l10n.get("PlanetType") + '</p><p>' + l10n.get(type.replace(/\s+/g, '')) + '</p>';
+				document.getElementById("Year").innerHTML = '<p>' + l10n.get("YearLength") + '</p><p>' + l10n.get("EarthDays", {year:year}) + '</p>';
+				document.getElementById("Mass").innerHTML = '<p>' + l10n.get("Mass") + '</p><p>' + mass + '</p>';
+				document.getElementById("Temperature").innerHTML = '<p>' + l10n.get("SurfaceTemperature") + '</p><p>' + temperature + '</p>';
+				document.getElementById("Moons").innerHTML = '<p>' + l10n.get("NumberOfMoons") + '</p><p>' + moons + '</p>';
+				document.getElementById("Radius").innerHTML = '<p>' + l10n.get("PlanetRadius") + '</p><p>' + radius + '</p>';
+				document.getElementById("SunDistance").innerHTML = '<p>' + l10n.get("SunDistance") + '</p><p>' + sunDistance + '</p>';
 
 				saveImage = function(){
 

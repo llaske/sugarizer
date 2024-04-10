@@ -1,0 +1,21 @@
+{
+	"QRCodeSaved": "QRCode wurde in das Journal gespeichert!",
+	"TutoPrev": "Prev",
+	"TutoNext": "Next",
+	"TutoEnd": "End",
+	"TutoExplainTitle": "QRCode Activity",
+	"TutoExplainContent": "Welcome into the QRCode activity. QRCode activity is a simple QR Code generator and reader",
+	"TutoPhotoTitle": "Read QR Code",
+	"TutoPhotoContent": "Click here to scan a QR code through Camera of your device",
+	"TutoPNGTitle": "Export to PNG",
+	"TutoPNGContent": "Click this icon to export the QR Code in Journal as a PNG file",
+	"TutoGenerateTitle": "Generate",
+	"TutoGenerateContent": "Klicken Sie auf dieses Symbol, um die Generation",
+	"TutoListTitle": "History",
+	"TutoListContent": "Click here to get a list of previously generated QR Codes",
+	"TutoQRTitle": "QR Code",
+	"TutoQRContent": "Here is shown the generated QR Code",
+	"TutoInputTitle": "Text to generate",
+	"TutoInputContent": "Type here the text you want to generate as a QR Code",
+	"Text": "Type text here"
+}

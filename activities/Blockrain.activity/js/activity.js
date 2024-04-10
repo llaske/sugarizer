@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env", "webL10n", "tutorial"], function (activity,env, webL10n, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/env", "l10n", "tutorial"], function (activity,env, l10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -8,13 +8,14 @@ define(["sugar-web/activity/activity","sugar-web/env", "webL10n", "tutorial"], f
 		env.getEnvironment(function(err, environment) {
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			webL10n.language.code = language;
+			l10n.init(language);
 		});
 		var myHighestScore = 0;
 
 		//Loads highest score from Journal
 		loadHighScore();
-
+		var paused = true;
+		var gameStarted = false;
 		var $game = $('#canvas').blockrain({
       speed: 20,
       theme: 'candy',
@@ -24,12 +25,22 @@ define(["sugar-web/activity/activity","sugar-web/env", "webL10n", "tutorial"], f
 		  autoBlockSize: 24,
 		  touchControls: true,
 			highestScore: myHighestScore,
-      onStart: function(){},
+		onStart: function(){			
+			gameStarted = true;
+			handlePausePlay();
+		},
 		  onRestart: function(){
 				loadHighScore(); // loads highscore when game is restarted.
+				gameStarted = true;
+				handlePausePlay();
 			},
 		  onGameOver: function(score){
 				saveHighestScore();
+				gameStarted=false;
+				paused=true;
+				var playPauseButton = document.getElementById('play-button');
+				playPauseButton.classList.remove('pause');
+				playPauseButton.classList.add('play');
 			},
 
 		  onLine: function(lines, scoreIncrement, score){
@@ -99,9 +110,34 @@ define(["sugar-web/activity/activity","sugar-web/env", "webL10n", "tutorial"], f
       $game.blockrain('theme', themes[currentIx]);
     }
 
+	function handlePausePlay() {
+		var playPauseButton = document.getElementById('play-button');
+		if(!gameStarted){
+			$game.blockrain('start');
+		}
+		else{
+			if(paused) {
+				$game.blockrain('resume');
+				$game.blockrain('controls', true);
+				playPauseButton.classList.remove('play');
+				playPauseButton.classList.add('pause');
+			}
+			else {
+				$game.blockrain('pause');
+				$game.blockrain('controls', false);
+				playPauseButton.classList.remove('pause');
+				playPauseButton.classList.add('play');
+			}
+			paused = !paused;
+		}
+	}
+
     document.getElementById("btn-next").onclick = function() {
         switchTheme(true);
     };
+	document.getElementById('play-button').addEventListener('click', function () {
+		handlePausePlay();
+	});
 	document.getElementById("help-button").addEventListener('click', function(e) {
 		tutorial.start();
 	});

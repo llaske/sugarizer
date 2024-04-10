@@ -1,0 +1,18 @@
+{
+	"PlayerEndLevel": "{{user}} vient de terminer",
+	"PlayerJoin": "{{user}} a rejoint",
+	"PlayerLeave": "{{user}} est parti",
+	"PlayersWaitOne": "En attente d'un joueur",
+	"PlayersWaitMany": "En attente de {{count}} joueurs",
+	"TutoPrev": "Préc",
+	"TutoNext": "Suiv",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Activité Maze",
+	"TutoExplainContent": "Bienvenue dans l'activité Maze. Maze est un jeu de labyrinthe. Déplacez-vous dans le labyrinthe pour atteindre la sortie. Chaque labyrinthe devient plus grand et plus difficile que le précédent",
+	"TutoNetworkTitle": "Réseau",
+	"TutoNetworkContent": "Cliquez ici pour partager l'activité afin que d'autres utilisateurs sur le réseau puissent jouer avec vous",
+	"TutoRestartTitle": "Redémarrer",
+	"TutoRestartContent": "Cliquez ici pour redémarrer le jeu. Il redémarrera au premier niveau de difficulté",
+	"TutoCanvasTitle": "Labyrinthe",
+	"TutoCanvasContent": "Voilà le labyrinthe. Utilisez les flêches du clavier ou cliquez dans la direction où vous voulez aller pour rejoindre la sortie: la boite colorée. Vous serez arrêté à chaque intersection pour décider où vous voulez aller ensuite"
+}

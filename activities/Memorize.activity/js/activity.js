@@ -1,6 +1,6 @@
 /* Start of the app, we require everything that is needed */
 define(function (require) {
-    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'sugar-web/env', 'webL10n', 'activity/memorize-app'], function (doc, activity, presencePalette, env, webL10n, memorizeApp) {
+    requirejs(['domReady!', "sugar-web/activity/activity", "sugar-web/graphics/presencepalette", 'sugar-web/env', "l10n", 'activity/memorize-app'], function (doc, activity, presencePalette, env, l10n, memorizeApp) {
 
         window.memorizeApp = memorizeApp;
         memorizeApp.activity = activity;
@@ -9,13 +9,9 @@ define(function (require) {
         env.getEnvironment(function(err, environment) {
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
+            l10n.init(language);
             window.addEventListener('localized', function(e) {
-                document.getElementById("network-button").title = webL10n.get("TutoTitleNetwork");
-                if (e.language != language) {
-                    setTimeout(function() {
-                      webL10n.language.code = language;
-                    }, 50);
-                }
+                document.getElementById("network-button").title = l10n.get("TutoTitleNetwork");    
             });
         });
 
@@ -97,11 +93,11 @@ define(function (require) {
             var html = "<img style='height:30px;vertical-align:middle;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 
             if (msg.move === 1) {
-                showQuickModal(html + webL10n.get("PlayerJoin",{user: userName}))
+                showQuickModal(html + l10n.get("PlayerJoin",{user: userName}))
             }
 
             if (msg.move === -1) {
-                showQuickModal(html + webL10n.get("PlayerLeave",{user: userName}))
+                showQuickModal(html + l10n.get("PlayerLeave",{user: userName}))
             }
 
             memorizeApp.presence.listUsers(function (users) {

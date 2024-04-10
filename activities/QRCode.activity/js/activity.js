@@ -1,6 +1,6 @@
 
 
-define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "webL10n", "tutorial"], function (activity, datastore, env, webL10n, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "l10n", "tutorial"], function (activity, datastore, env, l10n, tutorial) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!', 'humane'], function (doc, humane) {
@@ -13,7 +13,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		env.getEnvironment(function(err, environment) {
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			webL10n.language.code = language;
+			l10n.init(language);
 		});
 
 		// Compute size of QR Code
@@ -107,7 +107,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 		});
 		//localization for placeholder text
 		window.addEventListener("localized", function() {
-			document.getElementById("user-text").placeholder = webL10n.get("Text");
+			document.getElementById("user-text").placeholder = l10n.get("Text");	
 		});
 
 		var input = document.getElementById("user-text");
@@ -162,7 +162,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "w
 				file_size: 0
 			};
 			datastore.create(metadata, function() {
-				humane.log(webL10n.get('QRCodeSaved'))
+				humane.log(l10n.get('QRCodeSaved'))
 				console.log("export done.")
 			}, inputData);
 		});

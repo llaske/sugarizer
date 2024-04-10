@@ -1,4 +1,4 @@
-define(["webL10n"], function (l10n) {
+define(["l10n"], function (l10n) {
 	var tutorial = {};
 	tutorial.start = function() {
 		var steps = [
@@ -36,6 +36,12 @@ define(["webL10n"], function (l10n) {
 				position: "left",
 				title: l10n.get("TutoRightTitle"),
 				intro: l10n.get("TutoRightContent")
+			},
+			{
+				element: "#play-button",
+				position: "bottom",
+				title: l10n.get("TutoPlayTitle"),
+				intro: l10n.get("TutoPlayContent")
 			},
 			{
 				element: "#btn-next",

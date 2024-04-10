@@ -1,0 +1,13 @@
+{
+  "TutoPrev": "Prev",
+  "TutoNext": "Next",
+  "TutoEnd": "End",
+  "TutoExplainTitle": "Grid Paint Activity",
+  "TutoExplainContent": "Welcome into the Grid Paint activity. Grid Paint is a simple paint activity to draw pictures using a grid of triangles",
+  "TutoGridTitle": "Grids",
+  "TutoGridContent": "Here is the list of grids. You've got 15 grids, some are empty some are already filled. Click on any grid to start painting on it",
+  "TutoClearTitle": "Clear",
+  "TutoClearContent": "Click here to clear all triangles in the grid",
+  "TutoEditTitle": "Paint",
+  "TutoEditContent": "Click on any triangle to fill it with the current color. Squares to the left are colors, click on any square to select it as current color. Click on the back icon to go back to the list of grids"
+}

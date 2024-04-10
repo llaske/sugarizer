@@ -1,21 +1,11 @@
-define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-helper","sugar-web/datastore","webL10n","tutorial","sugar-web/env"], function (activity,presence,captureHelper,datastore,webL10n,tutorial,env) {
+define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-helper","sugar-web/datastore","l10n","tutorial","sugar-web/env"], function (activity,presence,captureHelper,datastore,l10n,tutorial,env) {
 
     requirejs(['domReady!'], function (doc) {
 
         window.addEventListener('localized', function() {
-            window.l10n = webL10n;
-            if (datastore !== undefined && datastore.localStorage !== undefined) {
-                var preferences = datastore.localStorage.getValue('sugar_settings');
-                if (preferences === null || preferences.name === undefined) {
-                    return;
-                }
-                if (preferences.language !== undefined) {
-                    if (webL10n.language.code !== preferences.language)
-                        webL10n.language.code = preferences.language;
-                }
-            }
-            if (webL10n.get("by") !== undefined && webL10n.get("by").length > 0) {
-                captureHelper.by = webL10n.get("by");
+            window.l10n = l10n;
+            if (l10n.get("by") !== undefined && l10n.get("by").length > 0) {
+                captureHelper.by = l10n.get("by");
             }
         }, false);
 
@@ -27,7 +17,7 @@ define(["sugar-web/activity/activity","sugar-web/presence","activity/capture-hel
             // Set current language to Sugarizer
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
-            webL10n.language.code = language;
+            l10n.init(language);
         });
 
         if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {

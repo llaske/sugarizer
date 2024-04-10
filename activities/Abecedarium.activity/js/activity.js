@@ -1,6 +1,6 @@
 ﻿
 
-define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-web/env","webL10n"], function (activity, datastore, tutorial, env, webL10n) {
+define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-web/env","l10n"], function (activity, datastore, tutorial, env, l10n) {
 	if (!Abcd) {
 		Abcd = {};
 	}
@@ -20,7 +20,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","tutorial","sugar-we
 			// Set current language to Sugarizer
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			var language = environment.user ? environment.user.language : defaultLanguage;
-			webL10n.language.code = language;
+			l10n.init(language);;
 			if (language == 'fr' || language == 'en' || language == 'es') {
 				Abcd.context.lang = language;
 			}

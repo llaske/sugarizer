@@ -74,9 +74,6 @@ body {
 	left: 0px;
 }
 
-.sugarizer-canvas {
-}
-
 .view-radial-button {
 	background-image: url(../icons/view-radial.svg);
 	position: absolute !important;
@@ -406,9 +403,6 @@ body {
 	margin-right: auto;
 }
 
-.journal-content {
-}
-
 .journal-footer {
 	width: 100%;
 }
@@ -459,7 +453,6 @@ body {
 .assignment-submit {
 	left: 921px;
 }
-
 
 .journal-filter-text {
 	position: relative;
@@ -844,14 +837,11 @@ body {
 	user-select: none;
 }
 
-.icon-button-icon {
-}
-
 .icon-button-text {
 	margin-top: 10px;
 	width:inherit;
 	padding-left: 38px;
-	padding-right: 38px;
+	padding-right: 28px;
 	color: white;
 	display: inline-block;
 }
@@ -864,12 +854,6 @@ body {
 	border: 2px solid #808080;
 }
 
-.selectbox-icon {
-}
-
-.selectbox-double {
-
-}
 .selectbox-text {
 	position: relative;
 	top: 8px;
@@ -879,9 +863,6 @@ body {
 	background-image: url(../icons/control-popup-arrow.svg);
 	background-repeat: no-repeat;
 	background-position: 95% 15%;
-}
-
-.selectbox-popup {
 }
 
 .settings-dialog {
@@ -1047,22 +1028,10 @@ body {
 	display: inline-block;
 }
 
-.aboutme-psicon {
-}
-
-.aboutme-nsicon {
-}
-
 .aboutme-cicon {
 	border-color: #808080;
 	border-style: none solid none solid;
 	border-width: 3px;
-}
-
-.aboutme-pficon {
-}
-
-.aboutme-nficon {
 }
 
 .aboutme-restart {
@@ -1353,14 +1322,14 @@ body {
 	position: absolute;
 	left: 50px;
 	bottom: 50px;
-	width: 120px;
+	width: fit-content;
 }
 
 .first-rightbutton {
 	position: absolute;
 	right: 50px;
 	bottom: 50px;
-	width: 120px;
+	width: fit-content;
 }
 
 .first-historybox {
@@ -1492,9 +1461,6 @@ body {
 .password-emojis {
 	margin-top: 10px;
 	display: inline-block;
-}
-
-.password-emojis-line {
 }
 
 .password-emojis-category {
@@ -1723,9 +1689,6 @@ body {
 	margin-left: 10px;
 	margin-top: 30px;
 	display: inline-block;
-}
-
-.computer-line {
 }
 
 .computer-copyright {
@@ -2086,9 +2049,9 @@ body {
 	background-size: 25px 25px;
 	margin-top: 2px;
 	padding: 0px;
-	text-indent: 100%;
 	white-space: nowrap;
-	overflow: hidden;
+	color: transparent;
+	line-height: 27px;
 }
 
 .customTooltip .introjs-nextbutton::before {

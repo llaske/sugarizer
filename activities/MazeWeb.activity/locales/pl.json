@@ -1,0 +1,18 @@
+{
+	"PlayerEndLevel": "{{user}} ukończył poziom",
+	"PlayerJoin": "{{user}} dołączył",
+	"PlayerLeave": "{{user}} opuścił grę",
+	"PlayersWaitOne": "Oczekiwanie na {{count}} gracza",
+	"PlayersWaitMany": "Oczekiwanie na {{count}} graczy",
+	"TutoPrev": "Poprz",
+	"TutoNext": "Dalej",
+	"TutoEnd": "Koniec",
+	"TutoExplainTitle": "Labirynt",
+	"TutoExplainContent": "Witaj w aplikacji Labirynt. Jest to prosta gra z labiryntem. Poruszaj się po labiryncie aby dotrzeć do celu. Kolejne labirynty są większe i trudniejsze od poprzednich.",
+	"TutoNetworkTitle": "Sieć",
+	"TutoNetworkContent": "Kliknij aby udostępnić grę aby inni mogli do Ciebie dołączyć.",
+	"TutoRestartTitle": "Restart",
+	"TutoRestartContent": "Kliknij aby wygenerować nowy labirynt o tym samym poziomie trudności.",
+	"TutoCanvasTitle": "Labirynt",
+	"TutoCanvasContent": "To jest labirynt. Używaj strzałek, WSAD lub myszki aby doprowadzić uśmiechające się kółko do kolorowego kwadrata. Zatrzymasz się na każdym przecięciu aby zdecydować, w którą stronę chcesz iść."
+}

@@ -1,0 +1,17 @@
+{
+	"TutoPrev": "Préc",
+	"TutoNext": "Suiv",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Activité Abacus",
+	"TutoExplainContent": "Bienvenue dans l'activité Abacus. Abacus vous permet d'explorer la représentation des nombres en utilisant différent type de bouliers utilisés par les Romains et Chinois anciens",
+	"TutoAbacusTitle": "Choix boulier",
+	"TutoAbacusContent": "Cliquez ici pour choisir le type de boulier à utiliser. Certains bouliers permettent de manipuler des décimaux, certains permettent de manipuler des fractions, certains permettent de manipuler des nombres en base 2 et vous pouvez même créer votre propre boulier",
+	"TutoCustomTitle": "Personnaliser",
+	"TutoCustomContent": "Cliquez ici pour créer votre propre boulier. Vous pouvez définir le nombre de colonnes, lignes et la base",
+	"TutoCopyTitle": "Copier",
+	"TutoCopyContent": "Cliquez ici pour copier la valeur actuelle dans le presse-papier",
+	"TutoClearTitle": "Effacer",
+	"TutoClearContent": "Cliquez ici pour réinitialiser la valeur du boulier à zéro",
+	"TutoCanvasTitle": "Abacus",
+	"TutoCanvasContent": "Ceci est le corps du boulier. Cliquez ou déplacer les perles vers la zone centrale pour créer les nombres"
+}

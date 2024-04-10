@@ -859,9 +859,9 @@ var app = new Vue({
 
 			var vm = this;
 			var metadata = {
-				mimetype: 'text/plain',
-				title: this.SugarL10n.get("MeasureLoggingBy", { name: vm.currentenv.user.name}) + ".txt",
-				activity: "org.olpcfrance.Measure",
+				mimetype: "text/csv",
+				title: this.SugarL10n.get("MeasureLoggingBy", { name: vm.currentenv.user.name}) + ".csv",
+				activity: "org.sugarlabs.ChartActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
 				file_size: 0

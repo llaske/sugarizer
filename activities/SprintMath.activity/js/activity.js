@@ -2,12 +2,12 @@ define([
     "sugar-web/activity/activity",
     "sugar-web/env",
     "sugar-web/graphics/icon",
-    "webL10n",
+    "l10n",
     "sugar-web/graphics/presencepalette",
     "toolpalette",
     "humane",
     "tutorial"
-], function (activity, env, icon, webL10n, presencepalette, toolpalette, humane, tutorial) {
+], function (activity, env, icon, l10n, presencepalette, toolpalette, humane, tutorial) {
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
 
@@ -16,9 +16,9 @@ define([
         // initiating the level palette (for easy/ medium/ hard)
         var levelButton = document.getElementById("level-button");
         var levels = [
-            {"id": 1, "title": webL10n.get("easy")},
-            {"id": 2, "title": webL10n.get("medium")},
-            {"id": 3, "title": webL10n.get("hard")}
+            {"id": 1, "title": l10n.get("easy")},
+            {"id": 2, "title": l10n.get("medium")},
+            {"id": 3, "title": l10n.get("hard")}
         ];
         levelpalette = new toolpalette.FilterPalette(levelButton, undefined);
         levelpalette.setCategories(levels);
@@ -125,7 +125,7 @@ define([
                 gameOverMessages.push({"user": currentenv.user, "score": score});
                 showAllUserScores();
             } else {
-                document.getElementById("gameOver").innerHTML = webL10n.get("GameOver", {
+                document.getElementById("gameOver").innerHTML = l10n.get("GameOver", {
                     name: currentenv.user.name,
                     score: score
                 });
@@ -145,7 +145,7 @@ define([
             var div = document.createElement("div");
             for (i = 0; i < gameOverMessages.length; i++) {
                 var div_child = document.createElement("div");
-                div_child.innerHTML = webL10n.get("GameOver", {
+                div_child.innerHTML = l10n.get("GameOver", {
                     name: gameOverMessages[i].user.name,
                     score: gameOverMessages[i].score
                 });
@@ -156,7 +156,7 @@ define([
             }
             for (i=0;i<gamePlaying.length;i++){
                 var div_child = document.createElement("div");
-                div_child.innerHTML = webL10n.get("GamePlaying", {
+                div_child.innerHTML = l10n.get("GamePlaying", {
                     name: gamePlaying[i].name
                 });
 
@@ -402,7 +402,7 @@ define([
 
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
-            webL10n.language.code = language;
+            l10n.init(language);
 
             // Load from datastore
             if (!environment.objectId) {
@@ -445,15 +445,15 @@ define([
         window.addEventListener("localized", function () {
             // Set current language to Sugarizer
 
-            document.getElementById("timeString").innerHTML = webL10n.get("Time");
-            document.getElementById("scoreString").innerHTML = webL10n.get("Score");
-            document.getElementById("correct").innerHTML = webL10n.get("correct");
-            document.getElementById("wrong").innerHTML = webL10n.get("wrong");
+            document.getElementById("timeString").innerHTML = l10n.get("Time");
+            document.getElementById("scoreString").innerHTML = l10n.get("Score");
+            document.getElementById("correct").innerHTML = l10n.get("correct");
+            document.getElementById("wrong").innerHTML = l10n.get("wrong");
 
             var levels = [
-                {"id": 1, "title": webL10n.get("easy")},
-                {"id": 2, "title": webL10n.get("medium")},
-                {"id": 3, "title": webL10n.get("hard")}
+                {"id": 1, "title": l10n.get("easy")},
+                {"id": 2, "title": l10n.get("medium")},
+                {"id": 3, "title": l10n.get("hard")}
             ];
             levelpalette.setCategories(levels);
 
@@ -535,11 +535,11 @@ define([
             var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 
             if(msg.move === 1){
-                humane.log(webL10n.get("joined", {
+                humane.log(l10n.get("joined", {
                     name: userName
                 }));
             }else{
-                humane.log(webL10n.get("left", {
+                humane.log(l10n.get("left", {
                     name: userName
                 }));
             }

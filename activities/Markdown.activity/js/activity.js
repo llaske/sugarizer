@@ -1,15 +1,15 @@
-define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function (activity, webL10n, datastore) {
+define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore", "sugar-web/env"], function (activity, _l10n, datastore, env) {
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 
 		// Initialize the activity.
+		l10n = _l10n
 		activity.setup();
 		var buttons = ["insertText", "wmd-bold-button-second", "wmd-italic-button-second", "wmd-heading-button", "wmd-hr-button",
 				"wmd-olist-button", "wmd-ulist-button", "wmd-code-button", "wmd-quote-button", "wmd-link-button",
-				"wmd-undo-button", "wmd-redo-button", "wmd-showHideEditor-button","wmd-showHidePreview-button"];
+				"wmd-undo-button", "wmd-redo-button", "wmd-showHideEditor-button", "wmd-showHidePreview-button"];
 		inputTextContent = document.getElementById("wmd-input-second");
-		inputTextContent.value = "#"+l10n_s.get("sample-input");
 
 		//to save and resume the contents from datastore.
 		var datastoreObject = activity.getDatastoreObject();
@@ -20,16 +20,28 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 			datastoreObject.setDataAsText(jsonData);
 			datastoreObject.save(function () {});
 		};
-		markdownParsing(); //to load for the first time
-		datastoreObject.loadAsText(function (error, metadata, data) {
-			markdowntext = JSON.parse(data);
-			inputTextContent.value = markdowntext;
-			markdownParsing(); //to load again when there is a datastore entry
-		});
+		markdownParsing();
+		env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			window.addEventListener('localized', function () {
+				for (i = 0; i < buttons.length; i++) {
+					document.getElementById(buttons[i]).title = l10n.get(buttons[i]);
+				}
+				if (!environment.objectId) {
+					inputTextContent.value = "#" + l10n.get("sample-input");
+					markdownParsing();
+				} else {
+					datastoreObject.loadAsText(function (error, metadata, data) {
+						markdowntext = JSON.parse(data);
+						inputTextContent.value = markdowntext;
+						markdownParsing();
+					});
+				}
+			});
+			l10n.init(language);	
+		})
 
-		for (i = 0; i < buttons.length; i++) {
-			document.getElementById(buttons[i]).title = l10n_s.get(buttons[i]);
-		}
 		var journal = document.getElementById("insertText");
 
 		journal.onclick = function () {
@@ -56,38 +68,38 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 		var preview = document.getElementById("wmd-preview-second");
 		var textArea = document.getElementById("wmd-input-second");
 
-		function isElementHidden (element) {
+		function isElementHidden(element){
 			return window.getComputedStyle(element, null).getPropertyValue('display') === 'none';
 		}
 		showHideEditor.onclick = function(){
 
-			if(isElementHidden(preview))
+			if (isElementHidden(preview))
 			{
 				preview.style.display = "inline";
 				preview.style.width = "97%";
 				panel.style.width = "1%";
 			}
-			if(isElementHidden(panel))
+			if (isElementHidden(panel))
 			{
 				panel.style.display = "inline";
 				panel.style.width = "47%";
 				preview.style.width = "47%";
 			}
-			else{
+			else {
 				panel.style.display = "none";
 				panel.style.width = "1%";
 				preview.style.width = "97%";
 			}
 
 		}
-		showHidePreview.onclick = function(){
-			if(isElementHidden(panel))
+		showHidePreview.onclick = function () {
+			if (isElementHidden(panel))
 			{
 				panel.style.display = "inline";
 				panel.style.width = "97%";
 				preview.style.width = "1%";
 			}
-			if(isElementHidden(preview))
+			if (isElementHidden(preview))
 			{
 				preview.style.display = "inline";
 				preview.style.width = "47%";
@@ -118,21 +130,20 @@ define(["sugar-web/activity/activity","webL10n","sugar-web/datastore"], function
 			} else {
 				myField.value += myValue;
 			}
-			//markdownParsing();
 		}
 
 		function markdownParsing() {
 			var converter2 = new Markdown.Converter();
 
 			var help = function () {
-				alert(l10n_s.get("need-help"));
+				alert(l10n.get("need-help"));
 			}
 			var options = {
 				helpButton: {
 					handler: help
 				},
 				strings: {
-					quoteexample: l10n_s.get("put-it-right-here")
+					quoteexample: l10n.get("put-it-right-here")
 				}
 			};
 

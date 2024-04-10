@@ -76,9 +76,11 @@ To draw the pawn we will reuse our nice pawn icon. So each time there will be a 
 
 Let's update the `js/activity.js` to add this. But first, we will slightly adapt our `getEnvironment` call. We just add a `currentenv` data variable to store the environment to avoid multiple call of the `getEnvironment` method:
 ```js
-data: {
-	currentenv: null,
-	displayText: ''
+data: function () {
+	return {
+		currentenv: null,
+		displayText: ''
+	}
 },
 methods: {
 	initialized: function () {
@@ -90,9 +92,11 @@ methods: {
 ```
 Then just after the `initialized`, we will add the following method to handle click event and a new `pawns` array:
 ```js
-data: {
-	...
-	pawns: []
+data: function () {
+	return {
+		...
+		pawns: []
+	}
 },
 methods: {
 	...
@@ -106,13 +110,13 @@ methods: {
 This method adds the colors of the user to the array on click. The method also updates the `displayText` to show who made the move. We will update `index.html` and use this pawns array to dynamically render pawns to the screen using `v-for`, like this:
 ```html
 <div id="pawns">
-	<div class="pawn" v-for="(pawn, i) in pawns" v-bind:key="i"></div>
+	<div class="pawn" v-for="(pawn, i) in pawns" :key="i"></div>
 </div>
 ```
 
-Now, call this method using `v-on:click` directive on the add pawn toolitem.
+Now, call this method using `v-on:click` directive(Shorthand: @) on the add pawn toolitem.
 ```html
-<sugar-toolitem id="add-button" title="Add Pawn" v-on:click="onAddClick"></sugar-toolitem>
+<sugar-toolitem id="add-button" title="Add Pawn" @click="onAddClick"></sugar-toolitem>
 ```
 
 Make sense? Yes, except that something is missing: the link between the `div` created for the pawn and the pawn icon itself. To do that we have to update the `css/activity.css` file. Add these lines at the end of the file:
@@ -142,14 +146,14 @@ We decide to update our activity to paint the pawn with the user color. You coul
 
 Let's create a **Pawn** component to handle this behaviour of the pawn icon. Create `js/Pawn.js` and add the following code:
 ```js
-var Pawn = {
+const Pawn = {
 	template: `<div ref="pawn" class="pawn"></div>`,
 	props: ['colors']
 }
 ```
 This component takes `colors` as a prop. Now, whenever this component is mounted, we want to set the color of the icon to the colors passed to it as props. Let's add the mounted hook and require the icon library. The Pawn component will look something like this now:
 ```js
-var Pawn = {
+const Pawn = {
 	template: `<div ref="pawn" class="pawn"></div>`,
 	props: ['colors'],
 	mounted: function() {
@@ -188,9 +192,12 @@ Let's add this component to our Vue instance.
 
 2. Register the component in `js/activity.js`
 ```js
-var app = new Vue({
-	el: '#app',
+const app = Vue.createApp({
+	// Register components as "html-tag-name": ComponentObjectName
 	components: {
+		"sugar-activity": SugarActivity,
+		"sugar-toolbar": SugarToolbar,
+		"sugar-toolitem": SugarToolitem,
 		'pawn': Pawn
 	},
 	...
@@ -199,7 +206,7 @@ var app = new Vue({
 3. Use the component in `index.html` passing the user colors
 ```html
 <div id="pawns">
-	<pawn class="pawn" v-for="(pawn, i) in pawns" v-bind:key="i" v-bind:colors="pawn"></pawn>
+	<pawn class="pawn" v-for="(pawn, i) in pawns" :key="i" :colors="pawn"></pawn>
 </div>
 ```
 

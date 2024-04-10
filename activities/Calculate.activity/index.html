@@ -10,7 +10,6 @@
 
   <link rel="stylesheet" href="css/activity.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="prefetch" type="application/l10n" href="translate.ini" />
   <link rel="stylesheet" href="css/introjs.css">
   <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
   <script src="lib/intro.js"></script>
@@ -21,11 +20,11 @@
 <body id="body" style="background-color:#fff; color:#fff; height:100%; margin:0;">
   <div id="main-toolbar" class="toolbar">
     <button class="toolbutton" id="activity-button" title="My Activity"></button>
-    <button class="toolbutton" id="trigo-palette" data-l10n-id="trigo" title="Select Trigonometric Function"></button>
-    <button class="toolbutton" id="algebra-palette" data-l10n-id="algebra" title="Select Algebra Type"></button>
-    <button class="toolbutton" id="base-palette" data-l10n-id="base" title="Select Base"></button>
-    <button class="toolbutton" id="radian-degree-palette" data-l10n-id="angle" title="Select Angle Type"></button>
-    <button class="toolbutton" id="output-digits-palette" data-l10n-id="digit" title="Select Output Digits"></button>
+    <button class="toolbutton" id="trigo-palette" data-i18n="trigo" title="Select Trigonometric Function"></button>
+    <button class="toolbutton" id="algebra-palette" data-i18n="algebra" title="Select Algebra Type"></button>
+    <button class="toolbutton" id="base-palette" data-i18n="base" title="Select Base"></button>
+    <button class="toolbutton" id="radian-degree-palette" data-i18n="angle" title="Select Angle Type"></button>
+    <button class="toolbutton" id="output-digits-palette" data-i18n="digit" title="Select Output Digits"></button>
     <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
     <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
     <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
@@ -116,5 +115,19 @@
     <div id="plot"></div>
   </div>
 </body>
-
+<script type="text/javascript">
+	requirejs.config({
+		baseUrl: "js",
+		paths: {
+			activity: "../js"
+		}
+	});
+	var l10n = null;
+	requirejs(["../lib/l10n"], function (il10n) {
+		l10n = il10n;
+	});
+	window.addEventListener('localized', function() {
+		l10n.updateDocument();
+	}, false);
+</script>
 </html>

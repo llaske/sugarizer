@@ -1,0 +1,23 @@
+{
+	"PlayerJoin": "{{user}} se ha unido",
+	"PlayerLeave": "{{user}} ha abandonado",
+	"TutoPrev": "Ant",
+	"TutoNext": "Sig",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Actividad \"El último pierde\"",
+	"TutoExplainContent": "Bienvenido a la actividad \"El último pierde\". En esta actividad, el alumno accederá a un juego multijugador donde deberá evitar recoger el último objeto de la mesa. Podrá jugar contra el ordenador o contra otro jugador que esté conectado",
+	"TutoNetworkTitle": "Compartir en red",
+	"TutoNetworkContent": "Haz clic aquí para compartir tu partida y que un oponente pueda enfrentarse a ti",
+	"TutoNewgameTitle": "Nueva partida",
+	"TutoNewgameContent": "Haz clic aquí para empezar una nueva partida, colocando 13 objetos sobre la mesa.",
+	"TutoEasyTitle": "Nivel fácil",
+	"TutoEasyContent": "Haz clic aquí para elegir el nivel de dificultad fácil. En este nivel, el ordenador se comportará como un oponente principiante",
+	"TutoMediumTitle": "Nivel normal",
+	"TutoMediumContent": "Haz clic aquí para elegir el nivel de dificultad normal. En este nivel, el ordenador se comportará como un oponente normal",
+	"TutoHardTitle": "Nivel difícil",
+	"TutoHardContent": "Haz clic aquí para elegir el nivel de dificultad difícil. En este nivel, el ordenador se comportará como un oponente experto",
+	"TutoSwitchTitle": "Cambiar administrador",
+	"TutoSwitchContent": "Haz clic aquí para que sea tu oponente el que decida cuándo comenzar la partida. Solo funcionará al comienzo de la partida",
+	"TutoBoardTitle": "Tablero",
+	"TutoBoardContent": "La partida comienza con 13 objetos sobre el tablero. Durante su turno, cada jugador tiene que recoger entre 1 y 3 objetos del tablero haciendo clic sobre ellos y luego sobre el botón \"Terminar\". El jugador que recoja el último objeto del tablero pierde la partida"
+}

@@ -200,7 +200,7 @@ var SettingEditor = {
 
     currentCategoryTitle: function() {
       let ct = this.$root.SugarL10n.dictionary ? this.$root.SugarL10n.dictionary["Data" + this.dataSetHandler.currentCategories[0].replace(/ /g, "")] : null;
-      let categoryTitle = ct ? ct.textContent : this.dataSetHandler.currentCategories[0];
+      let categoryTitle = ct ? ct : this.dataSetHandler.currentCategories[0];
       return categoryTitle;
     }
   },

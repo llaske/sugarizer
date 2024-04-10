@@ -1,0 +1,21 @@
+{
+	"TutoPrev": "Préc",
+	"TutoNext": "Suiv",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Activité Stopwatch",
+	"TutoExplainContent": "L'activité StopWatch est un simple chronomètre. Elle affiche plusieurs chronomètres numériques tous indépendants",
+	"TutoAddTitle": "Ajouter",
+	"TutoAddContent": "Cliquez sur cet icône pour ajouter un nouveau chronomètre",
+	"TutoCounterTitle": "Compteur",
+	"TutoCounterContent": "Ici s'affiche le temps actuel du chronomètre",
+	"TutoStartStopTitle": "Démarrer/Arrêter",
+	"TutoStartStopContent": "Cliquez sur cet icône pour Démarrer/Arrêter le chronomètre",
+	"TutoResetTitle": "Effacer",
+	"TutoResetContent": "Cliquez sur cet icône pour réinitialiser le chronomètre",
+	"TutoMarkTitle": "Intermédiaire",
+	"TutoMarkContent": "Cliquez sur cet icône pour créer un temps intermédiaire",
+	"TutoRemoveTitle": "Supprimer",
+	"TutoRemoveContent": "Cliquez sur cet icône pour supprimer ce chronomètre de la liste",
+	"TutoCsvButton": "Ce bouton génère un fichier CSV qui contient toutes les marques du chronomètre avec leur numéro de compteur correspondant et le temps des marques en secondes.",
+	"exportAsCSV": "Exporter en CSV"
+}

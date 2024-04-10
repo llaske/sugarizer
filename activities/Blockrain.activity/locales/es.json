@@ -1,0 +1,21 @@
+{
+    "TutoPrev": "Ant",
+    "TutoNext": "Sig",
+    "TutoEnd": "Fin",
+    "TutoExplainTitle": "Lluvia de bloques",
+    "TutoExplainContent": "Bienvenido a la actividad \"Lluvia de bloques\". En \"Lluvia de bloques\", el alumno jugará a un puzzle en el que tendrá que encajar piezas y que está inspirado en el videojuego clásico Tetris",
+    "TutoCanvasTitle": "Reglas",
+    "TutoCanvasContent": "El objetivo del juego es manipular los bloques que aparezcan con una serie limitada de movimientos que te permitan crear líneas horizontales. Al rellenar espacios vacíos en horizontal, eliminarás la línea asociada. La partida se terminará si tus piezas alcanzan la parte superior de la pantalla",
+    "TutoPlayTitle": "Jugar/Pausar",
+    "TutoPlayContent": "Usa este botón para jugar o pausar tu partida",
+    "TutoThemeTitle": "Temática",
+    "TutoThemeContent": "Haz clic aquí para cambiar la temática del juego",
+    "TutoRotateTitle": "Rotar",
+    "TutoRotateContent": "Haz clic aquí para rotar los bloques que aparezcan en sentido horario",
+    "TutoDownTitle": "Mover hacia abajo",
+    "TutoDownContent": "Haz clic aquí para mover los bloques que aparezcan hacia abajo",
+    "TutoLeftTitle": "Mover a la izquierda",
+    "TutoLeftContent": "Haz clic aquí para mover los bloques que aparezcan a la izquierda",
+    "TutoRightTitle": "Mover a la derecha",
+    "TutoRightContent": "Haz clic aquí para mover los bloques que aparezcan a la derecha"
+}

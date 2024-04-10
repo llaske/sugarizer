@@ -1,0 +1,23 @@
+{
+	"PlayerJoin": "{{user}} a rejoint",
+	"PlayerLeave": "{{user}} est parti",
+	"TutoPrev": "Préc",
+	"TutoNext": "Suiv",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Activité Last One Loses",
+	"TutoExplainContent": "Bienvenue dans l'activité Last One Loses. Last One Loses est un petit jeu où chaque joueur essaye d'éviter de prendre le dernier élément sur le plateau. Vous pouvez jouer contre l'ordinateur ou contre un autre joueur sur le réseau",
+	"TutoNetworkTitle": "Réseau",
+	"TutoNetworkContent": "Cliquez ici pour partager le jeu sur le réseau. Ainsi, un opposant pourra le rejoindre jouer contre vous",
+	"TutoNewgameTitle": "Nouveau jeu",
+	"TutoNewgameContent": "Cliquez ici pour démarrer un nouveau jeu. Cela réinitialisera le plateau avec 13 éléments",
+	"TutoEasyTitle": "Niveau Facile",
+	"TutoEasyContent": "Cliquez ici pour choisir le niveau de difficulté facile. A ce niveau, l'ordinateur sera l'équivalent d'un joueur débutant",
+	"TutoMediumTitle": "Niveau Moyen",
+	"TutoMediumContent": "Cliquez ici pour choisir le niveau de difficulté moyen. A ce niveau, l'ordinateur sera l'équivalent d'un joueur moyen",
+	"TutoHardTitle": "Niveau Difficile",
+	"TutoHardContent": "Cliquez ici pour choisir le niveau de difficulté difficile. A ce niveau, l'ordinateur sera l'équivalent d'un joueur expert",
+	"TutoSwitchTitle": "Changer de joueur",
+	"TutoSwitchContent": "Cliquez ici pour laisser l'adversaire commencer le jeu. Cela fonctionnera uniquement au début du jeu",
+	"TutoBoardTitle": "Plateau",
+	"TutoBoardContent": "Le jeu démarre avec 13 éléments sur le plateau. A son tour, chaque joueur doit prendre entre 1 et 3 éléments sur le plateau en cliquant dessus, puis en appuyant sur le bouton valider. Le joueur qui prend le dernier élément sur le plateau perd le jeu"
+}

@@ -1,0 +1,19 @@
+{
+	"TutoPrev": "Ant",
+	"TutoNext": "Sig",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Actividad \"Reproductor de vídeos\"",
+	"TutoExplainContent": "Bienvenido a la actividad \"Reproductor de vídeos\", que permite al alumno buscar y ver vídeos de Khan Academy, Canopé y muchas otras plataformas.",
+	"TutoFilterTitle": "Filtrar",
+	"TutoFilterContent": "Haz clic aquí para filtrar los vídeos por categorías",
+	"TutoFavoriteTitle": "Vídeos favoritos",
+	"TutoFavoriteContent": "Haz clic aquí para ver los vídeos que has marcado como \"Favoritos\"",
+	"TutoLibraryTitle": "Bibliotecas",
+	"TutoLibraryContent": "Haz clic aquí para elegir entre los vídeos de Khan Academy o de Canopé, o para añadir tu propia biblioteca",
+	"TutoExportvideoTitle": "Exportar vídeos",
+	"TutoExportvideoContent": "Haz clic aquí para guardar un vídeo en tu historial. Primero haz clic aquí, y luego sobre el vídeo que quieres guardar",
+	"TutoVideoTitle": "Vídeo",
+	"TutoVideoContent": "Haz clic aquí para reproducir el vídeo",
+	"TutoSearchTitle": "Buscar",
+	"TutoSearchContent": "Escribe aquí el nombre de un vídeo para buscarlo"
+}

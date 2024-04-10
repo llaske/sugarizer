@@ -1,0 +1,579 @@
+html, button {
+	cursor: url(../icons/ArrowSmall.cur), default;
+}
+button:disabled {
+	opacity: 0.3 !important;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	height: 100vh;
+	background: white;
+	overflow: hidden;
+	color: #262626;
+}
+
+p {
+	margin: 0.6em 0;
+}
+
+#app {
+	min-height: 100%;
+}
+#app.fullscreen #main-toolbar, #app.fullscreen .sub-toolbar-itm {
+	height: 0;
+}
+#app.fullscreen .data-container {
+	overflow: hidden;
+	width: 0;
+}
+#app.fullscreen .chart-container {
+	transition: none;
+	width: 100%;
+	height: 100vh !important;
+}
+#app.fullscreen .csv-container {
+	height: calc(100vh - 42px);
+	top: 0;
+}
+#app.fullscreen #fullscreen-button {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	background-color: #282828;
+}
+
+#main-toolbar.toolbar, .sub-toolbar-itm.toolbar {
+	padding: 0 2vw;
+	overflow: hidden;
+}
+#sub-toolbar {
+	position: relative;
+	z-index: 1000000;
+}
+.sub-toolbar-itm {
+	transition: height .3s;
+}
+
+#main-toolbar.hidden, .sub-toolbar-itm.hidden {
+	height: 0;
+	overflow: hidden;
+}
+.palette .wrapper {
+	z-index: 1000000;
+	position: relative;
+	min-width: 120px;
+}
+
+#main-toolbar #add-button {
+    background-image: url(../icons/add.svg);
+}
+
+#main-toolbar #activity-button {
+	background-image: url(../activity/activity-icon.svg);
+}
+
+#main-toolbar #network-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+#private-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+#shared-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
+/* UI styling for introJs-tutorial */
+.introjs-overlay {
+	background-color: #000 !important;
+	opacity: .8 !important;
+}  
+
+.introjs-tooltip {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+	border-radius: 6px !important;
+	padding: 2px 1px !important;
+	font-size: 14px !important;
+}
+  
+.introjs-helperLayer{
+	background: inherit !important;
+	opacity: 0.6 !important;
+}
+  
+.customTooltip .introjs-tooltip-header {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color : #ffffff;
+	text-shadow: none;
+	background-color: #808080;
+	margin: 0;
+	padding: 0px 10px;
+	border-bottom: 1px solid #ebebeb;
+	border-radius: 5px 5px 0 0;
+	display: flex;
+	align-items: center;
+}
+
+.customTooltip .introjs-tooltip-title {
+	font-size: 14px;
+	padding: 0px 8px;
+	font-weight: 800;
+	margin: 8px auto 8px 0px;
+	line-height: normal;
+}
+
+.customTooltip .introjs-tooltiptext {
+	color: #000000;
+	line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+	float: right;
+	cursor: pointer;
+	background-image: url(../icons/dialog-cancel.svg);
+	width: 25px;
+	height: 25px;
+	background-size: 25px 25px;
+	margin-top: 2px;
+	padding: 0px;
+	white-space: nowrap;
+	color: transparent;
+	line-height: 27px;
+}
+
+.customTooltip .introjs-nextbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-right.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+	content: "";
+	margin-right: 6px;
+	background-image: url(../icons/go-left.svg);
+	width: 20px;
+	height: 20px;
+	background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+	display: flex;
+	flex-wrap:wrap;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-top: 0px;
+	padding: 0px;
+	text-align: center;
+	white-space: normal;
+}
+  
+.customTooltip .introjs-button {
+	text-shadow: none;
+	border-radius: 22px;
+	margin: 5px 8px 8px 8px;
+	width: fit-content;
+	background-color: #808080 !important;
+	display: flex !important;
+	align-items: center !important;
+	color: white !important;
+	padding: 6px 20px 6px 10px;
+	border: 0px;
+}
+  
+.customTooltip .introjs-button:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+	background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+	color: black !important;
+	border: 0px;
+	opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+	border: 0px;
+}
+
+.palette-item {
+    width: 200px;
+    height: 30px;
+    padding-top: 15px;
+    padding-left: 10px;
+}
+
+.palette-item:hover {
+    background-color: #808080;
+}
+
+.palette-icon {
+    width: 30px;
+}
+
+.palette-text {
+    vertical-align: super;
+}
+
+.item-icon {
+    padding-top: 3px;
+    height: 40px;
+}
+
+#main-toolbar .toolbutton:hover {
+	border: 2px solid grey;
+}
+/* Icons */
+#main-toolbar #help-button {
+    background-image: url(../icons/help.svg);
+}
+#main-toolbar #fullscreen-button {
+	z-index: 100;
+    background-image: url(../icons/view-fullscreen.svg);
+}
+#main-toolbar #line-chart-button {
+    background-image: url(../icons/line.svg);
+}
+#main-toolbar #horizontalBar-chart-button {
+    background-image: url(../icons/hbar.svg);
+}
+#main-toolbar #bar-chart-button {
+    background-image: url(../icons/vbar.svg);
+}
+#main-toolbar #pie-chart-button {
+    background-image: url(../icons/pie.svg);
+}
+#main-toolbar #text-palette-button {
+    background-image: url(../icons/format-text.svg);
+}
+#main-toolbar #remove-button {
+    background-image: url(../icons/remove.svg);
+}
+#main-toolbar #export-button {
+    background-image: url(../icons/file-export.svg);
+}
+#main-toolbar #csv-button {
+    background-image: url(../icons/grid.svg);
+}
+#export-img-button {
+    background-image: url(../icons/save-as-image.svg);
+}
+#export-csv-button {
+    background-image: url(../icons/save-as-csv.svg);
+}
+#main-toolbar #config-button {
+    background-image: url(../icons/settings.svg);
+}
+#main-toolbar #config-button.active::before, #text-palette-button.active::before {
+    background-image: url(../lib/sugar-web/graphics/icons/emblems/arrow-up.svg);
+}
+
+#xLabel-button, #yLabel-button {
+  	margin-left: 14px;
+  	transform: translateY(-6px);
+  	width: 35px;
+}
+#xLabel-button {
+    background-image: url(../icons/hlabel.svg);
+}
+#yLabel-button{
+    background-image: url(../icons/vlabel.svg);
+}
+#title-font-button {
+    background-image: url(../icons/title-font.svg);
+}
+#labels-font-button {
+    background-image: url(../icons/labels-font.svg);
+}
+#tick-font-button {
+    background-image: url(../icons/tick-font.svg);
+}
+#fontplus-button {
+    background-image: url(../icons/resize+.svg);
+}
+#font-button {
+    background-image: url(../icons/font-text.svg);
+}
+#fontminus-button {
+    background-image: url(../icons/resize-.svg);
+    margin-right: 15px;
+}
+#up-button {
+    background-image: url(../icons/go-up.svg);
+}
+#down-button {
+    background-image: url(../icons/go-down.svg);
+}
+#export-formats {
+	display: flex;
+}
+#export-formats button {
+	border-radius: 0;
+	margin: 5px;
+	width: 50px;
+	height: 50px;
+	background-color: black;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+/* Color Palette */
+#sub-toolbar .colorpalette, .colorpalette .palette-invoker {
+	border-radius: 50%;	
+	border: 2px solid #777;
+	width: 35px; height: 35px;
+}
+#sub-toolbar .colorpalette:before {
+	width: 47px;	
+}
+.colorpalette .palette-invoker:after {
+	top: 28px;
+	left: -8px;
+}
+.colorpalette .palette-invoker:before {
+	display: none;
+}
+.colorpalette .colors button {
+  width: 44px;
+  height: 44px;
+  border-color: white;
+  margin: 6px 0 0 8px;
+}
+
+
+#sub-toolbar.hidden + .activity-container .input-container {
+	height: calc(100vh - 130px);
+}
+#sub-toolbar.hidden + .activity-container .chart-container {
+	height: calc(100vh - 50px);
+}
+
+.activity-container {
+	display: flex;
+}
+
+.activity-title {
+	margin: 0;
+	margin-top: 8px;
+	text-align: center;
+}
+
+.data-container {
+	width: 22%;
+	border-right: 2px solid #e5e5e5;
+	position: relative;
+}
+.data-labels {
+	display: flex;
+	font-size: 1rem;	
+	font-weight: bold;
+	background-color: #282828;
+	color: white;
+}
+.data-label {
+	width: 50%;
+	border: 2px solid;
+	padding: .5rem 1rem;
+	border: 1px solid #e5e5e5;
+}
+
+.swap-fields {
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 1rem;
+	height: 42px;
+	overflow: hidden;
+}
+.swap-fields .toolbutton {
+	height: 40px;
+	bottom: 4px;
+}
+.csv-view .swap-fields {
+	justify-content: flex-start;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+}
+.csv-view .swap-fields .toolbutton {
+	transform: rotate(-90deg);
+}
+
+.input-container {
+	height: calc(100vh - 185px);
+	overflow-y: auto;
+	transition: height .3s;
+}
+
+.input-group, .cell-group {
+	display: flex;
+	position: relative;
+}
+.input-group.active::after, .cell.active::after {
+	content: "";
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: calc(100% - 6px);
+	height: calc(100% - 6px);
+	border: 3px solid coral;
+}
+.cell.active::after {
+	border-top: none;
+	border-bottom: none;
+	border-color: #6f6f6f;
+	height: calc(100% + 2px);
+	z-index: 10;
+}
+.csv-header .cell.active::after {
+	border-top: 3px solid #6f6f6f;
+}
+.cell.active.last {
+	border-bottom: 3px solid #646464;
+}
+
+.input-group.active input {
+	border-color: coral;
+}
+
+.input-group input, .cell-group .cell {
+	width: 50%;
+	background-color: #f0f0f0;
+	border: 1px solid #b9b9b9;
+	border-radius: 0px;
+	color: #282828;
+	font-size: 18px;
+	padding-inline: 12px;
+}
+#sub-toolbar .input-text {
+	padding-inline: 12px;	
+	font-size: 18px;
+}
+
+
+.csv-view {
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.csv-view.hidden {
+	visibility: hidden;
+}
+.csv-container {
+	position: absolute;
+	height: calc(100vh - 94px);
+	width: 100%;
+	top: 55px;
+	overflow: auto;
+	background-color: #fff;
+}
+.csv-container .csv-header {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+.csv-container .csv-header .cell {
+	font-weight: bold;
+	background-color: #FCF9BE !important;
+}
+.csv-header .cell.invalid {
+	background-color: #FF7D7D !important;	
+}
+
+.csv-container .csv-header .marker {
+	color: #282828;
+	background-color: #FCF9BE;
+}
+.csv-container .marker {
+  flex: 0 0 35px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #b9b9b9;
+  font-weight: bold;
+  padding-block: 8px;
+  color: #737373;
+  user-select: none;
+}
+
+.csv-container .cell-group .cell {
+	padding-block: 7px;
+	flex-shrink: 0;
+	width: 190px;
+	background-color: white;
+	word-break: break-word;
+	position: relative;	
+}
+.csv-container .cell-group .cell:nth-of-type(1),
+.csv-container .cell-group .cell:nth-of-type(2) {
+	background-color: #E6FFFD;
+}
+
+.cell-group.select .cell {
+	background-color: white;
+	font-weight: bold;
+	font-size: 16px;
+}
+.select-group {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.select-group .data-label {
+	width: fit-content;
+	padding-inline: 8px;
+}
+.select-group .data-label.active {
+	background-color: coral;
+}
+.select-group .data-label.disabled {
+	color: #999;
+}
+
+.chart-container {
+	height: calc(100vh - 95px);
+	width: 78%;
+}
+.canvas-container {
+	padding-right: 25px;
+	height: 100%;
+}
+
+@media (max-width: 800px) {
+	.activity-title {
+		margin: 0;
+		font-size: 1rem;
+	}
+	.data-labels,.input-group input,.cell-group .cell { font-size: 14px; }
+}

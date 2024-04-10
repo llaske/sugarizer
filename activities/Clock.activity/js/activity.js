@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","webL10n", "tutorial"], function (activity,env,radioButtonsGroup,mustache,moment, webL10n, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","l10n", "tutorial"], function (activity,env,radioButtonsGroup,mustache,moment, l10n, tutorial) {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -13,7 +13,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             // Set current language to Sugarizer
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
-            webL10n.language.code = language;
+            l10n.init(language);
 
             // Load from datastore
             if (!environment.objectId) {
@@ -303,30 +303,17 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
 
         Clock.prototype.changeWriteTime = function (writeTime) {
-            this.writeTime = writeTime;
+          this.writeTime = writeTime;
 
-            if (writeTime) {
-                this.textTimeElem.style.display = "block";
-            } else {
-                this.textTimeElem.style.display = "none";
-            }
+          if (writeTime) {
+              this.textTimeElem.style.display = "block";
+          } else {
+              this.textTimeElem.style.display = "none";
+          }
 
-            if (this.setTime) {
-              this.writeTimeInSetTime();
-            }
-            else {
-              this.updateSizes();
+          this.writeTimeInSetTime();
 
-              var date = new Date();
-              var hours = date.getHours();
-              var minutes = date.getMinutes();
-              var seconds = date.getSeconds();
-              this.displayTime(hours, minutes, seconds);
-
-              this.drawBackground();
-            }
-
-        }
+      }
 
         Clock.prototype.changeWriteDate = function (writeDate) {
             this.writeDate = writeDate;
