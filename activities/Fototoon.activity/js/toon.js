@@ -1640,7 +1640,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                     this._createPreview(imageData, i);
                 };
 
+
             };
+
         };
 
         this.getSortOrder = function() {
@@ -1688,8 +1690,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
 	                                return 1;
 	                            } else {
 	                                return 0;
-	                            };
-                            });
+	                            };});
                             // Increase the z-index to bring the canvas to the top
                             event.target.parent.addChild(event.target);
 	                    };
