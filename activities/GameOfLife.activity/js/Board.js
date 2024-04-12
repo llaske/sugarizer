@@ -47,6 +47,7 @@ function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCel
 
     canvas.addEventListener('touchend', function () {
         isMouseDown = false;
+        isMouseMove = false; 
         _this.nowX = -1;
             _this.nowY = -1
     });
