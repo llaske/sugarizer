@@ -7,10 +7,12 @@ function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCel
   this.onClick = function (clickHandler) {
     var _this = this;
     var isMouseDown = false;
+    var isMouseMove = false;
 
     // Function to handle drag event
     function dragEvent(e) {
         if (isMouseDown) {
+            isMouseMove = true;
             var x, y;
             if (e.type === 'mousemove') {
                 x = e.clientX - canvas.getBoundingClientRect().left;
@@ -52,6 +54,17 @@ function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCel
     canvas.addEventListener('mousemove', dragEvent);
 
     canvas.addEventListener('touchmove', dragEvent);
+
+    canvas.addEventListener('click', function (e) {
+      if(isMouseMove) {
+        isMouseMove = false; return;
+      }
+      var x = e.clientX - canvas.getBoundingClientRect().left;
+      var y = e.clientY - canvas.getBoundingClientRect().top;
+      var cellX = Math.floor(x / (_this.cellWidth + 2));
+      var cellY = Math.floor(y / (_this.cellHeight + 2));
+      clickHandler(cellX, cellY);
+  });
   };
 
   this.draw = function (state) {
