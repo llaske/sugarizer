@@ -1641,7 +1641,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                 };
 
             };
-
         };
 
         this.getSortOrder = function() {
