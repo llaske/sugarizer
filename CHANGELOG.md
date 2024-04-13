@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Images go under each other while editing in Fototoon #1552
+- Missalignment of icons and text in Fototoon activity "clean all" button #1596
  
 ## [1.8.0] - 2024-04-10
 ### Added
