@@ -41,6 +41,27 @@ const ListView = {
 							isNative="true"
 						></icon>
 					</div>
+					<div v-if="!activitiesLoaded" class="loading-activities-message">
+						<img src="./images/spinner-light.gif">
+					</div>
+					<div v-if="activities.length === 0">
+						<div v-if="activitiesLoaded" class="no-matching-activities">
+							<div>
+								<icon 
+									svgfile="./icons/entry-search.svg"
+									:color="768"
+									:size="44"
+									isNative="true"
+								></icon>
+							</div>
+							<div> {{ SugarL10n.get("NoMatchingActivities") }} </div>
+							<div class="clearSearchField" @click="clearSearchField">
+								<div>
+									{{ SugarL10n.get("ClearSearch") }}
+								<div>
+							</div>
+						</div>
+					</div>
 					<popup 
 						ref="popup" 
 						v-bind:item="popup"
@@ -58,6 +79,7 @@ const ListView = {
 		return {
 			favactivities: [],
 			activities: [],
+			activitiesLoaded: false, // Variable to track loading state
 			popupData: null,
 			popup: null, //singular popup data
 			buddycolor: null,
@@ -99,6 +121,7 @@ const ListView = {
 					return activity.name.toUpperCase().includes(this.filter.toUpperCase())
 				});
 				this.favactivities = sugarizer.modules.activities.getFavoritesName();
+				this.activitiesLoaded = true;
 			}, (error) => {
 				throw new Error('Unable to load the user, error ' + error);
 			});
@@ -239,6 +262,9 @@ const ListView = {
 			} else {
 				this.launchActivity(this.popup.activity);
 			}
+		},
+		clearSearchField() {
+			this.$emit('clear-searchfield'); 
 		},
 	},
 };
