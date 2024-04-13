@@ -37,7 +37,7 @@ TODO list
 * [x] Don't propose an always random color when creating a new user, should be incremental
 * [x] Implement privacy settings
 * [ ] Display a confirmation dialog when disconnecting from the app when not connected to a server
-* [ ] Display a message when there is no activity matching the search in listview
+* [x] Display a message when there is no activity matching the search in listview
 * [x] Use the same button for next and done in the first screen
 * [ ] Add spinner when connecting to a server
 * [x] Preload emojis font
