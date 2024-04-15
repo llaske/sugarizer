@@ -32,7 +32,7 @@ const Popup ={
 							<div class="popup-title-text">{{ itemData.title }}</div>
 						</div>
 					</div>
-					<div id="items" class="popup-items" v-if="itemData.itemList">
+					<div id="items" class="popup-items" v-if="itemData.itemList && itemData.itemList.length > 0">
 						<div class="popup-item-listview">
 							<div class="item-list">
 								<div class="item-list-item" 
@@ -55,7 +55,7 @@ const Popup ={
 							</div>
 						</div>
 					</div>
-					<div id="footer" class="popup-items" v-if="itemData.footerList">
+					<div id="footer" class="popup-items" v-if="itemData.footerList && itemData.footerList.length > 0">
 						<div class="popup-item-listview">
 							<div class="item-list">
 								<div class="item-list-item" 
