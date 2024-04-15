@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Missalignment of icons and text in Fototoon activity "clean all" button #1596
 - Extra icon rendering in QRCode activity #1193
 - Message Updation in Fraction Activity #1453
+- LabyrinthJS: No selection-indicator is visible while linking ideas #1585
  
 ## [1.8.0] - 2024-04-10
 ### Added
