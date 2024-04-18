@@ -125,6 +125,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             }
             gearSketch.playDemo();
         });
+        
         // Full screen.
         document.getElementById("fullscreen-button").addEventListener('click', function() {
             document.getElementById("main-toolbar").style.opacity = 0;
