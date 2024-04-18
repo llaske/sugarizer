@@ -281,10 +281,6 @@ const LoginScreen = {
 					if (this.details.password.length >= 4) {
 						this.index.currentIndex++;
 					}
-					else {
-						this.warning.show = true;
-						this.warning.text = 'Password must be at least 4 characters long.';
-					}
 				}
 				else if (this.index.currentIndex === 3) { // icon
 					this.index.currentIndex++;
