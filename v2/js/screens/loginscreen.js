@@ -28,8 +28,8 @@ const LoginScreen = {
 			<input ref="nameInput" type="text" name="name" class="input_field" v-model="details.name" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
-			<div class="firstscreen_text" id="pass_text">{{l10n.stringPassword}}</div>
-			<password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
+		<div class="firstscreen_text" id="pass_text">{{minChoosePassword}}</div>
+		<password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
 		</div>
 		<div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3">
 			<div class="firstscreen_text" id="buddyicon_text">{{l10n.stringClickToColor}}</div>
@@ -117,6 +117,7 @@ const LoginScreen = {
 
 	data() {
 		return {
+			min: 4,
 			warning: {
 				show: false,
 				text: '',
@@ -135,7 +136,7 @@ const LoginScreen = {
 			l10n: {
 				stringServerUrl: '',
 				stringName: '',
-				stringPassword: '',
+				stringChoosePassword: '',
 				stringClickToColor: '',
 				stringCookieConsent: '',
 				stringPolicyLink: '',
@@ -164,6 +165,12 @@ const LoginScreen = {
 		if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
 			this.details.serverAddress = sugarizer.modules.server.getServerUrl();
 		}
+	},
+
+	computed: {
+		minChoosePassword() {
+			return this.l10n.stringChoosePassword.replace('{{min}}', this.min);
+		},
 	},
 
 	watch: {
@@ -270,7 +277,14 @@ const LoginScreen = {
 					}
 				}
 				else if (this.index.currentIndex === 2) { // password
-					this.index.currentIndex++;
+					this.details.password = this.$refs.passwordInput.passwordText;
+					if (this.details.password.length >= 4) {
+						this.index.currentIndex++;
+					}
+					else {
+						this.warning.show = true;
+						this.warning.text = 'Password must be at least 4 characters long.';
+					}
 				}
 				else if (this.index.currentIndex === 3) { // icon
 					this.index.currentIndex++;
