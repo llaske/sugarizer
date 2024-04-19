@@ -23,9 +23,7 @@ body {
 	background-image: url(../icons/zoom.svg);
 }
 .zoombuttons {
-   border: 0px;
    background: #000000;
-   border-radius: 5.5px !important;
    display:flex;
 }
 #zoom-in-button {
