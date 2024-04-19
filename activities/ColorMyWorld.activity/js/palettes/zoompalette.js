@@ -11,6 +11,27 @@ define([
 	  containerElem.innerHTML = template
   
 	  this.setContent([containerElem])
+
+	  var zoomIn = document.getElementById('zoom-in-button')
+	  var zoomOut = document.getElementById('zoom-out-button')
+	  var zoomOriginal = document.getElementById('zoom-original-button')
+  
+	  zoomIn.addEventListener('click', function () {
+		  var view=window.map.getView();
+		  var zoom = view.getZoom();
+		  view.animate({zoom:zoom+1})
+	  })
+  
+	  zoomOut.addEventListener('click', function () {
+		  var view=window.map.getView();
+		  var zoom = view.getZoom();
+		  view.animate({zoom:zoom-1})
+	  })
+  
+	  zoomOriginal.addEventListener('click', function () {
+		  var view=window.map.getView();
+		  view.animate({zoom:2.3299654139527806})
+	  })
   
 	}
   

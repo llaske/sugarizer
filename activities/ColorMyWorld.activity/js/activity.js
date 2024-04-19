@@ -77,27 +77,6 @@ define([
 		var zoomButton = document.getElementById("zoom-button");
 		var zoomButtonPalette = new zoompalette.ZoomPalette(zoomButton);
 
-		var zoomIn = document.getElementById('zoom-in-button')
-		var zoomOut = document.getElementById('zoom-out-button')
-		var zoomOriginal = document.getElementById('zoom-original-button')
-	
-		zoomIn.addEventListener('click', function () {
-			var view=window.map.getView();
-			var zoom = view.getZoom();
-			view.animate({zoom:zoom+1})
-		})
-	
-		zoomOut.addEventListener('click', function () {
-			var view=window.map.getView();
-			var zoom = view.getZoom();
-			view.animate({zoom:zoom-1})
-		})
-	
-		zoomOriginal.addEventListener('click', function () {
-			var view=window.map.getView();
-			view.animate({zoom:2.3299654139527806})
-		})
-
 		var modeButton = document.getElementById("mode-button");
 		modepalette = new modepalette.ModePalette(modeButton, undefined);
 		colormyworld.change_areaCB(true,'World');
