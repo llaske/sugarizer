@@ -19,6 +19,10 @@ body {
 	z-index:3;
 	title:'play';
 }
+#run-button.running{
+	background-image: url(../img/pause.png);
+	title:'pause';
+}
 #zoom-button {
 	background-image: url(../icons/zoom.svg);
 }
@@ -40,10 +44,6 @@ body {
 	background-image: url(../icons/zoom-original.svg);
 	width:55px;
 	height:55px;
-}
-#run-button.running{
-	background-image: url(../img/pause.png);
-	title:'pause';
 }
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
