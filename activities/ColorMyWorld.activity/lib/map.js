@@ -19,7 +19,6 @@ define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
 		});
 
 		window.map.on('click',function(evt){
-			console.log("hello");
 			if(colormyworld.mode==COLORING){
 				var FOUND=false;
 				dummmy=window.map.forEachFeatureAtPixel(evt.pixel,function(target_feature,layer){
