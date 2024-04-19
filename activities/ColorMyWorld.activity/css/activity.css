@@ -23,6 +23,29 @@ body {
 	background-image: url(../img/pause.png);
 	title:'pause';
 }
+#zoom-button {
+	background-image: url(../icons/zoom.svg);
+}
+.zoombuttons-container {
+   display:flex;
+}
+.zoombuttons {
+	width:55px;
+	height:55px;
+}
+.zoombuttons:hover {
+	background-color: #808080;
+}
+#zoom-in-button {
+	background-image: url(../icons/zoom-in.svg);
+	
+}
+#zoom-out-button {
+	background-image: url(../icons/zoom-out.svg);
+}
+#zoom-original-button {
+	background-image: url(../icons/zoom-original.svg);
+}
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }
