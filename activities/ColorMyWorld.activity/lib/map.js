@@ -19,6 +19,7 @@ define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
 		});
 
 		window.map.on('click',function(evt){
+			console.log("hello");
 			if(colormyworld.mode==COLORING){
 				var FOUND=false;
 				dummmy=window.map.forEachFeatureAtPixel(evt.pixel,function(target_feature,layer){
@@ -29,7 +30,11 @@ define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
 					if (!me.tooltipDisplay || target_name!=me.tooltipDisplay) {
 						me.tooltipDisplay=target_name;
 						humane.timeout=1000;
-						humane.log(flag[`${target_name.replace(/ /g,'_')}`]+" "+ l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
+						if (flag[`${target_name.replace(/ /g,'_')}`]) {
+							humane.log(flag[`${target_name.replace(/ /g,'_')}`] + " " + l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
+						} else {
+							humane.log(l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
+						}
 						setTimeout(function() {
 							me.tooltipDisplay=null;
 						}, humane.timeout);
