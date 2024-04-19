@@ -26,24 +26,25 @@ body {
 #zoom-button {
 	background-image: url(../icons/zoom.svg);
 }
-.zoombuttons {
-   background: #000000;
+.zoombuttons-container {
    display:flex;
+}
+.zoombuttons {
+	width:55px;
+	height:55px;
+}
+.zoombuttons:hover {
+	background-color: #808080;
 }
 #zoom-in-button {
 	background-image: url(../icons/zoom-in.svg);
-	width:55px;
-	height:55px;
+	
 }
 #zoom-out-button {
 	background-image: url(../icons/zoom-out.svg);
-	width:55px;
-	height:55px;
 }
 #zoom-original-button {
 	background-image: url(../icons/zoom-original.svg);
-	width:55px;
-	height:55px;
 }
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
