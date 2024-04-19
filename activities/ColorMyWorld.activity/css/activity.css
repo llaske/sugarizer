@@ -19,6 +19,30 @@ body {
 	z-index:3;
 	title:'play';
 }
+#zoom-button {
+	background-image: url(../icons/zoom.svg);
+}
+.zoombuttons {
+   border: 0px;
+   background: #000000;
+   border-radius: 5.5px !important;
+   display:flex;
+}
+#zoom-in-button {
+	background-image: url(../icons/zoom-in.svg);
+	width:55px;
+	height:55px;
+}
+#zoom-out-button {
+	background-image: url(../icons/zoom-out.svg);
+	width:55px;
+	height:55px;
+}
+#zoom-original-button {
+	background-image: url(../icons/zoom-original.svg);
+	width:55px;
+	height:55px;
+}
 #run-button.running{
 	background-image: url(../img/pause.png);
 	title:'pause';
