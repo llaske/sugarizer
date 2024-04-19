@@ -81,7 +81,6 @@ define([
 		var zoomOut = document.getElementById('zoom-out-button')
 		var zoomOriginal = document.getElementById('zoom-original-button')
 	
-
 		zoomIn.addEventListener('click', function () {
 			var view=window.map.getView();
 			var zoom = view.getZoom();
@@ -98,7 +97,6 @@ define([
 			var view=window.map.getView();
 			view.animate({zoom:2.3299654139527806})
 		})
-
 
 		var modeButton = document.getElementById("mode-button");
 		modepalette = new modepalette.ModePalette(modeButton, undefined);
