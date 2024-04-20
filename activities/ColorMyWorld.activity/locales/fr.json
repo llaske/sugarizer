@@ -289,6 +289,8 @@
 	"TutoColorContent": "Cliquez ici pour choisir la couleur actuelle utilisée pour colorier les pays",
 	"TutoRunTitle": "Lancer",
 	"TutoRunContent": "Si vous avez choisi le mode de jeu Interactif ou Visite, cliquez ici pour démarrer le jeu",
+	"TutoZoomTitle": "Zoom",
+	"TutoZoomContent":"Cliquez ici pour zoomer/dézoomer la carte",
 	"Vietnam": "Vietnam",
 	"Somaliland": "Somaliland",
 	"West_Bank": "Cisjordanie"
