@@ -288,6 +288,8 @@
 	"TutoColorContent": "Haz clic aquí para elegir el color con el que colorear los países",
 	"TutoRunTitle": "Ejecutar",
 	"TutoRunContent": "Si has seleccionado los modos \"Interactivo\" o \"Gira\", haz clic aquí para ejecutar el juego",
+	"TutoZoomTitle": "Zoom",
+	"TutoZoomContent":"Haga clic en esta paleta para acercar o alejar.",
 	"Vietnam": "Vietnam",
 	"Somaliland": "Somalilandia",
 	"West_Bank": "West_Bank",

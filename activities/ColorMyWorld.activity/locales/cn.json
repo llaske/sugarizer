@@ -288,6 +288,8 @@
 	"TutoColorContent": "Click here to choose the current color to use to color countries",
 	"TutoRunTitle": "Run",
 	"TutoRunContent": "If you selected Interactive or Tour play mode, click here to start running the game",
+	"TutoZoomTitle": "Zoom",
+	"TutoZoomContent":"Click on this palette to zoom in/zoom out the item.",
 	"Vietnam": "Vietnam",
 	"Somaliland": "Somaliland",
 	"West_Bank": "West_Bank",
