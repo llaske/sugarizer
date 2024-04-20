@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - LabyrinthJS: No selection-indicator is visible while linking ideas #1585
 - Gear unexpected behavior of Play toolbar icon #1600
 - Add a zoom-in and zoom-out button in ColorMyWorld activity #1593
+- Adding Drag to fill Cells Functionality in Game of Life #1150
  
 ## [1.8.0] - 2024-04-10
 ### Added
