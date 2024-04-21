@@ -7,7 +7,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
 
         // Initialize the activity.
         activity.setup();
-
+        
         var stopButton = document.getElementById("stop-button");
         stopButton.addEventListener('click', function (event) {
             console.log("writing...");
@@ -38,6 +38,92 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             }
         }
         datastoreObject.loadAsText(onLoaded);
+
+        // Create a redo array associated with history object of global scope  
+        window.history = {};
+        window.$h = window.history;
+        history.undo = [];
+        history.redo = [];
+
+        document.getElementById('undo-button').addEventListener('click', function(){
+            if ($h.undo.length > 0 && gearSketch.selectedButton !== "playButton") {
+                var obj = $h.undo.pop();
+                if(obj.method === "delete"){
+                    $h.redo.push(obj);
+                    gearSketch.board[obj.type][obj.item.id] = obj.item;
+                } else if(obj.method === "add") {
+                    // Search for the item with the id and delete it
+                    $h.redo.push(obj);
+                    for (var type in gearSketch.board) {
+                        if (gearSketch.board.hasOwnProperty(type)) {
+                            var items = gearSketch.board[type];
+                            for (var itemId in items) {
+                                if (items.hasOwnProperty(itemId) && itemId === obj.item.id) {
+                                    delete gearSketch.board[type][itemId];
+                                }
+                            }
+                        }
+                    }
+                } else if(obj.method === "locationchange") {
+                    for (var type in gearSketch.board) {
+                        if (gearSketch.board.hasOwnProperty(type)) {
+                            var items = gearSketch.board[type];
+                            for (var itemId in items) {
+                                if (items.hasOwnProperty(itemId) && itemId === obj.item) {
+                                    var earlierLocation = gearSketch.board[type][itemId].location;
+                                    gearSketch.board[type][itemId].location = obj.location;
+                                    obj.location = earlierLocation;
+                                    $h.redo.push(obj);
+                                }
+                            }
+                        }
+                    }
+                } 
+                document.getElementById("redo-button").style.opacity = 1;
+            }
+            if($h.undo.length === 0) document.getElementById("undo-button").style.opacity = 0.4;
+            else document.getElementById("undo-button").style.opacity = 1;
+        })
+
+        document.getElementById('redo-button').addEventListener('click', function(){
+            if ($h.redo.length > 0 && gearSketch.selectedButton !== "playButton") {
+                var obj = $h.redo.pop();
+                if(obj.method === "delete"){
+                    $h.undo.push(obj);
+                    // Search for the item with the id and delete it
+                    for (var type in gearSketch.board) {
+                        if (gearSketch.board.hasOwnProperty(type)) {
+                            var items = gearSketch.board[type];
+                            for (var itemId in items) {
+                                if (items.hasOwnProperty(itemId) && itemId === obj.item.id) {
+                                    delete gearSketch.board[type][itemId];
+                                }
+                            }
+                        }
+                    }
+                } else if(obj.method === "add"){
+                    $h.undo.push(obj);
+                    gearSketch.board[obj.type][obj.item.id] = obj.item;
+                } else if(obj.method === "locationchange") {
+                    for (var type in gearSketch.board) {
+                        if (gearSketch.board.hasOwnProperty(type)) {
+                            var items = gearSketch.board[type];
+                            for (var itemId in items) {
+                                if (items.hasOwnProperty(itemId) && itemId === obj.item) {
+                                    var earlierLocation = gearSketch.board[type][itemId].location;
+                                    gearSketch.board[type][itemId].location = obj.location;
+                                    obj.location = earlierLocation;
+                                    $h.undo.push(obj);
+                                }
+                            }
+                        }
+                    }
+                }
+                document.getElementById("undo-button").style.opacity = 1;
+            }
+            if($h.redo.length === 0) document.getElementById("redo-button").style.opacity = 0.4;
+            else document.getElementById("redo-button").style.opacity = 1;
+        })
 
         var radioButtons;
         var gearButton = document.getElementById("gear-button");
@@ -125,7 +211,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             }
             gearSketch.playDemo();
         });
-        
+
         // Full screen.
         document.getElementById("fullscreen-button").addEventListener('click', function() {
             document.getElementById("main-toolbar").style.opacity = 0;

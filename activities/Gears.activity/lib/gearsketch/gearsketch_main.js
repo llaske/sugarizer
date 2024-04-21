@@ -247,6 +247,11 @@
         } else if (this.selectedButton === "gearButton") {
           this.selectedGear = this.board.getTopLevelGearAt(point);
           if (this.selectedGear != null) {
+            $h.undo.push({type:"gears", method: "locationchange", item: this.selectedGear.id, location: this.selectedGear.location});
+            $h.redo = [];
+            document.getElementById("redo-button").style.opacity = 0.4;
+            document.getElementById("undo-button").style.opacity = 1;
+
             this.offset = point.minus(this.selectedGear.location);
           } else if (this.board.getGearAt(point) == null) {
             this.stroke.push(point);
@@ -265,9 +270,9 @@
         }
       }
     };
-
+    var goalLocation;
     GearSketch.prototype.handlePenMove = function (x, y) {
-      var canPlaceGear, goalLocation, point;
+      var canPlaceGear, point;
       point = new Point(x, y);
       if (this.isPenDown) {
         if (this.selectedButton === "gearButton") {
@@ -402,6 +407,10 @@
         if (!__hasProp.call(_ref, id)) continue;
         gear = _ref[id];
         if (Util.pointPathDistance(gear.location, stroke, false) < gear.innerRadius) {
+          $h.undo.push({type: "gears", item: gear, method: "delete"});
+          $h.redo = [];
+          document.getElementById("redo-button").style.opacity = 0.4;
+          document.getElementById("undo-button").style.opacity = 1;
           _results.push(this.board.removeGear(gear));
         } else {
           _results.push(void 0);
@@ -417,6 +426,10 @@
       if (gear != null) {
         isGearAdded = this.board.addGear(gear);
         if (isGearAdded && !(gear.numberOfTeeth in this.gearImages)) {
+          $h.undo.push({type: "gears", item: gear, method: "add"});
+          $h.redo = [];
+          document.getElementById("redo-button").style.opacity = 0.4;
+          document.getElementById("undo-button").style.opacity = 1;
           this.addGearImage(gear);
         }
       } else {
@@ -454,7 +467,20 @@
         if (!__hasProp.call(_ref, id)) continue;
         chain = _ref[id];
         if (chain.intersectsPath(stroke)) {
-          _results.push(this.board.removeChain(chain));
+          $h.undo.push({type: "chains", item: chain, method: "delete"});
+          $h.redo = [];
+          document.getElementById("redo-button").style.opacity = 0.4;
+          document.getElementById("undo-button").style.opacity = 1;
+          for (var type in this.board) {
+            if (this.board.hasOwnProperty(type)) {
+                var items = this.board[type];
+                for (var itemId in items) {
+                    if (items.hasOwnProperty(itemId) && itemId === chain.id) {
+                        delete this.board[type][itemId];
+                    }
+                }
+            }
+        }
         } else {
           _results.push(void 0);
         }
@@ -469,6 +495,10 @@
       gearsInChain = Util.findGearsInsidePolygon(normalizedStroke, this.board.getGears());
       if (normalizedStroke.length >= 3 && gearsInChain.length > 0) {
         chain = new Chain(normalizedStroke);
+        $h.undo.push({type: "chains", item: chain, method: "add"});
+        $h.redo = [];
+        document.getElementById("redo-button").style.opacity = 0.4;
+        document.getElementById("undo-button").style.opacity = 1;
         return this.board.addChain(chain);
       } else if (normalizedStroke.length >= 2) {
         return this.removeStrokedChains(normalizedStroke);
