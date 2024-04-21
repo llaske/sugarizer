@@ -28,7 +28,7 @@ const LoginScreen = {
 			<input ref="nameInput" type="text" name="name" class="input_field" v-model="details.name" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
-		<div class="firstscreen_text" id="pass_text">{{minChoosePassword}}</div>
+		<div ref="pwdText" class="firstscreen_text" id="pass_text" v-html="l10n.stringPasswordLink"></div>
 		<password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
 		</div>
 		<div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3">
@@ -117,7 +117,6 @@ const LoginScreen = {
 
 	data() {
 		return {
-			min: 4,
 			warning: {
 				show: false,
 				text: '',
@@ -165,12 +164,6 @@ const LoginScreen = {
 		if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
 			this.details.serverAddress = sugarizer.modules.server.getServerUrl();
 		}
-	},
-
-	computed: {
-		minChoosePassword() {
-			return this.l10n.stringChoosePassword.replace('{{min}}', this.min);
-		},
 	},
 
 	watch: {
@@ -257,6 +250,8 @@ const LoginScreen = {
 						this.consentNeed = info.options['consent-need'];
 						this.consentPolicy = info.options['policy-url'];
 						this.$refs.policytext.innerHTML = this.l10nRef.get('PolicyLink', { url: this.consentPolicy });
+						const minPasswordSize = info.options['min-password-size'];
+						this.$refs.pwdText.innerHTML = this.l10nRef.get('ChoosePassword', { min: minPasswordSize });
 					}
 					const userexists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.name);
 					if (this.userType.isNewuser && !userexists) {
@@ -278,7 +273,9 @@ const LoginScreen = {
 				}
 				else if (this.index.currentIndex === 2) { // password
 					this.details.password = this.$refs.passwordInput.passwordText;
-					if (this.details.password.length >= 4) {
+					const info = await sugarizer.modules.server.getServerInformation(this.details.serverAddress);
+					const minPasswordSize = info.options['min-password-size'];
+					if (this.details.password.length >= minPasswordSize) {
 						this.index.currentIndex++;
 					}
 				}
