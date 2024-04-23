@@ -1212,13 +1212,14 @@ body {
 }
 
 .first-qrbackground {
-	position: absolute;
+	position: absolute !important;
 	left: 0px;
 	top: 0px;
 	width: 100%;
 	height:100vh;
 	visibility: visible;
 	background-color: transparent;
+	overflow: hidden;
 	z-index: 4;
 }
 
@@ -1239,7 +1240,7 @@ body {
 	width: 42px;
 	height: 42px;
 	top: 10px;
-	left: 95%;
+	right: 10px;
 	position: absolute;
 	visibility: hidden;
 	z-index: 5;
@@ -1256,7 +1257,7 @@ body {
 	width: 42px;
 	height: 42px;
 	bottom: 10px;
-	left: 95%;
+	right: 10px;
 	position: absolute;
 	visibility: hidden;
 	z-index: 5;
