@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Gear unexpected behavior of Play toolbar icon #1600
 - Add a zoom-in and zoom-out button in ColorMyWorld activity #1593
 - Adding Drag to fill Cells Functionality in Game of Life #1150
+- Undismissable palletes in Dollar street #1605
  
 ## [1.8.0] - 2024-04-10
 ### Added
