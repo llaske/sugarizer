@@ -288,3 +288,24 @@ textarea {
 	background-color: #808080;
 	border: 2px solid #808080;
 }
+
+
+
+@keyframes fireworks {
+  0% { transform: scale(0.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+.firework {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%;
+  animation: fireworks 1s ease-out forwards;
+
+  display: none;
+}
