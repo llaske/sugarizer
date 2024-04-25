@@ -7,7 +7,10 @@ var planets = [
     "year": "88",
     "temperature": "-173 to 427&#176;C",
     "radius": "2,439.7 km",
-    "distancefromsun": "58,000,000 km"
+    "distancefromsun": "58,000,000 km",
+    "dayLength": "4222.6 hours",
+    "surfaceGravity": "3.7 m/s^2",
+    "nickname": "The Swiftest Planet"
   },
   {
     "name": "Venus",
@@ -17,7 +20,10 @@ var planets = [
     "year": "225",
     "temperature": "462&#176;C",
     "radius": "6,051.8 km",
-    "distancefromsun": "108,000,000 km"
+    "distancefromsun": "108,000,000 km",
+    "dayLength": "2802.0 hours",
+    "surfaceGravity": "8.9 m/s^2",
+    "nickname": "Earth's Superheated Twin Sister"
   },
   {
     "name": "Earth",
@@ -27,7 +33,10 @@ var planets = [
     "year": "365",
     "temperature": "-88 to 58&#176;C",
     "radius": "6,371.00 km",
-    "distancefromsun": "150,000,000 km"
+    "distancefromsun": "150,000,000 km",
+    "dayLength": "24.0 hours",
+    "surfaceGravity": "9.8 m/s^2",
+    "nickname": "Our Homeworld"
   },
   {
     "name": "Mars",
@@ -37,7 +46,10 @@ var planets = [
     "year": "687",
     "temperature": "-153 to 20&#176;C",
     "radius": "3,389.5 km",
-    "distancefromsun": "228,000,000 km"
+    "distancefromsun": "228,000,000 km",
+    "dayLength": "24.7",
+    "surfaceGravity": "3.7 m/s^2",
+    "nickname": "The Red Planet"
   },
   {
     "name": "Jupiter",
@@ -47,7 +59,10 @@ var planets = [
     "year": "4,333",
     "temperature": "No Data",
     "radius": "69,911 km",
-    "distancefromsun": "778,000,000 km"
+    "distancefromsun": "778,000,000 km",
+    "dayLength": "9.9 hours",
+    "surfaceGravity": "23.1 m/s^2",
+    "nickname": "King of the Planets"
   },
   {
     "name": "Saturn",
@@ -57,7 +72,10 @@ var planets = [
     "year": "10,759",
     "temperature": "No Data",
     "radius": "58,232 km",
-    "distancefromsun": "1,400,000,000 km"
+    "distancefromsun": "1,400,000,000 km",
+    "dayLength": "10.7 hours",
+    "surfaceGravity": "9.0 m/s^2",
+    "nickname": "Jewel of the Solar System"
   },
   {
     "name": "Uranus",
@@ -67,7 +85,10 @@ var planets = [
     "year": "30,687",
     "temperature": "No Data",
     "radius": "25,362 km",
-    "distancefromsun": "2,900,000,000 km"
+    "distancefromsun": "2,900,000,000 km",
+    "dayLength": "17.2 hours",
+    "surfaceGravity": "8.7 m/s^2",
+    "nickname": "The Original Ice Giant"
   },
   {
     "name": "Neptune",
@@ -77,6 +98,9 @@ var planets = [
     "year": "60,190",
     "temperature": "No Data",
     "radius": "24,622 km",
-    "distancefromsun": "4,500,000,000 km"
+    "distancefromsun": "4,500,000,000 km",
+    "dayLength": "16.1 hours",
+    "surfaceGravity": "11.0 m/s^2",
+    "nickname": "The Farthest Planet"
   },
 ]
