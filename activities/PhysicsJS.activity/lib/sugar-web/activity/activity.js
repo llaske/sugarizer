@@ -21,7 +21,6 @@ define(["sugar-web/activity/shortcut",
     activity.setup = function () {
         bus.listen();
 
-
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
 			pauseEvent.initCustomEvent('activityPause', false, false, {

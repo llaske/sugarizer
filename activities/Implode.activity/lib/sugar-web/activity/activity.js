@@ -1,5 +1,4 @@
-define([
-        "sugar-web/activity/shortcut",
+define(["sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
         "sugar-web/datastore",
