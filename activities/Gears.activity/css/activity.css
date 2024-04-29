@@ -35,6 +35,14 @@ body {
   background-image: url(../icons/edit-clear.svg);
 }
 
+#main-toolbar #undo-button {
+	background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #redo-button {
+	background-image: url(../icons/edit-redo.svg);
+}
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }

@@ -48,22 +48,27 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
         document.getElementById('undo-button').addEventListener('click', function(){
             if ($h.undo.length > 0 && gearSketch.selectedButton !== "playButton") {
                 var obj = $h.undo.pop();
-                if(obj.method === "delete"){
+                if(obj.method === "delete" || obj.method === "add"){
                     $h.redo.push(obj);
-                    gearSketch.board[obj.type][obj.item.id] = obj.item;
-                } else if(obj.method === "add") {
-                    // Search for the item with the id and delete it
-                    $h.redo.push(obj);
-                    for (var type in gearSketch.board) {
-                        if (gearSketch.board.hasOwnProperty(type)) {
-                            var items = gearSketch.board[type];
-                            for (var itemId in items) {
-                                if (items.hasOwnProperty(itemId) && itemId === obj.item.id) {
-                                    delete gearSketch.board[type][itemId];
+                    gearSketch.board.clear();
+                    // console.log($h.undo);
+                    $h.undo.map((value, ind) => {
+                        if(value.method === "add"){
+                            gearSketch.board[value.type][value.item.id] = value.item;
+                        } else if( value.method === "delete"){
+                            // Search for the item with the id and delete it
+                            for (var type in gearSketch.board) {
+                                if (gearSketch.board.hasOwnProperty(type)) {
+                                    var items = gearSketch.board[type];
+                                    for (var itemId in items) {
+                                        if (items.hasOwnProperty(itemId) && itemId === value.item.id) {
+                                            delete gearSketch.board[type][itemId];
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
+                        } 
+                    })
                 } else if(obj.method === "locationchange") {
                     for (var type in gearSketch.board) {
                         if (gearSketch.board.hasOwnProperty(type)) {
