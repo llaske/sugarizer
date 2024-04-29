@@ -42,8 +42,10 @@
      * Start/Restart Game
      */
     start: function() {
-      this._doStart();
-      this.options.onStart.call(this.element);
+      if(!this._board.started){
+        this._doStart();
+        this.options.onStart.call(this.element);
+      }
     },
 
     restart: function() {
@@ -58,7 +60,7 @@
     },
 
     _doStart: function() {
-      this._filled.clearAll();
+      this._filled.clearAll(); // clear pre-builded blocks
       this._filled._resetScore();
       this._filled._showHighScore(); // shows high score at the beginning of game. Initial high score is 0
       this._board.cur = this._board.nextShape();
@@ -1463,46 +1465,43 @@
       var handleKeyDown = function(evt) {
         if( ! game._board.cur ) { return true; }
         var caught = false;
-
         caught = true;
         if (game.options.asdwKeys) {
           switch(evt.keyCode) {
-            case 65: /*a*/    moveLeft(true); break;
-            case 68: /*d*/    moveRight(true); break;
-            case 83: /*s*/    drop(true); break;
-            case 87: /*w*/    game._board.cur.rotate('right'); break;
+            case 65: /*a*/    moveLeft(true); game.start(); break;
+            case 68: /*d*/    moveRight(true); game.start(); break;
+            case 83: /*s*/    drop(true); game.start(); break;
+            case 87: /*w*/    game._board.cur.rotate('right'); game.start(); break;
           }
         }
         switch(evt.keyCode) {
-          case 37: /*left*/   moveLeft(true); break;
-          case 39: /*right*/  moveRight(true); break;
-          case 40: /*down*/   drop(true); break;
-          case 38: /*up*/     game._board.cur.rotate('right'); break;
-          case 88: /*x*/      game._board.cur.rotate('right'); break;
-          case 90: /*z*/      game._board.cur.rotate('left'); break;
+          case 37: /*left*/   moveLeft(true); game.start(); break;
+          case 39: /*right*/  moveRight(true); game.start(); break;
+          case 40: /*down*/   drop(true); game.start(); break;
+          case 38: /*up*/     game._board.cur.rotate('right'); game.start(); break;
+          case 88: /*x*/      game._board.cur.rotate('right'); game.start(); break;
+          case 90: /*z*/      game._board.cur.rotate('left');  game.start(); break;
           default: caught = false;
         }
         if (caught) evt.preventDefault();
         return !caught;
       };
 
-
       var handleKeyUp = function(evt) {
         if( ! game._board.cur ) { return true; }
         var caught = false;
-
         caught = true;
         if (game.options.asdwKeys) {
           switch(evt.keyCode) {
-            case 65: /*a*/    moveLeft(false); break;
-            case 68: /*d*/    moveRight(false); break;
-            case 83: /*s*/    drop(false); break;
+            case 65: /*a*/    moveLeft(false); game.start(); break;
+            case 68: /*d*/    moveRight(false); game.start(); break;
+            case 83: /*s*/    drop(false); game.start(); break;
           }
         }
         switch(evt.keyCode) {
-          case 37: /*left*/   moveLeft(false); break;
-          case 39: /*right*/  moveRight(false); break;
-          case 40: /*down*/   drop(false); break;
+          case 37: /*left*/   moveLeft(false); game.start(); break;
+          case 39: /*right*/  moveRight(false); game.start(); break;
+          case 40: /*down*/   drop(false); game.start(); break;
           default: caught = false;
         }
         if (caught) evt.preventDefault();
@@ -1614,18 +1613,18 @@
         game._$touchRotateRight.hide();
         game._$touchDrop.hide();
       }
-      $("#left-arrow").bind('touchstart click', function(event) {moveLeft(event); endMoveLeft(event)});
-      $("#right-arrow").bind('touchstart click', function(event) {moveRight(event); endMoveRight(event)});
-      $("#up-arrow").bind('touchstart click', rotateRight);
-      $("#down-arrow").bind('touchstart click', function(event) {drop(event); endDrop(event)});
+	  $("#left-arrow").bind('touchstart click', function(event) {moveLeft(event); endMoveLeft(event)});
+	  $("#right-arrow").bind('touchstart click', function(event) {moveRight(event); endMoveRight(event)});
+	  $("#up-arrow").bind('touchstart click', rotateRight);
+	  $("#down-arrow").bind('touchstart click', function(event) {game.start(); drop(event); endDrop(event)});
     },
-
     _unbindButtons: function(){
       $("#left-arrow").unbind('touchstart click');
       $("#right-arrow").unbind('touchstart click');
       $("#up-arrow").unbind('touchstart click');
       $("#down-arrow").unbind('touchstart click');
     }
+
   });
 
 })(jQuery));

@@ -10,7 +10,8 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Paint, Memorize, Record, Calculate and Media Viewer by Michaël Ohayon
 * Gridpaint by Brian Silverman
 * Speak by Vishal Batchu
-* Chat, Markdown by Suraj Gillespie
+* Chat, Chart by Utkarsh Siddhpura
+* Markdown by Suraj Gillespie
 * Moon by Shirsh Zibbu
 * EToys by Vanessa Freudenberg
 * Abacus, Reflection, XOEditor, Flip by Euan Ong  
@@ -21,7 +22,7 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Fototoon by Gonzalo Odiard
 * Game of Life, Pomodoro by Sanatan Kumar
 * Sprint Math by Mankirat Singh
-* Exerciser by Mankirat Singh and Avinash Agarwal
+* Exerciser by Mankirat Singh, Avinash Agarwal and Utkarsh Siddhpura
 * Write by Ashish Aggarval
 * Constellation, Planets by Andrea Gonzales
 * Falabracman, Chess, MindMath, Tangram by Prakash Ujjwal
@@ -37,6 +38,6 @@ The Sugarizer OS version for Android was developed by Jeremie Amsellem and Micha
 
 Lot of students contributed to Sugarizer during GSoC and GCI.
 
-Here's a generated list of contributors coming from git repository: Lionel Laské, Daniel Narvaez, Gonzalo Odiard, Manuel Quiñones, Christian Stroetmann, Jason Weathersby, Puneet Kaur, Pierre Varly, Naji Boumzough, Shirsh Zibbu, Piotr Antosz, Tymon P.Radzik, Matías Martínez, Charles Cossé, Victor Takaki, Brian Silverman, Dhruv Misra, Saurabh Gupta, Prakash Ujjwal, Sanatan, matiasmartineeez, Marcus Chong, FreddieN, Andrea Gonzales, Sarthak gupta, Saurabh Raj, Mankirat Singh, ashish aggarwal, Sashreek Magan, Paulo Francisco Slomp, Szymon Dziuda, EstyxTranslations, Abhishek Singh, Michaël Ohayon, Mohit Sharma, Walter Bender, Christoph Derndorfer-Medosch, abhishektanwar, Jaikishan Brijwani, Free Educational Software for Mobile Devices - Translations to Brazilian Portuguese, shikhargarg1812, superhakar, Dimmer, Uasked4dat, C. Cossé, Keisuki, Avinash Agarwal, Jorge Alberto Gómez López, tradzik, lp1tek, Utkarsh Singh, est271, Bastien, Vanessa Freudenberg, Dinesh Choudhary, Eric Yoon, Sebastian Silva, Brady H, Ayush Lohani, ccr4b, K Adithya Krishna, Sanchit Kapoor, Anshuman Bhardwaj, Aditya Kumar Sinha, Davide Costa, Amit Chakraborti, Devakumar NM, Hemansh Khaneja, Larissa Moura, Ignacio Rodríguez, Ethan Nelson-Moore, Sameer Kumar Satyadarshi, Rajeev Ravindran, ariessa, Shak Ragoler, j-shubh, Kunal Mohta, naofum, Suraj, Aryan Mediratta, Franco Correa, Divyansh Tripathi, Alan Aguiar, Dave Crossland, Ibukunoluwa Fatoki, Harrison Katz, Martin Abente Lahaye, Samyok Nepal, Raul Quinto Sakai, Michael Pu, Prabhu Pant, Nikolay Gospodinov, Rosa Anil George, Samson Goddy, Saurav Pratihar, Yashashvi Dave, Euan Ong, Mihir Shah, leonardcj and vjrj.
+Here's a generated list of contributors coming from git repository: Lionel Laské, Daniel Narvaez, Gonzalo Odiard, Manuel Quiñones, Christian Stroetmann, Jason Weathersby, Puneet Kaur, Pierre Varly, Naji Boumzough, Shirsh Zibbu, Piotr Antosz, Tymon P.Radzik, Matías Martínez, Charles Cossé, Victor Takaki, Brian Silverman, Sarthak gupta, Dhruv Misra, Paulo Francisco Slomp, Andrea Gonzales, Prakash Ujjwal, Sanatan, Marcus Chong, Saurabh Raj, Sashreek Magan, ashish aggarwal, Saurabh Gupta, matiasmartineeez, Saumya Kushwaha, EstyxTranslations, Szymon Dziuda, Ayeshashaik759, Mankirat Singh, Anand Chourasia, Rohan kumar, Vedant Sharma, Nischay Goyal, FreddieN, mikkl, Jaikishan Brijwani, abhishektanwar, Walter Bender, Disha Talreja, Christoph Derndorfer-Medosch, Abhishek Singh, superhakar, Aman Kumar Yadav, shikhargarg1812, UtkarshSiddhpura, Uasked4dat, Free Educational Software for Mobile Devices - Translations to Brazilian Portuguese, ABHINAV JHA, Dimmer, Harshit Maurya, Eshaan Aggarwal, Jorge Alberto Gómez López, Keisuki, SC4R, Abhishek, Saakshi Jha, Ayush Lohani, Vanessa Freudenberg, Utkarsh Singh, est271, C. Cossé, tradzik, Avinash Agarwal, Bastien, Sebastian Silva, SHREYAS SUKHADEVE, lp1tek, Dinesh Choudhary, Ujjawal Modi, ccr4b, Eric Yoon, Anshuman Bhardwaj, Dhwaj Gupta, K Adithya Krishna, Brady H, Sanchit Kapoor, ARIHANT JAIN, Franco Correa, Aryan Mediratta, Divyansh Agarwal, naofum, Suraj, j-shubh, Shak Ragoler, ariessa, Kunal Mohta, Aditya Kumar Sinha, Amit Chakraborti, Davide Costa, Devakumar NM, Larissa Moura, Ignacio Rodríguez, Hemansh, Mahmoud Dawood, ParrotGeek Software, Rajeev Ravindran, Rosa Anil George, Sameer Kumar Satyadarshi, Raul Quinto Sakai, Samson Goddy, Rucha Kasture, Saurav Pratihar, Yashashvi Dave, Euan Ong, Mihir Shah, jigyasunigam, kanishk kashyap, vjrj, Pratham and leonardcj.
 
 Many thanks to all Sugarizer contributors in past, present and future.

@@ -2,6 +2,8 @@ As all Open Source software, contributions to Sugarizer are welcome.
 
 A good way to start to contribute is testing and trying Sugarizer to find some issues. If you find one, don't be shy, submit your issue [here](https://github.com/llaske/Sugarizer/issues) by giving the maximum information on it, specifically detailed steps to reproduce it. We will check your issue and ask you more information if needed.
 
+Issues are also the way to propose new features. If you have a suggestion, explain it in detail in an issue and we will discuss it.
+
 If you're a developer, the best way to start is to read the [architecture](docs/architecture.md) then to do the whole [tutorial](docs/tutorial.md). It will give you a good understanding of Sugarizer internal.
 
 When you think you're ready, you could try to fix some existing issues [here](https://github.com/llaske/Sugarizer/issues). If you find a fix, send a Pull Request, we will be pleased to review it.
@@ -17,6 +19,7 @@ So to send your Pull Request:
 
 Few rules to respect when you fix an issue:
 
+* [ ] Do not send a Pull Request without a related issue that has been approved by a Sugarizer maintainer,
 * [ ] Ensure your pull request contains only update related to the fix,
 * [ ] Respect indentation of the original file,
 * [ ] Mention the issue number in the pull request but not in the commit message

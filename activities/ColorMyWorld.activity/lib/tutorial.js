@@ -25,6 +25,11 @@ define(["l10n"], function (l10n) {
 				element: "#run-button",
 				title: l10n.get("TutoRunTitle"),
 				intro: l10n.get("TutoRunContent")
+			},
+			{
+				element: "#zoom-button",
+				title: l10n.get("TutoZoomTitle"),
+				intro: l10n.get("TutoZoomContent")
 			}
 		];
 		

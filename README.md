@@ -262,20 +262,17 @@ At the end of the process, all JavaScript files in all directories have been rep
 
 If you're not a developer and you want to translate Sugarizer into your own language, please go to the [Sugarizer translation platform](http://translate.sugarizer.org) where you will be able to do that. If you're a developer, the following paragraphs will explain to you how the Sugarizer localization system works.
 
-Sugarizer use [webL10n](https://github.com/fabi1cazenave/webL10n) localization system by Fabien Cazenave.
+Sugarizer use [i18next](https://www.i18next.com/) localization system.
 
-Here is how to add a new translation. See a video tutorial [here](https://youtu.be/vTPVegrVm5A).
+All strings are localized in JSON files in the [locales](locales) directory at the root of the repository.
+If you want to add a new translation, copy the `en.json` files in a new one and:
 
-All strings are localized in the [locale.ini](locale.ini) file at the root of the repository.
-If you want to add a new translation, copy the whole [en] section at the end of the file and:
+* Replace "en" in the new file name by the [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) of your language. For example, "fr.json" for French,
+* Substitute the right side of the ":" character on each line of the file by the string localized in your language. For example:
 
-* Replace "en" by the [ISO 639-1 code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) of your language. For example, "fr" for French,
-* Substitute the right side of the "=" character on each line by the string localized in your language. For example:
-
-		[fr]
-		StartNew=Commencer un nouveau
-		NameActivity=Activité {{name}}
-		RemoveFavorite=Retirer le favori
+		"StartNew": "Commencer un nouveau",
+		"NameActivity": "Activité {{name}}",
+		"RemoveFavorite": "Retirer le favori",
 
 Warning: Note that text inside {{}} must not be localized. So here, **{{name}}** is not translated.
 
@@ -286,13 +283,13 @@ Sugarizer automatically detects the navigator language. To enable this detection
 
 Sugarizer settings display a list of all available languages. You need to add your language in this dialog. For this you have to:
 
-* Add a new string in [locale.ini](locale.ini) with the name of your language in English. For example:
+* Add a new string in [locales/en.json](locales/en.json) with the name of your language in English. For example:
 
-		French=French
+		"French": "French",
 
-* Add the same line for all languages/sections in the file. If you're able to do that, translate the right side of the "=" character with the localized string for the name of your language. If you don't know how to translate it, just use the English word. For example:
+* Add the same line in all other language files. If you're able to do that, translate the right side of the ":" character with the localized string for the name of your language. If you don't know how to translate it, just use the English word. For example:
 
-		French=Français
+		"French": "Français",
 
 * Add your string in the [js/dialog.js](js/dialog.js) file in the create function of the Enyo class Sugar.DialogLanguage. You should give the ISO 639-1 language code and the new string for your language name. For example:
 

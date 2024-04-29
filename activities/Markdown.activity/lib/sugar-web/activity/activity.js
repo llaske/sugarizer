@@ -1,12 +1,11 @@
-define([
-        "sugar-web/activity/shortcut",
+define(["sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
         "sugar-web/datastore",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette"], function (
-     shortcut, bus, env, datastore, presence, icon, activitypalette) {
+    shortcut, bus, env, datastore, presence, icon, activitypalette) {
 
     'use strict';
 
@@ -21,7 +20,6 @@ define([
 
     activity.setup = function () {
         bus.listen();
-
 
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");

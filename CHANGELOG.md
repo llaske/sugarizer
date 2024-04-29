@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Images go under each other while editing in Fototoon #1552
+- Missalignment of icons and text in Fototoon activity "clean all" button #1596
+- Extra icon rendering in QRCode activity #1193
+- Message Updation in Fraction Activity #1453
+- LabyrinthJS: No selection-indicator is visible while linking ideas #1585
+- Gear unexpected behavior of Play toolbar icon #1600
+- Add a zoom-in and zoom-out button in ColorMyWorld activity #1593
+- Adding Drag to fill Cells Functionality in Game of Life #1150
+- Undismissable palletes in Dollar street #1605
+- Localization error in FoodChain #1608
+- Alignment issue in Abacus #1607
+ 
+## [1.8.0] - 2024-04-10
 ### Added
 - Chart Activity
 - Word Puzzle Template in Exerciser activity
@@ -38,6 +52,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Time fluctuations in Clock Activity #1507
 - Resizing textarea in activity palette looks ugly #1303
 - Player without face and color #1536
+- Undeletable text in FotoToon #1549
+- Blockrain: Game can start before pressing play button #1563
+- Tank Operation the music persists even after returning to a previous screen #1553 
 
 ## [1.7.0] - 2023-03-28
 ### Added

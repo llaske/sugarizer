@@ -21,7 +21,6 @@ define(["sugar-web/activity/shortcut",
     activity.setup = function () {
         bus.listen();
 
-
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
 			pauseEvent.initCustomEvent('activityPause', false, false, {
@@ -98,7 +97,7 @@ define(["sugar-web/activity/shortcut",
 
         env.getEnvironment(function (error, environment) {
             user = environment.user;
-            var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","pl":"Działalność {{name}}","de":"Aktivität {{name}}"};
+            var l10n ={"en":"{{name}} Activity","fr":"Activité {{name}}","es":"Actividad {{name}}","pt":"{{name}} Atividade","de":"Aktivität {{name}}"};
             var activityName = "";
             for (var i = 0 ; i < environment.user.activities.length ; i++) {
                 if (environment.user.activities[i].id == environment.bundleId) {
