@@ -394,5 +394,6 @@
 	"ErrorLoadingFileAssignment": "Cannot Duplicate the Assignment Entry {{file}}",
 	"SortByDueDate": "Sort by due date",
 	"CannotDuplicateAssignment": "Cannot duplicate assignment entry",
-	"CannotDeleteAssignment": "Cannot delete assignment entry"
+	"CannotDeleteAssignment": "Cannot delete assignment entry",
+	"LoginRedirect": "Please login or create user first"
 }

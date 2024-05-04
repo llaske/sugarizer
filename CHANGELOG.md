@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Launch activity directly from url of CLI
+
 ### Fixed
 - Images go under each other while editing in Fototoon #1552
 - Missalignment of icons and text in Fototoon activity "clean all" button #1596
