@@ -41,6 +41,7 @@ The Sugarizer desktop application has four possible arguments:
 * `--sdebug` to open Sugarizer with the debug console
 * `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
+* `--launch <activityid>` to open Sugarizer with a specific activity (e.g. `--launch org.olpcfrance.Abecedarium`). If no user is created/connected, it will be asked to create/connect one first.
 
 If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First, install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
