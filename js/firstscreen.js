@@ -95,6 +95,10 @@ enyo.kind({
 		// At first launch, display tutorial
 		var that = this;
 		window.addEventListener("localized", function () {
+			if (new URLSearchParams(window.location.search).get("redirect")) {
+				humane.log(l10n.get("LoginRedirect"));
+				return;
+			}
 			if (that.history.length === 0) {
 				that.startTutorial();
 			}
@@ -660,6 +664,53 @@ enyo.kind({
 
 	// Launch desktop
 	launchDesktop: function() {
+		var urlParams = new URLSearchParams(window.location.search);
+		var redirect = urlParams.get("redirect");
+
+		// Redirect to an activity
+		if (redirect) {
+			let redirectUrl = new URL(decodeURIComponent(redirect));
+			if (window.location.origin == redirectUrl.origin) {
+				let activityExist = false;
+				let activityId = redirectUrl.searchParams.get("a");
+				if (activityId) {
+					activityExist = (activities.getById(activityId) != activities.genericActivity());
+				}
+				if (activityExist) {
+					app.getView = function() { return constant.radialView; }
+					preferences.save();
+					let doRedirect = function() {
+						let objectId = redirectUrl.searchParams.get("o");
+						if (objectId) {
+							let data = datastore.find(activityId).filter(function(o) {
+								return o.objectId == objectId;
+							});
+							if (data.length == 0) {
+								redirectUrl.searchParams.delete("o");
+								redirectUrl.searchParams.set("n", activities.getById(activityId).name);
+								console.log("Redirect object not found"); 
+							}
+						} else {
+							redirectUrl.searchParams.set("n", activities.getById(activityId).name);
+						}
+						window.location = decodeURIComponent(redirectUrl.href);
+					};
+					if (preferences.isConnected()) {
+						this.$.spinner.setShowing(true);
+						autosync.synchronizeJournal(null, doRedirect);
+					} else {
+						doRedirect();
+					}
+					return;
+				} else {
+					console.log("Redirect activity not found");
+				}
+			} else {
+				console.log("Redirect to a different server");
+			}
+		}
+
+		// Launch usual desktop
 		document.getElementById("toolbar").style.backgroundColor = this.backgroundColor;
 		document.getElementById("canvas").style.overflowY = "auto";
 		isFirstLaunch = (this.history.length == 0 && this.createnew);
