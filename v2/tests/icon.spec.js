@@ -213,4 +213,54 @@ describe('Icon.vue', () => {
 		expect(wrapper.vm._element.getAttribute("width")).toBe('55px');
 		expect(wrapper.vm.$refs.icon.getAttribute("style")).toBe('margin: 0px 0px 0px 0px;--stroke-color:#000000;--fill-color:#999999;');
 	});
+
+	it('should set color correctly', async () => {
+        wrapper = mount(Icon, {
+            props: { 
+                id: id,
+                svgfile: svgfileNew,
+                color: 180,
+                size: size,
+                x: x,
+                y: y,
+                isNative: isSugarNative
+            },
+        })
+        await delay(1000);
+        expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color0');
+    });
+
+    it('should set size correctly', async () => {
+        wrapper = mount(Icon, {
+            props: { 
+                id: id,
+                svgfile: svgfileNew,
+                color: color,
+                size: 200,
+                x: x,
+                y: y,
+                isNative: isSugarNative
+            },
+        })
+        await delay(1000);
+        expect(wrapper.vm._element.getAttribute("width")).toBe('200px');
+        expect(wrapper.vm._element.getAttribute("height")).toBe('200px');
+    });
+
+    it('should check if cursor is inside the icon component correctly', async () => {
+        wrapper = mount(Icon, {
+            props: { 
+                id: id,
+                svgfile: svgfileNew,
+                color: color,
+                size: size,
+                x: x,
+                y: y,
+                isNative: isSugarNative
+            },
+        })
+        await delay(1000);
+        expect(wrapper.vm.isCursorInside(x + size / 2, y + size / 2)).toBe(true);
+        expect(wrapper.vm.isCursorInside(x - 1, y - 1)).toBe(false);
+    });
 })
