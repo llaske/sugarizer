@@ -34,7 +34,7 @@ Then, as usual, let's add our new button in the toolbar. To do that we will firs
 	...
 
 	<!-- Toolitems with class="pull-right" will be right aligned -->
-	<sugar-toolitem id="stop-button" title="Stop" class="pull-right" v-on:click="onStop"></sugar-toolitem>
+	<sugar-toolitem id="stop-button" title="Stop" class="pull-right" @click="onStop"></sugar-toolitem>
 	<sugar-toolitem id="help-button" title="Tutorial" class="pull-right"></sugar-toolitem>
 </sugar-toolbar>
 ```
@@ -90,21 +90,34 @@ So, let's create a new Javascript file `lib/tutorial.js` to handle everything re
 	<!-- After all script loads -->
 	<script src="js/components/SugarTutorial.js"></script>
 ```
+```js
+// Register the component
+const app = Vue.createApp({
+	components: {
+		"sugar-tutorial": SugarTutorial,
+		...
+	},
+```
 
 ## Localize the tutorial
 
-First, let's add text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the Step 5, update your `locale.ini` file to define new resource strings:
-```ini
-TutoPrev=Prev
-TutoNext=Next
-TutoExplainTitle=Pawn Activity
-TutoExplainContent=Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.
-TutoAddTitle=Add pawn
-TutoAddContent=Click here to add one to three pawns on the board.
-TutoBackgroundTitle=Change background
-TutoBackgroundContent=Click here to choose a new background for the board.
+First, let's add text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the Step 5, update your `locales/<lang>.json` files to define new resource strings:
+
+e.g `locales/en.json`
+```json
+{
+	...
+	"TutoPrev": "Prev",
+	"TutoNext": "Next",
+	"TutoExplainTitle": "Pawn Activity",
+	"TutoExplainContent": "Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.",
+	"TutoAddTitle": "Add pawn",
+	"TutoAddContent": "Click here to add one to three pawns on the board.",
+	"TutoBackgroundTitle": "Change background",
+	"TutoBackgroundContent": "Click here to choose a new background for the board.",
+}
 ```
-You should add these strings in the `*` section and give their translations for `en`, `fr` and `es` sections.
+Also, you should include their translations in JSON files for `fr`, `es`, and `pt`.
 
 Now let's hop over to the `activity.js` and add these strings to the data object:
 ```js
@@ -157,7 +170,7 @@ Can't wait to test it!
 
 All we need to do now is to call this method on click of the help-button, like this:
 ```html
-<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" v-on:click="onHelp"></sugar-toolitem>
+<sugar-toolitem id="help-button" title="Tutorial" class="pull-right" @click="onHelp"></sugar-toolitem>
 
 ```
 

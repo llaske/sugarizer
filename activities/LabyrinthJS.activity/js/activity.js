@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-web/graphics/colorpalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "fontpalette", "tutorial", "sugar-web/env"], function (activity, webL10n, datastore, colorpalette, zoompalette, presencepalette, humane, textpalette, tutorial, env, l10n) {
+define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore", "sugar-web/graphics/colorpalette", "zoompalette", "sugar-web/graphics/presencepalette", "humane", "fontpalette", "tutorial", "sugar-web/env"], function (activity, l10n, datastore, colorpalette, zoompalette, presencepalette, humane, textpalette, tutorial, env) {
 	var defaultColor = '#FFF29F';
 	var isShared = false;
 	var isHost = false;
@@ -67,7 +67,7 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 				file_size: 0
 			};
 			datastore.create(metadata, function() {
-				humane.log(webL10n.get('LabyrinthImage'));
+				humane.log(l10n.get('LabyrinthImage'));
 				console.log("export done.")
 			}, inputData);
 		});
@@ -248,43 +248,43 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 		});
 
 		// Handle localization
-		window.addEventListener('localized', function() {
-			env.getEnvironment(function(err, environment) {
-				var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
-				var language = environment.user ? environment.user.language : defaultLanguage;
-				if (webL10n.language.code != language) {
-					webL10n.language.code = language;
-				};
-				var oldDefaultText = defaultText;
-				defaultText = webL10n.get("YourNewIdea");
-				nodetextButton.title = webL10n.get("nodetextTitle");
-				linkButton.title = webL10n.get("linkButtonTitle");
-				removeButton.title = webL10n.get("removeButtonTitle");
-				undoButton.title = webL10n.get("undoButtonTitle");
-				redoButton.title = webL10n.get("redoButtonTitle");
-				zoomButton.title = webL10n.get("zoomButtonTitle");
-				foregroundButton.title = webL10n.get("foregroundButtonTitle");
-				backgroundButton.title = webL10n.get("backgroundButtonTitle");
-				textValue.placeholder = webL10n.get("typeText");
-				boldButton.title = webL10n.get("boldButtonTitle");
-				italicButton.title = webL10n.get("italicButtonTitle");
-				fontMinusButton.title = webL10n.get("fontMinusButtonTitle");
-				fontPlusButton.title = webL10n.get("fontPlusButtonTitle");
-				fontButton.title = webL10n.get("fontButtonTitle");
-				pngButton.title = webL10n.get("pngButtonTitle");
-				if (cy) {
-					var nodes = cy.elements("node");
-					for(var i = 0; i < nodes.length ; i++) {
-						var node = nodes[i];
-						if (node.data('content') == oldDefaultText) {
-							node.data('content', defaultText);
-							node.style({'content': defaultText});
-						}
+		env.getEnvironment(function(err, environment) {
+			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
+			var language = environment.user ? environment.user.language : defaultLanguage;
+			if (l10n.language.code != language) {
+				l10n.init(language);
+			};
+		});
+		window.addEventListener("localized", function() {
+			var oldDefaultText = defaultText;
+			defaultText = l10n.get("YourNewIdea");
+			nodetextButton.title = l10n.get("nodetextTitle");
+			linkButton.title = l10n.get("linkButtonTitle");
+			removeButton.title = l10n.get("removeButtonTitle");
+			undoButton.title = l10n.get("undoButtonTitle");
+			redoButton.title = l10n.get("redoButtonTitle");
+			zoomButton.title = l10n.get("zoomButtonTitle");
+			foregroundButton.title = l10n.get("foregroundButtonTitle");
+			backgroundButton.title = l10n.get("backgroundButtonTitle");
+			textValue.placeholder = l10n.get("typeText");
+			boldButton.title = l10n.get("boldButtonTitle");
+			italicButton.title = l10n.get("italicButtonTitle");
+			fontMinusButton.title = l10n.get("fontMinusButtonTitle");
+			fontPlusButton.title = l10n.get("fontPlusButtonTitle");
+			fontButton.title = l10n.get("fontButtonTitle");
+			pngButton.title = l10n.get("pngButtonTitle");
+
+			if (cy) {
+				var nodes = cy.elements("node");
+				for(var i = 0; i < nodes.length ; i++) {
+					var node = nodes[i];
+					if (node.data('content') == oldDefaultText) {
+						node.data('content', defaultText);
+						node.style({'content': defaultText});
 					}
 				}
-			});
-		}, false);
-
+			}
+		});
 		// --- Cytoscape handling
 
 		// Initialize board
@@ -362,11 +362,18 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 				if (lastSelected == this) lastSelected = null;
 				return;
 			} else if (currentMode == 1) {
+				if (isSelectedNode(this)) {
+					unselectNode(this);
+					lastSelected = null;
+				}
+				else { selectNode(this); }
 				if (lastSelected != null && lastSelected != this) {
 					createEdge(lastSelected, this);
+					unselectNode(this);
+					lastSelected = null;
 					pushState();
 				}
-				lastSelected = this;
+				if (isSelectedNode(this)) lastSelected = this;
 				return;
 			} else {
 				if (isSelectedNode(this)) {
@@ -538,7 +545,7 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 		// HACK: dynamically compute need size putting the string in a hidden div element
 		var computeStringSize = function(text, fontfamily, fontsize, bold, italic) {
 			var computer = document.getElementById("fontsizecomputer");
-			computer.innerHTML = text.replace("<","&lt;").replace(">","&gt;");
+			computer.innerText = text;
 			computer.style.fontFamily = fontfamily;
 			computer.style.fontSize = fontsize+"px";
 			if (bold) computer.style.fontWeight = "bold";
@@ -814,7 +821,7 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 			var userName = msg.user.name.replace('<', '&lt;').replace('>', '&gt;');
 			var html = "<img style='height:30px;' src='" + generateXOLogoWithColor(msg.user.colorvalue) + "'>";
 			if (msg.move === 1) {
-				humane.log(html + webL10n.get("PlayerJoin",{user: userName}));
+				humane.log(html + l10n.get("PlayerJoin",{user: userName}));
 				if (isHost) {
 					sendMessage({
 						action: 'initialBoard',
@@ -822,7 +829,7 @@ define(["sugar-web/activity/activity", "webL10n", "sugar-web/datastore", "sugar-
 					});
 				}
 			} else if (msg.move === -1) {
-				humane.log(html + webL10n.get("PlayerLeave",{user: userName}));
+				humane.log(html + l10n.get("PlayerLeave",{user: userName}));
 			}
 			network.listSharedActivities(function(activities) {
 				for (var i = 0; i < activities.length; i++) {

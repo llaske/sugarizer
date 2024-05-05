@@ -1,12 +1,11 @@
-define(["webL10n",
-        "sugar-web/activity/shortcut",
+define(["sugar-web/activity/shortcut",
         "sugar-web/bus",
         "sugar-web/env",
         "sugar-web/datastore",
 		"sugar-web/presence",
         "sugar-web/graphics/icon",
         "sugar-web/graphics/activitypalette"], function (
-    l10n, shortcut, bus, env, datastore, presence, icon, activitypalette) {
+    shortcut, bus, env, datastore, presence, icon, activitypalette) {
 
     'use strict';
 
@@ -21,8 +20,6 @@ define(["webL10n",
 
     activity.setup = function () {
         bus.listen();
-
-        l10n.start();
 
         function sendPauseEvent() {
 			var pauseEvent = document.createEvent("CustomEvent");
@@ -54,6 +51,23 @@ define(["webL10n",
         bus.onNotification("activity.stop", sendStopEvent);
 
         datastoreObject = new datastore.DatastoreObject();
+
+        datastore.localStorage.load(function() {
+            var preferences = datastore.localStorage.getValue('sugar_settings');
+            if (preferences != null && preferences.name !== undefined) {
+                return;
+            }
+            if (window.location.protocol != "file:") {
+                location.href = window.location.protocol + "//" + window.location.host + "?redirect=" + encodeURIComponent(window.location.href);
+            } else {
+                let server = window.location.pathname.substring(0, window.location.pathname.indexOf("index.html"));
+                server = server.substring(0, server.lastIndexOf("/"));
+                server = server.substring(0, server.lastIndexOf("/"));
+                server = server.substring(0, server.lastIndexOf("/"));
+                location.href = server + "/index.html?redirect=" + encodeURIComponent(window.location.href);
+            }
+            return;
+        });
 
         var activityButton = document.getElementById("activity-button");
 

@@ -23,8 +23,12 @@ body {
   background-image: url(../icons/MomentumIcon.svg);
 }
 
-#main-toolbar #play-button {
-  background-image: url(../icons/media-playback-start.svg);
+#main-toolbar #play-button.play {
+	background-image: url(../icons/play.svg);
+}
+
+#main-toolbar #play-button.pause {
+	background-image: url(../icons/pause.svg);
 }
 
 #main-toolbar #clear-button {

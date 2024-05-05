@@ -330,6 +330,7 @@ enyo.kind({
 
 			// Back to app
 			app.renderInto(document.getElementById("board"));
+			sound.pause();
 		}
 
 		// Compute direction

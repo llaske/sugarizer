@@ -3,9 +3,10 @@
 var electron = require('electron'),
 	fs = require('fs'),
 	temp = require('tmp'),
-	ini = require('ini'),
 	path = require('path'),
-	requirejs = require('requirejs');
+	requirejs = require('requirejs'),
+	activities = require('./activities.json'),
+	l10n = require('./lib/l10n');
 
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
@@ -20,41 +21,8 @@ var debug = false;
 var frameless = true;
 var reinit = false;
 var logoff = false;
+var launch = null;
 
-
-// Localization features
-l10n = {
-	ini: null,
-	language: '*',
-
-	init: function() {
-		this.language = app.getLocale() || "*";
-		this.ini = ini.parse(fs.readFileSync(app.getAppPath()+'/locale.ini', 'utf-8'));
-	},
-
-	setLanguage: function(lang) {
-		this.language = lang;
-	},
-
-	getLanguage: function() {
-		return this.language;
-	},
-
-	get: function(text, params) {
-		var locales = this.ini[this.language];
-		if (!locales) {
-			locales = this.ini['*'];
-		}
-		if (!locales[text]) {
-			return text;
-		}
-		var translate = locales[text];
-		for (var param in params) {
-			translate = translate.replace('{{'+param+'}}', params[param]);
-		}
-		return translate;
-	}
-}
 
 // Save a file
 function saveFile(file, arg, sender) {
@@ -100,6 +68,19 @@ function createWindow () {
 			reinit = true;
 		} else if (process.argv[i] == '--logoff') {
 			logoff = true;
+		} else if (process.argv[i] == '--launch') {
+			if (i+1 < process.argv.length) {
+				let activity = process.argv[i+1];
+				if (activity.indexOf('&') != -1) {
+					activity = activity.split('&')[0];
+				}
+				for (var j = 0 ; j < activities.length ; j++) {
+					if (activities[j].id == activity) {
+						launch = 'file://'+app.getAppPath()+'/'+activities[j].directory+'/index.html?n='+activities[j].name+'&a=' + process.argv[i+1];
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -123,7 +104,7 @@ function createWindow () {
 	}
 
 	// Load the index.html of Sugarizer
-	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':'')+(logoff?'?rst=2':''));
+	mainWindow.loadURL(launch ? launch : 'file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':'')+(logoff?'?rst=2':''));
 	if (frameless) {
 		mainWindow.maximize();
 	}
@@ -131,7 +112,7 @@ function createWindow () {
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.webContents.once('did-finish-load', function() {
 		// Initialize locales
-		l10n.init();
+		l10n.init(app.getLocale() || "en");
 
 		// Handle save file dialog
 		ipc.on('save-file-dialog', function(event, arg) {
@@ -217,6 +198,10 @@ function createWindow () {
 			};
 			menu.submenu[0].label = l10n.get("Quit");
 			template.unshift(menu);
+
+			const { systemPreferences } = require('electron')
+			systemPreferences.askForMediaAccess('microphone');
+			systemPreferences.askForMediaAccess('camera');
 		}
 		var menu = Menu.buildFromTemplate(template);
 		Menu.setApplicationMenu(menu);

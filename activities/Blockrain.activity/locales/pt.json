@@ -1,0 +1,21 @@
+{
+    "TutoPrev": "Anterior",
+    "TutoNext": "Próximo",
+    "TutoEnd": "Fim",
+    "TutoExplainTitle": "Blockrain",
+    "TutoExplainContent": "Welcome into the Blockrain activity. Blockrain is a tile-matching puzzle video game inspired by the classic Tetris game",
+    "TutoCanvasTitle": "Regras",
+    "TutoCanvasContent": "The objective of the game is to manipulate blocks to create horizontal lines. You can only move the pieces in specific ways, your game is over if your pieces reach the top of the screen, and you can only remove pieces from the screen by filling all the blank space in a line (horizontally)",
+    "TutoPlayTitle": "Play/Pause",
+    "TutoPlayContent": "Use this button to play or pause your game",
+    "TutoThemeTitle": "Theme",
+    "TutoThemeContent": "Clique aqui para mudar o tema do jogo",
+    "TutoRotateTitle": "Rotação",
+    "TutoRotateContent": "Click here to rotate the incoming blocks clockwise",
+    "TutoDownTitle": "Mover para baixo",
+    "TutoDownContent": "Click here to move the incoming blocks in downward direction",
+    "TutoLeftTitle": "Mover para a esquerda",
+    "TutoLeftContent": "Click here to move the incoming blocks in left direction",
+    "TutoRightTitle": "Mover para a direita",
+    "TutoRightContent": "Click here to move the incoming blocks in right direction"
+}

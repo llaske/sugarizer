@@ -323,9 +323,9 @@ background-size: 100% 1.2em;
   background-size: 25px 25px;
   margin-top: 2px;
   padding: 0px;
-  text-indent: 100%;
   white-space: nowrap;
-  overflow: hidden;
+  color: transparent;
+  line-height: 27px;
 }
 
 .customTooltip .introjs-nextbutton::before {
@@ -406,6 +406,8 @@ background-size: 100% 1.2em;
 @media screen and (min-width: 775px)
   {
     .warningbox-cancel-button {
+      display: flex;
+      align-items: center;
 	    position: absolute;
       right: 240px;
       width: 210px;
@@ -416,6 +418,8 @@ background-size: 100% 1.2em;
       font-size:15px;
     }
     .warningbox-refresh-button {
+      display: flex;
+      align-items: center;
       position: absolute;
       right: 10px;
       width: 210px;
@@ -430,6 +434,8 @@ background-size: 100% 1.2em;
 @media screen and (max-width: 774px)
   {
     .warningbox-cancel-button {
+      display: flex;
+      align-items: center;
 	    position: absolute;
       right: 170px;
       width: 160px;
@@ -439,6 +445,8 @@ background-size: 100% 1.2em;
       font-size:15px;
   }
   .warningbox-refresh-button {
+    display: flex;
+      align-items: center;
     position: absolute;
     right: 10px;
     width: 140px;

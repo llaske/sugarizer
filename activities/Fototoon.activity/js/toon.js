@@ -1,10 +1,10 @@
-define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], function (easel, datastore, env, l10n, humane) {
+define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function (easel, datastore, env, l10n, humane) {
 
 
 	env.getEnvironment(function(err, environment) {
 		var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 		var language = environment.user ? environment.user.language : defaultLanguage;
-		l10n.language.code = language;
+		l10n.init(language);
 		console.log('LANG ' + language);
 	});
 
@@ -550,7 +550,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             }, false);;
 
             var editor = this._textpalette.editorElem;
-
             var colorButtons = this._textpalette.colorButtons;
             for (var i = 0; i < colorButtons.length; i++) {
                 colorButtons[i].addEventListener('click', function(e) {
@@ -1316,7 +1315,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._shapeControls.graphics.endStroke();
 
                 this._shapeControls.visible = this.getSelected();
-                this._stage.addChild(this._shapeControls);
+                this._stage.addChildAt(this._shapeControls, this._stage.children.length - 1);
+
             } else {
                 this._shapeControls.visible = this.getSelected();
                 this._shapeControls.x = x;
@@ -1324,7 +1324,10 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             };
 
             // point position
+            this._stage.addChild(this._shapeControls);
             if (this._type != TYPE_RECTANGLE) {
+                this._stage.addChild(this._pointerControl);
+                this._stage.addChild(this._rotateButton);
 
                 if (this._pointerControl != null &&
                     (this._pointerChanged || this._shapeChanged)) {
@@ -1366,6 +1369,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 };
 
             };
+
+            this._stage.addChild(this._resizeButton);
+            this._stage.addChild(this._editButton);
 
             if (this._resizeButton == null) {
                 createAsyncBitmapButton(this, './icons/resize.svg',
@@ -1437,6 +1443,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
             };
 
             if (! this._isTitleGlobe) {
+                this._stage.addChild(this._resizeButton);
+                this._stage.addChild(this._editButton);
+                this._stage.addChild(this._removeButton);
                 if (this._removeButton == null) {
                     createAsyncBitmapButton(this, './icons/remove.svg',
                         function(globe, button) {
@@ -1501,6 +1510,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
                 this._stage.removeChild(this._removeButton);
                 this._textViewer.remove();
                 this._stage.update();
+                box.selectGlobe(null);
             };
         };
 
@@ -1681,6 +1691,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","webL10n","humane"], funct
 	                            } else {
 	                                return 0;
 	                            };});
+                            // Increase the z-index to bring the canvas to the top
+                            event.target.parent.addChild(event.target);
 	                    };
 
 	                    new_x = event.stageX - that._deltaX;

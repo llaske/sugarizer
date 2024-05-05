@@ -7,6 +7,9 @@ define(["sugar-web/graphics/palette",
   var hintPalette = {};
 
   hintPalette.HintPalette = function(invokingButton, state) {
+    window.addEventListener("localized", function (e) {
+      document.getElementById("next-slot-text").innerText = e.detail.l10n.get("NextSlot");
+    }, { once: true });
 
     palette.Palette.call(this, invokingButton);
 

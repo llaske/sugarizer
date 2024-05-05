@@ -1,0 +1,13 @@
+{
+	"TutoPrev": "Ant",
+	"TutoNext": "Sig",
+	"TutoEnd": "Fin",
+	"TutoExplainTitle": "Actividad \"XO Editor\"",
+	"TutoExplainContent": "Bienvenido a la actividad \"XO Editor\". \"XO Editor\" permite al alumno personalizar el conjunto de colores de su personaje",
+	"TutoSaveTitle": "Guardar colores",
+	"TutoSaveContent": "Haz clic aquí para elegir el color que aparece en el medio de la pantalla como tu color de personaje",
+	"TutoResetTitle": "Reiniciar",
+	"TutoResetContent": "Haz clic aquí para reiniciar tu selección. Te será útil si has experimentado combinando colores y quieres volver al color inicial",
+	"TutoCanvasTitle": "Variaciones de color",
+	"TutoCanvasContent": "Aquí podrás ver todas las combinaciones de colores disponibles. Haz clic en una combinación y aparecerá sobre el personaje (en el centro de la pantalla). Si te gusta, haz clic en Guardar y sal de la actividad"
+}

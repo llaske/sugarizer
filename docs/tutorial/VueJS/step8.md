@@ -71,7 +71,7 @@ As you have seen earlier, to integrate a palette, we will pass some attributes t
 ```html
 <sugar-toolitem 
 	id="add-button" 
-	v-bind:title="l10n.stringAddPawn" 
+	:title="l10n.stringAddPawn" 
 	palette-file="js/palettes/pawnpalette.js"
 	palette-class="PawnPalette"
 	palette-title="Add Pawn"
@@ -232,12 +232,12 @@ And add the `palette-event` and listener to the tool item in `index.html`:
 ```html
 <sugar-toolitem 
 	id="add-button" 
-	v-bind:title="l10n.stringAddPawn" 
+	:title="l10n.stringAddPawn" 
 	palette-file="js/palettes/pawnpalette.js"
 	palette-class="PawnPalette"
 	palette-title="Add Pawn"
 	palette-event="pawn-click"
-	v-on:pawn-click="onAddClick"
+	@pawn-click="onAddClick"
 ></sugar-toolitem>
 ```
 

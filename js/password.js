@@ -66,7 +66,7 @@ enyo.kind({
 	getPassword: function() {
 		var current = this.$.pass.getValue();
 		var password = "";
-		split = current.split(/([\uD800-\uDBFF][\uDC00-\uDFFF])/);
+		split = Array.from(current);
 		for (var i=0; i<split.length; i++) {
 			char = split[i]
 			if (char !== "") {

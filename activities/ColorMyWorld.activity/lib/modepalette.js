@@ -1,4 +1,4 @@
-define(["sugar-web/graphics/palette","util","colormyworld","print"], function (palette,util,colormyworld,print) {
+define(["sugar-web/graphics/palette","util","colormyworld","print","l10n"], function (palette,util,colormyworld,print,l10n) {
 
 	'use strict';
 
@@ -17,7 +17,7 @@ define(["sugar-web/graphics/palette","util","colormyworld","print"], function (p
 			if(modeNum<0)modeNum=MODE_NAMES.length-1;
 			else if(modeNum>MODE_NAMES.length-1)modeNum=0;
 			colormyworld.setMode(modeNum);
-			document.getElementById("modelabel").innerHTML=document.webL10n.get(MODE_NAMES[modeNum]);
+			document.getElementById("modelabel").innerHTML=l10n.get(MODE_NAMES[modeNum]);
 		}
 
 		var modeDiv = document.createElement('div');
@@ -37,7 +37,7 @@ define(["sugar-web/graphics/palette","util","colormyworld","print"], function (p
 		var modeLabel=document.createElement("div");
 		modeLabel.className="modelabel";
 		modeLabel.id="modelabel";
-		modeLabel.innerHTML=document.webL10n.get(MODE_NAMES[0]);
+		modeLabel.innerHTML=l10n.get(MODE_NAMES[0]);
 
 		var modeTable=document.createElement("table");
 		var r=modeTable.insertRow(-1);

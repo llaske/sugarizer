@@ -1,4 +1,4 @@
-define(['activity/data-model', 'webL10n'], function(DataModel, l10n) {
+define(['activity/data-model', 'l10n'], function(DataModel, l10n) {
 
     'use strict';
 

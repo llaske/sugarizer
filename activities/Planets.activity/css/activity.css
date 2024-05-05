@@ -99,9 +99,9 @@ body {
   background-size: 25px 25px;
   margin-top: 2px;
   padding: 0px;
-  text-indent: 100%;
   white-space: nowrap;
-  overflow: hidden;
+  color: transparent;
+  line-height: 27px;
 }
 
 .customTooltip .introjs-nextbutton::before {
@@ -233,6 +233,14 @@ body {
   margin-top: 25px;
 }
 
+.info p{
+  font-size: 14px;
+  margin: 4px;
+  
+}
+.info p:first-of-type{
+  font-weight: 600;
+}
 canvas {
   position: absolute;
   top: 0;

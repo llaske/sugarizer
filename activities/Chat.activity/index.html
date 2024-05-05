@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Chat Activity</title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover" />
+		<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-96dpi.css" />
+		<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)" href="lib/sugar-web/graphics/css/sugar-200dpi.css" />
+		<link rel="stylesheet" href="css/introjs.css" />
+		<link rel="stylesheet" href="css/activity.css" />
+		<link rel="stylesheet" href="css/libnotify.css" />
+		<script src="lib/vue.global.prod.js"></script>
+		<script src="lib/intro.js"></script>
+		<script src="lib/require.js"></script>
+		<script type="text/javascript" src="../../cordova.js"></script>
+	</head>
+
+	<body>
+		<div v-cloak id="app">
+			<transition name="fade" appear>
+				<sugar-toolbar ref="SugarToolbar" :class="{fullscreen: isFullscreen}">
+					<sugar-toolitem id="activity-button" title="Chat activity"></sugar-toolitem>
+					<sugar-toolitem
+						id="network-button"
+						title="network"
+						palette-file="sugar-web/graphics/presencepalette"
+						palette-class="PresencePalette"
+						palette-event="shared"
+						@shared="onShared"
+						v-if="SugarPresence"
+					></sugar-toolitem>
+					<sugar-toolitem @click="clearHistory" id="clear-button" :title="l10n.stringTutoClearChat"></sugar-toolitem>
+
+					<sugar-toolitem @click="onStop" id="stop-button" :title="l10n.stringTutoStopTitle" class="pull-right"></sugar-toolitem>
+					<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right" :title="l10n.stringFullscreen"></sugar-toolitem>
+					<sugar-toolitem @click="onHelp" id="help-button" title="help" class="pull-right"></sugar-toolitem>
+				</sugar-toolbar>
+			</transition>
+
+			<div class="messages-container" ref="msgContainer">
+				<transition-group name="list">
+					<message
+						v-for="({ msg, type, userName, userId, fill, stroke, key }, idx) in messages"
+						:key="key"
+						:id="key"
+						:msg="msg"
+						:type="type"
+						:name="shouldShowUsername(idx) ? userName : ''"
+						:fill="fill"
+						:stroke="stroke"
+						:index="idx"
+						:sender="userId === userInfo.id"
+						:join-string="l10n.stringJoin + ' ' + l10n.stringChat"
+						:leave-string="l10n.stringLeave + ' ' + l10n.stringChat"
+						@delete-msg="deleteMessage"
+					>
+					</message>
+				</transition-group>
+			</div>
+
+			<typing-effect :users-typing="usersTyping"></typing-effect>
+			<chat-input ref="ChatInput" :is-shared="isShared" @journal-click="handleSendFromJournal" @send-to-list="sendMessageToList" @send-msg="sendMessage"></chat-input>
+
+			<sugar-activity @initialized="initialized" ref="SugarActivity"></sugar-activity>
+			<sugar-tutorial ref="SugarTutorial"></sugar-tutorial>
+			<sugar-presence ref="SugarPresence" @disconnect="isShared = false" @data-received="onNetworkDataReceived" @user-changed="onNetworkUserChanged"></sugar-presence>
+			<sugar-journal ref="SugarJournal" @journal-data-loaded="onJournalDataLoaded" @journal-new-instance="onJournalNewInstance"></sugar-journal>
+			<sugar-localization ref="SugarL10n"></sugar-localization>
+			<sugar-popup ref="SugarPopup"></sugar-popup>
+			<sugar-icon ref="SugarIcon"></sugar-icon>
+		</div>
+
+		<script src="js/components/SugarTutorial.js"></script>
+		<script src="js/components/SugarPresence.js"></script>
+		<script src="js/components/SugarL10n.js"></script>
+		<script src="js/components/SugarJournal.js"></script>
+		<script src="js/components/SugarActivity.js"></script>
+		<script src="js/components/SugarToolbar.js"></script>
+		<script src="js/components/SugarIcon.js"></script>
+		<script src="js/components/SugarPopup.js"></script>
+		<script src="js/Message.js"></script>
+		<script src="js/Emojis.js"></script>
+		<script src="js/ChatInput.js"></script>
+		<script src="js/TypingEffect.js"></script>
+		<script src="js/activity.js"></script>
+	</body>
+</html>

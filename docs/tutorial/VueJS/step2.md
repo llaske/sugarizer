@@ -139,20 +139,32 @@ requirejs.config({
 });
 
 // Vue main app
-var app = new Vue({
-	el: '#app',
-	data: {},
-	methods: {}
+const app = Vue.createApp({
+	// Register components as "html-tag-name": ComponentObjectName
+	components: {
+		"sugar-activity": SugarActivity,
+		"sugar-toolbar": SugarToolbar,
+		"sugar-toolitem": SugarToolitem,
+	},
+
+	data: function () {
+		return {};
+	},
+	methods: {},
 });
+
+app.mount("#app");
 ```
-These lines rely on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependencies. You could read more about the **require.js** framework [here](http://www.requirejs.org/). The first block of code is used to configure `requirejs` baseUrl to be the `lib` directory to load our dependencies and also to add a path to `js` directory. This is followed by a new Vue.js instance with `el: '#app'` signifying that the `#app` element is being controlled by Vue.js. Make sure to add all your components/properties inside this element.
+These lines rely on the framework **require.js** that is used by Sugar-Web to handle JavaScript libraries dependencies. You could read more about the **require.js** framework [here](http://www.requirejs.org/). The first block of code is used to configure `requirejs` baseUrl to be the `lib` directory to load our dependencies and also to add a path to `js` directory. This is followed by a new Vue.js app instance mounted on `#app` element, specifying that it's being controlled by Vue.js. Make sure to add all your components/properties inside this element and Also don't forget to register/import(as script tag) all the components that is being used by app.
 
 Now, to display our welcome message, we will use the user's name.
 
-Inside `js/activity.js`, first add a data property `displayText` to the data object.
+Inside `js/activity.js`, first add a data property `displayText` to the returned object .
 ```js
-data: {
-	displayText: ''
+data: function () {
+	return {
+		displayText: ""
+	};
 },
 ```
 
@@ -163,7 +175,7 @@ Before using any resources of the activity, we must wait for the `initialized` e
 
 So let's first add a click listener method to the directive of `SugarActivity` inside `index.html`:
 ```html
-<sugar-activity ref="SugarActivity" v-on:initialized="initialized"></sugar-activity>
+<sugar-activity ref="SugarActivity" @initialized="initialized"></sugar-activity>
 ```
 
 And define the method to retrieve the user name and update `displayText` in `js/activity.js`:
@@ -172,7 +184,7 @@ And define the method to retrieve the user name and update `displayText` in `js/
 methods: {
 	initialized: function () {
 		// Sugarizer initialized
-		var environment = this.$refs.SugarActivity.getEnvironment();
+		const environment = this.$refs.SugarActivity.getEnvironment();
 		this.displayText = "Hello " + environment.user.name + "!";	
 	}
 }

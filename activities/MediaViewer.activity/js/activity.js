@@ -1,5 +1,5 @@
 /* Start of the app, we require everything that is needed */
-define(["sugar-web/activity/activity", "sugar-web/env", "webL10n"], function (activity, env, l10n) {
+define(["sugar-web/activity/activity", "sugar-web/env", "l10n"], function (activity, env, l10n) {
 
     requirejs(['domReady!', 'sugar-web/datastore'], function (doc, datastore) {
         activity.setup();
@@ -8,7 +8,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "webL10n"], function (ac
             // Set current language to Sugarizer
             var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
             var language = environment.user ? environment.user.language : defaultLanguage;
-            l10n.language.code = language;
+            l10n.init(language);
         });
     
         window.addEventListener("localized", function() {

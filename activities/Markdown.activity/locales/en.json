@@ -1,0 +1,19 @@
+{
+	"sample-input": "Sample input",
+	"need-help": "Do you need help?",
+	"insertText": "insertText",
+	"put-it-right-here": "whatever you are quoting, put it right here",
+	"wmd-bold-button-second": "Strong <strong> Ctrl+B",
+	"wmd-italic-button-second": "Emphasis <em> Ctrl+I",
+	"wmd-heading-button": "Heading <h1>/<h2> Ctrl+H",
+	"wmd-hr-button": "Horizontal Rule <hr> Ctrl+R",
+	"wmd-olist-button": "Numbered List <ol> Ctrl+O",
+	"wmd-ulist-button": "Bulleted List <ul> Ctrl+U",
+	"wmd-code-button": "Code Sample <pre><code> Ctrl+K",
+	"wmd-quote-button": "Blockquote <blockquote> Ctrl+Q",
+	"wmd-link-button": "Hyperlink <a> Ctrl+L",
+	"wmd-undo-button": "Undo - Ctrl+Z",
+	"wmd-redo-button": "Redo - Ctrl+Shift+Z",
+	"wmd-showHideEditor-button": "Show/Hide Editor",
+	"wmd-showHidePreview-button": "Show/Hide Preview"
+}

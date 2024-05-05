@@ -19,7 +19,7 @@ const framesSequence = {
   'DOWN': [0, 7, 0, 8],
 }
 
-function Game(canvas, resources, paladict, webL10n) {
+function Game(canvas, resources, paladict, l10n) {
 
   this.homeScreen = true;
   this.playScreen = false;
@@ -227,7 +227,7 @@ function Game(canvas, resources, paladict, webL10n) {
           ctx.fillStyle = "Black";
         }
         ctx.font = _this.homeScreenFontSize + "px ds_moster";
-        var text = webL10n.get(menu[i]);
+        var text = l10n.get(menu[i]);
         var menuTextObj = {
           x: canvas.width / 4,
           y: canvas.height / 2 + i * _this.homeScreenFontSize + i * 10,
@@ -260,12 +260,12 @@ function Game(canvas, resources, paladict, webL10n) {
 
   this.initializeCustomDict = function(customDict) {
     this.customDict = [];
-    this.customDictLang = webL10n.language.code;
+    this.customDictLang = l10n.language.code;
     var dict;
     if (customDict == null) {
       var len = paladict.defaultDict.length;
       for (var i = 0; i < len; i++) {
-        var word = webL10n.get(paladict.defaultDict[i]);
+        var word = l10n.get(paladict.defaultDict[i]);
         this.customDict.push(word);
       }
     } else {
@@ -499,7 +499,7 @@ function Game(canvas, resources, paladict, webL10n) {
     if (this.useCustomDict) {
       this.targetWord = targetWord.toUpperCase();
     } else {
-      this.targetWord = webL10n.get(targetWord).toUpperCase();
+      this.targetWord = l10n.get(targetWord).toUpperCase();
     }
 
     var tempArr = this.targetWord.split('');

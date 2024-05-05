@@ -226,9 +226,9 @@ We need also to define custom CSS class `customTooltip` used here. To do that, a
   background-size: 25px 25px;
   margin-top: 2px;
   padding: 0px;
-  text-indent: 100%;
   white-space: nowrap;
-  overflow: hidden;
+  color: transparent;
+  line-height: 27px;
 }
 
 .customTooltip .introjs-nextbutton::before {
@@ -306,22 +306,22 @@ It's much better now!
 
 We're almost done but we must add a final step to our tutorial. As we've mentioned in Step 5, your activity should be localized to automatically adapt to the user language. The same is true for our tutorial.
 
-So let's first prepare text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the Step 5, update your `locale.ini` file to define new resource strings:
+So let's first prepare text to localize. We need to translate title and content for each dialog box and text for buttons. As we've learned during the Step 5, update your json file to define new resource strings:
 ```
-TutoPrev=Prev
-TutoNext=Next
-TutoExplainTitle=Pawn Activity
-TutoExplainContent=Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.
-TutoAddTitle=Add pawn
-TutoAddContent=Click here to add one to three pawns on the board.
-TutoBackgroundTitle=Change background
-TutoBackgroundContent=Click here to choose a new background for the board.
+"TutoPrev":"Prev",
+"TutoNext":"Next",
+"TutoExplainTitle":"Pawn Activity",
+"TutoExplainContent":"Welcome into the Pawn activity. This activity is an activity to test Sugarizer development.",
+"TutoAddTitle":"Add pawn",
+"TutoAddContent":"Click here to add one to three pawns on the board.",
+"TutoBackgroundTitle":"Change background",
+"TutoBackgroundContent":"Click here to choose a new background for the board.",
 ```
-You should add these strings in the `*` section and give their translations for `en`, `fr` and `es` sections.
+You should add these strings to the `en.json` file and give their translations for the `fr.json` and `es.json` files..
 
-Now you need to reference the [webL10n](https://github.com/fabi1cazenave/webL10n) JavaScript library into our `lib/tutorial.js`. Update the "define" line like this:
+Now you need to reference the l10n library into our `lib/tutorial.js`. Update the "define" line like this:
 ```js
-define(["webL10n"], function (l10n) {
+define(["l10n"], function (l10n) {
 ```
 We're now able to reference our new resource strings by using call to `l10n.get()` method. First into steps:
 ```js

@@ -5,9 +5,59 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Launch activity directly from url of CLI
+
+### Fixed
+- Images go under each other while editing in Fototoon #1552
+- Missalignment of icons and text in Fototoon activity "clean all" button #1596
+- Extra icon rendering in QRCode activity #1193
+- Message Updation in Fraction Activity #1453
+- LabyrinthJS: No selection-indicator is visible while linking ideas #1585
+- Gear unexpected behavior of Play toolbar icon #1600
+- Add a zoom-in and zoom-out button in ColorMyWorld activity #1593
+- Adding Drag to fill Cells Functionality in Game of Life #1150
+- Undismissable palletes in Dollar street #1605
+- Localization error in FoodChain #1608
+- Alignment issue in Abacus #1607
+ 
+## [1.8.0] - 2024-04-10
+### Added
+- Chart Activity
+- Word Puzzle Template in Exerciser activity
+- CSV support in the Journal
+- Export CSV instead of TXT in Measure.activity
+- Export CSV in Stopwatch activity
+- Allow any files to be copied from device on Android/iOS
+
+### Changed
+- Rewrite of Chat activity
+- Migrate localization to i18next
+- Updated Etoys activity, supports (local) saving now
+- Add pause button in Gears Activity #1506
+
 ### Fixed
 - Chess multiplayer bug when a third player join #1047
 - Undefined tutorial step in curriculum activity #1293
+- Bad cursor pointer on scrollbar #1281
+- Extra white space to right side of the buttons #1124
+- Migrating Measure activity to i18next #1362
+- Unable to create password mainly based on numbers #1380
+- QR activity Photo Loading Icon Overlaping #1268
+- Fototoon Activity: interactive buttons appears under the box shape #1221
+- "Help" pop-ups nearly impossible to close in Chrome on Mobile #1403
+- XSS injections on Labyrinth JS and Paint Activity #787
+- Style for Planet Info in Planet Activity is Hard to See #1448
+- Misaligned button in Speak activity #1504
+- Added pause functionality to Blockrain activity #1501
+- Fraction Bounce Activity, trick to cheat the score #1511
+- Tooltips not localized in Reflection activity #1508
+- Time fluctuations in Clock Activity #1507
+- Resizing textarea in activity palette looks ugly #1303
+- Player without face and color #1536
+- Undeletable text in FotoToon #1549
+- Blockrain: Game can start before pressing play button #1563
+- Tank Operation the music persists even after returning to a previous screen #1553 
 
 ## [1.7.0] - 2023-03-28
 ### Added

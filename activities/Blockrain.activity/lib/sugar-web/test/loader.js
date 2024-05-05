@@ -10,7 +10,7 @@ requirejs.config({
         "sugar-web": ".",
         "mustache": "lib/mustache",
         "text": "lib/text",
-        "webL10n": "lib/webL10n"
+
     },
 
     // ask Require.js to load these files (all our tests)
@@ -19,3 +19,4 @@ requirejs.config({
     // start test run, once Require.js is done
     callback: window.__karma__.start
 });
+

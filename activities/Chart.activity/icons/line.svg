@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#808080">
+  <!ENTITY stroke_color "#FFFFFF">
+]>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="62"
+   height="60"
+   viewBox="0 0 62 60"
+   id="svg2"
+   xml:space="preserve"><g
+     transform="translate(60.127119,11.292373)"
+     id="activity-browse"
+     style="display:block">
+	
+	<g
+   transform="translate(-128.87712,-22.838983)"
+   id="g7"
+   style="display:inline">
+		
+		
+		
+		
+		
+		
+	<g
+   transform="matrix(0.10822504,0,0,0.09945444,61.358446,34.085169)"
+   id="g6167"><path
+     d="m 594.07188,325.15231 0,-360.47952 L 434.51609,52.953494 274.96046,-175.105 115.4045,109.35506 l 0,215.79736 z"
+     id="rect3757"
+     style="color:#000000;fill:&fill_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:33.73588181;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" /></g></g>
+</g></svg>

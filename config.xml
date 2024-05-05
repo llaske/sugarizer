@@ -3,8 +3,8 @@
 		xmlns:cdv="http://cordova.apache.org/ns/1.0"
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
-		version   = "1.7.0"
-		android-versionCode = "17000">
+		version   = "1.8.0"
+		android-versionCode = "18000">
 	<name>Sugarizer</name>
 
 	<description>
@@ -28,8 +28,8 @@
 	<allow-navigation href="*" />
 
 	<preference name="android-minSdkVersion" value="22" />
-	<preference name="android-targetSdkVersion" value="31" />
-	<preference name="android-compileSdkVersion" value="31" />
+	<preference name="android-targetSdkVersion" value="33" />
+	<preference name="android-compileSdkVersion" value="33" />
 
 	<engine name="android" spec="9.0.0" />
 	<plugin name="cordova-plugin-inappbrowser" spec="5.0.0" />

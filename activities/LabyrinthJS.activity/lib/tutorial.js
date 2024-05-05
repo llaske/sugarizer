@@ -1,7 +1,7 @@
 
 
 // Tutorial handling
-define(["webL10n", "activity/activity"], function () {
+define(["l10n", "activity/activity"], function () {
 	var tutorial = {};
 	var tour;
 	var l10n = l10n_s;
