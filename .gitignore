@@ -3,7 +3,7 @@
 #################
 node_modules/
 v2/activities
-v2/coverage
+v2/coverage/
 
 #################
 ## Eclipse
