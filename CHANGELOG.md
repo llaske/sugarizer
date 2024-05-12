@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Localization error in FoodChain #1608
 - Alignment issue in Abacus #1607
 - Blank screen on iOS when opening a PDF #1618
+- Journal instance pop up remain after launching a PDF or an external app #1619
  
 ## [1.8.0] - 2024-04-10
 ### Added

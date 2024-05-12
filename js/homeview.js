@@ -50,6 +50,7 @@ enyo.kind({
 		this.restrictedModeInfo = { start: 0 };
 		util.hideNativeToolbar();
 		this.tutorialActivity = null;
+		this.forbiddenActivity = null;
 		this.eeMode = null;
 
 		// Load and sort journal
@@ -546,7 +547,7 @@ enyo.kind({
 		util.vibrate();
 		var help = activity.id == tutorial.activityId;
 		preferences.runActivity(activity, undefined, null, null, help);
-		this.postRunActivity(activity.isNative);
+		this.postRunActivity(activity.id, activity.isNative);
 	},
 	runOldActivity: function(activity, instance) {
 		// Run an old activity instance
@@ -561,12 +562,14 @@ enyo.kind({
 		util.vibrate();
 		var help = tutorial.isLaunched() && activity.id == tutorial.activityId;
 		preferences.runActivity(activity, null, null, null, help);
-		this.postRunActivity(activity.isNative);
+		this.postRunActivity(activity.id, activity.isNative);
 	},
-	postRunActivity: function(isNative) {
+	postRunActivity: function(id, isNative) {
 		// When run a native activity, should update journal and view to reflect journal change
 		if (window.sugarizerOS && isNative) {
 			sugarizerOS.popupTimer = new Date();
+			this.getPopup().hidePopup();
+			this.forbiddenActivity = id;
 			this.loadJournal();
 			activities.loadEntries();
 			this.draw();
@@ -582,12 +585,16 @@ enyo.kind({
 	showActivityPopup: function(icon) {
 		// Create popup
 		if (window.sugarizerOS) {
+			if (this.forbiddenActivity && this.forbiddenActivity == icon.icon.id) {
+				return;
+			}
 			var now = new Date();
 			if (sugarizerOS.popupTimer && now.getTime() - sugarizerOS.popupTimer.getTime() < 3000) {
 				return;
 			}
 			sugarizerOS.popupTimer = now;
 		}
+		this.forbiddenActivity = null;
 		var title;
 		var activity = icon.icon; // HACK: activity is stored as an icon
 		if (activity.instances !== undefined && activity.instances.length > 0 && activity.instances[0].metadata.title !== undefined) {
