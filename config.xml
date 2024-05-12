@@ -94,6 +94,9 @@
 		<config-file parent="NSPhotoLibraryUsageDescription" target="*-Info.plist">
 			<string>Library is use to insert images in the Journal.</string>
 		</config-file>
+		<config-file parent="ITSAppUsesNonExemptEncryption" target="*-Info.plist">
+			<false/>
+		</config-file>
 		<icon src="res/icon/ios/icon-60@3x.png" width="180" height="180" />
 		<icon src="res/icon/ios/icon-60.png" width="60" height="60" />
 		<icon src="res/icon/ios/icon-60@2x.png" width="120" height="120" />

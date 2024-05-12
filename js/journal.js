@@ -474,7 +474,7 @@ enyo.kind({
 				var that = this;
 				this.loadEntry(activity, function(err, metadata, text) {
 					that.$.activityPopup.hidePopup();
-					util.openAsDocument(metadata, text);
+					util.openAsDocument(metadata, text, activity.objectId);
 					return;
 				});
 			}
