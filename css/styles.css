@@ -1629,6 +1629,7 @@ body {
 	border-width: 2px;
 	margin-left: 20px;
 	margin-top: 20px;
+	user-select: none;
 }
 
 .computer-sugarizer {
@@ -1637,6 +1638,7 @@ body {
 	width: 200px;
 	margin-top: 20px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-clienttype {
@@ -1645,6 +1647,7 @@ body {
 	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-browser {
@@ -1653,6 +1656,7 @@ body {
 	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-browserversion {
@@ -1661,6 +1665,7 @@ body {
 	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-useragent {
@@ -1669,6 +1674,7 @@ body {
 	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-storage {
@@ -1677,6 +1683,7 @@ body {
 	width: 200px;
 	margin-top: 10px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-reinitcheck {
@@ -1689,6 +1696,7 @@ body {
 	margin-left: 10px;
 	margin-top: 30px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-copyright {
@@ -1697,21 +1705,25 @@ body {
 	border-width: 2px;
 	margin-left: 20px;
 	margin-top: 30px;
+	user-select: none;
 }
 
 .computer-contributor {
 	margin-left: 30px;
 	margin-top: 20px;
 	display: inline-block;
+	user-select: none;
 }
 
 .computer-contributor-link {
 	display: inline-block;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 .computer-licence {
 	margin-left: 30px;
+	user-select: none;
 }
 
 .computer-value {
