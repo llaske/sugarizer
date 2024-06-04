@@ -8,13 +8,13 @@ const MySecurity = {
 						ref="security"
 						iconData="./icons/login-icon.svg"
 						isNative="true"
-						:titleData="SugarL10n ? SugarL10n.get('MySecurity') : ''"
+						:titleData="$t('MySecurity')"
 						cancel-button="true"
 						v-on:on-cancel="close('security')"
 				>
 					<div class="computer-content" >
 						<div v-if="step === 0">
-							<div class="security-message" >{{SugarL10n ? SugarL10n.get('SecurityMessage') : ''}}</div>
+							<div class="security-message" >{{$t('SecurityMessage')}}</div>
 							<password-box class="security-password" ref="password" @passwordSet="login"/>
 							<icon-button 
 								id="next-btn"
@@ -24,7 +24,7 @@ const MySecurity = {
 								:color="1024"
 								:x="0"
 								:y="0"
-								:text="SugarL10n ? SugarL10n.get('Next') : ''"
+								:text="$t('Next')"
 								@click="login"
 							></icon-button>
 							<div class="security-warning" v-if="warning.show">
@@ -32,7 +32,7 @@ const MySecurity = {
 							</div>
 						</div>
 						<div v-if="step === 1">
-							<div class="security-message" >{{SugarL10n ? SugarL10n.get('SecurityMessageNew', {"min": 4}) : ''}}</div>
+							<div class="security-message" >{{$t('SecurityMessageNew', {"min": 4})}}</div>
 							<password-box class="security-password" ref="newpassword" @passwordSet="updatePassword"/>
 							<icon-button 
 								id="next-btn"
@@ -42,12 +42,12 @@ const MySecurity = {
 								:color="1024"
 								:x="0"
 								:y="0"
-								:text="SugarL10n ? SugarL10n.get('Done') : ''"
+								:text="$t('Done')"
 								@click="updatePassword"
 							></icon-button>
 						</div>
 						<div v-if="step === 2">
-							<div class="security-message" >{{SugarL10n ? SugarL10n.get('SecurityMessageDone') : ''}}</div>
+							<div class="security-message" >{{$t('SecurityMessageDone')}}</div>
 						</div>
 					</div>			
 				</dialog-box> 
@@ -58,7 +58,7 @@ const MySecurity = {
 		'icon-button': IconButton,
 	},
 
-	props: ['SugarL10n', 'username'],
+	props: ['username'],
 
 	emits: ['close'],
 
@@ -104,7 +104,7 @@ const MySecurity = {
 			}, (error) => {
 				if (error === 1) {
 					this.warning.show = true;
-					this.warning.text = this.SugarL10n ? this.SugarL10n.get('InvalidPassword') : "Invalid Password";
+					this.warning.text = this.$t('InvalidPassword');
 				} else {
 					console.log(error);
 				}
@@ -123,7 +123,7 @@ const MySecurity = {
 			}).catch((error) => {
 				if (error === 1) {
 					this.warning.show = true;
-					this.warning.text = this.SugarL10n ? this.SugarL10n.get('InvalidPassword') : "Invalid Password";
+					this.warning.text = this.$t('InvalidPassword');
 				} else {
 					console.log(error);
 				}

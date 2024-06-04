@@ -54,10 +54,10 @@ const ListView = {
 									isNative="true"
 								></icon>
 							</div>
-							<div> {{ SugarL10n.get("NoMatchingActivities") }} </div>
+							<div> {{ $t("NoMatchingActivities") }} </div>
 							<div class="clearSearchField" @click="clearSearchField">
 								<div>
-									{{ SugarL10n.get("ClearSearch") }}
+									{{ $t("ClearSearch") }}
 								</div>
 							</div>
 						</div>
@@ -90,7 +90,7 @@ const ListView = {
 		}
 	},
 
-	props: ['filter', 'SugarL10n'],
+	props: ['filter'],
 
 	mounted() {
 		this.getActivities();
@@ -190,8 +190,8 @@ const ListView = {
 					name: activity.name,
 					title: null,
 					itemList: [
-						{ icon: { id: 'new', iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: this.SugarL10n.get("StartNew") },
-						{ icon: { id: 'favorite', iconData: "icons/star.svg", color: !activity.favorite ? this.buddycolor : 256, size: 20 }, name: activity.favorite ? this.SugarL10n.get("RemoveFavorite") : this.SugarL10n.get("MakeFavorite") },
+						{ icon: { id: 'new', iconData: activity.directory + "/" + activity.icon, size: 20, isNative: "true" }, name: this.$t("StartNew") },
+						{ icon: { id: 'favorite', iconData: "icons/star.svg", color: !activity.favorite ? this.buddycolor : 256, size: 20 }, name: activity.favorite ? this.$t("RemoveFavorite") : this.$t("MakeFavorite") },
 					],
 					activity: activity,
 				};

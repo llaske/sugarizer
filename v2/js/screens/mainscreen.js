@@ -4,7 +4,7 @@ const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
 					<div class="tool_leftitems">
-						<searchfield ref="searchfield" :placeholder="l10n.stringSearchHome" v-on:input-changed="searchFunction"/> 
+						<searchfield ref="searchfield" :placeholder="$t('SearchHome')" v-on:input-changed="searchFunction"/>
 						<icon 
 							class="toolbutton"
 							id="toolbar-help-btn"
@@ -72,8 +72,8 @@ const MainScreen = {
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
-						<listview v-if="screentype==='list'" :filter="filter" :SugarL10n="SugarL10n" @clear-searchfield = "clearSearchField"/>
-						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" :SugarL10n="SugarL10n"/>
+						<listview v-if="screentype==='list'" :filter="filter" @clear-searchfield = "clearSearchField"/>
+						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" />
 						<div v-else-if="screentype==='neighborhood'"> Neighborhood </div>
 					</div>
 					`,
@@ -89,10 +89,6 @@ const MainScreen = {
 			screentype: 'home',
 			views: ['home', 'list', 'journal', 'neighborhood', 'assignment'],
 			filter: '',
-			SugarL10n: null,
-			l10n: {
-				stringSearchHome: "",
-			},
 			offline: false,
 			sync: false,
 		}
@@ -101,25 +97,12 @@ const MainScreen = {
 	created: function () {
 		let vm = this;
 		this.initView();
-		window.addEventListener('localized', (e) => {
-			e.detail.l10n.localize(this.l10n);
-			vm.$refs.searchfield.placeholderData = this.l10n.stringSearchHome;
-			this.SugarL10n = {
-				localize: (l10n) => {
-					e.detail.l10n.localize(l10n);
-				},
-				get: (key, params) => {
-					return e.detail.l10n.get(key, params);
-				},
-				language: e.detail.l10n.language,
-			}
-		}, { once: true });
 		window.addEventListener('synchronization', (e) => {
 			if (e.detail.step === 'compute') {
 				vm.sync = true;
 			} else if (e.detail.step === 'start') {
-				if (e.detail.local+e.detail.remote > 0 && this.SugarL10n) {
-					sugarizer.modules.humane.log(this.SugarL10n.get("RetrievingJournal"));
+				if (e.detail.local+e.detail.remote > 0) {
+					sugarizer.modules.humane.log(this.$t("RetrievingJournal"));
 				}
 			} else if (e.detail.step === 'end') {
 				vm.sync = false;

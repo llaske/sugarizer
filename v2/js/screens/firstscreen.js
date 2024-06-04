@@ -36,7 +36,7 @@ const FirstScreen = {
                                     isNative="true"
                                     @click="loadLoginScreen('newuser')"
                                  ></icon>
-                                <div class="firstscreen_text" id="newuser_text">{{l10n.stringNewUser}}</div>
+                                <div class="firstscreen_text" id="newuser_text">{{$t('NewUser')}}</div>
                             </div>
                         </div>
                         <div class="firstscreen_login">
@@ -50,7 +50,7 @@ const FirstScreen = {
                                     isNative="true"
                                     @click="loadLoginScreen('login')"
                                 ></icon>
-                                <div class="firstscreen_text" id="login_text">{{l10n.stringLogin}}</div>
+                                <div class="firstscreen_text" id="login_text">{{$t('Login')}}</div>
                             </div>                        
                         </div>
                         <div class="previoususer">
@@ -88,10 +88,6 @@ const FirstScreen = {
 				isPrevUser: null,
 			},
 			isFirstScreen: true,
-			l10n: {
-				stringNewUser: '',
-				stringLogin: '',
-			},
 		}
 	},
 
@@ -102,9 +98,6 @@ const FirstScreen = {
 	},
 
 	created() {
-		window.addEventListener('localized', (e) => {
-			e.detail.l10n.localize(this.l10n);
-		}, { once: true });
 		this.getPrevUsers()
 	},
 

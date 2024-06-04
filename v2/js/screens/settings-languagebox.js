@@ -8,21 +8,22 @@ const LanguageBox = {
 						ref="language"
 						iconData="./icons/module-language.svg"
 						isNative="true"
-						:titleData="SugarL10n ? SugarL10n.get('Language') : ''"
+						:titleData="$t('Language')"
 						ok-button="true"
 						cancel-button="true"
 						v-on:on-cancel="close('language')"
 						v-on:on-ok="okClicked"
 				>
 					<div class="settings-subscreen aboutme-box">
-						<div class="firstscreen_text">{{SugarL10n ? SugarL10n.get('ChooseLanguage') : ''}}</div>
+						<div class="firstscreen_text">{{$t('ChooseLanguage')}}</div>
 						<div
-						ref="languageButton"
-						id="language-btn"
-						@click="showPopupFunction($event)"
-						v-on:mouseleave="removePopupFunction($event)">
-						{{SugarL10n ? languages[languageCode][0] + " (" + SugarL10n.get(languages[languageCode][1]) + ")" : ''}}
-						<img src="./icons/control-popup-arrow.svg" class="arrow-down" />
+							ref="languageButton"
+							id="language-btn"
+							@click="showPopupFunction($event)"
+							v-on:mouseleave="removePopupFunction($event)"
+						>
+							{{languages[languageCode][0] + " (" + $t(languages[languageCode][1]) + ")"}}
+							<img src="./icons/control-popup-arrow.svg" class="arrow-down" />
 						</div>
 					</div>
 				</dialog-box> 
@@ -38,8 +39,6 @@ const LanguageBox = {
 		'icon-button': IconButton,
 		'popup': Popup,
 	},
-
-	props: ['SugarL10n'],
 
 	emits: ['close'],
 
@@ -59,12 +58,12 @@ const LanguageBox = {
 				"ibo": ["Igbo", "Igbo"],
 				"yor": ["Yorùbá", "Yoruba"],
 			},
-			languageCode: this.SugarL10n ? this.SugarL10n.language : 'en',
+			languageCode: "",
 		}
 	},
 
-	mounted() {
-
+	created() {
+		this.languageCode = this.$i18next.language;
 	},
 
 	methods: {
@@ -83,11 +82,11 @@ const LanguageBox = {
 				"language-btn": {
 					id: "lng",
 					icon: {id:"en"},
-					name: "English (" + this.SugarL10n.get("English") + ")",
+					name: "English (" + this.$t("English") + ")",
 					itemList: Object.entries(this.languages).slice(1).map(([key, value]) => {
 						return {
 							id: key,
-							name: `${value[0]} (${this.SugarL10n.get(value[1])})`,
+							name: `${value[0]} (${this.$t(value[1])})`,
 							icon: {id: key},
 						}
 					})
@@ -110,7 +109,6 @@ const LanguageBox = {
 
 			this.getPopupData();
 			let obj = JSON.parse(JSON.stringify(this.popupData))
-			console.log(this.SugarL10n.language);
 			this.popup = obj[itemId];
 			this.$refs.popup.show(x, y);
 		},

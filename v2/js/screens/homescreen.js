@@ -75,7 +75,7 @@ const HomeScreen = {
 						v-on:mouseout="removePopupTimer($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
-					<settings ref="settings" :buddycolor="buddycolor" :username="username" :SugarL10n="SugarL10n"></settings>
+					<settings ref="settings" :buddycolor="buddycolor" :username="username"></settings>
 				`,
 
 	components: {
@@ -125,7 +125,7 @@ const HomeScreen = {
 		}
 	},
 
-	props: ['filter', 'SugarL10n'],
+	props: ['filter'],
 
 	mounted() {
 		this.getActivities();
@@ -196,7 +196,7 @@ const HomeScreen = {
 
 		runActivity(activity) {
 			let objectId = null;
-			let name = this.SugarL10n.get("NameActivity", { name: activity.name });
+			let name = this.$t("NameActivity", { name: activity.name });
 			let entries = sugarizer.modules.journal.getByActivity(activity.id);
 			for (let i = 0 ; i < entries.length ; i++) {
 				objectId = entries[i].objectId;
@@ -244,9 +244,9 @@ const HomeScreen = {
 						isNative: "true"
 					},
 					name: activity.name,
-					title: this.SugarL10n.get("NameActivity", { name: activity.name }),
+					title: this.$t("NameActivity", { name: activity.name }),
 					footerList: [
-						{ icon: { id: "new", iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("StartNew") }
+						{ icon: { id: "new", iconData: activity.directory + "/" + activity.icon, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.$t("StartNew") }
 					],
 					activity: activity,
 					itemList: []
@@ -332,8 +332,8 @@ const HomeScreen = {
 					name: this.username,
 					title: null,
 					itemList: [
-						{ icon: { id: 'preferences', iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.SugarL10n.get("MySettings") },
-						{ icon: { id: 'shutdown', iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.SugarL10n.get("Logoff") },
+						{ icon: { id: 'preferences', iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.$t("MySettings") },
+						{ icon: { id: 'shutdown', iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.$t("Logoff") },
 					],
 				};
 				this.popup = popupData[itemId];

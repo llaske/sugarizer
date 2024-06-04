@@ -8,14 +8,14 @@ const AboutMe = {
 						ref="about_me"
 						iconData="./icons/owner-icon.svg"
 						:iconColorData="buddycolor"
-						:titleData="SugarL10n ? SugarL10n.get('AboutMe') : ''"
+						:titleData="$t('AboutMe')"
 						ok-button="true"
 						cancel-button="true"
 						v-on:on-ok="okClicked"
 						v-on:on-cancel="close('about_me')"
 					>
 						<div class="settings-subscreen aboutme-box">
-							<div class="firstscreen_text">{{SugarL10n ? SugarL10n.get('ClickToColor') : ''}}</div>
+							<div class="firstscreen_text">{{$t('ClickToColor')}}</div>
 							<div class="aboutme-iconbox">
 								<icon id="psicon" ref="psicon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('psicon')" />
 								<icon id="nsicon" ref="nsicon" svgfile="./icons/owner-icon.svg" :size="constant.sizeOwner" @click="setcolor('nsicon')" />
@@ -44,7 +44,7 @@ const AboutMe = {
 		'icon': Icon,
 	},
 
-	props: ['buddycolor', 'username', 'SugarL10n'],
+	props: ['buddycolor', 'username'],
 
 	data() {
 		return {
@@ -186,7 +186,7 @@ const AboutMe = {
 			}
 			if (nameChanged && await sugarizer.modules.user.checkIfExists(null, this.name)) {
 				this.warning.show = true;
-				this.warning.text = this.SugarL10n ? this.SugarL10n.get('UserAlreadyExist') : 'User Already Exists';
+				this.warning.text = this.$t('UserAlreadyExist');
 				return;
 			}
 			await this.updateUser(this.name, this.currentcolor);
