@@ -8,7 +8,7 @@ const MyPrivacy = {
 					ref="privacy"
 					iconData="./icons/privacy.svg"
 					isNative="true"
-					:titleData="SugarL10n ? SugarL10n.get('MyPrivacy') : ''"
+					:titleData="$t('MyPrivacy')"
 					ok-button="true"
 					cancel-button="true"
 					v-on:on-cancel="close('privacy')"
@@ -16,15 +16,15 @@ const MyPrivacy = {
 					>
 					<div class="computer-content">
 						<div class="settings-warningbox" v-show="warning.show">
-							<div class="warningbox-title" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningtitle">{{ SugarL10n.get('Warning') }}</div>
-							<div class="warningbox-message" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningmessage">{{ SugarL10n.get('ChangesRequireRestart') }}</div>
+							<div class="warningbox-title" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningtitle">{{ $t('Warning') }}</div>
+							<div class="warningbox-message" id="desktop_dialogSettings2_dialogPrivacy_warningbox_warningmessage">{{ $t('ChangesRequireRestart') }}</div>
 							<icon-button 
 								id="myprivacy-cancel-btn"
 								class="warningbox-cancel-button"
 								svgfile="icons/dialog-cancel.svg"
 								:size="20"
 								:color="1024"
-								:text="SugarL10n ? SugarL10n.get('CancelChanges') : ''"
+								:text="$t('CancelChanges')"
 								@click="close('privacy')"
 							></icon-button>								
 							<icon-button
@@ -33,18 +33,18 @@ const MyPrivacy = {
 								svgfile="icons/system-restart.svg"
 								:size="20"
 								:color="1024"
-								:text="SugarL10n ? SugarL10n.get('RestartNow') : ''"
+								:text="$t('RestartNow')"
 								@click="deleteAccount"
 							></icon-button>
 						</div>
 						<input class="toggle privacy-statscheckbox" type="checkbox" v-model="checkbox.stats" v-if="connected">
-						<div class="privacy-statsmessage" v-if="connected">{{SugarL10n ? SugarL10n.get('PrivacyStats') : ''}}</div>
+						<div class="privacy-statsmessage" v-if="connected">{{$t('PrivacyStats')}}</div>
 						<div id="desktop_dialogSettings_dialogPrivacy_control"></div>
 						<input class="toggle privacy-synccheckbox" type="checkbox" v-model="checkbox.sync" v-if="connected">
-						<div class="privacy-syncmessage" v-if="connected">{{SugarL10n ? SugarL10n.get('PrivacySync') : ''}}</div>
+						<div class="privacy-syncmessage" v-if="connected">{{$t('PrivacySync')}}</div>
 						<div id="desktop_dialogSettings_dialogPrivacy_control2"></div>
 						<input ref="deletecheckbox" class="toggle privacy-removecheckbox" type="checkbox" v-model="checkbox.delete">
-						<div class="privacy-removemessage">{{SugarL10n ? SugarL10n.get('PrivacyRemove') : ''}}</div>
+						<div class="privacy-removemessage">{{$t('PrivacyRemove')}}</div>
 						<div v-show="checkbox.delete">
 							<div class="privacy-removelocalbutton" v-if="sugarizerapp">
 							<icon-button
@@ -53,7 +53,7 @@ const MyPrivacy = {
 								isNative="true"
 								:size="28"
 								:color="256"
-								:text="SugarL10n ? SugarL10n.get('PrivacyRemoveLocal') : ''"
+								:text="$t('PrivacyRemoveLocal')"
 								@click="showWarning('local')"
 							></icon-button>
 							</div>
@@ -64,7 +64,7 @@ const MyPrivacy = {
 								isNative="true"
 								:size="28"
 								:color="256"
-								:text="SugarL10n ? SugarL10n.get('PrivacyRemoveRemote') : ''"
+								:text="$t('PrivacyRemoveRemote')"
 								@click="showWarning('remote')"
 							></icon-button>
 							</div>
@@ -81,7 +81,7 @@ const MyPrivacy = {
 		'icon-button': IconButton,
 	},
 
-	props: ['SugarL10n', 'username'],
+	props: ['username'],
 
 	emits: ['close'],
 
@@ -153,7 +153,7 @@ const MyPrivacy = {
 		showWarning(from) {
 			this.deletefrom = from;
 			this.warning.show = true;
-			this.warning.text = this.SugarL10n ? this.SugarL10n.get('AllDataWillBeLost') : "Are you sure you want to delete your account? This action cannot be undone.";
+			this.warning.text = this.$t('AllDataWillBeLost');
 			this.$refs.deletecheckbox.disabled = true;
 		},
 		
