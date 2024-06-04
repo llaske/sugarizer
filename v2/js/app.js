@@ -70,5 +70,6 @@ const appVue = Vue.createApp({
 
 let app;
 sugarizer.init().then(() => {
+	sugarizer.modules.i18next.useI18n(appVue)
 	app = appVue.mount('#app');
 });

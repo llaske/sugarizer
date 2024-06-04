@@ -37,7 +37,7 @@ let sugarizer = {
 		return new Promise(function(resolve, reject) {
 			// Load modules
 			requirejs(
-				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", "modules/stats", 'lib/i18next.min.js', "lib/humane.js",],
+				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", "modules/stats", 'modules/i18next', "lib/humane.js",],
 				function(xocolor, server, settings, activities, journal, user, history, stats, i18next, humane) {
 					sugarizer.modules.xocolor = xocolor;
 					sugarizer.modules.server = server;
@@ -47,9 +47,9 @@ let sugarizer = {
 					sugarizer.modules.user = user;
 					sugarizer.modules.history = history;
 					sugarizer.modules.stats = stats;
-					sugarizer.modules.i18next = i18next;
 					sugarizer.modules.humane = humane;
-					resolve();
+					sugarizer.modules.i18next = i18next;
+					i18next.init().then(resolve);
 				}
 			);
 		});
