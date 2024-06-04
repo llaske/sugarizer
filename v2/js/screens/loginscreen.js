@@ -20,19 +20,19 @@ const LoginScreen = {
 	</div>
 	<form>
 		<div id="loginscreen_server" class="column" v-show="index.currentIndex === 0">
-			<div class="firstscreen_text" id="serverurl">{{l10n.stringServerUrl}}</div>
+			<div class="firstscreen_text" id="serverurl">{{$t('ServerUrl')}}</div>
 			<input ref="serverAddress" name="server" type="text" class="input_field" v-model="details.serverAddress" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_name" class="column" v-show="index.currentIndex === 1">
-			<div class="firstscreen_text" id="name">{{l10n.stringName}}</div>
+			<div class="firstscreen_text" id="name">{{$t('Name')}}</div>
 			<input ref="nameInput" type="text" name="name" class="input_field" v-model="details.name" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
-			<div ref="pwdText" class="firstscreen_text" id="pass_text" v-html="l10n.stringPasswordLink"></div>
+			<div ref="pwdText" class="firstscreen_text" id="pass_text" v-html="$t('PasswordLink')"></div>
 			<password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
 		</div>
 		<div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3">
-			<div class="firstscreen_text" id="buddyicon_text">{{l10n.stringClickToColor}}</div>
+			<div class="firstscreen_text" id="buddyicon_text">{{$t('ClickToColor')}}</div>
 			<icon 
 				 ref="buddyIcon"
 				 id="buddy_icon"
@@ -54,8 +54,8 @@ const LoginScreen = {
 				 :y="0"
 				 isNative="true"
 			></icon>
-			<div class="login-policytext" id="loginscreen_cookietext" v-html="l10n.stringCookieConsent"></div>
-			<div ref="policytext" class="login-policytext" id="loginscreen_policytext" v-html="l10n.stringPolicyLink"></div>
+			<div class="login-policytext" id="loginscreen_cookietext" v-html="$t('CookieConsent')"></div>
+			<div ref="policytext" class="login-policytext" id="loginscreen_policytext" v-html="$t('PolicyLink')"></div>
 		</div>
 	</form>
 </div>
@@ -82,7 +82,7 @@ const LoginScreen = {
 			 :color="1024"
 			 :x="0"
 			 :y="0"
-			 :text="l10n.stringBack"
+			 :text="$t('Back')"
 			 @click="prevItem"
 			></icon-button>
 	</div>
@@ -95,7 +95,7 @@ const LoginScreen = {
 			color="1024"
 			x="0"
 			y="0"
-			:text="index.currentIndex === index.maxIndex ? l10n.stringDone : l10n.stringNext"
+			:text="index.currentIndex === index.maxIndex ? $t('Done '): $t('Next')"
 			type="submit"
 			@click="index.currentIndex === index.maxIndex ? makeLoginRequest() : nextItem()"
 		></icon-button>
@@ -133,22 +133,6 @@ const LoginScreen = {
 				password: '',
 				color: Math.floor(Math.random() * 180),
 			},
-			l10n: {
-				stringServerUrl: '',
-				stringName: '',
-				stringChoosePassword: '',
-				stringClickToColor: '',
-				stringCookieConsent: '',
-				stringPolicyLink: '',
-				stringBack: '',
-				stringNext: '',
-				stringDone: '',
-				stringUserAlreadyExist: '',
-				stringInvalidUser: '',
-				stringUserLoginInvalid: '',
-				stringErrorLoadingRemote: '',
-			},
-			l10nRef: null,
 			consentNeed: false,
 			consentPolicy: '',
 		}
@@ -157,11 +141,6 @@ const LoginScreen = {
 	emits: ['propModified', 'updateIsFirstScreen'],
 
 	created: function () {
-		window.addEventListener('localized', (e) => {
-			e.detail.l10n.localize(this.l10n);
-			this.l10nRef = e.detail.l10n;
-		}, { once: true });
-
 		if (sugarizer.getClientType() === sugarizer.constant.webAppType) {
 			this.details.serverAddress = sugarizer.modules.server.getServerUrl();
 		}
@@ -241,7 +220,7 @@ const LoginScreen = {
 					}, (error) => {
 						console.log(error);
 						this.warning.show = true;
-						this.warning.text = this.l10n.stringErrorLoadingRemote;
+						this.warning.text = this.$t("ErrorLoadingRemote");
 					});
 				}
 
@@ -250,9 +229,9 @@ const LoginScreen = {
 						const info = await sugarizer.modules.server.getServerInformation(this.details.serverAddress);
 						this.consentNeed = info.options['consent-need'];
 						this.consentPolicy = info.options['policy-url'];
-						this.$refs.policytext.innerHTML = this.l10nRef.get('PolicyLink', { url: this.consentPolicy });
+						this.$refs.policytext.innerHTML = this.$t('PolicyLink', { url: this.consentPolicy });
 						this.minPasswordSize = info.options['min-password-size'];
-						this.$refs.pwdText.innerHTML = this.l10nRef.get('ChoosePassword', { min: this.minPasswordSize });
+						this.$refs.pwdText.innerHTML = this.$t('ChoosePassword', { min: this.minPasswordSize });
 					}
 					const userexists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.name);
 					if (this.userType.isNewuser && !userexists) {
@@ -264,12 +243,12 @@ const LoginScreen = {
 						}
 					} else if (this.userType.isNewuser && userexists) {
 						this.warning.show = true;
-						this.warning.text = this.l10n.stringUserAlreadyExist;
+						this.warning.text = this.$t("UserAlreadyExist");
 					} else if (this.userType.isLogin && userexists) {
 						this.index.currentIndex++;
 					} else if (this.userType.isLogin && !userexists) {
 						this.warning.show = true;
-						this.warning.text = this.l10n.stringInvalidUser;
+						this.warning.text = this.$t("InvalidUser");
 					}
 				}
 				else if (this.index.currentIndex === 2) { // password
@@ -316,7 +295,7 @@ const LoginScreen = {
 			}, (error) => {
 				if (error === 1) {
 					this.warning.show = true;
-					this.warning.text = this.l10n.stringUserLoginInvalid;
+					this.warning.text = this.$t("UserLoginInvalid");
 				} else {
 					console.log(error);
 				}

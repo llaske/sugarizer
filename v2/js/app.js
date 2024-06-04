@@ -1,7 +1,6 @@
 
 const appVue = Vue.createApp({
 	components: {
-		"sugar-localization": SugarL10n,
 		"firstscreen": FirstScreen,
 		"mainscreen": MainScreen,
 	},

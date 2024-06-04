@@ -8,7 +8,7 @@ const AboutMyServer = {
 						ref="about_my_server"
 						iconData="./icons/cloud-settings.svg"
 						isNative="true"
-						:titleData="SugarL10n ? SugarL10n.get('Server') : ''"
+						:titleData="$t('Server')"
 						ok-button="true"
 						cancel-button="true"
 						v-on:on-cancel="close('about_my_server')"
@@ -17,26 +17,26 @@ const AboutMyServer = {
 					<div class="settings-subscreen column firstscreen_text">
 						<div class="aboutserver-subbox aboutserver-checkbox">
 							<input class="aboutserver-subbox" type="checkbox" :checked="details.serverAddress != ''" :disabled="disabled" @click="toggleConnect">
-							<div class="aboutserver-rightitem">{{SugarL10n ? SugarL10n.get('ConnectedToServer') : ''}}</div>
+							<div class="aboutserver-rightitem">{{$t('ConnectedToServer')}}</div>
 						</div>
 						<div class="aboutserver-subbox" id="aboutserver-serverurl" v-if='connected && connectingStep < 2'>
-							<div class="aboutserver-leftitem">{{SugarL10n ? SugarL10n.get('ServerUrl') : ''}}</div>
+							<div class="aboutserver-leftitem">{{$t('ServerUrl')}}</div>
 							<div class="aboutserver-rightitem"><input ref="serverAddress" class="input_field" type="text" v-model="details.serverAddress" :disabled="!connectingStep" @keyup="handleEnterKey"></div>
 						</div>
 						<div class="aboutserver-subbox" v-if='connected && !connectingStep'>
-							<div class="aboutserver-leftitem">{{SugarL10n ? SugarL10n.get('ServerName') : ''}}</div>
+							<div class="aboutserver-leftitem">{{$t('ServerName')}}</div>
 							<div class="aboutserver-rightitem">{{details.serverName}}</div>
 						</div>
 						<div class="aboutserver-subbox" v-if='connected && !connectingStep'>
-							<div class="aboutserver-leftitem">{{SugarL10n ? SugarL10n.get('Description') + ':' : ''}}</div>
+							<div class="aboutserver-leftitem">{{$t('Description') + ':'}}</div>
 							<div class="aboutserver-rightitem">{{details.Description}}</div>
 						</div>
 						<div class="aboutserver-subbox" v-if='connected && !connectingStep'>
-							<div class="aboutserver-leftitem">{{SugarL10n ? SugarL10n.get('UserId') : ''}}</div>
+							<div class="aboutserver-leftitem">{{$t('UserId')}}</div>
 							<div class="aboutserver-rightitem"><input class="aboutserver-username" type="text" :value="details.username" disabled></div>
 						</div>
 						<div class="aboutserver-subbox" v-show="connectingStep === 2">
-							<div class="aboutserver-passwordtext" id="pass_text" v-show="connectingStep === 2">{{SugarL10n ? SugarL10n.get((!createAccount?'Password':'SecurityMessageNew'),{min: passwordSize}) : ''}}</div>
+							<div class="aboutserver-passwordtext" id="pass_text" v-show="connectingStep === 2">{{$t((!createAccount?'Password':'SecurityMessageNew'),{min: passwordSize})}}</div>
 						</div>
 						<div class="aboutserver-subbox aboutserver-password" v-show="connectingStep === 2">
 							<password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
@@ -54,8 +54,8 @@ const AboutMyServer = {
 								:y="0"
 								isNative="true"
 							></icon>
-							<div class="aboutserver-policytext" id="loginscreen_cookietext" v-html="SugarL10n ? SugarL10n.get('CookieConsent') : ''"></div>
-							<div ref="policytext" class="aboutserver-policytext" id="loginscreen_policytext" v-html="SugarL10n ? SugarL10n.get('PolicyLink') : ''"></div>
+							<div class="aboutserver-policytext" id="loginscreen_cookietext" v-html="$t('CookieConsent')"></div>
+							<div ref="policytext" class="aboutserver-policytext" id="loginscreen_policytext" v-html="$t('PolicyLink')"></div>
 						</div>
 						<div class="ls_right_btn aboutserver-nextbutton" v-if='connectingStep > 0'>
 							<icon-button 
@@ -67,7 +67,7 @@ const AboutMyServer = {
 								:color="1024"
 								:x="0"
 								:y="0"
-								:text="SugarL10n ? SugarL10n.get('Next') : ''"
+								:text="$t('Next')"
 								@click="nextStep"
 							></icon-button>
 						</div>
@@ -80,8 +80,6 @@ const AboutMyServer = {
 		'icon-button': IconButton,
 		'icon': Icon,
 	},
-
-	props: ['SugarL10n'],
 
 	emits: ['close'],
 
@@ -109,7 +107,7 @@ const AboutMyServer = {
 	},
 
 	async mounted() {
-		this.warning.text =this.SugarL10n.get('PleaseConnectMessage');
+		this.warning.text = this.$t('PleaseConnectMessage');
 		await this.getServerDetails();
 		await this.getUserName();
 	},
@@ -182,7 +180,7 @@ const AboutMyServer = {
 				sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.username).then((exists) => {
 					this.createAccount = !exists;
 					if (exists || !this.consentNeed) {
-						this.$refs.nextButton.textData = this.SugarL10n.get('Done');
+						this.$refs.nextButton.textData = this.$t('Done');
 					}
 					this.connectingStep++;
 					this.$nextTick(() => {
@@ -190,12 +188,12 @@ const AboutMyServer = {
 					});
 				}, (error) => {
 					this.warning.show = true;
-					this.warning.text = this.SugarL10n.get('ServerError', {code: error});
+					this.warning.text = this.$t('ServerError', {code: error});
 				});
 			}, (error) => {
 				console.log(error);
 				this.warning.show = true;
-				this.warning.text = this.SugarL10n.get('ErrorLoadingRemote');
+				this.warning.text = this.$t('ErrorLoadingRemote');
 			});
 		},
 
@@ -214,14 +212,14 @@ const AboutMyServer = {
 					sugarizer.reload();
 				}, (error) => {	
 					this.warning.show = true;
-					this.warning.text = this.SugarL10n.get('ServerError', {code: error});
+					this.warning.text = this.$t('ServerError', {code: error});
 				});
 			} else {
 				// Ask for consent if needed
 				if (this.consentNeed) {
-					this.$refs.policytext.innerHTML = this.SugarL10n.get('PolicyLink', { url: this.consentPolicy });
+					this.$refs.policytext.innerHTML = this.$t('PolicyLink', { url: this.consentPolicy });
 					this.$refs.nextButton.iconData = "./icons/accept.svg";
-					this.$refs.nextButton.textData = this.SugarL10n.get('Accept');
+					this.$refs.nextButton.textData = this.$t('Accept');
 					this.connectingStep++;
 					return;
 				}
@@ -238,11 +236,11 @@ const AboutMyServer = {
 					sugarizer.reload();
 				}, (error) => {
 					this.warning.show = true;
-					this.warning.text = this.SugarL10n.get('ServerError', {code: error});
+					this.warning.text = this.$t('ServerError', {code: error});
 				});
 			}, (error) => {
 				this.warning.show = true;
-				this.warning.text = this.SugarL10n.get('ServerError', {code: error});
+				this.warning.text = this.$t('ServerError', {code: error});
 			});
 		},
 	}
