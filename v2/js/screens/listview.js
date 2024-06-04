@@ -58,7 +58,7 @@ const ListView = {
 							<div class="clearSearchField" @click="clearSearchField">
 								<div>
 									{{ SugarL10n.get("ClearSearch") }}
-								<div>
+								</div>
 							</div>
 						</div>
 					</div>
