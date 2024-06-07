@@ -76,12 +76,22 @@ const HomeScreen = {
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
 					<settings ref="settings" :buddycolor="buddycolor" :username="username"></settings>
+					<prompt
+						ref="warningPrompt"
+						id="warning-prompt"
+						:iconProps="{svgfile: './icons/emblem-warning.svg'}"
+						:heading="$t('Warning')"
+						:subText="$t('AllDataWillBeLost')"
+						:button1Props="{text: $t('CancelChanges'), svgfile: './icons/dialog-cancel.svg', action: hideWarning}"
+						:button2Props="{text: $t('Logoff'), svgfile: './icons/system-restart.svg', action: logout}"
+					/>
 				`,
 
 	components: {
 		'icon': Icon,
 		'popup': Popup,
 		'settings': Settings,
+		prompt: Prompt,
 	},
 
 	data() {
@@ -377,15 +387,21 @@ const HomeScreen = {
 				sugarizer.modules.stats.trace('home_view', 'click', 'my_settings');
 				this.$refs.settings.openSettingsModal("settingModal");
 			} else if (item == "buddy_shutdown" ) {
-				sugarizer.modules.stats.trace('home_view', 'click', 'logoff');
-				this.logout();
+				if (sugarizer.modules.user.isConnected())
+					this.logout();
+				else
+					this.$refs.warningPrompt.show()
 			} else {
 				this.launchActivity(this.popup, item);
 			}
 		},
 
+		hideWarning() {
+			this.$refs.warningPrompt.hide();
+		},
 		logout() {
-			// TODO: On local app disconnected a warning should be displayed to confirm lost of data 
+			sugarizer.modules.stats.trace("home_view", "click", "logoff");
+			this.hideWarning();
 			sugarizer.restart();
 		},
 
