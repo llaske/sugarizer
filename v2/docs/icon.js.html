@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: icon.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: icon.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>
+/**
+ * @module Icon
+ * @desc This is an icon component for both native and simple SVG icons
+ * @vue-prop {Number} id - Id of the icon component div
+ * @vue-prop {String} svgfile - Url of svg file
+ * @vue-prop {Number} [color=512] - color index value
+ * @vue-prop {Number} [size=55] - size value in `px`
+ * @vue-prop {Number} [x=0] - left-right margin
+ * @vue-prop {Number} [y=0] - top-bottom margin
+ * @vue-prop {String} [isNative='false'] true for native svg icons
+ * @vue-data {Number} idData - to change the id data
+ * @vue-data {String} iconData - to change the svgfile url data
+ * @vue-data {Number} [sizeData=55] - to change the size data
+ * @vue-data {Number} [colorData=512] - to change the color data
+ * @vue-data {Number} [xData=0] - to change the left-right margin data
+ * @vue-data {Number} [yData=0] - to change the top-bottom margin data
+ * @vue-data {Boolean} [disabledData=false] - to change the disability condition
+ * @vue-data {Boolean} [disableHoverEffect=false] - to disable hover effect
+*/
+const Icon ={
+	name: 'Icon',
+	template: `&lt;div :class="[
+		this.disabledData ? 'web-activity-disable' : '',
+		disableHoverEffect ? '' : 'icon',
+		].join(' ')" ref="icon" v-html="gensvg" :id="this.idData">&lt;/div>`,
+	props: {
+		id: String,
+		svgfile: String,
+		color: Number,
+		size: Number,
+		x: Number,
+		y: Number,
+		isNative: String,
+		disabled: Boolean,
+		disableHoverEffect: Boolean
+	},
+	data() {
+		return {
+			_svg: null,
+			idData: this.id,
+			_isSugarNative : this.isNative=="true"? true: false,
+			iconData: this.svgfile,
+			sizeData: this.size? this.size: 55,
+			colorData: this.color? this.color: (this.isNative=="true" ? 0 : 512),
+			xData: this.x ? this.x: 0,
+			yData: this.y ? this.y: 0,
+			disabledData: this.disabled ? this.disabled: false,
+			_originalColor: { fill: null, stroke: null},
+			_element: null
+		}
+	},
+	async created() {
+		var vm = this;
+		if(this._isSugarNative) {
+			await this._loadIcon(this.svgfile).then(function(svg) {
+				vm._svg=svg;
+			});
+		}
+	},
+	mounted() {
+		// to render the newformat icon
+		if(!this._isSugarNative) {
+			this._createIcon(this.svgfile, this.colorData, this.sizeData);
+		}
+	},
+	computed: {
+		gensvg: function() {
+			if (this._svg == null) return "";
+			return this._convertSVG(this._svg, this.idData);
+		}
+	},
+	updated: function() {
+		if(this._isSugarNative) {
+			let vm=this, element = null;
+			let icon= this.$refs.icon;
+			if (!icon) {
+				return null;
+			}
+			for (let i = 0 ; i &lt; icon.children.length &amp;&amp; !element ; i++) {
+				if (icon.children[i].tagName == "svg") {
+					element = icon.children[i];
+				}
+			}
+			vm._element=element;
+			vm._setColor(vm, vm.colorData);
+			vm._setSize(vm, vm.sizeData);
+		}
+	},
+	watch: {
+		colorData: function(newColor, oldColor) {
+			var element = this._element;
+			if (!element) {
+				return;
+			}
+			element.setAttribute("class", "xo-color"+newColor);
+		}, 
+		color: function(newColor, oldColor) {
+			this.colorData=newColor;
+		},
+		xData: function(newX, oldX) {
+			var iconDiv = this.$refs.icon;
+			if (!iconDiv) {
+				return;
+			}
+			iconDiv.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+newX+"px"+this._generateOriginalColor());
+		}, 
+		x: function(newX, oldX) {
+			this.xData=newX;
+		},
+		yData: function(newY, oldX) {
+			var iconDiv = this.$refs.icon;
+			if (!iconDiv) {
+				return;
+			}
+			iconDiv.setAttribute("style", "margin: "+newY+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
+		},		
+		y: function(newY, oldX) {
+			this.yData=newY;
+		},
+		disabledData: function(newDisabled, oldDisabled) {
+			this.disabledData = newDisabled;
+		},
+		sizeData: function(newSize, oldSize) {
+			var element = this._element;
+			if (!element) {
+				return;
+			}
+			element.setAttribute("width", newSize+"px");
+			element.setAttribute("height", newSize+"px");
+		}
+	},
+	methods: {
+		_createIcon(svgfile, color, size, callback) {
+			if(!svgfile)
+				return null;
+			var parent =document.getElementById(this.id);
+			if (!parent) {
+				return null;
+			}
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+			svgElement.setAttribute("class", "xo-color"+color);
+			if (size) {
+				svgElement.setAttribute("width", size+"px");
+				svgElement.setAttribute("height", size+"px");
+				svgElement.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
+				svgElement.setAttribute("preserveAspectRatio", "xMidYMid meet");
+				var img = new Image();
+				img.onload = function() {
+					if(this.width!=size) {
+						let intersectsize=this.width;
+						svgElement.setAttribute("viewBox", "0 0 "+intersectsize+" "+intersectsize);
+					}
+					else {
+						svgElement.setAttribute("viewBox", "0 0 55 55");
+					}
+				}
+				img.src = svgfile;
+			}
+			var useElement = document.createElementNS(svgElement.namespaceURI,"use");
+			useElement.addEventListener('load', function() {
+				if (callback) {
+					callback(svgElement);
+				}
+			})
+			useElement.addEventListener('error', function() {
+				console.log(svgfile+' error');
+				if (callback) {
+					callback(null);
+				}
+			}) // Error loading SVG file
+			var xref = svgfile+"#icon";
+			useElement.setAttribute("xlink:href",xref);
+			useElement.setAttribute("href",xref);
+			this._element = svgElement;
+			// Detection of error no symbol #icon is not possible due to closed ShadowDOM
+			svgElement.appendChild(useElement);
+			parent.appendChild(svgElement);
+		},
+		// Load icon url and return raw data of file
+		async _loadIcon(url) {
+			return new Promise(function(resolve, reject) {
+			   axios.get(url).then(function(response) {
+					resolve(response.data);
+				}).catch(function(error) {
+					reject(error);
+				});
+			});
+		},
+		_convertSVG(svg, id) {
+			// Get original color
+			let fill = svg.match(/&lt;!ENTITY\s+fill_color\s+"(.*)">/);
+			let stroke = svg.match(/&lt;!ENTITY\s+stroke_color\s+"(.*)">/);
+			this._originalColor = { fill: fill &amp;&amp; fill.length ? fill[1] : null, stroke: stroke &amp;&amp; stroke.length ? stroke[1] : null };
+
+			// Remove ENTITY HEADER
+			let read = svg;
+			var buf= read;
+			buf = read.replace(/&lt;!DOCTYPE[\s\S.]*\]>/g,"");
+
+			// Replace &amp;fill_color; and &amp;stroke_color;
+			buf = buf.replace(/&amp;stroke_color;/g,"var(--stroke-color)");
+			buf = buf.replace(/&amp;fill_color;/g,"var(--fill-color)");
+
+			// Add symbol and /symbol
+			buf = buf.replace(/(&lt;svg[^>]*>)/g,'$1&lt;symbol id="icon'+id+'">');
+			buf = buf.replace(/(&lt;\/svg>)/g,'&lt;/symbol>&lt;use xlink:href="#icon'+id+'" href="#icon'+id+'"/>$1');
+			return buf;
+		},
+
+		_setColor(vm, color) {
+			let element = vm._element;
+			if (element) {
+				if (color > 179 &amp;&amp; color != 256 &amp;&amp; color != 512 &amp;&amp;  color != 768 &amp;&amp; color != 1024) {
+					color = color % 180;
+				}
+				if (this.color) {
+					element.setAttribute("class", "xo-color"+color);
+				}
+			}
+		},
+		_generateOriginalColor() {
+			return !this.color &amp;&amp; this._originalColor.fill &amp;&amp; this._originalColor.stroke ? ";--stroke-color:"+this._originalColor.stroke+";--fill-color:"+this._originalColor.fill+";" : "";
+		},
+		_setSize(vm, size) {
+			let element = vm._element;
+			if (element) {
+				// Compute optimal viewBox size depending of previous width/height value and unity
+				let iwidth = element.getAttribute("width").replace("px","");
+				if (iwidth == "100%") {
+					iwidth = 55;
+				} else if ((""+iwidth).indexOf("pt")!=-1) {
+					iwidth = Math.round(parseInt(iwidth.replace("pt",""),10)*96/72); // Convert pt to px
+				}
+				let iheight = element.getAttribute("height").replace("px","").replace("pt","");
+				if (iheight == "100%") {
+					iheight = 55;
+				} else if ((""+iheight).indexOf("pt")!=-1) {
+					iheight = Math.round(parseInt(iheight.replace("pt",""),10)*96/72); // Convert pt to px
+				}
+				// Set Position
+				const iconDiv = this.$refs.icon;
+				iconDiv.setAttribute("style", "margin: "+vm.yData+"px 0px 0px "+vm.xData+"px"+this._generateOriginalColor());
+
+				// Set size
+				element.setAttribute("width", size+"px");
+				element.setAttribute("height", size+"px");
+				element.setAttribute("preserveAspectRatio", "xMidYMid meet");
+				if (!element.getAttribute("viewBox")) {
+					element.setAttribute("viewBox", "0 0 "+iwidth+" "+iheight);
+				}
+			}
+		},
+		/** 
+		 * @memberOf module:Icon.methods
+		 * @method isCursorInside
+		 * @desc check if cursor is inside the icon component or not
+		 * @param {Number} x - x position of cursor
+		 * @param {Number} y - y position of cursor
+		 * @returns {Boolean}
+		 */
+		isCursorInside(x, y) {
+			var ele= this.$refs.icon;
+			let sizeData = parseInt(this.sizeData);
+			if(ele) {
+				var popupXmin= this.xData;
+				var popupXmax= popupXmin + sizeData;
+				var popupYmin= this.yData + (ele.getBoundingClientRect().y-this.yData);
+				var popupYmax= popupYmin + sizeData;
+				if((x>= popupXmin &amp;&amp; x&lt;=popupXmax &amp;&amp; y>=popupYmin &amp;&amp; y&lt;=popupYmax))
+					return true;
+				else
+					return false;
+			} else 
+				return false;
+		},
+	}
+};
+
+if (typeof module !== 'undefined') module.exports = { Icon }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Dialog.html">Dialog</a></li><li><a href="module-FilterBox.html">FilterBox</a></li><li><a href="module-Icon.html">Icon</a></li><li><a href="module-IconButton.html">IconButton</a></li><li><a href="module-Password.html">Password</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-SearchField.html">SearchField</a></li><li><a href="module-SelectBox.html">SelectBox</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sat Jun 08 2024 22:04:06 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

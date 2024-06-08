@@ -34,14 +34,14 @@
  * @vue-data {Boolean} [isShown=false] - to ensure if popup instance is currently visible in DOM
  * @vue-data {Number} [xData=null] - left position of popup component
  * @vue-data {Number} [yData=null] - top position of popup component
- * @vue-event {String} itemisClicked - Emit selected item when clicked in "'popup component id'_'selected item name'" format
+ * @vue-event {String} itemisClicked - Emit selected item when clicked in "'popup component id'_'selected item id'" format
  */
 const Popup ={
 	name: 'Popup',
 	template: ` &lt;div ref="homePopup" class="home-activity-popup" 
 					v-if="itemData &amp;&amp; isShown &amp;&amp; itemData.icon &amp;&amp; itemData.name"
 				>
-					&lt;div class="popup-title" @click="itemClicked(itemData.id+'_'+itemData.name)">
+					&lt;div class="popup-title" @click="itemClicked(itemData.id+'_'+itemData.icon.id)">
 						&lt;icon 
 							:key="iconKey"
 							class="item-icon-title"
@@ -51,6 +51,8 @@ const Popup ={
 							:size=itemData.icon.size
 							:x=itemData.icon.iconx
 							:y=itemData.icon.icony
+							:isNative=itemData.icon.isNative
+							:disableHoverEffect="true"
 						>
 						&lt;/icon>
 						&lt;div>
@@ -58,12 +60,12 @@ const Popup ={
 							&lt;div class="popup-title-text">{{ itemData.title }}&lt;/div>
 						&lt;/div>
 					&lt;/div>
-					&lt;div id="items" class="popup-items" v-if="itemData.itemList">
+					&lt;div id="items" class="popup-items" v-if="itemData.itemList &amp;&amp; itemData.itemList.length > 0">
 						&lt;div class="popup-item-listview">
 							&lt;div class="item-list">
 								&lt;div class="item-list-item" 
 									v-for="ele in itemData.itemList" key="ele.index"
-									@click="itemClicked(itemData.id+'_'+ele.name)"
+									@click="itemClicked(itemData.id+'_'+ele.icon.id)"
 								>
 									&lt;icon class="item-icon"
 										:key="iconKey"
@@ -73,18 +75,20 @@ const Popup ={
 										:size=ele.icon.size
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
+										:disableHoverEffect="true"
 									>&lt;/icon>
 									&lt;div class="item-name">{{ ele.name }}&lt;/div>
 								&lt;/div>
 							&lt;/div>
 						&lt;/div>
 					&lt;/div>
-					&lt;div id="footer" class="popup-items" v-if="itemData.footerList">
+					&lt;div id="footer" class="popup-items" v-if="itemData.footerList &amp;&amp; itemData.footerList.length > 0">
 						&lt;div class="popup-item-listview">
 							&lt;div class="item-list">
 								&lt;div class="item-list-item" 
 									v-for="ele in itemData.footerList" key="ele.index"
-									@click="itemClicked(itemData.id+'_'+ele.name)"
+									@click="itemClicked(itemData.id+'_'+ele.icon.id)"
 								>
 									&lt;icon class="item-icon"
 										:key="iconKey"
@@ -94,6 +98,8 @@ const Popup ={
 										:size=ele.icon.size
 										:x=ele.icon.iconx
 										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
+										:disableHoverEffect="true"
 									>&lt;/icon>
 									&lt;div class="item-name">{{ ele.name }}&lt;/div>
 								&lt;/div>
@@ -115,21 +121,29 @@ const Popup ={
 		}
 	},
 	watch: {
-		item: async function(newItem, oldItem){
-			this.itemData= newItem;
-			this.iconKey= !this.iconKey;
+		item: {
+			deep: true,
+			handler: function(newItem) {
+				this.itemData= newItem;
+				this.iconKey= !this.iconKey;
+			}
 		}
 	},
 	updated: function() {
 		var ele= this.$refs.homePopup;
 		if(ele) {
-			var deltaX= this.xData + ele.clientWidth - window.innerWidth;
+			var deltaX= this.xData + ele.clientWidth - window.innerWidth + 5;
+			var deltaY= this.yData + ele.clientHeight - window.innerHeight + 5;
+			var dataX = this.xData;
+			var dataY = this.yData;
 			// check if popup component is out of screen window, then adjust it by extra width
 			if (deltaX >= 1) {
-				ele.setAttribute("style", "left: "+(this.xData - deltaX)+"px; top: "+this.yData+"px;");
-			} else {
-				ele.setAttribute("style", "left: "+this.xData+"px; top: "+this.yData+"px;");
+				dataX = this.xData - deltaX;
 			}
+			if (deltaY >= 1) {
+				dataY = this.yData - deltaY;
+			}
+			ele.setAttribute("style", "left: "+dataX+"px; top: "+dataY+"px;");
 		}
 	},
 	methods: {
@@ -162,7 +176,7 @@ const Popup ={
 			if(ele) {
 				var popupXmin= this.xData;
 				var popupXmax= this.xData + ele.clientWidth;
-				var popupYmin= this.yData+15;
+				var popupYmin= this.yData;
 				var popupYmax= this.yData + ele.clientHeight;
 				if((x>= popupXmin &amp;&amp; x&lt;=popupXmax &amp;&amp; y>=popupYmin &amp;&amp; y&lt;=popupYmax))
 					return true;
@@ -195,13 +209,13 @@ if (typeof module !== 'undefined') module.exports = { Popup }</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-FilterBox.html">FilterBox</a></li><li><a href="module-Icon.html">Icon</a></li><li><a href="module-IconButton.html">IconButton</a></li><li><a href="module-Password.html">Password</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-SearchField.html">SearchField</a></li><li><a href="module-SelectBox.html">SelectBox</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Dialog.html">Dialog</a></li><li><a href="module-FilterBox.html">FilterBox</a></li><li><a href="module-Icon.html">Icon</a></li><li><a href="module-IconButton.html">IconButton</a></li><li><a href="module-Password.html">Password</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-SearchField.html">SearchField</a></li><li><a href="module-SelectBox.html">SelectBox</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Nov 13 2022 10:23:07 GMT+0100 (heure normale d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sat Jun 08 2024 22:04:06 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>
