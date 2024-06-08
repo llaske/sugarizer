@@ -137,12 +137,13 @@ const HomeScreen = {
 
 	props: ['filter'],
 
-	mounted() {
-		this.getActivities();
-
+	async mounted() {
 		this.getCanvasCenter();
 		window.addEventListener("resize", this.draw);
-		this.getJournal();
+		await this.initializeActivities();
+		await this.setupUserAndJournal();
+		this.draw();
+		this.filterSearch(this.filter);
 	},
 
 	beforeUnmount() {
@@ -157,36 +158,33 @@ const HomeScreen = {
 	},
 
 	methods: {
-		async getActivities() {
-			sugarizer.modules.activities.load().then((activities) => {
-				this.getUser();
-			}, (error) => {
+		async initializeActivities() {
+			try {
+				await sugarizer.modules.activities.load();
+			} catch (error) {
 				throw new Error('Unable to load the activities, error ' + error);
-			});
+			}
 		},
 
-		async getUser() {
-			sugarizer.modules.user.get().then((user) => {
+		async setupUserAndJournal() {
+			try {
+				const user = await sugarizer.modules.user.get()
 				this.buddycolor = user.color;
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 				this.activities = sugarizer.modules.activities.getFavorites();
 				this.username = user.name;
 				this.favactivities = sugarizer.modules.activities.getFavoritesName();
-				this.draw();
-			}, (error) => {
+				this.getJournal();
+			} catch (error) {
 				throw new Error('Unable to load the user, error ' + error);
-			});
+			}
 		},
 
-		async getJournal() {
+		getJournal() {
 			sugarizer.modules.journal.synchronize().then(() => {
-				setTimeout(() => {
 					if (sugarizer.modules.journal.get().length > 0) {
 						this.$refs["journalIcon"].colorData = this.buddycolor;
 					}
-					this.computePopup();
-					this.filterSearch(this.filter);
-				}, 1000);
 			});
 		},
 
@@ -283,11 +281,11 @@ const HomeScreen = {
 				}
 				if (popup.itemList && popup.itemList.length >= 1) {
 					popup.icon.color = iconColor;
-					if (this.$refs["activity" + popup.id]) {
-						let iconRef = this.$refs["activity" + popup.id][0];
-						if (iconRef !== undefined) {
+					const iconRef = this.$refs["activity" + popup.id][0];
+					if (iconRef) {
+						iconRef.wait().then(() => {
 							iconRef.colorData = iconColor;
-						}
+						})
 					}
 				}
 				popupData[activity.id] = popup;
@@ -413,6 +411,8 @@ const HomeScreen = {
 			let canvas_centerx = parseFloat(canvas_width) / 2.0;
 
 			this.canvasCenter = { x: canvas_centerx, y: canvas_centery, dx: canvas_width, dy: canvas_height };
+			let jdeltay = (canvas_height < 480) ? -12 : 0;
+			this.canvasCenter.jdeltay = jdeltay;
 			return { x: canvas_centerx, y: canvas_centery, dx: canvas_width, dy: canvas_height };
 		},
 
@@ -442,14 +442,13 @@ const HomeScreen = {
 		},
 
 		draw() {
+			this.computePopup();
 			// Compute center and radius
 			let constant = this.constant;
 			let canvas_center = this.getCanvasCenter();
 			let icon_size = constant.iconSizeStandard;
 			let icon_padding = icon_size * constant.iconSpacingFactor;
 			let semi_size = icon_size / 2;
-			let jdeltay = (canvas_center.dy < 480) ? -12 : 0;
-			this.canvasCenter.jdeltay = jdeltay;
 
 			// Compute ring size and shape
 			let activitiesList = this.activities;
