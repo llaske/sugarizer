@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: FilterBox</title>
+    <title>JSDoc: Module: Dialog</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: FilterBox</h1>
+    <h1 class="page-title">Module: Dialog</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">This is an filter selelector component which contains different options of filter to select</p></div></div> 
+            <div class="description">This is an modal component for different settings overlay pages</p></div></div> 
 
 
 <h3 class="subsection-title" style="margin-top: 1em" data-jsdoc-vuejs="section-props">Props</h3>
@@ -53,11 +53,35 @@
     </tr>
     </thead>
     <tbody><tr>
-        <td><code>options</code></td>
-        <td>Object.&lt;Object></td>
-        <td>-</td>
-        <td><b>Yes</b></td>
-        <td>stores options array and a default filter option for filter-bar</td>
+        <td><code>searchField</code></td>
+        <td>Boolean</td>
+        <td><code>null</code></td>
+        <td>No</td>
+        <td>to show search-bar in the toolbar</td>
+    </tr><tr>
+        <td><code>okButton</code></td>
+        <td>Boolean</td>
+        <td><code>null</code></td>
+        <td>No</td>
+        <td>to show ok button in the toolbar</td>
+    </tr><tr>
+        <td><code>cancelButton</code></td>
+        <td>Boolean</td>
+        <td><code>null</code></td>
+        <td>No</td>
+        <td>to show cancel button in the toolbar</td>
+    </tr><tr>
+        <td><code>iconData</code></td>
+        <td>String</td>
+        <td><code>null</code></td>
+        <td>No</td>
+        <td>stores the url of svg file of icon in the toolbar</td>
+    </tr><tr>
+        <td><code>titleData</code></td>
+        <td>String</td>
+        <td><code>null</code></td>
+        <td>No</td>
+        <td>stores the title text of feature page in the toolbar</td>
     </tr></tbody>
 </table>
 
@@ -74,15 +98,10 @@
     </tr>
     </thead>
     <tbody><tr>
-        <td><code>currentFilterBoxRef</code></td>
-        <td>String</td>
-        <td><code>null</code></td>
-        <td>global variable which stores active ref value of filterBox instance</td>
-    </tr><tr>
-        <td><code>optionsData</code></td>
-        <td>Object.&lt;Object></td>
-        <td><code>null</code></td>
-        <td>to change the filter options data</td>
+        <td><code>showDialog</code></td>
+        <td>Boolean</td>
+        <td><code>false</code></td>
+        <td>condition to show or hide the dialog modal</td>
     </tr></tbody>
 </table>
 
@@ -101,9 +120,17 @@
     </tr>
     </thead>
     <tbody><tr>
-        <td><code>filterSelected</code></td>
-        <td>Object</td>
-        <td>Emit selected item object with its icon and text when clicked</td>
+        <td><code>onCancel</code></td>
+        <td></td>
+        <td>emit cancel event to close the dialogBox</td>
+    </tr><tr>
+        <td><code>onOk</code></td>
+        <td></td>
+        <td>emit ok event to save the changes and close the dialogBox</td>
+    </tr><tr>
+        <td><code>searchInput</code></td>
+        <td>String</td>
+        <td>emit inputString of the search-bar whenever its changes</td>
     </tr></tbody>
 </table>
 
