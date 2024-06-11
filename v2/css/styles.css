@@ -298,6 +298,77 @@ a {
 	z-index: 1;
 }
 
+/* sugar-vue-Prompt */
+.prompt-container {
+	background-color: #080808;
+	color: white;
+	border-radius: 2px;
+	overflow: hidden;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	min-width: min(550px, 90vw);
+	max-width: 100vw;
+	box-shadow: 0 0 0 100vw rgba(0, 0, 0, .7);
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	outline: none;
+	gap: 1rem;
+}
+#prompt-icon {
+	padding-top: 6px;
+}
+.prompt-header {
+	font-weight: bold;
+	padding: 0rem 1rem;
+	background-color: #282828;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+#prompt-cancel {
+	margin-left: auto !important;
+}
+
+.prompt-content {
+	padding: .5rem 1.2rem;
+}
+.prompt-para {
+	line-height: 1.6;
+}
+
+.prompt-btn-container {
+	display: flex;
+	gap: 14px;
+	padding-block: 0.8rem;
+}
+.prompt-btn-container .icon-button {
+	min-width: 120px;
+}
+
+/* vue-transition-for-prompt */
+.bounce-enter-active {
+	animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+	animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.5);
+	}
+	50% {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1.04);
+	}
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
+
+
+
 
 /* sugar-vue-SelectBox */
 
@@ -685,7 +756,7 @@ a {
 	border-radius: 5.5px;
 }
 
-.toolbar .toolbutton:hover {
+.toolbar .toolbutton:hover, #prompt-cancel:hover {
 	background-color: black;
 }
 
