@@ -23,7 +23,6 @@
 
   <body id="body">
 	<div id="app">
-		<sugar-localization v-if="isFirstScreen !== null" :key="isFirstScreen"></sugar-localization>
 		<div class="sugarizer-canvas" v-if="isFirstScreen">
 			<firstscreen @showmainscreen="setIsFirstScreen"/>
 		</div>
