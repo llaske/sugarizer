@@ -1,23 +1,6 @@
 const { mount } = require('@vue/test-utils');
-const fs = require('fs');
-if (typeof axios == 'undefined') axios = {
-    get: function(url) {
-		var content;
-		if(url) content = fs.readFileSync(url.replace("file://", ""), {encoding:'utf8', flag:'r'});
-        return {
-            then: function(callback) {
-                var result = {};
-                result.data = content;
-                callback(result);
-                return {
-                    catch: function() {
-						reject(error);
-                    }
-                }
-            }
-        }
-    }
-}
+
+if (typeof axios == "undefined") axios = require("./mocks/axios.js")
 const { Icon } = require('../js/components/icon.js');
 
 const path = require('path');
