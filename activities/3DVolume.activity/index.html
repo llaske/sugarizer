@@ -10,11 +10,11 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
-<script src="js/buffer.js"></script>
-<script src="js/three.js"></script>
-<script src="js/cannon.js"></script>
-<script src="js/orbit.js"></script>
-<script src="js/debug.js"></script>
+<script src="lib/buffer.js"></script>
+<script src="lib/three.js"></script>
+<script src="lib/cannon.js"></script>
+<script src="lib/orbit.js"></script>
+<script src="lib/debug.js"></script>
 <link rel="stylesheet" href="css/introjs.css">
 <script src="lib/intro.js"></script>
 
@@ -33,32 +33,35 @@
     <button class="toolbutton" id="activity-button" title="My Activity"></button>
     <button class="toolbutton" id="network-button" title="Network"></button>
   
-    <div class="vertical-line"></div>
+    <hr/>
 
     <button class="button-background toolbutton" id="tetra-button" title="Add Tetrahedron"></button>
     <button class="button-background toolbutton" id="cube-button" title="Add Cube"></button>
     <button class="button-background toolbutton" id="octa-button" title="Add Octahedron"></button>
+    <button class="button-background toolbutton" id="deca-button" title="Add Decahedron"></button>
     <button class="button-background toolbutton" id="dodeca-button" title="Add Dodecahedron"></button>
     <button class="button-background toolbutton" id="icosa-button" title="Add Icosahedron"></button>
 
-
   
   
-    <div class="vertical-line"></div>
+    <hr/>
   
     <button class="toolbutton" class="active" id="clear-button" title="Clear Button"></button>
   
-    <div class="vertical-line"></div>
+    <hr/>
 
     <button class="toolbutton" id="volume-button" title="Toggle Numbers"></button>
   
     <!-- <button class="toolbutton" id="image-button" title="Add images to volumes"></button> -->
   
-    <button class="toolbutton" id="color-button" title="Fill Color"></button>
+    <button class="toolbutton" id="color-button-fill" title="Fill Color"></button>
+
+    <button class="toolbutton" id="color-button-text" title="Fill Color"></button>
+
   
     <button class="toolbutton" id="bg-button" title="Change Playmat"></button>
   
-    <div class="vertical-line"></div>
+    <hr/>
 
     <button class="toolbutton" id="zoom-button" title="zoom palette"></button>
 
@@ -96,7 +99,7 @@
     </div>
   
   </div>
-  <p id="last-roll"><span id="roll"></span> : Last Roll </p>
+  <p id="last-roll"><span id="roll"></span></p>
 
   
 </div>

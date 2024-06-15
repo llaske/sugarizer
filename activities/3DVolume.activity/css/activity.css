@@ -4,6 +4,11 @@
 #main-toolbar #network-button {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
+.toolbar hr {
+  vertical-align: bottom;
+  margin-bottom: 10px;
+  height: 45px;
+}
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -50,15 +55,15 @@ body {
   outline: none;
 }
 #volume-button {
-  background-image:url(../icons/cube.svg);
+  background-image:url(../icons/cube_solid.svg);
   outline:none;
 }
 #main-toolbar #clear-button {
-  background-image: url(../icons/clear.svg);
+  background-image: url(../icons/minus.svg);
   outline:none;
 }
 #clear-button.active {
-  background-color: #e1e1e1; /* Light white color */
+  background-color: #D3D3D3; 
 }
 
 
@@ -75,9 +80,10 @@ body {
   width: 65px;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url(../icons/number_on.svg);
-  outline:none;
+  background-image: url(../icons/number_volume.svg);
+  border-radius: 5px;
 }
+
 #zoom-button {
   height: 45px;
   width: 45xpx;
@@ -101,8 +107,20 @@ body {
   width: 65px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url(../icons/tess.png);
+  background-image: url(../icons/transparent_volume.svg);
+  border-radius: 5px;
+}
+
+#default-button {
+  margin: 0;
+  padding: 0;
+  height: 65px;
+  width: 65px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(../icons/default_volume.svg);
   outline:none;
+  border-radius: 5px;
 }
 
 #colors-button-fill{
@@ -135,6 +153,12 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+#deca-button {
+  background-image:url(../icons/deca.svg);
+  outline:none;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 #icosa-button {
   background-image:url(../icons/icosa.svg);
   outline:none;
@@ -143,7 +167,7 @@ body {
   background-size: cover;
 }
 .active {
-  background-color: #e1e1e1 !important; 
+  background-color: #656565 !important; 
 }
 
 #main-toolbar #help-button {
@@ -252,16 +276,37 @@ body {
 }
 
 
+.color-palette {
+  display: flex;
+  width: 370px; /* ugly hack */
+  background-color: #000000;
+  border: #808080 2px solid;
+}
 
 
-#color-grid {
+#color-grid-fill {
   display: grid;
-  grid-template-columns: repeat(3, 50px); /* Decreased circle size */
+  grid-template-columns: repeat(3, 50px); 
   grid-gap: 10px;
   margin-left:5px;
   margin-bottom:5px;
   margin-top:5px;
   margin-right:5px;
+}
+#color-grid-text {
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  grid-gap: 10px;
+  margin-left:5px;
+  margin-bottom:5px;
+  margin-top:5px;
+  margin-right:5px;
+}
+
+.slider-container {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 #zoom-in-button {
@@ -275,6 +320,24 @@ body {
 
 #zoom-out-button {
   background-image: url(../icons/zoom-out.svg);
+  width: 50px;
+  height: 50px;
+  background-color: #000000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#zoom-equal-button {
+  background-image: url(../icons/zoom-original.svg);
+  width: 50px;
+  height: 50px;
+  background-color: #000000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#zoom-to-button {
+  background-image: url(../icons/zoom-to-width.svg);
   width: 50px;
   height: 50px;
   background-color: #000000;
@@ -326,7 +389,16 @@ body {
 }
 
 
-.color {
+.color-fill {
+  width: 45px; /* Decreased circle size */
+  height: 45px; /* Decreased circle size */
+  border-radius: 50%;
+  cursor: pointer;
+  border: white solid 2px;
+}
+
+
+.color-text {
   width: 45px; /* Decreased circle size */
   height: 45px; /* Decreased circle size */
   border-radius: 50%;
