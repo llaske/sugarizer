@@ -295,9 +295,9 @@ const HomeScreen = {
 
 		async showPopupTimer(e) {
 			if (this.timer != null) {
-				window.clearInterval(this.timer);
+				window.clearTimeout(this.timer);
 			}
-			this.timer = window.setInterval(this.showPopup.bind(this), this.constant.timerPopupDuration, e);
+			this.timer = window.setTimeout(this.showPopup.bind(this), this.constant.timerPopupDuration, e);
 		},
 
 		async showPopup(e) {
@@ -307,7 +307,6 @@ const HomeScreen = {
 				this.removeCurrentPopup();
 			}
 			this.popupShown = true;
-			window.clearInterval(this.timer);
 			this.timer = null;
 			if (e.target.tagName == 'svg') {
 				itemId = e.target.parentElement.id
@@ -359,9 +358,9 @@ const HomeScreen = {
 
 		async removePopupTimer(e) {
 			if (this.timer != null) {
-				window.clearInterval(this.timer);
+				window.clearTimeout(this.timer);
 			}
-			this.timer = window.setInterval(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
+			this.timer = window.setTimeout(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
 		},
 				
 		async removePopup(e) {
@@ -373,7 +372,7 @@ const HomeScreen = {
 		removeCurrentPopup() {
 			this.$refs.popup.hide();
 			this.popupShown = false;
-			window.clearInterval(this.timer);
+			window.clearTimeout(this.timer);
 			this.timer = null;
 		},
 
