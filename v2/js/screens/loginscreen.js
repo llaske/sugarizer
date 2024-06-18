@@ -100,7 +100,11 @@ const LoginScreen = {
 			@click="index.currentIndex === index.maxIndex ? makeLoginRequest() : nextItem()"
 		></icon-button>
 	</div>
-</div>`,
+</div>
+<div v-if="isLoading" class="loading-spinner" style="box-shadow: 0 0 0 50vh rgba(0, 0, 0, 0.3)">
+	<img src="./images/spinner-light.gif">
+</div>
+`,
 	components: {
 		"password": Password,
 		"icon-button": IconButton,
@@ -135,6 +139,7 @@ const LoginScreen = {
 			},
 			consentNeed: false,
 			consentPolicy: '',
+			isLoading: false,
 		}
 	},
 
@@ -212,6 +217,7 @@ const LoginScreen = {
 
 		async nextItem() {
 			this.warning.show = false;
+			this.isLoading = true;
 
 			if (this.index.currentIndex < this.index.maxIndex) {
 				if (this.index.currentIndex === 0 && this.details.serverAddress.length > 0) { // server address
@@ -264,6 +270,7 @@ const LoginScreen = {
 					this.index.currentIndex++;
 				}
 			}
+			this.isLoading = false;
 		},
 
 		handleEnterKey(event) {
@@ -302,12 +309,13 @@ const LoginScreen = {
 			});
 		},
 
-		makeLoginRequest() {
+		async makeLoginRequest() {
+			this.isLoading = true;
 			if (this.userType.isNewuser) {
 				const colorNumber = this.$refs.buddyIcon.colorData;
 
 				this.details.password = this.$refs.passwordInput.passwordText;
-				sugarizer.modules.user.signup(this.details.serverAddress, this.details.name, this.details.password, sugarizer.modules.xocolor.get(colorNumber)).then((user) => {
+				await sugarizer.modules.user.signup(this.details.serverAddress, this.details.name, this.details.password, sugarizer.modules.xocolor.get(colorNumber)).then((user) => {
 					this.login(this.details.serverAddress, this.details.name, this.details.password);
 				}, (error) => {
 					console.log(error);
@@ -327,6 +335,7 @@ const LoginScreen = {
 
 				this.login(this.details.serverAddress, this.details.name, this.details.password);
 			}
+			this.isLoading = false;
 		}
 	},
 };

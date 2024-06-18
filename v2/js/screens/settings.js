@@ -113,7 +113,8 @@ const Settings = {
 			this.$emit('close-settings');
 		},
 
-		async openModal(ref) {
+		async openModal(ref, showSettings = true) {
+			this.showSettings = showSettings;
 			sugarizer.modules.stats.trace('my_settings', 'click', ref, null);
 			this.subscreen = ref;
 			await this.$nextTick();
@@ -126,7 +127,8 @@ const Settings = {
 		},
 
 		setSubScreen(value) {
-			this.$refs.settingModal.showDialog = true;
+			if (this.showSettings)
+				this.$refs.settingModal.showDialog = true;
 			this.subscreen = value;
 		}
 	},
