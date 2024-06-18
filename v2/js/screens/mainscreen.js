@@ -13,6 +13,7 @@ const MainScreen = {
 							:x="0"
 							:y="0"
 							:color="768"
+							:title="$t('Tutorial')"
 							isNative="true"
 						></icon>
 						<icon v-if="sync"
@@ -33,6 +34,7 @@ const MainScreen = {
 							:x="0"
 							:y="0"
 							:color="256"
+							:title="$t('NotConnected')"
 							isNative="true"
 							@click="displayServerSettings()"
 						></icon>
@@ -46,6 +48,7 @@ const MainScreen = {
 							svgfile="./icons/view-radial.svg" 
 							:color="768"
 							:size="47"
+							:title="$t('FavoritesView')"
 							isNative="true"
 							@click="changeView('home')"
 						></icon>
@@ -56,6 +59,7 @@ const MainScreen = {
 							svgfile="./icons/view-neighborhood.svg"
 							:color="768"
 							:size="47"
+							:title="$t('NeighborhoodView')"
 							isNative="true"
 							@click="changeView('neighborhood')"
 						></icon>
@@ -66,6 +70,7 @@ const MainScreen = {
 							svgfile="./icons/view-list.svg" 
 							:color="768"
 							:size="47"
+							:title="$t('ListView')"
 							isNative="true"
 							@click="changeView('list')"
 						></icon>
@@ -145,7 +150,7 @@ const MainScreen = {
 
 		displayServerSettings() {
 			if (this.screentype === 'home') {
-				this.$refs.home.$refs.settings.openModal('aboutMyServerModal');
+				this.$refs.home.$refs.settings.openModal('about_my_server', false);
 			}
 		},
 		clearSearchField() {

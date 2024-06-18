@@ -72,6 +72,9 @@ const AboutMyServer = {
 							></icon-button>
 						</div>
 					</div>
+					<div v-if="isLoading" class="loading-spinner">
+						<img src="./images/spinner-light.gif">
+					</div>
 				</dialog-box> 
 	`,
 	components: {
@@ -103,6 +106,7 @@ const AboutMyServer = {
 			consentNeed: false,
 			consentPolicy: '',
 			createAccount: true,
+			isLoading: false,
 		}
 	},
 
@@ -161,23 +165,27 @@ const AboutMyServer = {
 			this.nextStep();
 		},
 
-		nextStep() {
+		async nextStep() {
+			this.isLoading = true;
 			if (this.connectingStep == 1) {
-				this.checkServer();
+				await this.checkServer();
 			} else if (this.connectingStep == 2) {
-				this.createOrLogin();
+				await this.createOrLogin();
 			} else if (this.connectingStep == 3) {
-				this.signup();
+				await this.signup();
 			}
+			this.isLoading = false;
 		},
 
-		checkServer() {
-			sugarizer.modules.server.getServerInformation(this.details.serverAddress).then((info) => {
+		async checkServer() {
+			await this.withErrHandling(async () => {
+				const info = await sugarizer.modules.server.getServerInformation(this.details.serverAddress);
 				this.warning.show = false;
 				this.passwordSize = info.options["min-password-size"];
 				this.consentNeed = info.options['consent-need'];
 				this.consentPolicy = info.options['policy-url'];
-				sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.username).then((exists) => {
+				await this.withErrHandling(async () => {
+					const exists = await sugarizer.modules.user.checkIfExists(this.details.serverAddress, this.details.username)
 					this.createAccount = !exists;
 					if (exists || !this.consentNeed) {
 						this.$refs.nextButton.textData = this.$t('Done');
@@ -186,18 +194,11 @@ const AboutMyServer = {
 					this.$nextTick(() => {
 						this.$refs.passwordInput.$refs.password.focus();
 					});
-				}, (error) => {
-					this.warning.show = true;
-					this.warning.text = this.$t('ServerError', {code: error});
-				});
-			}, (error) => {
-				console.log(error);
-				this.warning.show = true;
-				this.warning.text = this.$t('ErrorLoadingRemote');
-			});
+				})
+			}, this.$t('ErrorLoadingRemote'))
 		},
 
-		createOrLogin() {
+		async createOrLogin() {
 			// Validate password size
 			let pass = this.$refs.passwordInput.passwordText;
 			if (pass.length == 0 || pass.length < this.passwordSize) {
@@ -207,13 +208,11 @@ const AboutMyServer = {
 			// Don't create account if already exists
 			if (!this.createAccount) {
 				// Yes, just login
-				sugarizer.modules.user.login(this.details.serverAddress, this.details.username, pass).then((user) => {
+				await this.withErrHandling(async () => {
+					const user = await sugarizer.modules.user.login(this.details.serverAddress, this.details.username, pass)
 					sugarizer.modules.history.addUser({ name: this.details.username, color: user.color, server: { url: this.details.serverAddress } });
 					sugarizer.reload();
-				}, (error) => {	
-					this.warning.show = true;
-					this.warning.text = this.$t('ServerError', {code: error});
-				});
+				})
 			} else {
 				// Ask for consent if needed
 				if (this.consentNeed) {
@@ -225,23 +224,28 @@ const AboutMyServer = {
 				}
 
 				// Create a new user
-				this.signup();
+				await this.signup();
 			}
 		},
 
-		signup() {
-			sugarizer.modules.user.signup(this.details.serverAddress, this.details.username, this.$refs.passwordInput.passwordText, this.details.color).then((user) => {
-				sugarizer.modules.user.login(this.details.serverAddress, this.details.username, this.$refs.passwordInput.passwordText).then((user) => {
+		async signup() {
+			await this.withErrHandling(async () => {
+				const user = sugarizer.modules.user.signup(this.details.serverAddress, this.details.username, this.$refs.passwordInput.passwordText, this.details.color)
+				await this.withErrHandling(async () => {
+					const user = sugarizer.modules.user.login(this.details.serverAddress, this.details.username, this.$refs.passwordInput.passwordText);
 					sugarizer.modules.history.addUser({ name: this.details.username, color: user.color, server: { url: this.details.serverAddress } });
 					sugarizer.reload();
-				}, (error) => {
-					this.warning.show = true;
-					this.warning.text = this.$t('ServerError', {code: error});
 				});
-			}, (error) => {
-				this.warning.show = true;
-				this.warning.text = this.$t('ServerError', {code: error});
 			});
+		},
+
+		async withErrHandling(func, warning) {
+			try {
+				await func();
+			} catch (error) {
+				this.warning.show = true;
+				this.warning.text = warning ? warning : this.$t('ServerError', {code: error});
+			}
 		},
 	}
 };
