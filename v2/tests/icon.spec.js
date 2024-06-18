@@ -246,4 +246,55 @@ describe('Icon.vue', () => {
         expect(wrapper.vm.isCursorInside(x + size / 2, y + size / 2)).toBe(true);
         expect(wrapper.vm.isCursorInside(x - 1, y - 1)).toBe(false);
     });
+
+    it("waits for icon loading before resolving promise for non-native icon", async () => {
+        // Mock for creatIcon method
+        Icon.methods._createIcon = async () => await delay(1000);
+        const createIconMock = jest.spyOn(Icon.methods, "_createIcon");
+
+        wrapper = mount(Icon, {
+            props: {
+                id: id,
+                svgfile: svgfileNew,
+                color: color,
+                size: size,
+                x: x,
+                y: y,
+                isNative: "false",
+            },
+        });
+
+
+        const promise = wrapper.vm.wait();
+        expect(promise).toBeDefined();
+        expect(promise).toBeInstanceOf(Promise);
+
+		await promise
+		expect(createIconMock).toHaveBeenCalled();
+    });
+
+    it("waits for icon loading before resolving promise for native icon", async () => {
+        wrapper = mount(Icon, {
+            props: {
+                id: id,
+                svgfile: svgfileOld,
+                color: color,
+                size: size,
+                x: x,
+                y: y,
+                isNative: "true",
+            },
+        });
+
+        const promise = wrapper.vm.wait();
+        expect(promise).toBeDefined();
+        expect(promise).toBeInstanceOf(Promise);
+
+        await promise;
+
+        // Check if the icon has been loaded by accessing its attributes
+        expect(wrapper.vm._element.getAttribute("class")).toBe("xo-color5");
+        expect(wrapper.vm._element.getAttribute("height")).toBe("100px");
+        expect(wrapper.vm._element.getAttribute("width")).toBe("100px");
+    });
 })
