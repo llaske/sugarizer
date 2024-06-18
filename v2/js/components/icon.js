@@ -50,18 +50,23 @@ const Icon ={
 			_element: null
 		}
 	},
-	async created() {
+	created() {
 		var vm = this;
-		if(this._isSugarNative) {
-			await this._loadIcon(this.svgfile).then(function(svg) {
-				vm._svg=svg;
-			});
+		if (vm._isSugarNative) {
+			this.loadIconPromise = (async function () {
+				await vm._loadIcon(vm.svgfile).then(function (svg) {
+					vm._svg = svg;
+				});
+			})();
 		}
 	},
 	mounted() {
 		// to render the newformat icon
+		var vm = this;
 		if(!this._isSugarNative) {
-			this._createIcon(this.svgfile, this.colorData, this.sizeData);
+			this.loadIconPromise = (async function () {
+				await vm._createIcon(vm.svgfile, vm.colorData, vm.sizeData);
+			})();
 		}
 	},
 	computed: {
@@ -131,7 +136,11 @@ const Icon ={
 		}
 	},
 	methods: {
-		_createIcon(svgfile, color, size, callback) {
+		wait() {
+			return this.loadIconPromise;
+		},
+
+		async _createIcon(svgfile, color, size) {
 			if(!svgfile)
 				return null;
 			var parent =document.getElementById(this.id);
@@ -157,25 +166,23 @@ const Icon ={
 				}
 				img.src = svgfile;
 			}
+
 			var useElement = document.createElementNS(svgElement.namespaceURI,"use");
-			useElement.addEventListener('load', function() {
-				if (callback) {
-					callback(svgElement);
-				}
-			})
-			useElement.addEventListener('error', function() {
-				console.log(svgfile+' error');
-				if (callback) {
-					callback(null);
-				}
-			}) // Error loading SVG file
 			var xref = svgfile+"#icon";
 			useElement.setAttribute("xlink:href",xref);
 			useElement.setAttribute("href",xref);
-			this._element = svgElement;
 			// Detection of error no symbol #icon is not possible due to closed ShadowDOM
 			svgElement.appendChild(useElement);
 			parent.appendChild(svgElement);
+
+			this._element = svgElement;
+			await new Promise((resolve, reject) => {
+				useElement.addEventListener("load", resolve);
+				useElement.addEventListener("error", () => {
+					console.log(svgfile + " error");
+					reject();
+				});
+			});
 		},
 		// Load icon url and return raw data of file
 		async _loadIcon(url) {
