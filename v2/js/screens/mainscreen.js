@@ -4,7 +4,11 @@ const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
 					<div class="tool_leftitems">
-						<searchfield ref="searchfield" :placeholder="$t('SearchHome')" v-on:input-changed="searchFunction"/>
+						<searchfield
+							ref="searchfield"
+							v-on:input-changed="searchFunction"
+							:placeholder="screentype==='neighborhood' ? $t('SearchNeighbor') : $t('SearchHome')"
+						/>
 						<icon 
 							class="toolbutton"
 							id="toolbar-help-btn"
@@ -74,14 +78,15 @@ const MainScreen = {
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
 						<listview v-if="screentype==='list'" :filter="filter" @clear-searchfield = "clearSearchField"/>
 						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" />
-						<div v-else-if="screentype==='neighborhood'"> Neighborhood </div>
+						<neighborhood v-else-if="screentype==='neighborhood'" :filter="filter" />
 					</div>
 					`,
 	components: {
 		'searchfield': SearchField,
 		'icon': Icon,
 		'listview': ListView,
-		'homescreen': HomeScreen
+		'homescreen': HomeScreen,
+		"neighborhood": Neighborhood,
 	},
 
 	data: function () {
@@ -97,6 +102,7 @@ const MainScreen = {
 	created: function () {
 		let vm = this;
 		this.initView();
+		this.connectToServer();
 		window.addEventListener('synchronization', (e) => {
 			if (e.detail.step === 'compute') {
 				vm.sync = true;
@@ -129,6 +135,23 @@ const MainScreen = {
 				this.screentype = this.views[0];
 			} else {
 				this.screentype = this.views[view];
+			}
+		},
+
+		connectToServer() {
+			const vm = this;
+			const isConnected = sugarizer.modules.presence.isConnected();
+			if (!isConnected) {
+				sugarizer.modules.presence.joinNetwork(function (error, user) {
+					if (error) {
+						console.log("WARNING: Can't connect to presence server");
+					}
+					sugarizer.modules.presence.onConnectionClosed(function (event) {
+						console.log("Disconnected");
+						const message = vm.$t((event.code == 4999) ? "YouveGotDisconnectedAutomatically" : "YouveGotDisconnected");
+						sugarizer.modules.humane.log(message);
+					});
+				});
 			}
 		},
 
