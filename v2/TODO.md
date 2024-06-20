@@ -6,7 +6,7 @@ TODO list
 * [x] Use constants everywhere
 * [x] Colorize about me dialog icon
 * [x] Use local version of Vue library
-* [ ] Review hard coded target test in show popup
+* [x] Review hard coded target test in show popup
 * [x] Fix random bug in homescreen.js:193 when colors are not still loaded
 * [x] Scrollbar displayed on the whole screen when popup is displayed at the bottom of the screen
 * [x] Display new popup when mouse move from one icon to another

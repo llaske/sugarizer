@@ -18,7 +18,7 @@ const HomeScreen = {
 									isNative="true"
 									:disabled="false"
 									v-on:click="runActivity(activity)"
-									v-on:mouseover="showPopupTimer($event)"
+									v-on:mouseover="showPopupTimer($event, activity.id)"
 									v-on:mouseout="removePopupTimer($event)"
 								/>
 							</div>
@@ -31,7 +31,7 @@ const HomeScreen = {
 								:size="constant.sizeOwner"
 								:x="canvasCenter.x - constant.sizeOwner/2"
 								:y="canvasCenter.y - constant.sizeOwner/2"
-								v-on:mouseover="showPopupTimer($event)"
+								v-on:mouseover="showPopupTimer($event, 'buddy')"
 								v-on:mouseout="removePopupTimer($event)"
 							></icon>
 							<icon
@@ -99,27 +99,9 @@ const HomeScreen = {
 			favactivities: [],
 			activities: [],
 			activityPositions: [],
-			popupData: null,
 			popup: null, // singular popup data
 			username: null,
 			buddycolor: null,
-			constant: {
-				iconSpacingFactor: 1.1,
-				ringInitSpaceFactor: 2.2,
-				spiralInitSpaceFactor: 0.89,
-				ringSpaceFactor: 1.18,
-				spiralSpaceFactor: 1.3,
-				ringAdjustAngleFactor: 3.6,
-				ringAdjustSizeFactor: 0.9,
-				ringMinRadiusSize: 10,
-				maxPopupHistory: 5,
-				timerPopupDuration: 1000,
-				sizeOwner: 100,
-				sizeJournal: 40,
-				iconSizeStandard: 55,
-				iconSizeList: 40,
-				iconSizeFavorite: 20,
-			},
 			canvasCenter: {},
 			restrictedModeInfo: { start: 0 },
 			spiralPositions: [],
@@ -129,13 +111,38 @@ const HomeScreen = {
 				next: {},
 				prev: {}
 			},
-			timer: null,
-			popupShown: false,
-			popupIcon: null,
 		}
 	},
 
 	props: ['filter'],
+
+	created() {
+		this.popupData = null
+		this.constant = {
+			iconSpacingFactor: 1.1,
+			ringInitSpaceFactor: 2.2,
+			spiralInitSpaceFactor: 0.89,
+			ringSpaceFactor: 1.18,
+			spiralSpaceFactor: 1.3,
+			ringAdjustAngleFactor: 3.6,
+			ringAdjustSizeFactor: 0.9,
+			ringMinRadiusSize: 10,
+			maxPopupHistory: 5,
+			timerPopupDuration: 1000,
+			sizeOwner: 100,
+			sizeJournal: 40,
+			iconSizeStandard: 55,
+			iconSizeList: 40,
+			iconSizeFavorite: 20,
+		},
+		this.timer = null
+		this.popupShown = false
+		this.popupIcon = null
+		this.popupHandlers = {
+			buddy: this.setupBuddyPopup,
+			default: this.setupActivityPopup,
+		};
+	},
 
 	async mounted() {
 		this.getCanvasCenter();
@@ -293,75 +300,66 @@ const HomeScreen = {
 			this.popupData = popupData;
 		},
 
-		async showPopupTimer(e) {
+		async showPopupTimer(e, id) {
 			if (this.timer != null) {
-				window.clearInterval(this.timer);
+				window.clearTimeout(this.timer);
 			}
-			this.timer = window.setInterval(this.showPopup.bind(this), this.constant.timerPopupDuration, e);
+			this.timer = window.setTimeout(this.showPopup.bind(this), this.constant.timerPopupDuration, e, id);
 		},
 
-		async showPopup(e) {
-			let itemId, x, y;
+		async showPopup(e, id) {
+			const itemId = id;
+			let x, y;
 
 			if (this.popupShown) {
 				this.removeCurrentPopup();
 			}
 			this.popupShown = true;
-			window.clearInterval(this.timer);
 			this.timer = null;
-			if (e.target.tagName == 'svg') {
-				itemId = e.target.parentElement.id
-				x = e.clientX - 4;
-				y = e.clientY - 4;
+			x = e.clientX + 6;
+			y = e.clientY + 6;
+			
+			const popupData = (this.popupHandlers[itemId] || this.popupHandlers.default)(itemId);
+			if (popupData) {
+				this.popup = popupData;
+				this.$refs.popup.show(x, y);
 			}
-			else if (e.target.tagName == 'use') {
-				itemId = e.target.parentElement.parentElement.id
-				x = e.clientX;
-				y = e.clientY;
-			}
-			else {
-				itemId = e.target.id;
-				x = e.clientX - 12;
-				y = e.clientY - 12;
-			}
+		},
 
-			if (itemId == "buddy") {
-				const popupData = {};
+		setupBuddyPopup() {
+			this.popupIcon = this.$refs["buddyIcon"];
+			return {
+				id: "buddy",
+				directory: "icons",
+				icon: {
+					id: "buddy_popup",
+					iconData: "icons/owner-icon.svg",
+					color: this.buddycolor,
+					size: this.constant.iconSizeList,
+				},
+				name: this.username,
+				title: null,
+				itemList: [
+					{ icon: { id: 'preferences', iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.$t("MySettings") },
+					{ icon: { id: 'shutdown', iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.$t("Logoff") },
+				],
+			};
+		},
 
-				popupData["buddy"] = {
-					id: "buddy",
-					directory: "icons",
-					icon: {
-						id: "buddy_popup",
-						iconData: "icons/owner-icon.svg",
-						color: this.buddycolor,
-						size: this.constant.iconSizeList,
-					},
-					name: this.username,
-					title: null,
-					itemList: [
-						{ icon: { id: 'preferences', iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.$t("MySettings") },
-						{ icon: { id: 'shutdown', iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.$t("Logoff") },
-					],
-				};
-				this.popup = popupData[itemId];
-				this.popupIcon = this.$refs["buddyIcon"];
-			} else {
-				const obj = JSON.parse(JSON.stringify(this.popupData));
-				if (!obj) {
-					return;
-				}
-				this.popup = obj[itemId];
-				this.popupIcon = this.$refs["activity" + itemId][0];
+		setupActivityPopup(itemId) {
+			const obj = JSON.parse(JSON.stringify(this.popupData));
+			if (!obj) {
+				return null;
 			}
-			this.$refs.popup.show(x, y);
+			this.popupIcon = this.$refs["activity" + itemId][0];
+			return obj[itemId];
 		},
 
 		async removePopupTimer(e) {
 			if (this.timer != null) {
-				window.clearInterval(this.timer);
+				window.clearTimeout(this.timer);
 			}
-			this.timer = window.setInterval(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
+			this.timer = window.setTimeout(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
 		},
 				
 		async removePopup(e) {
@@ -373,7 +371,7 @@ const HomeScreen = {
 		removeCurrentPopup() {
 			this.$refs.popup.hide();
 			this.popupShown = false;
-			window.clearInterval(this.timer);
+			window.clearTimeout(this.timer);
 			this.timer = null;
 		},
 
