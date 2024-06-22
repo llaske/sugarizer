@@ -67,9 +67,20 @@ var TemplateViewer = {
 	},
 	computed: {
 		visibleImages: function() {
-			return this.template.images.filter(function(item) {
-				return item.visible!=false;
-			});
+			if(this.template.name !== 'template-word'){
+				return this.template.images.map(item => {
+					return {
+						...item,
+						visible: item.visible !== undefined ? item.visible : true,
+						delete: item.delete !== undefined ? item.delete : false
+					};
+				}).filter(item => item.visible && !item.delete);
+			}
+			else{
+				return this.template.images.filter(function(item) {
+					return item.visible!=false;
+				});
+			}
 		}
 	},
 	methods: {
