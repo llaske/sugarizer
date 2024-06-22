@@ -2,7 +2,7 @@
   background-image: url(../activity/activity-icon.svg);
 }
 #main-toolbar #network-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 .toolbar hr {
   vertical-align: bottom;
@@ -18,33 +18,33 @@
 }
 
 #private-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
-	width: 47px;
-	height: 47px;
-	margin: 4px 2px;
-	color: white;
-	color: transparent;
-	background-color: transparent;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0;
-	border-radius: 5.5px;
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
 }
 
 #shared-button {
-	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
-	width: 47px;
-	height: 47px;
-	margin: 4px 2px;
-	color: white;
-	color: transparent;
-	background-color: transparent;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	border: 0;
-	border-radius: 5.5px;
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
 }
 
 body {
@@ -55,17 +55,16 @@ body {
   outline: none;
 }
 #volume-button {
-  background-image:url(../icons/cube_solid.svg);
-  outline:none;
+  background-image: url(../icons/cube_solid.svg);
+  outline: none;
 }
 #main-toolbar #clear-button {
   background-image: url(../icons/minus.svg);
-  outline:none;
+  outline: none;
 }
 #clear-button.active {
-  background-color: #D3D3D3; 
+  background-color: #d3d3d3;
 }
-
 
 #main-toolbar #solid-button {
   background-image: url(../icons/cube_solid.svg);
@@ -73,7 +72,7 @@ body {
   width: 65px;
   background-size: cover;
   background-repeat: no-repeat;
-  outline:none;
+  outline: none;
 }
 #number-button {
   height: 65px;
@@ -90,7 +89,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(../icons/glass.svg);
-  outline:none;
+  outline: none;
 }
 #throw-button {
   height: 45px;
@@ -98,7 +97,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(../icons/throw.svg);
-  outline:none;
+  outline: none;
 }
 #transparent-button {
   margin: 0;
@@ -119,71 +118,71 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url(../icons/default_volume.svg);
-  outline:none;
+  outline: none;
   border-radius: 5px;
 }
 
-#colors-button-fill{
+#colors-button-fill {
   display: none;
 }
 .button-background {
-  background-color:#000;
+  background-color: #000;
 }
 #cube-button {
-  background-image:url(../icons/cube.svg);
-  outline:none;
+  background-image: url(../icons/cube.svg);
+  outline: none;
   background-repeat: no-repeat;
   background-size: cover;
 }
 #tetra-button {
-  background-image:url(../icons/tetra.svg);
-  outline:none;
+  background-image: url(../icons/tetra.svg);
+  outline: none;
   background-repeat: no-repeat;
   background-size: cover;
 }
 #octa-button {
-  background-image:url(../icons/octa.svg);
-  outline:none;
+  background-image: url(../icons/octa.svg);
+  outline: none;
   background-repeat: no-repeat;
   background-size: cover;
 }
 #dodeca-button {
-  background-image:url(../icons/dodeca.svg);
-  outline:none;
+  background-image: url(../icons/dodeca.svg);
+  outline: none;
   background-repeat: no-repeat;
   background-size: cover;
 }
 #deca-button {
-  background-image:url(../icons/deca.svg);
-  outline:none;
+  background-image: url(../icons/deca.svg);
+  outline: none;
   background-repeat: no-repeat;
   background-size: cover;
 }
 #icosa-button {
-  background-image:url(../icons/icosa.svg);
-  outline:none;
+  background-image: url(../icons/icosa.svg);
+  outline: none;
   margin-left: 10px;
   background-repeat: no-repeat;
   background-size: cover;
 }
 .active {
-  background-color: #656565 !important; 
+  background-color: #656565 !important;
 }
 
 #main-toolbar #help-button {
-	background-image: url(../icons/help.svg);
+  background-image: url(../icons/help.svg);
 }
 .vertical-line {
-  width: 5px; 
-  height: 55px; 
-  background-color: white; 
+  width: 5px;
+  height: 55px;
+  background-color: white;
   transform: translateX(-50%);
   margin-left: 5px;
   margin-right: 5px;
 }
 
 .selector {
-  display:flex;
+  display: flex;
 }
 .bg-select {
   /* padding: 10px; */
@@ -217,12 +216,13 @@ body {
   background-image: url(../icons/image.svg);
 }
 body {
-	margin: 0;
-	color: var(--color-text);
-	background-color: var(--color-bg);
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 body {
   margin: 0;
@@ -251,7 +251,7 @@ body {
 
 #score-container {
   position: absolute;
-  height:70vh;
+  height: 70vh;
   width: 70vh;
   top: 70px;
   left: 20px;
@@ -275,7 +275,6 @@ body {
   font-size: 1.5rem;
 }
 
-
 .color-palette {
   display: flex;
   width: 370px; /* ugly hack */
@@ -283,24 +282,23 @@ body {
   border: #808080 2px solid;
 }
 
-
 #color-grid-fill {
   display: grid;
-  grid-template-columns: repeat(3, 50px); 
+  grid-template-columns: repeat(3, 50px);
   grid-gap: 10px;
-  margin-left:5px;
-  margin-bottom:5px;
-  margin-top:5px;
-  margin-right:5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 #color-grid-text {
   display: grid;
   grid-template-columns: repeat(3, 50px);
   grid-gap: 10px;
-  margin-left:5px;
-  margin-bottom:5px;
-  margin-top:5px;
-  margin-right:5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 .slider-container {
@@ -346,21 +344,23 @@ body {
 }
 
 #right-button {
-  background-image: url(../icons/right-arrow.svg);
+  background-image: url(../icons/go-right.svg);
 }
 #up-button {
-  background-image: url(../icons/up-arrow.svg);
+  background-image: url(../icons/go-right.svg);
+  transform: rotate(-90deg);
 }
 #down-button {
-  background-image: url(../icons/down-arrow.svg);
+  background-image: url(../icons/go-left.svg);
+  transform: rotate(-90deg);
 }
 
 #left-button {
-  background-image: url(../icons/left-arrow.svg);
+  background-image: url(../icons/go-left.svg);
 }
 
 .arrow-container {
-  width:50%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -376,18 +376,16 @@ body {
   margin: 5px 0;
 }
 
-
 .left-right-buttons {
   display: flex;
   justify-content: space-between;
   /* background-color:pink; */
-  width:80%;
+  width: 80%;
 }
 
 .left-right-buttons .arrow-button {
   margin: 0 5px;
 }
-
 
 .color-fill {
   width: 45px; /* Decreased circle size */
@@ -396,7 +394,6 @@ body {
   cursor: pointer;
   border: white solid 2px;
 }
-
 
 .color-text {
   width: 45px; /* Decreased circle size */
@@ -410,24 +407,24 @@ body {
 
 .introjs-overlay {
   background-color: #000 !important;
-  opacity: .8 !important;
+  opacity: 0.8 !important;
 }
 
 .introjs-tooltip {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   border-radius: 6px !important;
   padding: 2px 1px !important;
   font-size: 14px !important;
 }
 
-.introjs-helperLayer{
+.introjs-helperLayer {
   background: inherit !important;
   opacity: 0.6 !important;
 }
 
 .customTooltip .introjs-tooltip-header {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color : #ffffff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
   text-shadow: none;
   /* background-color: #808080; */
   margin: 0;
@@ -481,7 +478,7 @@ body {
 
 .customTooltip .introjs-tooltipbuttons {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -505,8 +502,8 @@ body {
 }
 
 .customTooltip .introjs-button:focus {
-  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
-  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
   border: 0px;
   /* background-color: #808080 !important; */
 }
@@ -514,11 +511,11 @@ body {
 .customTooltip .introjs-disabled {
   color: black !important;
   border: 0px;
-  opacity: .65;
+  opacity: 0.65;
 }
 
 .customTooltip .introjs-disabled:focus {
-  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
-  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
   border: 0px;
 }
