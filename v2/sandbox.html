@@ -30,7 +30,7 @@
 			svgfile="icons/preferences-system.svg" 
 			size="24"
 			color="256"
-			v-bind:title="l10n.MySettings"
+			v-bind:title="$t(MySettings)" 
 			v-on:button-click="openModal('settingModal')"
 			
 		></icon-button>
@@ -231,10 +231,8 @@
 			</li>
 		</ul>
 		<locales ref="locales"></locales>
-		<sugar-localization ref="SugarL10n"></sugar-localization>
 	</div>
 
-	<script src="js/components/SugarL10n.js"></script>
 	<script src="js/components/icon.js"></script>
 	<script src="js/components/iconbutton.js"></script>
 	<script src="js/components/searchfield.js"></script>
