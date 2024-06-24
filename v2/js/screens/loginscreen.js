@@ -28,7 +28,7 @@ const LoginScreen = {
 			<input ref="nameInput" type="text" name="name" class="input_field" v-model="details.name" @keyup="handleEnterKey">
 		</div>
 		<div id="loginscreen_password" class="column" v-show="index.currentIndex === 2">
-			<div ref="pwdText" class="firstscreen_text" id="pass_text" v-html="$t('PasswordLink')"></div>
+			<div ref="pwdText" class="firstscreen_text" id="pass_text" v-html="$t('Password')"></div>
 			<password ref="passwordInput" @passwordSet="handlePasswordSet"></password>
 		</div>
 		<div id="loginscreen_iconchoice" class="column" v-show="index.currentIndex === 3">
