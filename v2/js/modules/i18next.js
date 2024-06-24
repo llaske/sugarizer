@@ -61,5 +61,5 @@ define(["lib/i18next.min.js", "lib/i18next-vue.js"], function (
 		app.use(I18NextVue, { i18next });
 	};
 
-	return { init, useI18n };
+	return { init, useI18n, language };
 });
