@@ -33,7 +33,9 @@ define([
     );
     paletteBg.setBackgroundChangeCallback(changeBoardBackgroundHelper);
     function changeBoardBackgroundHelper(selectedBoard) {
+      console.log("changing background from base func")
       if (presence) {
+        console.log("presence is true sending message now")
         presence.sendMessage(presence.getSharedInfo().id, {
           user: presence.getUserInfo(),
           action: "changeBg",
@@ -115,6 +117,7 @@ define([
         throwDice();
       }
       if (msg.action == "changeBg") {
+        console.log("changeBG is the action now");
         changeBoardBackground(msg.content);
       }
       if (msg.action == "resetScore") {
@@ -122,6 +125,10 @@ define([
         totalScoreElement.textContent = 0;
         lastRoll = "";
         lastRollElement.textContent = "";
+      }
+      if (msg.action == "remove") {
+        console.log("removing action received")
+        remove(msg.content);
       }
       switch (msg.content.shape) {
         case "cube":
@@ -132,7 +139,10 @@ define([
             msg.content.xCoordinateShared,
             msg.content.zCoordinateShared,
             msg.content.ifImage,
-            msg.content.sharedImageData
+            msg.content.sharedImageData,
+            msg.content.yCoordinateShared,
+            msg.content.quaternionShared,
+            msg.content.sharedTextColor
           );
           break;
         case "octa":
@@ -143,7 +153,10 @@ define([
             msg.content.xCoordinateShared,
             msg.content.zCoordinateShared,
             msg.content.ifImage,
-            msg.content.sharedImageData
+            msg.content.sharedImageData,
+            msg.content.yCoordinateShared,
+            msg.content.quaternionShared,
+            msg.content.sharedTextColor
           );
           break;
         case "tetra":
@@ -155,7 +168,10 @@ define([
             msg.content.xCoordinateShared,
             msg.content.zCoordinateShared,
             msg.content.ifImage,
-            msg.content.sharedImageData
+            msg.content.sharedImageData,
+            msg.content.yCoordinateShared,
+            msg.content.quaternionShared,
+            msg.content.sharedTextColor
           );
           break;
         case "dodeca":
@@ -166,7 +182,10 @@ define([
             msg.content.xCoordinateShared,
             msg.content.zCoordinateShared,
             msg.content.ifImage,
-            msg.content.sharedImageData
+            msg.content.sharedImageData,
+            msg.content.yCoordinateShared,
+            msg.content.quaternionShared,
+            msg.content.sharedTextColor
           );
           break;
         case "deca":
@@ -177,7 +196,10 @@ define([
             msg.content.xCoordinateShared,
             msg.content.zCoordinateShared,
             msg.content.ifImage,
-            msg.content.sharedImageData
+            msg.content.sharedImageData,
+            msg.content.yCoordinateShared,
+            msg.content.quaternionShared,
+            msg.content.sharedTextColor
           );
           break;
 
@@ -189,7 +211,10 @@ define([
             msg.content.xCoordinateShared,
             msg.content.zCoordinateShared,
             msg.content.ifImage,
-            msg.content.sharedImageData
+            msg.content.sharedImageData,
+            msg.content.yCoordinateShared,
+            msg.content.quaternionShared,
+            msg.content.sharedTextColor
           );
           break;
       }
@@ -759,13 +784,16 @@ define([
                   user: presence.getUserInfo(),
                   content: {
                     shape: "cube",
-                    color: currentenv.user.colorvalue.fill,
+                    color: presentColor,
                     ifTransparent: toggleTransparent,
                     ifNumbers: showNumbers,
                     xCoordinateShared: xCoordinate,
                     zCoordinateShared: zCoordinate,
                     ifImage: showImage,
                     sharedImageData: imageData,
+                    yCoordinateShared: null,
+                    quaternionShared: null,
+                    sharedTextColor: textColor,
                   },
                 });
               }
@@ -776,13 +804,16 @@ define([
                   user: presence.getUserInfo(),
                   content: {
                     shape: "tetra",
-                    color: currentenv.user.colorvalue.fill,
+                    color: presentColor,
                     ifTransparent: toggleTransparent,
                     ifNumbers: showNumbers,
                     xCoordinateShared: xCoordinate,
                     zCoordinateShared: zCoordinate,
                     ifImage: showImage,
                     sharedImageData: imageData,
+                    yCoordinateShared: null,
+                    quaternionShared: null,
+                    sharedTextColor: textColor,
                   },
                 });
               }
@@ -793,13 +824,16 @@ define([
                   user: presence.getUserInfo(),
                   content: {
                     shape: "deca",
-                    color: currentenv.user.colorvalue.fill,
+                    color: presentColor,
                     ifTransparent: toggleTransparent,
                     ifNumbers: showNumbers,
                     xCoordinateShared: xCoordinate,
                     zCoordinateShared: zCoordinate,
                     ifImage: showImage,
                     sharedImageData: imageData,
+                    yCoordinateShared: null,
+                    quaternionShared: null,
+                    sharedTextColor: textColor,
                   },
                 });
               }
@@ -810,13 +844,16 @@ define([
                   user: presence.getUserInfo(),
                   content: {
                     shape: "dodeca",
-                    color: currentenv.user.colorvalue.fill,
+                    color: presentColor,
                     ifTransparent: toggleTransparent,
                     ifNumbers: showNumbers,
                     xCoordinateShared: xCoordinate,
                     zCoordinateShared: zCoordinate,
                     ifImage: showImage,
                     sharedImageData: imageData,
+                    yCoordinateShared: null,
+                    quaternionShared: null,
+                    sharedTextColor: textColor,
                   },
                 });
               }
@@ -827,13 +864,16 @@ define([
                   user: presence.getUserInfo(),
                   content: {
                     shape: "icosa",
-                    color: currentenv.user.colorvalue.fill,
+                    color: presentColor,
                     ifTransparent: toggleTransparent,
                     ifNumbers: showNumbers,
                     xCoordinateShared: xCoordinate,
                     zCoordinateShared: zCoordinate,
                     ifImage: showImage,
                     sharedImageData: imageData,
+                    yCoordinateShared: null,
+                    quaternionShared: null,
+                    sharedTextColor: textColor,
                   },
                 });
               }
@@ -845,13 +885,16 @@ define([
                   user: presence.getUserInfo(),
                   content: {
                     shape: "octa",
-                    color: currentenv.user.colorvalue.fill,
+                    color: presentColor,
                     ifTransparent: toggleTransparent,
                     ifNumbers: showNumbers,
                     xCoordinateShared: xCoordinate,
                     zCoordinateShared: zCoordinate,
                     ifImage: showImage,
                     sharedImageData: imageData,
+                    yCoordinateShared: null,
+                    quaternionShared: null,
+                    sharedTextColor: textColor,
                   },
                 });
               }
@@ -862,27 +905,58 @@ define([
     }
     function onRemoveClick(event) {
       if (removeVolume) {
-        // Calculate mouse position in normalized device coordinates
-        var rect = renderer.domElement.getBoundingClientRect();
-        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        if (!presence) {
+          // Calculate mouse position in normalized device coordinates
+          var rect = renderer.domElement.getBoundingClientRect();
+          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-        // Update the picking ray with the camera and mouse position
-        raycaster.setFromCamera(mouse, camera);
+          // Update the picking ray with the camera and mouse position
+          raycaster.setFromCamera(mouse, camera);
 
-        // Calculate objects intersecting the picking ray
-        var intersects = raycaster.intersectObjects(scene.children);
+          // Calculate objects intersecting the picking ray
+          var intersects = raycaster.intersectObjects(scene.children);
 
-        var intersectedObject = intersects[0]?.object;
-        if (intersectedObject.geometry.type == "PlaneGeometry") {
-          return;
+          var intersectedObject = intersects[0]?.object;
+          if (intersectedObject?.geometry.type == "PlaneGeometry") {
+            return;
+          }
+          remove(intersectedObject)
+        } else {
+          // Calculate mouse position in normalized device coordinates
+          console.log("presence remove")
+          var rect = renderer.domElement.getBoundingClientRect();
+          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+          // Update the picking ray with the camera and mouse position
+          raycaster.setFromCamera(mouse, camera);
+
+          // Calculate objects intersecting the picking ray
+          var intersects = raycaster.intersectObjects(scene.children);
+
+          var intersectedObject = intersects[0]?.object;
+          if (intersectedObject.geometry.type == "PlaneGeometry") {
+            return;
+          }
+          remove(intersectedObject)
+          presence.sendMessage(presence.getSharedInfo().id, {
+            user: presence.getUserInfo(),
+            action: "remove",
+            content: intersectedObject,
+          });
         }
-        let num = 0;
+      }
+    }
+    function remove(intersectedObject) {
+      let num = 0;
         for (let i = 0; i < diceArray.length; i++) {
           if (diceArray[i][3]) {
             num++;
           }
         }
+        console.log(intersectedObject)
+        console.log(diceArray[0][0])
         for (let i = 0; i < diceArray.length; i++) {
           if (diceArray[i][0] == intersectedObject) {
             if (diceArray[i][3]) {
@@ -895,10 +969,9 @@ define([
         }
         if (num == 0) {
           lastRollElement.textContent = "";
-          lastRoll = ""
-          presentScore = 0
+          lastRoll = "";
+          presentScore = 0;
         }
-      }
     }
 
     var presence = null;
@@ -915,7 +988,7 @@ define([
           return;
         }
         network.createSharedActivity(
-          "org.sugarlabs.Volume",
+          "org.sugarlabs.3DVolume",
           function (groupId) {
             console.log("Activity shared");
           }
@@ -1062,9 +1135,9 @@ define([
 
     const rollingForceMagnitude = 2; // Adjust for desired intensity
     const randomDirection = new CANNON.Vec3(
-      Math.random() - 0.5, // Random x-axis value between -0.5 and 0.5
-      Math.random() * 0.2 - 0.1, // Random y-axis value between -0.1 and 0.1 (slightly tilted)
-      Math.random() - 0.5 // Random z-axis value between -0.5 and 0.5
+      0.3, // Random x-axis value between -0.5 and 0.5
+      0.05, // Random y-axis value between -0.1 and 0.1 (slightly tilted)
+      0.3 // Random z-axis value between -0.5 and 0.5
     );
     randomDirection.normalize(); // Normalize to unit vector
 
@@ -1330,11 +1403,7 @@ define([
         });
       }
       world.addBody(tetrahedronBody);
-      tetrahedronBody.angularVelocity.set(
-        Math.random() - 0.5,
-        Math.random(),
-        Math.random() - 0.5
-      );
+      tetrahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
       tetrahedronBody.applyImpulse(offset, rollingForce);
       tetrahedron.position.copy(tetrahedronBody.position); // this merges the physics body to threejs mesh
       tetrahedron.quaternion.copy(tetrahedronBody.quaternion);
@@ -1508,11 +1577,7 @@ define([
       }
       world.addBody(octahedronBody);
 
-      octahedronBody.angularVelocity.set(
-        Math.random() - 0.5,
-        Math.random(),
-        Math.random() - 0.5
-      );
+      octahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
       octahedronBody.applyImpulse(offset, rollingForce);
       octahedron.position.copy(octahedronBody.position); // this merges the physics body to threejs mesh
       octahedron.quaternion.copy(octahedronBody.quaternion);
@@ -1663,11 +1728,7 @@ define([
         });
       }
 
-      boxBody.angularVelocity.set(
-        Math.random() - 0.5,
-        Math.random(),
-        Math.random() - 0.5
-      );
+      boxBody.angularVelocity.set(0.5, 0.5, 0.5);
       boxBody.applyImpulse(offset, rollingForce);
 
       // what will happen when the two bodies touch
@@ -1899,11 +1960,7 @@ define([
         });
       }
       world.addBody(decahedronBody);
-      decahedronBody.angularVelocity.set(
-        Math.random() - 0.5,
-        Math.random(),
-        Math.random() - 0.5
-      );
+      decahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
       decahedronBody.applyImpulse(offset, rollingForce);
       decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
       decahedron.quaternion.copy(decahedronBody.quaternion);
@@ -2177,9 +2234,9 @@ define([
         friction: -1,
         restitution: 5,
       });
-      dodecahedronBody.sleepSpeedLimit = 0.5
-      dodecahedronBody.sleepTimeLimit = 3
-      console.log(dodecahedronBody)
+      dodecahedronBody.sleepSpeedLimit = 0.5;
+      dodecahedronBody.sleepTimeLimit = 3;
+      console.log(dodecahedronBody);
       if (tempShowNumbers) {
         dodecahedronBody.addEventListener("sleep", () => {
           sleepCounter++;
@@ -2187,11 +2244,7 @@ define([
         });
       }
       world.addBody(dodecahedronBody);
-      dodecahedronBody.angularVelocity.set(
-        Math.random() - 0.5,
-        Math.random(),
-        Math.random() - 0.5
-      );
+      dodecahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
       dodecahedronBody.applyImpulse(offset, rollingForce);
       dodecahedron.position.copy(dodecahedronBody.position); // this merges the physics body to threejs mesh
       dodecahedron.quaternion.copy(dodecahedronBody.quaternion);
@@ -2397,11 +2450,7 @@ define([
       }
       icosahedronBody.sleepSpeedLimit = 0.2; // ugly hack to bypass the vibration issue in the ConvextPolyhedron class of cannon-es, port phyiscs engine to rapier before removing this :)
       world.addBody(icosahedronBody);
-      icosahedronBody.angularVelocity.set(
-        Math.random() - 0.5,
-        Math.random(),
-        Math.random() - 0.5
-      );
+      icosahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
       icosahedronBody.applyImpulse(offset, rollingForce);
       icosahedron.position.copy(icosahedronBody.position); // this merges the physics body to threejs mesh
       icosahedron.quaternion.copy(icosahedronBody.quaternion);
@@ -2433,11 +2482,7 @@ define([
         lastRoll = "";
         presentScore = 0;
         for (let i = 0; i < diceArray.length; i++) {
-          diceArray[i][1].angularVelocity.set(
-            Math.random() - 0.5,
-            Math.random(),
-            Math.random() - 0.5
-          );
+          diceArray[i][1].angularVelocity.set(0.5, 0.5, 0.5);
           diceArray[i][1].applyImpulse(offset, rollingForce);
           diceArray[i][1].position.set(0, 10, 0);
         }
@@ -2630,7 +2675,7 @@ define([
 
       let closestFaces = [];
       let minDifference = Infinity;
-      console.log(body.rotation)
+      console.log(body.rotation);
 
       for (const faceVector of faceVectors) {
         faceVector.vector.applyEuler(body.rotation);
@@ -2731,6 +2776,8 @@ define([
     // }
 
     function changeBoardBackground(selectedBoard) {
+      console.log("changing bg now")
+      console.log(selectedBoard)
       let textureLoader = new THREE.TextureLoader();
       switch (selectedBoard) {
         case "green-board":
