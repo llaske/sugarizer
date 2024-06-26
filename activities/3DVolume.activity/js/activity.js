@@ -713,43 +713,6 @@ define([
     //     }
     //   })
 
-    // document
-    //   .querySelector('.tetra .plus-button')
-    //   .addEventListener('click', () => {
-    //     updateDice('tetra', 1)
-    //     createTetrahedron()
-    //     if (presence) {
-    //       presence.sendMessage(presence.getSharedInfo().id, {
-    //         user: presence.getUserInfo(),
-    //         content: {
-    //           shape: 'tetra',
-    //           color: currentenv.user.colorvalue.fill,
-    //           ifTransparent: toggleTransparent,
-    //           ifNumbers: showNumbers,
-    //         },
-    //       })
-    //     }
-    //   })
-
-    // document
-    //   .querySelector('.octa .plus-button')
-    //   .addEventListener('click', () => {
-    //     updateDice('octa', 1)
-    //     createOctahedron()
-    //     if (presence) {
-    //       presence.sendMessage(presence.getSharedInfo().id, {
-    //         user: presence.getUserInfo(),
-    //         content: {
-    //           shape: 'octa',
-    //           color: currentenv.user.colorvalue.fill,
-    //           ifTransparent: toggleTransparent,
-    //           ifNumbers: showNumbers,
-    //         },
-    //       })
-    //     }
-    //   })
-
-    // const totalScoreElement = document.getElementById('score')
     const lastRollElement = document.getElementById("roll");
 
     // Function to update the elements
@@ -932,6 +895,8 @@ define([
         }
         if (num == 0) {
           lastRollElement.textContent = "";
+          lastRoll = ""
+          presentScore = 0
         }
       }
     }
@@ -1027,7 +992,7 @@ define([
     const groundMesh = new THREE.Mesh(groundGeo, groundMat);
     groundMesh.receiveShadow = true;
 
-    groundMesh.material.color.setHex(0xd3d3d3);
+    groundMesh.material.color.setHex(0x656565);
 
     scene.add(groundMesh);
     const groundPhysMat = new CANNON.Material();
@@ -1792,7 +1757,7 @@ define([
       let decaGeometry = new THREE.PolyhedronGeometry(...args);
 
       if (tempShowNumbers) {
-        let tileDimension = new THREE.Vector2(4, 5);
+        let tileDimension = new THREE.Vector2(3, 4);
         let tileSize = 512;
         let g = decaGeometry;
 
@@ -1804,10 +1769,10 @@ define([
         ctx.fillRect(0, 0, c.width, c.height);
 
         let baseUVs = [
-          [0.1, 0.25], // bt
-          [0.933, 0.25], //br
-          [0.5, 1], // tl
-          [0.5, 0.15],
+          [0.67, 1], //br
+          [0, 0.5], // bt
+          [1, 0.5], // tl
+          [0.67, 0],
         ].map((p) => {
           return new THREE.Vector2(...p);
         });
@@ -2212,6 +2177,9 @@ define([
         friction: -1,
         restitution: 5,
       });
+      dodecahedronBody.sleepSpeedLimit = 0.5
+      dodecahedronBody.sleepTimeLimit = 3
+      console.log(dodecahedronBody)
       if (tempShowNumbers) {
         dodecahedronBody.addEventListener("sleep", () => {
           sleepCounter++;
@@ -2650,8 +2618,8 @@ define([
         { vector: new THREE.Vector3(-phi, 0, 1).normalize(), face: 8 },
         { vector: new THREE.Vector3(phi, 0, -1).normalize(), face: 4 },
         { vector: new THREE.Vector3(-phi, 0, -1).normalize(), face: 12 },
-        { vector: new THREE.Vector3(1, phi, phi).normalize(), face: 2 },
-        { vector: new THREE.Vector3(-1, phi, phi).normalize(), face: 1 },
+        { vector: new THREE.Vector3(1, phi, phi).normalize(), face: 1 },
+        { vector: new THREE.Vector3(-1, phi, phi).normalize(), face: 2 },
         { vector: new THREE.Vector3(1, -phi, phi).normalize(), face: 15 },
         { vector: new THREE.Vector3(-1, -phi, phi).normalize(), face: 16 },
         { vector: new THREE.Vector3(1, phi, -phi).normalize(), face: 10 },
@@ -2662,6 +2630,7 @@ define([
 
       let closestFaces = [];
       let minDifference = Infinity;
+      console.log(body.rotation)
 
       for (const faceVector of faceVectors) {
         faceVector.vector.applyEuler(body.rotation);
@@ -2788,8 +2757,7 @@ define([
           break;
         case "default":
           groundMesh.material.needsUpdate = true;
-          groundMesh.material.color.setHex(0xd3d3d3);
-          console.log(groundMesh.material.color);
+          groundMesh.material.color.setHex(0x656565);
           groundMesh.material.wireframe = false;
           groundMesh.material.map = null;
           groundBody.material.friction = 1;
