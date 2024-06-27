@@ -33,9 +33,8 @@ define([
     );
     paletteBg.setBackgroundChangeCallback(changeBoardBackgroundHelper);
     function changeBoardBackgroundHelper(selectedBoard) {
-      console.log("changing background from base func")
+      console.log("changing background from base func");
       if (presence) {
-        console.log("presence is true sending message now")
         presence.sendMessage(presence.getSharedInfo().id, {
           user: presence.getUserInfo(),
           action: "changeBg",
@@ -113,11 +112,108 @@ define([
       if (presence.getUserInfo().networkId === msg.user.networkId) {
         return;
       }
+      if (msg.action == "init") {
+        data = msg.content
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          let fillColorStored = data[i][3];
+          let textColorStored = data[i][4];
+          switch (data[i][0]) {
+            case "cube":
+              createCube(
+                fillColorStored,
+                data[i][5],
+                data[i][6],
+                data[i][1].x,
+                data[i][1].z,
+                false,
+                null,
+                data[i][1].y,
+                data[i][2],
+                textColorStored
+              );
+              break;
+            case "octa":
+              createOctahedron(
+                fillColorStored,
+                data[i][5],
+                data[i][6],
+                data[i][1].x,
+                data[i][1].z,
+                false,
+                null,
+                data[i][1].y,
+                data[i][2],
+                textColorStored
+              );
+              break;
+            case "tetra":
+              createTetrahedron(
+                fillColorStored,
+                data[i][5],
+                data[i][6],
+                data[i][1].x,
+                data[i][1].z,
+                false,
+                null,
+                data[i][1].y,
+                data[i][2],
+                textColorStored
+              );
+              break;
+            case "deca":
+              createDecahedron(
+                fillColorStored,
+                data[i][5],
+                data[i][6],
+                data[i][1].x,
+                data[i][1].z,
+                false,
+                null,
+                data[i][1].y,
+                data[i][2],
+                textColorStored
+              );
+              break;
+            case "dodeca":
+              createDodecahedron(
+                fillColorStored,
+                data[i][5],
+                data[i][6],
+                data[i][1].x,
+                data[i][1].z,
+                false,
+                null,
+                data[i][1].y,
+                data[i][2],
+                textColorStored
+              );
+              break;
+            case "icosa":
+              createIcosahedron(
+                fillColorStored,
+                data[i][5],
+                data[i][6],
+                data[i][1].x,
+                data[i][1].z,
+                false,
+                null,
+                data[i][1].y,
+                data[i][2],
+                textColorStored
+              );
+              break;
+            default:
+              // Default case (optional): Handle unexpected values
+              console.log(`Unexpected shape: ${data[i][0]}`);
+              break;
+          }
+        }
+      }
       if (msg.action == "throw") {
         throwDice();
       }
       if (msg.action == "changeBg") {
-        console.log("changeBG is the action now");
         changeBoardBackground(msg.content);
       }
       if (msg.action == "resetScore") {
@@ -127,7 +223,7 @@ define([
         lastRollElement.textContent = "";
       }
       if (msg.action == "remove") {
-        console.log("removing action received")
+        console.log("removing action received");
         remove(msg.content);
       }
       switch (msg.content.shape) {
@@ -921,10 +1017,10 @@ define([
           if (intersectedObject?.geometry.type == "PlaneGeometry") {
             return;
           }
-          remove(intersectedObject)
+          remove(intersectedObject);
         } else {
           // Calculate mouse position in normalized device coordinates
-          console.log("presence remove")
+          console.log("presence remove");
           var rect = renderer.domElement.getBoundingClientRect();
           mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
           mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -939,7 +1035,7 @@ define([
           if (intersectedObject.geometry.type == "PlaneGeometry") {
             return;
           }
-          remove(intersectedObject)
+          remove(intersectedObject);
           presence.sendMessage(presence.getSharedInfo().id, {
             user: presence.getUserInfo(),
             action: "remove",
@@ -950,28 +1046,28 @@ define([
     }
     function remove(intersectedObject) {
       let num = 0;
-        for (let i = 0; i < diceArray.length; i++) {
+      for (let i = 0; i < diceArray.length; i++) {
+        if (diceArray[i][3]) {
+          num++;
+        }
+      }
+      console.log(intersectedObject);
+      console.log(diceArray[0][0]);
+      for (let i = 0; i < diceArray.length; i++) {
+        if (diceArray[i][0] == intersectedObject) {
           if (diceArray[i][3]) {
-            num++;
+            num--;
           }
+          world.removeBody(diceArray[i][1]);
+          scene.remove(diceArray[i][0]);
+          diceArray.splice(i, 1);
         }
-        console.log(intersectedObject)
-        console.log(diceArray[0][0])
-        for (let i = 0; i < diceArray.length; i++) {
-          if (diceArray[i][0] == intersectedObject) {
-            if (diceArray[i][3]) {
-              num--;
-            }
-            world.removeBody(diceArray[i][1]);
-            scene.remove(diceArray[i][0]);
-            diceArray.splice(i, 1);
-          }
-        }
-        if (num == 0) {
-          lastRollElement.textContent = "";
-          lastRoll = "";
-          presentScore = 0;
-        }
+      }
+      if (num == 0) {
+        lastRollElement.textContent = "";
+        lastRoll = "";
+        presentScore = 0;
+      }
     }
 
     var presence = null;
@@ -994,8 +1090,29 @@ define([
           }
         );
         network.onDataReceived(onNetworkDataReceived);
+        network.onSharedActivityUserChanged(onNetworkUserChanged);
       });
     });
+
+    var onNetworkUserChanged = function (msg) {
+      let presenceDiceArray = [];
+      for (let i = 0; i < diceArray.length; i++) {
+        presenceDiceArray.push([
+          diceArray[i][2],
+          diceArray[i][1].position,
+          diceArray[i][1].quaternion,
+          diceArray[i][5],
+          diceArray[i][6],
+          diceArray[i][3],
+          diceArray[i][4],
+        ]);
+      }
+      presence.sendMessage(presence.getSharedInfo().id, {
+        user: presence.getUserInfo(),
+        action: "init",
+        content: presenceDiceArray,
+      });
+    };
 
     // document
     //   .querySelector('#reset-button')
@@ -2776,8 +2893,8 @@ define([
     // }
 
     function changeBoardBackground(selectedBoard) {
-      console.log("changing bg now")
-      console.log(selectedBoard)
+      console.log("changing bg now");
+      console.log(selectedBoard);
       let textureLoader = new THREE.TextureLoader();
       switch (selectedBoard) {
         case "green-board":
