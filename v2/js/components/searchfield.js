@@ -31,8 +31,8 @@ const SearchField ={
 		}
 	},
 	watch: {
-		placeholderData: function(newData, oldData) {
-			var element = this.$refs.searchField;
+		placeholder: function(newData, oldData) {
+			var element = this.$refs.text;
 			element.placeholder = newData;
 		},
 		searchQuery: function(value) {
