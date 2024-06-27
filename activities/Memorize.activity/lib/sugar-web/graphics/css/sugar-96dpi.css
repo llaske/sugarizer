@@ -10,6 +10,16 @@ body {
   font-size: 10pt;
   background-color: #c0c0c0;
 }
+
+#fireworksContainer {
+  position: fixed; /* or 'absolute' if that fits better into your layout */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999; /* High z-index to ensure it is above other content */
+}
+
 .unselectable {
   -webkit-user-select: none;
   -moz-user-select: none;

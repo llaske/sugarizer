@@ -180,7 +180,8 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 cards: [],
                 currentPlayer: "",
                 players: [],
-                size: 4
+                size: 4,
+                solvedPairsCount: 0 // ** NEW ADDITION ** , relevant for isGameOver() function
             },
             computeCards: computeCards,
             inEditMode: false,
@@ -192,7 +193,9 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
         };
 
         function shuffle(array) {
+            console.log('cards shuffling')
             var currentIndex = array.length, temporaryValue, randomIndex;
+            MemorizeApp.game.solvedPairsCount = 0;
 
             while (0 !== currentIndex) {
                 randomIndex = Math.floor(Math.random() * currentIndex);
@@ -227,6 +230,9 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
         function computeCards(ignoreSave) {
             MemorizeApp.game.cards = [];
             MemorizeApp.game.selectedCards = [];
+            MemorizeApp.game.solvedPairsCount = 0;
+            //console.log(MemorizeApp.game.solvedPairsCount)
+
 
             if (!MemorizeApp.game.template) {
                 return;
@@ -464,7 +470,101 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             return div;
         }
 
-        function cardClick(div, fromMe, user) {
+        // ** NEW FUNCTION 
+        function isGameOver() {
+            var totalPairs = MemorizeApp.game.cards.length / 2;
+            return MemorizeApp.game.solvedPairsCount >= totalPairs;
+        }
+
+        // ** NEW FUNCTION 
+        function celebrateWin() {
+            console.log('celebrateWin running')
+            console.log(document)
+            MemorizeApp.ui.gameGrid.style = "display;none"
+            
+            document.body.style.backgroundColor = '#000000';
+
+            var fireworksContainer = document.createElement('div');
+            fireworksContainer.setAttribute("id", "fireworks");
+            fireworksContainer.style.display = 'block';
+            fireworksContainer.style.width = '100vw';
+            fireworksContainer.style.height = '100vh';
+            fireworksContainer.style.top = '0';
+            fireworksContainer.style.left = '0';
+            fireworksContainer.style.zIndex = '9999';
+
+            var appluase = new Audio('sounds/applause.mp3');
+
+            var winMessage = document.createElement('div');
+            winMessage.textContent = 'Congratulations! You Won Memorize!';
+            winMessage.style.position = 'fixed';
+            winMessage.style.top = '50%';
+            winMessage.style.left = '50%';
+            winMessage.style.transform = 'translate(-50%, -50%)';
+            winMessage.style.fontSize = '3em';
+            winMessage.style.color = 'white';
+            winMessage.style.zIndex = '10000';
+            winMessage.style.textAlign = 'center';
+            //winMessage.setAttribute('id', 'winMessage');
+
+            document.body.appendChild(fireworksContainer)
+            document.body.appendChild(winMessage);
+
+            if (window.Fireworks) {
+                const fireworks = new Fireworks.default(fireworksContainer, {
+                    autoresize: true,
+                    opacity: 0.75,
+                    acceleration: 2.05,
+                    friction: 0.97,
+                    gravity: 1.5,
+                    particles: 50,
+                    traceLength: 3,
+                    traceSpeed: 10,
+                    explosion: 5,
+                    intensity: 30,
+                    flickering: 50,
+                    lineStyle: 'round',
+                    hue: {
+                      min: 0,
+                      max: 360
+                    }
+                  })
+                document.body.appendChild(MemorizeApp.ui.gameGrid)
+                fireworks.start();
+                appluase.play();
+        
+                setTimeout(() => {
+                    fireworks.stop();
+                    fireworksContainer.style.display = 'none';
+                    document.body.removeChild(winMessage)
+                    document.body.removeChild(fireworksContainer)
+                    document.body.style.backgroundColor = '#c0c0c0';
+                    resetGame()
+                }, 3000);
+            } else {
+                console.error("Fireworks library not loaded");
+            }
+            //winMessage.textContent = '';
+
+        }
+
+        function resetGame() {
+            for (var i = 0; i < MemorizeApp.game.players.length; i++) {
+                MemorizeApp.game.players[i].score = 0;
+            }
+            MemorizeApp.game.selectedCards = [];
+            MemorizeApp.game.cards = [];
+            displayUsersAndScores();
+            MemorizeApp.computeCards();
+            MemorizeApp.drawGame();
+            sendMessage({action: "updateGame", game: MemorizeApp.game});
+            return
+        }
+
+
+        async function cardClick(div, fromMe, user) {
+            console.log(MemorizeApp.game.solvedPairsCount)
+
             var middle = MemorizeApp.game.cards.length / 2;
 
             createAudioContextIfMissing();
@@ -532,6 +632,8 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 MemorizeApp.game.selectedCards[0].card.solved = true;
                 t.card.solved = true;
 
+                MemorizeApp.game.solvedPairsCount++; // Incrementing the count for each new pair
+
                 if (MemorizeApp.game.players.length == 1){
                     MemorizeApp.game.players[0].score = MemorizeApp.game.players[0].score + 1;
                 } else {
@@ -551,7 +653,17 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
                 }, 1000);
 
                 MemorizeApp.game.selectedCards = [];
-                saveGame();
+
+                ///GRID_STYLE = MemorizeApp.ui.gameGrid.style
+                if (isGameOver()) {
+                    console.log('Congrats. You did it. You win!!!');
+                    celebrateWin();
+                    MemorizeApp.ui.gameGrid.style = "width: 715px; margin-left: auto; margin-right: auto;"
+                    
+                    
+                } else {
+                    saveGame();
+                }
                 return;
             }
 
@@ -845,7 +957,6 @@ define(["activity/sample-ressources", "activity/palettes/template-palette", "act
             MemorizeApp.ui.gameGrid = document.getElementById("game-grid");
             MemorizeApp.ui.gamePlayers = document.getElementById("game-players");
             MemorizeApp.ui.gameEditor = document.getElementById("game-editor");
-
             MemorizeApp.ui.gameTemplatesButton = document.getElementById("game-templates-button");
 
             var gt = new templatePalette.TemplatePalette(MemorizeApp.ui.gameTemplatesButton, undefined, MemorizeApp.templates);
