@@ -223,8 +223,15 @@ define([
         lastRollElement.textContent = "";
       }
       if (msg.action == "remove") {
-        console.log("removing action received");
-        remove(msg.content);
+        raycaster.setFromCamera(msg.content, camera)
+        var intersects = raycaster.intersectObjects(scene.children);
+
+        var intersectedObject = intersects[0]?.object;
+        if (intersectedObject?.geometry.type == "PlaneGeometry") {
+          return;
+        }
+        remove(intersectedObject);
+        
       }
       switch (msg.content.shape) {
         case "cube":
@@ -1001,7 +1008,6 @@ define([
     }
     function onRemoveClick(event) {
       if (removeVolume) {
-        if (!presence) {
           // Calculate mouse position in normalized device coordinates
           var rect = renderer.domElement.getBoundingClientRect();
           mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -1017,31 +1023,13 @@ define([
           if (intersectedObject?.geometry.type == "PlaneGeometry") {
             return;
           }
-          remove(intersectedObject);
-        } else {
-          // Calculate mouse position in normalized device coordinates
-          console.log("presence remove");
-          var rect = renderer.domElement.getBoundingClientRect();
-          mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-          mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-
-          // Update the picking ray with the camera and mouse position
-          raycaster.setFromCamera(mouse, camera);
-
-          // Calculate objects intersecting the picking ray
-          var intersects = raycaster.intersectObjects(scene.children);
-
-          var intersectedObject = intersects[0]?.object;
-          if (intersectedObject.geometry.type == "PlaneGeometry") {
-            return;
-          }
-          remove(intersectedObject);
           presence.sendMessage(presence.getSharedInfo().id, {
             user: presence.getUserInfo(),
             action: "remove",
-            content: intersectedObject,
+            content: mouse,
           });
-        }
+          
+          remove(intersectedObject);
       }
     }
     function remove(intersectedObject) {
