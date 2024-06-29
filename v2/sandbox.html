@@ -20,217 +20,219 @@
 	<script>if (window.module) module = window.module;</script>
   </head>
 
-  <body id="body" style="overflow-y: visible !important;">
-	<div id="app">
-		<h2>Hello Sugarizer</h2>
-		<h3>{{ message }}</h3>
-		<icon-button ref="settings1"
-			text="My settings"
-			id="30"
-			svgfile="icons/preferences-system.svg" 
-			size="24"
-			color="256"
-			v-bind:title="$t(MySettings)" 
-			v-on:button-click="openModal('settingModal')"
-			
-		></icon-button>
+  <body id="body">
+	<div id="app" style="height: 100vh; overflow-y: auto;">
+		<div>
+			<h2>Hello Sugarizer</h2>
+			<h3>{{ message }}</h3>
+			<icon-button ref="settings1"
+				text="My settings"
+				id="30"
+				svgfile="icons/preferences-system.svg" 
+				size="24"
+				color="256"
+				v-bind:title="$t(MySettings)" 
+				v-on:button-click="openModal('settingModal')"
+				
+			></icon-button>
 
-		<dialog-box 
-			ref="settingModal"
-			search-field="true"
-			ok-button="false" 
-			cancel-button="true" 
-			v-on:search-input="userSearchMethod($event)" 
-			v-on:on-cancel="userCancelMethod('settingModal')"
-		>
-			<div class="dialog-items">
-				<div v-bind:class="(filtersettings.find(v => ('About me').includes(v))) ? '' :'dialog-item-disable'">
-					<div class="dialog-icon">
-							<icon id="31" svgfile="icons/owner-icon.svg" color="256" size="75"
-						></icon></div>
-						<div class="dialog-item-text">About me</div>
-					</div>
-					<div v-bind:class="(filtersettings.find(v => ('About my computer').includes(v))) ? '' :'dialog-item-disable'">
-						<div class="dialog-icon" v-on:click="openModal('aboutmycomputerModal')">
-							<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" size="75" is-native="true"
-						></icon></div>
-						<div class="dialog-item-text">About my computer</div>
-					</div>
-					<div v-bind:class="(filtersettings.find(v => ('About my server').includes(v))) ? '' :'dialog-item-disable'">
+			<dialog-box 
+				ref="settingModal"
+				search-field="true"
+				ok-button="false" 
+				cancel-button="true" 
+				v-on:search-input="userSearchMethod($event)" 
+				v-on:on-cancel="userCancelMethod('settingModal')"
+			>
+				<div class="dialog-items">
+					<div v-bind:class="(filtersettings.find(v => ('About me').includes(v))) ? '' :'dialog-item-disable'">
 						<div class="dialog-icon">
-							<icon id="33" svgfile="icons/cloud-settings.svg" color="256" size="75" is-native="true"
-						></icon></div>
-						<div class="dialog-item-text">About my server</div>
+								<icon id="31" svgfile="icons/owner-icon.svg" color="256" size="75"
+							></icon></div>
+							<div class="dialog-item-text">About me</div>
+						</div>
+						<div v-bind:class="(filtersettings.find(v => ('About my computer').includes(v))) ? '' :'dialog-item-disable'">
+							<div class="dialog-icon" v-on:click="openModal('aboutmycomputerModal')">
+								<icon id="32" svgfile="icons/module-about_my_computer.svg" color="256" size="75" is-native="true"
+							></icon></div>
+							<div class="dialog-item-text">About my computer</div>
+						</div>
+						<div v-bind:class="(filtersettings.find(v => ('About my server').includes(v))) ? '' :'dialog-item-disable'">
+							<div class="dialog-icon">
+								<icon id="33" svgfile="icons/cloud-settings.svg" color="256" size="75" is-native="true"
+							></icon></div>
+							<div class="dialog-item-text">About my server</div>
+						</div>
+						<div v-bind:class="(filtersettings.find(v => ('My privacy').includes(v))) ? '' :'dialog-item-disable'">
+							<div class="dialog-icon">
+								<icon id="34" svgfile="icons/login-icon.svg" color="256" size="75" is-native="true"
+							></icon></div>
+							<div class="dialog-item-text">My privacy</div>
+						</div>
+						<div v-bind:class="(filtersettings.find(v => ('My security').includes(v))) ? '' :'dialog-item-disable'">
+							<div class="dialog-icon">
+								<icon id="35" svgfile="icons/privacy.svg" color="256" size="75" is-native="true"
+							></icon></div>
+							<div class="dialog-item-text">My security</div>
+						</div>
+						<div v-bind:class="(filtersettings.find(v => ('Language').includes(v))) ? '' :'dialog-item-disable'">
+							<div class="dialog-icon">
+								<icon id="36" svgfile="icons/module-language.svg" color="256" size="75" is-native="true"
+							></icon></div>
+						<div class="dialog-item-text">Language</div>
 					</div>
-					<div v-bind:class="(filtersettings.find(v => ('My privacy').includes(v))) ? '' :'dialog-item-disable'">
-						<div class="dialog-icon">
-							<icon id="34" svgfile="icons/login-icon.svg" color="256" size="75" is-native="true"
-						></icon></div>
-						<div class="dialog-item-text">My privacy</div>
-					</div>
-					<div v-bind:class="(filtersettings.find(v => ('My security').includes(v))) ? '' :'dialog-item-disable'">
-						<div class="dialog-icon">
-							<icon id="35" svgfile="icons/privacy.svg" color="256" size="75" is-native="true"
-						></icon></div>
-						<div class="dialog-item-text">My security</div>
-					</div>
-					<div v-bind:class="(filtersettings.find(v => ('Language').includes(v))) ? '' :'dialog-item-disable'">
-						<div class="dialog-icon">
-							<icon id="36" svgfile="icons/module-language.svg" color="256" size="75" is-native="true"
-						></icon></div>
-					<div class="dialog-item-text">Language</div>
 				</div>
+			</dialog-box>
+
+			<icon-button ref="settings2"
+				text="About my computer"
+				id="31"
+				svgfile="icons/owner-icon.svg" 
+				size="28"
+				color="256"
+				v-on:button-click="openModal('aboutmycomputerModal')"
+				v-bind:disabled="false"
+			></icon-button>
+
+			<dialog-box 
+				ref="aboutmycomputerModal"
+				search-field="false"
+				ok-button="true" 
+				cancel-button="true"
+				icon-data="icons/owner-icon.svg" 
+				title-data="About my computer"
+				v-on:on-cancel="userCancelMethod('aboutmycomputerModal')"
+				v-on:on-ok="userOkMethod('aboutmycomputerModal')"
+			>
+				<div class="computer-content">
+					<div class="computer-software">Software</div>
+					<div>
+						<div class="computer-sugarizer">Sugarizer:</div>
+						<div class="computer-value">{{computerData.sugarizerVersion}}</div>
+					</div>
+					<div>
+						<div class="computer-clienttype">Client type:</div>
+						<div class="computer-value">{{computerData.clientName}}</div>
+					</div>
+					<div>
+						<div class="computer-browser">Browser:</div>
+						<div class="computer-value">{{computerData.browser}}</div>
+					</div>
+					<div>
+						<div class="computer-browserversion">Browser version:</div>
+						<div class="computer-value">{{computerData.browserVersion}}</div>
+					</div>
+					<div>
+						<div class="computer-useragent">User Agent:</div>
+						<div class="computer-value">{{computerData.useragent}}</div>
+					</div>
+					<div>
+						<div class="computer-storage">Storage:</div>
+						<div class="computer-value">{{computerData.storage}}</div>
+					</div>
+					<div class="computer-copyright">Copyright and license</div>
+					<div class="computer-contributor">© 2013-2022 Lionel Laské, Sugar Labs Inc and </div>
+					<div class="computer-contributor-link" v-bind:href="this.contributorsUrl">contributors</div>
+					<div class="computer-licence">Sugarizer is an open source software licensed under the Apache 2.0 license.</div>
+					<div class="computer-licence">Most activities use this license too but some could use a different license, check the README file for more information.</div>
+				</div>
+			</dialog-box>
+
+			<div class="password-demo">
+				<password v-on:password-set="passwordSet($event)"></password>
 			</div>
-		</dialog-box>
-
-		<icon-button ref="settings2"
-			text="About my computer"
-			id="31"
-			svgfile="icons/owner-icon.svg" 
-			size="28"
-			color="256"
-			v-on:button-click="openModal('aboutmycomputerModal')"
-			v-bind:disabled="false"
-		></icon-button>
-
-		<dialog-box 
-			ref="aboutmycomputerModal"
-			search-field="false"
-			ok-button="true" 
-			cancel-button="true"
-			icon-data="icons/owner-icon.svg" 
-			title-data="About my computer"
-			v-on:on-cancel="userCancelMethod('aboutmycomputerModal')"
-			v-on:on-ok="userOkMethod('aboutmycomputerModal')"
-		>
-			<div class="computer-content">
-				<div class="computer-software">Software</div>
-				<div>
-					<div class="computer-sugarizer">Sugarizer:</div>
-					<div class="computer-value">{{computerData.sugarizerVersion}}</div>
-				</div>
-				<div>
-					<div class="computer-clienttype">Client type:</div>
-					<div class="computer-value">{{computerData.clientName}}</div>
-				</div>
-				<div>
-					<div class="computer-browser">Browser:</div>
-					<div class="computer-value">{{computerData.browser}}</div>
-				</div>
-				<div>
-					<div class="computer-browserversion">Browser version:</div>
-					<div class="computer-value">{{computerData.browserVersion}}</div>
-				</div>
-				<div>
-					<div class="computer-useragent">User Agent:</div>
-					<div class="computer-value">{{computerData.useragent}}</div>
-				</div>
-				<div>
-					<div class="computer-storage">Storage:</div>
-					<div class="computer-value">{{computerData.storage}}</div>
-				</div>
-				<div class="computer-copyright">Copyright and license</div>
-				<div class="computer-contributor">© 2013-2022 Lionel Laské, Sugar Labs Inc and </div>
-				<div class="computer-contributor-link" v-bind:href="this.contributorsUrl">contributors</div>
-				<div class="computer-licence">Sugarizer is an open source software licensed under the Apache 2.0 license.</div>
-				<div class="computer-licence">Most activities use this license too but some could use a different license, check the README file for more information.</div>
+			<div class="filterBox-demo">
+				<filter-box 
+					ref="filterBox1" name="filterBox1"
+					v-bind:options="FilterBox1Data"
+					v-on:filter-selected="filterSelected($event)" 
+				></filter-box>
+				<filter-box 
+					ref="filterBox2" name="filterBox2"
+					v-bind:options="FilterBox2Data"
+					v-on:filter-selected="filterSelected($event)" 
+				></filter-box>
 			</div>
-		</dialog-box>
 
-		<div class="password-demo">
-			<password v-on:password-set="passwordSet($event)"></password>
+			<input type="button" value="Change Color" v-on:click="changeColor()"/>
+			<input type="button" value="Change Position" v-on:click="changePosition()"/>
+			<input type="button" value="Change Size" v-on:click="changeSize()"/>
+				
+			<icon ref="icon1"
+				id="1"
+				svgfile="icons/old-owner.svg" 
+				color="8"
+				size="100"
+				x="-2"
+				is-native="true"
+			></icon>
+			<icon ref="icon2"
+				id="2"
+				svgfile="icons/owner-icon.svg" 
+				color="45"
+				size="100"
+				y="-2"
+			></icon>
+			<select-box 
+				v-bind:options="selectBoxDummyData"
+				v-on:option-selected="optionSelected($event)" 
+			></select-box>
+			<icon-button ref="buttonIcon1"
+				text="button one"
+				id="3"
+				svgfile="icons/abcd.svg" 
+				size="28"
+				color="256"
+				v-on:button-click="buttonfunc1"
+				v-bind:disabled="false"
+			></icon-button>
+			<icon-button ref="buttonIcon2"
+				text="button two"
+				id="29"
+				svgfile="icons/star.svg" 
+				size="28"
+				color="256"
+				v-on:button-click="buttonfunc2"
+				v-bind:disabled="false"
+			></icon-button>
+			<icon ref="popupIcon"
+				id="4"
+				svgfile="icons/star.svg" 
+				color="65"
+				size="40"
+				y="10"
+				x="5"
+				v-on:mouseover="showPopupFunction($event)"
+				v-on:mouseleave="removePopupFunction($event)"
+				style="width: fit-content;"
+			></icon>
+			<icon ref="popupIcon"
+				id="5"
+				svgfile="icons/write.svg" 
+				color="95"
+				size="40"
+				y="10"
+				x="5"
+				v-on:mouseover="showPopupFunction($event)"
+				v-on:mouseleave="removePopupFunction($event)"
+				style="width: fit-content;"
+			></icon>
+			<popup ref="popup" 
+				v-bind:item="popupData"
+				v-on:mouseleave="removePopupFunction($event)"
+				v-on:itemis-clicked="itemisClicked($event)"
+			></popup>
+			<search-field 
+				placeholder="search in home"
+				v-on:input-changed="searchFunction($event)"
+			></search-field>
+			<ul>
+				<li v-for="product in filterProducts" key="product.name">
+					Product Name : {{product.name}} - Price : {{product.price}} ({{product.category}})
+				</li>
+			</ul>
+			<locales ref="locales"></locales>
 		</div>
-		<div class="filterBox-demo">
-			<filter-box 
-				ref="filterBox1" name="filterBox1"
-				v-bind:options="FilterBox1Data"
-				v-on:filter-selected="filterSelected($event)" 
-			></filter-box>
-			<filter-box 
-				ref="filterBox2" name="filterBox2"
-				v-bind:options="FilterBox2Data"
-				v-on:filter-selected="filterSelected($event)" 
-			></filter-box>
-		</div>
-
-		<input type="button" value="Change Color" v-on:click="changeColor()"/>
-		<input type="button" value="Change Position" v-on:click="changePosition()"/>
-		<input type="button" value="Change Size" v-on:click="changeSize()"/>
-			
-		<icon ref="icon1"
-			id="1"
-			svgfile="icons/old-owner.svg" 
-			color="8"
-			size="100"
-			x="-2"
-			is-native="true"
-		></icon>
-		<icon ref="icon2"
-			id="2"
-			svgfile="icons/owner-icon.svg" 
-			color="45"
-			size="100"
-			y="-2"
-		></icon>
-		<select-box 
-			v-bind:options="selectBoxDummyData"
-			v-on:option-selected="optionSelected($event)" 
-		></select-box>
-		<icon-button ref="buttonIcon1"
-			text="button one"
-			id="3"
-			svgfile="icons/abcd.svg" 
-			size="28"
-			color="256"
-			v-on:button-click="buttonfunc1"
-			v-bind:disabled="false"
-		></icon-button>
-		<icon-button ref="buttonIcon2"
-			text="button two"
-			id="29"
-			svgfile="icons/star.svg" 
-			size="28"
-			color="256"
-			v-on:button-click="buttonfunc2"
-			v-bind:disabled="false"
-		></icon-button>
-		<icon ref="popupIcon"
-			id="4"
-			svgfile="icons/star.svg" 
-			color="65"
-			size="40"
-			y="10"
-			x="5"
-			v-on:mouseover="showPopupFunction($event)"
-			v-on:mouseleave="removePopupFunction($event)"
-			style="width: fit-content;"
-		></icon>
-		<icon ref="popupIcon"
-			id="5"
-			svgfile="icons/write.svg" 
-			color="95"
-			size="40"
-			y="10"
-			x="5"
-			v-on:mouseover="showPopupFunction($event)"
-			v-on:mouseleave="removePopupFunction($event)"
-			style="width: fit-content;"
-		></icon>
-		<popup ref="popup" 
-			v-bind:item="popupData"
-			v-on:mouseleave="removePopupFunction($event)"
-			v-on:itemis-clicked="itemisClicked($event)"
-		></popup>
-		<search-field 
-			placeholder="search in home"
-			v-on:input-changed="searchFunction($event)"
-		></search-field>
-		<ul>
-			<li v-for="product in filterProducts" key="product.name">
-				Product Name : {{product.name}} - Price : {{product.price}} ({{product.category}})
-			</li>
-		</ul>
-		<locales ref="locales"></locales>
 	</div>
 
 	<script src="js/components/icon.js"></script>
