@@ -3,6 +3,7 @@ requirejs.config({
 	baseUrl: "lib",
 	paths: {
 		activity: "../js",
+		modules: "../js/modules",
 	}
 });
 
@@ -63,19 +64,9 @@ const app = Vue.createApp({
 		"password": Password,
 		"dialog-box": Dialog,
 		"locales": Locales,
-		"sugar-localization": SugarL10n,
 	},
 	data: function () {
 		return {
-			SugarL10n: null,
-			l10n: {
-				stringMySettings: "",
-				stringByUser: "",
-				stringTutoActivityTurtleBlocksJSactivity: "",
-				stringTutoOfflineContent: "",
-				stringLicenseTerms: "",
-			},
-
 			message: "Sugarizer in Vue",
 			products: [
 				{ name: "Keyboard", price: 44, category: 'Accessories' },
@@ -161,17 +152,11 @@ const app = Vue.createApp({
 			contributorsUrl: "https://github.com/llaske/sugarizer/blob/dev/docs/credits.md"
 		}
 	},
-	created() {
-		window.addEventListener('localized', (e) => {
-			this.localized();
-		}, { once: true });
-	},
 	mounted() {
 		this.filterProducts = this.products
 		this.filtersettings = this.settingsData
 		this.computerData = this.getComputerData();
-		this.SugarL10n = this.$refs.SugarL10n;
-		
+		this.localized();	
 	},
 	watch: {
 		filterProducts: function (newData, oldData) {
@@ -281,14 +266,18 @@ const app = Vue.createApp({
 			return computerDetails;
 		},
 		localized() {
-			document.getElementById("30").title = this.SugarL10n.get("MySettings");
-			document.getElementById("ByUser").innerHTML = this.SugarL10n.get("ByUser", { user: "Vinayak" });
-			document.getElementById("TutoActivityTurtleBlocksJSactivity").innerHTML = this.SugarL10n.get("TutoActivityTurtleBlocksJSactivity");
-			document.getElementById("TutoOfflineContent").innerHTML = this.SugarL10n.get("TutoOfflineContent");
-			document.getElementById("LicenseTerms").innerHTML = this.SugarL10n.get("LicenseTerms");
-			this.SugarL10n.localize(this.l10n);
+			document.getElementById("30").title = this.$t("MySettings");
+			document.getElementById("ByUser").innerHTML = this.$t("ByUser", { user: "Vinayak" });
+			document.getElementById("TutoActivityTurtleBlocksJSactivity").innerHTML = this.$t("TutoActivityTurtleBlocksJSactivity");
+			document.getElementById("TutoOfflineContent").innerHTML = this.$t("TutoOfflineContent");
+			document.getElementById("LicenseTerms").innerHTML = this.$t("LicenseTerms");
 		},
 	}
 });
 
-app.mount('#app');
+requirejs(["modules/i18next"], function (i18next) {
+	i18next.init().then(() => {
+		i18next.useI18n(app);
+		app.mount("#app");
+	});
+});
