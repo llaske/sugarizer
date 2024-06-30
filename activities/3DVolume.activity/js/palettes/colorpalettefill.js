@@ -1,49 +1,52 @@
 define([
-  "sugar-web/graphics/palette",
-  "text!activity/palettes/colorpalettefill.html",
+	"sugar-web/graphics/palette",
+	"text!activity/palettes/colorpalettefill.html",
 ], function (palette, template) {
-  var colorpalette = {};
-  colorpalette.ColorPalette = function (invoker, primaryText) {
-    palette.Palette.call(this, invoker, primaryText);
-    this.getPalette().id = "color-palette";
+	var colorpalette = {};
+	colorpalette.ColorPalette = function (invoker, primaryText) {
+		palette.Palette.call(this, invoker, primaryText);
+		this.getPalette().id = "color-palette";
 
-    var containerElem = document.createElement("div");
-    
-    containerElem.innerHTML = template;
+		var containerElem = document.createElement("div");
 
-    this.setContent([containerElem]);
+		containerElem.innerHTML = template;
 
-    let that = this;
+		this.setContent([containerElem]);
 
-    const colors = document.querySelectorAll(".color-fill");
-    colors.forEach((color) => {
-      color.addEventListener("click", function () {
-        const selectedColor = this.style.backgroundColor;
-        const colorChangeEvent = new CustomEvent("color-selected-fill", {
-          detail: { color: selectedColor },
-        });
-        document.dispatchEvent(colorChangeEvent);
-        that.popDown();
-      });
-    });
-  };
+		let that = this;
 
-  var addEventListener = function (type, listener, useCapture) {
-    console.log("adding event listener");
-    return this.getPalette().addEventListener(type, listener, useCapture);
-  };
+		const colors = document.querySelectorAll(".color-fill");
+		colors.forEach((color) => {
+			color.addEventListener("click", function () {
+				const selectedColor = this.style.backgroundColor;
+				const colorChangeEvent = new CustomEvent(
+					"color-selected-fill",
+					{
+						detail: { color: selectedColor },
+					}
+				);
+				document.dispatchEvent(colorChangeEvent);
+				that.popDown();
+			});
+		});
+	};
 
-  colorpalette.ColorPalette.prototype = Object.create(
-    palette.Palette.prototype,
-    {
-      addEventListener: {
-        value: addEventListener,
-        enumerable: true,
-        configurable: true,
-        writable: true,
-      },
-    }
-  );
+	var addEventListener = function (type, listener, useCapture) {
+		console.log("adding event listener");
+		return this.getPalette().addEventListener(type, listener, useCapture);
+	};
 
-  return colorpalette;
+	colorpalette.ColorPalette.prototype = Object.create(
+		palette.Palette.prototype,
+		{
+			addEventListener: {
+				value: addEventListener,
+				enumerable: true,
+				configurable: true,
+				writable: true,
+			},
+		}
+	);
+
+	return colorpalette;
 });

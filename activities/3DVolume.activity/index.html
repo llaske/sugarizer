@@ -1,164 +1,174 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>3D Volume Activity</title>
-    <meta
-      name="viewport"
-      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"
-    />
-    <link
-      rel="stylesheet"
-      media="not screen and (device-width: 1200px) and (device-height: 900px)"
-      href="lib/sugar-web/graphics/css/sugar-96dpi.css"
-    />
-    <link
-      rel="stylesheet"
-      media="screen and (device-width: 1200px) and (device-height: 900px)"
-      href="lib/sugar-web/graphics/css/sugar-200dpi.css"
-    />
-    <link rel="stylesheet" href="css/activity.css" />
-    <script src="lib/buffer.js"></script>
-    <script src="lib/three.js"></script>
-    <script src="lib/cannon.js"></script>
-    <script src="lib/orbit.js"></script>
-    <script src="lib/debug.js"></script>
-    <link rel="stylesheet" href="css/introjs.css" />
-    <script src="lib/intro.js"></script>
+	<head>
+		<meta charset="utf-8" />
+		<title>3D Volume Activity</title>
+		<meta
+			name="viewport"
+			content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"
+		/>
+		<link
+			rel="stylesheet"
+			media="not screen and (device-width: 1200px) and (device-height: 900px)"
+			href="lib/sugar-web/graphics/css/sugar-96dpi.css"
+		/>
+		<link
+			rel="stylesheet"
+			media="screen and (device-width: 1200px) and (device-height: 900px)"
+			href="lib/sugar-web/graphics/css/sugar-200dpi.css"
+		/>
+		<link rel="stylesheet" href="css/activity.css" />
+		<script src="lib/buffer.js"></script>
+		<script src="lib/three.js"></script>
+		<script src="lib/cannon.js"></script>
+		<script src="lib/orbit.js"></script>
+		<script src="lib/debug.js"></script>
+		<link rel="stylesheet" href="css/introjs.css" />
+		<script src="lib/intro.js"></script>
 
-    <script data-main="js/loader" src="lib/require.js"></script>
-    <script type="text/javascript" src="../../cordova.js"></script>
-    <script src="https://tympanus.net/codrops/adpacks/cda_sponsor.js"></script>
-  </head>
+		<script data-main="js/loader" src="lib/require.js"></script>
+		<script type="text/javascript" src="../../cordova.js"></script>
+		<script src="https://tympanus.net/codrops/adpacks/cda_sponsor.js"></script>
+	</head>
 
-  <body>
-    <div id="main-toolbar" class="toolbar">
-      <div class="left-container">
-        <button
-          class="toolbutton"
-          id="activity-button"
-          title="My Activity"
-        ></button>
-        <button class="toolbutton" id="network-button" title="Network"></button>
+	<body>
+		<div id="main-toolbar" class="toolbar">
+			<div class="left-container">
+				<button
+					class="toolbutton"
+					id="activity-button"
+					title="My Activity"
+				></button>
+				<button
+					class="toolbutton"
+					id="network-button"
+					title="Network"
+				></button>
 
-        <hr />
+				<hr />
 
-        <button
-          class="button-background toolbutton"
-          id="tetra-button"
-          title="Add Tetrahedron"
-        ></button>
-        <button
-          class="button-background toolbutton"
-          id="cube-button"
-          title="Add Cube"
-        ></button>
-        <button
-          class="button-background toolbutton"
-          id="octa-button"
-          title="Add Octahedron"
-        ></button>
-        <button
-          class="button-background toolbutton"
-          id="deca-button"
-          title="Add Decahedron"
-        ></button>
-        <button
-          class="button-background toolbutton"
-          id="dodeca-button"
-          title="Add Dodecahedron"
-        ></button>
-        <button
-          class="button-background toolbutton"
-          id="icosa-button"
-          title="Add Icosahedron"
-        ></button>
+				<button
+					class="button-background toolbutton"
+					id="tetra-button"
+					title="Add Tetrahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="cube-button"
+					title="Add Cube"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="octa-button"
+					title="Add Octahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="deca-button"
+					title="Add Decahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="dodeca-button"
+					title="Add Dodecahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="icosa-button"
+					title="Add Icosahedron"
+				></button>
 
-        <hr />
+				<hr />
 
-        <button
-          class="toolbutton"
-          class="active"
-          id="clear-button"
-          title="Clear Button"
-        ></button>
+				<button
+					class="toolbutton"
+					class="active"
+					id="clear-button"
+					title="Clear Button"
+				></button>
 
-        <hr />
+				<hr />
 
-        <button
-          class="toolbutton"
-          id="volume-button"
-          title="Toggle Numbers"
-        ></button>
+				<button
+					class="toolbutton"
+					id="volume-button"
+					title="Toggle Numbers"
+				></button>
 
-        <!-- <button class="toolbutton" id="image-button" title="Add images to volumes"></button> -->
+				<!-- <button class="toolbutton" id="image-button" title="Add images to volumes"></button> -->
 
-        <button
-          class="toolbutton"
-          id="color-button-fill"
-          title="Fill Color"
-        ></button>
+				<button
+					class="toolbutton"
+					id="color-button-fill"
+					title="Fill Color"
+				></button>
 
-        <button
-          class="toolbutton"
-          id="color-button-text"
-          title="Fill Color"
-        ></button>
+				<button
+					class="toolbutton"
+					id="color-button-text"
+					title="Fill Color"
+				></button>
 
-        <button
-          class="toolbutton"
-          id="bg-button"
-          title="Change Playmat"
-        ></button>
+				<button
+					class="toolbutton"
+					id="bg-button"
+					title="Change Playmat"
+				></button>
 
-        <hr />
+				<hr />
 
-        <button
-          class="toolbutton"
-          id="zoom-button"
-          title="zoom palette"
-        ></button>
+				<button
+					class="toolbutton"
+					id="zoom-button"
+					title="zoom palette"
+				></button>
 
-        <button
-          class="toolbutton"
-          id="throw-button"
-          title="Throw the dice"
-        ></button>
-      </div>
+				<button
+					class="toolbutton"
+					id="throw-button"
+					title="Throw the dice"
+				></button>
+			</div>
 
-      <!-- <button class="toolbutton" id="reset-button" title="Reset Values"></button> -->
-      <!-- <button class="toolbutton" id="volume-button" title="Add a volume"></button> -->
+			<!-- <button class="toolbutton" id="reset-button" title="Reset Values"></button> -->
+			<!-- <button class="toolbutton" id="volume-button" title="Add a volume"></button> -->
 
-      <!-- <button class="toolbutton" id="solid-button" title="Make all volumes transparent"></button> -->
+			<!-- <button class="toolbutton" id="solid-button" title="Make all volumes transparent"></button> -->
 
-      <!-- Buttons with class="pull-right" will be right aligned -->
-      <div class="right-container">
-        <button
-          class="toolbutton pull-right"
-          id="stop-button"
-          title="Stop"
-        ></button>
-        <button
-          class="toolbutton pull-right"
-          id="help-button"
-          title="Tutorial"
-        ></button>
-      </div>
-    </div>
-    <div id="game-container">
-      <!-- <button id="throw-button">Throw the Dice</button> -->
-      <div id="score-container">
-        <!-- <p id="total-score">Total Score: <span id="score">0</span> </p> -->
-        <div class="arrow-container">
-          <button id="up-button" class="arrow-button"></button>
-          <div class="left-right-buttons">
-            <button id="left-button" class="arrow-button left"></button>
-            <button id="right-button" class="arrow-button right"></button>
-          </div>
-          <button id="down-button" class="arrow-button down"></button>
-        </div>
-      </div>
-      <p id="last-roll"><span id="roll"></span></p>
-    </div>
-  </body>
+			<!-- Buttons with class="pull-right" will be right aligned -->
+			<div class="right-container">
+				<button
+					class="toolbutton pull-right"
+					id="stop-button"
+					title="Stop"
+				></button>
+				<button
+					class="toolbutton pull-right"
+					id="help-button"
+					title="Tutorial"
+				></button>
+			</div>
+		</div>
+		<div id="game-container">
+			<!-- <button id="throw-button">Throw the Dice</button> -->
+			<div id="score-container">
+				<!-- <p id="total-score">Total Score: <span id="score">0</span> </p> -->
+				<div class="arrow-container">
+					<button id="up-button" class="arrow-button"></button>
+					<div class="left-right-buttons">
+						<button
+							id="left-button"
+							class="arrow-button left"
+						></button>
+						<button
+							id="right-button"
+							class="arrow-button right"
+						></button>
+					</div>
+					<button id="down-button" class="arrow-button down"></button>
+				</div>
+			</div>
+			<p id="last-roll"><span id="roll"></span></p>
+		</div>
+	</body>
 </html>
