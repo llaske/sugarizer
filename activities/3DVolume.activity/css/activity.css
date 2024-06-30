@@ -53,17 +53,14 @@ body {
 #main-toolbar #bg-button {
   background-image: url(../icons/insert-picture.svg);
   outline: none;
-  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
 }
 #volume-button {
   background-image: url(../icons/default_volume.svg);
   outline: none;
-  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
 
 }
 #main-toolbar #clear-button {
   background-image: url(../icons/minus.svg);
-  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
   outline: none;
 }
 #clear-button.active {
@@ -94,7 +91,6 @@ body {
   background-repeat: no-repeat;
   background-image: url(../icons/glass.svg);
   outline: none;
-  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
 
 }
 #throw-button {
@@ -103,7 +99,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(../icons/throw.svg);
-  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
   outline: none;
 }
 #transparent-button {
