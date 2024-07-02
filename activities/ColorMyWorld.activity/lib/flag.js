@@ -218,7 +218,7 @@ define(function (require) {
         Burkina_Faso: "🇧🇫",
         Uruguay: "🇺🇾",
         Uzbekistan: "🇺🇿",
-        Saint_Vincent: "🇻🇨",
+        Saint_Vincent_and_the_Grenadines: "🇻🇨",
         Venezuela: "🇻🇪",
         United_States_Virgin_Islands: "🇻🇮",
         Namibia: "🇳🇦",
