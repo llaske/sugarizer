@@ -4,7 +4,11 @@ const MainScreen = {
 	name: 'MainScreen',
 	template: ` <div class="toolbar ">
 					<div class="tool_leftitems">
-						<searchfield ref="searchfield" :placeholder="$t('SearchHome')" v-on:input-changed="searchFunction"/>
+						<searchfield
+							ref="searchfield"
+							v-on:input-changed="searchFunction"
+							:placeholder="screentype==='neighborhood' ? $t('SearchNeighbor') : $t('SearchHome')"
+						/>
 						<icon 
 							class="toolbutton"
 							id="toolbar-help-btn"
@@ -77,31 +81,36 @@ const MainScreen = {
 					</div>
 					</div>
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
+						<settings ref="settings" :buddycolor=buddycolor :username="username"></settings>
 						<listview v-if="screentype==='list'" :filter="filter" @clear-searchfield = "clearSearchField"/>
-						<homescreen ref="home" v-else-if="screentype==='home'" :filter="filter" />
-						<div v-else-if="screentype==='neighborhood'"> Neighborhood </div>
+						<homescreen ref="home" @open-settings="displaySettings" v-else-if="screentype==='home'" :filter="filter" />
+						<neighborhood @open-settings="displayServerSettings" v-else-if="screentype==='neighborhood'" :filter="filter" />
 					</div>
 					`,
 	components: {
 		'searchfield': SearchField,
 		'icon': Icon,
 		'listview': ListView,
-		'homescreen': HomeScreen
+		'homescreen': HomeScreen,
+		"neighborhood": Neighborhood,
+		'settings': Settings,
 	},
 
 	data: function () {
 		return {
-			screentype: 'home',
+			screentype: null,
 			views: ['home', 'list', 'journal', 'neighborhood', 'assignment'],
 			filter: '',
 			offline: false,
 			sync: false,
+			buddycolor: null,
+			username: null,
 		}
 	},
 
-	created: function () {
+	created: async function () {
 		let vm = this;
-		this.initView();
+		this.connectToServer();
 		window.addEventListener('synchronization', (e) => {
 			if (e.detail.step === 'compute') {
 				vm.sync = true;
@@ -114,22 +123,34 @@ const MainScreen = {
 			}
 		});
 		vm.offline = !sugarizer.modules.user.isConnected();
+		await this.initializeActivities();
+		this.initView();
+		document.getElementById(`view_${this.screentype}_button`).classList.add('active');
 	},
 
 	watch: {
 		screentype: function (newVal, oldVal) {
+			if (!oldVal) return;
 			document.getElementById(`view_${newVal}_button`).classList.add('active');
 			document.getElementById(`view_${oldVal}_button`).classList.remove('active');
 		}
 	},
 
-	mounted: function () {
-		document.getElementById(`view_${this.screentype}_button`).classList.add('active');
-	},
-
 	methods: {
+		async initializeActivities() {
+			try {
+				await sugarizer.modules.activities.load();
+			} catch (error) {
+				throw new Error('Unable to load the activities, error ' + error);
+			}
+		},
+
 		initView() {
 			let view = sugarizer.modules.settings.getUser().view;
+			sugarizer.modules.user.get().then((user) => {
+				this.buddycolor = user.color;
+				this.username = user.name;
+			});
 			if (view === undefined || view === null || view < 0 || view >= this.views.length) {
 				this.screentype = this.views[0];
 			} else {
@@ -137,7 +158,26 @@ const MainScreen = {
 			}
 		},
 
+		connectToServer() {
+			const vm = this;
+			const isConnected = sugarizer.modules.presence.isConnected();
+			if (!isConnected) {
+				sugarizer.modules.presence.joinNetwork(function (error, user) {
+					if (error) {
+						console.log("WARNING: Can't connect to presence server");
+					}
+					sugarizer.modules.presence.onConnectionClosed(function (event) {
+						console.log("Disconnected");
+						const message = vm.$t((event.code == 4999) ? "YouveGotDisconnectedAutomatically" : "YouveGotDisconnected");
+						sugarizer.modules.humane.log(message);
+					});
+				});
+			}
+		},
+
 		changeView(view) {
+			this.$refs.settings.setSubScreen(null);
+			this.$refs.settings.closeSettings("settingModal");
 			sugarizer.modules.stats.trace(this.screentype+'_view', 'change_view', view+'_view', null);
 			this.screentype = view;
 			sugarizer.modules.settings.setUser({'view': this.views.indexOf(view)});
@@ -145,14 +185,16 @@ const MainScreen = {
 
 		searchFunction(searchInput) {
 			sugarizer.modules.stats.trace(this.screentype+'_view', 'search', 'q='+searchInput, null);
-			this.filter = searchInput;
+			this.filter = searchInput.trim();
 		},
 
-		displayServerSettings() {
-			if (this.screentype === 'home') {
-				this.$refs.home.$refs.settings.openModal('about_my_server', false);
-			}
+		displaySettings() {
+			this.$refs.settings.openSettingsModal("settingModal");
 		},
+		displayServerSettings() {
+			this.$refs.settings.openModal('about_my_server', false);
+		},
+
 		clearSearchField() {
 			this.$refs.searchfield.searchQuery = '';
 		},

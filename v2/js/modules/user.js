@@ -142,6 +142,7 @@ define([], function() {
 						"access_token": response.token,
 					},
 					networkId: _id,
+					connected: true,
 					...user,
 				}
 				data = convertFields(data);

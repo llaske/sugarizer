@@ -93,7 +93,7 @@ const ListView = {
 	props: ['filter'],
 
 	mounted() {
-		this.getActivities();
+		this.getUser();
 	},
 
 	watch: {
@@ -105,14 +105,6 @@ const ListView = {
 	},
 
 	methods: {
-		async getActivities() {
-			sugarizer.modules.activities.load().then((activities) => {
-				this.getUser();
-			}, (error) => {
-				throw new Error('Unable to load the activities, error ' + error);
-			});
-		},
-
 		async getUser() {
 			sugarizer.modules.user.get().then((user) => {
 				this.buddycolor = user.color;
