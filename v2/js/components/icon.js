@@ -152,7 +152,7 @@ const Icon ={
 			if (size) {
 				svgElement.setAttribute("width", size+"px");
 				svgElement.setAttribute("height", size+"px");
-				svgElement.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
+				parent.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
 				svgElement.setAttribute("preserveAspectRatio", "xMidYMid meet");
 				var img = new Image();
 				img.onload = function() {
