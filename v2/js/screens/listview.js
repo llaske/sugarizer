@@ -4,7 +4,8 @@
 
 const ListView = {
 	name: 'ListView',
-	template: ` <div class="listview" v-for="activity in sortByName(activities)" :key="activity.id">
+	template: `<transition-group name="fade" appear>
+					<div class="listview" v-for="activity in sortByName(activities)" :key="activity.id">
 						<div class="listview_left" >
 							<icon
 								:ref="'star' + activity.id"
@@ -41,9 +42,7 @@ const ListView = {
 							isNative="true"
 						></icon>
 					</div>
-					<div v-if="!activitiesLoaded" class="loading-activities-message">
-						<img src="./images/spinner-light.gif">
-					</div>
+				</transition-group>
 					<div v-if="activities.length === 0">
 						<div v-if="activitiesLoaded" class="no-matching-activities">
 							<div>
@@ -65,9 +64,12 @@ const ListView = {
 					<popup 
 						ref="popup" 
 						v-bind:item="popup"
-						v-on:mouseleave="removePopupTimer($event)"
+					v-on:mouseout="removePopupTimer($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
+				<div v-if="!activitiesLoaded" class="loading-activities-message">
+					<img src="./images/spinner-light.gif">
+				</div>
 				`,
 
 	components: {

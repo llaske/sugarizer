@@ -32,7 +32,7 @@
 const Prompt = {
 	name: "Prompt",
 	template: `
-		<transition name="bounce">
+		<transition name="bounce-prompt">
 			<div ref="promptContainer" class="prompt-container" v-if="isShown" :id="id" @blur="hide" tabindex="0">
 				<div class="prompt-header">
 					<icon
