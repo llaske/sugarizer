@@ -61,20 +61,34 @@ define([
 			undefined
 		);
 
+		const randomDirection = new CANNON.Vec3(
+			0.3, // Random x-axis value between -0.5 and 0.5
+			0.05, // Random y-axis value between -0.1 and 0.1 (slightly tilted)
+			0.3 // Random z-axis value between -0.5 and 0.5
+		);
+		randomDirection.normalize(); // Normalize to unit vector
+
+		let ctx = {
+			showNumbers: false,
+			presentColor: null,
+			textColor: "#ffffff",
+			toggleTransparent: false,
+			offset: new CANNON.Vec3(0, 0.1, 0),
+			rollingForce: randomDirection.scale(2),
+		};
+
 		let presentScore = 0;
 		let lastRoll = "";
 		let diceArray = [];
 		let journalDiceArray = [];
-		let showNumbers = false;
 		let showImage = false;
 		let imageData;
-		let presentColor;
-		let textColor = "#ffffff";
 		var currentenv;
 		let removeVolume = false;
 		let transparent = false;
-		let toggleTransparent = false;
 		let defaultVolume = true;
+
+		let xCoordinate, zCoordinate;
 
 		var defaultButton = document.getElementById("default-button");
 		defaultButton.classList.toggle("active");
@@ -82,23 +96,23 @@ define([
 		env.getEnvironment(function (err, environment) {
 			currentenv = environment;
 
-			presentColor =
+			ctx.presentColor =
 				currentenv.user.colorvalue.fill != null
 					? currentenv.user.colorvalue.fill
-					: presentColor;
+					: ctx.presentColor;
 
 			scene.background = new THREE.Color("#A9A9A9");
-			console.log(presentColor);
+			console.log(ctx.presentColor);
 
-			textColor =
+			ctx.textColor =
 				currentenv.user.colorvalue.stroke != null
 					? currentenv.user.colorvalue.stroke
-					: textColor;
+					: ctx.textColor;
 
 			document.getElementById("color-button-fill").style.backgroundColor =
-				presentColor;
+				ctx.presentColor;
 			document.getElementById("color-button-text").style.backgroundColor =
-				textColor;
+				ctx.textColor;
 
 			if (environment.sharedId) {
 				console.log("Shared instance");
@@ -119,97 +133,51 @@ define([
 				data = msg.content;
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
-					let fillColorStored = data[i][3];
-					let textColorStored = data[i][4];
+					let createFunction = null;
 					switch (data[i][0]) {
 						case "cube":
-							createCube(
-								fillColorStored,
-								data[i][5],
-								data[i][6],
-								data[i][1].x,
-								data[i][1].z,
-								false,
-								null,
-								data[i][1].y,
-								data[i][2],
-								textColorStored
-							);
+							createFunction = createCube;
 							break;
 						case "octa":
-							createOctahedron(
-								fillColorStored,
-								data[i][5],
-								data[i][6],
-								data[i][1].x,
-								data[i][1].z,
-								false,
-								null,
-								data[i][1].y,
-								data[i][2],
-								textColorStored
-							);
+							createFunction = createOctahedron;
 							break;
 						case "tetra":
-							createTetrahedron(
-								fillColorStored,
-								data[i][5],
-								data[i][6],
-								data[i][1].x,
-								data[i][1].z,
-								false,
-								null,
-								data[i][1].y,
-								data[i][2],
-								textColorStored
-							);
+							createFunction = createTetrahedron;
 							break;
 						case "deca":
-							createDecahedron(
-								fillColorStored,
-								data[i][5],
-								data[i][6],
-								data[i][1].x,
-								data[i][1].z,
-								false,
-								null,
-								data[i][1].y,
-								data[i][2],
-								textColorStored
-							);
+							createFunction = createDecahedron;
 							break;
 						case "dodeca":
-							createDodecahedron(
-								fillColorStored,
-								data[i][5],
-								data[i][6],
-								data[i][1].x,
-								data[i][1].z,
-								false,
-								null,
-								data[i][1].y,
-								data[i][2],
-								textColorStored
-							);
+							createFunction = createDodecahedron;
 							break;
 						case "icosa":
-							createIcosahedron(
-								fillColorStored,
-								data[i][5],
-								data[i][6],
-								data[i][1].x,
-								data[i][1].z,
-								false,
-								null,
-								data[i][1].y,
-								data[i][2],
-								textColorStored
-							);
+							createFunction = createIcosahedron;
 							break;
 						default:
-							// Default case (optional): Handle unexpected values
 							console.log(`Unexpected shape: ${data[i][0]}`);
-							break;
+							continue; // Skip the rest of the loop for unexpected shapes
+					}
+
+					if (createFunction) {
+						const fillColorStored = data[i][3];
+						const textColorStored = data[i][4];
+						createFunction(
+							fillColorStored,
+							data[i][5],
+							data[i][6],
+							data[i][1].x,
+							data[i][1].z,
+							false,
+							null,
+							data[i][1].y,
+							data[i][2],
+							textColorStored,
+							ctx,
+							diceArray,
+							world,
+							scene,
+							groundPhysMat
+						);
 					}
 				}
 			}
@@ -272,7 +240,12 @@ define([
 					msg.content.sharedImageData,
 					msg.content.yCoordinateShared,
 					msg.content.quaternionShared,
-					msg.content.sharedTextColor
+					msg.content.sharedTextColor,
+					ctx,
+					diceArray,
+					world,
+					scene,
+					groundPhysMat
 				);
 			}
 		};
@@ -356,7 +329,12 @@ define([
 										null,
 										data[i][1].y,
 										data[i][2],
-										textColorStored
+										textColorStored,
+										ctx,
+										diceArray,
+										world,
+										scene,
+										groundPhysMat
 									);
 								}
 							}
@@ -405,9 +383,9 @@ define([
 				sliderColorFill.g,
 				sliderColorFill.b
 			);
-			presentColor = hexColor;
+			ctx.presentColor = hexColor;
 			document.getElementById("color-button-fill").style.backgroundColor =
-				presentColor;
+				ctx.presentColor;
 		}
 
 		function updateSlidersFill(color) {
@@ -432,9 +410,9 @@ define([
 
 		document.addEventListener("color-selected-fill", function (event) {
 			const selectedColorFill = event.detail.color;
-			presentColor = selectedColorFill;
+			ctx.presentColor = selectedColorFill;
 			document.getElementById("color-button-fill").style.backgroundColor =
-				presentColor;
+				ctx.presentColor;
 			updateSlidersFill(selectedColorFill);
 		});
 
@@ -450,9 +428,9 @@ define([
 				sliderColorText.g,
 				sliderColorText.b
 			);
-			textColor = hexColor;
+			ctx.textColor = hexColor;
 			document.getElementById("color-button-text").style.backgroundColor =
-				textColor;
+				ctx.textColor;
 		}
 
 		function updateSlidersText(color) {
@@ -477,16 +455,16 @@ define([
 
 		document.addEventListener("color-selected-text", function (event) {
 			const selectedColorText = event.detail.color;
-			textColor = selectedColorText;
+			ctx.textColor = selectedColorText;
 			document.getElementById("color-button-text").style.backgroundColor =
-				textColor;
+				ctx.textColor;
 			updateSlidersText(selectedColorText);
 		});
 
 		// document.addEventListener('color-selected-fill', function (event) {
 		//   const selectedColor = event.detail.color;
-		//   presentColor = selectedColor;
-		//   document.getElementById('color-button-fill').style.backgroundColor = presentColor;
+		//   ctx.presentColor = selectedColor;
+		//   document.getElementById('color-button-fill').style.backgroundColor = ctx.presentColor;
 		//   updateSlidersFill(selectedColor);
 		// });
 
@@ -535,18 +513,18 @@ define([
 					defaultButton.classList.toggle("active");
 					defaultVolume = !defaultVolume;
 				}
-				if (toggleTransparent) {
+				if (ctx.toggleTransparent) {
 					var transparentButton =
 						document.getElementById("transparent-button");
 					transparentButton.classList.toggle("active");
-					toggleTransparent = !toggleTransparent;
+					ctx.toggleTransparent = !ctx.toggleTransparent;
 				}
 				if (showImage) {
 					var imageButton1 = document.getElementById("image-button");
 					imageButton1.classList.toggle("active");
 					showImage = !showImage;
 				}
-				showNumbers = !showNumbers;
+				ctx.showNumbers = !ctx.showNumbers;
 				// toggleNumbers();
 			});
 
@@ -569,17 +547,17 @@ define([
 					defaultVolume = !defaultVolume;
 				}
 
-				if (showNumbers) {
+				if (ctx.showNumbers) {
 					var numberButton = document.getElementById("number-button");
 					numberButton.classList.toggle("active");
-					showNumbers = !showNumbers;
+					ctx.showNumbers = !ctx.showNumbers;
 				}
 				if (showImage) {
 					var imageButton1 = document.getElementById("image-button");
 					imageButton1.classList.toggle("active");
 					showImage = !showImage;
 				}
-				toggleTransparent = !toggleTransparent;
+				ctx.toggleTransparent = !ctx.toggleTransparent;
 			});
 
 		document
@@ -591,17 +569,17 @@ define([
 				document.getElementById("volume-button").style.backgroundImage =
 					"url(icons/default_volume.svg)";
 
-				if (toggleTransparent) {
+				if (ctx.toggleTransparent) {
 					var transparentButton =
 						document.getElementById("transparent-button");
 					transparentButton.classList.toggle("active");
-					toggleTransparent = !toggleTransparent;
+					ctx.toggleTransparent = !ctx.toggleTransparent;
 				}
 
-				if (showNumbers) {
+				if (ctx.showNumbers) {
 					var numberButton = document.getElementById("number-button");
 					numberButton.classList.toggle("active");
-					showNumbers = !showNumbers;
+					ctx.showNumbers = !ctx.showNumbers;
 				}
 				if (showImage) {
 					var imageButton1 = document.getElementById("image-button");
@@ -708,17 +686,17 @@ define([
 		//         imageButton.classList.add('active')
 		//         showImage = !showImage
 
-		//         if (toggleTransparent) {
+		//         if (ctx.toggleTransparent) {
 		//           var transparentButton =
 		//             document.getElementById('transparent-button')
 		//           transparentButton.classList.toggle('active')
-		//           toggleTransparent = !toggleTransparent
+		//           ctx.toggleTransparent = !ctx.toggleTransparent
 		//         }
 
-		//         if (showNumbers) {
+		//         if (ctx.showNumbers) {
 		//           var numberButton = document.getElementById('number-button')
 		//           numberButton.classList.toggle('active')
-		//           showNumbers = !showNumbers
+		//           ctx.showNumbers = !ctx.showNumbers
 		//         }
 
 		//         var dataentry = new datastore.DatastoreObject(entry.objectId)
@@ -754,8 +732,8 @@ define([
 		//         content: {
 		//           shape: 'cube',
 		//           color: currentenv.user.colorvalue.fill,
-		//           ifTransparent: toggleTransparent,
-		//           ifNumbers: showNumbers,
+		//           ifTransparent: ctx.toggleTransparent,
+		//           ifNumbers: ctx.showNumbers,
 		//         },
 		//       })
 		//     }
@@ -778,7 +756,6 @@ define([
 		});
 		renderer.shadowMap.enabled = true;
 
-		let xCoordinate, zCoordinate, yCoordinate;
 		const raycaster = new THREE.Raycaster();
 		const mouse = new THREE.Vector2();
 		document.querySelector("body").addEventListener("click", onRemoveClick);
@@ -826,7 +803,23 @@ define([
 						}
 
 						if (createFunction) {
-							createFunction();
+							createFunction(
+								null,
+								null,
+								null,
+								xCoordinate,
+								zCoordinate,
+								null,
+								null,
+								null,
+								null,
+								null,
+								ctx,
+								diceArray,
+								world,
+								scene,
+								groundPhysMat
+							);
 
 							if (presence) {
 								presence.sendMessage(
@@ -835,16 +828,17 @@ define([
 										user: presence.getUserInfo(),
 										content: {
 											shape: shapeType,
-											color: presentColor,
-											ifTransparent: toggleTransparent,
-											ifNumbers: showNumbers,
+											color: ctx.presentColor,
+											ifTransparent:
+												ctx.toggleTransparent,
+											ifNumbers: ctx.showNumbers,
 											xCoordinateShared: xCoordinate,
 											zCoordinateShared: zCoordinate,
 											ifImage: showImage,
 											sharedImageData: imageData,
 											yCoordinateShared: null,
 											quaternionShared: null,
-											sharedTextColor: textColor,
+											sharedTextColor: ctx.textColor,
 										},
 									}
 								);
@@ -1016,7 +1010,7 @@ define([
 			.appendChild(renderer.domElement);
 
 		const scene = new THREE.Scene();
-		scene.background = new THREE.Color(presentColor);
+		scene.background = new THREE.Color(ctx.presentColor);
 		const light = new THREE.DirectionalLight(0xffffff, 0.4);
 		light.castShadow = true;
 		const leftLight = new THREE.DirectionalLight(0xffffff, 0.25);
@@ -1132,17 +1126,7 @@ define([
 		frontWallBody.position.set(0, 0, -15);
 		frontWallBody.quaternion.setFromEuler(0, 0, -Math.PI / 2);
 
-		const rollingForceMagnitude = 2; // Adjust for desired intensity
-		const randomDirection = new CANNON.Vec3(
-			0.3, // Random x-axis value between -0.5 and 0.5
-			0.05, // Random y-axis value between -0.1 and 0.1 (slightly tilted)
-			0.3 // Random z-axis value between -0.5 and 0.5
-		);
-		randomDirection.normalize(); // Normalize to unit vector
-
-		const rollingForce = randomDirection.scale(rollingForceMagnitude);
-
-		const offset = new CANNON.Vec3(0, 0.1, 0);
+		// const rollingForceMagnitude = 2; // Adjust for desired intensity
 
 		const orbit = new OrbitControls.OrbitControls(
 			camera,
@@ -1237,780 +1221,30 @@ define([
 		zoomEqualButton.addEventListener("click", zoomEqualFunction);
 		zoomToButton.addEventListener("click", zoomToFunction);
 
-		function createTetrahedron(
-			sharedColor,
-			ifNumbers,
-			ifTransparent,
-			xCoordinateShared,
-			zCoordinateShared,
-			ifImage,
-			sharedImageData,
-			yCoordinateShared,
-			quaternionShared,
-			sharedTextColor
-		) {
-			let tetrahedron;
-			let tempShowNumbers = ifNumbers == null ? showNumbers : ifNumbers;
-			let tempTransparent =
-				ifTransparent == null ? toggleTransparent : ifTransparent;
-			let tempImage = ifImage == null ? showImage : ifImage;
-			let tempFillColor =
-				sharedColor != null ? sharedColor : presentColor;
-			let tempTextColor =
-				sharedTextColor != null ? sharedTextColor : textColor;
-			if (tempShowNumbers) {
-				let tileDimension = new THREE.Vector2(4, 5);
-				let tileSize = 512;
-				let g = new THREE.TetrahedronGeometry(1.7);
+		function onSleepStateChangeToOne(body) {
+			let score;
+			for (let i = 0; i < diceArray.length; i++) {
+				if (diceArray[i][0] == body) {
+					score = diceArray[i][7];
+					let scoresArray = lastRoll.split(" + ");
 
-				let c = document.createElement("canvas");
-				let div = document.createElement("div");
-				c.width = tileSize * tileDimension.x;
-				c.height = tileSize * tileDimension.y;
-				let ctx = c.getContext("2d");
-				ctx.fillStyle = tempFillColor;
-				ctx.fillRect(0, 0, c.width, c.height);
+					// Find the index of the first occurrence of the score to remove
+					let indexToRemove = scoresArray.indexOf(score.toString());
 
-				let uvs = [];
-
-				let baseUVs = [
-					[0.067, 0.25],
-					[0.933, 0.25],
-					[0.5, 1],
-				].map((p) => {
-					return new THREE.Vector2(...p);
-				});
-				let arrOfNums = [
-					[2, 1, 3],
-					[1, 2, 4],
-					[3, 1, 4],
-					[2, 3, 4],
-				];
-				for (let i = 0; i < 4; i++) {
-					let u = i % tileDimension.x;
-					let v = Math.floor(i / tileDimension.x);
-					uvs.push(
-						(baseUVs[0].x + u) / tileDimension.x,
-						(baseUVs[0].y + v) / tileDimension.y,
-						(baseUVs[1].x + u) / tileDimension.x,
-						(baseUVs[1].y + v) / tileDimension.y,
-						(baseUVs[2].x + u) / tileDimension.x,
-						(baseUVs[2].y + v) / tileDimension.y
-					);
-
-					ctx.textAlign = "center";
-					ctx.textBaseline = "middle";
-					ctx.font = `bold 150px Arial`;
-					ctx.fillStyle = tempTextColor;
-					// ctx.fillText(
-					//   i + 1,
-					//   (u + 0.5) * tileSize,
-					//   c.height - (v + 0.5) * tileSize
-					// );
-					let aStep = (Math.PI * 2) / 3;
-					let yAlign = Math.PI * 0.5;
-					let tileQuarter = tileSize * 0.25;
-					for (let j = 0; j < 3; j++) {
-						ctx.save();
-						ctx.translate(
-							(u + 0.5) * tileSize +
-								Math.cos(j * aStep - yAlign) * tileQuarter,
-							c.height -
-								(v + 0.5) * tileSize +
-								Math.sin(j * aStep - yAlign) * tileQuarter
-						);
-						ctx.rotate((j * Math.PI * 2) / 3);
-						ctx.fillText(arrOfNums[i][j], 0, 0);
-						ctx.restore();
+					// If the score is found, remove it
+					if (indexToRemove !== -1) {
+						scoresArray.splice(indexToRemove, 1);
 					}
+
+					// Join the remaining scores back into a string
+					lastRoll = scoresArray.join(" + ");
 				}
-				g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-				let tex = new THREE.CanvasTexture(c);
-				tex.colorSpace = THREE.SRGBColorSpace;
-
-				let m = new THREE.MeshPhongMaterial({
-					map: tex,
-				});
-
-				tetrahedron = new THREE.Mesh(g, m);
-			} else if (tempTransparent) {
-				const tetrahedronTransparentGeometry =
-					new THREE.TetrahedronGeometry(1.7); // Size of the tetrahedron
-				const wireframe = new THREE.WireframeGeometry(
-					tetrahedronTransparentGeometry
-				);
-				const lineMaterial = new THREE.LineBasicMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					depthTest: true,
-					opacity: 1,
-					transparent: false,
-				});
-				const line = new THREE.LineSegments(wireframe, lineMaterial);
-				tetrahedron = line;
-			} else if (tempImage) {
-				const boxGeo = new THREE.TetrahedronGeometry(1.7);
-
-				const texture = new THREE.TextureLoader().load(
-					sharedImageData != null ? sharedImageData : imageData
-				);
-
-				// Create material using the texture
-				const material = new THREE.MeshPhongMaterial({ map: texture });
-
-				// Create cube mesh with the material
-				tetrahedron = new THREE.Mesh(boxGeo, material);
-			} else {
-				const tetrahedronGeometry = new THREE.TetrahedronGeometry(1.7); // Size of the tetrahedron
-
-				const tetraMaterial = new THREE.MeshStandardMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					wireframe: false,
-				});
-
-				tetrahedron = new THREE.Mesh(
-					tetrahedronGeometry,
-					tetraMaterial
-				);
 			}
-
-			tetrahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
-			tetrahedron.castShadow = true;
-			scene.add(tetrahedron);
-
-			const verticesTetra = [
-				new CANNON.Vec3(1, 1, 1), // Vertex 1 (right)
-				new CANNON.Vec3(-1, -1, 1), // Vertex 2 (top)
-				new CANNON.Vec3(-1, 1, -1), // Vertex 3 (left)
-				new CANNON.Vec3(1, -1, -1), // Vertex 4 (front)
-			];
-			const facesTetra = [
-				[2, 1, 0], // Triangle 1 (right, top, left)
-				[0, 3, 2], // Triangle 2 (right, front, top)
-				[1, 3, 0], // Triangle 3 (top, front, left)
-				[2, 3, 1], // Triangle 4 (left, right, front)
-			];
-			// Create a ConvexPolyhedron shape from the vertices and faces
-			const tetrahedronShape = new CANNON.ConvexPolyhedron({
-				vertices: verticesTetra,
-				faces: facesTetra,
-			});
-
-			let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
-			let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-			let y = yCoordinateShared == null ? 10 : yCoordinateShared;
-
-			const tetrahedronBody = new CANNON.Body({
-				mass: 2, // Set mass
-				shape: tetrahedronShape,
-				position: new CANNON.Vec3(x, y, z),
-				friction: -1,
-				restitution: 5,
-			});
-			if (tempShowNumbers) {
-				tetrahedronBody.addEventListener("sleep", () => {
-					sleepCounter++;
-					getTetraScore(tetrahedron);
-				});
-			}
-			world.addBody(tetrahedronBody);
-			tetrahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
-			tetrahedronBody.applyImpulse(offset, rollingForce);
-			tetrahedron.position.copy(tetrahedronBody.position); // this merges the physics body to threejs mesh
-			tetrahedron.quaternion.copy(tetrahedronBody.quaternion);
-			if (quaternionShared != null && quaternionShared != undefined) {
-				tetrahedron.quaternion.copy(quaternionShared);
-				tetrahedronBody.quaternion.copy(quaternionShared);
-			}
-			diceArray.push([
-				tetrahedron,
-				tetrahedronBody,
-				"tetra",
-				tempShowNumbers,
-				tempTransparent,
-				tempFillColor,
-				tempTextColor,
-			]);
-		}
-
-		function createOctahedron(
-			sharedColor,
-			ifNumbers,
-			ifTransparent,
-			xCoordinateShared,
-			zCoordinateShared,
-			ifImage,
-			sharedImageData,
-			yCoordinateShared,
-			quaternionShared,
-			sharedTextColor
-		) {
-			let octahedron;
-			let tempShowNumbers = ifNumbers == null ? showNumbers : ifNumbers;
-			let tempTransparent =
-				ifTransparent == null ? toggleTransparent : ifTransparent;
-			let tempImage = ifImage == null ? showImage : ifImage;
-			let tempFillColor =
-				sharedColor != null ? sharedColor : presentColor;
-			let tempTextColor =
-				sharedTextColor != null ? sharedTextColor : textColor;
-
-			if (tempShowNumbers) {
-				let tileDimension = new THREE.Vector2(4, 5);
-				let tileSize = 512;
-				let g = new THREE.OctahedronGeometry(1.6);
-
-				let c = document.createElement("canvas");
-				c.width = tileSize * tileDimension.x;
-				c.height = tileSize * tileDimension.y;
-				let ctx = c.getContext("2d");
-				ctx.fillStyle = tempFillColor;
-				ctx.fillRect(0, 0, c.width, c.height);
-
-				let uvs = [];
-
-				let baseUVs = [
-					[0.067, 0.25],
-					[0.933, 0.25],
-					[0.5, 1],
-				].map((p) => {
-					return new THREE.Vector2(...p);
-				});
-
-				for (let i = 0; i < 9; i++) {
-					let u = i % tileDimension.x;
-					let v = Math.floor(i / tileDimension.x);
-					uvs.push(
-						(baseUVs[0].x + u) / tileDimension.x,
-						(baseUVs[0].y + v) / tileDimension.y,
-						(baseUVs[1].x + u) / tileDimension.x,
-						(baseUVs[1].y + v) / tileDimension.y,
-						(baseUVs[2].x + u) / tileDimension.x,
-						(baseUVs[2].y + v) / tileDimension.y
-					);
-
-					ctx.textAlign = "center";
-					ctx.textBaseline = "middle";
-					ctx.font = `bold 200px Arial`;
-					ctx.fillStyle = tempTextColor;
-					ctx.fillText(
-						i + 1 + (i == 5 || i == 8 ? "" : ""),
-						(u + 0.5) * tileSize,
-						c.height - (v + 0.5) * tileSize
-					);
-				}
-				g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-				let tex = new THREE.CanvasTexture(c);
-				tex.colorSpace = THREE.SRGBColorSpace;
-
-				let m = new THREE.MeshPhongMaterial({
-					map: tex,
-				});
-
-				octahedron = new THREE.Mesh(g, m);
-			} else if (tempTransparent) {
-				const octahedronTransparentGeometry =
-					new THREE.OctahedronGeometry(1.6); // Size of the octahedron
-				const wireframe = new THREE.WireframeGeometry(
-					octahedronTransparentGeometry
-				);
-				const lineMaterial = new THREE.LineBasicMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					depthTest: true,
-					opacity: 1,
-					transparent: false,
-				});
-				const line = new THREE.LineSegments(wireframe, lineMaterial);
-				octahedron = line;
-			} else if (tempImage) {
-				const octahedronGeometry = new THREE.OctahedronGeometry(2);
-
-				const texture = new THREE.TextureLoader().load(
-					sharedImageData != null ? sharedImageData : imageData
-				);
-
-				// Create material using the texture
-				const material = new THREE.MeshPhongMaterial({ map: texture });
-
-				// Create cube mesh with the material
-				octahedron = new THREE.Mesh(octahedronGeometry, material);
-			} else {
-				const octahedronGeometry = new THREE.OctahedronGeometry(1.6); // Size of the octahedron
-
-				const octaMaterial = new THREE.MeshPhongMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					wireframe: false,
-				});
-				octahedron = new THREE.Mesh(octahedronGeometry, octaMaterial);
-			}
-			octahedron.castShadow = true;
-			scene.add(octahedron);
-
-			const scaleFactor = 1; // Change this value to scale the shape (e.g., 2 for doubling the size)
-
-			const verticesOcta = [
-				new CANNON.Vec3(2 * scaleFactor, 0, 0), // Vertex 1 (right)
-				new CANNON.Vec3(-2 * scaleFactor, 0, 0), // Vertex 2 (left)
-				new CANNON.Vec3(0, 2 * scaleFactor, 0), // Vertex 3 (top)
-				new CANNON.Vec3(0, -2 * scaleFactor, 0), // Vertex 4 (bottom)
-				new CANNON.Vec3(0, 0, 2 * scaleFactor), // Vertex 5 (front)
-				new CANNON.Vec3(0, 0, -2 * scaleFactor), // Vertex 6 (back)
-			];
-
-			// Define the faces of the octahedron (counter-clockwise order)
-			const facesOcta = [
-				[0, 2, 4], // Triangle 1 (right, top, front)
-				[0, 4, 3], // Triangle 2 (right, front, bottom)
-				[0, 3, 5], // Triangle 3 (right, bottom, back)
-				[0, 5, 2], // Triangle 4 (right, back, top)
-				[1, 2, 5], // Triangle 5 (left, top, back)
-				[1, 5, 3], // Triangle 6 (left, back, bottom)
-				[1, 3, 4], // Triangle 7 (left, bottom, front)
-				[1, 4, 2], // Triangle 8 (left, front, top)
-			];
-
-			const octahedronShape = new CANNON.ConvexPolyhedron({
-				vertices: verticesOcta,
-				faces: facesOcta,
-			});
-
-			let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
-			let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-			let y = yCoordinateShared == null ? 10 : yCoordinateShared;
-
-			const octahedronBody = new CANNON.Body({
-				mass: 2, // Set mass
-				shape: octahedronShape,
-				position: new CANNON.Vec3(x, y, z),
-				friction: -1,
-				restitution: 5,
-			});
-			if (tempShowNumbers) {
-				octahedronBody.addEventListener("sleep", () => {
-					sleepCounter++;
-					getOctaScore(octahedron);
-				});
-			}
-			world.addBody(octahedronBody);
-
-			octahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
-			octahedronBody.applyImpulse(offset, rollingForce);
-			octahedron.position.copy(octahedronBody.position); // this merges the physics body to threejs mesh
-			octahedron.quaternion.copy(octahedronBody.quaternion);
-			if (quaternionShared != null && quaternionShared != undefined) {
-				octahedron.quaternion.copy(quaternionShared);
-				octahedronBody.quaternion.copy(quaternionShared);
-			}
-			diceArray.push([
-				octahedron,
-				octahedronBody,
-				"octa",
-				tempShowNumbers,
-				tempTransparent,
-				tempFillColor,
-				tempTextColor,
-			]);
-		}
-
-		function createCube(
-			sharedColor,
-			ifNumbers,
-			ifTransparent,
-			xCoordinateShared,
-			zCoordinateShared,
-			ifImage,
-			sharedImageData,
-			yCoordinateShared,
-			quaternionShared,
-			sharedTextColor
-		) {
-			let boxMesh;
-			let tempShowNumbers = ifNumbers == null ? showNumbers : ifNumbers;
-			let tempTransparent =
-				ifTransparent == null ? toggleTransparent : ifTransparent;
-			let tempImage = ifImage == null ? showImage : ifImage;
-			let tempFillColor =
-				sharedColor != null ? sharedColor : presentColor;
-			let tempTextColor =
-				sharedTextColor != null ? sharedTextColor : textColor;
-			if (tempShowNumbers) {
-				let tileDimension = new THREE.Vector2(4, 2);
-				let tileSize = 512;
-				let g = new THREE.BoxGeometry(2, 2, 2);
-
-				let c = document.createElement("canvas");
-				c.width = tileSize * tileDimension.x;
-				c.height = tileSize * tileDimension.y;
-				let ctx = c.getContext("2d");
-				ctx.fillStyle = tempFillColor;
-				ctx.fillRect(0, 0, c.width, c.height);
-
-				let baseUVs = [
-					[0, 1],
-					[1, 1],
-					[0, 0],
-					[1, 0],
-				].map((p) => {
-					return new THREE.Vector2(...p);
-				});
-				let uvs = [];
-				let vTemp = new THREE.Vector2();
-				let vCenter = new THREE.Vector2(0.5, 0.5);
-				for (let i = 0; i < 6; i++) {
-					let u = i % tileDimension.x;
-					let v = Math.floor(i / tileDimension.x);
-					baseUVs.forEach((buv) => {
-						uvs.push(
-							(buv.x + u) / tileDimension.x,
-							(buv.y + v) / tileDimension.y
-						);
-					});
-
-					ctx.textAlign = "center";
-					ctx.textBaseline = "middle";
-					ctx.font = `bold 300px Arial`;
-					ctx.fillStyle = tempTextColor;
-					ctx.fillText(
-						i + 1,
-						(u + 0.5) * tileSize,
-						c.height - (v + 0.5) * tileSize
-					);
-				}
-				g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-				let tex = new THREE.CanvasTexture(c);
-				tex.colorSpace = THREE.SRGBColorSpace;
-
-				let m = new THREE.MeshPhongMaterial({
-					map: tex,
-					// metalness: 0.75,
-					// roughness: 0.25,
-				});
-
-				boxMesh = new THREE.Mesh(g, m);
-			} else if (tempTransparent) {
-				const boxTransparentGeometry = new THREE.BoxGeometry(2, 2, 2);
-				const wireframe = new THREE.WireframeGeometry(
-					boxTransparentGeometry
-				);
-				const lineMaterial = new THREE.LineBasicMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					depthTest: true,
-					opacity: 1,
-					transparent: false,
-				});
-				const line = new THREE.LineSegments(wireframe, lineMaterial);
-				boxMesh = line;
-			} else if (tempImage) {
-				const boxGeo = new THREE.BoxGeometry(2, 2, 2);
-
-				const texture = new THREE.TextureLoader().load(
-					sharedImageData != null ? sharedImageData : imageData
-				);
-
-				// Create material using the texture
-				const material = new THREE.MeshPhongMaterial({ map: texture });
-
-				// Create cube mesh with the material
-				boxMesh = new THREE.Mesh(boxGeo, material);
-			} else {
-				const boxGeo = new THREE.BoxGeometry(2, 2, 2);
-				const boxMat = new THREE.MeshPhongMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					wireframe: false,
-				});
-				boxMesh = new THREE.Mesh(boxGeo, boxMat);
-			}
-			boxMesh.castShadow = true;
-			scene.add(boxMesh);
-
-			const boxPhysmat = new CANNON.Material();
-
-			let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
-			let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-			let y = yCoordinateShared == null ? 10 : yCoordinateShared;
-
-			const boxBody = new CANNON.Body({
-				mass: 1,
-				shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
-				position: new CANNON.Vec3(x, y, z),
-				material: boxPhysmat,
-				friction: 0.1,
-				restitution: 5,
-			});
-
-			world.addBody(boxBody);
-
-			if (tempShowNumbers) {
-				boxBody.addEventListener("sleep", () => {
-					sleepCounter++;
-					getCubeScore(boxMesh);
-				});
-			}
-
-			boxBody.angularVelocity.set(0.5, 0.5, 0.5);
-			boxBody.applyImpulse(offset, rollingForce);
-
-			// what will happen when the two bodies touch
-
-			const groundBoxContactMat = new CANNON.ContactMaterial(
-				groundPhysMat,
-				boxPhysmat,
-				{ friction: 0.5 }
-			);
-
-			world.addContactMaterial(groundBoxContactMat);
-			if (quaternionShared != null && quaternionShared != undefined) {
-				boxMesh.quaternion.copy(quaternionShared);
-				boxBody.quaternion.copy(quaternionShared);
-			}
-			diceArray.push([
-				boxMesh,
-				boxBody,
-				"cube",
-				tempShowNumbers,
-				tempTransparent,
-				tempFillColor,
-				tempTextColor,
-			]);
 		}
 
 		const cannonDebugger = new CannonDebugger(scene, world, {
 			color: 0xadd8e6,
 		});
-
-		function createDecahedron(
-			sharedColor,
-			ifNumbers,
-			ifTransparent,
-			xCoordinateShared,
-			zCoordinateShared,
-			ifImage,
-			sharedImageData,
-			yCoordinateShared,
-			quaternionShared,
-			sharedTextColor
-		) {
-			let decahedron;
-			let tempShowNumbers = ifNumbers == null ? showNumbers : ifNumbers;
-			let tempTransparent =
-				ifTransparent == null ? toggleTransparent : ifTransparent;
-			let tempImage = ifImage == null ? showImage : ifImage;
-			let tempFillColor =
-				sharedColor != null ? sharedColor : presentColor;
-			let tempTextColor =
-				sharedTextColor != null ? sharedTextColor : textColor;
-
-			const sides = 10;
-			const radius = 1.3;
-			const verticesGeo = [
-				[0, 0, 1],
-				[0, 0, -1],
-			].flat();
-
-			for (let i = 0; i < sides; ++i) {
-				const b = (i * Math.PI * 2) / sides;
-				verticesGeo.push(
-					-Math.cos(b),
-					-Math.sin(b),
-					0.105 * (i % 2 ? 1 : -1)
-				);
-			}
-
-			const facesGeo = [
-				[0, 2, 3],
-				[0, 3, 4],
-				[0, 4, 5],
-				[0, 5, 6],
-				[0, 6, 7],
-				[0, 7, 8],
-				[0, 8, 9],
-				[0, 9, 10],
-				[0, 10, 11],
-				[0, 11, 2],
-				[1, 3, 2],
-				[1, 4, 3],
-				[1, 5, 4],
-				[1, 6, 5],
-				[1, 7, 6],
-				[1, 8, 7],
-				[1, 9, 8],
-				[1, 10, 9],
-				[1, 11, 10],
-				[1, 2, 11],
-			].flat();
-			const args = [verticesGeo, facesGeo, radius, 0];
-			let decaGeometry = new THREE.PolyhedronGeometry(...args);
-
-			if (tempShowNumbers) {
-				let g = decaGeometry;
-
-				let tileDimension = new THREE.Vector2(4, 5);
-				let tileSize = 512;
-
-				let c = document.createElement("canvas");
-				c.width = tileSize * tileDimension.x;
-				c.height = tileSize * tileDimension.y;
-				let ctx = c.getContext("2d");
-				ctx.fillStyle = tempFillColor;
-				ctx.fillRect(0, 0, c.width, c.height);
-
-				let uvs = [];
-
-				let baseUVs = [
-					new THREE.Vector2(0.67, 1), // br
-					new THREE.Vector2(0, 0.5), // bt
-					new THREE.Vector2(1, 0.5), // tl
-					new THREE.Vector2(0.67, 0), // bl
-				];
-
-				for (let i = 0; i < 10; i++) {
-					let u = i % tileDimension.x;
-					let v = Math.floor(i / tileDimension.x);
-					uvs.push(
-						(baseUVs[0].x + u) / tileDimension.x,
-						(baseUVs[0].y + v) / tileDimension.y,
-						(baseUVs[1].x + u) / tileDimension.x,
-						(baseUVs[1].y + v) / tileDimension.y,
-						(baseUVs[2].x + u) / tileDimension.x,
-						(baseUVs[2].y + v) / tileDimension.y,
-						(baseUVs[3].x + u) / tileDimension.x,
-						(baseUVs[3].y + v) / tileDimension.y
-					);
-
-					ctx.textAlign = "center";
-					ctx.textBaseline = "middle";
-					ctx.font = `bold 175px Arial`;
-					ctx.fillStyle = tempTextColor;
-					let text = i + 1;
-					if (i === 5) {
-						text += ".";
-					}
-					ctx.fillText(
-						text,
-						(u + 0.5) * tileSize,
-						c.height - (v + 0.5) * tileSize
-					);
-				}
-
-				g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-				let tex = new THREE.CanvasTexture(c);
-				tex.colorSpace = THREE.SRGBColorSpace;
-
-				let m = new THREE.MeshPhongMaterial({
-					map: tex,
-				});
-				decahedron = new THREE.Mesh(g, m);
-			} else if (tempTransparent) {
-				const decahedronTransaprentGeometry = decaGeometry;
-				const wireframe = new THREE.WireframeGeometry(
-					decahedronTransaprentGeometry
-				);
-				const lineMaterial = new THREE.LineBasicMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					depthTest: true,
-					opacity: 1,
-					transparent: false,
-				});
-				const line = new THREE.LineSegments(wireframe, lineMaterial);
-				decahedron = line;
-			} else if (tempImage) {
-				const decaGeo = decaGeometry;
-
-				const texture = new THREE.TextureLoader().load(
-					sharedImageData != null ? sharedImageData : imageData
-				);
-
-				// Create material using the texture
-				const material = new THREE.MeshPhongMaterial({ map: texture });
-
-				// Create cube mesh with the material
-				decahedron = new THREE.Mesh(decaGeo, material);
-			} else {
-				const decahedronGeometry = decaGeometry;
-
-				const decaMaterial = new THREE.MeshStandardMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					wireframe: false,
-				});
-
-				decahedron = new THREE.Mesh(decahedronGeometry, decaMaterial);
-			}
-
-			decahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
-			decahedron.castShadow = true;
-			scene.add(decahedron);
-
-			const t = (1 + Math.sqrt(5)) / 2;
-			const r = 1 / t;
-			const scaleFactor = 1.2; // Change this value to scale the shape (e.g., 2 for doubling the size)
-
-			const verticesCannon = [];
-			for (let i = 0; i < verticesGeo.length; i += 3) {
-				verticesCannon.push(
-					new CANNON.Vec3(
-						verticesGeo[i] * scaleFactor,
-						verticesGeo[i + 1] * scaleFactor,
-						verticesGeo[i + 2] * scaleFactor
-					)
-				);
-			}
-
-			const facesCannon = [];
-			for (let i = 0; i < facesGeo.length; i += 3) {
-				facesCannon.push([
-					facesGeo[i],
-					facesGeo[i + 1],
-					facesGeo[i + 2],
-				]);
-			}
-
-			// Create a ConvexPolyhedron shape from the scaled vertices and faces
-			const decahedronShape = new CANNON.ConvexPolyhedron({
-				vertices: verticesCannon,
-				faces: facesCannon,
-			});
-
-			let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
-			let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-			let y = yCoordinateShared == null ? 10 : yCoordinateShared;
-
-			const decahedronBody = new CANNON.Body({
-				mass: 2, // Set mass
-				shape: decahedronShape,
-				position: new CANNON.Vec3(x, y, z),
-				friction: -1,
-				restitution: 5,
-			});
-			if (tempShowNumbers) {
-				decahedronBody.addEventListener("sleep", () => {
-					sleepCounter++;
-					getDecaScore(decahedron);
-				});
-			}
-			world.addBody(decahedronBody);
-			decahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
-			decahedronBody.applyImpulse(offset, rollingForce);
-			decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
-			decahedron.quaternion.copy(decahedronBody.quaternion);
-
-			if (quaternionShared != null && quaternionShared != undefined) {
-				decahedron.quaternion.copy(quaternionShared);
-				decahedronBody.quaternion.copy(quaternionShared);
-			}
-
-			diceArray.push([
-				decahedron,
-				decahedronBody,
-				"deca",
-				tempShowNumbers,
-				tempTransparent,
-				tempFillColor,
-				tempTextColor,
-			]);
-		}
 
 		function makeNumbers() {
 			let c = document.createElement("canvas");
@@ -2034,487 +1268,6 @@ define([
 			return new THREE.CanvasTexture(c);
 		}
 
-		function createDodecahedron(
-			sharedColor,
-			ifNumbers,
-			ifTransparent,
-			xCoordinateShared,
-			zCoordinateShared,
-			ifImage,
-			sharedImageData,
-			yCoordinateShared,
-			quaternionShared,
-			sharedTextColor
-		) {
-			let dodecahedron;
-			let tempShowNumbers = ifNumbers == null ? showNumbers : ifNumbers;
-			let tempTransparent =
-				ifTransparent == null ? toggleTransparent : ifTransparent;
-			let tempImage = ifImage == null ? showImage : ifImage;
-			let tempFillColor =
-				sharedColor != null ? sharedColor : presentColor;
-			let tempTextColor =
-				sharedTextColor != null ? sharedTextColor : textColor;
-			if (tempShowNumbers) {
-				let tileDimension = new THREE.Vector2(4, 3); // 12 faces, arranged in a 4x3 grid
-				let tileSize = 512;
-				let g = new THREE.DodecahedronGeometry(1.25);
-
-				let c = document.createElement("canvas");
-				c.width = tileSize * tileDimension.x;
-				c.height = tileSize * tileDimension.y;
-				let ctx = c.getContext("2d");
-				ctx.fillStyle = tempFillColor;
-				ctx.fillRect(0, 0, c.width, c.height);
-
-				let uvs = [];
-				const base = new THREE.Vector2(0, 0.5);
-				const center = new THREE.Vector2();
-				const angle = THREE.MathUtils.degToRad(72);
-				let baseUVs = [
-					base
-						.clone()
-						.rotateAround(center, angle * 1)
-						.addScalar(0.5),
-					base
-						.clone()
-						.rotateAround(center, angle * 2)
-						.addScalar(0.5),
-					base
-						.clone()
-						.rotateAround(center, angle * 3)
-						.addScalar(0.5),
-					base
-						.clone()
-						.rotateAround(center, angle * 4)
-						.addScalar(0.5),
-					base
-						.clone()
-						.rotateAround(center, angle * 0)
-						.addScalar(0.5),
-				];
-
-				for (let i = 0; i < 12; i++) {
-					// 12 faces for a dodecahedron
-					let u = i % tileDimension.x;
-					let v = Math.floor(i / tileDimension.x);
-					uvs.push(
-						(baseUVs[1].x + u) / tileDimension.x,
-						(baseUVs[1].y + v) / tileDimension.y,
-						(baseUVs[2].x + u) / tileDimension.x,
-						(baseUVs[2].y + v) / tileDimension.y,
-						(baseUVs[0].x + u) / tileDimension.x,
-						(baseUVs[0].y + v) / tileDimension.y,
-
-						(baseUVs[2].x + u) / tileDimension.x,
-						(baseUVs[2].y + v) / tileDimension.y,
-						(baseUVs[3].x + u) / tileDimension.x,
-						(baseUVs[3].y + v) / tileDimension.y,
-						(baseUVs[0].x + u) / tileDimension.x,
-						(baseUVs[0].y + v) / tileDimension.y,
-
-						(baseUVs[3].x + u) / tileDimension.x,
-						(baseUVs[3].y + v) / tileDimension.y,
-						(baseUVs[4].x + u) / tileDimension.x,
-						(baseUVs[4].y + v) / tileDimension.y,
-						(baseUVs[0].x + u) / tileDimension.x,
-						(baseUVs[0].y + v) / tileDimension.y
-					);
-
-					ctx.textAlign = "center";
-					ctx.textBaseline = "middle";
-					ctx.font = `bold ${tileSize / 3}px Arial`;
-					ctx.fillStyle = tempTextColor;
-					ctx.fillText(
-						i + 1,
-						(u + 0.5) * tileSize,
-						c.height - (v + 0.5) * tileSize
-					);
-				}
-
-				g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-				let tex = new THREE.CanvasTexture(c);
-				tex.colorSpace = THREE.SRGBColorSpace;
-				tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-
-				let m = new THREE.MeshPhongMaterial({
-					map: tex,
-				});
-
-				dodecahedron = new THREE.Mesh(g, m);
-			} else if (tempTransparent) {
-				const dodedodecahedronTransaprentGeometry =
-					new THREE.DodecahedronGeometry(1.25); // Size of the tetrahedron
-				const wireframe = new THREE.WireframeGeometry(
-					dodedodecahedronTransaprentGeometry
-				);
-				const lineMaterial = new THREE.LineBasicMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					depthTest: true,
-					opacity: 1,
-					transparent: false,
-				});
-				const line = new THREE.LineSegments(wireframe, lineMaterial);
-				dodecahedron = line;
-			} else if (tempImage) {
-				const dodecaGeo = new THREE.DodecahedronGeometry(2);
-
-				const texture = new THREE.TextureLoader().load(
-					sharedImageData != null ? sharedImageData : imageData
-				);
-
-				// Create material using the texture
-				const material = new THREE.MeshPhongMaterial({ map: texture });
-
-				// Create cube mesh with the material
-				dodecahedron = new THREE.Mesh(dodecaGeo, material);
-			} else {
-				const dodecahedronGeometry = new THREE.DodecahedronGeometry(
-					1.25
-				); // Size of the tetrahedron
-
-				const dodecaMaterial = new THREE.MeshStandardMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					wireframe: false,
-				});
-
-				dodecahedron = new THREE.Mesh(
-					dodecahedronGeometry,
-					dodecaMaterial
-				);
-			}
-
-			dodecahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
-			dodecahedron.castShadow = true;
-			scene.add(dodecahedron);
-
-			const t = 1.618;
-			const r = 0.618;
-			const scaleFactor = 0.75;
-
-			const vertices = [
-				new CANNON.Vec3(-1, -1, -1).scale(scaleFactor),
-				new CANNON.Vec3(-1, -1, 1).scale(scaleFactor),
-				new CANNON.Vec3(-1, 1, -1).scale(scaleFactor),
-				new CANNON.Vec3(-1, 1, 1).scale(scaleFactor),
-				new CANNON.Vec3(1, -1, -1).scale(scaleFactor),
-				new CANNON.Vec3(1, -1, 1).scale(scaleFactor),
-				new CANNON.Vec3(1, 1, -1).scale(scaleFactor),
-				new CANNON.Vec3(1, 1, 1).scale(scaleFactor),
-				new CANNON.Vec3(0, -r, -t).scale(scaleFactor),
-				new CANNON.Vec3(0, -r, t).scale(scaleFactor),
-				new CANNON.Vec3(0, r, -t).scale(scaleFactor),
-				new CANNON.Vec3(0, r, t).scale(scaleFactor),
-				new CANNON.Vec3(-r, -t, 0).scale(scaleFactor),
-				new CANNON.Vec3(-r, t, 0).scale(scaleFactor),
-				new CANNON.Vec3(r, -t, 0).scale(scaleFactor),
-				new CANNON.Vec3(r, t, 0).scale(scaleFactor),
-				new CANNON.Vec3(-t, 0, -r).scale(scaleFactor),
-				new CANNON.Vec3(t, 0, -r).scale(scaleFactor),
-				new CANNON.Vec3(-t, 0, r).scale(scaleFactor),
-				new CANNON.Vec3(t, 0, r).scale(scaleFactor),
-			];
-
-			const indices = [
-				[3, 11, 7],
-				[3, 7, 15],
-				[3, 15, 13],
-				[7, 19, 17],
-				[7, 17, 6],
-				[7, 6, 15],
-				[17, 4, 8],
-				[17, 8, 10],
-				[17, 10, 6],
-				[8, 0, 16],
-				[8, 16, 2],
-				[8, 2, 10],
-				[0, 12, 1],
-				[0, 1, 18],
-				[0, 18, 16],
-				[6, 10, 2],
-				[6, 2, 13],
-				[6, 13, 15],
-				[2, 16, 18],
-				[2, 18, 3],
-				[2, 3, 13],
-				[18, 1, 9],
-				[18, 9, 11],
-				[18, 11, 3],
-				[4, 14, 12],
-				[4, 12, 0],
-				[4, 0, 8],
-				[11, 9, 5],
-				[11, 5, 19],
-				[11, 19, 7],
-				[19, 5, 14],
-				[19, 14, 4],
-				[19, 4, 17],
-				[1, 12, 14],
-				[1, 14, 5],
-				[1, 5, 9],
-			];
-
-			// Create a ConvexPolyhedron shape from the vertices and faces
-			const dodecahedronShape = new CANNON.ConvexPolyhedron({
-				vertices: vertices,
-				faces: indices,
-			});
-
-			let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
-			let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-			let y = yCoordinateShared == null ? 10 : yCoordinateShared;
-
-			const dodecahedronBody = new CANNON.Body({
-				mass: 2, // Set mass
-				shape: dodecahedronShape,
-				position: new CANNON.Vec3(x, y, z),
-				friction: -1,
-				restitution: 5,
-			});
-			dodecahedronBody.sleepSpeedLimit = 0.5;
-			dodecahedronBody.sleepTimeLimit = 3;
-			console.log(dodecahedronBody);
-			if (tempShowNumbers) {
-				dodecahedronBody.addEventListener("sleep", () => {
-					sleepCounter++;
-					getDodecaScore(dodecahedron);
-				});
-			}
-			world.addBody(dodecahedronBody);
-			dodecahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
-			dodecahedronBody.applyImpulse(offset, rollingForce);
-			dodecahedron.position.copy(dodecahedronBody.position); // this merges the physics body to threejs mesh
-			dodecahedron.quaternion.copy(dodecahedronBody.quaternion);
-			if (quaternionShared != null && quaternionShared != undefined) {
-				dodecahedron.quaternion.copy(quaternionShared);
-				dodecahedronBody.quaternion.copy(quaternionShared);
-			}
-			diceArray.push([
-				dodecahedron,
-				dodecahedronBody,
-				"dodeca",
-				tempShowNumbers,
-				tempTransparent,
-				tempFillColor,
-				tempTextColor,
-			]);
-		}
-
-		function createIcosahedron(
-			sharedColor,
-			ifNumbers,
-			ifTransparent,
-			xCoordinateShared,
-			zCoordinateShared,
-			ifImage,
-			sharedImageData,
-			yCoordinateShared,
-			quaternionShared,
-			sharedTextColor
-		) {
-			let icosahedron;
-			let tempShowNumbers = ifNumbers == null ? showNumbers : ifNumbers;
-			let tempTransparent =
-				ifTransparent == null ? toggleTransparent : ifTransparent;
-			let tempImage = ifImage == null ? showImage : ifImage;
-			let tempFillColor =
-				sharedColor != null ? sharedColor : presentColor;
-			let tempTextColor =
-				sharedTextColor != null ? sharedTextColor : textColor;
-
-			if (tempShowNumbers) {
-				let tileDimension = new THREE.Vector2(4, 5);
-				let tileSize = 512;
-				let g = new THREE.IcosahedronGeometry(1.5);
-
-				let c = document.createElement("canvas");
-				c.width = tileSize * tileDimension.x;
-				c.height = tileSize * tileDimension.y;
-				let ctx = c.getContext("2d");
-				ctx.fillStyle = tempFillColor;
-				ctx.fillRect(0, 0, c.width, c.height);
-
-				let uvs = [];
-
-				let baseUVs = [
-					[0.067, 0.25],
-					[0.933, 0.25],
-					[0.5, 1],
-				].map((p) => {
-					return new THREE.Vector2(...p);
-				});
-				for (let i = 0; i < 20; i++) {
-					let u = i % tileDimension.x;
-					let v = Math.floor(i / tileDimension.x);
-					uvs.push(
-						(baseUVs[0].x + u) / tileDimension.x,
-						(baseUVs[0].y + v) / tileDimension.y,
-						(baseUVs[1].x + u) / tileDimension.x,
-						(baseUVs[1].y + v) / tileDimension.y,
-						(baseUVs[2].x + u) / tileDimension.x,
-						(baseUVs[2].y + v) / tileDimension.y
-					);
-
-					ctx.textAlign = "center";
-					ctx.textBaseline = "middle";
-					ctx.font = `bold 175px Arial`;
-					ctx.fillStyle = tempTextColor;
-					let text = i + 1;
-					if (i == 5) {
-						text + ".";
-					}
-					ctx.fillText(
-						i + 1,
-						(u + 0.5) * tileSize,
-						c.height - (v + 0.5) * tileSize
-					);
-				}
-				g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-				let tex = new THREE.CanvasTexture(c);
-				tex.colorSpace = THREE.SRGBColorSpace;
-
-				let m = new THREE.MeshPhongMaterial({
-					map: tex,
-				});
-
-				icosahedron = new THREE.Mesh(g, m);
-			} else if (tempTransparent) {
-				const icosahedronTransparentGeometry =
-					new THREE.IcosahedronGeometry(1.5); // Size of the Icosahedron
-				const wireframe = new THREE.WireframeGeometry(
-					icosahedronTransparentGeometry
-				);
-				const lineMaterial = new THREE.LineBasicMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					depthTest: true,
-					opacity: 1,
-					transparent: false,
-				});
-				const line = new THREE.LineSegments(wireframe, lineMaterial);
-				icosahedron = line;
-			} else if (tempImage) {
-				const boxGeo = new THREE.IcosahedronGeometry(2);
-
-				const texture = new THREE.TextureLoader().load(
-					sharedImageData != null ? sharedImageData : imageData
-				);
-
-				// Create material using the texture
-				const material = new THREE.MeshPhongMaterial({ map: texture });
-
-				// Create cube mesh with the material
-				icosahedron = new THREE.Mesh(boxGeo, material);
-			} else {
-				const icosahedronGeometry = new THREE.IcosahedronGeometry(1.5); // Size of the icosahedron
-
-				const icosaMaterial = new THREE.MeshStandardMaterial({
-					color: sharedColor != null ? sharedColor : presentColor,
-					wireframe: false,
-				});
-
-				icosahedron = new THREE.Mesh(
-					icosahedronGeometry,
-					icosaMaterial
-				);
-			}
-			icosahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
-			icosahedron.castShadow = true;
-			scene.add(icosahedron);
-
-			// Vertices
-			// Vertices
-			const t = (1 + Math.sqrt(5)) / 2;
-			const scaleFactor = 0.6;
-			const verticesIcosa = [
-				new CANNON.Vec3(-1, t, 0).scale(scaleFactor),
-				new CANNON.Vec3(1, t, 0).scale(scaleFactor),
-				new CANNON.Vec3(-1, -t, 0).scale(scaleFactor),
-				new CANNON.Vec3(1, -t, 0).scale(scaleFactor),
-				new CANNON.Vec3(0, -1, t).scale(scaleFactor),
-				new CANNON.Vec3(0, 1, t).scale(scaleFactor),
-				new CANNON.Vec3(0, -1, -t).scale(scaleFactor),
-				new CANNON.Vec3(0, 1, -t).scale(scaleFactor),
-				new CANNON.Vec3(t, 0, -1).scale(scaleFactor),
-				new CANNON.Vec3(t, 0, 1).scale(scaleFactor),
-				new CANNON.Vec3(-t, 0, -1).scale(scaleFactor),
-				new CANNON.Vec3(-t, 0, 1).scale(scaleFactor),
-			];
-
-			// Faces
-			const facesIcosa = [
-				[0, 11, 5],
-				[0, 5, 1],
-				[0, 1, 7],
-				[0, 7, 10],
-				[0, 10, 11],
-				[1, 5, 9],
-				[5, 11, 4],
-				[11, 10, 2],
-				[10, 7, 6],
-				[7, 1, 8],
-				[3, 9, 4],
-				[3, 4, 2],
-				[3, 2, 6],
-				[3, 6, 8],
-				[3, 8, 9],
-				[4, 9, 5],
-				[2, 4, 11],
-				[6, 2, 10],
-				[8, 6, 7],
-				[9, 8, 1],
-			];
-
-			// Create a ConvexPolyhedron shape from the vertices and faces
-			const icosahedronShape = new CANNON.ConvexPolyhedron({
-				vertices: verticesIcosa,
-				faces: facesIcosa,
-			});
-
-			let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
-			let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-			let y = yCoordinateShared == null ? 10 : yCoordinateShared;
-
-			const icosahedronBody = new CANNON.Body({
-				mass: 2, // Set mass
-				shape: icosahedronShape,
-				position: new CANNON.Vec3(x, y, z),
-				friction: -1,
-				restitution: 5,
-			});
-			icosahedronBody.sleepSpeedLimit = 0.5;
-			icosahedronBody.sleepTimeLimit = 3;
-
-			if (tempShowNumbers) {
-				icosahedronBody.addEventListener("sleep", () => {
-					console.log("icosa going to sleeep");
-					sleepCounter++;
-					getIcosaScore(icosahedron);
-				});
-			}
-			world.addBody(icosahedronBody);
-			icosahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
-			icosahedronBody.applyImpulse(offset, rollingForce);
-			icosahedron.position.copy(icosahedronBody.position); // this merges the physics body to threejs mesh
-			icosahedron.quaternion.copy(icosahedronBody.quaternion);
-
-			if (quaternionShared != null && quaternionShared != undefined) {
-				icosahedron.quaternion.copy(quaternionShared);
-				icosahedronBody.quaternion.copy(quaternionShared);
-			}
-
-			diceArray.push([
-				icosahedron,
-				icosahedronBody,
-				"icosa",
-				tempShowNumbers,
-				tempTransparent,
-				tempFillColor,
-				tempTextColor,
-			]);
-		}
-
 		const timeStep = 1 / 20;
 
 		function throwDice() {
@@ -2527,7 +1280,7 @@ define([
 				presentScore = 0;
 				for (let i = 0; i < diceArray.length; i++) {
 					diceArray[i][1].angularVelocity.set(0.5, 0.5, 0.5);
-					diceArray[i][1].applyImpulse(offset, rollingForce);
+					diceArray[i][1].applyImpulse(ctx.offset, ctx.rollingForce);
 					diceArray[i][1].position.set(0, 10, 0);
 				}
 				for (let i = 0; i < diceArray.length; i++) {
@@ -2554,7 +1307,7 @@ define([
 					createIcosahedron();
 				}
 				lastRoll = "";
-				// if (showNumbers) {
+				// if (ctx.showNumbers) {
 				//   getScore();
 				// }
 			}
@@ -2600,22 +1353,20 @@ define([
 			for (let i = 0; i < faceVectors.length; i++) {
 				let faceVector = faceVectors[i];
 				faceVector.vector.applyEuler(body.rotation);
-				console.log(Math.abs(faceVector.vector.y));
 				if (minValue > Math.abs(1 - faceVector.vector.y)) {
 					minValue = Math.abs(1 - faceVector.vector.y);
 					minInd = i;
 				}
-				// if (Math.abs(faceVector.vector.y).toString().substring(0, 1) == '1') {
-				//   lastRoll += faceVectors[i].face + ' +'
-				//   presentScore += faceVectors[i].face
-				//   updateElements()
-				//   break
-				// }
 			}
 			if (!ifRemove) {
 				lastRoll += faceVectors[minInd].face + " + ";
 				presentScore += faceVectors[minInd].face;
 				updateElements();
+			}
+			for (let i = 0; i < diceArray.length; i++) {
+				if (body == diceArray[i][0]) {
+					diceArray[i][7] = faceVectors[minInd].face;
+				}
 			}
 			return faceVectors[minInd].face;
 		}
@@ -2655,6 +1406,11 @@ define([
 						presentScore += faceVector.face;
 						updateElements();
 					}
+					for (let i = 0; i < diceArray.length; i++) {
+						if (body == diceArray[i][0]) {
+							diceArray[i][7] = faceVector.face;
+						}
+					}
 					return faceVector.face;
 				}
 			}
@@ -2687,6 +1443,11 @@ define([
 						presentScore += faceVector.face;
 						updateElements();
 						break;
+					}
+					for (let i = 0; i < diceArray.length; i++) {
+						if (body == diceArray[i][0]) {
+							diceArray[i][7] = faceVector.face;
+						}
 					}
 					return faceVector.face;
 				}
@@ -2784,6 +1545,16 @@ define([
 					presentScore += faceNumber;
 					updateElements();
 				}
+				for (let i = 0; i < diceArray.length; i++) {
+					if (body == diceArray[i][0]) {
+						diceArray[i][7] = faceNumber;
+					}
+				}
+				for (let i = 0; i < diceArray.length; i++) {
+					if (body == diceArray[i][0]) {
+						diceArray[i][7] = faceNumber;
+					}
+				}
 				return faceNumber;
 			}
 		}
@@ -2827,6 +1598,11 @@ define([
 						updateElements();
 						break;
 					}
+					for (let i = 0; i < diceArray.length; i++) {
+						if (body == diceArray[i][0]) {
+							diceArray[i][7] = faceVector.face;
+						}
+					}
 					return faceVector.face;
 				}
 			}
@@ -2855,7 +1631,7 @@ define([
 		}
 		// function changeColors() {
 		//   for (let i = 0; i < diceArray.length; i++) {
-		//     diceArray[i][0].material.color?.set(presentColor);
+		//     diceArray[i][0].material.color?.set(ctx.presentColor);
 		//     diceArray[i][0].material.needsUpdate = true;
 		//   }
 		// }
@@ -2899,6 +1675,42 @@ define([
 					break;
 			}
 		}
+
+		function getScores() {
+			presentScore = 0;
+			lastRoll = "";
+			lastRollElement.textContent = "";
+
+			for (let i = 0; i < diceArray.length; i++) {
+				if (diceArray[i][3]) {
+					switch (diceArray[i][2]) {
+						case "cube":
+							score = getCubeScore(diceArray[i][0]);
+							break;
+						case "icosa":
+							score = getIcosaScore(diceArray[i][0]);
+							break;
+						case "deca":
+							score = getDecaScore(diceArray[i][0]);
+							break;
+						case "dodeca":
+							score = getDodecaScore(diceArray[i][0]);
+							break;
+						case "octa":
+							score = getOctaScore(diceArray[i][0]);
+							break;
+						case "tetra":
+							score = getTetraScore(diceArray[i][0]);
+							break;
+						default:
+							console.log(`Unknown type: ${diceArray[i][3]}`);
+							continue;
+					}
+				}
+			}
+		}
+
+		let awake = false;
 		animate();
 
 		function animate() {
@@ -2912,6 +1724,14 @@ define([
 			for (let i = 0; i < diceArray.length; i++) {
 				diceArray[i][0]?.position?.copy(diceArray[i][1].position);
 				diceArray[i][0]?.quaternion?.copy(diceArray[i][1].quaternion);
+			}
+			if (world.hasActiveBodies == false && awake == true) {
+				awake = false;
+				console.log("the world is going to sleep now bye bye");
+				getScores();
+			}
+			if (world.hasActiveBodies == true) {
+				awake = true;
 			}
 
 			renderer.render(scene, camera);
