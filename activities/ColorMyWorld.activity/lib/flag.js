@@ -160,7 +160,7 @@ define(function (require) {
         Cocos_Islands: "🇨🇨",
         Antarctica: "🇦🇶",
         Bouvet_Island: "🇧🇻",
-        French_Southern_and_Antarctic_Lands: "",
+        French_Southern_and_Antarctic_Lands: "🇹🇫",
         Heard_Island_and_McDonald_Islands: "🇭🇲",
         British_Indian_Ocean_Territory: "🇮🇴",
         Christmas_Island: "🇨🇽",
