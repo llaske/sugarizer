@@ -42,7 +42,7 @@ const Icon ={
 			_isSugarNative : this.isNative=="true"? true: false,
 			iconData: this.svgfile,
 			sizeData: this.size? this.size: 55,
-			colorData: this.color? this.color: (this.isNative=="true" ? 0 : 512),
+			colorData: this.color !== undefined ? this.color: (this.isNative=="true" ? undefined : 512),
 			xData: this.x ? this.x: 0,
 			yData: this.y ? this.y: 0,
 			disabledData: this.disabled ? this.disabled: false,
@@ -221,13 +221,13 @@ const Icon ={
 				if (color > 179 && color != 256 && color != 512 &&  color != 768 && color != 1024) {
 					color = color % 180;
 				}
-				if (this.color) {
+				if (this.color !== undefined) {
 					element.setAttribute("class", "xo-color"+color);
 				}
 			}
 		},
 		_generateOriginalColor() {
-			return !this.color && this._originalColor.fill && this._originalColor.stroke ? ";--stroke-color:"+this._originalColor.stroke+";--fill-color:"+this._originalColor.fill+";" : "";
+			return this.color === undefined && this._originalColor.fill && this._originalColor.stroke ? ";--stroke-color:"+this._originalColor.stroke+";--fill-color:"+this._originalColor.fill+";" : "";
 		},
 		_setSize(vm, size) {
 			let element = vm._element;
