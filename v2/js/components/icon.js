@@ -153,21 +153,30 @@ const Icon ={
 				svgElement.setAttribute("width", size+"px");
 				svgElement.setAttribute("height", size+"px");
 				parent.setAttribute("style", "margin: "+this.yData+"px 0px 0px "+this.xData+"px"+this._generateOriginalColor());
+				parent.style.width = size+"px";
+				parent.style.height = size+"px";
 				svgElement.setAttribute("preserveAspectRatio", "xMidYMid meet");
-				var img = new Image();
-				img.onload = function() {
-					if(this.width!=size) {
-						let intersectsize=this.width;
-						svgElement.setAttribute("viewBox", "0 0 "+intersectsize+" "+intersectsize);
-					}
-					else {
-						svgElement.setAttribute("viewBox", "0 0 55 55");
-					}
-				}
-				img.src = svgfile;
+				await new Promise((resolve, reject) => {
+					const img = new Image();
+					img.onload = function() {
+						if (this.width != size) {
+							let intersectsize = this.width;
+							svgElement.setAttribute("viewBox", "0 0 " + intersectsize + " " + intersectsize);
+						} else {
+							svgElement.setAttribute("viewBox", "0 0 55 55");
+						}
+						resolve();
+					};
+					img.onerror = reject;
+					img.src = svgfile;
+				});
 			}
 
 			var useElement = document.createElementNS(svgElement.namespaceURI,"use");
+			useElement.addEventListener('error', function() {
+				console.log(svgfile+' error');
+			}) // Error loading SVG file
+
 			var xref = svgfile+"#icon";
 			useElement.setAttribute("xlink:href",xref);
 			useElement.setAttribute("href",xref);
@@ -176,13 +185,6 @@ const Icon ={
 			parent.appendChild(svgElement);
 
 			this._element = svgElement;
-			await new Promise((resolve, reject) => {
-				useElement.addEventListener("load", resolve);
-				useElement.addEventListener("error", () => {
-					console.log(svgfile + " error");
-					reject();
-				});
-			});
 		},
 		// Load icon url and return raw data of file
 		async _loadIcon(url) {
