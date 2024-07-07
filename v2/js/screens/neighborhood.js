@@ -379,18 +379,21 @@ const Neighborhood = {
 						}
 					});
 				});
+
+				const color = sugarizer.modules.xocolor.findIndex(
+					currentActivity.colorvalue
+				);
 				this.activitiesWithUsers.push({
 					id: currentActivity.id,
-					color: sugarizer.modules.xocolor.findIndex(
-						currentActivity.colorvalue
-					),
+					color: color,
 					icon: activityInfo.directory + "/" + activityInfo.icon,
 					size: this.constant.sizeNeighbor,
 					child: childUsers,
 					activityInfo: activityInfo,
 					popupData: this.getActivityPopupData(
 						activityInfo,
-						currentActivity.id
+						currentActivity.id,
+						color
 					),
 				});
 			}
@@ -444,13 +447,15 @@ const Neighborhood = {
 			};
 		},
 
-		getActivityPopupData(activityInfo, sharedId) {
+		getActivityPopupData(activityInfo, sharedId, activityColor) {
+			console.log(activityColor);
 			return {
 				id: activityInfo.id,
 				favorite: activityInfo.favorite,
 				directory: activityInfo.directory,
 				icon: {
 					id: "act-icon",
+					color: activityColor,
 					iconData: activityInfo.directory + "/" + activityInfo.icon,
 					size: this.constant.sizeNeighbor,
 					isNative: "true",
