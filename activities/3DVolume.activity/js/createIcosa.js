@@ -9,7 +9,7 @@ function createIcosahedron(
 	yCoordinateShared,
 	quaternionShared,
 	sharedTextColor,
-    ctx,
+	ctx,
 	diceArray,
 	world,
 	scene,
@@ -195,8 +195,10 @@ function createIcosahedron(
 	// 	});
 	// }
 	world.addBody(icosahedronBody);
-	let angVel1 = sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
-    let angVel2 = sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+	let angVel1 =
+		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+	let angVel2 =
+		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
 
 	icosahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
 	icosahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
@@ -217,6 +219,6 @@ function createIcosahedron(
 		tempFillColor,
 		tempTextColor,
 		angVel1,
-		angVel2
+		angVel2,
 	]);
 }

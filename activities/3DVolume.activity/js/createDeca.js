@@ -93,8 +93,12 @@ function createDecahedron(
 		[1, 11, 10],
 		[1, 2, 11],
 	].flat();
-    const decaGeometry = new THREE.PolyhedronGeometry(verticesGeo, facesGeo, 1.3, 0);
-
+	const decaGeometry = new THREE.PolyhedronGeometry(
+		verticesGeo,
+		facesGeo,
+		1.3,
+		0
+	);
 
 	if (tempShowNumbers) {
 		let vertStep = THREE.MathUtils.degToRad(36);

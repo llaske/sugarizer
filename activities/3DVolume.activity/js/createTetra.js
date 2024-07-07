@@ -179,8 +179,10 @@ function createTetrahedron(
 	// 	});
 	// }
 	world.addBody(tetrahedronBody);
-	let angVel1 = sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
-    let angVel2 = sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+	let angVel1 =
+		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+	let angVel2 =
+		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
 
 	tetrahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
 	tetrahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
@@ -199,6 +201,6 @@ function createTetrahedron(
 		tempFillColor,
 		tempTextColor,
 		angVel1,
-		angVel2
+		angVel2,
 	]);
 }
