@@ -540,6 +540,7 @@
 
 			function rotateLeft( angle ) {
 				sphericalDelta.theta -= angle;
+				
 
 			}
 
@@ -724,10 +725,10 @@
 
 				rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight );
 
+				event.stopPropagation();
+
 				rotateStart.copy( rotateEnd );
-
 				scope.update();
-
 			}
 
 			function handleMouseMoveDolly( event ) {
@@ -745,6 +746,7 @@
 					dollyIn( getZoomScale( dollyDelta.y ) );
 
 				}
+
 
 				dollyStart.copy( dollyEnd );
 
@@ -952,11 +954,15 @@
 
 				const element = scope.domElement;
 
+
 				rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientHeight ); // yes, height
 
 				rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight );
 
 				rotateStart.copy( rotateEnd );
+
+				event.stopPropagation();
+
 
 			}
 

@@ -83,6 +83,22 @@ body {
   background-image: url(../icons/number_volume.svg);
   border-radius: 5px;
 }
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 10px;
+  right: 15px;
+  position: absolute;
+  visibility: hidden;
+}
 
 #zoom-button {
   height: 45px;
@@ -99,6 +115,14 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url(../icons/throw.svg);
+  outline: none;
+}
+#sensor-button {
+  height: 45px;
+  width: 45xpx;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../icons/sensor.svg);
   outline: none;
 }
 #transparent-button {
@@ -185,6 +209,9 @@ body {
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }
+/* #main-toolbar {
+  visibility: hidden;
+} */
 .vertical-line {
   width: 5px;
   height: 55px;
@@ -241,11 +268,10 @@ body {
   margin: 0;
   overflow: hidden;
   height: 100vh;
-  background-color: #f0f0f0;
 }
 
 #game-container {
-  position: relative;
+  position: absolute;
 }
 
 /* #throw-button {
@@ -420,26 +446,26 @@ body {
 
 .introjs-overlay {
   background-color: #000 !important;
-  opacity: 0.8 !important;
+  opacity: .8 !important;
 }
 
 .introjs-tooltip {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
   border-radius: 6px !important;
   padding: 2px 1px !important;
   font-size: 14px !important;
 }
 
-.introjs-helperLayer {
+.introjs-helperLayer{
   background: inherit !important;
   opacity: 0.6 !important;
 }
 
 .customTooltip .introjs-tooltip-header {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ffffff;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color : #ffffff;
   text-shadow: none;
-  /* background-color: #808080; */
+  background-color: #808080;
   margin: 0;
   padding: 0px 10px;
   border-bottom: 1px solid #ebebeb;
@@ -491,7 +517,7 @@ body {
 
 .customTooltip .introjs-tooltipbuttons {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap:wrap;
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -506,7 +532,7 @@ body {
   border-radius: 22px;
   margin: 5px 8px 8px 8px;
   width: fit-content;
-  /* background-color: #808080 !important; */
+  background-color: #808080 !important;
   display: flex !important;
   align-items: center !important;
   color: white !important;
@@ -515,20 +541,20 @@ body {
 }
 
 .customTooltip .introjs-button:focus {
-  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
-  box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
   border: 0px;
-  /* background-color: #808080 !important; */
+  background-color: #808080 !important;
 }
 
 .customTooltip .introjs-disabled {
   color: black !important;
   border: 0px;
-  opacity: 0.65;
+  opacity: .65;
 }
 
 .customTooltip .introjs-disabled:focus {
-  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
-  box-shadow: 0 0 0 0rem rgba(158, 158, 158, 0.5);
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
   border: 0px;
 }

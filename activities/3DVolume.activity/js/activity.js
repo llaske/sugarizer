@@ -51,15 +51,29 @@ define([
 			document.getElementById("zoom-button"),
 			undefined
 		);
-		var paletteColorFill = new colorpaletteFill.ColorPalette(
-			document.getElementById("color-button-fill"),
-			undefined
-		);
 
-		var paletteColorText = new colorpaletteText.ColorPalette(
-			document.getElementById("color-button-text"),
-			undefined
-		);
+		// Full screen
+		document
+			.getElementById("fullscreen-button")
+			.addEventListener("click", function () {
+				document.getElementById("main-toolbar").style.visibility =
+					"hidden";
+				document.getElementById("game-container").style.top = "0px";
+				document.getElementById(
+					"unfullscreen-button"
+				).style.visibility = "visible";
+			});
+		document
+			.getElementById("unfullscreen-button")
+			.addEventListener("click", function () {
+				document.getElementById("main-toolbar").style.visibility =
+					"visible";
+				document.getElementById("game-container").style.top = "55px";
+				document.getElementById(
+					"unfullscreen-button"
+				).style.visibility = "hidden";
+
+			});
 
 		const randomDirection = new CANNON.Vec3(
 			0.3, // Random x-axis value between -0.5 and 0.5
@@ -76,7 +90,7 @@ define([
 			offset: new CANNON.Vec3(0, 0.1, 0),
 			rollingForce: randomDirection.scale(2),
 		};
-
+		let presentBackground = null;
 		let presentScore = 0;
 		let lastRoll = "";
 		let diceArray = [];
@@ -125,12 +139,25 @@ define([
 			}
 		});
 
+		var paletteColorFill = new colorpaletteFill.ColorPalette(
+			document.getElementById("color-button-fill"),
+			undefined,
+			ctx
+		);
+
+		var paletteColorText = new colorpaletteText.ColorPalette(
+			document.getElementById("color-button-text"),
+			undefined,
+			ctx
+		);
+
 		var onNetworkDataReceived = function (msg) {
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
 			}
 			if (msg.action == "init") {
-				data = msg.content;
+				changeBoardBackground(msg.content[1]);
+				data = msg.content[0];
 				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					let createFunction = null;
@@ -176,7 +203,9 @@ define([
 							diceArray,
 							world,
 							scene,
-							groundPhysMat
+							groundPhysMat,
+							data[i][7],
+							data[i][8]
 						);
 					}
 				}
@@ -245,7 +274,9 @@ define([
 					diceArray,
 					world,
 					scene,
-					groundPhysMat
+					groundPhysMat,
+					msg.content.sharedAngVel1,
+					msg.content.sharedAngVel2
 				);
 			}
 		};
@@ -262,6 +293,8 @@ define([
 						diceArray[i][6],
 						diceArray[i][3],
 						diceArray[i][4],
+						diceArray[i][7],
+						diceArray[i][8],
 					]);
 				}
 				console.log("writing...");
@@ -334,7 +367,9 @@ define([
 										diceArray,
 										world,
 										scene,
-										groundPhysMat
+										groundPhysMat,
+										data[i][7],
+										data[i][8]
 									);
 								}
 							}
@@ -803,6 +838,8 @@ define([
 						}
 
 						if (createFunction) {
+							let angVel1 = Math.random() * (1 - 0.1) + 0.1;
+							let angVel2 = Math.random() * (1 - 0.1) + 0.1;
 							createFunction(
 								null,
 								null,
@@ -818,7 +855,9 @@ define([
 								diceArray,
 								world,
 								scene,
-								groundPhysMat
+								groundPhysMat,
+								angVel1,
+								angVel2
 							);
 
 							if (presence) {
@@ -839,6 +878,8 @@ define([
 											yCoordinateShared: null,
 											quaternionShared: null,
 											sharedTextColor: ctx.textColor,
+											sharedAngVel1: angVel1,
+											sharedAngVel2: angVel2,
 										},
 									}
 								);
@@ -979,12 +1020,14 @@ define([
 					diceArray[i][6],
 					diceArray[i][3],
 					diceArray[i][4],
+					diceArray[i][7],
+					diceArray[i][8],
 				]);
 			}
 			presence.sendMessage(presence.getSharedInfo().id, {
 				user: presence.getUserInfo(),
 				action: "init",
-				content: presenceDiceArray,
+				content: [presenceDiceArray, presentBackground],
 			});
 		};
 
@@ -1048,6 +1091,148 @@ define([
 			gravity: new CANNON.Vec3(0, -9.81, 0),
 		});
 		world.allowSleep = true;
+
+		function adjustGravity(gamma) {
+			console.log("adjusting gravity");
+			var gravityStrength = 9.82; // Earth's gravity in m/s^2
+			var maxTilt = 90; // Maximum tilt value
+
+			// Map the gamma value to the gravity direction
+			var gravityX = (gamma / maxTilt) * gravityStrength;
+
+			// Set the new gravity vector
+			world.gravity.set(gravityX, -gravityStrength, 0);
+		}
+
+		var useragent = navigator.userAgent.toLowerCase();
+		var sensorButton = document.getElementById("sensor-button");
+		var sensorMode = false;
+		var readyToWatch = false;
+		console.log(useragent.indexOf("android"));
+
+		// if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
+		// 	document.addEventListener('deviceready', function() {
+		// 		readyToWatch = true;
+		// 	}, false);
+		// 	sensorButton.disabled = false;
+		// } else {
+		// 	sensorButton.disabled = true;
+		// }
+
+		sensorButton.addEventListener("click", function () {
+			sensorMode = !sensorMode;
+			if (sensorMode) {
+				sensorButton.classList.add("active");
+				// window.addEventListener(
+				// 	"deviceorientation",
+				// 	function (event) {
+				// 		if (sensorMode) {
+				// 			handleDeviceOrientation(event);
+				// 		}
+				// 	},
+				// 	true
+				// );
+				watchId = navigator.accelerometer.watchAcceleration(accelerationChanged, null, { frequency: 500 });
+				
+				console.log(screen.orientation.type);
+			} else {
+				sensorButton.classList.remove("active");
+				world.gravity.set(0, -9.81, 0);
+			}
+		});
+		
+
+		function setGravity(gravityDirection) {
+			let gravityX = 0;
+			let gravityY = 0;
+			let gravityZ = 0;
+		
+			switch (gravityDirection) {
+				case 0:
+					gravityX = 1; // Right
+					break;
+				case 1:
+					gravityX = -1; // Right-bottom (diagonal down-right)
+					gravityY = -1;
+					break;
+				case 2:
+					gravityY = -1; // Bottom (straight down)
+					break;
+				case 3:
+					gravityX = -1; // Left-bottom (diagonal down-left)
+					gravityY = 1;
+					break;
+				case 4:
+					gravityX = -1; // Left (straight left)
+					break;
+				case 5:
+					gravityX = -1; // Left-top (diagonal up-left)
+					gravityY = -1;
+					break;
+				case 6:
+					gravityY = 1; // Top (straight up)
+					break;
+				case 7:
+					gravityX = 1; // Right-top (diagonal up-right)
+					gravityY = 1;
+					break;
+				default:
+					break;
+			}
+		
+			// Assuming you have a Cannon.js world instance called 'world'
+			world.gravity.set(gravityX * 9.82, gravityY * 9.82, gravityZ * 9.82); // Scale gravity with 9.82 m/s² (approximate Earth gravity)
+		}
+		
+		
+		function accelerationChanged(acceleration) {
+			if (!sensorMode) return;
+			if (acceleration.x < -4.5) {
+				if (acceleration.y > 4.75)
+					setGravity(3);
+				else if (acceleration.y < -4.75)
+					setGravity(5);
+				else
+					setGravity(4);
+			} else if (acceleration.x <= 4.5 && acceleration.x >= -4.5) {
+				if (acceleration.y > 4.75)
+					setGravity(2);
+				else if (acceleration.y < -4.75)
+					setGravity(6);
+			} else if (acceleration.x > 4.5) {
+				if (acceleration.y > 4.75)
+					setGravity(1);
+				else if (acceleration.y < -4.75)
+					setGravity(7);
+				else
+					setGravity(0);
+			}
+		}
+
+		function handleDeviceOrientation(event) {
+			var gamma = event.gamma; // Tilt left or right (range from -90 to 90)
+
+			// Adjust gravity based on tilt
+			adjustGravity(gamma);
+		}
+
+
+		// if (readyToWatch) {
+		// 	sensorButton.disabled = false;
+		// 	sensorButton.addEventListener("click", function () {
+		// 		sensorMode = !sensorMode;
+		// 		if (sensorMode) {
+		// 			sensorButton.classList.add("active");
+		// 		} else {
+		// 			sensorButton.classList.remove("active");
+		// 		}
+		// 	});
+		// 	window.addEventListener('deviceorientation', function(event) {
+		// 		if (sensorMode) {
+		// 			handleDeviceOrientation(event);
+		// 		}
+		// 	}, true);
+		// }
 
 		const groundGeo = new THREE.PlaneGeometry(30, 30);
 		const groundMat = new THREE.MeshPhongMaterial({
@@ -1288,6 +1473,7 @@ define([
 					world.addBody(diceArray[i][1]);
 				}
 			} else {
+				console.log("what is never supposed to happen is happening :0");
 				for (let i = 0; i < dices.cube; i++) {
 					createCube();
 				}
@@ -1455,8 +1641,41 @@ define([
 		}
 
 		function getDecaScore(body, ifRemove) {
-			console.log("getting deca");
+            // Define face vectors based on vertices
+            const faceVectors = [
+                { vector: new THREE.Vector3(0, 0, 1), face: 1 },
+                { vector: new THREE.Vector3(0, 0, -1), face: 2 },
+            ];
+
+            const sides = 10;
+            for (let i = 0; i < sides; ++i) {
+                const b = (i * Math.PI * 2) / sides;
+                faceVectors.push({
+                    vector: new THREE.Vector3(-Math.cos(b), -Math.sin(b), 0.105 * (i % 2 ? 1 : -1)),
+                    face: i + 3,
+                });
+            }
+
+            for (const faceVector of faceVectors) {
+                faceVector.vector.normalize().applyEuler(body.rotation);
+
+                if (Math.round(faceVector.vector.y) === 1) {
+                    if (!ifRemove) {
+                        lastRoll += faceVector.face + " + ";
+                        presentScore += faceVector.face;
+                        updateElements();
+                        break;
+                    }
+                    for (let i = 0; i < diceArray.length; i++) {
+                        if (body == diceArray[i][0]) {
+                            diceArray[i][7] = faceVector.face;
+                        }
+                    }
+                    return faceVector.face;
+                }
+            }
 		}
+
 
 		function getIcosaScore(body, ifRemove) {
 			// Define the golden ratio
@@ -1568,29 +1787,27 @@ define([
 			);
 		}
 
-		function getDodecaScore(body, ifRemove) {
+		function getDecaScore(body, ifRemove) {
 			// Define the golden ratio
 			const phi = (1 + Math.sqrt(5)) / 2;
-
-			// Dodecahedron face vectors
+		
+			// Decahedron face vectors
 			const faceVectors = [
-				{ vector: new THREE.Vector3(1, 1, 1), face: 1 },
-				{ vector: new THREE.Vector3(1, 1, -1), face: 6 },
-				{ vector: new THREE.Vector3(1, -1, 1), face: 11 },
-				{ vector: new THREE.Vector3(1, -1, -1), face: 4 },
-				{ vector: new THREE.Vector3(-1, 1, 1), face: 7 },
-				{ vector: new THREE.Vector3(-1, 1, -1), face: 2 },
-				{ vector: new THREE.Vector3(-1, -1, 1), face: 5 },
-				{ vector: new THREE.Vector3(-1, -1, -1), face: 8 },
-				{ vector: new THREE.Vector3(0, phi, 1 / phi), face: 9 },
-				{ vector: new THREE.Vector3(0, phi, -1 / phi), face: 10 },
-				{ vector: new THREE.Vector3(0, -phi, 1 / phi), face: 3 },
-				{ vector: new THREE.Vector3(0, -phi, -1 / phi), face: 12 },
+				{ vector: new THREE.Vector3(0, 1, phi), face: 1 },
+				{ vector: new THREE.Vector3(0, 1, -phi), face: 2 },
+				{ vector: new THREE.Vector3(0, -1, phi), face: 3 },
+				{ vector: new THREE.Vector3(0, -1, -phi), face: 8 },
+				{ vector: new THREE.Vector3(1, phi, 0), face: 5 },
+				{ vector: new THREE.Vector3(1, -phi, 0), face: 6 },
+				{ vector: new THREE.Vector3(-1, phi, 0), face: 7 },
+				{ vector: new THREE.Vector3(-1, -phi, 0), face: 4 },
+				{ vector: new THREE.Vector3(phi, 0, 1), face: 9 },
+				{ vector: new THREE.Vector3(phi, 0, -1), face: 10 },
 			];
-
+		
 			for (const faceVector of faceVectors) {
 				faceVector.vector.normalize().applyEuler(body.rotation);
-
+		
 				if (Math.round(faceVector.vector.y) === 1) {
 					if (!ifRemove) {
 						lastRoll += faceVector.face + " + ";
@@ -1607,6 +1824,7 @@ define([
 				}
 			}
 		}
+		
 
 		function toggleTransparency() {
 			for (let i = 0; i < diceArray.length; i++) {
@@ -1639,6 +1857,7 @@ define([
 		function changeBoardBackground(selectedBoard) {
 			console.log("changing bg now");
 			console.log(selectedBoard);
+			presentBackground = selectedBoard;
 			let textureLoader = new THREE.TextureLoader();
 			switch (selectedBoard) {
 				case "green-board":

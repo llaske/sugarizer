@@ -13,7 +13,9 @@ function createDodecahedron(
 	diceArray,
 	world,
 	scene,
-	groundPhysMat
+	groundPhysMat,
+	sharedAngVel1,
+	sharedAngVel2
 ) {
 	let dodecahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -237,7 +239,6 @@ function createDodecahedron(
 	});
 	dodecahedronBody.sleepSpeedLimit = 0.2;
 	dodecahedronBody.sleepTimeLimit = 3;
-	console.log(dodecahedronBody);
 	// if (tempShowNumbers) {
 	// 	dodecahedronBody.addEventListener("sleep", () => {
 	// 		sleepCounter++;
@@ -245,7 +246,11 @@ function createDodecahedron(
 	// 	});
 	// }
 	world.addBody(dodecahedronBody);
-	dodecahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
+
+	let angVel1 = sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+    let angVel2 = sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+
+	dodecahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
 	dodecahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	dodecahedron.position.copy(dodecahedronBody.position); // this merges the physics body to threejs mesh
 	dodecahedron.quaternion.copy(dodecahedronBody.quaternion);
@@ -261,5 +266,7 @@ function createDodecahedron(
 		tempTransparent,
 		tempFillColor,
 		tempTextColor,
+		angVel1,
+		angVel2
 	]);
 }

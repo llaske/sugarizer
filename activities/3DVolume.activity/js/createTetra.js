@@ -13,7 +13,9 @@ function createTetrahedron(
 	diceArray,
 	world,
 	scene,
-	groundPhysMat
+	groundPhysMat,
+	sharedAngVel1,
+	sharedAngVel2
 ) {
 	let tetrahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -177,7 +179,10 @@ function createTetrahedron(
 	// 	});
 	// }
 	world.addBody(tetrahedronBody);
-	tetrahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
+	let angVel1 = sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+    let angVel2 = sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+
+	tetrahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
 	tetrahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	tetrahedron.position.copy(tetrahedronBody.position); // this merges the physics body to threejs mesh
 	tetrahedron.quaternion.copy(tetrahedronBody.quaternion);
@@ -193,5 +198,7 @@ function createTetrahedron(
 		tempTransparent,
 		tempFillColor,
 		tempTextColor,
+		angVel1,
+		angVel2
 	]);
 }

@@ -1,7 +1,8 @@
 define([
 	"sugar-web/graphics/palette",
 	"text!activity/palettes/colorpalettetext.html",
-], function (palette, template) {
+	"sugar-web/env",
+], function (palette, template,env) {
 	var colorpalette = {};
 	colorpalette.ColorPalette = function (invoker, primaryText) {
 		palette.Palette.call(this, invoker, primaryText);
@@ -13,11 +14,19 @@ define([
 		this.setContent([containerElem]);
 
 		let that = this;
+		// that.getPalette().childNodes[0].style.backgroundColor = ctx.textColor
+		env.getEnvironment(function (err, environment) {
+			currentenv = environment;
+			that.getPalette().childNodes[0].style.backgroundColor = currentenv.user.colorvalue.stroke
+		});
+
+
 
 		const colors = document.querySelectorAll(".color-text");
 		colors.forEach((color) => {
 			color.addEventListener("click", function () {
 				const selectedColor = this.style.backgroundColor;
+				that.getPalette().childNodes[0].style.backgroundColor = this.style.backgroundColor;
 				const colorChangeEvent = new CustomEvent(
 					"color-selected-text",
 					{

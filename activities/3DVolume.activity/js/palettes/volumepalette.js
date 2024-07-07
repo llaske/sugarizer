@@ -13,10 +13,12 @@ define([
 		this.setContent([containerElem]);
 
 		var that = this;
+
 		document
 			.getElementById("volume-palette")
 			.addEventListener("click", () => {
-				that.getPalette().childNodes[0].style.backgroundImage = invoker.style.backgroundImage;
+				that.getPalette().childNodes[0].style.backgroundImage =
+					invoker.style.backgroundImage;
 				this.popDown();
 			});
 	};

@@ -13,7 +13,9 @@ function createCube(
     diceArray,
     world,
     scene,
-    groundPhysMat
+    groundPhysMat,
+    sharedAngVel1,
+    sharedAngVel2
 ) {
     let boxMesh;
     let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -155,8 +157,9 @@ function createCube(
     // 		getCubeScore(boxMesh);
     // 	});
     // }
-
-    boxBody.angularVelocity.set(0.5, 0.5, 0.5);
+    let angVel1 = sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+    let angVel2 = sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+    boxBody.angularVelocity.set(angVel1, angVel2, 0.5);
     boxBody.applyImpulse(ctx.offset, ctx.rollingForce);
 
     const groundBoxContactMat = new CANNON.ContactMaterial(
@@ -178,6 +181,7 @@ function createCube(
         tempTransparent,
         tempFillColor,
         tempTextColor,
-        "0",
+        angVel1,
+        angVel2
     ]);
 }

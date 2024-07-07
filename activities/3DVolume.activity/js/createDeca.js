@@ -1,3 +1,37 @@
+const sides = 10;
+const verticesGeo = [
+	[0, 0, 1],
+	[0, 0, -1],
+].flat();
+
+for (let i = 0; i < sides; ++i) {
+	const b = (i * Math.PI * 2) / sides;
+	verticesGeo.push(-Math.cos(b), -Math.sin(b), 0.105 * (i % 2 ? 1 : -1));
+}
+
+const facesGeo = [
+	[0, 2, 3],
+	[0, 3, 4],
+	[0, 4, 5],
+	[0, 5, 6],
+	[0, 6, 7],
+	[0, 7, 8],
+	[0, 8, 9],
+	[0, 9, 10],
+	[0, 10, 11],
+	[0, 11, 2],
+	[1, 3, 2],
+	[1, 4, 3],
+	[1, 5, 4],
+	[1, 6, 5],
+	[1, 7, 6],
+	[1, 8, 7],
+	[1, 9, 8],
+	[1, 10, 9],
+	[1, 11, 10],
+	[1, 2, 11],
+].flat();
+
 function createDecahedron(
 	sharedColor,
 	ifNumbers,
@@ -9,28 +43,29 @@ function createDecahedron(
 	yCoordinateShared,
 	quaternionShared,
 	sharedTextColor,
-    ctx,
+	ctx,
 	diceArray,
 	world,
 	scene,
-	groundPhysMat
+	groundPhysMat,
+	sharedAngVel1,
+	sharedAngVel2
 ) {
 	let decahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
 	let tempTransparent =
 		ifTransparent == null ? ctx.toggleTransparent : ifTransparent;
-	// let tempImage = ifImage == null ? showImage : ifImage;
 	let tempFillColor = sharedColor != null ? sharedColor : ctx.presentColor;
 	let tempTextColor =
 		sharedTextColor != null ? sharedTextColor : ctx.textColor;
 
-	const sides = 10;
 	const radius = 1.3;
 	const verticesGeo = [
 		[0, 0, 1],
 		[0, 0, -1],
 	].flat();
 
+	const sides = 10;
 	for (let i = 0; i < sides; ++i) {
 		const b = (i * Math.PI * 2) / sides;
 		verticesGeo.push(-Math.cos(b), -Math.sin(b), 0.105 * (i % 2 ? 1 : -1));
@@ -58,68 +93,61 @@ function createDecahedron(
 		[1, 11, 10],
 		[1, 2, 11],
 	].flat();
-	const args = [verticesGeo, facesGeo, radius, 0];
-	let decaGeometry = new THREE.PolyhedronGeometry(...args);
+    const decaGeometry = new THREE.PolyhedronGeometry(verticesGeo, facesGeo, 1.3, 0);
+
 
 	if (tempShowNumbers) {
-		let g = decaGeometry;
-
-		let tileDimension = new THREE.Vector2(4, 5);
-		let tileSize = 512;
-
-		let c = document.createElement("canvas");
-		c.width = tileSize * tileDimension.x;
-		c.height = tileSize * tileDimension.y;
-		let ctx = c.getContext("2d");
-		ctx.fillStyle = tempFillColor;
-		ctx.fillRect(0, 0, c.width, c.height);
-
-		let uvs = [];
-
-		let baseUVs = [
-			new THREE.Vector2(0.67, 1), // br
-			new THREE.Vector2(0, 0.5), // bt
-			new THREE.Vector2(1, 0.5), // tl
-			new THREE.Vector2(0.67, 0), // bl
-		];
-
-		for (let i = 0; i < 10; i++) {
-			let u = i % tileDimension.x;
-			let v = Math.floor(i / tileDimension.x);
-			uvs.push(
-				(baseUVs[0].x + u) / tileDimension.x,
-				(baseUVs[0].y + v) / tileDimension.y,
-				(baseUVs[1].x + u) / tileDimension.x,
-				(baseUVs[1].y + v) / tileDimension.y,
-				(baseUVs[2].x + u) / tileDimension.x,
-				(baseUVs[2].y + v) / tileDimension.y,
-				(baseUVs[3].x + u) / tileDimension.x,
-				(baseUVs[3].y + v) / tileDimension.y
-			);
-
-			ctx.textAlign = "center";
-			ctx.textBaseline = "middle";
-			ctx.font = `bold 175px Arial`;
-			ctx.fillStyle = tempTextColor;
-			let text = i + 1;
-			if (i === 5) {
-				text += ".";
-			}
-			ctx.fillText(
-				text,
-				(u + 0.5) * tileSize,
-				c.height - (v + 0.5) * tileSize
-			);
-		}
-
-		g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-		let tex = new THREE.CanvasTexture(c);
-		tex.colorSpace = THREE.SRGBColorSpace;
-
-		let m = new THREE.MeshPhongMaterial({
-			map: tex,
+		let vertStep = THREE.MathUtils.degToRad(36);
+		let vertices = [
+			[0, 0, 1],
+			[Math.cos(vertStep * 0), Math.sin(vertStep * 0), 0.105],
+			[Math.cos(vertStep * 1), Math.sin(vertStep * 1), -0.105],
+			[Math.cos(vertStep * 2), Math.sin(vertStep * 2), 0.105],
+		].map((p) => {
+			return new THREE.Vector3(...p);
 		});
+		let h = vertices[0].distanceTo(vertices[2]);
+		let w = vertices[1].distanceTo(vertices[3]);
+		let u = (w / h) * 0.5;
+		let v01 = new THREE.Vector3().subVectors(vertices[1], vertices[0]);
+		let v02 = new THREE.Vector3().subVectors(vertices[2], vertices[0]);
+		let dot = v02.clone().normalize().dot(v01);
+		let v = 1 - dot / h;
+
+		let gSide = new THREE.BufferGeometry()
+			.setFromPoints(vertices)
+			.rotateZ(-vertStep);
+		gSide.setIndex([0, 1, 2, 0, 2, 3]);
+		gSide.setAttribute(
+			"uv",
+			new THREE.Float32BufferAttribute(
+				[0.5, 1, 0.5 - u, v, 0.5, 0, 0.5 + u, v],
+				2
+			)
+		);
+		gSide.computeVertexNormals();
+		gSide = gSide.toNonIndexed();
+
+		// all sides
+		let gs = [];
+
+		for (let i = 0; i < 5; i++) {
+			let a = vertStep * 2 * i;
+			let g1 = gSide.clone().rotateZ(-a);
+			recomputeUVs(g1, i * 2 + 0);
+			let g2 = gSide
+				.clone()
+				.rotateX(Math.PI)
+				.rotateZ(vertStep + a);
+			recomputeUVs(g2, i * 2 + 1);
+			gs.push(g1, g2);
+		}
+		let g = BufferGeometryUtils.mergeBufferGeometries(gs);
+
+		let m = new THREE.MeshLambertMaterial({
+			map: getNumbers(),
+		});
+
 		decahedron = new THREE.Mesh(g, m);
 	} else if (tempTransparent) {
 		const decahedronTransaprentGeometry = decaGeometry;
@@ -205,7 +233,13 @@ function createDecahedron(
 	// 	});
 	// }
 	world.addBody(decahedronBody);
-	decahedronBody.angularVelocity.set(0.5, 0.5, 0.5);
+
+	let angVel1 =
+		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+	let angVel2 =
+		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+
+	decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
 	decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
 	decahedron.quaternion.copy(decahedronBody.quaternion);
@@ -223,5 +257,67 @@ function createDecahedron(
 		tempTransparent,
 		tempFillColor,
 		tempTextColor,
+		angVel1,
+		angVel2,
 	]);
+}
+
+function recomputeUVs(g, idx) {
+	let tiles = {
+		x: 4,
+		y: 4,
+	};
+	let x = idx % tiles.x;
+	let y = Math.floor(idx / tiles.x);
+
+	let uvs = g.attributes.uv;
+	for (let i = 0; i < uvs.count; i++) {
+		let u = (uvs.getX(i) + x) / tiles.x;
+		let v = (uvs.getY(i) + y) / tiles.y;
+		uvs.setXY(i, u, v);
+	}
+}
+
+function getNumbers() {
+	let tileSize = 256;
+	let tiles = {
+		x: 4,
+		y: 4,
+	};
+
+	let c = document.createElement("canvas");
+	let ctx = c.getContext("2d");
+	c.width = tileSize * 4;
+	c.height = tileSize * 4;
+	let u = (val) => tileSize * 0.01 * val;
+
+	ctx.fillStyle = "rgba(0, 127, 255, 1)";
+	ctx.fillRect(0, 0, c.width, c.height);
+
+	ctx.font = `bold ${u(40)}px Arial`;
+	ctx.textAlign = "center";
+	ctx.textBaseline = "middle";
+	ctx.fillStyle = "#f80";
+
+	for (let i = 0; i < sides; i++) {
+		let y = Math.floor(i / tiles.x);
+		let x = i % tiles.x;
+		let text = i + 1;
+
+		ctx.save();
+		ctx.translate(x * tileSize, c.height - y * tileSize);
+
+		ctx.fillText(text, u(50), -u(40));
+		if (text == 6 || text == 9) {
+			ctx.fillText("_", u(50), -u(40));
+		}
+		ctx.restore();
+	}
+
+	let tex = new THREE.CanvasTexture(c);
+	tex.colorSpace = "srgb";
+	// tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+	tex.needsUpdate = true;
+
+	return tex;
 }

@@ -30,6 +30,8 @@
 
 		<script data-main="js/loader" src="lib/require.js"></script>
 		<script type="text/javascript" src="../../cordova.js"></script>
+		<script src="https://tympanus.net/codrops/adpacks/cda_sponsor.js"></script>
+		<!-- <script src="js/activity.js"></script> -->
 		<script src="js/createCube.js"></script>
 		<script src="js/createDeca.js"></script>
 		<script src="js/createDodeca.js"></script>
@@ -53,7 +55,11 @@
 				></button>
 
 				<hr />
-
+				<button
+					class="toolbutton"
+					id="sensor-button"
+					title="Sensor"
+				></button>
 				<button
 					class="button-background toolbutton"
 					id="tetra-button"
@@ -149,6 +155,7 @@
 					id="stop-button"
 					title="Stop"
 				></button>
+				<button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
 				<button
 					class="toolbutton pull-right"
 					id="help-button"
@@ -177,5 +184,6 @@
 			</div>
 			<p id="last-roll"><span id="roll"></span></p>
 		</div>
+		<button class="toolbutton pull-right" id="unfullscreen-button" title="UnFullscreen"></button>
 	</body>
 </html>
