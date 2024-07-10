@@ -48,6 +48,7 @@ const HomeScreen = {
 									:x="canvasCenter.x - constant.sizeJournal/2"
 									:y="canvasCenter.y + constant.sizeOwner - constant.sizeJournal + canvasCenter.jdeltay"
 									isNative="true"
+									v-on:click="$emit('openJournal')"
 								></icon>
 							</transition>
 							<icon
@@ -98,7 +99,7 @@ const HomeScreen = {
 		prompt: Prompt,
 	},
 
-	emits: ['openSettings'],
+	emits: ['openSettings', 'openJournal'],
 
 	data() {
 		return {

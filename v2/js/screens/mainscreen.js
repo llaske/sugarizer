@@ -2,7 +2,7 @@
  @desc This is the main screen component */
 const MainScreen = {
 	name: 'MainScreen',
-	template: ` <div class="toolbar ">
+	template: `<div class="toolbar" v-show="screentype !== 'journal'">
 					<div class="tool_leftitems">
 						<searchfield
 							ref="searchfield"
@@ -83,8 +83,9 @@ const MainScreen = {
 					<div id="canvas" ref="canvas" class="sugarizer-desktop">
 						<settings ref="settings" :buddycolor=buddycolor :username="username"></settings>
 						<listview v-if="screentype==='list'" :filter="filter" @clear-searchfield = "clearSearchField"/>
-						<homescreen ref="home" @open-settings="displaySettings" v-else-if="screentype==='home'" :filter="filter" />
+						<homescreen ref="home" @open-journal="changeView('journal')" @open-settings="displaySettings" v-else-if="screentype==='home'" :filter="filter" />
 						<neighborhood @open-settings="displayServerSettings" v-else-if="screentype==='neighborhood'" :filter="filter" />
+						<journal @close-journal="changeView('home')" v-else-if="screentype==='journal'"/>
 					</div>
 					`,
 	components: {
@@ -93,6 +94,7 @@ const MainScreen = {
 		'listview': ListView,
 		'homescreen': HomeScreen,
 		"neighborhood": Neighborhood,
+		"journal": Journal,
 		'settings': Settings,
 	},
 
@@ -125,15 +127,6 @@ const MainScreen = {
 		vm.offline = !sugarizer.modules.user.isConnected();
 		await this.initializeActivities();
 		this.initView();
-		document.getElementById(`view_${this.screentype}_button`).classList.add('active');
-	},
-
-	watch: {
-		screentype: function (newVal, oldVal) {
-			if (!oldVal) return;
-			document.getElementById(`view_${newVal}_button`).classList.add('active');
-			document.getElementById(`view_${oldVal}_button`).classList.remove('active');
-		}
 	},
 
 	methods: {
