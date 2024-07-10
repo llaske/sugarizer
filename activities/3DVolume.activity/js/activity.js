@@ -72,7 +72,6 @@ define([
 				document.getElementById(
 					"unfullscreen-button"
 				).style.visibility = "hidden";
-
 			});
 
 		const randomDirection = new CANNON.Vec3(
@@ -115,7 +114,7 @@ define([
 					? currentenv.user.colorvalue.fill
 					: ctx.presentColor;
 
-			scene.background = new THREE.Color("#A9A9A9");
+			scene.background = new THREE.Color("#ffffff");
 			console.log(ctx.presentColor);
 
 			ctx.textColor =
@@ -1053,7 +1052,7 @@ define([
 			.appendChild(renderer.domElement);
 
 		const scene = new THREE.Scene();
-		scene.background = new THREE.Color(ctx.presentColor);
+		scene.background = new THREE.Color("#ffffff");
 		const light = new THREE.DirectionalLight(0xffffff, 0.4);
 		light.castShadow = true;
 		const leftLight = new THREE.DirectionalLight(0xffffff, 0.25);
@@ -1132,21 +1131,24 @@ define([
 				// 	},
 				// 	true
 				// );
-				watchId = navigator.accelerometer.watchAcceleration(accelerationChanged, null, { frequency: 500 });
-				
+				watchId = navigator.accelerometer.watchAcceleration(
+					accelerationChanged,
+					null,
+					{ frequency: 500 }
+				);
+
 				console.log(screen.orientation.type);
 			} else {
 				sensorButton.classList.remove("active");
 				world.gravity.set(0, -9.81, 0);
 			}
 		});
-		
 
 		function setGravity(gravityDirection) {
 			let gravityX = 0;
 			let gravityY = 0;
 			let gravityZ = 0;
-		
+
 			switch (gravityDirection) {
 				case 0:
 					gravityX = 1; // Right
@@ -1179,33 +1181,28 @@ define([
 				default:
 					break;
 			}
-		
+
 			// Assuming you have a Cannon.js world instance called 'world'
-			world.gravity.set(gravityX * 9.82, gravityY * 9.82, gravityZ * 9.82); // Scale gravity with 9.82 m/s² (approximate Earth gravity)
+			world.gravity.set(
+				gravityX * 9.82,
+				gravityY * 9.82,
+				gravityZ * 9.82
+			); // Scale gravity with 9.82 m/s² (approximate Earth gravity)
 		}
-		
-		
+
 		function accelerationChanged(acceleration) {
 			if (!sensorMode) return;
 			if (acceleration.x < -4.5) {
-				if (acceleration.y > 4.75)
-					setGravity(3);
-				else if (acceleration.y < -4.75)
-					setGravity(5);
-				else
-					setGravity(4);
+				if (acceleration.y > 4.75) setGravity(3);
+				else if (acceleration.y < -4.75) setGravity(5);
+				else setGravity(4);
 			} else if (acceleration.x <= 4.5 && acceleration.x >= -4.5) {
-				if (acceleration.y > 4.75)
-					setGravity(2);
-				else if (acceleration.y < -4.75)
-					setGravity(6);
+				if (acceleration.y > 4.75) setGravity(2);
+				else if (acceleration.y < -4.75) setGravity(6);
 			} else if (acceleration.x > 4.5) {
-				if (acceleration.y > 4.75)
-					setGravity(1);
-				else if (acceleration.y < -4.75)
-					setGravity(7);
-				else
-					setGravity(0);
+				if (acceleration.y > 4.75) setGravity(1);
+				else if (acceleration.y < -4.75) setGravity(7);
+				else setGravity(0);
 			}
 		}
 
@@ -1215,7 +1212,6 @@ define([
 			// Adjust gravity based on tilt
 			adjustGravity(gamma);
 		}
-
 
 		// if (readyToWatch) {
 		// 	sensorButton.disabled = false;
@@ -1243,7 +1239,7 @@ define([
 		const groundMesh = new THREE.Mesh(groundGeo, groundMat);
 		groundMesh.receiveShadow = true;
 
-		groundMesh.material.color.setHex(0x656565);
+		groundMesh.material.color.setHex(0xc9c9c9);
 
 		scene.add(groundMesh);
 		const groundPhysMat = new CANNON.Material();
@@ -1641,41 +1637,44 @@ define([
 		}
 
 		function getDecaScore(body, ifRemove) {
-            // Define face vectors based on vertices
-            const faceVectors = [
-                { vector: new THREE.Vector3(0, 0, 1), face: 1 },
-                { vector: new THREE.Vector3(0, 0, -1), face: 2 },
-            ];
+			// Define face vectors based on vertices
+			const faceVectors = [
+				{ vector: new THREE.Vector3(0, 0, 1), face: 1 },
+				{ vector: new THREE.Vector3(0, 0, -1), face: 2 },
+			];
 
-            const sides = 10;
-            for (let i = 0; i < sides; ++i) {
-                const b = (i * Math.PI * 2) / sides;
-                faceVectors.push({
-                    vector: new THREE.Vector3(-Math.cos(b), -Math.sin(b), 0.105 * (i % 2 ? 1 : -1)),
-                    face: i + 3,
-                });
-            }
+			const sides = 10;
+			for (let i = 0; i < sides; ++i) {
+				const b = (i * Math.PI * 2) / sides;
+				faceVectors.push({
+					vector: new THREE.Vector3(
+						-Math.cos(b),
+						-Math.sin(b),
+						0.105 * (i % 2 ? 1 : -1)
+					),
+					face: i + 3,
+				});
+			}
 
-            for (const faceVector of faceVectors) {
-                faceVector.vector.normalize().applyEuler(body.rotation);
+			for (const faceVector of faceVectors) {
+				faceVector.vector.normalize().applyEuler(body.rotation);
 
-                if (Math.round(faceVector.vector.y) === 1) {
-                    if (!ifRemove) {
-                        lastRoll += faceVector.face + " + ";
-                        presentScore += faceVector.face;
-                        updateElements();
-                        break;
-                    }
-                    for (let i = 0; i < diceArray.length; i++) {
-                        if (body == diceArray[i][0]) {
-                            diceArray[i][7] = faceVector.face;
-                        }
-                    }
-                    return faceVector.face;
-                }
-            }
+				if (Math.round(faceVector.vector.y) === 1) {
+					if (!ifRemove) {
+						lastRoll += faceVector.face + " + ";
+						presentScore += faceVector.face;
+						updateElements();
+						break;
+					}
+					for (let i = 0; i < diceArray.length; i++) {
+						if (body == diceArray[i][0]) {
+							diceArray[i][7] = faceVector.face;
+						}
+					}
+					return faceVector.face;
+				}
+			}
 		}
-
 
 		function getIcosaScore(body, ifRemove) {
 			// Define the golden ratio
@@ -1790,7 +1789,7 @@ define([
 		function getDecaScore(body, ifRemove) {
 			// Define the golden ratio
 			const phi = (1 + Math.sqrt(5)) / 2;
-		
+
 			// Decahedron face vectors
 			const faceVectors = [
 				{ vector: new THREE.Vector3(0, 1, phi), face: 1 },
@@ -1804,10 +1803,10 @@ define([
 				{ vector: new THREE.Vector3(phi, 0, 1), face: 9 },
 				{ vector: new THREE.Vector3(phi, 0, -1), face: 10 },
 			];
-		
+
 			for (const faceVector of faceVectors) {
 				faceVector.vector.normalize().applyEuler(body.rotation);
-		
+
 				if (Math.round(faceVector.vector.y) === 1) {
 					if (!ifRemove) {
 						lastRoll += faceVector.face + " + ";
@@ -1824,7 +1823,6 @@ define([
 				}
 			}
 		}
-		
 
 		function toggleTransparency() {
 			for (let i = 0; i < diceArray.length; i++) {
@@ -1887,7 +1885,7 @@ define([
 					break;
 				case "default":
 					groundMesh.material.needsUpdate = true;
-					groundMesh.material.color.setHex(0x656565);
+					groundMesh.material.color.setHex(0xc9c9c9);
 					groundMesh.material.wireframe = false;
 					groundMesh.material.map = null;
 					groundBody.material.friction = 1;
