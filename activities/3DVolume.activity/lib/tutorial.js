@@ -75,7 +75,7 @@ define([], function () {
         intro: 'Use this button to shake the volumes on the board.',
       },
       {
-        element: '.right-container',
+        element: '.arrow-container',
         title: 'Rotate the board',
         intro: 'Select the arrow pointing in the direction you wish the board to rotate.',
       },

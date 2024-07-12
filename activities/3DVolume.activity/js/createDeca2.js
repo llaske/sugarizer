@@ -101,12 +101,141 @@ function createDecahedron(
 		1,
 		0
 	);
+	let myVertices = [];
+	let myFaces = [];
+
+	let vertStep = THREE.MathUtils.degToRad(36);
+	let vertices = [
+		[0, 0, 1],
+		[Math.cos(vertStep * 0), Math.sin(vertStep * 0), 0.105],
+		[Math.cos(vertStep * 1), Math.sin(vertStep * 1), -0.105],
+		[Math.cos(vertStep * 2), Math.sin(vertStep * 2), 0.105],
+	].map((p) => {
+		return new THREE.Vector3(...p);
+	});
+	let h = vertices[0].distanceTo(vertices[2]);
+	let w = vertices[1].distanceTo(vertices[3]);
+	let u = (w / h) * 0.5;
+	let v01 = new THREE.Vector3().subVectors(vertices[1], vertices[0]);
+	let v02 = new THREE.Vector3().subVectors(vertices[2], vertices[0]);
+	let dot = v02.clone().normalize().dot(v01);
+	let v = 1 - dot / h;
+
+	let gSide = new THREE.BufferGeometry()
+		.setFromPoints(vertices)
+		.rotateZ(-vertStep);
+	gSide.setIndex([0, 1, 2, 0, 2, 3]);
+	gSide.setAttribute(
+		"uv",
+		new THREE.Float32BufferAttribute(
+			[0.5, 1, 0.5 - u, v, 0.5, 0, 0.5 + u, v],
+			2
+		)
+	);
+	gSide.computeVertexNormals();
+	gSide = gSide.toNonIndexed();
+
+	// all sides
+	let gs = [];
+
+	for (let i = 0; i < 5; i++) {
+		let a = vertStep * 2 * i;
+		let g1 = gSide.clone().rotateZ(-a);
+		recomputeUVs(g1, i * 2 + 0);
+		let g2 = gSide
+			.clone()
+			.rotateX(Math.PI)
+			.rotateZ(vertStep + a);
+		recomputeUVs(g2, i * 2 + 1);
+		gs.push(g1, g2);
+	}
+
+	let decaGeometry = BufferGeometryUtils.mergeBufferGeometries(gs);
+	let g = decaGeometry;
+	let positionAttribute = g.getAttribute("position");
+
+	for (let i = 0; i < positionAttribute.count; i++) {
+		let vertex = new THREE.Vector3().fromBufferAttribute(
+			positionAttribute,
+			i
+		);
+		myVertices.push([vertex.x, vertex.y, vertex.z]);
+	}
+
+	// Extract faces
+	for (let i = 0; i < myVertices.length; i += 3) {
+		myFaces.push([i, i + 1, i + 2]);
+	}
+
 	if (tempShowNumbers) {
-		let g = decaGeometry2;
 		let m = new THREE.MeshLambertMaterial({
 			map: getNumbers(tempFillColor, tempTextColor),
 		});
+
+		// let tileDimension = new THREE.Vector2(4, 4);
+		// let tileSize = 256;
+		// // let g = new THREE.OctahedronGeometry(1.6);
+
+		// let c = document.createElement("canvas");
+		// c.width = tileSize * tileDimension.x;
+		// c.height = tileSize * tileDimension.y;
+		// let ctx = c.getContext("2d");
+		// ctx.fillStyle = tempFillColor;
+		// ctx.fillRect(0, 0, c.width, c.height);
+
+		// let uvs = [];
+
+		// let baseUVs = [
+		// 	[0, 0],
+		// 	[Math.cos(vertStep * 0), Math.sin(vertStep * 0)],
+		// 	[Math.cos(vertStep * 1), Math.sin(vertStep * 1)],
+		// 	[Math.cos(vertStep * 2), Math.sin(vertStep * 2)],
+		// ].map((p) => {
+		// 	return new THREE.Vector2(...p);
+		// });
+
+		// for (let i = 0; i < 10; i++) {
+		// 	let u = i % tileDimension.x;
+		// 	let v = Math.floor(i / tileDimension.x);
+		// 	uvs.push(
+		// 		(baseUVs[0].x + u) / tileDimension.x,
+		// 		(baseUVs[0].y + v) / tileDimension.y,
+		// 		(baseUVs[1].x + u) / tileDimension.x,
+		// 		(baseUVs[1].y + v) / tileDimension.y,
+		// 		(baseUVs[2].x + u) / tileDimension.x,
+		// 		(baseUVs[2].y + v) / tileDimension.y,
+		// 		(baseUVs[3].x + u) / tileDimension.x,
+		// 		(baseUVs[3].y + v) / tileDimension.y
+		// 	);
+
+		// 	ctx.textAlign = "center";
+		// 	ctx.textBaseline = "middle";
+		// 	ctx.font = `bold 200px Arial`;
+		// 	ctx.fillStyle = tempTextColor;
+		// 	ctx.fillText(
+		// 		i + 1 + (i == 5 || i == 8 ? "" : ""),
+		// 		(u + 0.5) * tileSize,
+		// 		c.height - (v + 0.5) * tileSize
+		// 	);
+		// }
+		// g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+
+		// let tex = new THREE.CanvasTexture(c);
+		// tex.colorSpace = THREE.SRGBColorSpace;
+
+		// let m2 = new THREE.MeshPhongMaterial({
+		// 	map: tex,
+		// });
+
 		decahedron = new THREE.Mesh(g, m);
+		decahedron.rotation.z = Math.PI / 2;
+
+		// myDecahedron = decahedron;
+		// decahedron.rotateY(THREE.MathUtils.degToRad(20));
+		// const position = g.attributes.position.array;
+		// const index = g.index.array;
+		// console.log(position);
+		// console.log(index);
 	} else if (tempTransparent) {
 		const decahedronTransaprentGeometry = decaGeometry2;
 		const wireframe = new THREE.WireframeGeometry(

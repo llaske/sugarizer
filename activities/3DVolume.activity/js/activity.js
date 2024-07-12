@@ -1136,8 +1136,6 @@ define([
 					null,
 					{ frequency: 500 }
 				);
-
-				console.log(screen.orientation.type);
 			} else {
 				sensorButton.classList.remove("active");
 				world.gravity.set(0, -9.81, 0);
@@ -1151,31 +1149,31 @@ define([
 
 			switch (gravityDirection) {
 				case 0:
-					gravityX = 1; // Right
+					gravityY = 1; // Right
 					break;
 				case 1:
-					gravityX = -1; // Right-bottom (diagonal down-right)
-					gravityY = -1;
-					break;
-				case 2:
-					gravityY = -1; // Bottom (straight down)
-					break;
-				case 3:
-					gravityX = -1; // Left-bottom (diagonal down-left)
+					gravityX = 1; // Right-bottom (diagonal down-right)
 					gravityY = 1;
 					break;
+				case 2:
+					gravityY = 1; // Bottom (straight down)
+					break;
+				case 3:
+					gravityX = 1; // Left-bottom (diagonal down-left)
+					gravityY = -1;
+					break;
 				case 4:
-					gravityX = -1; // Left (straight left)
+					gravityY = -1; // Left (straight left)
 					break;
 				case 5:
 					gravityX = -1; // Left-top (diagonal up-left)
 					gravityY = -1;
 					break;
 				case 6:
-					gravityY = 1; // Top (straight up)
+					gravityX = -1; // Top (straight up)
 					break;
 				case 7:
-					gravityX = 1; // Right-top (diagonal up-right)
+					gravityX = -1; // Right-top (diagonal up-right)
 					gravityY = 1;
 					break;
 				default:
@@ -1192,19 +1190,46 @@ define([
 
 		function accelerationChanged(acceleration) {
 			if (!sensorMode) return;
-			if (acceleration.x < -4.5) {
-				if (acceleration.y > 4.75) setGravity(3);
-				else if (acceleration.y < -4.75) setGravity(5);
-				else setGravity(4);
-			} else if (acceleration.x <= 4.5 && acceleration.x >= -4.5) {
-				if (acceleration.y > 4.75) setGravity(2);
-				else if (acceleration.y < -4.75) setGravity(6);
-			} else if (acceleration.x > 4.5) {
-				if (acceleration.y > 4.75) setGravity(1);
-				else if (acceleration.y < -4.75) setGravity(7);
-				else setGravity(0);
+			if (acceleration.y > 0) {
+				// right
+				world.gravity.set(-9.81, 0, 0); // Gravity towards the right
+				wakeAll();
+			} else {
+				if (acceleration.z > 0) {
+					if (acceleration.y > -1 && acceleration.y < 1) {
+						if (acceleration.z > 6) {
+							// back
+							world.gravity.set(0, 0, 9.81); // Gravity towards the back
+							wakeAll();
+						} else {
+							// straight
+							world.gravity.set(0, -9.81, 0);
+							wakeAll();
+						}
+					} else {
+						// left
+						world.gravity.set(9.81, 0, 0); // Gravity towards the left
+						wakeAll();
+					}
+				} else {
+					// front
+					world.gravity.set(0, 0, -9.81); // Gravity towards the front
+					wakeAll();
+				}
+			}
+			
+		}
+
+		function wakeAll() {
+			for (let i = 0; i < diceArray.length; i++) {
+				diceArray[i][1].wakeUp();
 			}
 		}
+
+		function myFunction() {
+			console.log("hello");
+		}
+		// var intervalId = setInterval(accelerationChanged, 5000); // 2000 milliseconds (2 seconds)
 
 		function handleDeviceOrientation(event) {
 			var gamma = event.gamma; // Tilt left or right (range from -90 to 90)
@@ -1259,9 +1284,20 @@ define([
 			type: CANNON.Body.STATIC,
 			material: groundPhysMat,
 		});
+		console.log(groundBody)
 		groundBody.material.friction = 1;
 		groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 		world.addBody(groundBody);
+
+		const topWall = new CANNON.Body({
+			shape: new CANNON.Box(new CANNON.Vec3(15, 15, 0.1)),
+			type: CANNON.Body.STATIC,
+			material: groundPhysMat,
+		});
+		topWall.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+		topWall.position.set(0, 12, 0);
+		world.addBody(topWall)
+
 
 		const leftWallBody = new CANNON.Body({
 			shape: new CANNON.Box(new CANNON.Vec3(15, 100, 0.1)),
@@ -1786,22 +1822,24 @@ define([
 			);
 		}
 
-		function getDecaScore(body, ifRemove) {
+		function getDodecaScore(body, ifRemove) {
 			// Define the golden ratio
 			const phi = (1 + Math.sqrt(5)) / 2;
 
 			// Decahedron face vectors
 			const faceVectors = [
-				{ vector: new THREE.Vector3(0, 1, phi), face: 1 },
-				{ vector: new THREE.Vector3(0, 1, -phi), face: 2 },
-				{ vector: new THREE.Vector3(0, -1, phi), face: 3 },
-				{ vector: new THREE.Vector3(0, -1, -phi), face: 8 },
-				{ vector: new THREE.Vector3(1, phi, 0), face: 5 },
-				{ vector: new THREE.Vector3(1, -phi, 0), face: 6 },
-				{ vector: new THREE.Vector3(-1, phi, 0), face: 7 },
-				{ vector: new THREE.Vector3(-1, -phi, 0), face: 4 },
-				{ vector: new THREE.Vector3(phi, 0, 1), face: 9 },
-				{ vector: new THREE.Vector3(phi, 0, -1), face: 10 },
+				{ vector: new THREE.Vector3(1, 1, 1), face: 1 },
+				{ vector: new THREE.Vector3(1, 1, -1), face: 6 },
+				{ vector: new THREE.Vector3(1, -1, 1), face: 11 },
+				{ vector: new THREE.Vector3(1, -1, -1), face: 9 },
+				{ vector: new THREE.Vector3(-1, 1, 1), face: 7 },
+				{ vector: new THREE.Vector3(-1, 1, -1), face: 2 },
+				{ vector: new THREE.Vector3(-1, -1, 1), face: 5 },
+				{ vector: new THREE.Vector3(-1, -1, -1), face: 8 },
+				{ vector: new THREE.Vector3(0, phi, 1 / phi), face: 4 },
+				{ vector: new THREE.Vector3(0, phi, -1 / phi), face: 10 },
+				{ vector: new THREE.Vector3(0, -phi, 1 / phi), face: 3 },
+				{ vector: new THREE.Vector3(0, -phi, -1 / phi), face: 12 },
 			];
 
 			for (const faceVector of faceVectors) {
@@ -1926,6 +1964,10 @@ define([
 				}
 			}
 		}
+		let try_button = document.getElementById("try-button");
+		try_button.addEventListener("click", ()=>{ 
+			diceArray[0][0].rotateY(THREE.MathUtils.degToRad(20));
+		})
 
 		let awake = false;
 		animate();
@@ -1950,6 +1992,7 @@ define([
 			if (world.hasActiveBodies == true) {
 				awake = true;
 			}
+			// accelerationChanged();
 
 			renderer.render(scene, camera);
 		}
