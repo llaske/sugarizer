@@ -74,11 +74,7 @@ define([
 				).style.visibility = "hidden";
 			});
 
-		const randomDirection = new CANNON.Vec3(
-			0.3, // Random x-axis value between -0.5 and 0.5
-			0.05, // Random y-axis value between -0.1 and 0.1 (slightly tilted)
-			0.3 // Random z-axis value between -0.5 and 0.5
-		);
+		const randomDirection = new CANNON.Vec3(0.3, 0.05, 0.3);
 		randomDirection.normalize(); // Normalize to unit vector
 
 		let ctx = {
@@ -106,6 +102,7 @@ define([
 		var defaultButton = document.getElementById("default-button");
 		defaultButton.classList.toggle("active");
 
+		// Setting user preferences through the env
 		env.getEnvironment(function (err, environment) {
 			currentenv = environment;
 
@@ -154,6 +151,7 @@ define([
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
 			}
+			// If user already has some volumes on the board
 			if (msg.action == "init") {
 				changeBoardBackground(msg.content[1]);
 				data = msg.content[0];
@@ -181,9 +179,9 @@ define([
 							break;
 						default:
 							console.log(`Unexpected shape: ${data[i][0]}`);
-							continue; // Skip the rest of the loop for unexpected shapes
+							continue;
 					}
-
+					// Add those volumes to the board.
 					if (createFunction) {
 						const fillColorStored = data[i][3];
 						const textColorStored = data[i][4];
@@ -204,7 +202,8 @@ define([
 							scene,
 							groundPhysMat,
 							data[i][7],
-							data[i][8]
+							data[i][8],
+							data[i][9]
 						);
 					}
 				}
@@ -215,17 +214,15 @@ define([
 			if (msg.action == "changeBg") {
 				changeBoardBackground(msg.content);
 			}
-			if (msg.action == "resetScore") {
-				presentScore = 0;
-				totalScoreElement.textContent = 0;
-				lastRoll = "";
-				lastRollElement.textContent = "";
-			}
 			if (msg.action == "remove") {
+				// This starts a ray from the top of the scene and that ray intersects objects.
 				raycaster.setFromCamera(msg.content, camera);
 				var intersects = raycaster.intersectObjects(scene.children);
 
+				// The object that is intersected first is the object that needs to be removed.
 				var intersectedObject = intersects[0]?.object;
+
+				// If the first object is the board do not let it be removed
 				if (intersectedObject?.geometry.type == "PlaneGeometry") {
 					return;
 				}
@@ -275,14 +272,18 @@ define([
 					scene,
 					groundPhysMat,
 					msg.content.sharedAngVel1,
-					msg.content.sharedAngVel2
+					msg.content.sharedAngVel2,
+					msg.content.sharedAngVel3
 				);
 			}
 		};
 
+		// Handling the journal addition.
+
 		document
 			.getElementById("stop-button")
 			.addEventListener("click", function (event) {
+				// We must add to the journal all the features of the added volume along with its exact position and quaternion
 				for (let i = 0; i < diceArray.length; i++) {
 					journalDiceArray.push([
 						diceArray[i][2],
@@ -294,6 +295,7 @@ define([
 						diceArray[i][4],
 						diceArray[i][7],
 						diceArray[i][8],
+						diceArray[i][9],
 					]);
 				}
 				console.log("writing...");
@@ -308,6 +310,8 @@ define([
 					}
 				});
 			});
+		
+		// Loading the journal data.
 
 		env.getEnvironment(function (err, environment) {
 			currentenv = environment;
@@ -350,6 +354,8 @@ define([
 										break;
 								}
 
+								// Create the volumes
+
 								if (createFunction) {
 									createFunction(
 										fillColorStored,
@@ -368,7 +374,8 @@ define([
 										scene,
 										groundPhysMat,
 										data[i][7],
-										data[i][8]
+										data[i][8],
+										data[i][9]
 									);
 								}
 							}
@@ -381,9 +388,12 @@ define([
 		document
 			.getElementById("help-button")
 			.addEventListener("click", function (e) {
-				tutorial.start();
+				// Set the adding flag to false so that new volumes are not added to the board when the tutorial is running.
+				ifAdding.adding = false;
+				tutorial.start(ifAdding);
 			});
 
+		// Handle the color sliders for the volume fill color.
 		const redSliderFill = document.getElementById("red-slider-fill");
 		const greenSliderFill = document.getElementById("green-slider-fill");
 		const blueSliderFill = document.getElementById("blue-slider-fill");
@@ -437,7 +447,6 @@ define([
 			};
 			updateColorDisplayFill();
 		}
-
 		redSliderFill.addEventListener("input", handleSliderChangeFill);
 		greenSliderFill.addEventListener("input", handleSliderChangeFill);
 		blueSliderFill.addEventListener("input", handleSliderChangeFill);
@@ -449,7 +458,8 @@ define([
 				ctx.presentColor;
 			updateSlidersFill(selectedColorFill);
 		});
-
+		
+		// Handle the color sliders for the volume text color.
 		const redSliderText = document.getElementById("red-slider-text");
 		const greenSliderText = document.getElementById("green-slider-text");
 		const blueSliderText = document.getElementById("blue-slider-text");
@@ -495,18 +505,8 @@ define([
 			updateSlidersText(selectedColorText);
 		});
 
-		// document.addEventListener('color-selected-fill', function (event) {
-		//   const selectedColor = event.detail.color;
-		//   ctx.presentColor = selectedColor;
-		//   document.getElementById('color-button-fill').style.backgroundColor = ctx.presentColor;
-		//   updateSlidersFill(selectedColor);
-		// });
-
-		function updateDice(type, value) {
-			dices[type] += value;
-			document.getElementById(type).innerHTML = "<br />" + dices[type];
-		}
-
+		
+		// Handle the tossing of the volumes.
 		document
 			.querySelector("#throw-button")
 			.addEventListener("click", () => {
@@ -519,20 +519,7 @@ define([
 				}
 			});
 
-		// Toggles the dice's transparency
-		// document.querySelector('#solid-button').addEventListener('click', () => {
-		//   if (!transparent) {
-		//     document.querySelector('#solid-button').style.backgroundImage =
-		//       'url(icons/cube.svg)'
-		//   } else {
-		//     document.querySelector('#solid-button').style.backgroundImage =
-		//       'url(icons/cube_solid.svg)'
-		//   }
-		//   transparent = !transparent
-		//   toggleTransparency()
-		// })
-
-		// Toggles showing numbers on dice
+		// Toggles showing numbers on the volumes.
 
 		document
 			.querySelector("#number-button")
@@ -553,15 +540,11 @@ define([
 					transparentButton.classList.toggle("active");
 					ctx.toggleTransparent = !ctx.toggleTransparent;
 				}
-				if (showImage) {
-					var imageButton1 = document.getElementById("image-button");
-					imageButton1.classList.toggle("active");
-					showImage = !showImage;
-				}
 				ctx.showNumbers = !ctx.showNumbers;
 				// toggleNumbers();
 			});
 
+		// Handles the transparent volume type button.
 		document
 			.querySelector("#transparent-button")
 			.addEventListener("click", () => {
@@ -574,7 +557,6 @@ define([
 				console.log(defaultVolume);
 
 				if (defaultVolume) {
-					console.log("it is true");
 					var defaultButton =
 						document.getElementById("default-button");
 					defaultButton.classList.toggle("active");
@@ -586,14 +568,10 @@ define([
 					numberButton.classList.toggle("active");
 					ctx.showNumbers = !ctx.showNumbers;
 				}
-				if (showImage) {
-					var imageButton1 = document.getElementById("image-button");
-					imageButton1.classList.toggle("active");
-					showImage = !showImage;
-				}
 				ctx.toggleTransparent = !ctx.toggleTransparent;
 			});
 
+		// Handles the default (solid volume, without numbers nor transparent) volume type button.
 		document
 			.querySelector("#default-button")
 			.addEventListener("click", (event) => {
@@ -615,11 +593,6 @@ define([
 					numberButton.classList.toggle("active");
 					ctx.showNumbers = !ctx.showNumbers;
 				}
-				if (showImage) {
-					var imageButton1 = document.getElementById("image-button");
-					imageButton1.classList.toggle("active");
-					showImage = !showImage;
-				}
 				defaultVolume = !defaultVolume;
 			});
 
@@ -634,7 +607,6 @@ define([
 		document.getElementById("cube-button").classList.toggle("active");
 
 		const buttons = ["cube", "tetra", "octa", "dodeca", "deca", "icosa"];
-		const clearButton = document.getElementById("clear-button");
 		const removeButton = document.querySelector("#clear-button");
 		const solidButton = document.querySelector("#solid-button");
 
@@ -648,24 +620,8 @@ define([
 			removeVolume = false;
 			removeButton.classList.remove("active");
 
-			if (transparent) {
-				transparent = false;
-				solidButton.style.backgroundImage = "url(icons/cube_solid.svg)";
-				toggleTransparency();
-			}
 		};
-
-		clearButton.addEventListener("click", () => {
-			clearButton.classList.toggle("active");
-			removeVolume = !removeVolume;
-			buttons.forEach((btn) => {
-				addShape[btn] = false;
-				document
-					.getElementById(`${btn}-button`)
-					.classList.remove("active");
-			});
-		});
-
+		// Handles the remove button.
 		removeButton.addEventListener("click", () => {
 			if (!removeButton.classList.contains("active")) {
 				buttons.forEach((btn) => {
@@ -677,12 +633,6 @@ define([
 				removeVolume = true;
 				removeButton.classList.add("active");
 
-				if (transparent) {
-					transparent = false;
-					solidButton.style.backgroundImage =
-						"url(icons/cube_solid.svg)";
-					toggleTransparency();
-				}
 			}
 		});
 
@@ -700,84 +650,10 @@ define([
 				});
 		});
 
-		// const imageButton = document.getElementById('image-button')
-		// document
-		//   .getElementById('image-button')
-		//   .addEventListener('click', function (e) {
-		//     if (showImage) {
-		//       showImage = !showImage
-		//       imageButton.classList.toggle('active')
-		//       console.log('doing stuff onw')
-		//       return
-		//     }
-		//     journalchooser.show(
-		//       function (entry) {
-		//         // No selection
-		//         if (!entry) {
-		//           return
-		//         }
-		//         // Get object content
-		//         imageButton.classList.add('active')
-		//         showImage = !showImage
-
-		//         if (ctx.toggleTransparent) {
-		//           var transparentButton =
-		//             document.getElementById('transparent-button')
-		//           transparentButton.classList.toggle('active')
-		//           ctx.toggleTransparent = !ctx.toggleTransparent
-		//         }
-
-		//         if (ctx.showNumbers) {
-		//           var numberButton = document.getElementById('number-button')
-		//           numberButton.classList.toggle('active')
-		//           ctx.showNumbers = !ctx.showNumbers
-		//         }
-
-		//         var dataentry = new datastore.DatastoreObject(entry.objectId)
-		//         dataentry.loadAsText(function (err, metadata, data) {
-		//           imageData = data
-		//           console.log(data);
-		//           // if (addCube) {
-		//           //   console.log(data)
-		//           //   imageData = data;
-		//           //   console.log(imageData)
-		//           //   createCube()
-		//           // }
-		//           // if (addTetra) {
-		//           // }
-		//           // if (addOcta) {
-		//           // }
-		//         })
-		//       },
-		//       { mimetype: 'image/png' },
-		//       { mimetype: 'image/jpeg' },
-		//     )
-		//   })
-
-		// Event listeners
-		// document
-		//   .querySelector('.cube .plus-button')
-		//   .addEventListener('click', () => {
-		//     updateDice('cube', 1)
-		//     createCube()
-		//     if (presence) {
-		//       presence.sendMessage(presence.getSharedInfo().id, {
-		//         user: presence.getUserInfo(),
-		//         content: {
-		//           shape: 'cube',
-		//           color: currentenv.user.colorvalue.fill,
-		//           ifTransparent: ctx.toggleTransparent,
-		//           ifNumbers: ctx.showNumbers,
-		//         },
-		//       })
-		//     }
-		//   })
-
 		const lastRollElement = document.getElementById("roll");
 
-		// Function to update the elements
+		// Adds all the numbers on top for the numbered volumes.
 		function updateElements() {
-			// totalScoreElement.textContent = presentScore
 			lastRollElement.textContent =
 				lastRoll.substring(0, lastRoll.length - 2) +
 				"= " +
@@ -795,12 +671,22 @@ define([
 		document.querySelector("body").addEventListener("click", onRemoveClick);
 		document.querySelector("body").addEventListener("click", onAddClick);
 
+		let ifAdding = {
+			adding: true,
+		};
+
 		function onAddClick(event) {
+			// This will be false only when tutorial is running.
+			if (!ifAdding.adding) {
+				return;
+			}
+			// This is so that volumes are not added to the board when the board is being rotated.
 			if (window.isRotating) {
 				window.isRotating = false;
 				return;
 			}
 			if (!removeVolume) {
+				// Calculates the exact point where the user clicks and wants to add the volume to.
 				var rect = renderer.domElement.getBoundingClientRect();
 				mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
 				mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -813,6 +699,7 @@ define([
 
 				for (let i = 0; i < intersects.length; i++) {
 					var intersectedObject = intersects[i]?.object;
+					// The volume must be added to the board only when the board is clicked.
 					if (intersectedObject.geometry.type == "PlaneGeometry") {
 						xCoordinate = intersects[i].point.x;
 						zCoordinate = intersects[i].point.z;
@@ -841,8 +728,9 @@ define([
 						}
 
 						if (createFunction) {
-							let angVel1 = Math.random() * (1 - 0.1) + 0.1;
-							let angVel2 = Math.random() * (1 - 0.1) + 0.1;
+							let angVel1 = Math.random() * (2 - 0.1) + 0.1;
+							let angVel2 = Math.random() * (2 - 0.1) + 0.1;
+							let angVel3 = Math.random() * (2 - 0.1) + 0.1;
 							createFunction(
 								null,
 								null,
@@ -860,9 +748,10 @@ define([
 								scene,
 								groundPhysMat,
 								angVel1,
-								angVel2
+								angVel2,
+								angVel3
 							);
-
+							// Create the volume for the connected users as well.
 							if (presence) {
 								presence.sendMessage(
 									presence.getSharedInfo().id,
@@ -883,6 +772,7 @@ define([
 											sharedTextColor: ctx.textColor,
 											sharedAngVel1: angVel1,
 											sharedAngVel2: angVel2,
+											sharedAngVel3: angVel3,
 										},
 									}
 								);
@@ -892,6 +782,7 @@ define([
 				}
 			}
 		}
+
 		function onRemoveClick(event) {
 			if (removeVolume) {
 				// Calculate mouse position in normalized device coordinates
@@ -905,15 +796,18 @@ define([
 				// Calculate objects intersecting the picking ray
 				var intersects = raycaster.intersectObjects(scene.children);
 
+				// Gets the first object intersected by the ray, which is the volume the user is clicking on.
 				var intersectedObject = intersects[0]?.object;
 				if (intersectedObject?.geometry.type == "PlaneGeometry") {
 					return;
 				}
+
+				// Removing the volume for other users as well.
 				if (presence) {
 					presence.sendMessage(presence.getSharedInfo().id, {
 						user: presence.getUserInfo(),
 						action: "remove",
-						content: mouse,
+						content: mouse, // Send the point which the user is clicking on.
 					});
 				}
 
@@ -927,9 +821,11 @@ define([
 					num++;
 				}
 			}
+			// Find the volume being clicked within the diceArray to remove it.
 			for (let i = 0; i < diceArray.length; i++) {
 				if (diceArray[i][0] == intersectedObject) {
 					if (diceArray[i][3]) {
+						// If the volume being removed is a numbered volume then get the number on top of the volume and remove it from the score.
 						let score;
 						switch (diceArray[i][2]) {
 							case "cube":
@@ -954,6 +850,7 @@ define([
 								console.log(`Unknown type: ${diceArray[i][3]}`);
 								continue;
 						}
+
 						presentScore = presentScore - score;
 						console.log(presentScore);
 
@@ -1015,6 +912,7 @@ define([
 		var onNetworkUserChanged = function (msg) {
 			let presenceDiceArray = [];
 			for (let i = 0; i < diceArray.length; i++) {
+				// Handles the situation when the user already has some volume on the board before the connected user joins.
 				presenceDiceArray.push([
 					diceArray[i][2],
 					diceArray[i][1].position,
@@ -1030,31 +928,16 @@ define([
 			presence.sendMessage(presence.getSharedInfo().id, {
 				user: presence.getUserInfo(),
 				action: "init",
-				content: [presenceDiceArray, presentBackground],
+				content: [presenceDiceArray, presentBackground], // sends the diceArray and the present background of the user to the users which are joining
 			});
 		};
 
-		// document
-		//   .querySelector('#reset-button')
-		//   .addEventListener('click', function () {
-		//     presentScore = 0
-		//     totalScoreElement.textContent = 0
-		//     lastRoll = ''
-		//     lastRollElement.textContent = ''
-		//     if (presence) {
-		//       presence.sendMessage(presence.getSharedInfo().id, {
-		//         user: presence.getUserInfo(),
-		//         action: 'resetScore',
-		//       })
-		//     }
-		//   })
-		let sleepCounter = 0;
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		const canvas = document.getElementById("game-container");
 		document
 			.getElementById("game-container")
 			.appendChild(renderer.domElement);
-
+		// Create the scene and add lighting to it.
 		const scene = new THREE.Scene();
 		scene.background = new THREE.Color("#ffffff");
 		const light = new THREE.DirectionalLight(0xffffff, 0.4);
@@ -1089,30 +972,18 @@ define([
 			0.1,
 			1000
 		);
-
+		// Create the cannon physics worls.
 		const world = new CANNON.World({
 			gravity: new CANNON.Vec3(0, -9.81, 0),
 		});
 		world.allowSleep = true;
 
-		function adjustGravity(gamma) {
-			console.log("adjusting gravity");
-			var gravityStrength = 9.82; // Earth's gravity in m/s^2
-			var maxTilt = 90; // Maximum tilt value
-
-			// Map the gamma value to the gravity direction
-			var gravityX = (gamma / maxTilt) * gravityStrength;
-
-			// Set the new gravity vector
-			world.gravity.set(gravityX, -gravityStrength, 0);
-		}
-
-		var useragent = navigator.userAgent.toLowerCase();
 		var sensorButton = document.getElementById("sensor-button");
 		var sensorMode = false;
-		var readyToWatch = false;
 
+		// Handles the accelerometer
 		if (navigator.accelerometer != null) {
+			// If the accelerometer is available then keep the accelerometer on by default.
 			sensorMode = true;
 			sensorButton.classList.add("active");
 			watchId = navigator.accelerometer.watchAcceleration(
@@ -1129,15 +1000,6 @@ define([
 			sensorMode = !sensorMode;
 			if (sensorMode) {
 				sensorButton.classList.add("active");
-				// window.addEventListener(
-				// 	"deviceorientation",
-				// 	function (event) {
-				// 		if (sensorMode) {
-				// 			handleDeviceOrientation(event);
-				// 		}
-				// 	},
-				// 	true
-				// );
 				watchId = navigator.accelerometer.watchAcceleration(
 					accelerationChanged,
 					null,
@@ -1180,41 +1042,14 @@ define([
 			}
 		}
 
+		// Wakes all the volumes so that they move towards the gravity.
 		function wakeAll() {
 			for (let i = 0; i < diceArray.length; i++) {
 				diceArray[i][1].wakeUp();
 			}
 		}
 
-		function myFunction() {
-			console.log("hello");
-		}
-		// var intervalId = setInterval(accelerationChanged, 5000); // 2000 milliseconds (2 seconds)
-
-		function handleDeviceOrientation(event) {
-			var gamma = event.gamma; // Tilt left or right (range from -90 to 90)
-
-			// Adjust gravity based on tilt
-			adjustGravity(gamma);
-		}
-
-		// if (readyToWatch) {
-		// 	sensorButton.disabled = false;
-		// 	sensorButton.addEventListener("click", function () {
-		// 		sensorMode = !sensorMode;
-		// 		if (sensorMode) {
-		// 			sensorButton.classList.add("active");
-		// 		} else {
-		// 			sensorButton.classList.remove("active");
-		// 		}
-		// 	});
-		// 	window.addEventListener('deviceorientation', function(event) {
-		// 		if (sensorMode) {
-		// 			handleDeviceOrientation(event);
-		// 		}
-		// 	}, true);
-		// }
-
+		// Create the threejs mesh of the board.
 		const groundGeo = new THREE.PlaneGeometry(30, 30);
 		const groundMat = new THREE.MeshPhongMaterial({
 			side: THREE.DoubleSide,
@@ -1230,7 +1065,6 @@ define([
 		const groundPhysMat = new CANNON.Material();
 		const groundWidth = 0; // Desired width of the ground
 		const groundDepth = 0; // Desired depth of the ground
-		const groundThickness = 0;
 		const boxWidth = groundWidth / 2;
 		const boxDepth = groundDepth / 2;
 		const boxHeight = 10; // Adjust this for desired box height
@@ -1239,24 +1073,17 @@ define([
 			new CANNON.Vec3(boxWidth, boxHeight / 2, boxDepth)
 		);
 
+		// Create the physical cannon-es ground.
 		const groundBody = new CANNON.Body({
 			shape: new CANNON.Box(new CANNON.Vec3(15, 15, 0.1)),
 			type: CANNON.Body.STATIC,
 			material: groundPhysMat,
 		});
-		console.log(groundBody);
 		groundBody.material.friction = 1;
 		groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 		world.addBody(groundBody);
 
-		const topWall = new CANNON.Body({
-			shape: new CANNON.Box(new CANNON.Vec3(15, 15, 0.1)),
-			type: CANNON.Body.STATIC,
-			material: groundPhysMat,
-		});
-		topWall.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
-		topWall.position.set(0, 12, 0);
-		world.addBody(topWall);
+		// We will add invisible walls to all sides of the board so that the volumes do not fly off the board.
 
 		const leftWallBody = new CANNON.Body({
 			shape: new CANNON.Box(new CANNON.Vec3(15, 100, 0.1)),
@@ -1302,8 +1129,7 @@ define([
 		frontWallBody.position.set(0, 0, -15);
 		frontWallBody.quaternion.setFromEuler(0, 0, -Math.PI / 2);
 
-		// const rollingForceMagnitude = 2; // Adjust for desired intensity
-
+		// Use OrbitControls to add orbital controls :)
 		const orbit = new OrbitControls.OrbitControls(
 			camera,
 			renderer.domElement
@@ -1317,7 +1143,7 @@ define([
 		const goUpButton = document.querySelector("#up-button");
 		const goDownButton = document.querySelector("#down-button");
 
-		// Add click event listener to the button
+		// Handles the rotation of the board through the arrow buttons
 		goRightButton.addEventListener("click", function (event) {
 			orbit.rotateRight();
 			event.stopPropagation();
@@ -1343,6 +1169,7 @@ define([
 		const zoomEqualButton = document.getElementById("zoom-equal-button");
 		const zoomToButton = document.getElementById("zoom-to-button");
 
+		// Zoom code is self explanatory
 		const zoomInFunction = (e) => {
 			const fov = getFov();
 			camera.fov = clickZoom(fov, "zoomIn");
@@ -1397,56 +1224,10 @@ define([
 		zoomEqualButton.addEventListener("click", zoomEqualFunction);
 		zoomToButton.addEventListener("click", zoomToFunction);
 
-		function onSleepStateChangeToOne(body) {
-			let score;
-			for (let i = 0; i < diceArray.length; i++) {
-				if (diceArray[i][0] == body) {
-					score = diceArray[i][7];
-					let scoresArray = lastRoll.split(" + ");
-
-					// Find the index of the first occurrence of the score to remove
-					let indexToRemove = scoresArray.indexOf(score.toString());
-
-					// If the score is found, remove it
-					if (indexToRemove !== -1) {
-						scoresArray.splice(indexToRemove, 1);
-					}
-
-					// Join the remaining scores back into a string
-					lastRoll = scoresArray.join(" + ");
-				}
-			}
-		}
-
-		const cannonDebugger = new CannonDebugger(scene, world, {
-			color: 0xadd8e6,
-		});
-
-		function makeNumbers() {
-			let c = document.createElement("canvas");
-			c.width = 1024;
-			c.height = 1024;
-			let ctx = c.getContext("2d");
-			ctx.fillStyle = "#f0f";
-			ctx.fillRect(0, 0, c.width, c.height);
-
-			ctx.textAlign = "center";
-			ctx.textBaseline = "middle";
-			ctx.fillStyle = "#0f8";
-			ctx.font = "bold 60px Arial";
-			let step = 1024 / 10;
-			let start = step * 0.5;
-
-			for (let i = 0; i < 10; i++) {
-				ctx.fillText(i + 1, start + step * i, 512);
-			}
-
-			return new THREE.CanvasTexture(c);
-		}
-
-		const timeStep = 1 / 20;
+		// This function handles the tossing of the volumes.
 
 		function throwDice() {
+			// Remove all the volumes from the board.
 			for (let i = 0; i < diceArray.length; i++) {
 				scene.remove(diceArray[i][0]);
 				world.removeBody(diceArray[i][1]);
@@ -1455,40 +1236,14 @@ define([
 				lastRoll = "";
 				presentScore = 0;
 				for (let i = 0; i < diceArray.length; i++) {
-					diceArray[i][1].angularVelocity.set(0.5, 0.5, 0.5);
-					diceArray[i][1].applyImpulse(ctx.offset, ctx.rollingForce);
-					diceArray[i][1].position.set(0, 10, 0);
-				}
-				for (let i = 0; i < diceArray.length; i++) {
 					scene.add(diceArray[i][0]);
 					world.addBody(diceArray[i][1]);
 				}
-			} else {
-				console.log("what is never supposed to happen is happening :0");
-				for (let i = 0; i < dices.cube; i++) {
-					createCube();
-				}
-				for (let i = 0; i < dices.tetra; i++) {
-					createTetrahedron();
-				}
-				for (let i = 0; i < dices.octa; i++) {
-					createOctahedron();
-				}
-				for (let i = 0; i < dices.dodeca; i++) {
-					createDodecahedron();
-				}
-				for (let i = 0; i < dices.deca; i++) {
-					createDecahedron();
-				}
-				for (let i = 0; i < dices.icosa; i++) {
-					createIcosahedron();
-				}
-				lastRoll = "";
-				// if (ctx.showNumbers) {
-				//   getScore();
-				// }
 			}
 		}
+
+		// Functions to get the scores of the dice.
+
 		function getOctaScore(body, ifRemove) {
 			const faceVectors = [
 				{
@@ -1547,6 +1302,7 @@ define([
 			}
 			return faceVectors[minInd].face;
 		}
+
 		function getCubeScore(body, ifRemove) {
 			const faceVectors = [
 				{
@@ -1772,15 +1528,6 @@ define([
 			}
 		}
 
-		// Function to calculate a face vector based on spherical coordinates
-		function calculateFaceVector(theta, phi) {
-			return new THREE.Vector3(
-				Math.cos(theta) * Math.sin(phi),
-				Math.sin(theta) * Math.sin(phi),
-				Math.cos(phi)
-			);
-		}
-
 		function getDodecaScore(body, ifRemove) {
 			// Define the golden ratio
 			const phi = (1 + Math.sqrt(5)) / 2;
@@ -1821,36 +1568,7 @@ define([
 			}
 		}
 
-		function toggleTransparency() {
-			for (let i = 0; i < diceArray.length; i++) {
-				if (transparent) {
-					leftLight.intensity = 5;
-					rightLight.intensity = 5;
-					backLight.intensity = 5;
-					bottomLight.intensity = 5;
-				} else {
-					leftLight.intensity = 0.1;
-					rightLight.intensity = 0.1;
-					backLight.intensity = 0.5;
-					bottomLight.intensity = 0.1;
-				}
-				diceArray[i][0].material.wireframe =
-					!diceArray[i][0].material.wireframe;
-				diceArray[i][0].material.transparent =
-					!diceArray[i][0].material.transparent;
-				diceArray[i][0].material.needsUpdate = true;
-			}
-			groundMesh.material.wireframe = !groundMesh.material.wireframe;
-		}
-		// function changeColors() {
-		//   for (let i = 0; i < diceArray.length; i++) {
-		//     diceArray[i][0].material.color?.set(ctx.presentColor);
-		//     diceArray[i][0].material.needsUpdate = true;
-		//   }
-		// }
-
 		function changeBoardBackground(selectedBoard) {
-			console.log("changing bg now");
 			console.log(selectedBoard);
 			presentBackground = selectedBoard;
 			let textureLoader = new THREE.TextureLoader();
@@ -1889,7 +1607,7 @@ define([
 					break;
 			}
 		}
-
+		// This function calls the getScore functions for all the volumes and displays them.
 		function getScores() {
 			presentScore = 0;
 			lastRoll = "";
@@ -1923,11 +1641,21 @@ define([
 				}
 			}
 		}
+
+		// Leaving this here so that in the future contributors find it easier to debug the cannon-es physical world. Go to the animate function and uncomment the cannonDebugger line to view the physical world.
+
+		const cannonDebugger = new CannonDebugger(scene, world, {
+			color: 0xadd8e6,
+		});
+
 		let awake = false;
+		const timeStep = 1 / 20;
+
 		animate();
 
-		function animate() {
+		function animate(time) {
 			world.step(timeStep);
+			// Uncomment the next line to view how the physical world actually looks like.
 			// cannonDebugger.update();
 
 			groundMesh.position.copy(groundBody.position);
@@ -1941,12 +1669,19 @@ define([
 			if (world.hasActiveBodies == false && awake == true) {
 				awake = false;
 				console.log("the world is going to sleep now bye bye");
+				for (let i = 0; i < diceArray.length; i++) {
+					console.log(diceArray[i][1].interpolatedQuaternion.x);
+					console.log(diceArray[i][1].interpolatedQuaternion.y);
+					console.log(diceArray[i][1].interpolatedQuaternion.z);
+					console.log(diceArray[i][1].initQuaternion.x);
+					console.log(diceArray[i][1].initQuaternion.y);
+					console.log(diceArray[i][1].initQuaternion.z);
+				}
 				getScores();
 			}
 			if (world.hasActiveBodies == true) {
 				awake = true;
 			}
-			// accelerationChanged();
 
 			renderer.render(scene, camera);
 		}

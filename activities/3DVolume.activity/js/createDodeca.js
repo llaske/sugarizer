@@ -15,7 +15,8 @@ function createDodecahedron(
 	scene,
 	groundPhysMat,
 	sharedAngVel1,
-	sharedAngVel2
+	sharedAngVel2,
+	sharedAngVel3
 ) {
 	let dodecahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -251,8 +252,10 @@ function createDodecahedron(
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
 		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+		let angVel3 =
+		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
-	dodecahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
+	dodecahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	dodecahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	dodecahedron.position.copy(dodecahedronBody.position); // this merges the physics body to threejs mesh
 	dodecahedron.quaternion.copy(dodecahedronBody.quaternion);
@@ -270,5 +273,6 @@ function createDodecahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
+		angVel3
 	]);
 }

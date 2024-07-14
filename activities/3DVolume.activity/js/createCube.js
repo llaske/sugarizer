@@ -15,7 +15,8 @@ function createCube(
 	scene,
 	groundPhysMat,
 	sharedAngVel1,
-	sharedAngVel2
+	sharedAngVel2,
+	sharedAngVel3
 ) {
 	let boxMesh;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -157,7 +158,9 @@ function createCube(
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
 		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
-	boxBody.angularVelocity.set(angVel1, angVel2, 0.5);
+	let angVel3 =
+		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
+	boxBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	boxBody.applyImpulse(ctx.offset, ctx.rollingForce);
 
 	const groundBoxContactMat = new CANNON.ContactMaterial(
@@ -181,5 +184,6 @@ function createCube(
 		tempTextColor,
 		angVel1,
 		angVel2,
+		angVel3
 	]);
 }

@@ -15,7 +15,8 @@ function createOctahedron(
 	scene,
 	groundPhysMat,
 	sharedAngVel1,
-	sharedAngVel2
+	sharedAngVel2,
+	sharedAngVel3
 ) {
 	let octahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -188,8 +189,12 @@ function createOctahedron(
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
 		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+		let angVel3 =
+		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
-	octahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
+
+
+	octahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	octahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	octahedron.position.copy(octahedronBody.position); // this merges the physics body to threejs mesh
 	octahedron.quaternion.copy(octahedronBody.quaternion);
@@ -207,5 +212,6 @@ function createOctahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
+		angVel3
 	]);
 }

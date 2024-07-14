@@ -15,7 +15,8 @@ function createIcosahedron(
 	scene,
 	groundPhysMat,
 	sharedAngVel1,
-	sharedAngVel2
+	sharedAngVel2,
+	sharedAngVel3
 ) {
 	let icosahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -199,8 +200,10 @@ function createIcosahedron(
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
 		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+	let angVel3 =
+		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
-	icosahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
+	icosahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	icosahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	icosahedron.position.copy(icosahedronBody.position); // this merges the physics body to threejs mesh
 	icosahedron.quaternion.copy(icosahedronBody.quaternion);
@@ -220,5 +223,6 @@ function createIcosahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
+		angVel3
 	]);
 }

@@ -51,7 +51,8 @@ function createDecahedron(
 	scene,
 	groundPhysMat,
 	sharedAngVel1,
-	sharedAngVel2
+	sharedAngVel2,
+	sharedAngVel3
 ) {
 	let decahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -198,12 +199,14 @@ function createDecahedron(
 	// }
 	world.addBody(decahedronBody);
 
-	let angVel1 = 0.2
-		// sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
-	let angVel2 = 0.2
-		// sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+	let angVel1 =
+		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+	let angVel2 =
+		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+	let angVel3 =
+		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
-	decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
+	decahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
 	decahedron.quaternion.copy(decahedronBody.quaternion);
@@ -225,6 +228,7 @@ function createDecahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
+		angVel3
 	]);
 }
 
