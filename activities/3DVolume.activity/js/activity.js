@@ -1535,29 +1535,24 @@ define([
 			}
 		}
 
-		function getDodecaScore(body, ifRemove) {
-			// Define the golden ratio
-			const phi = (1 + Math.sqrt(5)) / 2;
-
+		function getDecaScore(body, ifRemove) {
 			// Decahedron face vectors
 			const faceVectors = [
-				{ vector: new THREE.Vector3(1, 1, 1), face: 1 },
-				{ vector: new THREE.Vector3(1, 1, -1), face: 6 },
-				{ vector: new THREE.Vector3(1, -1, 1), face: 11 },
-				{ vector: new THREE.Vector3(1, -1, -1), face: 9 },
-				{ vector: new THREE.Vector3(-1, 1, 1), face: 7 },
-				{ vector: new THREE.Vector3(-1, 1, -1), face: 2 },
-				{ vector: new THREE.Vector3(-1, -1, 1), face: 5 },
-				{ vector: new THREE.Vector3(-1, -1, -1), face: 8 },
-				{ vector: new THREE.Vector3(0, phi, 1 / phi), face: 4 },
-				{ vector: new THREE.Vector3(0, phi, -1 / phi), face: 10 },
-				{ vector: new THREE.Vector3(0, -phi, 1 / phi), face: 3 },
-				{ vector: new THREE.Vector3(0, -phi, -1 / phi), face: 12 },
+				{ vector: new THREE.Vector3(0, 1, 0.5), face: 7 },
+				{ vector: new THREE.Vector3(0, 1, -0.5), face: 2 },
+				{ vector: new THREE.Vector3(0, -1, 0.5), face: 3 },
+				{ vector: new THREE.Vector3(0, -1, -0.5), face: 10 },
+				{ vector: new THREE.Vector3(0.5, 0, 1), face: 5 },
+				{ vector: new THREE.Vector3(-0.5, 0, 1), face: 8 },
+				{ vector: new THREE.Vector3(0.5, 0, -1), face: 9 },
+				{ vector: new THREE.Vector3(-0.5, 0, -1), face: 6},
+				{ vector: new THREE.Vector3(1, 0.5, 0), face: 1 },
+				{ vector: new THREE.Vector3(-1, 0.5, 0), face: 4 }
 			];
-
+		
 			for (const faceVector of faceVectors) {
 				faceVector.vector.normalize().applyEuler(body.rotation);
-
+		
 				if (Math.round(faceVector.vector.y) === 1) {
 					if (!ifRemove) {
 						lastRoll += faceVector.face + " + ";
@@ -1574,6 +1569,7 @@ define([
 				}
 			}
 		}
+		
 
 		function changeBoardBackground(selectedBoard) {
 			console.log(selectedBoard);

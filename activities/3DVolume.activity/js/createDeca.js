@@ -102,11 +102,60 @@ function createDecahedron(
 		1,
 		0
 	);
+	let geo;
 	if (tempShowNumbers) {
-		let g = decaGeometry2;
+		let vertStep = THREE.MathUtils.degToRad(36);
+		let vertices = [
+			[0, 0, 1],
+			[Math.cos(vertStep * 0), Math.sin(vertStep * 0), 0.105],
+			[Math.cos(vertStep * 1), Math.sin(vertStep * 1), -0.105],
+			[Math.cos(vertStep * 2), Math.sin(vertStep * 2), 0.105],
+		].map((p) => {
+			return new THREE.Vector3(...p);
+		});
+		let h = vertices[0].distanceTo(vertices[2]);
+		let w = vertices[1].distanceTo(vertices[3]);
+		let u = (w / h) * 0.5;
+		let v01 = new THREE.Vector3().subVectors(vertices[1], vertices[0]);
+		let v02 = new THREE.Vector3().subVectors(vertices[2], vertices[0]);
+		let dot = v02.clone().normalize().dot(v01);
+		let v = 1 - dot / h;
+
+		let gSide = new THREE.BufferGeometry()
+			.setFromPoints(vertices)
+			.rotateZ(-vertStep);
+		gSide.setIndex([0, 1, 2, 0, 2, 3]);
+		gSide.setAttribute(
+			"uv",
+			new THREE.Float32BufferAttribute(
+				[0.5, 1, 0.5 - u, v, 0.5, 0, 0.5 + u, v],
+				2
+			)
+		);
+		gSide.computeVertexNormals();
+		gSide = gSide.toNonIndexed();
+
+		// all sides
+		let gs = [];
+
+		for (let i = 0; i < 5; i++) {
+			let a = vertStep * 2 * i;
+			let g1 = gSide.clone().rotateZ(-a);
+			recomputeUVs(g1, i * 2 + 0);
+			let g2 = gSide
+				.clone()
+				.rotateX(Math.PI)
+				.rotateZ(vertStep + a);
+			recomputeUVs(g2, i * 2 + 1);
+			gs.push(g1, g2);
+		}
+		let g = BufferGeometryUtils.mergeBufferGeometries(gs);
+		geo = g;
+
 		let m = new THREE.MeshLambertMaterial({
 			map: getNumbers(tempFillColor, tempTextColor),
 		});
+
 		decahedron = new THREE.Mesh(g, m);
 	} else if (tempTransparent) {
 		const decahedronTransaprentGeometry = decaGeometry2;
@@ -152,7 +201,35 @@ function createDecahedron(
 	const r = 1 / t;
 	const scaleFactor = 1; // Change this value to scale the shape (e.g., 2 for doubling the size)
 
-	const verticesCannon = [];
+	let decahedronShape
+	if (geo != undefined) {
+		let positionAttribute = geo.getAttribute("position");
+	let vertices = [];
+	for (let i = 0; i < positionAttribute.count; i++) {
+		let vertex = new THREE.Vector3().fromBufferAttribute(
+			positionAttribute,
+			i
+		);
+		vertices.push([vertex.x, vertex.y, vertex.z]);
+	}
+
+	// Extract faces
+	let faces = [];
+	for (let i = 0; i < vertices.length; i += 3) {
+		faces.push([i, i + 1, i + 2]);
+	}
+
+	let cannonVertices = vertices.map((v) => new CANNON.Vec3(v[0], v[1], v[2]));
+
+	// Create a ConvexPolyhedron shape from the scaled vertices and faces
+	decahedronShape = new CANNON.ConvexPolyhedron({
+		vertices: cannonVertices,
+		faces: faces,
+	});
+	
+
+	} else {
+			const verticesCannon = [];
 	for (let i = 0; i < verticesGeo.length; i += 3) {
 		verticesCannon.push(
 			new CANNON.Vec3(
@@ -166,16 +243,12 @@ function createDecahedron(
 	for (let i = 0; i < facesGeo.length; i += 3) {
 		facesCannon.push([facesGeo[i], facesGeo[i + 1], facesGeo[i + 2]]);
 	}
-
-	let cannonVertices = myVertices.map(
-		(v) => new CANNON.Vec3(v[0], v[1], v[2])
-	);
-
-	// Create a ConvexPolyhedron shape from the scaled vertices and faces
-	const decahedronShape = new CANNON.ConvexPolyhedron({
+	decahedronShape = new CANNON.ConvexPolyhedron({
 		vertices: verticesCannon,
 		faces: facesCannon,
 	});
+	}
+	
 	// let myShape = getPolyhedronShape(decahedron);
 	// console.log(myShape);
 
@@ -228,7 +301,7 @@ function createDecahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
-		angVel3
+		angVel3,
 	]);
 }
 
