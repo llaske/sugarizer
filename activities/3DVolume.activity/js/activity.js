@@ -669,7 +669,7 @@ define([
 		const raycaster = new THREE.Raycaster();
 		const mouse = new THREE.Vector2();
 		document.querySelector("body").addEventListener("click", onRemoveClick);
-		document.querySelector("body").addEventListener("click", onAddClick);
+		document.querySelector("#game-container").addEventListener("click", onAddClick);
 
 		let ifAdding = {
 			adding: true,
@@ -1174,24 +1174,31 @@ define([
 			const fov = getFov();
 			camera.fov = clickZoom(fov, "zoomIn");
 			camera.updateProjectionMatrix();
+			e.stopPropagation()
+
 		};
 
 		const zoomOutFunction = (e) => {
 			const fov = getFov();
 			camera.fov = clickZoom(fov, "zoomOut");
 			camera.updateProjectionMatrix();
+			e.stopPropagation()
 		};
 
 		const zoomEqualFunction = (e) => {
 			const fov = getFov();
 			camera.fov = 29;
 			camera.updateProjectionMatrix();
+			e.stopPropagation()
+
 		};
 
 		const zoomToFunction = (e) => {
 			const fov = getFov();
 			camera.fov = 35;
 			camera.updateProjectionMatrix();
+			e.stopPropagation()
+
 		};
 
 		const clickZoom = (value, zoomType) => {
