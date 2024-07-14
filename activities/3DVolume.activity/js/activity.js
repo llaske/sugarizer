@@ -796,6 +796,10 @@ define([
 		document.querySelector("body").addEventListener("click", onAddClick);
 
 		function onAddClick(event) {
+			if (window.isRotating) {
+				window.isRotating = false;
+				return;
+			}
 			if (!removeVolume) {
 				var rect = renderer.domElement.getBoundingClientRect();
 				mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -1107,18 +1111,21 @@ define([
 		var sensorButton = document.getElementById("sensor-button");
 		var sensorMode = false;
 		var readyToWatch = false;
-		console.log(useragent.indexOf("android"));
 
-		// if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
-		// 	document.addEventListener('deviceready', function() {
-		// 		readyToWatch = true;
-		// 	}, false);
-		// 	sensorButton.disabled = false;
-		// } else {
-		// 	sensorButton.disabled = true;
-		// }
+		if (navigator.accelerometer != null) {
+			sensorMode = true;
+			sensorButton.classList.add("active");
+			watchId = navigator.accelerometer.watchAcceleration(
+				accelerationChanged,
+				null,
+				{ frequency: 500 }
+			);
+		}
 
 		sensorButton.addEventListener("click", function () {
+			if (navigator.accelerometer == null) {
+				return;
+			}
 			sensorMode = !sensorMode;
 			if (sensorMode) {
 				sensorButton.classList.add("active");
@@ -1141,52 +1148,6 @@ define([
 				world.gravity.set(0, -9.81, 0);
 			}
 		});
-
-		function setGravity(gravityDirection) {
-			let gravityX = 0;
-			let gravityY = 0;
-			let gravityZ = 0;
-
-			switch (gravityDirection) {
-				case 0:
-					gravityY = 1; // Right
-					break;
-				case 1:
-					gravityX = 1; // Right-bottom (diagonal down-right)
-					gravityY = 1;
-					break;
-				case 2:
-					gravityY = 1; // Bottom (straight down)
-					break;
-				case 3:
-					gravityX = 1; // Left-bottom (diagonal down-left)
-					gravityY = -1;
-					break;
-				case 4:
-					gravityY = -1; // Left (straight left)
-					break;
-				case 5:
-					gravityX = -1; // Left-top (diagonal up-left)
-					gravityY = -1;
-					break;
-				case 6:
-					gravityX = -1; // Top (straight up)
-					break;
-				case 7:
-					gravityX = -1; // Right-top (diagonal up-right)
-					gravityY = 1;
-					break;
-				default:
-					break;
-			}
-
-			// Assuming you have a Cannon.js world instance called 'world'
-			world.gravity.set(
-				gravityX * 9.82,
-				gravityY * 9.82,
-				gravityZ * 9.82
-			); // Scale gravity with 9.82 m/s² (approximate Earth gravity)
-		}
 
 		function accelerationChanged(acceleration) {
 			if (!sensorMode) return;
@@ -1217,7 +1178,6 @@ define([
 					wakeAll();
 				}
 			}
-			
 		}
 
 		function wakeAll() {
@@ -1284,7 +1244,7 @@ define([
 			type: CANNON.Body.STATIC,
 			material: groundPhysMat,
 		});
-		console.log(groundBody)
+		console.log(groundBody);
 		groundBody.material.friction = 1;
 		groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 		world.addBody(groundBody);
@@ -1296,8 +1256,7 @@ define([
 		});
 		topWall.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 		topWall.position.set(0, 12, 0);
-		world.addBody(topWall)
-
+		world.addBody(topWall);
 
 		const leftWallBody = new CANNON.Body({
 			shape: new CANNON.Box(new CANNON.Vec3(15, 100, 0.1)),
@@ -1964,11 +1923,6 @@ define([
 				}
 			}
 		}
-		let try_button = document.getElementById("try-button");
-		try_button.addEventListener("click", ()=>{ 
-			diceArray[0][0].rotateY(THREE.MathUtils.degToRad(20));
-		})
-
 		let awake = false;
 		animate();
 

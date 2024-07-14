@@ -545,12 +545,13 @@
 			}
 
 			function rotateUp( angle ) {
-
 				sphericalDelta.phi -= angle;
+
 
 			}
 
 			const panLeft = function () {
+
 
 				const v = new THREE.Vector3();
 
@@ -566,6 +567,7 @@
 			}();
 
 			const panUp = function () {
+
 
 				const v = new THREE.Vector3();
 
@@ -712,8 +714,10 @@
 				panStart.set( event.clientX, event.clientY );
 
 			}
+			window.isRotating = false;
 
 			function handleMouseMoveRotate( event ) {
+				window.isRotating = true;
 
 				rotateEnd.set( event.clientX, event.clientY );
 
@@ -724,11 +728,15 @@
 				rotateLeft( 2 * Math.PI * rotateDelta.x / element.clientHeight ); // yes, height
 
 				rotateUp( 2 * Math.PI * rotateDelta.y / element.clientHeight );
-
 				event.stopPropagation();
 
+
+
 				rotateStart.copy( rotateEnd );
+
 				scope.update();
+
+
 			}
 
 			function handleMouseMoveDolly( event ) {

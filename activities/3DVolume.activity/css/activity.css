@@ -570,3 +570,18 @@ body {
   box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
   border: 0px;
 }
+
+@media (max-width: 1120px) {
+  #color-button-text,
+  #bg-button,
+  #zoom-button {
+    display: none;
+  }
+
+  /* Adjust remaining buttons to fit within the toolbar */
+  .toolbutton {
+    margin: 2px;
+    width: 40px;
+    height: 40px;
+  }
+}
