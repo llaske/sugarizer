@@ -310,7 +310,7 @@ define([
 					}
 				});
 			});
-		
+
 		// Loading the journal data.
 
 		env.getEnvironment(function (err, environment) {
@@ -458,7 +458,7 @@ define([
 				ctx.presentColor;
 			updateSlidersFill(selectedColorFill);
 		});
-		
+
 		// Handle the color sliders for the volume text color.
 		const redSliderText = document.getElementById("red-slider-text");
 		const greenSliderText = document.getElementById("green-slider-text");
@@ -505,7 +505,6 @@ define([
 			updateSlidersText(selectedColorText);
 		});
 
-		
 		// Handle the tossing of the volumes.
 		document
 			.querySelector("#throw-button")
@@ -619,7 +618,6 @@ define([
 			});
 			removeVolume = false;
 			removeButton.classList.remove("active");
-
 		};
 		// Handles the remove button.
 		removeButton.addEventListener("click", () => {
@@ -632,7 +630,6 @@ define([
 				});
 				removeVolume = true;
 				removeButton.classList.add("active");
-
 			}
 		});
 
@@ -669,7 +666,9 @@ define([
 		const raycaster = new THREE.Raycaster();
 		const mouse = new THREE.Vector2();
 		document.querySelector("body").addEventListener("click", onRemoveClick);
-		document.querySelector("#game-container").addEventListener("click", onAddClick);
+		document
+			.querySelector("#game-container")
+			.addEventListener("click", onAddClick);
 
 		let ifAdding = {
 			adding: true,
@@ -1085,6 +1084,16 @@ define([
 
 		// We will add invisible walls to all sides of the board so that the volumes do not fly off the board.
 
+		const topWall = new CANNON.Body({
+			shape: new CANNON.Box(new CANNON.Vec3(15, 15, 0.1)),
+			type: CANNON.Body.STATIC,
+			material: groundPhysMat,
+		});
+		topWall.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+		topWall.position.set(0, 12, 0);
+
+		world.addBody(topWall);
+
 		const leftWallBody = new CANNON.Body({
 			shape: new CANNON.Box(new CANNON.Vec3(15, 100, 0.1)),
 			type: CANNON.Body.STATIC,
@@ -1174,31 +1183,28 @@ define([
 			const fov = getFov();
 			camera.fov = clickZoom(fov, "zoomIn");
 			camera.updateProjectionMatrix();
-			e.stopPropagation()
-
+			e.stopPropagation();
 		};
 
 		const zoomOutFunction = (e) => {
 			const fov = getFov();
 			camera.fov = clickZoom(fov, "zoomOut");
 			camera.updateProjectionMatrix();
-			e.stopPropagation()
+			e.stopPropagation();
 		};
 
 		const zoomEqualFunction = (e) => {
 			const fov = getFov();
 			camera.fov = 29;
 			camera.updateProjectionMatrix();
-			e.stopPropagation()
-
+			e.stopPropagation();
 		};
 
 		const zoomToFunction = (e) => {
 			const fov = getFov();
 			camera.fov = 35;
 			camera.updateProjectionMatrix();
-			e.stopPropagation()
-
+			e.stopPropagation();
 		};
 
 		const clickZoom = (value, zoomType) => {
@@ -1245,6 +1251,7 @@ define([
 				for (let i = 0; i < diceArray.length; i++) {
 					scene.add(diceArray[i][0]);
 					world.addBody(diceArray[i][1]);
+					diceArray[i][1].position.set(0, 10, 0);
 				}
 			}
 		}
@@ -1535,24 +1542,29 @@ define([
 			}
 		}
 
-		function getDecaScore(body, ifRemove) {
+		function getDodecaScore(body, ifRemove) {
+			// Define the golden ratio
+			const phi = (1 + Math.sqrt(5)) / 2;
+
 			// Decahedron face vectors
 			const faceVectors = [
-				{ vector: new THREE.Vector3(0, 1, 0.5), face: 7 },
-				{ vector: new THREE.Vector3(0, 1, -0.5), face: 2 },
-				{ vector: new THREE.Vector3(0, -1, 0.5), face: 3 },
-				{ vector: new THREE.Vector3(0, -1, -0.5), face: 10 },
-				{ vector: new THREE.Vector3(0.5, 0, 1), face: 5 },
-				{ vector: new THREE.Vector3(-0.5, 0, 1), face: 8 },
-				{ vector: new THREE.Vector3(0.5, 0, -1), face: 9 },
-				{ vector: new THREE.Vector3(-0.5, 0, -1), face: 6},
-				{ vector: new THREE.Vector3(1, 0.5, 0), face: 1 },
-				{ vector: new THREE.Vector3(-1, 0.5, 0), face: 4 }
+				{ vector: new THREE.Vector3(1, 1, 1), face: 1 },
+				{ vector: new THREE.Vector3(1, 1, -1), face: 6 },
+				{ vector: new THREE.Vector3(1, -1, 1), face: 11 },
+				{ vector: new THREE.Vector3(1, -1, -1), face: 9 },
+				{ vector: new THREE.Vector3(-1, 1, 1), face: 7 },
+				{ vector: new THREE.Vector3(-1, 1, -1), face: 2 },
+				{ vector: new THREE.Vector3(-1, -1, 1), face: 5 },
+				{ vector: new THREE.Vector3(-1, -1, -1), face: 8 },
+				{ vector: new THREE.Vector3(0, phi, 1 / phi), face: 4 },
+				{ vector: new THREE.Vector3(0, phi, -1 / phi), face: 10 },
+				{ vector: new THREE.Vector3(0, -phi, 1 / phi), face: 3 },
+				{ vector: new THREE.Vector3(0, -phi, -1 / phi), face: 12 },
 			];
-		
+
 			for (const faceVector of faceVectors) {
 				faceVector.vector.normalize().applyEuler(body.rotation);
-		
+
 				if (Math.round(faceVector.vector.y) === 1) {
 					if (!ifRemove) {
 						lastRoll += faceVector.face + " + ";
@@ -1569,7 +1581,41 @@ define([
 				}
 			}
 		}
-		
+
+		function getDecaScore(body, ifRemove) {
+			// Decahedron face vectors
+			const faceVectors = [
+				{ vector: new THREE.Vector3(0, 1, 0.5), face: 7 },
+				{ vector: new THREE.Vector3(0, 1, -0.5), face: 2 },
+				{ vector: new THREE.Vector3(0, -1, 0.5), face: 3 },
+				{ vector: new THREE.Vector3(0, -1, -0.5), face: 10 },
+				{ vector: new THREE.Vector3(0.5, 0, 1), face: 5 },
+				{ vector: new THREE.Vector3(-0.5, 0, 1), face: 8 },
+				{ vector: new THREE.Vector3(0.5, 0, -1), face: 9 },
+				{ vector: new THREE.Vector3(-0.5, 0, -1), face: 6 },
+				{ vector: new THREE.Vector3(1, 0.5, 0), face: 1 },
+				{ vector: new THREE.Vector3(-1, 0.5, 0), face: 4 },
+			];
+
+			for (const faceVector of faceVectors) {
+				faceVector.vector.normalize().applyEuler(body.rotation);
+
+				if (Math.round(faceVector.vector.y) === 1) {
+					if (!ifRemove) {
+						lastRoll += faceVector.face + " + ";
+						presentScore += faceVector.face;
+						updateElements();
+						break;
+					}
+					for (let i = 0; i < diceArray.length; i++) {
+						if (body == diceArray[i][0]) {
+							diceArray[i][7] = faceVector.face;
+						}
+					}
+					return faceVector.face;
+				}
+			}
+		}
 
 		function changeBoardBackground(selectedBoard) {
 			console.log(selectedBoard);
