@@ -97,7 +97,7 @@ function createDodecahedron(
 			ctx.font = `bold ${tileSize / 3}px Arial`;
 			ctx.fillStyle = tempTextColor;
 			ctx.fillText(
-				i + 1,
+				i + 1 + (i == 5 ? "." : ""),
 				(u + 0.5) * tileSize,
 				c.height - (v + 0.5) * tileSize
 			);

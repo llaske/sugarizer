@@ -405,6 +405,9 @@ body {
 #left-button {
   background-image: url(../icons/go-left.svg);
 }
+#increase-button {
+  background-image: url(../icons/go-left.svg);
+}
 #try-button {
   background-image: url(../icons/go-left.svg);
   transform: rotate(-90deg);
