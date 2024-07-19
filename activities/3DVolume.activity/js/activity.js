@@ -525,7 +525,7 @@ define([
 			.querySelector("#number-button")
 			.addEventListener("click", () => {
 				var numberButton = document.getElementById("number-button");
-				if (ctx.showNumbers){
+				if (ctx.showNumbers) {
 					return;
 				}
 				numberButton.classList.toggle("active");
@@ -1395,7 +1395,6 @@ define([
 			return closest_face;
 		}
 
-
 		function getCubeScore(body, ifRemove) {
 			const faceVectors = [
 				{
@@ -1831,20 +1830,22 @@ define([
 		let time = 20;
 		let timeStep = 1 / time;
 
-		document.querySelector("#increase-button").addEventListener('click', () => {
-			if (time == 5) {
-				alert("cant go lower")
-				return;
-			}
-			time -= 1;
-			timeStep = 1 / time;
-			document.getElementById("time").innerHTML = time;
-		})
+		document
+			.querySelector("#increase-button")
+			.addEventListener("click", () => {
+				if (time == 5) {
+					alert("cant go lower");
+					return;
+				}
+				time -= 1;
+				timeStep = 1 / time;
+				document.getElementById("time").innerHTML = time;
+			});
 
 		animate();
 
 		function animate(time) {
-			world.step(timeStep);
+			// world.step(timeStep);
 			// Uncomment the next line to view how the physical world actually looks like.
 			// cannonDebugger.update();
 
@@ -1859,14 +1860,7 @@ define([
 			if (world.hasActiveBodies == false && awake == true) {
 				awake = false;
 				console.log("the world is going to sleep now bye bye");
-				for (let i = 0; i < diceArray.length; i++) {
-					console.log(diceArray[i][1].interpolatedQuaternion.x);
-					console.log(diceArray[i][1].interpolatedQuaternion.y);
-					console.log(diceArray[i][1].interpolatedQuaternion.z);
-					console.log(diceArray[i][1].initQuaternion.x);
-					console.log(diceArray[i][1].initQuaternion.y);
-					console.log(diceArray[i][1].initQuaternion.z);
-				}
+				for (let i = 0; i < diceArray.length; i++) {}
 				getScores();
 			}
 			if (world.hasActiveBodies == true) {
@@ -1877,6 +1871,15 @@ define([
 		}
 
 		renderer.setAnimationLoop(animate);
+
+		const fixedTimeStep = 1 / 40; 
+		const maxSubSteps = 3;
+
+		function updatePhysics() {
+			world.step(fixedTimeStep, fixedTimeStep * maxSubSteps);
+		}
+
+		setInterval(updatePhysics, 1000 * fixedTimeStep);
 
 		window.addEventListener("resize", function () {
 			camera.aspect = window.innerWidth / window.innerHeight;

@@ -1,39 +1,64 @@
-const sides = 10;
-const verticesGeo = [
-	[0, 0, 1],
-	[0, 0, -1],
-].flat();
+let vertices = [];
+let faces = [
+	[5, 7, 11, 0],
+	[4, 2, 10, 1],
+	[1, 3, 11, 2],
+	[0, 8, 10, 3],
+	[7, 9, 11, 4],
+	[8, 6, 10, 5],
+	[9, 1, 11, 6],
+	[2, 0, 10, 7],
+	[3, 5, 11, 8],
+	[6, 4, 10, 9],
+	[1, 0, 2, -1],
+	[1, 2, 3, -1],
+	[3, 2, 4, -1],
+	[3, 4, 5, -1],
+	[5, 4, 6, -1],
+	[5, 6, 7, -1],
+	[7, 6, 8, -1],
+	[7, 8, 9, -1],
+	[9, 8, 0, -1],
+	[9, 0, 1, -1],
+];
 
-for (let i = 0; i < sides; ++i) {
-	const b = (i * Math.PI * 2) / sides;
-	verticesGeo.push(-Math.cos(b), -Math.sin(b), 0.105 * (i % 2 ? 1 : -1));
+for (let i = 0, b = 0; i < 10; ++i, b += (Math.PI * 2) / 10) {
+	vertices.push([Math.cos(b), Math.sin(b), 0.105 * (i % 2 ? 1 : -1)]);
 }
-
-let myDecahedron;
-
-const facesGeo = [
-	[0, 2, 3],
-	[0, 3, 4],
-	[0, 4, 5],
-	[0, 5, 6],
-	[0, 6, 7],
-	[0, 7, 8],
-	[0, 8, 9],
-	[0, 9, 10],
-	[0, 10, 11],
-	[0, 11, 2],
-	[1, 3, 2],
-	[1, 4, 3],
-	[1, 5, 4],
-	[1, 6, 5],
-	[1, 7, 6],
-	[1, 8, 7],
-	[1, 9, 8],
-	[1, 10, 9],
-	[1, 11, 10],
-	[1, 2, 11],
-].flat();
-
+vertices.push([0, 0, -1]);
+vertices.push([0, 0, 1]);
+let scaleFactor = 0.9;
+value = 10;
+let faceTexts = [
+	" ",
+	"0",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"10",
+	"11",
+	"12",
+	"13",
+	"14",
+	"15",
+	"16",
+	"17",
+	"18",
+	"19",
+	"20",
+];
+let textMargin = 1.0;
+let chamfer = 0.945;
+let af = (Math.PI * 6) / 5;
+let tab = 0;
+let backColor;
+let color;
 function createDecahedron(
 	sharedColor,
 	ifNumbers,
@@ -60,252 +85,67 @@ function createDecahedron(
 	let tempFillColor = sharedColor != null ? sharedColor : ctx.presentColor;
 	let tempTextColor =
 		sharedTextColor != null ? sharedTextColor : ctx.textColor;
+	backColor = tempFillColor;
+	color = tempTextColor;
 
-	const radius = 1.3;
-	const verticesGeo = [
-		[0, 0, 1],
-		[0, 0, -1],
-	].flat();
+	let diceMesh = new THREE.Mesh(getGeometry(), getMaterials());
 
-	const sides = 10;
-	for (let i = 0; i < sides; ++i) {
-		const b = (i * Math.PI * 2) / sides;
-		verticesGeo.push(-Math.cos(b), -Math.sin(b), 0.105 * (i % 2 ? 1 : -1));
-	}
+	// if (tempShowNumbers) {
+	// 	let m = new THREE.MeshLambertMaterial({
+	// 		map: getNumbers(tempFillColor, tempTextColor),
+	// 	});
 
-	const facesGeo = [
-		[0, 2, 3],
-		[0, 3, 4],
-		[0, 4, 5],
-		[0, 5, 6],
-		[0, 6, 7],
-		[0, 7, 8],
-		[0, 8, 9],
-		[0, 9, 10],
-		[0, 10, 11],
-		[0, 11, 2],
-		[1, 3, 2],
-		[1, 4, 3],
-		[1, 5, 4],
-		[1, 6, 5],
-		[1, 7, 6],
-		[1, 8, 7],
-		[1, 9, 8],
-		[1, 10, 9],
-		[1, 11, 10],
-		[1, 2, 11],
-	].flat();
-	const decaGeometry2 = new THREE.PolyhedronGeometry(
-		verticesGeo,
-		facesGeo,
-		1,
-		0
-	);
-	let myVertices = [];
-	let myFaces = [];
+	// 	decahedron = new THREE.Mesh(g, m);
+	// 	decahedron.rotation.z = Math.PI / 2;
+	// } else if (tempTransparent) {
+	// 	const decahedronTransaprentGeometry = decaGeometry2;
+	// 	const wireframe = new THREE.WireframeGeometry(
+	// 		decahedronTransaprentGeometry
+	// 	);
+	// 	const lineMaterial = new THREE.LineBasicMaterial({
+	// 		color: sharedColor != null ? sharedColor : ctx.presentColor,
+	// 		depthTest: true,
+	// 		opacity: 1,
+	// 		transparent: false,
+	// 	});
+	// 	const line = new THREE.LineSegments(wireframe, lineMaterial);
+	// 	decahedron = line;
+	// } else if (false) {
+	// 	const decaGeo = decaGeometry;
 
-	let vertStep = THREE.MathUtils.degToRad(36);
-	let vertices = [
-		[0, 0, 1],
-		[Math.cos(vertStep * 0), Math.sin(vertStep * 0), 0.105],
-		[Math.cos(vertStep * 1), Math.sin(vertStep * 1), -0.105],
-		[Math.cos(vertStep * 2), Math.sin(vertStep * 2), 0.105],
-	].map((p) => {
-		return new THREE.Vector3(...p);
-	});
-	let h = vertices[0].distanceTo(vertices[2]);
-	let w = vertices[1].distanceTo(vertices[3]);
-	let u = (w / h) * 0.5;
-	let v01 = new THREE.Vector3().subVectors(vertices[1], vertices[0]);
-	let v02 = new THREE.Vector3().subVectors(vertices[2], vertices[0]);
-	let dot = v02.clone().normalize().dot(v01);
-	let v = 1 - dot / h;
+	// 	const texture = new THREE.TextureLoader().load(
+	// 		sharedImageData != null ? sharedImageData : imageData
+	// 	);
 
-	let gSide = new THREE.BufferGeometry()
-		.setFromPoints(vertices)
-		.rotateZ(-vertStep);
-	gSide.setIndex([0, 1, 2, 0, 2, 3]);
-	gSide.setAttribute(
-		"uv",
-		new THREE.Float32BufferAttribute(
-			[0.5, 1, 0.5 - u, v, 0.5, 0, 0.5 + u, v],
-			2
-		)
-	);
-	gSide.computeVertexNormals();
-	gSide = gSide.toNonIndexed();
+	// 	// Create material using the texture
+	// 	const material = new THREE.MeshPhongMaterial({ map: texture });
 
-	// all sides
-	let gs = [];
+	// 	// Create cube mesh with the material
+	// 	decahedron = new THREE.Mesh(decaGeo, material);
+	// } else {
+	// 	const decahedronGeometry = decaGeometry2;
 
-	for (let i = 0; i < 5; i++) {
-		let a = vertStep * 2 * i;
-		let g1 = gSide.clone().rotateZ(-a);
-		recomputeUVs(g1, i * 2 + 0);
-		let g2 = gSide
-			.clone()
-			.rotateX(Math.PI)
-			.rotateZ(vertStep + a);
-		recomputeUVs(g2, i * 2 + 1);
-		gs.push(g1, g2);
-	}
+	// 	const decaMaterial = new THREE.MeshStandardMaterial({
+	// 		color: sharedColor != null ? sharedColor : ctx.presentColor,
+	// 		wireframe: false,
+	// 	});
 
-	let decaGeometry = BufferGeometryUtils.mergeBufferGeometries(gs);
-	let g = decaGeometry;
-	let positionAttribute = g.getAttribute("position");
-
-	for (let i = 0; i < positionAttribute.count; i++) {
-		let vertex = new THREE.Vector3().fromBufferAttribute(
-			positionAttribute,
-			i
-		);
-		myVertices.push([vertex.x, vertex.y, vertex.z]);
-	}
-
-	// Extract faces
-	for (let i = 0; i < myVertices.length; i += 3) {
-		myFaces.push([i, i + 1, i + 2]);
-	}
-
-	if (tempShowNumbers) {
-		let m = new THREE.MeshLambertMaterial({
-			map: getNumbers(tempFillColor, tempTextColor),
-		});
-
-		// let tileDimension = new THREE.Vector2(4, 4);
-		// let tileSize = 256;
-		// // let g = new THREE.OctahedronGeometry(1.6);
-
-		// let c = document.createElement("canvas");
-		// c.width = tileSize * tileDimension.x;
-		// c.height = tileSize * tileDimension.y;
-		// let ctx = c.getContext("2d");
-		// ctx.fillStyle = tempFillColor;
-		// ctx.fillRect(0, 0, c.width, c.height);
-
-		// let uvs = [];
-
-		// let baseUVs = [
-		// 	[0, 0],
-		// 	[Math.cos(vertStep * 0), Math.sin(vertStep * 0)],
-		// 	[Math.cos(vertStep * 1), Math.sin(vertStep * 1)],
-		// 	[Math.cos(vertStep * 2), Math.sin(vertStep * 2)],
-		// ].map((p) => {
-		// 	return new THREE.Vector2(...p);
-		// });
-
-		// for (let i = 0; i < 10; i++) {
-		// 	let u = i % tileDimension.x;
-		// 	let v = Math.floor(i / tileDimension.x);
-		// 	uvs.push(
-		// 		(baseUVs[0].x + u) / tileDimension.x,
-		// 		(baseUVs[0].y + v) / tileDimension.y,
-		// 		(baseUVs[1].x + u) / tileDimension.x,
-		// 		(baseUVs[1].y + v) / tileDimension.y,
-		// 		(baseUVs[2].x + u) / tileDimension.x,
-		// 		(baseUVs[2].y + v) / tileDimension.y,
-		// 		(baseUVs[3].x + u) / tileDimension.x,
-		// 		(baseUVs[3].y + v) / tileDimension.y
-		// 	);
-
-		// 	ctx.textAlign = "center";
-		// 	ctx.textBaseline = "middle";
-		// 	ctx.font = `bold 200px Arial`;
-		// 	ctx.fillStyle = tempTextColor;
-		// 	ctx.fillText(
-		// 		i + 1 + (i == 5 || i == 8 ? "" : ""),
-		// 		(u + 0.5) * tileSize,
-		// 		c.height - (v + 0.5) * tileSize
-		// 	);
-		// }
-		// g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-		// let tex = new THREE.CanvasTexture(c);
-		// tex.colorSpace = THREE.SRGBColorSpace;
-
-		// let m2 = new THREE.MeshPhongMaterial({
-		// 	map: tex,
-		// });
-
-		decahedron = new THREE.Mesh(g, m);
-		decahedron.rotation.z = Math.PI / 2;
-
-		// myDecahedron = decahedron;
-		// decahedron.rotateY(THREE.MathUtils.degToRad(20));
-		// const position = g.attributes.position.array;
-		// const index = g.index.array;
-		// console.log(position);
-		// console.log(index);
-	} else if (tempTransparent) {
-		const decahedronTransaprentGeometry = decaGeometry2;
-		const wireframe = new THREE.WireframeGeometry(
-			decahedronTransaprentGeometry
-		);
-		const lineMaterial = new THREE.LineBasicMaterial({
-			color: sharedColor != null ? sharedColor : ctx.presentColor,
-			depthTest: true,
-			opacity: 1,
-			transparent: false,
-		});
-		const line = new THREE.LineSegments(wireframe, lineMaterial);
-		decahedron = line;
-	} else if (false) {
-		const decaGeo = decaGeometry;
-
-		const texture = new THREE.TextureLoader().load(
-			sharedImageData != null ? sharedImageData : imageData
-		);
-
-		// Create material using the texture
-		const material = new THREE.MeshPhongMaterial({ map: texture });
-
-		// Create cube mesh with the material
-		decahedron = new THREE.Mesh(decaGeo, material);
-	} else {
-		const decahedronGeometry = decaGeometry2;
-
-		const decaMaterial = new THREE.MeshStandardMaterial({
-			color: sharedColor != null ? sharedColor : ctx.presentColor,
-			wireframe: false,
-		});
-
-		decahedron = new THREE.Mesh(decahedronGeometry, decaMaterial);
-	}
+	// 	decahedron = new THREE.Mesh(decahedronGeometry, decaMaterial);
+	// }
 
 	// decahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
-	decahedron.castShadow = true;
+	// decahedron.castShadow = true;
+	decahedron = diceMesh
 	scene.add(decahedron);
 
-	const t = (1 + Math.sqrt(5)) / 2;
-	const r = 1 / t;
-	const scaleFactor = 1; // Change this value to scale the shape (e.g., 2 for doubling the size)
-
-	const verticesCannon = [];
-	for (let i = 0; i < verticesGeo.length; i += 3) {
-		verticesCannon.push(
-			new CANNON.Vec3(
-				verticesGeo[i] * scaleFactor,
-				verticesGeo[i + 1] * scaleFactor,
-				verticesGeo[i + 2] * scaleFactor
-			)
-		);
-	}
-	const facesCannon = [];
-	for (let i = 0; i < facesGeo.length; i += 3) {
-		facesCannon.push([facesGeo[i], facesGeo[i + 1], facesGeo[i + 2]]);
-	}
-
-	let cannonVertices = myVertices.map(
-		(v) => new CANNON.Vec3(v[0], v[1], v[2])
-	);
-
 	// Create a ConvexPolyhedron shape from the scaled vertices and faces
-	const decahedronShape = new CANNON.ConvexPolyhedron({
-		vertices: verticesCannon,
-		faces: facesCannon,
-	});
+	// const decahedronShape = new CANNON.ConvexPolyhedron({
+	// 	vertices: verticesCannon,
+	// 	faces: facesCannon,
+	// });
 	// let myShape = getPolyhedronShape(decahedron);
 	// console.log(myShape);
+	console.log(diceMesh.geometry.cannon_shape)
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
@@ -313,7 +153,7 @@ function createDecahedron(
 
 	let decahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
-		shape: decahedronShape,
+		shape: diceMesh.geometry.cannon_shape,
 		position: new CANNON.Vec3(x, y, z),
 		friction: -1,
 		restitution: 5,
@@ -327,17 +167,17 @@ function createDecahedron(
 	// }
 	world.addBody(decahedronBody);
 
-	let angVel1 = 0.2
-		// sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
-	let angVel2 = 0.2
-		// sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+	let angVel1 = 0.2;
+	// sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+	let angVel2 = 0.2;
+	// sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
 
 	decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
 	decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
 	decahedron.quaternion.copy(decahedronBody.quaternion);
-	console.log(decahedronBody);
-	console.log(decahedronBody.rotation);
+	// console.log(decahedronBody);
+	// console.log(decahedronBody.rotation);
 
 	if (quaternionShared != null && quaternionShared != undefined) {
 		decahedron.quaternion.copy(quaternionShared);
@@ -357,88 +197,225 @@ function createDecahedron(
 	]);
 }
 
-function recomputeUVs(g, idx) {
-	let tiles = {
-		x: 4,
-		y: 4,
-	};
-	let x = idx % tiles.x;
-	let y = Math.floor(idx / tiles.x);
+function getGeometry() {
+	let radius = 1 * scaleFactor;
 
-	let uvs = g.attributes.uv;
-	for (let i = 0; i < uvs.count; i++) {
-		let u = (uvs.getX(i) + x) / tiles.x;
-		let v = (uvs.getY(i) + y) / tiles.y;
-		uvs.setXY(i, u, v);
+	let vectors = new Array(vertices.length);
+	for (let i = 0; i < vertices.length; ++i) {
+		vectors[i] = new THREE.Vector3().fromArray(vertices[i]).normalize();
 	}
+
+	let chamferGeometry = getChamferGeometry(vectors);
+	let geometry = makeGeometry(
+		chamferGeometry.vectors,
+		chamferGeometry.faces,
+		radius,
+		tab,
+		af
+	);
+	geometry.cannon_shape = createShape(vectors, faces, radius);
+
+	return geometry;
 }
 
-function getNumbers(tempFillColor, tempTextColor) {
-	let tileSize = 256;
-	let tiles = {
-		x: 4,
-		y: 4,
-	};
-
-	let c = document.createElement("canvas");
-	let ctx = c.getContext("2d");
-	c.width = tileSize * 4;
-	c.height = tileSize * 4;
-	let u = (val) => tileSize * 0.01 * val;
-
-	ctx.fillStyle = tempFillColor;
-	ctx.fillRect(0, 0, c.width, c.height);
-
-	ctx.font = `bold ${u(40)}px Arial`;
-	ctx.textAlign = "center";
-	ctx.textBaseline = "middle";
-	ctx.fillStyle = tempTextColor;
-
-	for (let i = 0; i < sides; i++) {
-		let y = Math.floor(i / tiles.x);
-		let x = i % tiles.x;
-		let text = i + 1;
-
-		ctx.save();
-		ctx.translate(x * tileSize, c.height - y * tileSize);
-
-		ctx.fillText(text, u(50), -u(40));
-		if (text == 6 || text == 9) {
-			ctx.fillText("_", u(50), -u(40));
+function getChamferGeometry(vectors) {
+	let chamfer_vectors = [],
+		chamfer_faces = [],
+		corner_faces = new Array(vectors.length);
+	for (let i = 0; i < vectors.length; ++i) corner_faces[i] = [];
+	for (let i = 0; i < faces.length; ++i) {
+		let ii = faces[i],
+			fl = ii.length - 1;
+		let center_point = new THREE.Vector3();
+		let face = new Array(fl);
+		for (let j = 0; j < fl; ++j) {
+			let vv = vectors[ii[j]].clone();
+			center_point.add(vv);
+			corner_faces[ii[j]].push((face[j] = chamfer_vectors.push(vv) - 1));
 		}
-		ctx.restore();
+		center_point.divideScalar(fl);
+		for (let j = 0; j < fl; ++j) {
+			let vv = chamfer_vectors[face[j]];
+			vv.subVectors(vv, center_point)
+				.multiplyScalar(chamfer)
+				.addVectors(vv, center_point);
+		}
+		face.push(ii[fl]);
+		chamfer_faces.push(face);
+	}
+	for (let i = 0; i < faces.length - 1; ++i) {
+		for (let j = i + 1; j < faces.length; ++j) {
+			let pairs = [],
+				lastm = -1;
+			for (let m = 0; m < faces[i].length - 1; ++m) {
+				let n = faces[j].indexOf(faces[i][m]);
+				if (n >= 0 && n < faces[j].length - 1) {
+					if (lastm >= 0 && m !== lastm + 1)
+						pairs.unshift([i, m], [j, n]);
+					else pairs.push([i, m], [j, n]);
+					lastm = m;
+				}
+			}
+			if (pairs.length !== 4) continue;
+			chamfer_faces.push([
+				chamfer_faces[pairs[0][0]][pairs[0][1]],
+				chamfer_faces[pairs[1][0]][pairs[1][1]],
+				chamfer_faces[pairs[3][0]][pairs[3][1]],
+				chamfer_faces[pairs[2][0]][pairs[2][1]],
+				-1,
+			]);
+		}
+	}
+	for (let i = 0; i < corner_faces.length; ++i) {
+		let cf = corner_faces[i],
+			face = [cf[0]],
+			count = cf.length - 1;
+		while (count) {
+			for (let m = faces.length; m < chamfer_faces.length; ++m) {
+				let index = chamfer_faces[m].indexOf(face[face.length - 1]);
+				if (index >= 0 && index < 4) {
+					if (--index === -1) index = 3;
+					let next_vertex = chamfer_faces[m][index];
+					if (cf.indexOf(next_vertex) >= 0) {
+						face.push(next_vertex);
+						break;
+					}
+				}
+			}
+			--count;
+		}
+		face.push(-1);
+		chamfer_faces.push(face);
+	}
+	return { vectors: chamfer_vectors, faces: chamfer_faces };
+}
+
+function makeGeometry(vertices, faces, radius) {
+	let geom = new THREE.BufferGeometry();
+
+	for (let i = 0; i < vertices.length; ++i) {
+		vertices[i] = vertices[i].multiplyScalar(radius);
 	}
 
-	let tex = new THREE.CanvasTexture(c);
-	tex.colorSpace = "srgb";
-	// tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-	tex.needsUpdate = true;
+	let positions = [];
+	const normals = [];
+	const uvs = [];
 
-	return tex;
+	const cb = new THREE.Vector3();
+	const ab = new THREE.Vector3();
+	let materialIndex;
+	let faceFirstVertexIndex = 0;
+
+	for (let i = 0; i < faces.length; ++i) {
+		let ii = faces[i],
+			fl = ii.length - 1;
+		let aa = (Math.PI * 2) / fl;
+		materialIndex = ii[fl] + 1;
+		for (let j = 0; j < fl - 2; ++j) {
+			//Vertices
+			positions.push(...vertices[ii[0]].toArray());
+			positions.push(...vertices[ii[j + 1]].toArray());
+			positions.push(...vertices[ii[j + 2]].toArray());
+
+			// Flat face normals
+			cb.subVectors(vertices[ii[j + 2]], vertices[ii[j + 1]]);
+			ab.subVectors(vertices[ii[0]], vertices[ii[j + 1]]);
+			cb.cross(ab);
+			cb.normalize();
+
+			// Vertex Normals
+			normals.push(...cb.toArray());
+			normals.push(...cb.toArray());
+			normals.push(...cb.toArray());
+
+			//UVs
+			uvs.push(
+				(Math.cos(af) + 1 + tab) / 2 / (1 + tab),
+				(Math.sin(af) + 1 + tab) / 2 / (1 + tab)
+			);
+			uvs.push(
+				(Math.cos(aa * (j + 1) + af) + 1 + tab) / 2 / (1 + tab),
+				(Math.sin(aa * (j + 1) + af) + 1 + tab) / 2 / (1 + tab)
+			);
+			uvs.push(
+				(Math.cos(aa * (j + 2) + af) + 1 + tab) / 2 / (1 + tab),
+				(Math.sin(aa * (j + 2) + af) + 1 + tab) / 2 / (1 + tab)
+			);
+		}
+
+		//Set Group for face materials.
+		let numOfVertices = (fl - 2) * 3;
+		for (let i = 0; i < numOfVertices / 3; i++) {
+			geom.addGroup(faceFirstVertexIndex, 3, materialIndex);
+			faceFirstVertexIndex += 3;
+		}
+	}
+
+	geom.setAttribute(
+		"position",
+		new THREE.Float32BufferAttribute(positions, 3)
+	);
+	geom.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+	geom.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+	geom.boundingSphere = new THREE.Sphere(new THREE.Vector3(), radius);
+	return geom;
 }
-function getPolyhedronShape(mesh) {
-	let geometry = new THREE.BufferGeometry();
-	geometry.setAttribute("position", mesh.geometry.getAttribute("position"));
 
-	geometry = BufferGeometryUtils.mergeVertices(geometry);
+function createShape(vertices, faces, radius) {
+	let cv = new Array(vertices.length),
+		cf = new Array(faces.length);
+	for (let i = 0; i < vertices.length; ++i) {
+		let v = vertices[i];
+		cv[i] = new CANNON.Vec3(v.x * radius, v.y * radius, v.z * radius);
+	}
+	for (let i = 0; i < faces.length; ++i) {
+		cf[i] = faces[i].slice(0, faces[i].length - 1);
+	}
+	return new CANNON.ConvexPolyhedron(cv, cf);
+}
 
-	let position = geometry.attributes.position.array;
-	let index = geometry.getIndex();
+function getMaterials() {
+	let materials = [];
+	for (let i = 0; i < faceTexts.length; ++i) {
+		let texture = null;
+		// if (customTextTextureFunction) {
+		// 	texture = customTextTextureFunction(
+		// 		faceTexts[i],
+		// 		labelColor,
+		// 		diceColor
+		// 	);
+		// } else {
+		texture = createTextTexture(faceTexts[i]);
 
-	const points = [];
-	for (let i = 0; i < position.length; i += 3) {
-		points.push(
-			new CANNON.Vec3(position[i], position[i + 1], position[i + 2])
+		materials.push(
+			new THREE.MeshPhongMaterial(
+				Object.assign({}, { map: texture })
+			)
 		);
 	}
-	const myfaces = [];
-	for (let i = 0; i < index.length; i += 3) {
-		myfaces.push([index[i], index[i + 1], index[i + 2]]);
-	}
+	return materials;
+}
 
-	let myShape = new CANNON.ConvexPolyhedron({
-		vertices: points,
-		faces: myfaces,
-	});
-	return myShape;
+function createTextTexture(text) {
+	let canvas = document.createElement("canvas");
+	let context = canvas.getContext("2d");
+	let ts = calculateTextureSize(1 / 2 + 1 * textMargin) * 2;
+	canvas.width = canvas.height = ts;
+	context.font = ts / (1 + 2 * textMargin) + "pt Arial";
+	context.fillStyle = backColor;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.textAlign = "center";
+	context.textBaseline = "middle";
+	context.fillStyle = color;
+	context.fillText(text, canvas.width / 2, canvas.height / 2);
+	let texture = new THREE.Texture(canvas);
+	texture.needsUpdate = true;
+	return texture;
+}
+
+function calculateTextureSize(approx) {
+	return Math.max(
+		128,
+		Math.pow(2, Math.floor(Math.log(approx) / Math.log(2)))
+	);
 }
