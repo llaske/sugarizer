@@ -27,11 +27,11 @@ for (let i = 0, b = 0; i < 10; ++i, b += (Math.PI * 2) / 10) {
 }
 vertices.push([0, 0, -1]);
 vertices.push([0, 0, 1]);
-let scaleFactor = 0.9;
-value = 10;
+let scaleFactor = 1;
+let values = 10;
 let faceTexts = [
 	" ",
-	"0",
+	"10",
 	"1",
 	"2",
 	"3",
@@ -53,7 +53,7 @@ let faceTexts = [
 	"19",
 	"20",
 ];
-let textMargin = 1.0;
+let textMargin = 0.8;
 let chamfer = 0.945;
 let af = (Math.PI * 6) / 5;
 let tab = 0;
@@ -89,6 +89,9 @@ function createDecahedron(
 	color = tempTextColor;
 
 	let diceMesh = new THREE.Mesh(getGeometry(), getMaterials());
+	diceMesh.reveiceShadow = true;
+	diceMesh.castShadow = true;
+	diceMesh.diceObject = this;
 
 	// if (tempShowNumbers) {
 	// 	let m = new THREE.MeshLambertMaterial({
@@ -135,7 +138,7 @@ function createDecahedron(
 
 	// decahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
 	// decahedron.castShadow = true;
-	decahedron = diceMesh
+	decahedron = diceMesh;
 	scene.add(decahedron);
 
 	// Create a ConvexPolyhedron shape from the scaled vertices and faces
@@ -145,18 +148,110 @@ function createDecahedron(
 	// });
 	// let myShape = getPolyhedronShape(decahedron);
 	// console.log(myShape);
-	console.log(diceMesh.geometry.cannon_shape)
+	let verticesI = [];
+	let facesI = [
+		[5, 7, 11, 0],
+		[4, 2, 10, 1],
+		[1, 3, 11, 2],
+		[0, 8, 10, 3],
+		[7, 9, 11, 4],
+		[8, 6, 10, 5],
+		[9, 1, 11, 6],
+		[2, 0, 10, 7],
+		[3, 5, 11, 8],
+		[6, 4, 10, 9],
+		[1, 0, 2, -1],
+		[1, 2, 3, -1],
+		[3, 2, 4, -1],
+		[3, 4, 5, -1],
+		[5, 4, 6, -1],
+		[5, 6, 7, -1],
+		[7, 6, 8, -1],
+		[7, 8, 9, -1],
+		[9, 8, 0, -1],
+		[9, 0, 1, -1],
+	];
+
+	// Create vertices for the decahedron
+	for (let i = 0, b = 0; i < 10; ++i, b += (Math.PI * 2) / 10) {
+		verticesI.push([Math.cos(b), Math.sin(b), 0.105 * (i % 2 ? 1 : -1)]);
+	}
+	verticesI.push([0, 0, -1]); // bottom vertex
+	verticesI.push([0, 0, 1]); // top vertex
+
+	// Convert vertices to the format required by CANNON.js
+	let verticesCannonI = verticesI.map(
+		(v) => new CANNON.Vec3(v[0], v[1], v[2])
+	);
+
+	// Convert faces to the format required by CANNON.js, removing the last -1 entry
+	let facesCannonI = facesI.map((face) => face.slice(0, -1));
+
+	const decahedronShape = new CANNON.ConvexPolyhedron({
+		vertices: verticesCannonI,
+		faces: facesCannonI,
+	});
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
 	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
 
+	const sides = 10;
+	const verticesGeo = [
+		[0, 0, 1], // Top vertex
+		[0, 0, -1], // Bottom vertex
+	];
+
+	for (let i = 0; i < sides; ++i) {
+		const b = (i * Math.PI * 2) / sides;
+		verticesGeo.push([Math.cos(b), Math.sin(b), 0.105 * (i % 2 ? 1 : -1)]);
+	}
+
+	// Convert vertices to CANNON.Vec3 format
+	let verticesCannon2 = verticesGeo.map(
+		(v) => new CANNON.Vec3(v[0], v[1], v[2])
+	);
+
+	// Define faces
+	const facesGeo = [
+		[0, 2, 3],
+		[0, 3, 4],
+		[0, 4, 5],
+		[0, 5, 6],
+		[0, 6, 7],
+		[0, 7, 8],
+		[0, 8, 9],
+		[0, 9, 10],
+		[0, 10, 11],
+		[0, 11, 2],
+		[1, 3, 2],
+		[1, 4, 3],
+		[1, 5, 4],
+		[1, 6, 5],
+		[1, 7, 6],
+		[1, 8, 7],
+		[1, 9, 8],
+		[1, 10, 9],
+		[1, 11, 10],
+		[1, 2, 11],
+	];
+
+	// Corrected face definition
+	let correctedFacesGeo = facesGeo.map((face) => {
+		return [face[0], face[1], face[2]];
+	});
+
+	// Create the ConvexPolyhedron shape
+	const decahedronShape2 = new CANNON.ConvexPolyhedron({
+		vertices: verticesCannon2,
+		faces: correctedFacesGeo,
+	});
 	let decahedronBody = new CANNON.Body({
-		mass: 2, // Set mass
-		shape: diceMesh.geometry.cannon_shape,
+		mass: 3, // Set mass
+		shape: decahedronShape2,
 		position: new CANNON.Vec3(x, y, z),
-		friction: -1,
-		restitution: 5,
+		friction: 0.5,
+		restitution: 0.5,
 	});
 	// decahedronBody = polyhedronShape
 	// if (tempShowNumbers) {
@@ -166,14 +261,17 @@ function createDecahedron(
 	// 	});
 	// }
 	world.addBody(decahedronBody);
+	decahedronBody.sleepSpeedLimit = 4;
+	decahedronBody.sleepTimeLimit = 10;
+
 
 	let angVel1 = 0.2;
 	// sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 = 0.2;
 	// sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
 
-	decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
-	decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
+	// decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
+	// decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
 	decahedron.quaternion.copy(decahedronBody.quaternion);
 	// console.log(decahedronBody);
@@ -371,6 +469,7 @@ function createShape(vertices, faces, radius) {
 	for (let i = 0; i < faces.length; ++i) {
 		cf[i] = faces[i].slice(0, faces[i].length - 1);
 	}
+	console.log(faces);
 	return new CANNON.ConvexPolyhedron(cv, cf);
 }
 
@@ -388,9 +487,7 @@ function getMaterials() {
 		texture = createTextTexture(faceTexts[i]);
 
 		materials.push(
-			new THREE.MeshPhongMaterial(
-				Object.assign({}, { map: texture })
-			)
+			new THREE.MeshPhongMaterial(Object.assign({}, { map: texture }))
 		);
 	}
 	return materials;

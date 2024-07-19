@@ -117,7 +117,6 @@ function createCube(
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
 	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
-
 	const boxBody = new CANNON.Body({
 		mass: 1,
 		shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),

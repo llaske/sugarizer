@@ -1716,34 +1716,35 @@ define([
 			// }
 
 			let vector = new THREE.Vector3(0, 1);
-			let closest_face;
-			let closest_angle = Math.PI * 2;
+        let closest_face;
+        let closest_angle = Math.PI * 2;
 
-			let normals = body.geometry.getAttribute("normal").array;
-			for (let i = 0; i < 10; ++i) {
-				let face = i + 1;
+        let normals = body.geometry.getAttribute('normal').array;
+        for (let i = 0; i < body.geometry.groups.length; ++i) {
+            let face = body.geometry.groups[i];
+            if (face.materialIndex === 0) continue;
 
-				//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
-				let startVertex = i * 9;
-				let normal = new THREE.Vector3(
-					normals[startVertex],
-					normals[startVertex + 1],
-					normals[startVertex + 2]
-				);
-				let angle = normal
-					.clone()
-					.applyQuaternion(body.quaternion)
-					.angleTo(vector);
-				if (angle < closest_angle) {
-					closest_angle = angle;
-					closest_face = face;
-				}
-			}
-			lastRoll += closest_face + " + ";
-			presentScore += closest_face;
-			updateElements();
-
-			return closest_face;
+            //Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
+            let startVertex = i * 9;
+            let normal = new THREE.Vector3(normals[startVertex], normals[startVertex + 1], normals[startVertex + 2]);
+            let angle = normal.clone().applyQuaternion(body.quaternion).angleTo(vector);
+            if (angle < closest_angle) {
+                closest_angle = angle;
+                closest_face = face;
+            }
+        }
+		if (closest_face.materialIndex - 1 == 0) {
+		lastRoll += 10 + " + ";
+		presentScore += 10;
+		updateElements();
+        return 10;
+		} else {
+		lastRoll += closest_face.materialIndex - 1 + " + ";
+		presentScore += closest_face.materialIndex - 1;
+		updateElements();
+        return closest_face.materialIndex - 1;
+		}
+		
 		}
 
 		function changeBoardBackground(selectedBoard) {
@@ -1847,7 +1848,7 @@ define([
 		function animate(time) {
 			// world.step(timeStep);
 			// Uncomment the next line to view how the physical world actually looks like.
-			// cannonDebugger.update();
+			cannonDebugger.update();
 
 			groundMesh.position.copy(groundBody.position);
 			groundMesh.quaternion.copy(groundBody.quaternion);

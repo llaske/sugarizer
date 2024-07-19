@@ -226,6 +226,7 @@ function createDodecahedron(
 		vertices: vertices,
 		faces: indices,
 	});
+	console.log(dodecahedronShape)
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
