@@ -88,57 +88,40 @@ function createDecahedron(
 	backColor = tempFillColor;
 	color = tempTextColor;
 
-	let diceMesh = new THREE.Mesh(getGeometry(), getMaterials());
-	diceMesh.reveiceShadow = true;
-	diceMesh.castShadow = true;
-	diceMesh.diceObject = this;
+	// let diceMesh = new THREE.Mesh(getGeometry(), getMaterials());
+	// diceMesh.reveiceShadow = true;
+	// diceMesh.castShadow = true;
+	// diceMesh.diceObject = this;
 
-	// if (tempShowNumbers) {
-	// 	let m = new THREE.MeshLambertMaterial({
-	// 		map: getNumbers(tempFillColor, tempTextColor),
-	// 	});
+	if (tempShowNumbers) {
+		decahedron = new THREE.Mesh(getGeometry(), getMaterials());
+	} else if (tempTransparent) {
+		const decahedronTransaprentGeometry = getGeometry();
+		const wireframe = new THREE.WireframeGeometry(
+			decahedronTransaprentGeometry
+		);
+		const lineMaterial = new THREE.LineBasicMaterial({
+			color: sharedColor != null ? sharedColor : ctx.presentColor,
+			depthTest: true,
+			opacity: 1,
+			transparent: false,
+		});
+		const line = new THREE.LineSegments(wireframe, lineMaterial);
+		decahedron = line;
+	} else {
+		const decahedronGeometry = getGeometry();
 
-	// 	decahedron = new THREE.Mesh(g, m);
-	// 	decahedron.rotation.z = Math.PI / 2;
-	// } else if (tempTransparent) {
-	// 	const decahedronTransaprentGeometry = decaGeometry2;
-	// 	const wireframe = new THREE.WireframeGeometry(
-	// 		decahedronTransaprentGeometry
-	// 	);
-	// 	const lineMaterial = new THREE.LineBasicMaterial({
-	// 		color: sharedColor != null ? sharedColor : ctx.presentColor,
-	// 		depthTest: true,
-	// 		opacity: 1,
-	// 		transparent: false,
-	// 	});
-	// 	const line = new THREE.LineSegments(wireframe, lineMaterial);
-	// 	decahedron = line;
-	// } else if (false) {
-	// 	const decaGeo = decaGeometry;
+		const decaMaterial = new THREE.MeshStandardMaterial({
+			color: sharedColor != null ? sharedColor : ctx.presentColor,
+			wireframe: false,
+		});
 
-	// 	const texture = new THREE.TextureLoader().load(
-	// 		sharedImageData != null ? sharedImageData : imageData
-	// 	);
+		decahedron = new THREE.Mesh(decahedronGeometry, decaMaterial);
+	}
 
-	// 	// Create material using the texture
-	// 	const material = new THREE.MeshPhongMaterial({ map: texture });
-
-	// 	// Create cube mesh with the material
-	// 	decahedron = new THREE.Mesh(decaGeo, material);
-	// } else {
-	// 	const decahedronGeometry = decaGeometry2;
-
-	// 	const decaMaterial = new THREE.MeshStandardMaterial({
-	// 		color: sharedColor != null ? sharedColor : ctx.presentColor,
-	// 		wireframe: false,
-	// 	});
-
-	// 	decahedron = new THREE.Mesh(decahedronGeometry, decaMaterial);
-	// }
-
-	// decahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
-	// decahedron.castShadow = true;
-	decahedron = diceMesh;
+	decahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
+	decahedron.castShadow = true;
+	// decahedron = diceMesh;
 	scene.add(decahedron);
 
 	// Create a ConvexPolyhedron shape from the scaled vertices and faces
@@ -250,32 +233,22 @@ function createDecahedron(
 		mass: 3, // Set mass
 		shape: decahedronShape2,
 		position: new CANNON.Vec3(x, y, z),
-		friction: 0.5,
 		restitution: 0.5,
 	});
-	// decahedronBody = polyhedronShape
-	// if (tempShowNumbers) {
-	// 	decahedronBody.addEventListener("sleep", () => {
-	// 		sleepCounter++;
-	// 		getDecaScore(decahedron);
-	// 	});
-	// }
 	world.addBody(decahedronBody);
 	decahedronBody.sleepSpeedLimit = 4;
 	decahedronBody.sleepTimeLimit = 10;
 
+	let angVel1 =
+		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+	let angVel2 =
+		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
 
-	let angVel1 = 0.2;
-	// sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
-	let angVel2 = 0.2;
-	// sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
-
-	// decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
-	// decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
+	decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
+	decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
 	decahedron.quaternion.copy(decahedronBody.quaternion);
-	// console.log(decahedronBody);
-	// console.log(decahedronBody.rotation);
+
 
 	if (quaternionShared != null && quaternionShared != undefined) {
 		decahedron.quaternion.copy(quaternionShared);
@@ -477,13 +450,6 @@ function getMaterials() {
 	let materials = [];
 	for (let i = 0; i < faceTexts.length; ++i) {
 		let texture = null;
-		// if (customTextTextureFunction) {
-		// 	texture = customTextTextureFunction(
-		// 		faceTexts[i],
-		// 		labelColor,
-		// 		diceColor
-		// 	);
-		// } else {
 		texture = createTextTexture(faceTexts[i]);
 
 		materials.push(
@@ -515,4 +481,77 @@ function calculateTextureSize(approx) {
 		128,
 		Math.pow(2, Math.floor(Math.log(approx) / Math.log(2)))
 	);
+}
+
+function getDecaScore(scoresObject, body, ifRemove) {
+	// Decahedron face vectors
+	// const faceVectors = [
+	// 	{ vector: new THREE.Vector3(0, 1, 0.5), face: 7 },
+	// 	{ vector: new THREE.Vector3(0, 1, -0.5), face: 2 },
+	// 	{ vector: new THREE.Vector3(0, -1, 0.5), face: 3 },
+	// 	{ vector: new THREE.Vector3(0, -1, -0.5), face: 10 },
+	// 	{ vector: new THREE.Vector3(0.5, 0, 1), face: 5 },
+	// 	{ vector: new THREE.Vector3(-0.5, 0, 1), face: 8 },
+	// 	{ vector: new THREE.Vector3(0.5, 0, -1), face: 9 },
+	// 	{ vector: new THREE.Vector3(-0.5, 0, -1), face: 6 },
+	// 	{ vector: new THREE.Vector3(1, 0.5, 0), face: 1 },
+	// 	{ vector: new THREE.Vector3(-1, 0.5, 0), face: 4 },
+	// ];
+
+	// for (const faceVector of faceVectors) {
+	// 	faceVector.vector.normalize().applyEuler(body.rotation);
+
+	// 	if (Math.round(faceVector.vector.y) === 1) {
+	// 		if (!ifRemove) {
+	// 			scoresObject.lastRoll += faceVector.face + " + ";
+	// 			scoresObject.presentScore += faceVector.face;
+	// 			updateElements();
+	// 			break;
+	// 		}
+	// 		for (let i = 0; i < diceArray.length; i++) {
+	// 			if (body == diceArray[i][0]) {
+	// 				diceArray[i][7] = faceVector.face;
+	// 			}
+	// 		}
+	// 		return faceVector.face;
+	// 	}
+	// }
+
+	let vector = new THREE.Vector3(0, 1);
+	let closest_face;
+	let closest_angle = Math.PI * 2;
+
+	let normals = body.geometry.getAttribute("normal").array;
+	for (let i = 0; i < body.geometry.groups.length; ++i) {
+		let face = body.geometry.groups[i];
+		if (face.materialIndex === 0) continue;
+
+		//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
+		let startVertex = i * 9;
+		let normal = new THREE.Vector3(
+			normals[startVertex],
+			normals[startVertex + 1],
+			normals[startVertex + 2]
+		);
+		let angle = normal
+			.clone()
+			.applyQuaternion(body.quaternion)
+			.angleTo(vector);
+		if (angle < closest_angle) {
+			closest_angle = angle;
+			closest_face = face;
+		}
+	}
+	let scoreToShow;
+	if (closest_face.materialIndex - 1 == 0) {
+		scoreToShow = 10;
+	} else {
+		scoreToShow = closest_face.materialIndex - 1;
+	}
+	if (!ifRemove) {
+		scoresObject.lastRoll += scoreToShow + " + ";
+		scoresObject.presentScore += scoreToShow;
+	} else {
+		return scoreToShow;
+	}
 }

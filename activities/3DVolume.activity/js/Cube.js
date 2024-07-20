@@ -91,16 +91,6 @@ function createCube(
 		});
 		const line = new THREE.LineSegments(wireframe, lineMaterial);
 		boxMesh = line;
-	} else if (false) {
-		const boxGeo = new THREE.BoxGeometry(2, 2, 2);
-
-		const texture = new THREE.TextureLoader().load(
-			sharedImageData != null ? sharedImageData : imageData
-		);
-
-		const material = new THREE.MeshPhongMaterial({ map: texture });
-
-		boxMesh = new THREE.Mesh(boxGeo, material);
 	} else {
 		const boxGeo = new THREE.BoxGeometry(2, 2, 2);
 		const boxMat = new THREE.MeshPhongMaterial({
@@ -122,37 +112,10 @@ function createCube(
 		shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
 		position: new CANNON.Vec3(x, y, z),
 		material: boxPhysmat,
-		friction: 0.1,
 		restitution: 5,
 	});
 
-	let previousSleepState = 1;
-
-	// const boxBody = new Proxy(boxBody, {
-	// 	set(target, property, value) {
-	// 		if (
-	// 			property === "sleepState" &&
-	// 			previousSleepState === 2 &&
-	// 			value === 1
-	// 		) {
-	// 			onSleepStateChangeToOne(boxMesh);
-	// 		}
-	// 		// previousSleepState = target[property]; // update previous state
-	// 		target[property] = value;
-	// 		return true;
-	// 	},
-	// });
-
 	world.addBody(boxBody);
-
-	// if (tempShowNumbers) {
-	// 	boxBody.addEventListener("sleep", () => {
-	// 		previousSleepState = 2;
-	// 		console.log(boxBody.sleepState);
-	// 		sleepCounter++;
-	// 		getCubeScore(boxMesh);
-	// 	});
-	// }
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
@@ -165,7 +128,7 @@ function createCube(
 	const groundBoxContactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
 		boxPhysmat,
-		{ friction: 0.5 }
+		{ friction: 0 }
 	);
 
 	world.addContactMaterial(groundBoxContactMat);
@@ -183,6 +146,45 @@ function createCube(
 		tempTextColor,
 		angVel1,
 		angVel2,
-		angVel3
+		angVel3,
 	]);
+}
+
+function getCubeScore(scoresObject, body, ifRemove) {
+	const faceVectors = [
+		{
+			vector: new THREE.Vector3(1, 0, 0),
+			face: 1,
+		},
+		{
+			vector: new THREE.Vector3(-1, 0, 0),
+			face: 2,
+		},
+		{
+			vector: new THREE.Vector3(0, 1, 0),
+			face: 3,
+		},
+		{
+			vector: new THREE.Vector3(0, -1, 0),
+			face: 4,
+		},
+		{
+			vector: new THREE.Vector3(0, 0, 1),
+			face: 5,
+		},
+		{
+			vector: new THREE.Vector3(0, 0, -1),
+			face: 6,
+		},
+	];
+	for (const faceVector of faceVectors) {
+		faceVector.vector.applyEuler(body.rotation);
+		if (Math.round(faceVector.vector.y) == 1) {
+			if (!ifRemove) {
+				scoresObject.lastRoll += faceVector.face + " + ";
+				scoresObject.presentScore += faceVector.face;
+			}
+			return faceVector.face;
+		}
+	}
 }

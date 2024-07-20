@@ -55,7 +55,7 @@ define([], function () {
 			{
 				element: "#color-button-text",
 				title: "Change Volume Text Color",
-				intro: "Choose any one of the colors for your the text on your volumes. The default is your buddy stroke color.",
+				intro: "Choose any one of the colors for the text on your volumes. The default is your buddy stroke color.",
 			},
 			{
 				element: "#bg-button",
@@ -80,12 +80,27 @@ define([], function () {
 			},
 		];
 
+		// Filter out hidden buttons based on screen width
+		var hiddenButtonSelectors = [];
+		var screenWidth = window.innerWidth;
+
+		if (screenWidth <= 1120) {
+			hiddenButtonSelectors.push("#color-button-text", "#bg-button", "#zoom-button");
+		}
+		if (screenWidth <= 800) {
+			hiddenButtonSelectors.push("#volume-button", "#color-button-fill", "#remove-first");
+		}
+		if (screenWidth <= 690) {
+			hiddenButtonSelectors.push("#sensor-button", "#throw-button");
+		}
+
 		steps = steps.filter(function (obj) {
 			return (
 				!("element" in obj) ||
 				(obj.element.length &&
 					document.querySelector(obj.element) &&
-					document.querySelector(obj.element).style.display != "none")
+					document.querySelector(obj.element).style.display != "none" &&
+					!hiddenButtonSelectors.includes(obj.element))
 			);
 		});
 
@@ -101,8 +116,8 @@ define([], function () {
 			})
 			.start()
 			.onexit(function() {
-        ifAdding.adding = true;
-      });
+				ifAdding.adding = true;
+			});
 	};
 
 	return tutorial;

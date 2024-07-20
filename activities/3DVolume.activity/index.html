@@ -30,12 +30,12 @@
 
 		<script data-main="js/loader" src="lib/require.js"></script>
 		<script type="text/javascript" src="../../cordova.js"></script>
-			<script src="js/createCube.js"></script>
-		<script src="js/createDeca2.js"></script>
-		<script src="js/createDodeca.js"></script>
-		<script src="js/createIcosa.js"></script>
-		<script src="js/createTetra.js"></script>
-		<script src="js/creatOcta.js"></script>
+			<script src="js/Cube.js"></script>
+		<script src="js/Deca.js"></script>
+		<script src="js/Dodeca.js"></script>
+		<script src="js/Icosa.js"></script>
+		<script src="js/Tetra.js"></script>
+		<script src="js/Octa.js"></script>
 	</head>
 
 	<body>
@@ -140,12 +140,6 @@
 					id="sensor-button"
 					title="Sensor"
 				></button>
-
-				<button
-					class="toolbutton"
-					id="increase-button"
-					title="Increase"
-				></button>
 			</div>
 
 			<!-- <button class="toolbutton" id="reset-button" title="Reset Values"></button> -->
@@ -187,7 +181,6 @@
 					<button id="down-button" class="arrow-button down"></button>
 				</div>
 			</div>
-			<p id="time-step">Time Step is 1/<span id="time">20</span></p>
 			<p id="last-roll"><span id="roll"></span></p>
 		</div>
 		<button class="toolbutton pull-right" id="unfullscreen-button" title="UnFullscreen"></button>

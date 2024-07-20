@@ -117,18 +117,6 @@ function createTetrahedron(
 		});
 		const line = new THREE.LineSegments(wireframe, lineMaterial);
 		tetrahedron = line;
-	} else if (false) {
-		const boxGeo = new THREE.TetrahedronGeometry(1.7);
-
-		const texture = new THREE.TextureLoader().load(
-			sharedImageData != null ? sharedImageData : imageData
-		);
-
-		// Create material using the texture
-		const material = new THREE.MeshPhongMaterial({ map: texture });
-
-		// Create cube mesh with the material
-		tetrahedron = new THREE.Mesh(boxGeo, material);
 	} else {
 		const tetrahedronGeometry = new THREE.TetrahedronGeometry(1.7); // Size of the tetrahedron
 
@@ -140,7 +128,7 @@ function createTetrahedron(
 		tetrahedron = new THREE.Mesh(tetrahedronGeometry, tetraMaterial);
 	}
 
-	tetrahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
+	tetrahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0);
 	tetrahedron.castShadow = true;
 	scene.add(tetrahedron);
 
@@ -151,10 +139,10 @@ function createTetrahedron(
 		new CANNON.Vec3(1, -1, -1), // Vertex 4 (front)
 	];
 	const facesTetra = [
-		[2, 1, 0], // Triangle 1 (right, top, left)
-		[0, 3, 2], // Triangle 2 (right, front, top)
-		[1, 3, 0], // Triangle 3 (top, front, left)
-		[2, 3, 1], // Triangle 4 (left, right, front)
+		[2, 1, 0],
+		[0, 3, 2],
+		[1, 3, 0],
+		[2, 3, 1],
 	];
 	// Create a ConvexPolyhedron shape from the vertices and faces
 	const tetrahedronShape = new CANNON.ConvexPolyhedron({
@@ -173,12 +161,6 @@ function createTetrahedron(
 		friction: -1,
 		restitution: 5,
 	});
-	// if (tempShowNumbers) {
-	// 	tetrahedronBody.addEventListener("sleep", () => {
-	// 		sleepCounter++;
-	// 		getTetraScore(tetrahedron);
-	// 	});
-	// }
 	world.addBody(tetrahedronBody);
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (3 - 0.1) + 0.1 : sharedAngVel1;
@@ -205,6 +187,39 @@ function createTetrahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
-		angVel3
+		angVel3,
 	]);
+}
+
+function getTetraScore(scoresObject, body, ifRemove) {
+	const faceVectors = [
+		{
+			vector: new THREE.Vector3(1, 1, 1).normalize(), // Towards a corner (positive x, y, z)
+			face: 1,
+		},
+		{
+			vector: new THREE.Vector3(-1, -1, 1).normalize(), // Towards a corner (negative x, negative y, z)
+			face: 3,
+		},
+		{
+			vector: new THREE.Vector3(-1, 1, -1).normalize(), // Towards a corner (negative x, positive y, negative z)
+			face: 2,
+		},
+		{
+			vector: new THREE.Vector3(1, -1, -1).normalize(), // Towards a corner (positive x, negative y, negative z)
+			face: 4,
+		},
+	];
+
+	for (const faceVector of faceVectors) {
+		faceVector.vector.applyEuler(body.rotation);
+		if (Math.round(faceVector.vector.y) == 1) {
+			if (!ifRemove) {
+				scoresObject.lastRoll += faceVector.face + " + ";
+				scoresObject.presentScore += faceVector.face;
+				break;
+			}
+			return faceVector.face;
+		}
+	}
 }

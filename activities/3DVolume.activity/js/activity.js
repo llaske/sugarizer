@@ -86,8 +86,10 @@ define([
 			rollingForce: randomDirection.scale(2),
 		};
 		let presentBackground = null;
-		let presentScore = 0;
-		let lastRoll = "";
+		let scoresObject = {
+			lastRoll : "",
+			presentScore : 0
+		}
 		let diceArray = [];
 		let journalDiceArray = [];
 		let showImage = false;
@@ -661,9 +663,9 @@ define([
 		// Adds all the numbers on top for the numbered volumes.
 		function updateElements() {
 			lastRollElement.textContent =
-				lastRoll.substring(0, lastRoll.length - 2) +
+				scoresObject.lastRoll.substring(0, scoresObject.lastRoll.length - 2) +
 				"= " +
-				presentScore;
+				scoresObject.presentScore;
 		}
 
 		const renderer = new THREE.WebGLRenderer({
@@ -837,32 +839,32 @@ define([
 						let score;
 						switch (diceArray[i][2]) {
 							case "cube":
-								score = getCubeScore(diceArray[i][0], true);
+								score = getCubeScore(scoresObject, diceArray[i][0], true);
 								break;
 							case "icosa":
-								score = getIcosaScore(diceArray[i][0], true);
+								score = getIcosaScore(scoresObject, diceArray[i][0], true);
 								break;
 							case "deca":
-								score = getDecaScore(diceArray[i][0], true);
+								score = getDecaScore(scoresObject, diceArray[i][0], true);
 								break;
 							case "dodeca":
-								score = getDodecaScore(diceArray[i][0], true);
+								score = getDodecaScore(scoresObject, diceArray[i][0], true);
 								break;
 							case "octa":
-								score = getOctaScore(diceArray[i][0], true);
+								score = getOctaScore(scoresObject, diceArray[i][0], true);
 								break;
 							case "tetra":
-								score = getTetraScore(diceArray[i][0], true);
+								score = getTetraScore(scoresObject, diceArray[i][0], true);
 								break;
 							default:
 								console.log(`Unknown type: ${diceArray[i][3]}`);
 								continue;
 						}
 
-						presentScore = presentScore - score;
-						console.log(presentScore);
+						scoresObject.presentScore = scoresObject.presentScore - score;
+						console.log(scoresObject.presentScore);
 
-						let scoresArray = lastRoll.split(" + ");
+						let scoresArray = scoresObject.lastRoll.split(" + ");
 
 						// Find the index of the first occurrence of the score to remove
 						let indexToRemove = scoresArray.indexOf(
@@ -875,10 +877,10 @@ define([
 						}
 
 						// Join the remaining scores back into a string
-						lastRoll = scoresArray.join(" + ");
+						scoresObject.lastRoll = scoresArray.join(" + ");
 						updateElements();
-						console.log(lastRoll);
-						console.log(presentScore);
+						console.log(scoresObject.lastRoll);
+						console.log(scoresObject.presentScore);
 						num--;
 					}
 					world.removeBody(diceArray[i][1]);
@@ -888,8 +890,8 @@ define([
 			}
 			if (num == 0) {
 				lastRollElement.textContent = "";
-				lastRoll = "";
-				presentScore = 0;
+				scoresObject.lastRoll = "";
+				scoresObject.presentScore = 0;
 			}
 		}
 
@@ -1048,6 +1050,7 @@ define([
 					wakeAll();
 				}
 			}
+			lastRollElement.textContent = "x- " + acceleration.x + ", " + "y- " + acceleration.y + ", " + "z- " + acceleration.x + " ";
 		}
 
 		// Wakes all the volumes so that they move towards the gravity.
@@ -1087,7 +1090,9 @@ define([
 			type: CANNON.Body.STATIC,
 			material: groundPhysMat,
 		});
-		groundBody.material.friction = 1;
+		groundBody.material.friction = 0;
+		groundBody.material.contactEquationStiffness = 1e8;
+		groundBody.material.contactEquationRelaxation = 3;
 		groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
 		world.addBody(groundBody);
 
@@ -1254,8 +1259,8 @@ define([
 				world.removeBody(diceArray[i][1]);
 			}
 			if (diceArray.length > 0) {
-				lastRoll = "";
-				presentScore = 0;
+				scoresObject.lastRoll = "";
+				scoresObject.presentScore = 0;
 				for (let i = 0; i < diceArray.length; i++) {
 					let rollingForce;
 					if (sharedRolling != null) {
@@ -1297,7 +1302,7 @@ define([
 				for (let i = 0; i < dices.icosa; i++) {
 					createIcosahedron();
 				}
-				lastRoll = "";
+				scoresObject.lastRoll = "";
 				// if (ctx.showNumbers) {
 				//   getScore();
 				// }
@@ -1306,446 +1311,12 @@ define([
 
 		// Functions to get the scores of the dice.
 
-		function getOctaScore(body, ifRemove) {
-			// const faceVectors = [
-			// 	{
-			// 		vector: new THREE.Vector3(1, 0, 0), // Along the positive x-axis
-			// 		face: 4,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(-1, 0, 0), // Along the negative x-axis
-			// 		face: 6,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(0, 1, 0), // Along the positive y-axis
-			// 		face: 5,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(0, -1, 0), // Along the negative y-axis
-			// 		face: 3,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(1, 1, 1).normalize(), // Towards a corner (positive x, y, z)
-			// 		face: 1,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(-1, 1, 1).normalize(), // Towards a corner (negative x, positive y, z)
-			// 		face: 8,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(1, -1, 1).normalize(), // Towards a corner (positive x, negative y, z)
-			// 		face: 2,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(-1, -1, 1).normalize(), // Towards a corner (negative x, negative y, z)
-			// 		face: 7,
-			// 	},
-			// ];
-
-			// let minValue = 1000000;
-			// let minInd;
-			// for (let i = 0; i < faceVectors.length; i++) {
-			// 	let faceVector = faceVectors[i];
-			// 	faceVector.vector.applyEuler(body.rotation);
-			// 	if (minValue > Math.abs(1 - faceVector.vector.y)) {
-			// 		minValue = Math.abs(1 - faceVector.vector.y);
-			// 		minInd = i;
-			// 	}
-			// }
-			// if (!ifRemove) {
-			// 	lastRoll += faceVectors[minInd].face + " + ";
-			// 	presentScore += faceVectors[minInd].face;
-			// 	updateElements();
-			// }
-			// for (let i = 0; i < diceArray.length; i++) {
-			// 	if (body == diceArray[i][0]) {
-			// 		diceArray[i][7] = faceVectors[minInd].face;
-			// 	}
-			// }
-			// return faceVectors[minInd].face;
-
-			let vector = new THREE.Vector3(0, 1);
-			let closest_face;
-			let closest_angle = Math.PI * 2;
-
-			let normals = body.geometry.getAttribute("normal").array;
-			for (let i = 0; i < 8; ++i) {
-				let face = i + 1;
-
-				//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
-				let startVertex = i * 9;
-				let normal = new THREE.Vector3(
-					normals[startVertex],
-					normals[startVertex + 1],
-					normals[startVertex + 2]
-				);
-				let angle = normal
-					.clone()
-					.applyQuaternion(body.quaternion)
-					.angleTo(vector);
-				if (angle < closest_angle) {
-					closest_angle = angle;
-					closest_face = face;
-				}
-			}
-			lastRoll += closest_face + " + ";
-			presentScore += closest_face;
-			updateElements();
-
-			return closest_face;
-		}
-
-		function getCubeScore(body, ifRemove) {
-			const faceVectors = [
-				{
-					vector: new THREE.Vector3(1, 0, 0),
-					face: 1,
-				},
-				{
-					vector: new THREE.Vector3(-1, 0, 0),
-					face: 2,
-				},
-				{
-					vector: new THREE.Vector3(0, 1, 0),
-					face: 3,
-				},
-				{
-					vector: new THREE.Vector3(0, -1, 0),
-					face: 4,
-				},
-				{
-					vector: new THREE.Vector3(0, 0, 1),
-					face: 5,
-				},
-				{
-					vector: new THREE.Vector3(0, 0, -1),
-					face: 6,
-				},
-			];
-			for (const faceVector of faceVectors) {
-				faceVector.vector.applyEuler(body.rotation);
-				if (Math.round(faceVector.vector.y) == 1) {
-					if (!ifRemove) {
-						lastRoll += faceVector.face + " + ";
-						presentScore += faceVector.face;
-						updateElements();
-					}
-					for (let i = 0; i < diceArray.length; i++) {
-						if (body == diceArray[i][0]) {
-							diceArray[i][7] = faceVector.face;
-						}
-					}
-					return faceVector.face;
-				}
-			}
-		}
-		function getTetraScore(body, ifRemove) {
-			const faceVectors = [
-				{
-					vector: new THREE.Vector3(1, 1, 1).normalize(), // Towards a corner (positive x, y, z)
-					face: 1,
-				},
-				{
-					vector: new THREE.Vector3(-1, -1, 1).normalize(), // Towards a corner (negative x, negative y, z)
-					face: 3,
-				},
-				{
-					vector: new THREE.Vector3(-1, 1, -1).normalize(), // Towards a corner (negative x, positive y, negative z)
-					face: 2,
-				},
-				{
-					vector: new THREE.Vector3(1, -1, -1).normalize(), // Towards a corner (positive x, negative y, negative z)
-					face: 4,
-				},
-			];
-
-			for (const faceVector of faceVectors) {
-				faceVector.vector.applyEuler(body.rotation);
-				if (Math.round(faceVector.vector.y) == 1) {
-					if (!ifRemove) {
-						lastRoll += faceVector.face + " + ";
-						presentScore += faceVector.face;
-						updateElements();
-						break;
-					}
-					for (let i = 0; i < diceArray.length; i++) {
-						if (body == diceArray[i][0]) {
-							diceArray[i][7] = faceVector.face;
-						}
-					}
-					return faceVector.face;
-				}
-			}
-		}
-		function getIcosaScore(body, ifRemove) {
-			// // Define the golden ratio
-			// const phi = (1 + Math.sqrt(5)) / 2;
-
-			// // Icosahedron face vectors
-			// const faceVectors = [
-			// 	{ vector: new THREE.Vector3(0, 1, phi).normalize(), face: 7 },
-			// 	{ vector: new THREE.Vector3(0, -1, phi).normalize(), face: 16 },
-			// 	{ vector: new THREE.Vector3(0, 1, -phi).normalize(), face: 4 },
-			// 	{
-			// 		vector: new THREE.Vector3(0, -1, -phi).normalize(),
-			// 		face: 20,
-			// 	},
-			// 	{ vector: new THREE.Vector3(1, phi, 0).normalize(), face: 6 },
-			// 	{ vector: new THREE.Vector3(-1, phi, 0).normalize(), face: 5 },
-			// 	{ vector: new THREE.Vector3(1, -phi, 0).normalize(), face: 9 },
-			// 	{
-			// 		vector: new THREE.Vector3(-1, -phi, 0).normalize(),
-			// 		face: 17,
-			// 	},
-			// 	{ vector: new THREE.Vector3(phi, 0, 1).normalize(), face: 15 },
-			// 	{ vector: new THREE.Vector3(-phi, 0, 1).normalize(), face: 8 },
-			// 	{ vector: new THREE.Vector3(phi, 0, -1).normalize(), face: 19 },
-			// 	{
-			// 		vector: new THREE.Vector3(-phi, 0, -1).normalize(),
-			// 		face: 13,
-			// 	},
-			// 	{ vector: new THREE.Vector3(1, phi, phi).normalize(), face: 2 },
-			// 	{
-			// 		vector: new THREE.Vector3(-1, phi, phi).normalize(),
-			// 		face: 1,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(1, -phi, phi).normalize(),
-			// 		face: 11,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(-1, -phi, phi).normalize(),
-			// 		face: 12,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(1, phi, -phi).normalize(),
-			// 		face: 10,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(-1, phi, -phi).normalize(),
-			// 		face: 3,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(1, -phi, -phi).normalize(),
-			// 		face: 14,
-			// 	},
-			// 	{
-			// 		vector: new THREE.Vector3(-1, -phi, -phi).normalize(),
-			// 		face: 18,
-			// 	},
-			// ];
-
-			// let closestFace = null;
-			// let closestDot = -1; // Initialize with the smallest possible dot product
-
-			// // Reference vector pointing up
-			// let upVector = new THREE.Vector3(0, 1, 0);
-
-			// for (const faceVector of faceVectors) {
-			// 	// Apply the body's quaternion to the face vector
-			// 	let worldVector = faceVector.vector
-			// 		.clone()
-			// 		.applyQuaternion(body.quaternion);
-
-			// 	// Calculate the dot product with the up vector
-			// 	let dot = worldVector.dot(upVector);
-
-			// 	// Check if this is the closest to pointing up
-			// 	if (dot > closestDot) {
-			// 		closestDot = dot;
-			// 		closestFace = faceVector;
-			// 	}
-			// }
-
-			// if (closestFace) {
-			// 	let faceNumber = closestFace.face;
-			// 	if (!ifRemove) {
-			// 		lastRoll += faceNumber + " + ";
-			// 		presentScore += faceNumber;
-			// 		updateElements();
-			// 	}
-			// 	for (let i = 0; i < diceArray.length; i++) {
-			// 		if (body == diceArray[i][0]) {
-			// 			diceArray[i][7] = faceNumber;
-			// 		}
-			// 	}
-			// 	for (let i = 0; i < diceArray.length; i++) {
-			// 		if (body == diceArray[i][0]) {
-			// 			diceArray[i][7] = faceNumber;
-			// 		}
-			// 	}
-			// 	return faceNumber;
-			// }
-
-			let vector = new THREE.Vector3(0, 1);
-			let closest_face;
-			let closest_angle = Math.PI * 2;
-
-			let normals = body.geometry.getAttribute("normal").array;
-			for (let i = 0; i < 20; ++i) {
-				let face = i + 1;
-
-				//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
-				let startVertex = i * 9;
-				let normal = new THREE.Vector3(
-					normals[startVertex],
-					normals[startVertex + 1],
-					normals[startVertex + 2]
-				);
-				let angle = normal
-					.clone()
-					.applyQuaternion(body.quaternion)
-					.angleTo(vector);
-				if (angle < closest_angle) {
-					closest_angle = angle;
-					closest_face = face;
-				}
-			}
-			lastRoll += closest_face + " + ";
-			presentScore += closest_face;
-			updateElements();
-
-			return closest_face;
-		}
-
-		function getDodecaScore(body, ifRemove) {
-			// Define the golden ratio
-			const phi = (1 + Math.sqrt(5)) / 2;
-
-			// Decahedron face vectors
-			const faceVectors = [
-				{ vector: new THREE.Vector3(1, 1, 1), face: 1 },
-				{ vector: new THREE.Vector3(1, 1, -1), face: 6 },
-				{ vector: new THREE.Vector3(1, -1, 1), face: 11 },
-				{ vector: new THREE.Vector3(1, -1, -1), face: 9 },
-				{ vector: new THREE.Vector3(-1, 1, 1), face: 7 },
-				{ vector: new THREE.Vector3(-1, 1, -1), face: 2 },
-				{ vector: new THREE.Vector3(-1, -1, 1), face: 5 },
-				{ vector: new THREE.Vector3(-1, -1, -1), face: 8 },
-				{ vector: new THREE.Vector3(0, phi, 1 / phi), face: 4 },
-				{ vector: new THREE.Vector3(0, phi, -1 / phi), face: 10 },
-				{ vector: new THREE.Vector3(0, -phi, 1 / phi), face: 3 },
-				{ vector: new THREE.Vector3(0, -phi, -1 / phi), face: 12 },
-			];
-
-			for (const faceVector of faceVectors) {
-				faceVector.vector.normalize().applyEuler(body.rotation);
-
-				if (Math.round(faceVector.vector.y) === 1) {
-					if (!ifRemove) {
-						lastRoll += faceVector.face + " + ";
-						presentScore += faceVector.face;
-						updateElements();
-						break;
-					}
-					for (let i = 0; i < diceArray.length; i++) {
-						if (body == diceArray[i][0]) {
-							diceArray[i][7] = faceVector.face;
-						}
-					}
-					return faceVector.face;
-				}
-			}
-
-			// let vector = new THREE.Vector3(0, -1);
-			// let closest_face;
-			// let closest_angle = Math.PI * 2;
-
-			// let normals = body.geometry.getAttribute("normal").array;
-			// console.log(normals)
-			// for (let i = 0; i < 12; ++i) {
-			// 	let face = i + 1;
-
-			// 	//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
-			// 	let startVertex = i * 9;
-			// 	let normal = new THREE.Vector3(
-			// 		normals[startVertex],
-			// 		normals[startVertex + 1],
-			// 		normals[startVertex + 2]
-			// 	);
-			// 	let angle = normal
-			// 		.clone()
-			// 		.applyQuaternion(body.quaternion)
-			// 		.angleTo(vector);
-			// 	if (angle < closest_angle) {
-			// 		closest_angle = angle;
-			// 		closest_face = face;
-			// 	}
-			// }
-
-			// // switch(closest_face) {
-			// // }
-			// lastRoll += closest_face + " + ";
-			// presentScore += closest_face;
-			// updateElements();
-			// return closest_face;
-		}
-
-		function getDecaScore(body, ifRemove) {
-			// Decahedron face vectors
-			// const faceVectors = [
-			// 	{ vector: new THREE.Vector3(0, 1, 0.5), face: 7 },
-			// 	{ vector: new THREE.Vector3(0, 1, -0.5), face: 2 },
-			// 	{ vector: new THREE.Vector3(0, -1, 0.5), face: 3 },
-			// 	{ vector: new THREE.Vector3(0, -1, -0.5), face: 10 },
-			// 	{ vector: new THREE.Vector3(0.5, 0, 1), face: 5 },
-			// 	{ vector: new THREE.Vector3(-0.5, 0, 1), face: 8 },
-			// 	{ vector: new THREE.Vector3(0.5, 0, -1), face: 9 },
-			// 	{ vector: new THREE.Vector3(-0.5, 0, -1), face: 6 },
-			// 	{ vector: new THREE.Vector3(1, 0.5, 0), face: 1 },
-			// 	{ vector: new THREE.Vector3(-1, 0.5, 0), face: 4 },
-			// ];
-
-			// for (const faceVector of faceVectors) {
-			// 	faceVector.vector.normalize().applyEuler(body.rotation);
-
-			// 	if (Math.round(faceVector.vector.y) === 1) {
-			// 		if (!ifRemove) {
-			// 			lastRoll += faceVector.face + " + ";
-			// 			presentScore += faceVector.face;
-			// 			updateElements();
-			// 			break;
-			// 		}
-			// 		for (let i = 0; i < diceArray.length; i++) {
-			// 			if (body == diceArray[i][0]) {
-			// 				diceArray[i][7] = faceVector.face;
-			// 			}
-			// 		}
-			// 		return faceVector.face;
-			// 	}
-			// }
-
-			let vector = new THREE.Vector3(0, 1);
-        let closest_face;
-        let closest_angle = Math.PI * 2;
-
-        let normals = body.geometry.getAttribute('normal').array;
-        for (let i = 0; i < body.geometry.groups.length; ++i) {
-            let face = body.geometry.groups[i];
-            if (face.materialIndex === 0) continue;
-
-            //Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
-            let startVertex = i * 9;
-            let normal = new THREE.Vector3(normals[startVertex], normals[startVertex + 1], normals[startVertex + 2]);
-            let angle = normal.clone().applyQuaternion(body.quaternion).angleTo(vector);
-            if (angle < closest_angle) {
-                closest_angle = angle;
-                closest_face = face;
-            }
-        }
-		if (closest_face.materialIndex - 1 == 0) {
-		lastRoll += 10 + " + ";
-		presentScore += 10;
-		updateElements();
-        return 10;
-		} else {
-		lastRoll += closest_face.materialIndex - 1 + " + ";
-		presentScore += closest_face.materialIndex - 1;
-		updateElements();
-        return closest_face.materialIndex - 1;
-		}
 		
-		}
+
+
+
+
+		
 
 		function changeBoardBackground(selectedBoard) {
 			console.log(selectedBoard);
@@ -1753,19 +1324,17 @@ define([
 			let textureLoader = new THREE.TextureLoader();
 			switch (selectedBoard) {
 				case "green-board":
-					console.log("now changing bg to green");
 					textureLoader.load(
 						"images/grass_background.png",
 						function (groundTexture) {
 							groundMesh.material.wireframe = false;
 							groundMesh.material.map = groundTexture;
 							groundMesh.material.needsUpdate = true;
-							groundBody.material.friction = 5;
+							groundBody.material.friction = 100;
 						}
 					);
 					break;
 				case "wood":
-					console.log("wood changing");
 					textureLoader.load(
 						"images/wood.png",
 						function (groundTexture) {
@@ -1773,7 +1342,7 @@ define([
 							groundMesh.material.color.setHex(0xf0c592);
 							groundMesh.material.map = groundTexture;
 							groundMesh.material.needsUpdate = true;
-							groundBody.material.friction = 3;
+							groundBody.material.friction = 60;
 						}
 					);
 					break;
@@ -1788,35 +1357,36 @@ define([
 		}
 		// This function calls the getScore functions for all the volumes and displays them.
 		function getScores() {
-			presentScore = 0;
-			lastRoll = "";
+			scoresObject.presentScore = 0;
+			scoresObject.lastRoll = "";
 			lastRollElement.textContent = "";
 
 			for (let i = 0; i < diceArray.length; i++) {
 				if (diceArray[i][3]) {
 					switch (diceArray[i][2]) {
 						case "cube":
-							score = getCubeScore(diceArray[i][0]);
+							score = getCubeScore(scoresObject, diceArray[i][0]);
 							break;
 						case "icosa":
-							score = getIcosaScore(diceArray[i][0]);
+							score = getIcosaScore(scoresObject, diceArray[i][0]);
 							break;
 						case "deca":
-							score = getDecaScore(diceArray[i][0]);
+							score = getDecaScore(scoresObject, diceArray[i][0]);
 							break;
 						case "dodeca":
-							score = getDodecaScore(diceArray[i][0]);
+							score = getDodecaScore(scoresObject, diceArray[i][0]);
 							break;
 						case "octa":
-							score = getOctaScore(diceArray[i][0]);
+							score = getOctaScore(scoresObject, diceArray[i][0]);
 							break;
 						case "tetra":
-							score = getTetraScore(diceArray[i][0]);
+							score = getTetraScore(scoresObject, diceArray[i][0]);
 							break;
 						default:
 							console.log(`Unknown type: ${diceArray[i][3]}`);
 							continue;
 					}
+					updateElements()
 				}
 			}
 		}
@@ -1831,24 +1401,13 @@ define([
 		let time = 20;
 		let timeStep = 1 / time;
 
-		document
-			.querySelector("#increase-button")
-			.addEventListener("click", () => {
-				if (time == 5) {
-					alert("cant go lower");
-					return;
-				}
-				time -= 1;
-				timeStep = 1 / time;
-				document.getElementById("time").innerHTML = time;
-			});
 
 		animate();
 
 		function animate(time) {
 			// world.step(timeStep);
 			// Uncomment the next line to view how the physical world actually looks like.
-			cannonDebugger.update();
+			// cannonDebugger.update();
 
 			groundMesh.position.copy(groundBody.position);
 			groundMesh.quaternion.copy(groundBody.quaternion);
@@ -1873,7 +1432,7 @@ define([
 
 		renderer.setAnimationLoop(animate);
 
-		const fixedTimeStep = 1 / 40; 
+		const fixedTimeStep = 1 / 40;
 		const maxSubSteps = 3;
 
 		function updatePhysics() {

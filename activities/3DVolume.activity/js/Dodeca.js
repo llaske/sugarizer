@@ -128,18 +128,6 @@ function createDodecahedron(
 		});
 		const line = new THREE.LineSegments(wireframe, lineMaterial);
 		dodecahedron = line;
-	} else if (false) {
-		const dodecaGeo = new THREE.DodecahedronGeometry(2);
-
-		const texture = new THREE.TextureLoader().load(
-			sharedImageData != null ? sharedImageData : imageData
-		);
-
-		// Create material using the texture
-		const material = new THREE.MeshPhongMaterial({ map: texture });
-
-		// Create cube mesh with the material
-		dodecahedron = new THREE.Mesh(dodecaGeo, material);
 	} else {
 		const dodecahedronGeometry = new THREE.DodecahedronGeometry(1.25); // Size of the tetrahedron
 
@@ -226,7 +214,7 @@ function createDodecahedron(
 		vertices: vertices,
 		faces: indices,
 	});
-	console.log(dodecahedronShape)
+	console.log(dodecahedronShape);
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
@@ -241,19 +229,14 @@ function createDodecahedron(
 	});
 	dodecahedronBody.sleepSpeedLimit = 0.2;
 	dodecahedronBody.sleepTimeLimit = 3;
-	// if (tempShowNumbers) {
-	// 	dodecahedronBody.addEventListener("sleep", () => {
-	// 		sleepCounter++;
-	// 		getDodecaScore(dodecahedron);
-	// 	});
-	// }
+
 	world.addBody(dodecahedronBody);
 
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
 		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
-		let angVel3 =
+	let angVel3 =
 		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
 	dodecahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
@@ -274,6 +257,73 @@ function createDodecahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
-		angVel3
+		angVel3,
 	]);
+}
+
+function getDodecaScore(scoresObject, body, ifRemove) {
+	// Define the golden ratio
+	const phi = (1 + Math.sqrt(5)) / 2;
+
+	// Decahedron face vectors
+	const faceVectors = [
+		{ vector: new THREE.Vector3(1, 1, 1), face: 1 },
+		{ vector: new THREE.Vector3(1, 1, -1), face: 6 },
+		{ vector: new THREE.Vector3(1, -1, 1), face: 11 },
+		{ vector: new THREE.Vector3(1, -1, -1), face: 9 },
+		{ vector: new THREE.Vector3(-1, 1, 1), face: 7 },
+		{ vector: new THREE.Vector3(-1, 1, -1), face: 2 },
+		{ vector: new THREE.Vector3(-1, -1, 1), face: 5 },
+		{ vector: new THREE.Vector3(-1, -1, -1), face: 8 },
+		{ vector: new THREE.Vector3(0, phi, 1 / phi), face: 4 },
+		{ vector: new THREE.Vector3(0, phi, -1 / phi), face: 10 },
+		{ vector: new THREE.Vector3(0, -phi, 1 / phi), face: 3 },
+		{ vector: new THREE.Vector3(0, -phi, -1 / phi), face: 12 },
+	];
+
+	for (const faceVector of faceVectors) {
+		faceVector.vector.normalize().applyEuler(body.rotation);
+
+		if (Math.round(faceVector.vector.y) === 1) {
+			if (!ifRemove) {
+				scoresObject.lastRoll += faceVector.face + " + ";
+				scoresObject.presentScore += faceVector.face;
+				break;
+			}
+			return faceVector.face;
+		}
+	}
+
+	// let vector = new THREE.Vector3(0, -1);
+	// let closest_face;
+	// let closest_angle = Math.PI * 2;
+
+	// let normals = body.geometry.getAttribute("normal").array;
+	// console.log(normals)
+	// for (let i = 0; i < 12; ++i) {
+	// 	let face = i + 1;
+
+	// 	//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
+	// 	let startVertex = i * 9;
+	// 	let normal = new THREE.Vector3(
+	// 		normals[startVertex],
+	// 		normals[startVertex + 1],
+	// 		normals[startVertex + 2]
+	// 	);
+	// 	let angle = normal
+	// 		.clone()
+	// 		.applyQuaternion(body.quaternion)
+	// 		.angleTo(vector);
+	// 	if (angle < closest_angle) {
+	// 		closest_angle = angle;
+	// 		closest_face = face;
+	// 	}
+	// }
+
+	// // switch(closest_face) {
+	// // }
+	// scoresObject.lastRoll += closest_face + " + ";
+	// scoresObject.presentScore += closest_face;
+	// updateElements();
+	// return closest_face;
 }

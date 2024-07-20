@@ -99,18 +99,6 @@ function createIcosahedron(
 		});
 		const line = new THREE.LineSegments(wireframe, lineMaterial);
 		icosahedron = line;
-	} else if (false) {
-		const boxGeo = new THREE.IcosahedronGeometry(2);
-
-		const texture = new THREE.TextureLoader().load(
-			sharedImageData != null ? sharedImageData : imageData
-		);
-
-		// Create material using the texture
-		const material = new THREE.MeshPhongMaterial({ map: texture });
-
-		// Create cube mesh with the material
-		icosahedron = new THREE.Mesh(boxGeo, material);
 	} else {
 		const icosahedronGeometry = new THREE.IcosahedronGeometry(1.5); // Size of the icosahedron
 
@@ -223,6 +211,40 @@ function createIcosahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
-		angVel3
+		angVel3,
 	]);
+}
+
+
+function getIcosaScore(scoresObject, body, ifRemove) {
+	let vector = new THREE.Vector3(0, 1);
+	let closest_face;
+	let closest_angle = Math.PI * 2;
+
+	let normals = body.geometry.getAttribute("normal").array;
+	for (let i = 0; i < 20; ++i) {
+		let face = i + 1;
+
+		let startVertex = i * 9;
+		let normal = new THREE.Vector3(
+			normals[startVertex],
+			normals[startVertex + 1],
+			normals[startVertex + 2]
+		);
+		let angle = normal
+			.clone()
+			.applyQuaternion(body.quaternion)
+			.angleTo(vector);
+		if (angle < closest_angle) {
+			closest_angle = angle;
+			closest_face = face;
+		}
+	}
+	if (!ifRemove) {
+		scoresObject.lastRoll += closest_face + " + ";
+		scoresObject.presentScore += closest_face;
+	}
+
+
+	return closest_face;
 }

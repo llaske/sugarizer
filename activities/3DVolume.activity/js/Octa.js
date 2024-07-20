@@ -94,18 +94,6 @@ function createOctahedron(
 		});
 		const line = new THREE.LineSegments(wireframe, lineMaterial);
 		octahedron = line;
-	} else if (false) {
-		const octahedronGeometry = new THREE.OctahedronGeometry(2);
-
-		const texture = new THREE.TextureLoader().load(
-			sharedImageData != null ? sharedImageData : imageData
-		);
-
-		// Create material using the texture
-		const material = new THREE.MeshPhongMaterial({ map: texture });
-
-		// Create cube mesh with the material
-		octahedron = new THREE.Mesh(octahedronGeometry, material);
 	} else {
 		const octahedronGeometry = new THREE.OctahedronGeometry(1.6); // Size of the octahedron
 
@@ -118,7 +106,7 @@ function createOctahedron(
 	octahedron.castShadow = true;
 	scene.add(octahedron);
 
-	const scaleFactor = 0.8; // Change this value to scale the shape (e.g., 2 for doubling the size)
+	const scaleFactor = 0.8; // Change this value to scale the shape
 
 	const verticesOcta = [
 		new CANNON.Vec3(2 * scaleFactor, 0, 0), // Vertex 1 (right)
@@ -158,41 +146,14 @@ function createOctahedron(
 		restitution: 5,
 	});
 
-	let previousSleepState = 1;
-
-	// const octahedronBody = new Proxy(octahedronBody, {
-	// 	set(target, property, value) {
-	// 		if (
-	// 			property === "sleepState" &&
-	// 			previousSleepState === 2 &&
-	// 			value === 1
-	// 		) {
-	// 			onSleepStateChangeToOne(octahedron);
-	// 		}
-	// 		target[property] = value;
-	// 		return true;
-	// 	},
-	// });
-
 	world.addBody(octahedronBody);
-
-	// if (tempShowNumbers) {
-	// 	octahedronBody.addEventListener("sleep", () => {
-	// 		previousSleepState = 2;
-	// 		console.log(octahedronBody.sleepState);
-	// 		sleepCounter++;
-	// 		getOctaScore(octahedron);
-	// 	});
-	// }
 
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
 		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
-		let angVel3 =
+	let angVel3 =
 		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
-
-
 
 	octahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	octahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
@@ -212,6 +173,89 @@ function createOctahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
-		angVel3
+		angVel3,
 	]);
+}
+
+function getOctaScore(scoresObject, body, ifRemove) {
+	const faceVectors = [
+		{
+			vector: new THREE.Vector3(1, 0, 0), // Along the positive x-axis
+			face: 4,
+		},
+		{
+			vector: new THREE.Vector3(-1, 0, 0), // Along the negative x-axis
+			face: 6,
+		},
+		{
+			vector: new THREE.Vector3(0, 1, 0), // Along the positive y-axis
+			face: 5,
+		},
+		{
+			vector: new THREE.Vector3(0, -1, 0), // Along the negative y-axis
+			face: 3,
+		},
+		{
+			vector: new THREE.Vector3(1, 1, 1).normalize(), // Towards a corner (positive x, y, z)
+			face: 1,
+		},
+		{
+			vector: new THREE.Vector3(-1, 1, 1).normalize(), // Towards a corner (negative x, positive y, z)
+			face: 8,
+		},
+		{
+			vector: new THREE.Vector3(1, -1, 1).normalize(), // Towards a corner (positive x, negative y, z)
+			face: 2,
+		},
+		{
+			vector: new THREE.Vector3(-1, -1, 1).normalize(), // Towards a corner (negative x, negative y, z)
+			face: 7,
+		},
+	];
+
+	let minValue = 1000000;
+	let minInd;
+	for (let i = 0; i < faceVectors.length; i++) {
+		let faceVector = faceVectors[i];
+		faceVector.vector.applyEuler(body.rotation);
+		if (minValue > Math.abs(1 - faceVector.vector.y)) {
+			minValue = Math.abs(1 - faceVector.vector.y);
+			minInd = i;
+		}
+	}
+	if (!ifRemove) {
+		scoresObject.lastRoll += faceVectors[minInd].face + " + ";
+		scoresObject.presentScore += faceVectors[minInd].face;
+	}
+	return faceVectors[minInd].face;
+
+	// let vector = new THREE.Vector3(0, 1);
+	// let closest_face;
+	// let closest_angle = Math.PI * 2;
+
+	// let normals = body.geometry.getAttribute("normal").array;
+	// for (let i = 0; i < 8; ++i) {
+	// 	let face = i + 1;
+
+	// 	//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
+	// 	let startVertex = i * 9;
+	// 	let normal = new THREE.Vector3(
+	// 		normals[startVertex],
+	// 		normals[startVertex + 1],
+	// 		normals[startVertex + 2]
+	// 	);
+	// 	let angle = normal
+	// 		.clone()
+	// 		.applyQuaternion(body.quaternion)
+	// 		.angleTo(vector);
+	// 	if (angle < closest_angle) {
+	// 		closest_angle = angle;
+	// 		closest_face = face;
+	// 	}
+	// }
+	// scoresObject.lastRoll += closest_face + " + ";
+	// scoresObject.presentScore += closest_face;
+	// updateElements();
+
+	// return closest_face;
 }
