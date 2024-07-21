@@ -95,7 +95,7 @@ const LoginScreen = {
 			color="1024"
 			x="0"
 			y="0"
-			:text="index.currentIndex === index.maxIndex ? $t('Done '): $t('Next')"
+			:text="index.currentIndex === index.maxIndex ? $t('Done'): $t('Next')"
 			type="submit"
 			@click="index.currentIndex === index.maxIndex ? makeLoginRequest() : nextItem()"
 		></icon-button>
@@ -184,12 +184,16 @@ const LoginScreen = {
 		checkMethodType() {
 			if (this.userType.isLogin) {
 				this.index.currentIndex = (sugarizer.getClientType() === sugarizer.constant.appType ? 0 : 1);
-				this.index.minIndex = 1;
+				this.index.minIndex = this.index.currentIndex;
 				this.index.maxIndex = 2;
 			} else if (this.userType.isNewuser) {
 				this.index.currentIndex = 1;
 				this.index.minIndex = 1;
-				this.index.maxIndex = (sugarizer.getClientType() === sugarizer.constant.appType ? 3 : 4);
+				this.index.maxIndex = 4;
+				if (sugarizer.getClientType() === sugarizer.constant.appType) {
+					this.index.maxIndex = 3;
+					this.details.serverAddress = '';
+				}
 			} else if (this.userType.isPrevUser !== null) {
 				if (this.userType.isPrevUser.url == '' && sugarizer.getClientType() === sugarizer.constant.appType) {
 					this.details.color = this.userType.isPrevUser.color;
@@ -209,7 +213,7 @@ const LoginScreen = {
 		prevItem() {
 			if (this.index.currentIndex > this.index.minIndex) {
 				this.index.currentIndex--;
-			} else if (this.index.currentIndex === this.index.minIndex) {
+			} else {
 				this.$emit('propModified', false);
 			}
 			this.warning.show = false;
