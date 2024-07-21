@@ -448,7 +448,6 @@ const Neighborhood = {
 		},
 
 		getActivityPopupData(activityInfo, sharedId, activityColor) {
-			console.log(activityColor);
 			return {
 				id: activityInfo.id,
 				favorite: activityInfo.favorite,
