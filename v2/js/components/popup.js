@@ -10,7 +10,7 @@
  */
 const Popup ={
 	name: 'Popup',
-	template: ` <div ref="homePopup" class="home-activity-popup" 
+	template: `<transition name="bounce" appear><div ref="homePopup" class="home-activity-popup" 
 					v-if="itemData && isShown && itemData.icon && itemData.name"
 				>
 					<div class="popup-title" @click="itemClicked(itemData.id+'_'+itemData.icon.id)">
@@ -27,7 +27,7 @@ const Popup ={
 							:disableHoverEffect="true"
 						>
 						</icon>
-						<div>
+						<div class="popup-content">
 							<div class="popup-name-text">{{ itemData.name }}</div>
 							<div class="popup-title-text">{{ itemData.title }}</div>
 						</div>
@@ -78,7 +78,7 @@ const Popup ={
 							</div>
 						</div>
 					</div>
-				</div>`,
+				</div></transition>`,
 	components: {
 		'icon': Icon, 
 	},
@@ -150,7 +150,7 @@ const Popup ={
 				var popupXmax= this.xData + ele.clientWidth;
 				var popupYmin= this.yData;
 				var popupYmax= this.yData + ele.clientHeight;
-				if((x>= popupXmin && x<=popupXmax && y>=popupYmin && y<=popupYmax))
+				if((x> popupXmin && x<popupXmax && y>popupYmin && y<popupYmax))
 					return true;
 				else
 					return false;

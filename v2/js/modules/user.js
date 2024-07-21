@@ -135,12 +135,15 @@ define([], function() {
 			}
 
 			sugarizer.modules.server.loginUser(loginData, baseurl).then((response) => {
+				const { _id, ...user} = response.user;
 				let data = {
 					"token": {
 						"x_key": response.user._id,
 						"access_token": response.token,
 					},
-					...response.user
+					networkId: _id,
+					connected: true,
+					...user,
 				}
 				data = convertFields(data);
 				sugarizer.modules.server.getServerInformation(baseurl).then((server) => {

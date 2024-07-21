@@ -6,44 +6,50 @@
 const HomeScreen = {
 	name: 'HomeScreen',
 	template: ` <div class="homescreen" ref="homescreen">
-							<div v-for="(activity, index) in restrictedModeInfo.activities || activities" :key="activity.id">
-								<icon
-									:size="constant.iconSizeStandard"
-									:id="activity.id"
-									:ref="'activity'+activity.id"
+							<transition-group name="fade">
+								<div v-for="(activity, index) in restrictedModeInfo.activities || activities" :key="activity.id">
+									<icon
+										:size="constant.iconSizeStandard"
+										:id="activity.id"
+										:ref="'activity'+activity.id"
+										class="home-icon"
+										:svgfile="activity.directory + '/' + activity.icon"
+										:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : (activityPositions[index] ? activityPositions[index].x : 0)"
+										:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : (activityPositions[index] ? activityPositions[index].y : 0)"
+										isNative="true"
+										:disabled="false"
+										v-on:click="runActivity(activity)"
+										v-on:mouseover="showPopupTimer($event, activity.id)"
+										v-on:mouseout="removePopupTimer($event)"
+									/>
+								</div>
+							</transition-group>
+							<transition name="bounce" appear>
+								<icon 
+									id="buddy"
+									:ref="'buddyIcon'"
+									svgfile="./icons/owner-icon.svg"
 									class="home-icon"
-									:svgfile="activity.directory + '/' + activity.icon"
-									:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : (activityPositions[index] ? activityPositions[index].x : 0)"
-       								:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : (activityPositions[index] ? activityPositions[index].y : 0)"
-									isNative="true"
-									:disabled="false"
-									v-on:click="runActivity(activity)"
-									v-on:mouseover="showPopupTimer($event, activity.id)"
+									:color="buddycolor"
+									:size="constant.sizeOwner"
+									:x="canvasCenter.x - constant.sizeOwner/2"
+									:y="canvasCenter.y - constant.sizeOwner/2"
+									v-on:mouseover="showPopupTimer($event, 'buddy')"
 									v-on:mouseout="removePopupTimer($event)"
-								/>
-							</div>
-							<icon 
-								id="buddy"
-								:ref="'buddyIcon'"
-								svgfile="./icons/owner-icon.svg"
-								class="home-icon"
-								:color="buddycolor"
-								:size="constant.sizeOwner"
-								:x="canvasCenter.x - constant.sizeOwner/2"
-								:y="canvasCenter.y - constant.sizeOwner/2"
-								v-on:mouseover="showPopupTimer($event, 'buddy')"
-								v-on:mouseout="removePopupTimer($event)"
-							></icon>
-							<icon
-								id="journal-btn"
-								:ref="'journalIcon'"
-								svgfile="./icons/activity-journal.svg"
-								class="home-icon"
-								:size="constant.sizeJournal"
-								:x="canvasCenter.x - constant.sizeJournal/2"
-								:y="canvasCenter.y + constant.sizeOwner - constant.sizeJournal + canvasCenter.jdeltay"
-								isNative="true"
-							></icon>
+								></icon>
+							</transition>
+							<transition name="bounce" appear>
+								<icon
+									id="journal-btn"
+									:ref="'journalIcon'"
+									svgfile="./icons/activity-journal.svg"
+									class="home-icon"
+									:size="constant.sizeJournal"
+									:x="canvasCenter.x - constant.sizeJournal/2"
+									:y="canvasCenter.y + constant.sizeOwner - constant.sizeJournal + canvasCenter.jdeltay"
+									isNative="true"
+								></icon>
+							</transition>
 							<icon
 								v-if="isRestrictedPrev"
 								id="restricted-prev"
@@ -75,7 +81,6 @@ const HomeScreen = {
 						v-on:mouseout="removePopupTimer($event)"
 						v-on:itemis-clicked="itemisClicked($event)"
 					></popup>
-					<settings ref="settings" :buddycolor="buddycolor" :username="username"></settings>
 					<prompt
 						ref="warningPrompt"
 						id="warning-prompt"
@@ -90,9 +95,10 @@ const HomeScreen = {
 	components: {
 		'icon': Icon,
 		'popup': Popup,
-		'settings': Settings,
 		prompt: Prompt,
 	},
+
+	emits: ['openSettings'],
 
 	data() {
 		return {
@@ -147,7 +153,6 @@ const HomeScreen = {
 	async mounted() {
 		this.getCanvasCenter();
 		window.addEventListener("resize", this.draw);
-		await this.initializeActivities();
 		await this.setupUserAndJournal();
 		this.draw();
 		this.filterSearch(this.filter);
@@ -165,14 +170,6 @@ const HomeScreen = {
 	},
 
 	methods: {
-		async initializeActivities() {
-			try {
-				await sugarizer.modules.activities.load();
-			} catch (error) {
-				throw new Error('Unable to load the activities, error ' + error);
-			}
-		},
-
 		async setupUserAndJournal() {
 			try {
 				const user = await sugarizer.modules.user.get();
@@ -300,14 +297,14 @@ const HomeScreen = {
 			this.popupData = popupData;
 		},
 
-		async showPopupTimer(e, id) {
+		showPopupTimer(e, id) {
 			if (this.timer != null) {
 				window.clearTimeout(this.timer);
 			}
 			this.timer = window.setTimeout(this.showPopup.bind(this), this.constant.timerPopupDuration, e, id);
 		},
 
-		async showPopup(e, id) {
+		showPopup(e, id) {
 			const itemId = id;
 			let x, y;
 
@@ -355,14 +352,14 @@ const HomeScreen = {
 			return obj[itemId];
 		},
 
-		async removePopupTimer(e) {
+		removePopupTimer(e) {
 			if (this.timer != null) {
 				window.clearTimeout(this.timer);
 			}
 			this.timer = window.setTimeout(this.removePopup.bind(this), this.constant.timerPopupDuration, e);
 		},
 				
-		async removePopup(e) {
+		removePopup(e) {
 			if (this.$refs.popup && !this.$refs.popup.isCursorInside(e.clientX, e.clientY) && this.popupIcon && !this.popupIcon.isCursorInside(e.clientX, e.clientY)) {
 				this.removeCurrentPopup();
 			}
@@ -381,7 +378,7 @@ const HomeScreen = {
 			}
 			if (item == "buddy_preferences" || item == "buddy_buddy_popup") {
 				sugarizer.modules.stats.trace('home_view', 'click', 'my_settings');
-				this.$refs.settings.openSettingsModal("settingModal");
+				this.$emit("openSettings")
 			} else if (item == "buddy_shutdown" ) {
 				if (sugarizer.modules.user.isConnected())
 					this.logout();
