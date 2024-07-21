@@ -37,9 +37,10 @@ let sugarizer = {
 		return new Promise(function(resolve, reject) {
 			// Load modules
 			requirejs(
-				["modules/xocolor","modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", "modules/stats", 'modules/i18next', "lib/humane.js",],
-				function(xocolor, server, settings, activities, journal, user, history, stats, i18next, humane) {
+				["modules/xocolor", "modules/contributors", "modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", "modules/stats", 'modules/i18next', "lib/humane.js", "lib/sugar-web/presence.js"],
+				function(xocolor, contributors, server, settings, activities, journal, user, history, stats, i18next, humane, presence) {
 					sugarizer.modules.xocolor = xocolor;
+					sugarizer.modules.contributors = contributors;
 					sugarizer.modules.server = server;
 					sugarizer.modules.settings = settings;
 					sugarizer.modules.activities = activities;
@@ -49,6 +50,7 @@ let sugarizer = {
 					sugarizer.modules.stats = stats;
 					sugarizer.modules.humane = humane;
 					sugarizer.modules.i18next = i18next;
+					sugarizer.modules.presence = presence;
 					i18next.init().then(resolve);
 				}
 			);
