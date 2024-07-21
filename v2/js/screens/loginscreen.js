@@ -95,7 +95,7 @@ const LoginScreen = {
 			color="1024"
 			x="0"
 			y="0"
-			:text="index.currentIndex === index.maxIndex ? $t('Done '): $t('Next')"
+			:text="index.currentIndex === index.maxIndex ? $t('Done'): $t('Next')"
 			type="submit"
 			@click="index.currentIndex === index.maxIndex ? makeLoginRequest() : nextItem()"
 		></icon-button>
