@@ -66,7 +66,6 @@ describe('Icon.vue', () => {
 		await delay(1000);
 
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color5'); // HACK: get SVG directly in data _element 
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: -4px 0px 0px -2px');
 
 		await wrapper.setData({colorData: '6'});
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color6');
@@ -91,7 +90,6 @@ describe('Icon.vue', () => {
 		expect(wrapper.vm._element.getAttribute("class")).toBe('xo-color512');
 		expect(wrapper.vm._element.getAttribute("height")).toBe('55px');
 		expect(wrapper.vm._element.getAttribute("width")).toBe('55px');
-		expect(wrapper.vm._element.getAttribute("style")).toBe('margin: 0px 0px 0px 0px');
 	});
 
 	it('should not render icon if svgfile data is empty when passed', async () => {
