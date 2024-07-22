@@ -78,19 +78,19 @@ describe('SelectBox.vue', () => {
 	});
 
 	it('show and hide popUp when passed', async () => {
-		expect(wrapper.find('.selectbox-popup').exists()).toBe(false);
+		expect(wrapper.find('.selectbox-popup .home-activity-popup').exists()).toBe(false);
 
 		var selectBar= wrapper.find('.selectbox-bar');
 		await selectBar.trigger('click');
-		expect(wrapper.find('.selectbox-popup').exists()).toBe(true);
+		expect(wrapper.find('.selectbox-popup .home-activity-popup').exists()).toBe(true);
 
 		await wrapper.vm.optionisSelected("7_item2");
-		expect(wrapper.find('.selectbox-popup').exists()).toBe(false);
+		expect(wrapper.find('.selectbox-popup .home-activity-popup').exists()).toBe(false);
 
 		await selectBar.trigger('click');
-		expect(wrapper.find('.selectbox-popup').exists()).toBe(true);
+		expect(wrapper.find('.selectbox-popup .home-activity-popup').exists()).toBe(true);
 		await wrapper.find('.selectbox-popup').trigger('mouseleave');
 
-		expect(wrapper.find('.selectbox-popup').exists()).toBe(false);
+		expect(wrapper.find('.selectbox-popup .home-activity-popup').exists()).toBe(false);
 	});
 })
