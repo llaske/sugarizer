@@ -85,57 +85,57 @@ const app = Vue.createApp({
 			popupDummyData: {
 				4: {
 					id: "4",
-					icon: { id: "6", iconData: "icons/star.svg", color: "65", size: "30" },
+					icon: { id: "6", iconData: "icons/star.svg", color: 65, size: 30 },
 					name: "Star",
 					title: "Star Activity",
 					itemList: [
-						{ icon: { id: "7", iconData: "icons/star.svg", color: "65", size: "20" }, name: "item1" },
-						{ icon: { id: "8", iconData: "icons/star.svg", color: "65", size: "20" }, name: "item2" }
+						{ icon: { id: "7", iconData: "icons/star.svg", color: 65, size: 20 }, name: "item1" },
+						{ icon: { id: "8", iconData: "icons/star.svg", color: 65, size: 20 }, name: "item2" }
 					],
 					footerList: [
-						{ icon: { id: "9", iconData: "icons/star.svg", color: "1024", size: "20" }, name: "footer1" },
+						{ icon: { id: "9", iconData: "icons/star.svg", color: 1024, size: 20 }, name: "footer1" },
 					],
 				},
 				5: {
 					id: "5",
-					icon: { id: "11", iconData: "icons/write.svg", color: "95", size: "30" },
+					icon: { id: "11", iconData: "icons/write.svg", color: 95, size: 30 },
 					name: "Write",
 					title: "Write Activity",
 					itemList: [
-						{ icon: { id: "12", iconData: "icons/write.svg", color: "95", size: "20" }, name: "item1" },
-						{ icon: { id: "13", iconData: "icons/write.svg", color: "95", size: "20" }, name: "item2" }
+						{ icon: { id: "12", iconData: "icons/write.svg", color: 95, size: 20 }, name: "item1" },
+						{ icon: { id: "13", iconData: "icons/write.svg", color: 95, size: 20 }, name: "item2" }
 					],
 					footerList: [
-						{ icon: { id: "14", iconData: "icons/write.svg", color: "1024", size: "20" }, name: "footer1" },
+						{ icon: { id: "14", iconData: "icons/write.svg", color: 1024, size: 20 }, name: "footer1" },
 					],
 				}
 			},
 			selectBoxDummyData: {
 				id: "15",
-				icon: { id: "16", iconData: "icons/star.svg", color: "65", size: "20" },
+				icon: { id: "16", iconData: "icons/star.svg", color: 65, size: 20 },
 				name: "Star",
 				itemList: [
-					{ icon: { id: "17", iconData: "icons/owner-icon.svg", color: "65", size: "20" }, name: "item1" },
-					{ icon: { id: "18", iconData: "icons/abcd.svg", color: "65", size: "20" }, name: "item2" },
-					{ icon: { id: "19", iconData: "icons/write.svg", color: "65", size: "20" }, name: "item3" },
-					{ icon: { id: "20", iconData: "icons/star.svg", color: "65", size: "20" }, name: "item4" },
-					{ icon: { id: "21", iconData: "icons/abcd.svg", color: "65", size: "20" }, name: "item5" }
+					{ icon: { id: "17", iconData: "icons/owner-icon.svg", color: 65, size: 20 }, name: "item1" },
+					{ icon: { id: "18", iconData: "icons/abcd.svg", color: 65, size: 20 }, name: "item2" },
+					{ icon: { id: "19", iconData: "icons/write.svg", color: 65, size: 20 }, name: "item3" },
+					{ icon: { id: "20", iconData: "icons/star.svg", color: 65, size: 20 }, name: "item4" },
+					{ icon: { id: "21", iconData: "icons/abcd.svg", color: 65, size: 20 }, name: "item5" }
 				]
 			},
 			FilterBox1Data: {
-				icon: { id: "22", iconData: "icons/abcd.svg", color: "1024", size: "18" },
+				icon: { id: "22", iconData: "icons/abcd.svg", color: 1024, size: 18 },
 				name: "abcd",
 				header: "Select Filter",
 				filterBoxList: [
-					{ icon: { id: "23", iconData: "icons/owner-icon.svg", color: "1024", size: "20" }, name: "item1" },
-					{ icon: { id: "24", iconData: "icons/write.svg", color: "1024", size: "18" }, name: "item2" },
-					{ icon: { id: "25", iconData: "icons/abcd.svg", color: "1024", size: "18" }, name: "item3" },
-					{ icon: { id: "26", iconData: "icons/star.svg", color: "1024", size: "18" }, name: "item4" },
-					{ icon: { id: "27", iconData: "icons/write.svg", color: "1024", size: "18" }, name: "item5" }
+					{ icon: { id: "23", iconData: "icons/owner-icon.svg", color: 1024, size: 20 }, name: "item1" },
+					{ icon: { id: "24", iconData: "icons/write.svg", color: 1024, size: 18 }, name: "item2" },
+					{ icon: { id: "25", iconData: "icons/abcd.svg", color: 1024, size: 18 }, name: "item3" },
+					{ icon: { id: "26", iconData: "icons/star.svg", color: 1024, size: 18 }, name: "item4" },
+					{ icon: { id: "27", iconData: "icons/write.svg", color: 1024, size: 18 }, name: "item5" }
 				]
 			},
 			FilterBox2Data: {
-				icon: { id: "28", iconData: "icons/star.svg", color: "1024", size: "18" },
+				icon: { id: "28", iconData: "icons/star.svg", color: 1024, size: 18 },
 				name: "Star",
 				header: "Select Display",
 				filterBoxList: [
