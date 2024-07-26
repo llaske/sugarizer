@@ -99,7 +99,7 @@ const HomeScreen = {
 		prompt: Prompt,
 	},
 
-	emits: ['openSettings', 'openJournal'],
+	emits: ['openSettings', 'openJournal', 'setAssignmentCount'],
 
 	data() {
 		return {
@@ -155,8 +155,10 @@ const HomeScreen = {
 		this.getCanvasCenter();
 		window.addEventListener("resize", this.draw);
 		await this.setupUserAndJournal();
+		
 		this.draw();
 		this.filterSearch(this.filter);
+		this.setAssignmentCount();
 	},
 
 	beforeUnmount() {
@@ -174,7 +176,9 @@ const HomeScreen = {
 		async setupUserAndJournal() {
 			try {
 				const user = await sugarizer.modules.user.get();
-				this.buddycolor = user.color;
+				this.$refs.buddyIcon.wait().then(() => {
+					this.buddycolor = user.color;
+				});
 				sugarizer.modules.activities.updateFavorites(user.favorites);
 
 				await this.getJournal();
@@ -187,10 +191,19 @@ const HomeScreen = {
 		},
 
 		async getJournal() {
-			await sugarizer.modules.journal.synchronize();
+			await sugarizer.modules.journal.load();
 			if (sugarizer.modules.journal.get().length > 0) {
 				this.$refs["journalIcon"].colorData = this.buddycolor;
 			}
+		},
+
+		setAssignmentCount() {
+			const entries = sugarizer.modules.journal.get();
+			let count = 0;
+			entries.forEach((entry) => {
+				if (entry.metadata.assignmentId) count += 1;
+			});
+			this.$emit("setAssignmentCount", count);
 		},
 
 		filterFavorite(activities) {

@@ -25,6 +25,7 @@ const FilterBox ={
 							:size=selectedData.icon.size
 							:x=selectedData.icon.iconx
 							:y=selectedData.icon.icony
+							:isNative=selectedData.icon.isNative
 						></icon>
 						<div v-if="selectedData.name" class="filterBox-text">{{ selectedData.name }}</div>
 					</div>
@@ -46,6 +47,7 @@ const FilterBox ={
 										:size=item.icon.size
 										:x=item.icon.iconx
 										:y=item.icon.icony
+										:isNative="item.icon.isNative"
 									></icon>
 									<div class="filterBox-text">{{ item.name }}</div>
 								</div>
@@ -78,21 +80,21 @@ const FilterBox ={
 			const currRef= this.$refs.filterBox.getAttribute('name');
 			// if currentFilterBoxRef is not null and active ref name is current ref then 
 			// hide subPopup, it will works as toggling subPopup
-			if(currentFilterBoxRef && currentFilterBoxRef ==currRef) {
+			if(currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name') ==currRef) {
 				this.removeFilterBox();
 				return;
 			}
 			// if currentFilterBoxRef is not null and active ref name is not current ref then 
 			// hide the active ref's subPopup so that we can open current one
-			if(currentFilterBoxRef && currentFilterBoxRef!=currRef) {
-				this.$root.$refs[currentFilterBoxRef].removeFilterBox();
+			if(currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name')!=currRef) {
+				currentFilterBoxRef.removeFilterBox();
 				currentFilterBoxRef= null;
 			}
 			// if there is no active subPopup and current subPopup is also false or if it's have options to show
 			if(!currentFilterBoxRef && !this.showSubpopup && this.optionsData.filterBoxList && this.optionsData.filterBoxList.length >0) {
 				this.showSubpopup= true;
 				this.iconKey= !this.iconKey;
-				currentFilterBoxRef= currRef;
+				currentFilterBoxRef= this;
 			}
 		},
 		optionisSelected(item) {

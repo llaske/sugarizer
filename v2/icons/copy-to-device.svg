@@ -1,0 +1,44 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#666666">
+	<!ENTITY fill_color "#ffffff">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   enable-background="new 0 0 55 55"
+   height="55px"
+   id="Layer_1"
+   version="1.1"
+   viewBox="0 0 55 55"
+   width="55px"
+   x="0px"
+   xml:space="preserve"
+   y="0px"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="copy-to-device.svg"><g
+     display="block"
+     id="module-about_x5F_my_x5F_xo_1_"
+     transform="matrix(0.81,0,0,0.81,5.49974,-0.5787809)"
+     style="display:block"><path
+       d="m 52.957,40.602 0.002,0 -0.025,-0.017 c -0.152,-0.11 -0.315,-0.21 -0.483,-0.302 l -12.204,-7.605 0,-24.011 c 0,-1.624 -1.316,-2.943 -2.941,-2.943 l -31.015,0 c -1.625,0 -2.942,1.319 -2.942,2.943 l 0,26.413 c 0,1.1 0.61,2.045 1.503,2.551 L 4.833,37.635 19.49,46.77 c 0.694,0.436 1.534,0.691 2.438,0.691 l 28.319,0 c 2.362,0 4.296,-1.74 4.296,-3.865 0,-1.205 -0.62,-2.284 -1.586,-2.994 z M 9.072,12.392 c 0,-0.619 0.506,-1.124 1.124,-1.124 l 23.204,0 c 0.617,0 1.123,0.505 1.123,1.124 l 0,16.561 c 0,0.617 -0.506,1.126 -1.123,1.126 l -23.204,0 c -0.617,0 -1.124,-0.509 -1.124,-1.126 l 0,-16.561 z"
+       display="inline"
+       id="module-about_x5F_my_x5F_xo"
+       inkscape:connector-curvature="0"
+       style="display:inline;fill:&fill_color;" /></g><g
+     id="g4263"
+     transform="matrix(0.1953125,0,0,0.1953125,-46.27251,20.647398)"><line
+       id="line4217"
+       y2="162.97459"
+       y1="100.69492"
+       x2="375.77832"
+       x1="375.77832"
+       style="fill:none;stroke:#ffffff;stroke-width:15.29190445;stroke-linecap:round;stroke-linejoin:round" /><polyline
+       transform="matrix(5.12,0,0,5.12,290.20776,69.97492)"
+       id="polyline4219"
+       points="     11.583,12.083 16.713,6 21.843,12.083    "
+       style="fill:none;stroke:#ffffff;stroke-width:2.98670006;stroke-linecap:round;stroke-linejoin:round" /></g></svg>
