@@ -876,52 +876,24 @@ a {
 	margin-top: 20px;
 }
 
+.computer-sugarizer,
+.computer-clienttype,
+.computer-browser,
+.computer-browserversion,
+.computer-storage,
+.computer-useragent,
+.computer-reinit {
+	color: #808080;
+	text-align: right;
+	width: 200px;
+	margin-top: 10px;
+	display: inline-block;
+}
 .computer-sugarizer {
-	color: #808080;
-	text-align: right;
-	width: 200px;
 	margin-top: 20px;
-	display: inline-block;
 }
-
-.computer-clienttype {
-	color: #808080;
-	text-align: right;
-	width: 200px;
-	margin-top: 10px;
-	display: inline-block;
-}
-
-.computer-browser {
-	color: #808080;
-	text-align: right;
-	width: 200px;
-	margin-top: 10px;
-	display: inline-block;
-}
-
-.computer-browserversion {
-	color: #808080;
-	text-align: right;
-	width: 200px;
-	margin-top: 10px;
-	display: inline-block;
-}
-
-.computer-useragent {
-	color: #808080;
-	text-align: right;
-	width: 200px;
-	margin-top: 10px;
-	display: inline-block;
-}
-
-.computer-storage {
-	color: #808080;
-	text-align: right;
-	width: 200px;
-	margin-top: 10px;
-	display: inline-block;
+.computer-reinit {
+	margin-left: 26px !important;
 }
 
 .computer-line {
@@ -951,9 +923,12 @@ a {
 }
 
 .computer-value {
-	margin-left: 10px;
+	margin-left: 10px !important;
 	color: black;
 	display: inline-block;
+}
+.computer-value #warn-icon {
+	vertical-align: middle;
 }
 
 .language-message {

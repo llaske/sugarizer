@@ -1,6 +1,6 @@
 
 // Interface to settings
-define([], function() {
+define(["sugar-web/datastore"], function(datastore) {
 
 	var settings = {};
 
@@ -30,6 +30,33 @@ define([], function() {
 	// Remove user settings
 	settings.removeUser = function() {
 		localStorage.removeItem("sugar_settings");
+	}
+
+	// Clean localStorage: datastore and settings
+	settings.reinitialize = function(full) {
+		return new Promise((resolve) => {
+			const results = datastore.find();
+			datastore.localStorage.removeValue('sugar_settings');
+			if (full) {
+				sugarizer.modules.history.clean();
+				sugarizer.modules.stats.clean();
+			}
+
+			let i = 0;
+			const removeOneEntry = function(err) {
+				if (++i < results.length) {
+					datastore.remove(results[i].objectId, removeOneEntry);
+				} else {
+					resolve();
+				}
+			};
+
+			if (results.length) {
+				datastore.remove(results[i].objectId, removeOneEntry);
+			} else {
+				resolve();
+			}
+		});
 	}
 	
 	return settings;
