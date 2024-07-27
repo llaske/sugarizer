@@ -5,7 +5,7 @@
  * @vue-data {Object.<Object>} [optionsData=null] - to change the options data
  * @vue-data {Number} [xData=null] - left position of popup
  * @vue-data {Number} [yData=null] - top position of popup
- * @vue-event {Object} optionSelected - Emit selected option's icon and name when a option is clicked
+ * @vue-event {Object} optionSelected - Emit selected option's icon and name when a option having an icon id is clicked
  */
 const SelectBox ={
 	name: 'SelectBox',
@@ -74,14 +74,14 @@ const SelectBox ={
 		},
 		optionisSelected(str) {
 			const selectedDataName = str.split('_').pop();
-			if(this.optionsData.name==selectedDataName) {
+			if(this.optionsData.icon?.id==selectedDataName) {
 				this.selectedData= {
 					icon: this.optionsData.icon,
 					name: this.optionsData.name
 				}
 			} else {
 				var item = this.optionsData.itemList.filter((item) => {
-					return item.name==selectedDataName;
+					return item?.icon?.id==selectedDataName;
 				})
 				this.selectedData= {
 					icon: item[0].icon,
