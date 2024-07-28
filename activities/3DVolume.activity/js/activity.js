@@ -1098,7 +1098,6 @@ define([
 					}
 				} else {
 					// front
-					if (acceleration.y > )
 					world.gravity.set(0, -9.81, -9.81); // Gravity towards the front
 					wakeAll();
 				}
