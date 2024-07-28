@@ -152,13 +152,13 @@ function createTetrahedron(
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
+	let y = yCoordinateShared == null ? 4 : yCoordinateShared;
 
 	const tetrahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
 		shape: tetrahedronShape,
 		position: new CANNON.Vec3(x, y, z),
-		friction: -1,
+		material: new CANNON.Material(),
 		restitution: 5,
 	});
 	world.addBody(tetrahedronBody);
@@ -168,6 +168,14 @@ function createTetrahedron(
 		sharedAngVel2 == null ? Math.random() * (3 - 0.1) + 0.1 : sharedAngVel2;
 	let angVel3 =
 		sharedAngVel3 == null ? Math.random() * (3 - 0.1) + 0.1 : sharedAngVel3;
+
+	const contactMat = new CANNON.ContactMaterial(
+		groundPhysMat,
+		tetrahedronBody.material,
+		{ friction: ctx.friction }
+	);
+
+	world.addContactMaterial(contactMat);
 
 	tetrahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	tetrahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
@@ -188,6 +196,7 @@ function createTetrahedron(
 		angVel1,
 		angVel2,
 		angVel3,
+		contactMat
 	]);
 }
 

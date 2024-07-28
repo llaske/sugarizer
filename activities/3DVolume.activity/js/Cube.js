@@ -102,16 +102,17 @@ function createCube(
 	boxMesh.castShadow = true;
 	scene.add(boxMesh);
 
-	const boxPhysmat = new CANNON.Material();
+
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
 	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
+
 	const boxBody = new CANNON.Body({
 		mass: 1,
 		shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
 		position: new CANNON.Vec3(x, y, z),
-		material: boxPhysmat,
+		material: new CANNON.Material(),
 		restitution: 5,
 	});
 
@@ -125,17 +126,18 @@ function createCube(
 	boxBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	boxBody.applyImpulse(ctx.offset, ctx.rollingForce);
 
-	const groundBoxContactMat = new CANNON.ContactMaterial(
+	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
-		boxPhysmat,
-		{ friction: 0 }
+		boxBody.material,
+		{ friction: ctx.friction }
 	);
 
-	world.addContactMaterial(groundBoxContactMat);
+	world.addContactMaterial(contactMat);
 	if (quaternionShared != null && quaternionShared != undefined) {
 		boxMesh.quaternion.copy(quaternionShared);
 		boxBody.quaternion.copy(quaternionShared);
 	}
+	console.log(boxBody.material)
 	diceArray.push([
 		boxMesh,
 		boxBody,
@@ -147,6 +149,7 @@ function createCube(
 		angVel1,
 		angVel2,
 		angVel3,
+		contactMat
 	]);
 }
 

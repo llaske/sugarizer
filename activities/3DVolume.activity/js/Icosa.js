@@ -164,17 +164,25 @@ function createIcosahedron(
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
+	let y = yCoordinateShared == null ? 4 : yCoordinateShared;
 
 	const icosahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
 		shape: icosahedronShape,
 		position: new CANNON.Vec3(x, y, z),
-		friction: -1,
+		material: new CANNON.Material(),
 		restitution: 5,
 	});
 	icosahedronBody.sleepSpeedLimit = 0.5;
 	icosahedronBody.sleepTimeLimit = 3;
+
+	const contactMat = new CANNON.ContactMaterial(
+		groundPhysMat,
+		icosahedronBody.material,
+		{ friction: ctx.friction }
+	);
+
+	world.addContactMaterial(contactMat);
 
 	// if (tempShowNumbers) {
 	// 	icosahedronBody.addEventListener("sleep", () => {
@@ -212,9 +220,9 @@ function createIcosahedron(
 		angVel1,
 		angVel2,
 		angVel3,
+		contactMat,
 	]);
 }
-
 
 function getIcosaScore(scoresObject, body, ifRemove) {
 	let vector = new THREE.Vector3(0, 1);
@@ -244,7 +252,6 @@ function getIcosaScore(scoresObject, body, ifRemove) {
 		scoresObject.lastRoll += closest_face + " + ";
 		scoresObject.presentScore += closest_face;
 	}
-
 
 	return closest_face;
 }

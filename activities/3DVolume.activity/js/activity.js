@@ -84,12 +84,25 @@ define([
 			toggleTransparent: false,
 			offset: new CANNON.Vec3(0, 0.1, 0),
 			rollingForce: randomDirection.scale(2),
+			cubeMaterial: new CANNON.Material(),
+			tetraMaterial: new CANNON.Material(),
+			octaMaterial: new CANNON.Material(),
+			decaMaterial: new CANNON.Material(),
+			dodecaMaterial: new CANNON.Material(),
+			icosaMaterial: new CANNON.Material(),
+			cubeContact: null,
+			tetraContact: null,
+			octaContact: null,
+			decaContact: null,
+			dodecaContact: null,
+			icosaContact: null,
+			friction: 1,
 		};
 		let presentBackground = null;
 		let scoresObject = {
-			lastRoll : "",
-			presentScore : 0
-		}
+			lastRoll: "",
+			presentScore: 0,
+		};
 		let diceArray = [];
 		let journalDiceArray = [];
 		let showImage = false;
@@ -663,7 +676,10 @@ define([
 		// Adds all the numbers on top for the numbered volumes.
 		function updateElements() {
 			lastRollElement.textContent =
-				scoresObject.lastRoll.substring(0, scoresObject.lastRoll.length - 2) +
+				scoresObject.lastRoll.substring(
+					0,
+					scoresObject.lastRoll.length - 2
+				) +
 				"= " +
 				scoresObject.presentScore;
 		}
@@ -839,29 +855,54 @@ define([
 						let score;
 						switch (diceArray[i][2]) {
 							case "cube":
-								score = getCubeScore(scoresObject, diceArray[i][0], true);
+								score = getCubeScore(
+									scoresObject,
+									diceArray[i][0],
+									true
+								);
 								break;
 							case "icosa":
-								score = getIcosaScore(scoresObject, diceArray[i][0], true);
+								score = getIcosaScore(
+									scoresObject,
+									diceArray[i][0],
+									true
+								);
 								break;
 							case "deca":
-								score = getDecaScore(scoresObject, diceArray[i][0], true);
+								score = getDecaScore(
+									scoresObject,
+									diceArray[i][0],
+									true
+								);
 								break;
 							case "dodeca":
-								score = getDodecaScore(scoresObject, diceArray[i][0], true);
+								score = getDodecaScore(
+									scoresObject,
+									diceArray[i][0],
+									true
+								);
 								break;
 							case "octa":
-								score = getOctaScore(scoresObject, diceArray[i][0], true);
+								score = getOctaScore(
+									scoresObject,
+									diceArray[i][0],
+									true
+								);
 								break;
 							case "tetra":
-								score = getTetraScore(scoresObject, diceArray[i][0], true);
+								score = getTetraScore(
+									scoresObject,
+									diceArray[i][0],
+									true
+								);
 								break;
 							default:
 								console.log(`Unknown type: ${diceArray[i][3]}`);
 								continue;
 						}
 
-						scoresObject.presentScore = scoresObject.presentScore - score;
+						scoresObject.presentScore =
+							scoresObject.presentScore - score;
 						console.log(scoresObject.presentScore);
 
 						let scoresArray = scoresObject.lastRoll.split(" + ");
@@ -1017,22 +1058,28 @@ define([
 				);
 			} else {
 				sensorButton.classList.remove("active");
-				world.gravity.set(0, -9.81, 0);
+				world.gravity.set(-9.81, -9.81, -9.81);
 			}
 		});
+		world.gravity.set(-3, -9.81, 0); // Gravity towards the right
 
 		function accelerationChanged(acceleration) {
 			if (!sensorMode) return;
 			if (acceleration.y > 0) {
+				if (acceleration.y < -2.7) {
+					world.gravity.set(-3, -9.81, 0); // Gravity towards the right
+					wakeAll();
+				} else {
+					world.gravity.set(-9.81, -9.81, 0); // Gravity towards the right
+					wakeAll();
+				}
 				// right
-				world.gravity.set(-9.81, 0, 0); // Gravity towards the right
-				wakeAll();
 			} else {
 				if (acceleration.z > 0) {
 					if (acceleration.y > -1 && acceleration.y < 1) {
 						if (acceleration.z > 6) {
 							// back
-							world.gravity.set(0, 0, 9.81); // Gravity towards the back
+							world.gravity.set(0, -9.81, 9.81); // Gravity towards the back
 							wakeAll();
 						} else {
 							// straight
@@ -1040,17 +1087,32 @@ define([
 							wakeAll();
 						}
 					} else {
+						if (acceleration.y < -2.8) {
+							world.gravity.set(3, -9.81, 0); // Gravity towards the left
+							wakeAll();
+						} else {
+							world.gravity.set(9.81, -9.81, 0); // Gravity towards the left
+							wakeAll();
+						}
 						// left
-						world.gravity.set(9.81, 0, 0); // Gravity towards the left
-						wakeAll();
 					}
 				} else {
 					// front
-					world.gravity.set(0, 0, -9.81); // Gravity towards the front
+					if (acceleration.y > )
+					world.gravity.set(0, -9.81, -9.81); // Gravity towards the front
 					wakeAll();
 				}
 			}
-			lastRollElement.textContent = "x- " + acceleration.x + ", " + "y- " + acceleration.y + ", " + "z- " + acceleration.x + " ";
+			lastRollElement.textContent =
+				"x- " +
+				acceleration.x +
+				", " +
+				"y- " +
+				acceleration.y +
+				", " +
+				"z- " +
+				acceleration.x +
+				" ";
 		}
 
 		// Wakes all the volumes so that they move towards the gravity.
@@ -1311,13 +1373,6 @@ define([
 
 		// Functions to get the scores of the dice.
 
-		
-
-
-
-
-		
-
 		function changeBoardBackground(selectedBoard) {
 			console.log(selectedBoard);
 			presentBackground = selectedBoard;
@@ -1333,6 +1388,7 @@ define([
 							groundBody.material.friction = 100;
 						}
 					);
+					ctx.friction = 100;
 					break;
 				case "wood":
 					textureLoader.load(
@@ -1342,9 +1398,10 @@ define([
 							groundMesh.material.color.setHex(0xf0c592);
 							groundMesh.material.map = groundTexture;
 							groundMesh.material.needsUpdate = true;
-							groundBody.material.friction = 60;
+							// groundBody.material.friction = 60;
 						}
 					);
+					ctx.friction = 0;
 					break;
 				case "default":
 					groundMesh.material.needsUpdate = true;
@@ -1352,7 +1409,18 @@ define([
 					groundMesh.material.wireframe = false;
 					groundMesh.material.map = null;
 					groundBody.material.friction = 1;
+					ctx.friction = 1;
+
 					break;
+			}
+			for (let i = 0; i < diceArray.length; i++) {
+				world.removeContactMaterial(diceArray[i][10]);
+				let newContactMaterial = new CANNON.ContactMaterial(
+					groundPhysMat,
+					diceArray[i][1].material,
+					{ friction: ctx.friction }
+				);
+				world.addContactMaterial(newContactMaterial);
 			}
 		}
 		// This function calls the getScore functions for all the volumes and displays them.
@@ -1368,25 +1436,34 @@ define([
 							score = getCubeScore(scoresObject, diceArray[i][0]);
 							break;
 						case "icosa":
-							score = getIcosaScore(scoresObject, diceArray[i][0]);
+							score = getIcosaScore(
+								scoresObject,
+								diceArray[i][0]
+							);
 							break;
 						case "deca":
 							score = getDecaScore(scoresObject, diceArray[i][0]);
 							break;
 						case "dodeca":
-							score = getDodecaScore(scoresObject, diceArray[i][0]);
+							score = getDodecaScore(
+								scoresObject,
+								diceArray[i][0]
+							);
 							break;
 						case "octa":
 							score = getOctaScore(scoresObject, diceArray[i][0]);
 							break;
 						case "tetra":
-							score = getTetraScore(scoresObject, diceArray[i][0]);
+							score = getTetraScore(
+								scoresObject,
+								diceArray[i][0]
+							);
 							break;
 						default:
 							console.log(`Unknown type: ${diceArray[i][3]}`);
 							continue;
 					}
-					updateElements()
+					updateElements();
 				}
 			}
 		}
@@ -1400,7 +1477,6 @@ define([
 		let awake = false;
 		let time = 20;
 		let timeStep = 1 / time;
-
 
 		animate();
 

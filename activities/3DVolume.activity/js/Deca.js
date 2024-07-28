@@ -124,56 +124,9 @@ function createDecahedron(
 	// decahedron = diceMesh;
 	scene.add(decahedron);
 
-	// Create a ConvexPolyhedron shape from the scaled vertices and faces
-	// const decahedronShape = new CANNON.ConvexPolyhedron({
-	// 	vertices: verticesCannon,
-	// 	faces: facesCannon,
-	// });
-	// let myShape = getPolyhedronShape(decahedron);
-	// console.log(myShape);
-	let verticesI = [];
-	let facesI = [
-		[5, 7, 11, 0],
-		[4, 2, 10, 1],
-		[1, 3, 11, 2],
-		[0, 8, 10, 3],
-		[7, 9, 11, 4],
-		[8, 6, 10, 5],
-		[9, 1, 11, 6],
-		[2, 0, 10, 7],
-		[3, 5, 11, 8],
-		[6, 4, 10, 9],
-		[1, 0, 2, -1],
-		[1, 2, 3, -1],
-		[3, 2, 4, -1],
-		[3, 4, 5, -1],
-		[5, 4, 6, -1],
-		[5, 6, 7, -1],
-		[7, 6, 8, -1],
-		[7, 8, 9, -1],
-		[9, 8, 0, -1],
-		[9, 0, 1, -1],
-	];
 
 	// Create vertices for the decahedron
-	for (let i = 0, b = 0; i < 10; ++i, b += (Math.PI * 2) / 10) {
-		verticesI.push([Math.cos(b), Math.sin(b), 0.105 * (i % 2 ? 1 : -1)]);
-	}
-	verticesI.push([0, 0, -1]); // bottom vertex
-	verticesI.push([0, 0, 1]); // top vertex
 
-	// Convert vertices to the format required by CANNON.js
-	let verticesCannonI = verticesI.map(
-		(v) => new CANNON.Vec3(v[0], v[1], v[2])
-	);
-
-	// Convert faces to the format required by CANNON.js, removing the last -1 entry
-	let facesCannonI = facesI.map((face) => face.slice(0, -1));
-
-	const decahedronShape = new CANNON.ConvexPolyhedron({
-		vertices: verticesCannonI,
-		faces: facesCannonI,
-	});
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
@@ -233,8 +186,17 @@ function createDecahedron(
 		mass: 3, // Set mass
 		shape: decahedronShape2,
 		position: new CANNON.Vec3(x, y, z),
+		material: new CANNON.Material(),
 		restitution: 0.5,
 	});
+	const contactMat = new CANNON.ContactMaterial(
+		groundPhysMat,
+		decahedronBody.material,
+		{ friction: ctx.friction }
+	);
+
+	world.addContactMaterial(contactMat);
+
 	world.addBody(decahedronBody);
 	decahedronBody.sleepSpeedLimit = 4;
 	decahedronBody.sleepTimeLimit = 10;
@@ -265,6 +227,7 @@ function createDecahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
+		contactMat
 	]);
 }
 
@@ -484,38 +447,6 @@ function calculateTextureSize(approx) {
 }
 
 function getDecaScore(scoresObject, body, ifRemove) {
-	// Decahedron face vectors
-	// const faceVectors = [
-	// 	{ vector: new THREE.Vector3(0, 1, 0.5), face: 7 },
-	// 	{ vector: new THREE.Vector3(0, 1, -0.5), face: 2 },
-	// 	{ vector: new THREE.Vector3(0, -1, 0.5), face: 3 },
-	// 	{ vector: new THREE.Vector3(0, -1, -0.5), face: 10 },
-	// 	{ vector: new THREE.Vector3(0.5, 0, 1), face: 5 },
-	// 	{ vector: new THREE.Vector3(-0.5, 0, 1), face: 8 },
-	// 	{ vector: new THREE.Vector3(0.5, 0, -1), face: 9 },
-	// 	{ vector: new THREE.Vector3(-0.5, 0, -1), face: 6 },
-	// 	{ vector: new THREE.Vector3(1, 0.5, 0), face: 1 },
-	// 	{ vector: new THREE.Vector3(-1, 0.5, 0), face: 4 },
-	// ];
-
-	// for (const faceVector of faceVectors) {
-	// 	faceVector.vector.normalize().applyEuler(body.rotation);
-
-	// 	if (Math.round(faceVector.vector.y) === 1) {
-	// 		if (!ifRemove) {
-	// 			scoresObject.lastRoll += faceVector.face + " + ";
-	// 			scoresObject.presentScore += faceVector.face;
-	// 			updateElements();
-	// 			break;
-	// 		}
-	// 		for (let i = 0; i < diceArray.length; i++) {
-	// 			if (body == diceArray[i][0]) {
-	// 				diceArray[i][7] = faceVector.face;
-	// 			}
-	// 		}
-	// 		return faceVector.face;
-	// 	}
-	// }
 
 	let vector = new THREE.Vector3(0, 1);
 	let closest_face;

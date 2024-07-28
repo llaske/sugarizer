@@ -142,10 +142,17 @@ function createOctahedron(
 		mass: 2, // Set mass
 		shape: octahedronShape,
 		position: new CANNON.Vec3(x, y, z),
-		friction: -1,
+		material: new CANNON.Material(),
 		restitution: 5,
 	});
 
+	const contactMat = new CANNON.ContactMaterial(
+		groundPhysMat,
+		octahedronBody.material,
+		{ friction: ctx.friction }
+	);
+
+	world.addContactMaterial(contactMat);
 	world.addBody(octahedronBody);
 
 	let angVel1 =
@@ -174,6 +181,7 @@ function createOctahedron(
 		angVel1,
 		angVel2,
 		angVel3,
+		contactMat
 	]);
 }
 

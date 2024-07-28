@@ -1,3 +1,74 @@
+let p = (1 + Math.sqrt(5)) / 2;
+let q = 1 / p;
+let vertices2 = [
+	[0, q, p],
+	[0, q, -p],
+	[0, -q, p],
+	[0, -q, -p],
+	[p, 0, q],
+	[p, 0, -q],
+	[-p, 0, q],
+	[-p, 0, -q],
+	[q, p, 0],
+	[q, -p, 0],
+	[-q, p, 0],
+	[-q, -p, 0],
+	[1, 1, 1],
+	[1, 1, -1],
+	[1, -1, 1],
+	[1, -1, -1],
+	[-1, 1, 1],
+	[-1, 1, -1],
+	[-1, -1, 1],
+	[-1, -1, -1],
+];
+let faces2 = [
+	[2, 14, 4, 12, 0, 1],
+	[15, 9, 11, 19, 3, 2],
+	[16, 10, 17, 7, 6, 3],
+	[6, 7, 19, 11, 18, 4],
+	[6, 18, 2, 0, 16, 5],
+	[18, 11, 9, 14, 2, 6],
+	[1, 17, 10, 8, 13, 7],
+	[1, 13, 5, 15, 3, 8],
+	[13, 8, 12, 4, 5, 9],
+	[5, 4, 14, 9, 15, 10],
+	[0, 12, 8, 10, 16, 11],
+	[3, 19, 7, 17, 1, 12],
+];
+
+let scaleFactor2 = 1.5;
+let values2 = 12;
+let faceTexts2 = [
+	" ",
+	"0",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"10",
+	"11",
+	"12",
+	"13",
+	"14",
+	"15",
+	"16",
+	"17",
+	"18",
+	"19",
+	"20",
+];
+let textMargin2 = 1.0;
+let chamfer2 = 0.968;
+let af2 = -Math.PI / 4 / 2;
+let tab2 = 0.2;
+let backColor2;
+let color2;
 function createDodecahedron(
 	sharedColor,
 	ifNumbers,
@@ -26,99 +97,14 @@ function createDodecahedron(
 	let tempFillColor = sharedColor != null ? sharedColor : ctx.presentColor;
 	let tempTextColor =
 		sharedTextColor != null ? sharedTextColor : ctx.textColor;
+	backColor2 = tempFillColor;
+	color2 = tempTextColor;
 	if (tempShowNumbers) {
-		let tileDimension = new THREE.Vector2(4, 3); // 12 faces, arranged in a 4x3 grid
-		let tileSize = 512;
-		let g = new THREE.DodecahedronGeometry(1.25);
-
-		let c = document.createElement("canvas");
-		c.width = tileSize * tileDimension.x;
-		c.height = tileSize * tileDimension.y;
-		let ctx = c.getContext("2d");
-		ctx.fillStyle = tempFillColor;
-		ctx.fillRect(0, 0, c.width, c.height);
-
-		let uvs = [];
-		const base = new THREE.Vector2(0, 0.5);
-		const center = new THREE.Vector2();
-		const angle = THREE.MathUtils.degToRad(72);
-		let baseUVs = [
-			base
-				.clone()
-				.rotateAround(center, angle * 1)
-				.addScalar(0.5),
-			base
-				.clone()
-				.rotateAround(center, angle * 2)
-				.addScalar(0.5),
-			base
-				.clone()
-				.rotateAround(center, angle * 3)
-				.addScalar(0.5),
-			base
-				.clone()
-				.rotateAround(center, angle * 4)
-				.addScalar(0.5),
-			base
-				.clone()
-				.rotateAround(center, angle * 0)
-				.addScalar(0.5),
-		];
-
-		for (let i = 0; i < 12; i++) {
-			// 12 faces for a dodecahedron
-			let u = i % tileDimension.x;
-			let v = Math.floor(i / tileDimension.x);
-			uvs.push(
-				(baseUVs[1].x + u) / tileDimension.x,
-				(baseUVs[1].y + v) / tileDimension.y,
-				(baseUVs[2].x + u) / tileDimension.x,
-				(baseUVs[2].y + v) / tileDimension.y,
-				(baseUVs[0].x + u) / tileDimension.x,
-				(baseUVs[0].y + v) / tileDimension.y,
-
-				(baseUVs[2].x + u) / tileDimension.x,
-				(baseUVs[2].y + v) / tileDimension.y,
-				(baseUVs[3].x + u) / tileDimension.x,
-				(baseUVs[3].y + v) / tileDimension.y,
-				(baseUVs[0].x + u) / tileDimension.x,
-				(baseUVs[0].y + v) / tileDimension.y,
-
-				(baseUVs[3].x + u) / tileDimension.x,
-				(baseUVs[3].y + v) / tileDimension.y,
-				(baseUVs[4].x + u) / tileDimension.x,
-				(baseUVs[4].y + v) / tileDimension.y,
-				(baseUVs[0].x + u) / tileDimension.x,
-				(baseUVs[0].y + v) / tileDimension.y
-			);
-
-			ctx.textAlign = "center";
-			ctx.textBaseline = "middle";
-			ctx.font = `bold ${tileSize / 3}px Arial`;
-			ctx.fillStyle = tempTextColor;
-			ctx.fillText(
-				i + 1 + (i == 5 ? "." : ""),
-				(u + 0.5) * tileSize,
-				c.height - (v + 0.5) * tileSize
-			);
-		}
-
-		g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-
-		let tex = new THREE.CanvasTexture(c);
-		tex.colorSpace = THREE.SRGBColorSpace;
-		tex.anisotropy = 16;
-
-		let m = new THREE.MeshPhongMaterial({
-			map: tex,
-		});
-
-		dodecahedron = new THREE.Mesh(g, m);
+		dodecahedron = new THREE.Mesh(getGeometry2(), getMaterials2());
 	} else if (tempTransparent) {
-		const dodedodecahedronTransaprentGeometry =
-			new THREE.DodecahedronGeometry(1.25); // Size of the tetrahedron
+		const dodecahedronTransaprentGeometry = getGeometry2();
 		const wireframe = new THREE.WireframeGeometry(
-			dodedodecahedronTransaprentGeometry
+			dodecahedronTransaprentGeometry
 		);
 		const lineMaterial = new THREE.LineBasicMaterial({
 			color: sharedColor != null ? sharedColor : ctx.presentColor,
@@ -129,7 +115,7 @@ function createDodecahedron(
 		const line = new THREE.LineSegments(wireframe, lineMaterial);
 		dodecahedron = line;
 	} else {
-		const dodecahedronGeometry = new THREE.DodecahedronGeometry(1.25); // Size of the tetrahedron
+		const dodecahedronGeometry = getGeometry2();
 
 		const dodecaMaterial = new THREE.MeshStandardMaterial({
 			color: sharedColor != null ? sharedColor : ctx.presentColor,
@@ -145,29 +131,29 @@ function createDodecahedron(
 
 	const t = 1.618;
 	const r = 0.618;
-	const scaleFactor = 0.75;
+	let scaleFactorCannon = 0.83;
 
-	const vertices = [
-		new CANNON.Vec3(-1, -1, -1).scale(scaleFactor),
-		new CANNON.Vec3(-1, -1, 1).scale(scaleFactor),
-		new CANNON.Vec3(-1, 1, -1).scale(scaleFactor),
-		new CANNON.Vec3(-1, 1, 1).scale(scaleFactor),
-		new CANNON.Vec3(1, -1, -1).scale(scaleFactor),
-		new CANNON.Vec3(1, -1, 1).scale(scaleFactor),
-		new CANNON.Vec3(1, 1, -1).scale(scaleFactor),
-		new CANNON.Vec3(1, 1, 1).scale(scaleFactor),
-		new CANNON.Vec3(0, -r, -t).scale(scaleFactor),
-		new CANNON.Vec3(0, -r, t).scale(scaleFactor),
-		new CANNON.Vec3(0, r, -t).scale(scaleFactor),
-		new CANNON.Vec3(0, r, t).scale(scaleFactor),
-		new CANNON.Vec3(-r, -t, 0).scale(scaleFactor),
-		new CANNON.Vec3(-r, t, 0).scale(scaleFactor),
-		new CANNON.Vec3(r, -t, 0).scale(scaleFactor),
-		new CANNON.Vec3(r, t, 0).scale(scaleFactor),
-		new CANNON.Vec3(-t, 0, -r).scale(scaleFactor),
-		new CANNON.Vec3(t, 0, -r).scale(scaleFactor),
-		new CANNON.Vec3(-t, 0, r).scale(scaleFactor),
-		new CANNON.Vec3(t, 0, r).scale(scaleFactor),
+	const vertices3 = [
+		new CANNON.Vec3(-1, -1, -1).scale(scaleFactorCannon),
+		new CANNON.Vec3(-1, -1, 1).scale(scaleFactorCannon),
+		new CANNON.Vec3(-1, 1, -1).scale(scaleFactorCannon),
+		new CANNON.Vec3(-1, 1, 1).scale(scaleFactorCannon),
+		new CANNON.Vec3(1, -1, -1).scale(scaleFactorCannon),
+		new CANNON.Vec3(1, -1, 1).scale(scaleFactorCannon),
+		new CANNON.Vec3(1, 1, -1).scale(scaleFactorCannon),
+		new CANNON.Vec3(1, 1, 1).scale(scaleFactorCannon),
+		new CANNON.Vec3(0, -r, -t).scale(scaleFactorCannon),
+		new CANNON.Vec3(0, -r, t).scale(scaleFactorCannon),
+		new CANNON.Vec3(0, r, -t).scale(scaleFactorCannon),
+		new CANNON.Vec3(0, r, t).scale(scaleFactorCannon),
+		new CANNON.Vec3(-r, -t, 0).scale(scaleFactorCannon),
+		new CANNON.Vec3(-r, t, 0).scale(scaleFactorCannon),
+		new CANNON.Vec3(r, -t, 0).scale(scaleFactorCannon),
+		new CANNON.Vec3(r, t, 0).scale(scaleFactorCannon),
+		new CANNON.Vec3(-t, 0, -r).scale(scaleFactorCannon),
+		new CANNON.Vec3(t, 0, -r).scale(scaleFactorCannon),
+		new CANNON.Vec3(-t, 0, r).scale(scaleFactorCannon),
+		new CANNON.Vec3(t, 0, r).scale(scaleFactorCannon),
 	];
 
 	const indices = [
@@ -209,28 +195,36 @@ function createDodecahedron(
 		[1, 5, 9],
 	];
 
-	// Create a ConvexPolyhedron shape from the vertices and faces
+	// Create a ConvexPolyhedron shape from the vertices2 and faces2
 	const dodecahedronShape = new CANNON.ConvexPolyhedron({
-		vertices: vertices,
+		vertices: vertices3,
 		faces: indices,
 	});
-	console.log(dodecahedronShape);
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
+	let y = yCoordinateShared == null ? 4 : yCoordinateShared;
+
+	let newGeometry = getGeometry2();
 
 	const dodecahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
 		shape: dodecahedronShape,
 		position: new CANNON.Vec3(x, y, z),
-		friction: -1,
+		material: new CANNON.Material(),
 		restitution: 5,
 	});
 	dodecahedronBody.sleepSpeedLimit = 0.2;
 	dodecahedronBody.sleepTimeLimit = 3;
 
 	world.addBody(dodecahedronBody);
+	const contactMat = new CANNON.ContactMaterial(
+		groundPhysMat,
+		dodecahedronBody.material,
+		{ friction: ctx.friction }
+	);
+
+	world.addContactMaterial(contactMat);
 
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
@@ -258,72 +252,261 @@ function createDodecahedron(
 		angVel1,
 		angVel2,
 		angVel3,
+		contactMat
 	]);
 }
+function getGeometry2() {
+	let radius = 1 * scaleFactor2;
 
-function getDodecaScore(scoresObject, body, ifRemove) {
-	// Define the golden ratio
-	const phi = (1 + Math.sqrt(5)) / 2;
+	let vectors = new Array(vertices2.length);
+	for (let i = 0; i < vertices2.length; ++i) {
+		vectors[i] = new THREE.Vector3().fromArray(vertices2[i]).normalize();
+	}
 
-	// Decahedron face vectors
-	const faceVectors = [
-		{ vector: new THREE.Vector3(1, 1, 1), face: 1 },
-		{ vector: new THREE.Vector3(1, 1, -1), face: 6 },
-		{ vector: new THREE.Vector3(1, -1, 1), face: 11 },
-		{ vector: new THREE.Vector3(1, -1, -1), face: 9 },
-		{ vector: new THREE.Vector3(-1, 1, 1), face: 7 },
-		{ vector: new THREE.Vector3(-1, 1, -1), face: 2 },
-		{ vector: new THREE.Vector3(-1, -1, 1), face: 5 },
-		{ vector: new THREE.Vector3(-1, -1, -1), face: 8 },
-		{ vector: new THREE.Vector3(0, phi, 1 / phi), face: 4 },
-		{ vector: new THREE.Vector3(0, phi, -1 / phi), face: 10 },
-		{ vector: new THREE.Vector3(0, -phi, 1 / phi), face: 3 },
-		{ vector: new THREE.Vector3(0, -phi, -1 / phi), face: 12 },
-	];
+	let chamferGeometry = getChamferGeometry2(vectors);
+	let geometry = makeGeometry2(
+		chamferGeometry.vectors,
+		chamferGeometry.faces2,
+		radius,
+		tab2,
+		af2
+	);
+	geometry.cannon_shape = createShape(vectors, faces2, radius);
 
-	for (const faceVector of faceVectors) {
-		faceVector.vector.normalize().applyEuler(body.rotation);
+	return geometry;
+}
 
-		if (Math.round(faceVector.vector.y) === 1) {
-			if (!ifRemove) {
-				scoresObject.lastRoll += faceVector.face + " + ";
-				scoresObject.presentScore += faceVector.face;
-				break;
+function getChamferGeometry2(vectors) {
+	let chamfer_vectors = [],
+		chamfer_faces = [],
+		corner_faces = new Array(vectors.length);
+	for (let i = 0; i < vectors.length; ++i) corner_faces[i] = [];
+	for (let i = 0; i < faces2.length; ++i) {
+		let ii = faces2[i],
+			fl = ii.length - 1;
+		let center_point = new THREE.Vector3();
+		let face = new Array(fl);
+		for (let j = 0; j < fl; ++j) {
+			let vv = vectors[ii[j]].clone();
+			center_point.add(vv);
+			corner_faces[ii[j]].push((face[j] = chamfer_vectors.push(vv) - 1));
+		}
+		center_point.divideScalar(fl);
+		for (let j = 0; j < fl; ++j) {
+			let vv = chamfer_vectors[face[j]];
+			vv.subVectors(vv, center_point)
+				.multiplyScalar(chamfer2)
+				.addVectors(vv, center_point);
+		}
+		face.push(ii[fl]);
+		chamfer_faces.push(face);
+	}
+	for (let i = 0; i < faces2.length - 1; ++i) {
+		for (let j = i + 1; j < faces2.length; ++j) {
+			let pairs = [],
+				lastm = -1;
+			for (let m = 0; m < faces2[i].length - 1; ++m) {
+				let n = faces2[j].indexOf(faces2[i][m]);
+				if (n >= 0 && n < faces2[j].length - 1) {
+					if (lastm >= 0 && m !== lastm + 1)
+						pairs.unshift([i, m], [j, n]);
+					else pairs.push([i, m], [j, n]);
+					lastm = m;
+				}
 			}
-			return faceVector.face;
+			if (pairs.length !== 4) continue;
+			chamfer_faces.push([
+				chamfer_faces[pairs[0][0]][pairs[0][1]],
+				chamfer_faces[pairs[1][0]][pairs[1][1]],
+				chamfer_faces[pairs[3][0]][pairs[3][1]],
+				chamfer_faces[pairs[2][0]][pairs[2][1]],
+				-1,
+			]);
+		}
+	}
+	for (let i = 0; i < corner_faces.length; ++i) {
+		let cf = corner_faces[i],
+			face = [cf[0]],
+			count = cf.length - 1;
+		while (count) {
+			for (let m = faces2.length; m < chamfer_faces.length; ++m) {
+				let index = chamfer_faces[m].indexOf(face[face.length - 1]);
+				if (index >= 0 && index < 4) {
+					if (--index === -1) index = 3;
+					let next_vertex = chamfer_faces[m][index];
+					if (cf.indexOf(next_vertex) >= 0) {
+						face.push(next_vertex);
+						break;
+					}
+				}
+			}
+			--count;
+		}
+		face.push(-1);
+		chamfer_faces.push(face);
+	}
+	return { vectors: chamfer_vectors, faces2: chamfer_faces };
+}
+
+function makeGeometry2(vertices2, faces2, radius) {
+	let geom = new THREE.BufferGeometry();
+
+	for (let i = 0; i < vertices2.length; ++i) {
+		vertices2[i] = vertices2[i].multiplyScalar(radius);
+	}
+
+	let positions = [];
+	const normals = [];
+	const uvs = [];
+
+	const cb = new THREE.Vector3();
+	const ab = new THREE.Vector3();
+	let materialIndex;
+	let faceFirstVertexIndex = 0;
+
+	for (let i = 0; i < faces2.length; ++i) {
+		let ii = faces2[i],
+			fl = ii.length - 1;
+		let aa = (Math.PI * 2) / fl;
+		materialIndex = ii[fl] + 1;
+		for (let j = 0; j < fl - 2; ++j) {
+			//Vertices
+			positions.push(...vertices2[ii[0]].toArray());
+			positions.push(...vertices2[ii[j + 1]].toArray());
+			positions.push(...vertices2[ii[j + 2]].toArray());
+
+			// Flat face normals
+			cb.subVectors(vertices2[ii[j + 2]], vertices2[ii[j + 1]]);
+			ab.subVectors(vertices2[ii[0]], vertices2[ii[j + 1]]);
+			cb.cross(ab);
+			cb.normalize();
+
+			// Vertex Normals
+			normals.push(...cb.toArray());
+			normals.push(...cb.toArray());
+			normals.push(...cb.toArray());
+
+			//UVs
+			uvs.push(
+				(Math.cos(af2) + 1 + tab2) / 2 / (1 + tab2),
+				(Math.sin(af2) + 1 + tab2) / 2 / (1 + tab2)
+			);
+			uvs.push(
+				(Math.cos(aa * (j + 1) + af2) + 1 + tab2) / 2 / (1 + tab2),
+				(Math.sin(aa * (j + 1) + af2) + 1 + tab2) / 2 / (1 + tab2)
+			);
+			uvs.push(
+				(Math.cos(aa * (j + 2) + af2) + 1 + tab2) / 2 / (1 + tab2),
+				(Math.sin(aa * (j + 2) + af2) + 1 + tab2) / 2 / (1 + tab2)
+			);
+		}
+
+		//Set Group for face materials.
+		let numOfVertices = (fl - 2) * 3;
+		for (let i = 0; i < numOfVertices / 3; i++) {
+			geom.addGroup(faceFirstVertexIndex, 3, materialIndex);
+			faceFirstVertexIndex += 3;
 		}
 	}
 
-	// let vector = new THREE.Vector3(0, -1);
-	// let closest_face;
-	// let closest_angle = Math.PI * 2;
-
-	// let normals = body.geometry.getAttribute("normal").array;
-	// console.log(normals)
-	// for (let i = 0; i < 12; ++i) {
-	// 	let face = i + 1;
-
-	// 	//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
-	// 	let startVertex = i * 9;
-	// 	let normal = new THREE.Vector3(
-	// 		normals[startVertex],
-	// 		normals[startVertex + 1],
-	// 		normals[startVertex + 2]
-	// 	);
-	// 	let angle = normal
-	// 		.clone()
-	// 		.applyQuaternion(body.quaternion)
-	// 		.angleTo(vector);
-	// 	if (angle < closest_angle) {
-	// 		closest_angle = angle;
-	// 		closest_face = face;
-	// 	}
-	// }
-
-	// // switch(closest_face) {
-	// // }
-	// scoresObject.lastRoll += closest_face + " + ";
-	// scoresObject.presentScore += closest_face;
-	// updateElements();
-	// return closest_face;
+	geom.setAttribute(
+		"position",
+		new THREE.Float32BufferAttribute(positions, 3)
+	);
+	geom.setAttribute("normal", new THREE.Float32BufferAttribute(normals, 3));
+	geom.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+	geom.boundingSphere = new THREE.Sphere(new THREE.Vector3(), radius);
+	return geom;
 }
+
+function createShape(vertices2, faces2, radius) {
+	let cv = new Array(vertices2.length),
+		cf = new Array(faces2.length);
+	for (let i = 0; i < vertices2.length; ++i) {
+		let v = vertices2[i];
+		cv[i] = new CANNON.Vec3(v.x * radius, v.y * radius, v.z * radius);
+	}
+	for (let i = 0; i < faces2.length; ++i) {
+		cf[i] = faces2[i].slice(0, faces2[i].length - 1);
+	}
+	console.log(faces2);
+	return new CANNON.ConvexPolyhedron(cv, cf);
+}
+
+function getMaterials2() {
+	let materials = [];
+	for (let i = 0; i < faceTexts2.length; ++i) {
+		let texture = null;
+		texture = createTextTexture2(faceTexts2[i]);
+
+		materials.push(
+			new THREE.MeshPhongMaterial(Object.assign({}, { map: texture }))
+		);
+	}
+	return materials;
+}
+
+function createTextTexture2(text) {
+	let canvas = document.createElement("canvas");
+	let context = canvas.getContext("2d");
+	let ts = calculateTextureSize(1 / 2 + 1 * textMargin2) * 2;
+	canvas.width = canvas.height = ts;
+	context.font = ts / (1 + 2 * textMargin2) + "pt Arial";
+	context.fillStyle = backColor2;
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.textAlign = "center";
+	context.textBaseline = "middle";
+	context.fillStyle = color2;
+	context.fillText(text, canvas.width / 2, canvas.height / 2);
+	let texture = new THREE.Texture(canvas);
+	texture.needsUpdate = true;
+	return texture;
+}
+
+function calculateTextureSize(approx) {
+	return Math.max(
+		128,
+		Math.pow(2, Math.floor(Math.log(approx) / Math.log(2)))
+	);
+}
+function getDodecaScore(scoresObject, body, ifRemove) {
+	let vector = new THREE.Vector3(0, 1);
+	let closest_face;
+	let closest_angle = Math.PI * 2;
+
+	let normals = body.geometry.getAttribute("normal").array;
+	for (let i = 0; i < body.geometry.groups.length; ++i) {
+		let face = body.geometry.groups[i];
+		if (face.materialIndex === 0) continue;
+
+		//Each group consists in 3 vertices of 3 elements (x, y, z) so the offset between faces in the Float32BufferAttribute is 9
+		let startVertex = i * 9;
+		let normal = new THREE.Vector3(
+			normals[startVertex],
+			normals[startVertex + 1],
+			normals[startVertex + 2]
+		);
+		let angle = normal
+			.clone()
+			.applyQuaternion(body.quaternion)
+			.angleTo(vector);
+		if (angle < closest_angle) {
+			closest_angle = angle;
+			closest_face = face;
+		}
+	}
+	let scoreToShow;
+	if (closest_face.materialIndex - 1 == 0) {
+		scoreToShow = 10;
+	} else {
+		scoreToShow = closest_face.materialIndex - 1;
+	}
+	if (!ifRemove) {
+		scoresObject.lastRoll += scoreToShow + " + ";
+		scoresObject.presentScore += scoreToShow;
+	} else {
+		return scoreToShow;
+	}
+
+}
+
