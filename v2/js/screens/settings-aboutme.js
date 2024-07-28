@@ -80,11 +80,18 @@ const AboutMe = {
 		},
 
 		colorize() {
-			this.$refs.psicon.colorData = this.getPreviousStrokeColor(this.currentcolor);
-			this.$refs.pficon.colorData = this.getPreviousFillColor(this.currentcolor);
-			this.$refs.cicon.colorData = this.currentcolor;
-			this.$refs.nficon.colorData = this.getNextFillColor(this.currentcolor);
-			this.$refs.nsicon.colorData = this.getNextStrokeColor(this.currentcolor);
+			const icons = ['psicon', 'pficon', 'cicon', 'nficon', 'nsicon'];
+			const colorFunctions = [
+				this.getPreviousStrokeColor,
+				this.getPreviousFillColor,
+				color => color,
+				this.getNextFillColor,
+				this.getNextStrokeColor
+			];
+			icons.forEach(async (icon, index) => {
+				await this.$refs[icon].wait();
+				this.$refs[icon].colorData = colorFunctions[index](this.currentcolor);
+			});
 		},
 
 		getNextStrokeColor(color) {
