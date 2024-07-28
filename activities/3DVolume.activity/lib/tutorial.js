@@ -1,10 +1,10 @@
-define([], function () {
+define(["l10n"], function (l10n) {
 	var tutorial = {};
 
 	tutorial.start = function (ifAdding) {
 		var steps = [
 			{
-				title: "Volume Activity",
+				title: l10n.get("VolumeActivity"),
 				intro: "Welcome into the Volume activity. Feel free to zoom in and rotate the board to your preference using touch gestures or simply by clicking and scrolling.",
 			},
 			{

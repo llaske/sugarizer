@@ -10,6 +10,7 @@ define([
 	"tutorial",
 	"sugar-web/graphics/journalchooser",
 	"sugar-web/datastore",
+	"l10n",
 ], function (
 	activity,
 	env,
@@ -21,7 +22,8 @@ define([
 	presencepalette,
 	tutorial,
 	journalchooser,
-	datastore
+	datastore,
+	l10n
 ) {
 	// Function to change the background color based on the provided string
 	requirejs(["domReady!"], function (doc) {
@@ -120,6 +122,16 @@ define([
 		// Setting user preferences through the env
 		env.getEnvironment(function (err, environment) {
 			currentenv = environment;
+
+			// Set current language to Sugarizer
+			var defaultLanguage =
+				typeof chrome != "undefined" && chrome.app && chrome.app.runtime
+					? chrome.i18n.getUILanguage()
+					: navigator.language;
+			var language = environment.user
+				? environment.user.language
+				: defaultLanguage;
+			l10n.init(language);
 
 			ctx.presentColor =
 				currentenv.user.colorvalue.fill != null
@@ -1061,7 +1073,6 @@ define([
 				world.gravity.set(-9.81, -9.81, -9.81);
 			}
 		});
-		world.gravity.set(-3, -9.81, 0); // Gravity towards the right
 
 		function accelerationChanged(acceleration) {
 			if (!sensorMode) return;
