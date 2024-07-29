@@ -15,27 +15,30 @@ const FilterBox ={
 					v-if="optionsData && (optionsData.icon || optionsData.name)"
 					v-bind:class="showSubpopup? 'filterBox-sugarizer filterBox-up': 'filterBox-sugarizer filterBox-down'"
 				>
-					<div class="filterBox" v-on:click="showFilterBox()">
-						<icon class="filterBox-icon"
-							v-if="selectedData.icon"
-							:key="this.iconKey"
-							:id="'optionsData.id'+selectedData.icon.id"
-							:svgfile=selectedData.icon.iconData
-							:color=selectedData.icon.color
-							:size=selectedData.icon.size
-							:x=selectedData.icon.iconx
-							:y=selectedData.icon.icony
-							:isNative=selectedData.icon.isNative
-						></icon>
-						<div v-if="selectedData.name" class="filterBox-text">{{ selectedData.name }}</div>
+					<div class="filterBox" v-on:click="showFilterBox">
+						<div :style="'width:' + selectedData.icon.size + 'px;'">
+							<icon class="filterBox-icon"
+								v-show="selectedData.icon"
+								:key="this.iconKey"
+								:id="'options-id'+selectedData.icon.id"
+								:svgfile=selectedData.icon.iconData
+								:color=selectedData.icon.color
+								:size=selectedData.icon.size
+								:x=selectedData.icon.iconx
+								:y=selectedData.icon.icony
+								:isNative=selectedData.icon.isNative
+							></icon>
+						</div>
+						<div v-if="optionsData.name && selectedData.name" class="filterBox-text">{{ selectedData.name }}</div>
 					</div>
 					<div ref="filterBoxPopup">
+						<transition name="fade-fast" appear>
 						<div v-if="showSubpopup" class="filterBox-content">
 							<div v-if="optionsData.header" class="filterBox-header">{{ optionsData.header }}</div>
 							<div class="filterBox-hr"></div>
 							<div class="filterBox-items">
 								<div class="filterBox-items-item" 
-									v-for="item in optionsData.filterBoxList" key="item.index"
+									v-for="item in optionsData.filterBoxList" :key="item.index"
 									v-on:click=optionisSelected(item)
 								>
 									<icon class="filterBox-icon"
@@ -53,6 +56,7 @@ const FilterBox ={
 								</div>
 							</div>
 						</div>
+						</transition>
 					</div>
 				</div>`,
 	components: {

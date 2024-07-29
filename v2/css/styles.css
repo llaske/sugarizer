@@ -433,15 +433,18 @@ a {
 }
 
 .filterBox-sugarizer {
-	margin-top: 0px;
-	height: 45px;
+	height: 50px;
 	width: fit-content;
-	margin: 10px;
-	color: white
+	color: white;
+	border: 2px solid transparent;
+	border-bottom: 0;
+	position: relative;
 }
 
 .filterBox {
 	display: flex;
+	height: 100%;
+	padding-inline: 6px;
 }
 
 .filterBox-sugarizer:hover {
@@ -449,8 +452,7 @@ a {
 }
 
 .filterBox-icon {
-	margin: 2px;
-	margin-top: 12px !important;
+	margin-top: 8px !important;
 }
 
 .filterBox-down {
@@ -467,35 +469,31 @@ a {
 	background-position-x: center;
 	background-color: black;
 	background-size: 47px;
-	border: 2px solid #808080;
-	border-bottom: 0;
+	border-color: #808080;
 }
 
 .filterBox-text {
 	margin-top: 14px;
-	margin-left: 15px;
-	margin-right: 4px;
+	margin-left: 4px;
 }
 
 .filterBox-content {
 	position: absolute;
 	background-color: black;
-	max-width: 271px;
-	min-width: 161px;
-	min-height: 51px;
-	max-height: 80vh;
+	max-width: 270px;
+	min-width: 200px;
 	pointer-events: auto;
 	border: 2px solid #808080;
 	color: white;
 	overflow: auto;
 	z-index: 1;
-	margin-left: -2px;
-	margin-top: 5px;
+	top: 100%;
+	left: 0;
 }
 
 .filterBox-header {
 	height: 40px;
-	margin-left: 5px;
+	margin-left: 8px;
 	margin-right: 5px;
 	margin-bottom: 10px;
 	font-weight: bold;
@@ -514,14 +512,19 @@ a {
 	color: white;
 	border-width: 2px;
 	z-index: 1;
-	max-height: 50vh;
+	max-height: 80vh;
 	overflow-y: auto;
+}
+
+.filterBox-items .filterBox-text, .filterBox-items .filterBox-icon {
+	margin-top: 0 !important;
 }
 
 .filterBox-items-item {
 	display: flex;
 	height: 35px;
-	margin: 3px 0px;
+	padding: 6px 8px;
+	align-items: center
 }
 
 .filterBox-items-item:hover {
@@ -1358,6 +1361,9 @@ a {
 	pointer-events: none;
 	filter: brightness(0.6);
 }
+#typepalette .filterBox-items {
+	height: 74vh;
+}
 .journal-toolleft {
 	gap: 10px !important;
 }
@@ -1451,6 +1457,12 @@ a {
 .fade-leave-active {
 	transition: opacity 0.3s ease-in;
 }
+.fade-fast-enter-active,
+.fade-fast-leave-active {
+	transition: opacity 0.2s ease-out;
+}
+.fade-fast-enter-from,
+.fade-fast-leave-to,
 .fade-enter-from,
 .fade-leave-to {
 	opacity: 0;
@@ -1580,4 +1592,7 @@ a {
 	z-index: 100;
 	user-select: none;
 }
-
+.journal-loader img {
+	display: block;
+	margin: 14px auto 24px auto;
+}

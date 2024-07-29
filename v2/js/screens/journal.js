@@ -409,7 +409,7 @@ const Journal = {
 				id: "filter-type",
 				iconData: "icons/view-type.svg",
 				isNative: "true",
-				size: "18",
+				size: "20",
 			},
 			name: this.$t("AllType"),
 			header: this.$t("SelectFilter"),
@@ -420,7 +420,7 @@ const Journal = {
 			icon: {
 				id: "filter-time",
 				iconData: "icons/view-created.svg",
-				size: "18",
+				size: "20",
 				isNative: "true",
 			},
 			name: this.$t("Anytime"),
@@ -432,10 +432,9 @@ const Journal = {
 			icon: {
 				id: "sort-palette",
 				iconData: "icons/view-lastedit.svg",
-				size: "18",
+				size: "20",
 				isNative: "true",
 			},
-			name: this.$t("SortByUpdated"),
 			header: this.$t("SortDisplay"),
 			filterBoxList: this.getSortPaletteList(),
 		};
