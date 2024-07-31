@@ -86,18 +86,6 @@ define([
 			toggleTransparent: false,
 			offset: new CANNON.Vec3(0, 0.1, 0),
 			rollingForce: randomDirection.scale(2),
-			cubeMaterial: new CANNON.Material(),
-			tetraMaterial: new CANNON.Material(),
-			octaMaterial: new CANNON.Material(),
-			decaMaterial: new CANNON.Material(),
-			dodecaMaterial: new CANNON.Material(),
-			icosaMaterial: new CANNON.Material(),
-			cubeContact: null,
-			tetraContact: null,
-			octaContact: null,
-			decaContact: null,
-			dodecaContact: null,
-			icosaContact: null,
 			friction: 1,
 		};
 		let presentBackground = null;

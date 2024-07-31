@@ -178,6 +178,8 @@ function createTetrahedron(
 	world.addContactMaterial(contactMat);
 
 	tetrahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
+	tetrahedronBody.angularDamping = 0.1; // This will help in reducing rotation over time
+
 	tetrahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	tetrahedron.position.copy(tetrahedronBody.position); // this merges the physics body to threejs mesh
 	tetrahedron.quaternion.copy(tetrahedronBody.quaternion);

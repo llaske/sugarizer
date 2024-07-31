@@ -124,12 +124,14 @@ function createCube(
 	let angVel3 =
 		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 	boxBody.angularVelocity.set(angVel1, angVel2, angVel3);
+	boxBody.angularDamping = 0.1; // This will help in reducing rotation over time
 	boxBody.applyImpulse(ctx.offset, ctx.rollingForce);
 
 	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
 		boxBody.material,
-		{ friction: ctx.friction }
+		{ friction: ctx.friction},
+		
 	);
 
 	world.addContactMaterial(contactMat);

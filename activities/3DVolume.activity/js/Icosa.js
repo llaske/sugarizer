@@ -200,6 +200,8 @@ function createIcosahedron(
 		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
 	icosahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
+	icosahedronBody.angularDamping = 0.1; // This will help in reducing rotation over time
+
 	icosahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	icosahedron.position.copy(icosahedronBody.position); // this merges the physics body to threejs mesh
 	icosahedron.quaternion.copy(icosahedronBody.quaternion);

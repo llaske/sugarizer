@@ -27,7 +27,7 @@ for (let i = 0, b = 0; i < 10; ++i, b += (Math.PI * 2) / 10) {
 }
 vertices.push([0, 0, -1]);
 vertices.push([0, 0, 1]);
-let scaleFactor = 1;
+let scaleFactor = 1.5;
 let values = 10;
 let faceTexts = [
 	" ",
@@ -53,7 +53,7 @@ let faceTexts = [
 	"19",
 	"20",
 ];
-let textMargin = 0.8;
+let textMargin = 1;
 let chamfer = 0.945;
 let af = (Math.PI * 6) / 5;
 let tab = 0;
@@ -76,7 +76,8 @@ function createDecahedron(
 	scene,
 	groundPhysMat,
 	sharedAngVel1,
-	sharedAngVel2
+	sharedAngVel2,
+	sharedAngVel3
 ) {
 	let decahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -124,23 +125,27 @@ function createDecahedron(
 	// decahedron = diceMesh;
 	scene.add(decahedron);
 
-
 	// Create vertices for the decahedron
-
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
 	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
 
 	const sides = 10;
+	const scalingFactor = 1.5;
+
 	const verticesGeo = [
-		[0, 0, 1], // Top vertex
-		[0, 0, -1], // Bottom vertex
+		[0, 0, scalingFactor * 1], // Top vertex
+		[0, 0, scalingFactor * -1], // Bottom vertex
 	];
 
 	for (let i = 0; i < sides; ++i) {
 		const b = (i * Math.PI * 2) / sides;
-		verticesGeo.push([Math.cos(b), Math.sin(b), 0.105 * (i % 2 ? 1 : -1)]);
+		verticesGeo.push([
+			scalingFactor * Math.cos(b),
+			scalingFactor * Math.sin(b),
+			scalingFactor * 0.105 * (i % 2 ? 1 : -1),
+		]);
 	}
 
 	// Convert vertices to CANNON.Vec3 format
@@ -205,12 +210,14 @@ function createDecahedron(
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
 		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+	let angVel3 =
+		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
-	decahedronBody.angularVelocity.set(angVel1, angVel2, 0.5);
+	decahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
+	decahedronBody.angularDamping = 0.1; // This will help in reducing rotation over time
 	decahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	decahedron.position.copy(decahedronBody.position); // this merges the physics body to threejs mesh
 	decahedron.quaternion.copy(decahedronBody.quaternion);
-
 
 	if (quaternionShared != null && quaternionShared != undefined) {
 		decahedron.quaternion.copy(quaternionShared);
@@ -227,7 +234,8 @@ function createDecahedron(
 		tempTextColor,
 		angVel1,
 		angVel2,
-		contactMat
+		angVel3,
+		contactMat,
 	]);
 }
 
@@ -447,7 +455,6 @@ function calculateTextureSize(approx) {
 }
 
 function getDecaScore(scoresObject, body, ifRemove) {
-
 	let vector = new THREE.Vector3(0, 1);
 	let closest_face;
 	let closest_angle = Math.PI * 2;

@@ -93,18 +93,18 @@ function createDodecahedron(
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
 	let tempTransparent =
 		ifTransparent == null ? ctx.toggleTransparent : ifTransparent;
-	// let tempImage = ifImage == null ? showImage : ifImage;
 	let tempFillColor = sharedColor != null ? sharedColor : ctx.presentColor;
 	let tempTextColor =
 		sharedTextColor != null ? sharedTextColor : ctx.textColor;
 	backColor2 = tempFillColor;
 	color2 = tempTextColor;
+
 	if (tempShowNumbers) {
 		dodecahedron = new THREE.Mesh(getGeometry2(), getMaterials2());
 	} else if (tempTransparent) {
-		const dodecahedronTransaprentGeometry = getGeometry2();
+		const dodecahedronTransparentGeometry = getGeometry2();
 		const wireframe = new THREE.WireframeGeometry(
-			dodecahedronTransaprentGeometry
+			dodecahedronTransparentGeometry
 		);
 		const lineMaterial = new THREE.LineBasicMaterial({
 			color: sharedColor != null ? sharedColor : ctx.presentColor,
@@ -116,12 +116,10 @@ function createDodecahedron(
 		dodecahedron = line;
 	} else {
 		const dodecahedronGeometry = getGeometry2();
-
 		const dodecaMaterial = new THREE.MeshStandardMaterial({
 			color: sharedColor != null ? sharedColor : ctx.presentColor,
 			wireframe: false,
 		});
-
 		dodecahedron = new THREE.Mesh(dodecahedronGeometry, dodecaMaterial);
 	}
 
@@ -195,7 +193,6 @@ function createDodecahedron(
 		[1, 5, 9],
 	];
 
-	// Create a ConvexPolyhedron shape from the vertices2 and faces2
 	const dodecahedronShape = new CANNON.ConvexPolyhedron({
 		vertices: vertices3,
 		faces: indices,
@@ -203,27 +200,27 @@ function createDodecahedron(
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 4 : yCoordinateShared;
-
-	let newGeometry = getGeometry2();
-
+	let y = yCoordinateShared == null ? 4 : yCoordinateShared + 1; // Ensure initial y is above the plane
+	console.log(myShape)
 	const dodecahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
-		shape: dodecahedronShape,
+		shape: myShape,
 		position: new CANNON.Vec3(x, y, z),
 		material: new CANNON.Material(),
-		restitution: 5,
+		restitution: 0.3, // Lower the restitution value
 	});
 	dodecahedronBody.sleepSpeedLimit = 0.2;
 	dodecahedronBody.sleepTimeLimit = 3;
+	dodecahedronBody.linearDamping = 0.1; // Apply linear damping
+	dodecahedronBody.angularDamping = 0.1; // Apply angular damping
 
 	world.addBody(dodecahedronBody);
+
 	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
 		dodecahedronBody.material,
 		{ friction: ctx.friction }
 	);
-
 	world.addContactMaterial(contactMat);
 
 	let angVel1 =
@@ -234,13 +231,15 @@ function createDodecahedron(
 		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
 	dodecahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
+
 	dodecahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
-	dodecahedron.position.copy(dodecahedronBody.position); // this merges the physics body to threejs mesh
-	dodecahedron.quaternion.copy(dodecahedronBody.quaternion);
-	if (quaternionShared != null && quaternionShared != undefined) {
+	dodecahedron.position.copy(dodecahedronBody.position); // Sync positions
+	dodecahedron.quaternion.copy(dodecahedronBody.quaternion); // Sync orientations
+	if (quaternionShared != null) {
 		dodecahedron.quaternion.copy(quaternionShared);
 		dodecahedronBody.quaternion.copy(quaternionShared);
 	}
+
 	diceArray.push([
 		dodecahedron,
 		dodecahedronBody,
@@ -252,9 +251,12 @@ function createDodecahedron(
 		angVel1,
 		angVel2,
 		angVel3,
-		contactMat
+		contactMat,
 	]);
+
+	console.log("Dodecahedron initial position:", dodecahedronBody.position); // Debugging log
 }
+
 function getGeometry2() {
 	let radius = 1 * scaleFactor2;
 
@@ -271,7 +273,7 @@ function getGeometry2() {
 		tab2,
 		af2
 	);
-	geometry.cannon_shape = createShape(vectors, faces2, radius);
+	myShape = createShape(vectors, faces2, radius);
 
 	return geometry;
 }
@@ -430,8 +432,10 @@ function createShape(vertices2, faces2, radius) {
 		cf[i] = faces2[i].slice(0, faces2[i].length - 1);
 	}
 	console.log(faces2);
-	return new CANNON.ConvexPolyhedron(cv, cf);
+
+	return new CANNON.ConvexPolyhedron({ vertices: cv, faces: cf });
 }
+let myShape = null;
 
 function getMaterials2() {
 	let materials = [];
@@ -507,6 +511,4 @@ function getDodecaScore(scoresObject, body, ifRemove) {
 	} else {
 		return scoreToShow;
 	}
-
 }
-

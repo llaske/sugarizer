@@ -163,6 +163,8 @@ function createOctahedron(
 		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
 	octahedronBody.angularVelocity.set(angVel1, angVel2, angVel3);
+	octahedronBody.angularDamping = 0.1; // This will help in reducing rotation over time
+
 	octahedronBody.applyImpulse(ctx.offset, ctx.rollingForce);
 	octahedron.position.copy(octahedronBody.position); // this merges the physics body to threejs mesh
 	octahedron.quaternion.copy(octahedronBody.quaternion);

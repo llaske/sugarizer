@@ -270,6 +270,17 @@ body {
   height: 100vh;
 }
 
+.gray-rectangle {
+  width: 50px; /* Adjust the width as needed */
+  height: 25px; /* Adjust the height as needed */
+  background-color: #9C9C9C;
+  margin-bottom: 5px; /* Adjust the spacing between the rectangle and the text as needed */
+}
+
+#wood img {
+  margin-right: 25px;
+}
+
 #game-container {
   position: absolute;
 }
