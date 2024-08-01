@@ -1064,53 +1064,95 @@ define([
 
 		function accelerationChanged(acceleration) {
 			if (!sensorMode) return;
-			if (acceleration.y > 0) {
-				if (acceleration.y < -2.7) {
-					world.gravity.set(-3, -9.81, 0); // Gravity towards the right
-					wakeAll();
+			if (window.orientation == -90) {
+				// If its in reverse.
+				if (acceleration.y > 0) {
+					if (acceleration.y < -2.8) {
+						world.gravity.set(3, 9.81, 0); // Gravity towards the left
+						wakeAll();
+					} else {
+						world.gravity.set(9.81, 9.81, 0); // Gravity towards the left
+						wakeAll();
+					}
+					// left
 				} else {
-					world.gravity.set(-9.81, -9.81, 0); // Gravity towards the right
-					wakeAll();
-				}
-				// right
-			} else {
-				if (acceleration.z > 0) {
-					if (acceleration.y > -1 && acceleration.y < 1) {
-						if (acceleration.z > 6) {
-							// back
-							world.gravity.set(0, -9.81, 9.81); // Gravity towards the back
-							wakeAll();
+					if (acceleration.z > 0) {
+						if (acceleration.y > -1 && acceleration.y < 1) {
+							if (acceleration.z > 6) {
+								// front
+								world.gravity.set(0, 9.81, -9.81); // Gravity towards the front
+								wakeAll();
+							} else {
+								// straight
+								world.gravity.set(0, 9.81, 0);
+								wakeAll();
+							}
 						} else {
-							// straight
-							world.gravity.set(0, -9.81, 0);
-							wakeAll();
+							if (acceleration.y < -2.7) {
+								world.gravity.set(-3, 9.81, 0); // Gravity towards the right
+								wakeAll();
+							} else {
+								world.gravity.set(-9.81, 9.81, 0); // Gravity towards the right
+								wakeAll();
+							}
+							// right
 						}
 					} else {
-						if (acceleration.y < -2.8) {
-							world.gravity.set(3, -9.81, 0); // Gravity towards the left
-							wakeAll();
-						} else {
-							world.gravity.set(9.81, -9.81, 0); // Gravity towards the left
-							wakeAll();
-						}
-						// left
+						// back
+						world.gravity.set(0, 9.81, 9.81); // Gravity towards the back
+						wakeAll();
 					}
+				}
+			} else {
+				if (acceleration.y > 0) {
+					if (acceleration.y < -2.7) {
+						world.gravity.set(-3, -9.81, 0); // Gravity towards the right
+						wakeAll();
+					} else {
+						world.gravity.set(-9.81, -9.81, 0); // Gravity towards the right
+						wakeAll();
+					}
+					// right
 				} else {
-					// front
-					world.gravity.set(0, -9.81, -9.81); // Gravity towards the front
-					wakeAll();
+					if (acceleration.z > 0) {
+						if (acceleration.y > -1 && acceleration.y < 1) {
+							if (acceleration.z > 6) {
+								// back
+								world.gravity.set(0, -9.81, 9.81); // Gravity towards the back
+								wakeAll();
+							} else {
+								// straight
+								world.gravity.set(0, -9.81, 0);
+								wakeAll();
+							}
+						} else {
+							if (acceleration.y < -2.8) {
+								world.gravity.set(3, -9.81, 0); // Gravity towards the left
+								wakeAll();
+							} else {
+								world.gravity.set(9.81, -9.81, 0); // Gravity towards the left
+								wakeAll();
+							}
+							// left
+						}
+					} else {
+						// front
+						world.gravity.set(0, -9.81, -9.81); // Gravity towards the front
+						wakeAll();
+					}
 				}
 			}
-			lastRollElement.textContent =
-				"x- " +
-				acceleration.x +
-				", " +
-				"y- " +
-				acceleration.y +
-				", " +
-				"z- " +
-				acceleration.x +
-				" ";
+
+			// lastRollElement.textContent =
+			// 	"x- " +
+			// 	acceleration.x +
+			// 	", " +
+			// 	"y- " +
+			// 	acceleration.y +
+			// 	", " +
+			// 	"z- " +
+			// 	acceleration.x +
+			// 	" ";
 		}
 
 		// Wakes all the volumes so that they move towards the gravity.
