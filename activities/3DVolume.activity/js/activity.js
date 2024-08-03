@@ -84,9 +84,9 @@ define([
 			presentColor: null,
 			textColor: "#ffffff",
 			toggleTransparent: false,
-			offset: new CANNON.Vec3(0, 0.1, 0),
-			rollingForce: randomDirection.scale(2),
-			friction: 1,
+			offset: new CANNON.Vec3(0, 0, 0),
+			rollingForce: randomDirection,
+			friction: 0.1,
 		};
 		let presentBackground = null;
 		let scoresObject = {
@@ -170,7 +170,6 @@ define([
 			if (msg.action == "init") {
 				changeBoardBackground(msg.content[1]);
 				data = msg.content[0];
-				console.log(data);
 				for (let i = 0; i < data.length; i++) {
 					let createFunction = null;
 					switch (data[i][0]) {
@@ -222,6 +221,7 @@ define([
 						);
 					}
 				}
+				console.log(diceArray);
 			}
 			if (msg.action == "throw") {
 				throwDice(msg.content[0], msg.content[1]);
@@ -299,6 +299,7 @@ define([
 			.getElementById("stop-button")
 			.addEventListener("click", function (event) {
 				// We must add to the journal all the features of the added volume along with its exact position and quaternion
+				journalDiceArray.push(presentBackground);
 				for (let i = 0; i < diceArray.length; i++) {
 					journalDiceArray.push([
 						diceArray[i][2],
@@ -340,60 +341,63 @@ define([
 					.loadAsText(function (error, metadata, data) {
 						if (error == null && data != null) {
 							data = JSON.parse(data);
-							for (let i = 0; i < data.length; i++) {
-								let fillColorStored = data[i][3];
-								let textColorStored = data[i][4];
-								switch (data[i][0]) {
-									case "cube":
-										createFunction = createCube;
-										break;
-									case "octa":
-										createFunction = createOctahedron;
-										break;
-									case "tetra":
-										createFunction = createTetrahedron;
-										break;
-									case "deca":
-										createFunction = createDecahedron;
-										break;
-									case "dodeca":
-										createFunction = createDodecahedron;
-										break;
-									case "icosa":
-										createFunction = createIcosahedron;
-										break;
-									default:
-										console.log(
-											`Unexpected shape: ${data[i][0]}`
+							if (data.length > 1) {
+								for (let i = 1; i < data.length; i++) {
+									let fillColorStored = data[i][3];
+									let textColorStored = data[i][4];
+									switch (data[i][0]) {
+										case "cube":
+											createFunction = createCube;
+											break;
+										case "octa":
+											createFunction = createOctahedron;
+											break;
+										case "tetra":
+											createFunction = createTetrahedron;
+											break;
+										case "deca":
+											createFunction = createDecahedron;
+											break;
+										case "dodeca":
+											createFunction = createDodecahedron;
+											break;
+										case "icosa":
+											createFunction = createIcosahedron;
+											break;
+										default:
+											console.log(
+												`Unexpected shape: ${data[i][0]}`
+											);
+											break;
+									}
+
+									// Create the volumes
+
+									if (createFunction) {
+										createFunction(
+											fillColorStored,
+											data[i][5],
+											data[i][6],
+											data[i][1].x,
+											data[i][1].z,
+											false,
+											null,
+											data[i][1].y,
+											data[i][2],
+											textColorStored,
+											ctx,
+											diceArray,
+											world,
+											scene,
+											groundPhysMat,
+											data[i][7],
+											data[i][8],
+											data[i][9]
 										);
-										break;
-								}
-
-								// Create the volumes
-
-								if (createFunction) {
-									createFunction(
-										fillColorStored,
-										data[i][5],
-										data[i][6],
-										data[i][1].x,
-										data[i][1].z,
-										false,
-										null,
-										data[i][1].y,
-										data[i][2],
-										textColorStored,
-										ctx,
-										diceArray,
-										world,
-										scene,
-										groundPhysMat,
-										data[i][7],
-										data[i][8],
-										data[i][9]
-									);
+									}
 								}
 							}
+							changeBoardBackground(data[0]);
 						}
 					});
 			}
@@ -974,8 +978,10 @@ define([
 					diceArray[i][4],
 					diceArray[i][7],
 					diceArray[i][8],
+					diceArray[i][9],
 				]);
 			}
+			console.log(diceArray);
 			presence.sendMessage(presence.getSharedInfo().id, {
 				user: presence.getUserInfo(),
 				action: "init",
@@ -1364,57 +1370,25 @@ define([
 				scoresObject.lastRoll = "";
 				scoresObject.presentScore = 0;
 				for (let i = 0; i < diceArray.length; i++) {
-					let rollingForce;
-					if (sharedRolling != null) {
-						rollingForce = new THREE.Vector3(
-							sharedRolling.x,
-							sharedRolling.y,
-							sharedRolling.z
-						);
-					} else {
-						rollingForce = ctx.rollingForce;
-					}
-					diceArray[i][1].angularVelocity.set(0.5, 0.5, 0.5);
-					diceArray[i][1].applyImpulse(
-						sharedOffset != null ? sharedOffset : ctx.offset,
-						rollingForce
+					diceArray[i][1].angularVelocity.set(
+						diceArray[i][7],
+						diceArray[i][8],
+						diceArray[i][9]
 					);
+					diceArray[i][1].applyImpulse(ctx.offset, ctx.rollingForce);
 					diceArray[i][1].position.set(0, 10, 0);
 				}
 				for (let i = 0; i < diceArray.length; i++) {
 					scene.add(diceArray[i][0]);
 					world.addBody(diceArray[i][1]);
 				}
-			} else {
-				for (let i = 0; i < dices.cube; i++) {
-					createCube();
-				}
-				for (let i = 0; i < dices.tetra; i++) {
-					createTetrahedron();
-				}
-				for (let i = 0; i < dices.octa; i++) {
-					createOctahedron();
-				}
-				for (let i = 0; i < dices.dodeca; i++) {
-					createDodecahedron();
-				}
-				for (let i = 0; i < dices.deca; i++) {
-					createDecahedron();
-				}
-				for (let i = 0; i < dices.icosa; i++) {
-					createIcosahedron();
-				}
-				scoresObject.lastRoll = "";
-				// if (ctx.showNumbers) {
-				//   getScore();
-				// }
 			}
+			console.log(diceArray);
 		}
 
 		// Functions to get the scores of the dice.
 
 		function changeBoardBackground(selectedBoard) {
-			console.log(selectedBoard);
 			presentBackground = selectedBoard;
 			let textureLoader = new THREE.TextureLoader();
 			switch (selectedBoard) {
@@ -1548,7 +1522,7 @@ define([
 
 		renderer.setAnimationLoop(animate);
 
-		const fixedTimeStep = 1 / 40;
+		const fixedTimeStep = 1 / 60;
 		const maxSubSteps = 3;
 
 		function updatePhysics() {
