@@ -758,9 +758,9 @@ define([
 						}
 
 						if (createFunction) {
-							let angVel1 = Math.random() * (4 - 0.1) + 0.1;
-							let angVel2 = Math.random() * (4 - 0.1) + 0.1;
-							let angVel3 = Math.random() * (4 - 0.1) + 0.1;
+							let angVel1 = Math.random() * (1 - 0.1) + 0.1;
+							let angVel2 = Math.random() * (1 - 0.1) + 0.1;
+							let angVel3 = Math.random() * (1 - 0.1) + 0.1;
 							createFunction(
 								null,
 								null,
@@ -1074,10 +1074,10 @@ define([
 				// If its in reverse.
 				if (acceleration.y > 0) {
 					if (acceleration.y < -2.8) {
-						world.gravity.set(3, 9.81, 0); // Gravity towards the left
+						world.gravity.set(3, -9.81, 0); // Gravity towards the left
 						wakeAll();
 					} else {
-						world.gravity.set(9.81, 9.81, 0); // Gravity towards the left
+						world.gravity.set(9.81, -9.81, 0); // Gravity towards the left
 						wakeAll();
 					}
 					// left
@@ -1086,26 +1086,26 @@ define([
 						if (acceleration.y > -1 && acceleration.y < 1) {
 							if (acceleration.z > 6) {
 								// front
-								world.gravity.set(0, 9.81, -9.81); // Gravity towards the front
+								world.gravity.set(0, -9.81, -9.81); // Gravity towards the front
 								wakeAll();
 							} else {
 								// straight
-								world.gravity.set(0, 9.81, 0);
+								world.gravity.set(0, -9.81, 0);
 								wakeAll();
 							}
 						} else {
 							if (acceleration.y < -2.7) {
-								world.gravity.set(-3, 9.81, 0); // Gravity towards the right
+								world.gravity.set(-3, -9.81, 0); // Gravity towards the right
 								wakeAll();
 							} else {
-								world.gravity.set(-9.81, 9.81, 0); // Gravity towards the right
+								world.gravity.set(-9.81, -9.81, 0); // Gravity towards the right
 								wakeAll();
 							}
 							// right
 						}
 					} else {
 						// back
-						world.gravity.set(0, 9.81, 9.81); // Gravity towards the back
+						world.gravity.set(0, -9.81, 9.81); // Gravity towards the back
 						wakeAll();
 					}
 				}
