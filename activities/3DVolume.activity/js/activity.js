@@ -120,6 +120,9 @@ define([
 				? environment.user.language
 				: defaultLanguage;
 			l10n.init(language);
+			window.addEventListener('localized', function() {
+				l10n.updateDocument();
+			}, false);
 
 			ctx.presentColor =
 				currentenv.user.colorvalue.fill != null

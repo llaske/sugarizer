@@ -1,5 +1,5 @@
 [Activity]
-name = 3DVolume
+name = 3D Volume
 activity_version = 1
 bundle_id = org.sugarlabs.3DVolume
 exec = sugar-activity-web

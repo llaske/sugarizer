@@ -74,6 +74,11 @@ define(["l10n"], function (l10n) {
 				intro: l10n.get("ThrowButtonIntro"),
 			},
 			{
+				element: "#sensor-button",
+				title: l10n.get("SensorButtonTitle"),
+				intro: l10n.get("SensorButtonIntro"),
+			},
+			{
 				element: ".arrow-container",
 				title: l10n.get("RotateBoardTitle"),
 				intro: l10n.get("RotateBoardIntro"),

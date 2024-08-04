@@ -1,4 +1,4 @@
-define(['https://sugarizer.org/js/i18next.min.js', 'https://sugarizer.org/js/axios.min.js'], function (i18next, axios) {
+define(['lib/i18next.min.js', 'lib/axios.min.js'], function (i18next, axios) {
 	const l10n = {language: {direction: "ltr"}};
 
 	l10n.init = async (lang) => {
@@ -23,7 +23,7 @@ define(['https://sugarizer.org/js/i18next.min.js', 'https://sugarizer.org/js/axi
 
 	l10n.loadLanguageResource = (lang) => {
 		return new Promise((resolve, reject) => {
-			let prefix = "https://sugarizer.org/locales/";
+			let prefix = "locales/";
 			if (location.protocol === "file:") {
 				prefix = "locales/";
 			}
@@ -73,11 +73,14 @@ define(['https://sugarizer.org/js/i18next.min.js', 'https://sugarizer.org/js/axi
 	l10n.updateDocument = () => {
 		const elements = document.getElementsByTagName("*");
 		for (let i = 0; i < elements.length; i++) {
-		  const element = elements[i];
-		  const key = element.getAttribute("data-i18n");
-		  if (key !== null) {
-			element.innerHTML = i18next.t(key);
-		  }
+			const element = elements[i];
+			const key = element.getAttribute("data-i18n");
+			if (key !== null && i18next.exists(key)) {
+				element.innerHTML = i18next.t(key);
+			}
+			if (key !== null && i18next.exists(key+".title")) {
+				element.setAttribute('title', i18next.t(key+".title"));
+			}
 		}
 	};
 	  
