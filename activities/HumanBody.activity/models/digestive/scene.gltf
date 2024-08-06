@@ -1,0 +1,390 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 12771,
+      "max": [
+        13.364686012268066,
+        66.1447525024414,
+        6.225960731506348
+      ],
+      "min": [
+        -12.808094024658203,
+        -16.38030242919922,
+        -13.350619316101074
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 153252,
+      "componentType": 5126,
+      "count": 12771,
+      "max": [
+        0.9999976754188538,
+        0.9999744892120361,
+        0.9998872876167297
+      ],
+      "min": [
+        -1.0,
+        -0.9999915957450867,
+        -0.9999610781669617
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 12771,
+      "max": [
+        0.9999434947967529,
+        0.999999463558197,
+        0.9999755024909973,
+        1.0
+      ],
+      "min": [
+        -0.9999834895133972,
+        -0.9998927712440491,
+        -0.999992847442627,
+        -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 12771,
+      "max": [
+        0.999755859375,
+        0.9815722107887268
+      ],
+      "min": [
+        0.000244140625,
+        0.000244140625
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 102168,
+      "componentType": 5126,
+      "count": 12771,
+      "max": [
+        0.999755859375,
+        0.9815722107887268
+      ],
+      "min": [
+        0.000244140625,
+        0.000244140625
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 204336,
+      "componentType": 5126,
+      "count": 12771,
+      "max": [
+        0.999755859375,
+        0.9815722107887268
+      ],
+      "min": [
+        0.000244140625,
+        0.000244140625
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 69720,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "neshallads (https://sketchfab.com/neshallads)",
+      "license": "CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)",
+      "source": "https://sketchfab.com/3d-models/realistic-human-stomach-e0f1952de7204654ba469c3e887a029b",
+      "title": "Realistic Human Stomach"
+    },
+    "generator": "Sketchfab-15.16.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 278880,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 306504,
+      "byteOffset": 278880,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 306504,
+      "byteOffset": 585384,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 204336,
+      "byteOffset": 891888,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1096224,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsUsed": [
+    "KHR_materials_specular"
+  ],
+  "images": [
+    {
+      "uri": "textures/stomach_baseColor.jpeg"
+    },
+    {
+      "uri": "textures/stomach_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/stomach_normal.png"
+    },
+    {
+      "uri": "textures/stomach_specularf0.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularColorFactor": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "specularFactor": 1.0,
+          "specularTexture": {
+            "index": 3
+          }
+        }
+      },
+      "name": "stomach",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Division_1_stomach_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3,
+            "TEXCOORD_1": 4,
+            "TEXCOORD_2": 5
+          },
+          "indices": 6,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        0.5188060998916626,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.1519809548314055e-16,
+        -0.5188060998916626,
+        0.0,
+        0.0,
+        0.5188060998916626,
+        1.1519809548314055e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0,
+        0.0,
+        -0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "e9db7066e4084e2f99a7b5a36207e29e.fbx"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        1.0000001192092896,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0000001192092762,
+        1.6292070436460495e-07,
+        0.0,
+        0.0,
+        -1.6292070436460495e-07,
+        1.0000001192092762,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "full_body"
+    },
+    {
+      "children": [
+        5
+      ],
+      "matrix": [
+        0.9999999403953552,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9999999403953552,
+        -1.4210855535765168e-14,
+        0.0,
+        0.0,
+        1.4210855535765168e-14,
+        0.9999999403953552,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "stomach_interstain"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        2.5680136680603027,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.5680136680603027,
+        -5.684341859611022e-14,
+        0.0,
+        0.0,
+        5.684341859611022e-14,
+        2.5680136680603027,
+        0.0,
+        -0.247773677110672,
+        44.62999725341797,
+        9.872007369995117,
+        1.0
+      ],
+      "name": "Division_1"
+    },
+    {
+      "mesh": 0,
+      "name": "Division_1_stomach_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    }
+  ]
+}
