@@ -1,0 +1,19 @@
+[
+    { "name": "Head", "mesh": "SK_Head_Material001mat_0" },
+    { "name": "Left Arm Down", "mesh": "SK_RArmDown_Material001mat_0" },
+    { "name": "Left Arm Up", "mesh": "SK_RArmUp_Material001mat_0" },
+    { "name": "Left Hand", "mesh": "SK_HandR_Material001mat_0" },
+    { "name": "Right Arm Down", "mesh": "SK_LArmDown_Material001mat_0" },
+    { "name": "Right Arm Up", "mesh": "SK_LArmUp_Material001mat_0" },
+    { "name": "Right Hand", "mesh": "SK_HandL_Material001mat_0" },
+    { "name": "Left Leg Up", "mesh": "SK_RLegUp_Material001mat_0" },
+    { "name": "Left Leg Down", "mesh": "SK_RLegDown_Material001mat_0" },
+    { "name": "Right Leg Up", "mesh": "SK_LLegUp_Material001mat_0" },
+    { "name": "Right Leg Down", "mesh": "SK_LLegDown_Material001mat_0" },
+    { "name": "Left Foot", "mesh": "SK_RFoot_Material001mat_0" },
+    { "name": "Right Foot", "mesh": "SK_LFoot_Material001mat_0" },
+    { "name": "Coccyx", "mesh": "SK_Coccyx_Material001mat_0" },
+    { "name": "Spine", "mesh": "SK_Spine_Material001mat_0" },
+    { "name": "Left Clavicle", "mesh": "SK_RClavicle_Material001mat_0" },
+    { "name": "Right Clavicle", "mesh": "SK_LClavicle_Material001mat_0" }
+]
