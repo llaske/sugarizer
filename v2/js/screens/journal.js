@@ -105,67 +105,25 @@ const Journal = {
 					@click="selectAll"
 				/>
 				<hr />
-				<icon
-					v-if="journalType !== constant.journalLocal"
-					id="copyjournalbutton"
-					svgfile="./icons/copy-journal.svg"
-					isNative="true"
-					:size="constant.iconSizeList"
-					:title="$t('CopyToLocal')"
-					@click="copySelected"
-				/>
-				<icon
-					v-if="journalType !== constant.journalRemotePrivate"
-					id="copycloudonebutton"
-					svgfile="./icons/copy-cloud-one.svg"
-					isNative="true"
-					:size="constant.iconSizeList"
-					:title="$t('CopyToPrivate')"
-					@click="copySelected"
-				/>
-				<icon
-					v-if="journalType !== constant.journalRemoteShared"
-					id="copycloudallbutton"
-					svgfile="./icons/copy-cloud-all.svg"
-					isNative="true"
-					:size="constant.iconSizeList"
-					:title="$t('CopyToShared')"
-					@click="copySelected"
-				/>
-				<icon
-					id="copydevicebutton"
-					svgfile="./icons/copy-to-device.svg"
-					isNative="true"
-					:size="constant.iconSizeList"
-					:title="$t('CopyToDevice')"
-					@click="copySelected"
-				/>
-				<icon
-					id="duplicatebutton"
-					v-if="journalType === constant.journalLocal"
-					svgfile="./icons/duplicate.svg"
-					isNative="true"
-					:size="constant.iconSizeList"
-					:title="$t('Duplicate')"
-					@click="duplicateSelected"
-				/>
-				<icon
-					id="removebutton"
-					svgfile="./icons/list-remove.svg"
-					isNative="true"
-					:size="constant.iconSizeList"
-					:title="$t('Erase')"
-					@click="showRemovalWarning"
-				/>
+				<div v-for="operation in operations" v-show="operation.show()" :key="operation.id">
+					<icon
+						:id="operation.id"
+						:svgfile="operation.svgfile"
+						isNative="true"
+						:size="constant.iconSizeList"
+						:title="$t(operation.titleKey)"
+						@click="handleOperation(operation)"
+					/>
+				</div>
 				<hr />
-				<span>{{ $t("Selected_one", {count: checkboxSelected, total: visibleJournal.length}) }}</span>
+				<span>{{ $t("Selected_one", {count: checkboxSelected, total: processedJournal.length}) }}</span>
 			</div>
 		</div>
 		<transition name="fade" appear>
 			<div class="journal-warningbox" v-show="showWarning">
 				<div>
-					<h4 style="margin: 0">{{ $t('Erase') }}</h4>
-					<span>{{ checkboxSelected == 1 ? $t("Erase_one",{count:checkboxSelected}) : $t("Erase_other",{count:checkboxSelected}) }}</span>
+					<h4 style="margin: 0">{{ $t(warningKey) }}</h4>
+					<span>{{ checkboxSelected === 1 ? $t(warningKey+"_one", {count:checkboxSelected}) : $t(warningKey+"_other",{count:checkboxSelected}) }}</span>
 				</div>
 				<icon-button 
 					id="erase-cancel-btn"
@@ -184,7 +142,7 @@ const Journal = {
 					:color="1024"
 					:text="$t('Ok')"
 					isNative="true"
-					@click="removeSelectedEntries"
+					@click="confirmOperation"
 				></icon-button>
 			</div>
 		</transition>
@@ -403,6 +361,7 @@ const Journal = {
 			iconSizeFooter: 47,
 			itemListIconSize: 20,
 		};
+		// Toolbar Pallete
 		this.selectedActFilter = 0;
 		this.typePalette = {
 			icon: {
@@ -438,6 +397,59 @@ const Journal = {
 			header: this.$t("SortDisplay"),
 			filterBoxList: this.getSortPaletteList(),
 		};
+
+		// Journal Operations
+		this.currentOperation = null;
+		this.operations = [
+			{
+				id: "copyjournalbutton",
+				svgfile: "./icons/copy-journal.svg",
+				titleKey: "CopyToLocal",
+				show: () => this.journalType !== this.constant.journalLocal,
+				action: this.copyToLocal,
+			},
+			{
+				id: "copycloudonebutton",
+				svgfile: "./icons/copy-cloud-one.svg",
+				titleKey: "CopyToPrivate",
+				show: () =>
+					this.journalType !== this.constant.journalRemotePrivate,
+				action: this.copyToRemote,
+			},
+			{
+				id: "copycloudallbutton",
+				svgfile: "./icons/copy-cloud-all.svg",
+				titleKey: "CopyToShared",
+				show: () =>
+					this.journalType !== this.constant.journalRemoteShared,
+				action: this.copyToShared,
+			},
+			{
+				id: "copydevicebutton",
+				svgfile: "./icons/copy-to-device.svg",
+				titleKey: "CopyToDevice",
+				show: () => true,
+				action: this.copyToDevice,
+			},
+			{
+				id: "duplicatebutton",
+				svgfile: "./icons/duplicate.svg",
+				titleKey: "Duplicate",
+				show: () => this.journalType === this.constant.journalLocal,
+				action: this.duplicateJournalEntry,
+				refresh: true,
+			},
+			{
+				id: "removebutton",
+				svgfile: "./icons/list-remove.svg",
+				titleKey: "Erase",
+				show: () => true,
+				action: this.removeJournalEntry,
+				refresh: true,
+			},
+		];
+		// Warning
+		this.warningKey = null;
 
 		this.filterText = "";
 		this.popupTimer = null;
@@ -520,7 +532,7 @@ const Journal = {
 					name: this.$t("Instructions"),
 					icon: {
 						id: "inst-icon",
-						iconData: "/icons/instructions-icon.svg",
+						iconData: "icons/instructions-icon.svg",
 						size: this.constant.iconSizeList,
 						isNative: "true",
 					},
@@ -590,12 +602,49 @@ const Journal = {
 				handlers: {
 					"pop-icon": () => { this.runCurrentActivity(entry); },
 					"activity-start": () => { this.runCurrentActivity(entry); },
-					"copy-journal": () => { this.copyToLocal(); },
-					"copy-cloud-one": () => { this.copyToRemote(); },
-					"copy-cloud-all": () => { this.copyToRemote(); },
+					"copy-journal": () => { this.copyToLocal(entry); },
+					"copy-cloud-one": () => { this.copyToPrivate(entry); },
+					"copy-cloud-all": () => { this.copyToShared(entry); },
+					"duplicate": () => { this.duplicateJournalEntry(entry); },
 					"list-remove": () => { this.removeJournalEntry(entry); },
 				},
 			};
+		},
+
+		async copyToLocal(entry, isMultiple) {
+			this.trace("copy_to_local", entry.objectId);
+			await sugarizer.modules.journal.copyToLocal(entry, this.journalId);
+		},
+		async copyToPrivate(entry, isMultiple) {
+			this.trace("copy_to_private", entry.objectId);
+			await sugarizer.modules.journal.copyToRemote(
+				entry,
+				sugarizer.modules.user.getPrivateJournal()
+			);
+		},
+		async copyToShared(entry, isMultiple) {
+			this.trace("copy_to_shared", entry.objectId);
+			await sugarizer.modules.journal.copyToRemote(
+				entry,
+				sugarizer.modules.user.getSharedJournal()
+			);
+		},
+
+		async duplicateJournalEntry(entry, isMultiple) {
+			if (entry.metadata.assignmentId) {
+				sugarizer.modules.humane.log(
+					this.$t("CannotDuplicateAssignment")
+				);
+				return;
+			}
+			this.trace("duplicate", entry.objectId);
+			await sugarizer.modules.journal.duplicateEntry(entry);
+			if (isMultiple) return;
+			this.filterJournalEntries();
+		},
+
+		async copyToDevice(entry, isMultiple) {
+			
 		},
 
 		async removeJournalEntry(entry, isMultiple) {
@@ -604,32 +653,43 @@ const Journal = {
 				sugarizer.modules.humane.log(this.$t("CannotDeleteAssignment"));
 				return;
 			}
-			sugarizer.modules.stats.trace(
-				"journal",
-				"remove_entry",
-				entry.objectId,
-				null
-			);
+			this.trace("remote_entry", entry.objectId);
 			await sugarizer.modules.journal.deleteEntry(
 				entry,
 				this.journalType === this.constant.journalLocal,
 				this.journalId
 			);
-			if (!isMultiple) {
-				sugarizer.modules.humane.log(this.$t("Erasing"));
-				this.filterJournalEntries();
-			}
+			if (isMultiple) return;
+			this.filterJournalEntries();
 		},
-		async removeSelectedEntries() {
-			this.processedJournal.forEach((entry) => {
-				if (entry.isChecked) {
-					this.removeJournalEntry(entry, true);
-				}
-			});
+
+		handleOperation(operation) {
+			this.currentOperation = operation;
+			this.warningKey = operation.titleKey;
+			this.showWarning = true;
+		},
+		async confirmOperation() {
 			this.showWarning = false;
 			this.checkboxSelected = 0;
-			sugarizer.modules.humane.log(this.$t("Erasing"));
-			this.filterJournalEntries();
+			for (entry of this.processedJournal) {
+				if (
+					entry.isChecked &&
+					this.currentOperation &&
+					this.currentOperation.action
+				) {
+					entry.isChecked = false;
+					await this.currentOperation.action(entry, true);
+				}
+			}
+			sugarizer.modules.humane.log(
+				this.$t(
+					this.currentOperation.id === "removebutton"
+						? "Erasing"
+						: "Copying"
+				)
+			);
+			if (this.currentOperation.refresh)
+				await this.filterJournalEntries();
 		},
 
 		async runCurrentActivity(entry) {
@@ -652,7 +712,14 @@ const Journal = {
 					entry,
 					this.journalId
 				);
-
+			if (this.journalType === this.constant.journalRemoteShared) {
+				// Shared Remote entry, copy in the local journal first
+				await sugarizer.modules.journal.saveDatastoreObject(
+					entry.objectId,
+					metadata,
+					text
+				);
+			}
 			sugarizer.modules.activities.runActivity(
 				activity,
 				entry.objectId,
@@ -739,12 +806,7 @@ const Journal = {
 
 		async toggleFavoriteActivity(entry) {
 			const activity = entry.activityInfo;
-			sugarizer.modules.stats.trace(
-				"journal",
-				"switch_favorite",
-				entry.objectId,
-				null
-			);
+			this.trace("switch_favorite", entry.objectId);
 			const keep = entry.metadata.keep;
 			if (keep === undefined) {
 				entry.metadata.keep = 1;
@@ -788,7 +850,7 @@ const Journal = {
 			if (timeselected) traceText += "&time=" + timeselected;
 			if (this.selectedSortFilter)
 				traceText += "&sort=" + this.selectedSortFilter;
-			sugarizer.modules.stats.trace("journal", "update", traceText, null);
+			this.trace("update", traceText);
 
 			if (
 				this.journalType !== this.constant.journalLocal &&
@@ -877,35 +939,23 @@ const Journal = {
 		},
 
 		showLocalJournal() {
-			sugarizer.modules.stats.trace(
-				"journal",
-				"show_journal",
-				"local",
-				null
-			);
+			if (this.journalType === this.constant.journalType) return;
+			this.trace("show_journal", "local");
 			this.journalType = this.constant.journalLocal;
 			this.journalId = null;
 			this.filterJournalEntries();
 		},
 		async showPrivateCloud() {
-			sugarizer.modules.stats.trace(
-				"journal",
-				"show_journal",
-				"private",
-				null
-			);
+			if (this.journalType === this.constant.journalRemotePrivate) return;
+			this.trace("show_journal", "private");
 			this.journalType = this.constant.journalRemotePrivate;
 			this.journalId = sugarizer.modules.user.getPrivateJournal();
 			this.filterJournalEntries();
 			this.$refs.journalContainer.scroll({ top: 0 });
 		},
 		async showSharedJournal() {
-			sugarizer.modules.stats.trace(
-				"journal",
-				"show_journal",
-				"shared",
-				null
-			);
+			if (this.journalType === this.constant.journalRemoteShared) return;
+			this.trace("show_journal", "shared");
 			this.journalType = this.constant.journalRemoteShared;
 			this.journalId = sugarizer.modules.user.getSharedJournal();
 			this.filterJournalEntries();
@@ -1020,7 +1070,7 @@ const Journal = {
 			this.checkboxSelected += change;
 		},
 		selectAll() {
-			this.visibleJournal.forEach((entry) => {
+			this.processedJournal.forEach((entry) => {
 				if (!entry.isChecked) {
 					entry.isChecked = true;
 					this.checkboxSelected++;
@@ -1028,15 +1078,12 @@ const Journal = {
 			});
 		},
 		unselectAll() {
-			this.visibleJournal.forEach((entry) => {
+			this.processedJournal.forEach((entry) => {
 				if (entry.isChecked) {
 					entry.isChecked = false;
 					this.checkboxSelected--;
 				}
 			});
-		},
-		showRemovalWarning() {
-			this.showWarning = true;
 		},
 
 		titleEditStart(entry) {
@@ -1060,12 +1107,7 @@ const Journal = {
 			metadata.title = entry.metadata.title;
 			if (this.journalType == this.constant.journalLocal) {
 				// Update metadata
-				sugarizer.modules.stats.trace(
-					"journal",
-					"rename_entry",
-					objectId,
-					"local"
-				);
+				this.trace("rename_entry", objectId);
 				await sugarizer.modules.journal.saveDatastoreObject(
 					objectId,
 					metadata,
@@ -1082,12 +1124,7 @@ const Journal = {
 					text: text,
 					objectId: objectId,
 				};
-				sugarizer.modules.stats.trace(
-					"journal",
-					"rename_entry",
-					objectId,
-					journalId
-				);
+				this.trace("rename_entry", objectId, journalId);
 				await sugarizer.modules.server
 					.putJournalEntry(journalId, objectId, dataentry)
 					.catch((e) => {
@@ -1097,7 +1134,6 @@ const Journal = {
 					});
 			}
 			await this.syncJournal();
-			this.filterJournalEntries();
 		},
 
 		async handleScroll(e) {
@@ -1160,6 +1196,11 @@ const Journal = {
 
 		async syncJournal() {
 			await sugarizer.modules.journal.synchronize();
+			this.filterJournalEntries();
+		},
+
+		trace(action, content, id = null) {
+			sugarizer.modules.stats.trace("journal", action, content, id);
 		},
 	},
 };

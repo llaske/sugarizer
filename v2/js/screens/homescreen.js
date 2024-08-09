@@ -201,7 +201,9 @@ const HomeScreen = {
 			const entries = sugarizer.modules.journal.get();
 			let count = 0;
 			entries.forEach((entry) => {
-				if (entry.metadata.assignmentId) count += 1;
+				if (entry.metadata.assignmentId && entry.metadata.isSubmitted == false && entry.metadata.dueDate > new Date().getTime()) {
+					count += 1;
+				}
 			});
 			this.$emit("setAssignmentCount", count);
 		},

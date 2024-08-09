@@ -23,7 +23,10 @@ define(["sugar-web/datastore"], function(datastore) {
 
 	journal.saveDatastoreObject = function (objectId, metadata, text) {
 		return new Promise((resolve, reject) => {
-			var ds = new datastore.DatastoreObject(objectId);
+			var ds =
+				objectId !== null
+					? new datastore.DatastoreObject(objectId)
+					: new datastore.DatastoreObject();
 			ds.setMetadata(metadata);
 			if (text !== undefined) ds.setDataAsText(text);
 			ds.save((val) => {
@@ -161,6 +164,30 @@ define(["sugar-web/datastore"], function(datastore) {
 	journal.getByActivity = function(activity) {
 		if (!activity) return entries;
 		return entries.filter((entry) => entry.metadata.activity == activity);
+	}
+
+	// Copy & Duplicate Operations
+	journal.copyToLocal = async function(entry, journalId) {
+		const { metadata, text } = await journal.loadEntry(entry, journalId);
+		await journal.saveDatastoreObject(entry.objectId, metadata, text);
+	}
+
+	journal.copyToRemote = async function(entry, remoteJournalId) {
+		const { metadata, text } = await journal.loadEntry(entry, null); //Load the local Entry 
+		await sugarizer.modules.server
+			.putJournalEntry(remoteJournalId, entry.objectId, {
+				metadata: metadata,
+				text: text,
+				objectId: entry.objectId,
+			})
+			.catch((e) => {
+				console.log("WARNING: Error writing journal", remoteJournalId);
+			});
+	}
+
+	journal.duplicateEntry = async function(entry) {
+		const { metadata, text } = await journal.loadEntry(entry, null);
+		await journal.saveDatastoreObject(null, metadata, text); // Save New object
 	}
 
 	// Clean local journal
