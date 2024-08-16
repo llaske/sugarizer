@@ -605,6 +605,7 @@ const Journal = {
 					"copy-journal": () => { this.copyToLocal(entry); },
 					"copy-cloud-one": () => { this.copyToPrivate(entry); },
 					"copy-cloud-all": () => { this.copyToShared(entry); },
+					"copy-to-device": () => { this.copyToDevice(entry); },
 					"duplicate": () => { this.duplicateJournalEntry(entry); },
 					"list-remove": () => { this.removeJournalEntry(entry); },
 				},
@@ -644,7 +645,24 @@ const Journal = {
 		},
 
 		async copyToDevice(entry, isMultiple) {
-			
+			try {
+				const { metadata, text } =
+					await sugarizer.modules.journal.loadEntry(
+						entry,
+						this.journalId
+					);
+				const filename = await sugarizer.modules.file.writeFile(
+					null,
+					metadata,
+					text
+				);
+				sugarizer.modules.humane.log(
+					this.$t("FileWroteTo", { file: filename })
+				);
+			} catch (e) {
+				console.error(e);
+				sugarizer.modules.humane.log(this.$t("ErrorWritingFile"));
+			}
 		},
 
 		async removeJournalEntry(entry, isMultiple) {
@@ -692,17 +710,22 @@ const Journal = {
 				await this.filterJournalEntries();
 		},
 
+		async fromDeviceSelected() {
+			await sugarizer.modules.file.askAndReadFiles();
+			this.filterJournalEntries();
+		},
+
 		async runCurrentActivity(entry) {
 			const activity = entry.activityInfo;
+
 			if (sugarizer.modules.activities.isGeneric(activity)) {
-				if (activity.metadata.mimetype == "application/pdf") {
+				if (entry.metadata.mimetype == "application/pdf") {
 					const { metadata, text } =
 						await sugarizer.modules.journal.loadEntry(
 							entry,
 							this.journalId
 						);
-					// util.openAsDocument(metadata, text); //TODO
-					alert("Doc/file featuers Not implemented");
+					sugarizer.modules.file.openAsDocument(metadata, text);
 					return;
 				}
 			}
