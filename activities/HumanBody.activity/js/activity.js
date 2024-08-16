@@ -251,24 +251,35 @@ define([
         }
 
         function showModal(text) {
-            const modal = document.createElement('div')
-            modal.style.position = 'absolute'
-            modal.style.top = '50%'
-            modal.style.left = '50%'
-            modal.style.transform = 'translate(-50%, -50%)'
-            modal.style.backgroundColor = '#fff'
-            modal.style.padding = '20px'
-            modal.style.border = '2px solid #000'
-            modal.style.zIndex = '1000'
-            modal.innerHTML = text
-            document.body.appendChild(modal)
-
-            // Make the modal disappear after 2 seconds
+            const modal = document.createElement('div');
+        
+            // Style the modal
+            modal.style.position = 'absolute';
+            modal.style.top = '50%';
+            modal.style.left = '50%';
+            modal.style.transform = 'translate(-50%, -50%)';
+            modal.style.backgroundColor = '#f9f9f9'; // Light grey background for a softer look
+            modal.style.padding = '30px'; // Increase padding for a larger modal
+            modal.style.border = '3px solid #007bff'; // Blue border for a pop of color
+            modal.style.borderRadius = '8px'; // Rounded corners for a smoother appearance
+            modal.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Add a shadow for depth
+            modal.style.zIndex = '1000';
+            modal.style.textAlign = 'center'; // Center the text inside the modal
+        
+            // Style the text inside the modal
+            modal.style.fontSize = '18px'; // Larger text size
+            modal.style.fontWeight = 'bold'; // Bold text
+            modal.style.color = '#333'; // Darker text color for better contrast
+        
+            modal.innerHTML = text;
+            document.body.appendChild(modal);
+        
+            // Make the modal disappear after 1.5 seconds
             setTimeout(() => {
-                document.body.removeChild(modal)
-            }, 1500)
+                document.body.removeChild(modal);
+            }, 1500);
         }
-
+        
         const redSliderFill = document.getElementById('red-slider-fill')
         const greenSliderFill = document.getElementById('green-slider-fill')
         const blueSliderFill = document.getElementById('blue-slider-fill')
