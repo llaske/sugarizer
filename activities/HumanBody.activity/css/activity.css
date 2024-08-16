@@ -1,56 +1,189 @@
 #main-toolbar #activity-button {
-  background-image: url(../activity/activity-icon.svg);
+    background-image: url(../activity/activity-icon.svg);
 }
 
 body {
-  margin: 0;
-  overflow: hidden;
-  height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
 }
 
 #canvas {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .color-palette {
-  display: flex;
-  width: 370px; /* ugly hack */
-  background-color: #000000;
-  border: #808080 2px solid;
+    display: flex;
+    width: 370px; /* ugly hack */
+    background-color: #000000;
+    border: #808080 2px solid;
 }
 
 #color-grid-fill {
-  display: grid;
-  grid-template-columns: repeat(3, 50px);
-  grid-gap: 10px;
-  margin-left: 5px;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  margin-right: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+    grid-gap: 10px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
 }
 
 .slider-container {
-  display: flex;
-  margin-top: 10px;
-  margin-bottom: 10px;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .color-fill {
-  width: 45px; /* Decreased circle size */
-  height: 45px; /* Decreased circle size */
-  border-radius: 50%;
-  cursor: pointer;
-  border: white solid 2px;
+    width: 45px; /* Decreased circle size */
+    height: 45px; /* Decreased circle size */
+    border-radius: 50%;
+    cursor: pointer;
+    border: white solid 2px;
 }
 
 .active {
-  background-color: #656565 !important;
+    background-color: #656565 !important;
 }
 
-#doctor-button {
-  background-image: url(../icons/doctor.svg);
-  width: 50px;
-  height: 50px;
-  background-size: cover;
-  background-repeat: no-repeat;
+#game-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#score-container {
+    position: absolute;
+    height: 40vh;
+    width: 75vh;
+    top: 70px;
+    left: 20px;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    outline: none;
+}
+
+.arrow-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.arrow-button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+#right-button {
+    background-image: url(../icons/go-right.svg);
+}
+#up-button {
+    background-image: url(../icons/go-right.svg);
+    transform: rotate(-90deg);
+}
+#down-button {
+    background-image: url(../icons/go-left.svg);
+    transform: rotate(-90deg);
+}
+#left-button {
+    background-image: url(../icons/go-left.svg);
+}
+
+.left-right-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.left-right-buttons .arrow-button {
+    margin: 0 5px;
+}
+
+#zoom-button {
+    height: 45px;
+    width: 45xpx;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../icons/glass.svg);
+    outline: none;
+}
+
+#settings-button {
+    height: 45px;
+    width: 45xpx;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../icons/settings.svg);
+    outline: none;
+}
+
+#zoom-in-button {
+    background-image: url(../icons/zoom-in.svg);
+    width: 50px;
+    height: 50px;
+    background-color: #000000;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#zoom-out-button {
+    background-image: url(../icons/zoom-out.svg);
+    width: 50px;
+    height: 50px;
+    background-color: #000000;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#zoom-equal-button {
+    background-image: url(../icons/zoom-original.svg);
+    width: 50px;
+    height: 50px;
+    background-color: #000000;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#zoom-to-button {
+    background-image: url(../icons/zoom-to-width.svg);
+    width: 50px;
+    height: 50px;
+    background-color: #000000;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#mode-palette {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+#left-arrow,
+#right-arrow {
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#mode-text {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    flex-grow: 1;
 }
