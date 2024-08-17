@@ -11,8 +11,8 @@ enyo.kind({
 		{name: "activityPopup", kind: "Sugar.Popup", showing: false},
 		{name: "activityList", classes: "activity-list", kind: "Repeater", onSetupItem: "setupItem", onresize: "resize", components: [
 			{name: "item", classes: "activity-list-item", components: [
-				{name: "favorite", kind: "Sugar.Icon", x: 0, y: 4, size: constant.iconSizeLargeFavorite, ontap: "doSwitchFavorite"},
-				{name: "activity", kind: "Sugar.Icon", x: 60, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity"},
+				{name: "favorite", kind: "Sugar.Icon", x: 18, y: 4, size: constant.iconSizeLargeFavorite, ontap: "doSwitchFavorite"},
+				{name: "activity", kind: "Sugar.Icon", x: 70, y: 5, size: constant.iconSizeList, ontap:"doRunNewActivity"},
 				{name: "name", classes: "activity-name"},
 				{name: "version", classes: "activity-version"},
 				{name: "help", kind: "Sugar.Icon", classes: "activity-help", x: 800, y: 4, showing: false, size: constant.iconSizeList, ontap:"doHelp"}
