@@ -106,9 +106,29 @@ function createCube(
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
 	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
 
+	let vertices = [
+		[-1, -1, -1],
+		[1, -1, -1],
+		[1, 1, -1],
+		[-1, 1, -1],
+		[-1, -1, 1],
+		[1, -1, 1],
+		[1, 1, 1],
+		[-1, 1, 1],
+	];
+
+	let faces = [
+		[0, 3, 2, 1, 1],
+		[1, 2, 6, 5, 2],
+		[0, 1, 5, 4, 3],
+		[3, 7, 6, 2, 4],
+		[0, 4, 7, 3, 5],
+		[4, 5, 6, 7, 6],
+	];
+
 	const boxBody = new CANNON.Body({
 		mass: 1,
-		shape: new CANNON.Box(new CANNON.Vec3(1, 1, 1)),
+		shape: createCubeShape(vertices, faces, 1),
 		position: new CANNON.Vec3(x, y, z),
 		material: new CANNON.Material(),
 		restitution: 5,
@@ -116,11 +136,11 @@ function createCube(
 
 	world.addBody(boxBody);
 	let angVel1 =
-		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
+		sharedAngVel1 == null ? Math.random() * (4 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
-		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
+		sharedAngVel2 == null ? Math.random() * (4 - 0.1) + 0.1 : sharedAngVel2;
 	let angVel3 =
-		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
+		sharedAngVel3 == null ? Math.random() * (4 - 0.1) + 0.1 : sharedAngVel3;
 	console.log(angVel1);
 	console.log(angVel2);
 
@@ -193,4 +213,22 @@ function getCubeScore(scoresObject, body, ifRemove) {
 			return faceVector.face;
 		}
 	}
+}
+
+function createCubeShape(vertices, faces, radius) {
+	let cv = new Array(vertices.length),
+		cf = new Array(faces.length);
+
+	// Convert vertices to CANNON.Vec3
+	for (let i = 0; i < vertices.length; ++i) {
+		let v = vertices[i];
+		cv[i] = new CANNON.Vec3(v[0] * radius, v[1] * radius, v[2] * radius);
+	}
+
+	// Extract vertex indices from faces, ignoring the last number
+	for (let i = 0; i < faces.length; ++i) {
+		cf[i] = faces[i].slice(0, faces[i].length - 1);
+	}
+
+	return new CANNON.ConvexPolyhedron({ vertices: cv, faces: cf });
 }

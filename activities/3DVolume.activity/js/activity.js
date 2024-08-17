@@ -120,9 +120,13 @@ define([
 				? environment.user.language
 				: defaultLanguage;
 			l10n.init(language);
-			window.addEventListener('localized', function() {
-				l10n.updateDocument();
-			}, false);
+			window.addEventListener(
+				"localized",
+				function () {
+					l10n.updateDocument();
+				},
+				false
+			);
 
 			ctx.presentColor =
 				currentenv.user.colorvalue.fill != null
@@ -224,17 +228,21 @@ define([
 						);
 					}
 				}
-				console.log(diceArray);
 			}
-			if (msg.action == "throw") {
-				throwDice(msg.content[0], msg.content[1]);
+
+			if (msg.action == "positions") {
+				copyPositions(msg.content);
 			}
+			// if (msg.action == "throw") {
+			// 	copyPosition();
+			// 	throwDice(msg.content[0], msg.content[1]);
+			// }
 			if (msg.action == "changeBg") {
 				changeBoardBackground(msg.content);
 			}
 			if (msg.action == "remove") {
 				// This starts a ray from the top of the scene and that ray intersects objects.
-				raycaster.setFromCamera(msg.content, camera);
+				raycaster.setFromCamera(msg.content[0], camera);
 				var intersects = raycaster.intersectObjects(scene.children);
 
 				// The object that is intersected first is the object that needs to be removed.
@@ -242,6 +250,9 @@ define([
 
 				// If the first object is the board do not let it be removed
 				if (intersectedObject?.geometry.type == "PlaneGeometry") {
+					if (msg.content[1] != null) {
+						remove(null, msg.content[1]);
+					}
 					return;
 				}
 				remove(intersectedObject);
@@ -709,6 +720,7 @@ define([
 		};
 
 		function onAddClick(event) {
+			throwingDice = true;
 			// This will be false only when tutorial is running.
 			if (!ifAdding.adding) {
 				return;
@@ -761,9 +773,9 @@ define([
 						}
 
 						if (createFunction) {
-							let angVel1 = Math.random() * (1 - 0.1) + 0.1;
-							let angVel2 = Math.random() * (1 - 0.1) + 0.1;
-							let angVel3 = Math.random() * (1 - 0.1) + 0.1;
+							let angVel1 = Math.random() * (3 - 0.1) + 0.1;
+							let angVel2 = Math.random() * (3 - 0.1) + 0.1;
+							let angVel3 = Math.random() * (3 - 0.1) + 0.1;
 							createFunction(
 								null,
 								null,
@@ -834,20 +846,27 @@ define([
 				if (intersectedObject?.geometry.type == "PlaneGeometry") {
 					return;
 				}
+				let index = null;
+				for (let i = 0; i < diceArray.length; i++) {
+					if (intersectedObject == diceArray[i][0]) {
+						index = i;
+						break;
+					}
+				}
 
 				// Removing the volume for other users as well.
 				if (presence) {
 					presence.sendMessage(presence.getSharedInfo().id, {
 						user: presence.getUserInfo(),
 						action: "remove",
-						content: mouse, // Send the point which the user is clicking on.
+						content: [mouse, index], // Send the point which the user is clicking on.
 					});
 				}
 
 				remove(intersectedObject);
 			}
 		}
-		function remove(intersectedObject) {
+		function remove(intersectedObject, index) {
 			let num = 0;
 			for (let i = 0; i < diceArray.length; i++) {
 				if (diceArray[i][3]) {
@@ -855,85 +874,168 @@ define([
 				}
 			}
 			// Find the volume being clicked within the diceArray to remove it.
-			for (let i = 0; i < diceArray.length; i++) {
-				if (diceArray[i][0] == intersectedObject) {
-					if (diceArray[i][3]) {
-						// If the volume being removed is a numbered volume then get the number on top of the volume and remove it from the score.
-						let score;
-						switch (diceArray[i][2]) {
-							case "cube":
-								score = getCubeScore(
-									scoresObject,
-									diceArray[i][0],
-									true
-								);
-								break;
-							case "icosa":
-								score = getIcosaScore(
-									scoresObject,
-									diceArray[i][0],
-									true
-								);
-								break;
-							case "deca":
-								score = getDecaScore(
-									scoresObject,
-									diceArray[i][0],
-									true
-								);
-								break;
-							case "dodeca":
-								score = getDodecaScore(
-									scoresObject,
-									diceArray[i][0],
-									true
-								);
-								break;
-							case "octa":
-								score = getOctaScore(
-									scoresObject,
-									diceArray[i][0],
-									true
-								);
-								break;
-							case "tetra":
-								score = getTetraScore(
-									scoresObject,
-									diceArray[i][0],
-									true
-								);
-								break;
-							default:
-								console.log(`Unknown type: ${diceArray[i][3]}`);
-								continue;
-						}
-
-						scoresObject.presentScore =
-							scoresObject.presentScore - score;
-						console.log(scoresObject.presentScore);
-
-						let scoresArray = scoresObject.lastRoll.split(" + ");
-
-						// Find the index of the first occurrence of the score to remove
-						let indexToRemove = scoresArray.indexOf(
-							score.toString()
-						);
-
-						// If the score is found, remove it
-						if (indexToRemove !== -1) {
-							scoresArray.splice(indexToRemove, 1);
-						}
-
-						// Join the remaining scores back into a string
-						scoresObject.lastRoll = scoresArray.join(" + ");
-						updateElements();
-						console.log(scoresObject.lastRoll);
-						console.log(scoresObject.presentScore);
-						num--;
+			if (intersectedObject == null) {
+				if (index < diceArray.length && diceArray[index][3]) {
+					// If the volume being removed is a numbered volume then get the number on top of the volume and remove it from the score.
+					let score;
+					switch (diceArray[index][2]) {
+						case "cube":
+							score = getCubeScore(
+								scoresObject,
+								diceArray[index][0],
+								true
+							);
+							break;
+						case "icosa":
+							score = getIcosaScore(
+								scoresObject,
+								diceArray[index][0],
+								true
+							);
+							break;
+						case "deca":
+							score = getDecaScore(
+								scoresObject,
+								diceArray[index][0],
+								true
+							);
+							break;
+						case "dodeca":
+							score = getDodecaScore(
+								scoresObject,
+								diceArray[index][0],
+								true
+							);
+							break;
+						case "octa":
+							score = getOctaScore(
+								scoresObject,
+								diceArray[index][0],
+								true
+							);
+							break;
+						case "tetra":
+							score = getTetraScore(
+								scoresObject,
+								diceArray[index][0],
+								true
+							);
+							break;
+						default:
+							console.log(`Unknown type: ${diceArray[index][3]}`);
 					}
-					world.removeBody(diceArray[i][1]);
-					scene.remove(diceArray[i][0]);
-					diceArray.splice(i, 1);
+
+					scoresObject.presentScore =
+						scoresObject.presentScore - score;
+					console.log(scoresObject.presentScore);
+
+					let scoresArray = scoresObject.lastRoll.split(" + ");
+
+					// Find the index of the first occurrence of the score to remove
+					let indexToRemove = scoresArray.indexOf(score.toString());
+
+					// If the score is found, remove it
+					if (indexToRemove !== -1) {
+						scoresArray.splice(indexToRemove, 1);
+					}
+
+					// Join the remaining scores back into a string
+					scoresObject.lastRoll = scoresArray.join(" + ");
+					updateElements();
+					console.log(scoresObject.lastRoll);
+					console.log(scoresObject.presentScore);
+					num--;
+				}
+				console.log(diceArray);
+				console.log(diceArray[index][1]);
+				console.log(diceArray[index][0]);
+				world.removeBody(diceArray[index][1]);
+				scene.remove(diceArray[index][0]);
+				diceArray.splice(index, 1);
+			} else {
+				for (let i = 0; i < diceArray.length; i++) {
+					if (diceArray[i][0] == intersectedObject) {
+						if (diceArray[i][3]) {
+							// If the volume being removed is a numbered volume then get the number on top of the volume and remove it from the score.
+							let score;
+							switch (diceArray[i][2]) {
+								case "cube":
+									score = getCubeScore(
+										scoresObject,
+										diceArray[i][0],
+										true
+									);
+									break;
+								case "icosa":
+									score = getIcosaScore(
+										scoresObject,
+										diceArray[i][0],
+										true
+									);
+									break;
+								case "deca":
+									score = getDecaScore(
+										scoresObject,
+										diceArray[i][0],
+										true
+									);
+									break;
+								case "dodeca":
+									score = getDodecaScore(
+										scoresObject,
+										diceArray[i][0],
+										true
+									);
+									break;
+								case "octa":
+									score = getOctaScore(
+										scoresObject,
+										diceArray[i][0],
+										true
+									);
+									break;
+								case "tetra":
+									score = getTetraScore(
+										scoresObject,
+										diceArray[i][0],
+										true
+									);
+									break;
+								default:
+									console.log(
+										`Unknown type: ${diceArray[i][3]}`
+									);
+									continue;
+							}
+
+							scoresObject.presentScore =
+								scoresObject.presentScore - score;
+							console.log(scoresObject.presentScore);
+
+							let scoresArray =
+								scoresObject.lastRoll.split(" + ");
+
+							// Find the index of the first occurrence of the score to remove
+							let indexToRemove = scoresArray.indexOf(
+								score.toString()
+							);
+
+							// If the score is found, remove it
+							if (indexToRemove !== -1) {
+								scoresArray.splice(indexToRemove, 1);
+							}
+
+							// Join the remaining scores back into a string
+							scoresObject.lastRoll = scoresArray.join(" + ");
+							updateElements();
+							console.log(scoresObject.lastRoll);
+							console.log(scoresObject.presentScore);
+							num--;
+						}
+						world.removeBody(diceArray[i][1]);
+						scene.remove(diceArray[i][0]);
+						diceArray.splice(i, 1);
+					}
 				}
 			}
 			if (num == 0) {
@@ -984,13 +1086,17 @@ define([
 					diceArray[i][9],
 				]);
 			}
-			console.log(diceArray);
 			presence.sendMessage(presence.getSharedInfo().id, {
 				user: presence.getUserInfo(),
 				action: "init",
 				content: [presenceDiceArray, presentBackground], // sends the diceArray and the present background of the user to the users which are joining
 			});
+			setTimeout(sendPositions, 4500);
+
+
 		};
+
+		
 
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		const canvas = document.getElementById("game-container");
@@ -1215,7 +1321,7 @@ define([
 			material: groundPhysMat,
 		});
 		topWall.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
-		topWall.position.set(0, 12, 0);
+		topWall.position.set(0, 15, 0);
 
 		world.addBody(topWall);
 
@@ -1364,7 +1470,32 @@ define([
 
 		// This function handles the tossing of the volumes.
 
+		// function throwDice(sharedOffset, sharedRolling) {
+		// 	for (let i = 0; i < diceArray.length; i++) {
+		// 		scene.remove(diceArray[i][0]);
+		// 		world.removeBody(diceArray[i][1]);
+		// 	}
+		// 	if (diceArray.length > 0) {
+		// 		scoresObject.lastRoll = "";
+		// 		scoresObject.presentScore = 0;
+		// 		for (let i = 0; i < diceArray.length; i++) {
+		// 			diceArray[i][1].angularVelocity.set(
+		// 				diceArray[i][7],
+		// 				diceArray[i][8],
+		// 				diceArray[i][9]
+		// 			);
+		// 			diceArray[i][1].applyImpulse(ctx.offset, ctx.rollingForce);
+		// 			diceArray[i][1].position.set(0, 10, 0);
+		// 		}
+		// 		for (let i = 0; i < diceArray.length; i++) {
+		// 			scene.add(diceArray[i][0]);
+		// 			world.addBody(diceArray[i][1]);
+		// 		}
+		// 	}
+		// 	console.log(diceArray);
+		// }
 		function throwDice(sharedOffset, sharedRolling) {
+			throwingDice = true;
 			for (let i = 0; i < diceArray.length; i++) {
 				scene.remove(diceArray[i][0]);
 				world.removeBody(diceArray[i][1]);
@@ -1485,6 +1616,40 @@ define([
 			}
 		}
 
+		function sendPositions() {
+			let dicePositions = [];
+			for (let i = 0; i < diceArray.length; i++) {
+				dicePositions.push([
+					diceArray[i][1].position,
+					diceArray[i][1].quaternion,
+				]);
+			}
+			presence.sendMessage(presence.getSharedInfo().id, {
+				user: presence.getUserInfo(),
+				action: "positions",
+				content: dicePositions,
+			});
+		}
+
+		function copyPositions(positions) {
+			console.log("copying positions now")
+			for (let i = 0; i < diceArray.length; i++) {
+				scene.remove(diceArray[i][0]);
+				world.removeBody(diceArray[i][1]);
+			}
+			for (let i = 0; i < diceArray.length; i++) {
+				diceArray[i][0].position.copy(positions[i][0]);
+				diceArray[i][1].position.copy(positions[i][0]);
+				diceArray[i][1].quaternion.copy(positions[i][1]);
+				diceArray[i][1].quaternion.copy(positions[i][1]);
+			}
+			for (let i = 0; i < diceArray.length; i++) {
+				scene.add(diceArray[i][0]);
+				world.addBody(diceArray[i][1]);
+			}
+			awake = true;
+		}
+
 		// Leaving this here so that in the future contributors find it easier to debug the cannon-es physical world. Go to the animate function and uncomment the cannonDebugger line to view the physical world.
 
 		const cannonDebugger = new CannonDebugger(scene, world, {
@@ -1492,8 +1657,7 @@ define([
 		});
 
 		let awake = false;
-		let time = 20;
-		let timeStep = 1 / time;
+		let throwingDice = false;
 
 		animate();
 
@@ -1513,7 +1677,12 @@ define([
 			if (world.hasActiveBodies == false && awake == true) {
 				awake = false;
 				console.log("the world is going to sleep now bye bye");
-				for (let i = 0; i < diceArray.length; i++) {}
+				if (throwingDice) {
+					throwingDice = false;
+					if (presence) {
+						sendPositions();
+					}
+				}
 				getScores();
 			}
 			if (world.hasActiveBodies == true) {
@@ -1525,7 +1694,7 @@ define([
 
 		renderer.setAnimationLoop(animate);
 
-		const fixedTimeStep = 1 / 60;
+		const fixedTimeStep = 1 / 40;
 		const maxSubSteps = 3;
 
 		function updatePhysics() {

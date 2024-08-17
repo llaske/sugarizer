@@ -163,11 +163,11 @@ function createTetrahedron(
 	});
 	world.addBody(tetrahedronBody);
 	let angVel1 =
-		sharedAngVel1 == null ? Math.random() * (3 - 0.1) + 0.1 : sharedAngVel1;
+		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =
-		sharedAngVel2 == null ? Math.random() * (3 - 0.1) + 0.1 : sharedAngVel2;
+		sharedAngVel2 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel2;
 	let angVel3 =
-		sharedAngVel3 == null ? Math.random() * (3 - 0.1) + 0.1 : sharedAngVel3;
+		sharedAngVel3 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel3;
 
 	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
