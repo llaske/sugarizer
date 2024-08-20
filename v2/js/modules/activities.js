@@ -187,7 +187,7 @@ define(["sugar-web/datastore"], function (datastore) {
 
 	// Test if activity is generic
 	activities.isGeneric = function(activity) {
-		return (activity == genericActivity);
+		return activity.directory === "icons" && activity.icon === "application-x-generic.svg";
 	};
 	activities.genericActivity = function() {
 		return genericActivity;

@@ -15,26 +15,30 @@ const FilterBox ={
 					v-if="optionsData && (optionsData.icon || optionsData.name)"
 					v-bind:class="showSubpopup? 'filterBox-sugarizer filterBox-up': 'filterBox-sugarizer filterBox-down'"
 				>
-					<div class="filterBox" v-on:click="showFilterBox()">
-						<icon class="filterBox-icon"
-							v-if="selectedData.icon"
-							:key="this.iconKey"
-							:id="'optionsData.id'+selectedData.icon.id"
-							:svgfile=selectedData.icon.iconData
-							:color=selectedData.icon.color
-							:size=selectedData.icon.size
-							:x=selectedData.icon.iconx
-							:y=selectedData.icon.icony
-						></icon>
-						<div v-if="selectedData.name" class="filterBox-text">{{ selectedData.name }}</div>
+					<div class="filterBox" v-on:click="showFilterBox">
+						<div :style="'width:' + selectedData.icon.size + 'px;'">
+							<icon class="filterBox-icon"
+								v-show="selectedData.icon"
+								:key="this.iconKey"
+								:id="'options-id'+selectedData.icon.id"
+								:svgfile=selectedData.icon.iconData
+								:color=selectedData.icon.color
+								:size=selectedData.icon.size
+								:x=selectedData.icon.iconx
+								:y=selectedData.icon.icony
+								:isNative=selectedData.icon.isNative
+							></icon>
+						</div>
+						<div v-if="optionsData.name && selectedData.name" class="filterBox-text">{{ selectedData.name }}</div>
 					</div>
 					<div ref="filterBoxPopup">
+						<transition name="fade-fast" appear>
 						<div v-if="showSubpopup" class="filterBox-content">
 							<div v-if="optionsData.header" class="filterBox-header">{{ optionsData.header }}</div>
 							<div class="filterBox-hr"></div>
 							<div class="filterBox-items">
 								<div class="filterBox-items-item" 
-									v-for="item in optionsData.filterBoxList" key="item.index"
+									v-for="item in optionsData.filterBoxList" :key="item.index"
 									v-on:click=optionisSelected(item)
 								>
 									<icon class="filterBox-icon"
@@ -46,11 +50,13 @@ const FilterBox ={
 										:size=item.icon.size
 										:x=item.icon.iconx
 										:y=item.icon.icony
+										:isNative="item.icon.isNative"
 									></icon>
 									<div class="filterBox-text">{{ item.name }}</div>
 								</div>
 							</div>
 						</div>
+						</transition>
 					</div>
 				</div>`,
 	components: {
@@ -78,21 +84,21 @@ const FilterBox ={
 			const currRef= this.$refs.filterBox.getAttribute('name');
 			// if currentFilterBoxRef is not null and active ref name is current ref then 
 			// hide subPopup, it will works as toggling subPopup
-			if(currentFilterBoxRef && currentFilterBoxRef ==currRef) {
+			if(currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name') ==currRef) {
 				this.removeFilterBox();
 				return;
 			}
 			// if currentFilterBoxRef is not null and active ref name is not current ref then 
 			// hide the active ref's subPopup so that we can open current one
-			if(currentFilterBoxRef && currentFilterBoxRef!=currRef) {
-				this.$root.$refs[currentFilterBoxRef].removeFilterBox();
+			if(currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name')!=currRef) {
+				currentFilterBoxRef.removeFilterBox();
 				currentFilterBoxRef= null;
 			}
 			// if there is no active subPopup and current subPopup is also false or if it's have options to show
 			if(!currentFilterBoxRef && !this.showSubpopup && this.optionsData.filterBoxList && this.optionsData.filterBoxList.length >0) {
 				this.showSubpopup= true;
 				this.iconKey= !this.iconKey;
-				currentFilterBoxRef= currRef;
+				currentFilterBoxRef= this;
 			}
 		},
 		optionisSelected(item) {

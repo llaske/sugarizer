@@ -16,6 +16,17 @@ const FirstScreen = {
 									:color="256"
 									isNative="true"
 								></icon>
+								<icon
+									id="stop-icon"
+									v-if="isDesktop()"
+									svgfile="./lib/sugar-web/graphics/icons/actions/activity-stop.svg"
+									:size="50"
+									:x="0"
+									:y="0"
+									:color="512"
+									isNative="true"
+									@click="quitApp"
+								></icon>
 						  </div>
                     <div class="firstscreen_login" v-show="showLoginScreen" >
                         <login-screen
@@ -146,6 +157,13 @@ const FirstScreen = {
 		},
 		setIsFirstScreen2(value) {
 			this.isFirstScreen = value;
+		},
+
+		isDesktop() {
+			return sugarizer.getClientPlatform() === sugarizer.constant.desktopAppType;
+		},
+		quitApp() {
+			sugarizer.quitApp();
 		}
 	}
 }

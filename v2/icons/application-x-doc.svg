@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   enable-background="new 0 0 55 55"
+   height="55px"
+   version="1.1"
+   viewBox="0 0 55 55"
+   width="55px"
+   x="0px"
+   xml:space="preserve"
+   y="0px"
+   id="svg902"
+><defs
+     id="defs906">
+
+
+
+
+
+</defs><g
+     id="g891">
+		<g
+   id="g889">
+			<polygon
+   style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:3.5"
+   id="polygon885"
+   points="43.818,18.027 43.818,48.914 10.932,48.914 10.932,6.088 31.874,6.088 " />
+			<polyline
+   style="fill:none;stroke:&stroke_color;;stroke-width:3.5"
+   id="polyline887"
+   points="43.818,18.027 31.874,18.027 31.874,6.088    " />
+		</g>
+	</g><text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:10.66666698px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:&stroke_color;"
+     x="17.311747"
+     y="36.85994"
+     id="text920"><tspan
+       id="tspan918"
+       x="17.311747"
+       y="36.85994">DOC</tspan></text>
+</svg>

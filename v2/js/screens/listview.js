@@ -54,11 +54,14 @@ const ListView = {
 								></icon>
 							</div>
 							<div> {{ $t("NoMatchingActivities") }} </div>
-							<div class="clearSearchField" @click="clearSearchField">
-								<div>
-									{{ $t("ClearSearch") }}
-								</div>
-							</div>
+							<icon-button
+								id="clear-search"
+								svgfile="./icons/dialog-cancel.svg"
+								:size="20"
+								:color="1024"
+								:text="$t('ClearSearch')"
+								@click="clearSearchField"
+							></icon-button>
 						</div>
 					</div>
 					<popup 
@@ -74,6 +77,7 @@ const ListView = {
 
 	components: {
 		'icon': Icon,
+		'icon-button': IconButton,
 		'popup': Popup,
 	},
 

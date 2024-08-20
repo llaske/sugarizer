@@ -8,7 +8,7 @@ define(["sugar-web/datastore"], function(datastore) {
 
 	let constant = {
 		fieldMetadata: "metadata",
-		syncJournalLimit: 100
+		syncJournalLimit: 100,
 	};
 
 	// Load journal
@@ -21,9 +21,173 @@ define(["sugar-web/datastore"], function(datastore) {
 		return entries;
 	}
 
+	journal.saveDatastoreObject = function (objectId, metadata, text) {
+		return new Promise((resolve, reject) => {
+			var ds =
+				objectId !== null
+					? new datastore.DatastoreObject(objectId)
+					: new datastore.DatastoreObject();
+			ds.setMetadata(metadata);
+			if (text !== undefined) ds.setDataAsText(text);
+			ds.save((val) => {
+				if (val === -1) {
+					reject(new Error("Failed to save journal data to datastore"));
+				} else {
+					resolve();
+				}
+			});
+		});
+	};
+
+	journal.postAssignment = async function (entry) {
+		await sugarizer.modules.server.postAssignment(
+			entry.metadata.assignmentId,
+			entry.objectId,
+		);
+		await journal.saveDatastoreObject(entry.objectId, entry.metadata)
+	};
+
+	//returns shouldRefreshRemote
+	journal.deleteEntry = async function (entry, isLocalJournal, currentJournalId) {
+		// Remove from local journal
+		if (isLocalJournal) {
+			// Delete in datastore
+			datastore.remove(entry.objectId);
+
+			// If connected and in sync, try remove also the matching remote entry
+			if (
+				sugarizer.modules.user.isConnected() &&
+				sugarizer.modules.user.getOption("sync")
+			) {
+				var journalId = sugarizer.modules.user.getPrivateJournal();
+				var objectId = entry.objectId;
+				try {
+					await sugarizer.modules.server.deleteJournalEntry(journalId, objectId);
+					return true;
+				} catch (e) {
+					console.log(
+						"WARNING: Error removing entry " +
+							objectId +
+							" in journal " +
+							journalId
+					);
+				}
+			}
+			return false;
+		} else {
+			// Remove from remote journal
+			var journalId = currentJournalId;
+			var objectId = entry.objectId;
+			try {
+				await sugarizer.modules.server.deleteJournalEntry(journalId, objectId);
+				return true;
+			} catch (e) {
+				console.log(
+					"WARNING: Error removing entry " +
+						objectId +
+						" in journal " +
+						journalId
+				);
+			}
+		}
+	};
+
+	journal.loadEntry = function (entry, journalId) {
+		return new Promise((resolve, reject) => {
+			if (!journalId) {
+				var dataentry = new datastore.DatastoreObject(entry.objectId);
+				dataentry.loadAsText(function (err, metadata, text) {
+					if (err) {
+						console.log(
+							"WARNING: Error loading entry " + entry.objectId
+						);
+						reject(err);
+					} else {
+						resolve({ metadata, text });
+					}
+				});
+			} else {
+				sugarizer.modules.server
+					.getJournalEntry(journalId, entry.objectId)
+					.then((inResponse) => resolve(inResponse.entries[0]))
+					.catch(function (e) {
+						console.log(
+							"WARNING: Error loading entry " +
+								entry.objectId +
+								" in journal " +
+								journalId
+						);
+						reject(e);
+					});
+			}
+		});
+	};
+
+	journal.getRemoteEntries = async function (
+		journalId,
+		{
+			typeactivity,
+			title,
+			stime,
+			favorite,
+			assignment,
+			limit = 64,
+			sort = "timestamp",
+			offset = 0,
+		} = {}
+	) {
+		const request = {
+			typeactivity: typeactivity,
+			title: title,
+			stime: stime,
+			favorite: favorite,
+			assignment: assignment,
+			field: constant.fieldMetadata,
+			limit: limit,
+			sort: "-" + sort,
+			offset: offset,
+		};
+
+		try {
+			const response = await sugarizer.modules.server.getJournal(
+				journalId,
+				request
+			);
+			return response;
+		} catch (error) {
+			console.log("WARNING: Error reading journal", journalId, error);
+			return {};
+		}
+	};
+
 	// Get entries by activity
 	journal.getByActivity = function(activity) {
+		if (!activity) return entries;
 		return entries.filter((entry) => entry.metadata.activity == activity);
+	}
+
+	// Copy & Duplicate Operations
+	journal.copyToLocal = async function(entry, journalId) {
+		const { metadata, text } = await journal.loadEntry(entry, journalId);
+		await journal.saveDatastoreObject(entry.objectId, metadata, text);
+	}
+
+	journal.copyToRemote = async function(entry, remoteJournalId) {
+		const { metadata, text } = await journal.loadEntry(entry, null); //Load the local Entry 
+		await sugarizer.modules.server
+			.putJournalEntry(remoteJournalId, entry.objectId, {
+				metadata: metadata,
+				text: text,
+				objectId: entry.objectId,
+			})
+			.catch((e) => {
+				console.log("WARNING: Error writing journal", remoteJournalId);
+			});
+	}
+
+	journal.duplicateEntry = async function(entry) {
+		const { metadata, text } = await journal.loadEntry(entry, null);
+		await journal.saveDatastoreObject(null, metadata, text); // Save New object
 	}
 
 	// Clean local journal
@@ -84,6 +248,13 @@ define(["sugar-web/datastore"], function(datastore) {
 				}
 			);
 		});
+	};
+
+	journal.updateFavorite = async function (objectId, metadata) {
+		const ds = new datastore.DatastoreObject(objectId);
+		ds.setMetadata(metadata);
+		ds.save();
+		await journal.synchronize();
 	};
 
 	// --- Synchronization functions ---
