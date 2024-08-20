@@ -341,6 +341,12 @@ const HomeScreen = {
 
 		setupBuddyPopup() {
 			this.popupIcon = this.$refs["buddyIcon"];
+			const itemList = [
+					{ icon: { id: 'preferences', iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.$t("MySettings") },
+					{ icon: { id: 'shutdown', iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.$t("Logoff") },
+			];
+			if (sugarizer.getClientPlatform() === sugarizer.constant.desktopAppType)
+				itemList.push({ icon: { id: "quit", iconData: "./lib/sugar-web/graphics/icons/actions/activity-stop.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.$t("Quit") })
 			return {
 				id: "buddy",
 				directory: "icons",
@@ -352,10 +358,7 @@ const HomeScreen = {
 				},
 				name: this.username,
 				title: null,
-				itemList: [
-					{ icon: { id: 'preferences', iconData: "icons/preferences-system.svg", color: 256, size: this.constant.iconSizeFavorite }, name: this.$t("MySettings") },
-					{ icon: { id: 'shutdown', iconData: "icons/system-shutdown.svg", color: 256, size: this.constant.iconSizeFavorite, isNative: "true" }, name: this.$t("Logoff") },
-				],
+				itemList,
 			};
 		},
 
@@ -400,6 +403,8 @@ const HomeScreen = {
 					this.logout();
 				else
 					this.$refs.warningPrompt.show()
+			} else if (item == "buddy_quit") {
+				this.quitApp();
 			} else {
 				this.launchActivity(this.popup, item);
 			}
@@ -580,6 +585,10 @@ const HomeScreen = {
 			}
 			this.restrictedModeInfo.start = newStart;
 			this.restrictedModeInfo.activities = activities.slice(this.restrictedModeInfo.start, this.restrictedModeInfo.start + this.restrictedModeInfo.count - 2);
+		},
+
+		quitApp() {
+			sugarizer.quitApp();
 		}
 	},
 };

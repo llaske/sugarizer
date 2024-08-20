@@ -33,6 +33,7 @@ let sugarizer = {
 			touch: ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0),
 			androidChrome: /Android .* Chrome\/(\d+)[.\d]+/.test(navigator.userAgent)
 		},
+		timerBeforeClose: 1000,
 	},
 
 	// Init function
@@ -146,5 +147,26 @@ let sugarizer = {
 			location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
 		});
 		this.modules.stats.clean(true);
+	},
+
+	// Quit Desktop app
+	quitApp: function () {
+		document.getElementById("shutdown-image").style.display = "block";
+		window.setTimeout(function() {
+			if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+				window.top.postMessage("", '*');
+			}
+			window.close();
+			if (!/Edge/.test(navigator.userAgent)) {
+				window.open('', '_self', ''); // HACK: Not allowed on all browsers
+				window.close();
+			}
+			if (navigator) {
+				if (navigator.app)
+					navigator.app.exitApp();
+				else if (navigator.device)
+					navigator.device.exitApp();
+			}
+		}, this.constant.timerBeforeClose);
 	},
 };
