@@ -1096,11 +1096,13 @@ define([
 						diceArray[i][9],
 					]);
 				}
-				presence.sendMessage(presence.getSharedInfo().id, {
-					user: presence.getUserInfo(),
-					action: "init",
-					content: [presenceDiceArray, presentBackground], // sends the diceArray and the present background of the user to the users which are joining
-				});
+				if (isHost) {
+					presence.sendMessage(presence.getSharedInfo().id, {
+						user: presence.getUserInfo(),
+						action: "init",
+						content: [presenceDiceArray, presentBackground], // sends the diceArray and the present background of the user to the users which are joining
+					});
+				}
 				setTimeout(sendPositions, 4500);
 			}
 		};
