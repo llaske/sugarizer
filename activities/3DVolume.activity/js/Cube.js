@@ -141,10 +141,7 @@ function createCube(
 		sharedAngVel2 == null ? Math.random() * (4 - 0.1) + 0.1 : sharedAngVel2;
 	let angVel3 =
 		sharedAngVel3 == null ? Math.random() * (4 - 0.1) + 0.1 : sharedAngVel3;
-	console.log(angVel1);
-	console.log(angVel2);
-
-	console.log(angVel3);
+	
 	boxBody.angularVelocity.set(angVel1, angVel2, angVel3);
 	boxBody.angularDamping = 0.1; // This will help in reducing rotation over time
 	boxBody.applyImpulse(ctx.offset, ctx.rollingForce);
@@ -160,7 +157,6 @@ function createCube(
 		boxMesh.quaternion.copy(quaternionShared);
 		boxBody.quaternion.copy(quaternionShared);
 	}
-	console.log(boxBody.material);
 	diceArray.push([
 		boxMesh,
 		boxBody,

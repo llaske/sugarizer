@@ -201,7 +201,6 @@ function createDodecahedron(
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
 	let y = yCoordinateShared == null ? 4 : yCoordinateShared + 1; // Ensure initial y is above the plane
-	console.log(myShape)
 	const dodecahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
 		shape: myShape,
@@ -254,7 +253,6 @@ function createDodecahedron(
 		contactMat,
 	]);
 
-	console.log("Dodecahedron initial position:", dodecahedronBody.position); // Debugging log
 }
 
 function getGeometry2() {
@@ -431,7 +429,6 @@ function createShape(vertices2, faces2, radius) {
 	for (let i = 0; i < faces2.length; ++i) {
 		cf[i] = faces2[i].slice(0, faces2[i].length - 1);
 	}
-	console.log(faces2);
 
 	return new CANNON.ConvexPolyhedron({ vertices: cv, faces: cf });
 }

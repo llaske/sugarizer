@@ -147,6 +147,7 @@ define([
 				ctx.textColor;
 
 			if (environment.sharedId) {
+				console.log(environment.sharedId)
 				console.log("Shared instance");
 				presence = activity.getPresenceObject(function (
 					error,
@@ -170,6 +171,9 @@ define([
 		);
 
 		var onNetworkDataReceived = function (msg) {
+			console.log("received data");
+			console.log(msg);
+			console.log(msg.action);
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
 			}
@@ -231,6 +235,7 @@ define([
 			}
 
 			if (msg.action == "positions") {
+				console.log("received positonns");
 				copyPositions(msg.content);
 			}
 			// if (msg.action == "throw") {
@@ -256,54 +261,55 @@ define([
 					return;
 				}
 				remove(intersectedObject);
-			}
-			let createFunction = null;
+			} else {
+				let createFunction = null;
 
-			switch (msg.content.shape) {
-				case "cube":
-					createFunction = createCube;
-					break;
-				case "octa":
-					createFunction = createOctahedron;
-					break;
-				case "tetra":
-					createFunction = createTetrahedron;
-					break;
-				case "dodeca":
-					createFunction = createDodecahedron;
-					break;
-				case "deca":
-					createFunction = createDecahedron;
-					break;
-				case "icosa":
-					createFunction = createIcosahedron;
-					break;
-				default:
-					console.error("Unknown shape: " + msg.content.shape);
-					break;
-			}
+				switch (msg.content.shape) {
+					case "cube":
+						createFunction = createCube;
+						break;
+					case "octa":
+						createFunction = createOctahedron;
+						break;
+					case "tetra":
+						createFunction = createTetrahedron;
+						break;
+					case "dodeca":
+						createFunction = createDodecahedron;
+						break;
+					case "deca":
+						createFunction = createDecahedron;
+						break;
+					case "icosa":
+						createFunction = createIcosahedron;
+						break;
+					default:
+						console.error("Unknown shape: " + msg.content.shape);
+						break;
+				}
 
-			if (createFunction) {
-				createFunction(
-					msg.content.color,
-					msg.content.ifNumbers,
-					msg.content.ifTransparent,
-					msg.content.xCoordinateShared,
-					msg.content.zCoordinateShared,
-					msg.content.ifImage,
-					msg.content.sharedImageData,
-					msg.content.yCoordinateShared,
-					msg.content.quaternionShared,
-					msg.content.sharedTextColor,
-					ctx,
-					diceArray,
-					world,
-					scene,
-					groundPhysMat,
-					msg.content.sharedAngVel1,
-					msg.content.sharedAngVel2,
-					msg.content.sharedAngVel3
-				);
+				if (createFunction) {
+					createFunction(
+						msg.content.color,
+						msg.content.ifNumbers,
+						msg.content.ifTransparent,
+						msg.content.xCoordinateShared,
+						msg.content.zCoordinateShared,
+						msg.content.ifImage,
+						msg.content.sharedImageData,
+						msg.content.yCoordinateShared,
+						msg.content.quaternionShared,
+						msg.content.sharedTextColor,
+						ctx,
+						diceArray,
+						world,
+						scene,
+						groundPhysMat,
+						msg.content.sharedAngVel1,
+						msg.content.sharedAngVel2,
+						msg.content.sharedAngVel3
+					);
+				}
 			}
 		};
 
@@ -1050,6 +1056,7 @@ define([
 			document.getElementById("network-button"),
 			undefined
 		);
+		var isHost = false;
 		palette.addEventListener("shared", function () {
 			palette.popDown();
 			console.log("Want to share");
@@ -1062,6 +1069,8 @@ define([
 					"org.sugarlabs.3DVolume",
 					function (groupId) {
 						console.log("Activity shared");
+						isHost = true;
+						console.log(groupId)
 					}
 				);
 				network.onDataReceived(onNetworkDataReceived);
@@ -1070,33 +1079,31 @@ define([
 		});
 
 		var onNetworkUserChanged = function (msg) {
-			let presenceDiceArray = [];
-			for (let i = 0; i < diceArray.length; i++) {
-				// Handles the situation when the user already has some volume on the board before the connected user joins.
-				presenceDiceArray.push([
-					diceArray[i][2],
-					diceArray[i][1].position,
-					diceArray[i][1].quaternion,
-					diceArray[i][5],
-					diceArray[i][6],
-					diceArray[i][3],
-					diceArray[i][4],
-					diceArray[i][7],
-					diceArray[i][8],
-					diceArray[i][9],
-				]);
+			if (isHost) {
+				let presenceDiceArray = [];
+				for (let i = 0; i < diceArray.length; i++) {
+					// Handles the situation when the user already has some volume on the board before the connected user joins.
+					presenceDiceArray.push([
+						diceArray[i][2],
+						diceArray[i][1].position,
+						diceArray[i][1].quaternion,
+						diceArray[i][5],
+						diceArray[i][6],
+						diceArray[i][3],
+						diceArray[i][4],
+						diceArray[i][7],
+						diceArray[i][8],
+						diceArray[i][9],
+					]);
+				}
+				presence.sendMessage(presence.getSharedInfo().id, {
+					user: presence.getUserInfo(),
+					action: "init",
+					content: [presenceDiceArray, presentBackground], // sends the diceArray and the present background of the user to the users which are joining
+				});
+				setTimeout(sendPositions, 4500);
 			}
-			presence.sendMessage(presence.getSharedInfo().id, {
-				user: presence.getUserInfo(),
-				action: "init",
-				content: [presenceDiceArray, presentBackground], // sends the diceArray and the present background of the user to the users which are joining
-			});
-			setTimeout(sendPositions, 4500);
-
-
 		};
-
-		
 
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		const canvas = document.getElementById("game-container");
@@ -1573,6 +1580,7 @@ define([
 		}
 		// This function calls the getScore functions for all the volumes and displays them.
 		function getScores() {
+			console.log("getting scores now");
 			scoresObject.presentScore = 0;
 			scoresObject.lastRoll = "";
 			lastRollElement.textContent = "";
@@ -1617,6 +1625,7 @@ define([
 		}
 
 		function sendPositions() {
+			console.log("sending positions now");
 			let dicePositions = [];
 			for (let i = 0; i < diceArray.length; i++) {
 				dicePositions.push([
@@ -1632,7 +1641,8 @@ define([
 		}
 
 		function copyPositions(positions) {
-			console.log("copying positions now")
+			console.log("copying positions now");
+			console.log(diceArray);
 			for (let i = 0; i < diceArray.length; i++) {
 				scene.remove(diceArray[i][0]);
 				world.removeBody(diceArray[i][1]);
@@ -1674,16 +1684,17 @@ define([
 				diceArray[i][0]?.position?.copy(diceArray[i][1].position);
 				diceArray[i][0]?.quaternion?.copy(diceArray[i][1].quaternion);
 			}
+			// console.log(world.hasActiveBodies);
 			if (world.hasActiveBodies == false && awake == true) {
 				awake = false;
 				console.log("the world is going to sleep now bye bye");
+				getScores();
 				if (throwingDice) {
 					throwingDice = false;
 					if (presence) {
 						sendPositions();
 					}
 				}
-				getScores();
 			}
 			if (world.hasActiveBodies == true) {
 				awake = true;
