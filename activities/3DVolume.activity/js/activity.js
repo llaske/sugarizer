@@ -101,6 +101,7 @@ define([
 		let removeVolume = false;
 		let transparent = false;
 		let defaultVolume = true;
+		let isInit = false;
 
 		let xCoordinate, zCoordinate;
 
@@ -179,6 +180,11 @@ define([
 			}
 			// If user already has some volumes on the board
 			if (msg.action == "init") {
+				if (isInit) {
+					return;
+				}
+				isInit = true;
+
 				changeBoardBackground(msg.content[1]);
 				data = msg.content[0];
 				for (let i = 0; i < data.length; i++) {
