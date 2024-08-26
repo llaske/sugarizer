@@ -885,8 +885,7 @@ define([
                                 })
                                 presenceIndex++;
                                 startDoctorModePresence();
-                                console.log("host was first")
-                                console.log(players)
+                                showLeaderboard()
                             }
                             if (!ifDoctorHost) {
                                 presence.sendMessage(presence.getSharedInfo().id, {
