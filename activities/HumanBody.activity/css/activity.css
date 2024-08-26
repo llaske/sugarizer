@@ -8,6 +8,40 @@ body {
     height: 100vh;
 }
 
+#main-toolbar #network-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+
+#private-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
+#shared-button {
+	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+	width: 47px;
+	height: 47px;
+	margin: 4px 2px;
+	color: white;
+	color: transparent;
+	background-color: transparent;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	border: 0;
+	border-radius: 5.5px;
+}
+
 #canvas {
     overflow: hidden;
 }
@@ -187,3 +221,47 @@ body {
     text-align: center;
     flex-grow: 1;
 }
+
+/* Leaderboard Styles */
+.leaderboard {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 250px;
+    z-index: 1000;
+    display: none;
+}
+
+.leaderboard h2 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.leaderboard table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard th, .leaderboard td {
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    text-align: left;
+}
+
+.leaderboard th {
+    background-color: #e9ecef;
+    font-weight: bold;
+}
+
+.leaderboard tr:last-child td {
+    border-bottom: none;
+}
+
+
+

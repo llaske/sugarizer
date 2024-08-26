@@ -17,13 +17,14 @@
 			media="screen and (device-width: 1200px) and (device-height: 900px)"
 			href="lib/sugar-web/graphics/css/sugar-200dpi.css"
 		/>
-    <script src="lib/three.js"></script>
+        <script src="lib/three.js"></script>
 		<script src="lib/orbit.js"></script>
-    <script src="lib/buffer.js"></script>
-    <script src="lib/gltf.js"></script>
-	<script src="lib/OBJLoader.js"></script>
+        <script src="lib/buffer.js"></script>
+        <script src="lib/gltf.js"></script>
+	    <script src="lib/OBJLoader.js"></script>
 
 		<link rel="stylesheet" href="css/activity.css" />
+        <link rel="stylesheet" href="css/leaderboard.css" /> <!-- External CSS for the leaderboard -->
 		<script data-main="js/loader" src="lib/require.js"></script>
 		<script type="text/javascript" src="../../cordova.js"></script>
 	</head>
@@ -36,12 +37,13 @@
 				title="My Activity"
 			></button>
 
+			<button class="toolbutton" id="network-button" title="Network"></button>
+
 			<button
 					class="toolbutton"
 					id="color-button-fill"
 					title="Fill Color"
 				></button>
-
 
 			<button
 					class="toolbutton"
@@ -83,8 +85,24 @@
 					<button id="down-button" class="arrow-button down"></button>
 				</div>
 			</div>
-		
-		<!-- The content of your activity goes inside the canvas -->
+
+			<!-- The content of your activity goes inside the canvas -->
 		</div>
+
+		<!-- Leaderboard Container -->
+		<div class="leaderboard" id="leaderboard">
+			<h2>Leaderboard</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Player Name</th>
+						<th>Score</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
 	</body>
 </html>

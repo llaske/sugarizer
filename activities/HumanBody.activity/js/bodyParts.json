@@ -1,5 +1,6 @@
 [
     { "name": "Head", "mesh": "SK_Head_Material001mat_0", "position": [-0.04, 7.80, 0.56] },
+    { "name": "Ribcage", "mesh": "SK_Side_Material001mat_0", "position": [-0.06, 5.16, 0.48] },
     { "name": "Right Arm Down", "mesh": "SK_RArmDown_Material001mat_0", "position": [-2.22, 2.65, -0.12] },
     { "name": "Right Arm Up", "mesh": "SK_RArmUp_Material001mat_0", "position": [-1.46, 4.79, -0.44] },
     { "name": "Right Hand", "mesh": "SK_HandR_Material001mat_0", "position": [-2.38, 1.35, 0.15] },

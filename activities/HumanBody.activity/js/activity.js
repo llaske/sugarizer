@@ -4,7 +4,15 @@ define([
     'activity/palettes/colorpalettefill',
     'activity/palettes/zoompalette',
     'activity/palettes/settingspalette',
-], function (activity, env, colorpaletteFill, zoompalette, settingspalette) {
+    'sugar-web/graphics/presencepalette',
+], function (
+    activity,
+    env,
+    colorpaletteFill,
+    zoompalette,
+    settingspalette,
+    presencepalette
+) {
     requirejs(['domReady!'], function (doc) {
         activity.setup()
         let fillColor = null
@@ -12,6 +20,14 @@ define([
         let currentBodyPartIndex = 0
         let bodyParts = []
         let modal = null
+        let partsColored = []
+        let username = null
+        let players = []
+        let isHost = false
+        let presenceCorrectIndex = 0
+        let presenceIndex = 0
+        let ifDoctorHost = false
+        let firstAnswer = true
 
         var paletteColorFill = new colorpaletteFill.ColorPalette(
             document.getElementById('color-button-fill'),
@@ -22,6 +38,255 @@ define([
             document.getElementById('settings-button'),
             undefined
         )
+
+        document
+            .getElementById('stop-button')
+            .addEventListener('click', function (event) {
+                console.log('writing...')
+                var jsonData = JSON.stringify(partsColored)
+                activity.getDatastoreObject().setDataAsText(jsonData)
+                activity.getDatastoreObject().save(function (error) {
+                    if (error === null) {
+                        console.log('write done.')
+                    } else {
+                        console.log('write failed.')
+                    }
+                })
+            })
+
+        env.getEnvironment(function (err, environment) {
+            currentenv = environment
+            username = environment.user.name
+
+            // Load from datastore
+            // Load from datastore
+            if (!environment.objectId) {
+                console.log('New instance')
+            } else {
+                activity
+                    .getDatastoreObject()
+                    .loadAsText(function (error, metadata, data) {
+                        if (error == null && data != null) {
+                            partsColored = JSON.parse(data)
+                            loader.load(
+                                'models/skeleton/skeleton.gltf',
+                                function (gltf) {
+                                    skeleton = gltf.scene
+                                    skeleton.name = 'skeleton'
+
+                                    skeleton.traverse((node) => {
+                                        if (node.isMesh) {
+                                            node.userData.originalMaterial =
+                                                node.material.clone() // Save the original material
+
+                                            // Check if the node's name exists in partsColored array
+                                            const part = partsColored.find(
+                                                ([name, color]) =>
+                                                    name === node.name
+                                            )
+
+                                            if (part) {
+                                                const [name, color] = part
+
+                                                // Apply the color from the array
+                                                node.material =
+                                                    new THREE.MeshStandardMaterial(
+                                                        {
+                                                            color: new THREE.Color(
+                                                                color
+                                                            ),
+                                                            side: THREE.DoubleSide,
+                                                        }
+                                                    )
+                                            }
+
+                                            console.log(node.name)
+                                        }
+                                    })
+
+                                    skeleton.scale.set(4, 4, 4)
+                                    skeleton.position.y += -5
+                                    scene.add(skeleton)
+
+                                    console.log('Skeleton loaded', skeleton)
+                                },
+                                function (xhr) {
+                                    console.log(
+                                        (xhr.loaded / xhr.total) * 100 +
+                                            '% loaded'
+                                    )
+                                },
+                                function (error) {
+                                    console.log('An error happened')
+                                    console.log(error)
+                                }
+                            )
+                        }
+                    })
+            }
+        })
+
+        // Link presence palette
+        var presence = null
+        var palette = new presencepalette.PresencePalette(
+            document.getElementById('network-button'),
+            undefined
+        )
+        palette.addEventListener('shared', function () {
+            palette.popDown()
+            console.log('Want to share')
+            presence = activity.getPresenceObject(function (error, network) {
+                if (error) {
+                    console.log('Sharing error')
+                    return
+                }
+                network.createSharedActivity(
+                    'org.sugarlabs.HumanBody',
+                    function (groupId) {
+                        console.log('Activity shared')
+                        isHost = true
+                    }
+                )
+                network.onDataReceived(onNetworkDataReceived)
+                network.onSharedActivityUserChanged(onNetworkUserChanged)
+            })
+        })
+
+        var onNetworkDataReceived = function (msg) {
+            if (presence.getUserInfo().networkId === msg.user.networkId) {
+                return
+            }
+            if (msg.action == 'init') {
+                partsColored = msg.content[0]
+                players = msg.content[1]
+
+                // Load the skeleton model
+                loader.load(
+                    'models/skeleton/skeleton.gltf',
+                    function (gltf) {
+                        skeleton = gltf.scene
+                        skeleton.name = 'skeleton'
+
+                        skeleton.traverse((node) => {
+                            if (node.isMesh) {
+                                node.userData.originalMaterial =
+                                    node.material.clone() // Save the original material
+
+                                // Check if the node's name exists in partsColored array
+                                const part = partsColored.find(
+                                    ([name, color]) => name === node.name
+                                )
+
+                                if (part) {
+                                    const [name, color] = part
+
+                                    // Apply the color from the array
+                                    node.material =
+                                        new THREE.MeshStandardMaterial({
+                                            color: new THREE.Color(color),
+                                            side: THREE.DoubleSide,
+                                        })
+                                }
+
+                                console.log(node.name)
+                            }
+                        })
+
+                        skeleton.scale.set(4, 4, 4)
+                        skeleton.position.y += -5
+                        scene.add(skeleton)
+
+                        console.log('Skeleton loaded', skeleton)
+                    },
+                    function (xhr) {
+                        console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+                    },
+                    function (error) {
+                        console.log('An error happened')
+                        console.log(error)
+                    }
+                )
+            }
+
+            if (msg.action == 'nextQuestion') {
+                if (bodyParts[msg.content]) {
+                    presenceCorrectIndex = msg.content
+                    showModal('Find the ' + bodyParts[msg.content].name)
+                }
+            }
+
+            if (msg.action == 'update') {
+                players = msg.content;
+                showLeaderboard();
+            }
+
+            if (msg.action == 'answer') {
+                if (!ifDoctorHost || !firstAnswer) {
+                    return;
+                }
+                let target = players.findIndex(innerArray => innerArray[0] === msg.user.name);
+                players[target][1]++;
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'update',
+                    content: players
+                })
+                console.log(msg.user.name + " was the fastest");
+                console.log(players)
+                showLeaderboard();
+                presenceIndex++;
+                startDoctorModePresence();
+
+
+            }
+
+            if (msg.action == 'startDoctor') {
+                showLeaderboard()
+                isPaintActive = false
+                isLearnActive = false
+                isTourActive = false
+                isDoctorActive = true
+            }
+        }
+
+        env.getEnvironment(function (err, environment) {
+            fillColor = environment.user.colorvalue.fill || fillColor
+
+            document.getElementById('color-button-fill').style.backgroundColor =
+                fillColor
+
+            if (environment.sharedId) {
+                console.log('Shared instance')
+                presence = activity.getPresenceObject(function (
+                    error,
+                    network
+                ) {
+                    network.onDataReceived(onNetworkDataReceived)
+                })
+            }
+        })
+
+        var onNetworkUserChanged = function (msg) {
+            players.push([msg.user.name, 0])
+            if (isDoctorActive) {
+                showLeaderboard()
+            }
+            if (isHost) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'init',
+                    content: [partsColored, players],
+                })
+            }
+
+            if (isDoctorActive) {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'startDoctor',
+                    content: players,
+                })
+            }
+        }
 
         // Mode variables to track which mode is active
         let isPaintActive = true
@@ -101,7 +366,46 @@ define([
 
             // If switching to Doctor mode, start it
             if (isDoctorActive) {
-                startDoctorMode()
+                if (presence) {
+                    showLeaderboard()
+
+                    presence.sendMessage(presence.getSharedInfo().id, {
+                        user: presence.getUserInfo(),
+                        action: 'startDoctor',
+                        content: players,
+                    })
+                    ifDoctorHost = true;
+                    startDoctorModePresence()
+                } else {
+                    console.log('starting doctor mode')
+                    startDoctorMode()
+                }
+            }
+        }
+
+        function showLeaderboard() {
+            console.log('running show leaderboard')
+            var leaderboard = document.getElementById('leaderboard')
+            leaderboard.style.display = 'block'
+            let playerScores = players
+            var tableBody = document.querySelector('.leaderboard tbody')
+
+            tableBody.innerHTML = ''
+            for (var i = 0; i < playerScores.length; i++) {
+                var playerName = playerScores[i][0] // Get player name
+                var playerScore = playerScores[i][1] // Get player score
+
+                // Create a new row
+                var tableBody = document.querySelector('.leaderboard tbody')
+                var newRow = tableBody.insertRow()
+
+                // Create new cells for player name and score
+                var nameCell = newRow.insertCell(0)
+                var scoreCell = newRow.insertCell(1)
+
+                // Set the text content for the cells
+                nameCell.textContent = playerName
+                scoreCell.textContent = playerScore
             }
         }
 
@@ -230,7 +534,9 @@ define([
             .then((response) => response.json())
             .then((data) => {
                 bodyParts = data
-                console.log('Body parts loaded:', bodyParts)
+                for (let i = 0; i < bodyParts.length; i++) {
+                    partsColored.push(bodyParts[i].name, '#000000')
+                }
             })
             .catch((error) => {
                 console.error('Error fetching bodyParts.json:', error)
@@ -243,6 +549,19 @@ define([
             }
         }
 
+        function startDoctorModePresence() {
+                presence.sendMessage(presence.getSharedInfo().id, {
+                    user: presence.getUserInfo(),
+                    action: 'nextQuestion',
+                    content: presenceIndex,
+                })
+                if (bodyParts[presenceIndex]) {
+                    showModal('Find the ' + bodyParts[presenceIndex].name)
+                } else {
+                    showModal('Game Over')
+                }
+        }
+
         function stopDoctorMode() {
             if (modal) {
                 document.body.removeChild(modal)
@@ -251,35 +570,35 @@ define([
         }
 
         function showModal(text) {
-            const modal = document.createElement('div');
-        
+            const modal = document.createElement('div')
+
             // Style the modal
-            modal.style.position = 'absolute';
-            modal.style.top = '50%';
-            modal.style.left = '50%';
-            modal.style.transform = 'translate(-50%, -50%)';
-            modal.style.backgroundColor = '#f9f9f9'; // Light grey background for a softer look
-            modal.style.padding = '30px'; // Increase padding for a larger modal
-            modal.style.border = '3px solid #007bff'; // Blue border for a pop of color
-            modal.style.borderRadius = '8px'; // Rounded corners for a smoother appearance
-            modal.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Add a shadow for depth
-            modal.style.zIndex = '1000';
-            modal.style.textAlign = 'center'; // Center the text inside the modal
-        
+            modal.style.position = 'absolute'
+            modal.style.top = '50%'
+            modal.style.left = '50%'
+            modal.style.transform = 'translate(-50%, -50%)'
+            modal.style.backgroundColor = '#f9f9f9' // Light grey background for a softer look
+            modal.style.padding = '30px' // Increase padding for a larger modal
+            modal.style.border = '3px solid #007bff' // Blue border for a pop of color
+            modal.style.borderRadius = '8px' // Rounded corners for a smoother appearance
+            modal.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)' // Add a shadow for depth
+            modal.style.zIndex = '1000'
+            modal.style.textAlign = 'center' // Center the text inside the modal
+
             // Style the text inside the modal
-            modal.style.fontSize = '18px'; // Larger text size
-            modal.style.fontWeight = 'bold'; // Bold text
-            modal.style.color = '#333'; // Darker text color for better contrast
-        
-            modal.innerHTML = text;
-            document.body.appendChild(modal);
-        
+            modal.style.fontSize = '18px' // Larger text size
+            modal.style.fontWeight = 'bold' // Bold text
+            modal.style.color = '#333' // Darker text color for better contrast
+
+            modal.innerHTML = text
+            document.body.appendChild(modal)
+
             // Make the modal disappear after 1.5 seconds
             setTimeout(() => {
-                document.body.removeChild(modal);
-            }, 1500);
+                document.body.removeChild(modal)
+            }, 1500)
         }
-        
+
         const redSliderFill = document.getElementById('red-slider-fill')
         const greenSliderFill = document.getElementById('green-slider-fill')
         const blueSliderFill = document.getElementById('blue-slider-fill')
@@ -345,23 +664,6 @@ define([
                 fillColor
             updateSlidersFill(selectedColorFill)
         })
-
-        env.getEnvironment(function (err, environment) {
-            fillColor = environment.user.colorvalue.fill || fillColor
-
-            document.getElementById('color-button-fill').style.backgroundColor =
-                fillColor
-
-            if (environment.sharedId) {
-                const presence = activity.getPresenceObject(function (
-                    error,
-                    network
-                ) {
-                    network.onDataReceived(onNetworkDataReceived)
-                })
-            }
-        })
-
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
             alpha: true,
@@ -413,30 +715,33 @@ define([
         const loader = new THREE.GLTFLoader()
         let skeleton
 
-        loader.load(
-            'models/skeleton/skeleton.gltf',
-            function (gltf) {
-                skeleton = gltf.scene
-                skeleton.name = 'skeleton'
-                skeleton.traverse((node) => {
-                    if (node.isMesh) {
-                        node.userData.originalMaterial = node.material.clone() // Save the original material
-                    }
-                })
-                skeleton.scale.set(4, 4, 4)
-                skeleton.position.y += -5
-                scene.add(skeleton)
+        if (presence == null) {
+            loader.load(
+                'models/skeleton/skeleton.gltf',
+                function (gltf) {
+                    skeleton = gltf.scene
+                    skeleton.name = 'skeleton'
+                    skeleton.traverse((node) => {
+                        if (node.isMesh) {
+                            node.userData.originalMaterial =
+                                node.material.clone() // Save the original material
+                        }
+                    })
+                    skeleton.scale.set(4, 4, 4)
+                    skeleton.position.y += -5
+                    scene.add(skeleton)
 
-                console.log('Skeleton loaded', skeleton)
-            },
-            function (xhr) {
-                console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-            },
-            function (error) {
-                console.log('An error happened')
-                console.log(error)
-            }
-        )
+                    console.log('Skeleton loaded', skeleton)
+                },
+                function (xhr) {
+                    console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+                },
+                function (error) {
+                    console.log('An error happened')
+                    console.log(error)
+                }
+            )
+        }
 
         function setModelColor(model, color) {
             model.traverse((node) => {
@@ -525,9 +830,34 @@ define([
 
                 if (isPaintActive) {
                     if (object.userData.originalMaterial) {
-                        const isColor = object.material.color.equals(
-                            new THREE.Color(fillColor)
+                        const isColor = !object.material.color.equals(
+                            new THREE.Color('#ffffff')
                         )
+                        // Traverse partsColored array to check if the object with the same name already exists
+                        const index = partsColored.findIndex(
+                            ([name, color]) => name === object.name
+                        )
+
+                        // If it exists, remove it from the array
+                        if (index !== -1) {
+                            partsColored.splice(index, 1)
+                        }
+
+                        // Push the new entry with the updated color
+                        partsColored.push([
+                            object.name,
+                            isColor ? '#ffffff' : fillColor,
+                        ])
+
+                        if (presence) {
+                            console.log(partsColored)
+                            console.log('sending colors')
+                            presence.sendMessage(presence.getSharedInfo().id, {
+                                user: presence.getUserInfo(),
+                                action: 'init',
+                                content: partsColored,
+                            })
+                        }
 
                         if (isColor) {
                             object.material =
@@ -540,22 +870,53 @@ define([
                         }
                     }
                 } else if (isDoctorActive) {
-                    const targetMeshName = bodyParts[currentBodyPartIndex].mesh
-                    if (object.name === targetMeshName) {
-                        showModal(
-                            'Correct! Next: ' +
-                                bodyParts[++currentBodyPartIndex]?.name
-                        )
+                    if (presence) {
+                        const targetMeshName =
+                            bodyParts[presenceCorrectIndex].mesh
+                        if (object.name === targetMeshName) {
+                            if (ifDoctorHost) {
+                                firstAnswer = true;
+                                let target = players.findIndex(innerArray => innerArray[0] === username);
+                                players[target][1]++;
+                                presence.sendMessage(presence.getSharedInfo().id, {
+                                    user: presence.getUserInfo(),
+                                    action: 'update',
+                                    content: players
+                                })
+                                presenceIndex++;
+                                startDoctorModePresence();
+                                console.log("host was first")
+                                console.log(players)
+                            }
+                            if (!ifDoctorHost) {
+                                presence.sendMessage(presence.getSharedInfo().id, {
+                                    user: presence.getUserInfo(),
+                                    action: 'answer',
+                                })
+                            }
+                            showModal('Correct! But were you the fastest?')                            
+                        } else {
+                            showModal('Wrong!')
+                        }
                     } else {
-                        showModal(
-                            'Wrong! Try to find ' +
-                                bodyParts[++currentBodyPartIndex]?.name
-                        )
-                    }
+                        const targetMeshName =
+                            bodyParts[currentBodyPartIndex].mesh
+                        if (object.name === targetMeshName) {
+                            showModal(
+                                'Correct! Next: ' +
+                                    bodyParts[++currentBodyPartIndex]?.name
+                            )
+                        } else {
+                            showModal(
+                                'Wrong! Try to find ' +
+                                    bodyParts[++currentBodyPartIndex]?.name
+                            )
+                        }
 
-                    if (currentBodyPartIndex >= bodyParts.length) {
-                        showModal('Game over! You found all parts.')
-                        stopDoctorMode()
+                        if (currentBodyPartIndex >= bodyParts.length) {
+                            showModal('Game over! You found all parts.')
+                            stopDoctorMode()
+                        }
                     }
                 } else if (isLearnActive) {
                     let clickedBodyPart = bodyParts.find(
