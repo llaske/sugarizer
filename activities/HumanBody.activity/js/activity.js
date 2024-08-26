@@ -216,28 +216,28 @@ define([
             }
 
             if (msg.action == 'update') {
-                players = msg.content;
-                showLeaderboard();
+                players = msg.content
+                showLeaderboard()
             }
 
             if (msg.action == 'answer') {
                 if (!ifDoctorHost || !firstAnswer) {
-                    return;
+                    return
                 }
-                let target = players.findIndex(innerArray => innerArray[0] === msg.user.name);
-                players[target][1]++;
+                let target = players.findIndex(
+                    (innerArray) => innerArray[0] === msg.user.name
+                )
+                players[target][1]++
                 presence.sendMessage(presence.getSharedInfo().id, {
                     user: presence.getUserInfo(),
                     action: 'update',
-                    content: players
+                    content: players,
                 })
-                console.log(msg.user.name + " was the fastest");
+                console.log(msg.user.name + ' was the fastest')
                 console.log(players)
-                showLeaderboard();
-                presenceIndex++;
-                startDoctorModePresence();
-
-
+                showLeaderboard()
+                presenceIndex++
+                startDoctorModePresence()
             }
 
             if (msg.action == 'startDoctor') {
@@ -374,7 +374,7 @@ define([
                         action: 'startDoctor',
                         content: players,
                     })
-                    ifDoctorHost = true;
+                    ifDoctorHost = true
                     startDoctorModePresence()
                 } else {
                     console.log('starting doctor mode')
@@ -550,16 +550,17 @@ define([
         }
 
         function startDoctorModePresence() {
-                presence.sendMessage(presence.getSharedInfo().id, {
-                    user: presence.getUserInfo(),
-                    action: 'nextQuestion',
-                    content: presenceIndex,
-                })
-                if (bodyParts[presenceIndex]) {
-                    showModal('Find the ' + bodyParts[presenceIndex].name)
-                } else {
-                    showModal('Game Over')
-                }
+            presence.sendMessage(presence.getSharedInfo().id, {
+                user: presence.getUserInfo(),
+                action: 'nextQuestion',
+                content: presenceIndex,
+            })
+            presenceCorrectIndex = presenceIndex
+            if (bodyParts[presenceIndex]) {
+                showModal('Find the ' + bodyParts[presenceIndex].name)
+            } else {
+                showModal('Game Over')
+            }
         }
 
         function stopDoctorMode() {
@@ -875,25 +876,33 @@ define([
                             bodyParts[presenceCorrectIndex].mesh
                         if (object.name === targetMeshName) {
                             if (ifDoctorHost) {
-                                firstAnswer = true;
-                                let target = players.findIndex(innerArray => innerArray[0] === username);
-                                players[target][1]++;
-                                presence.sendMessage(presence.getSharedInfo().id, {
-                                    user: presence.getUserInfo(),
-                                    action: 'update',
-                                    content: players
-                                })
-                                presenceIndex++;
-                                startDoctorModePresence();
+                                firstAnswer = true
+                                let target = players.findIndex(
+                                    (innerArray) => innerArray[0] === username
+                                )
+                                players[target][1]++
+                                presence.sendMessage(
+                                    presence.getSharedInfo().id,
+                                    {
+                                        user: presence.getUserInfo(),
+                                        action: 'update',
+                                        content: players,
+                                    }
+                                )
+                                startDoctorModePresence()
+                                presenceIndex++
                                 showLeaderboard()
                             }
                             if (!ifDoctorHost) {
-                                presence.sendMessage(presence.getSharedInfo().id, {
-                                    user: presence.getUserInfo(),
-                                    action: 'answer',
-                                })
+                                presence.sendMessage(
+                                    presence.getSharedInfo().id,
+                                    {
+                                        user: presence.getUserInfo(),
+                                        action: 'answer',
+                                    }
+                                )
                             }
-                            showModal('Correct! But were you the fastest?')                            
+                            showModal('Correct! But were you the fastest?')
                         } else {
                             showModal('Wrong!')
                         }
