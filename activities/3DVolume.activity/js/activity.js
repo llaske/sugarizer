@@ -1188,7 +1188,8 @@ define([
 				);
 			} else {
 				sensorButton.classList.remove("active");
-				world.gravity.set(-9.81, -9.81, -9.81);
+				world.gravity.set(0, -9.81, 0);
+				wakeAll();
 			}
 		});
 
@@ -1693,6 +1694,7 @@ define([
 				diceArray[i][0]?.quaternion?.copy(diceArray[i][1].quaternion);
 			}
 			// console.log(world.hasActiveBodies);
+			// console.log(world.hasActiveBodies + "," + awake)
 			if (world.hasActiveBodies == false && awake == true) {
 				awake = false;
 				console.log("the world is going to sleep now bye bye");
