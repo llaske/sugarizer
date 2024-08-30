@@ -159,6 +159,7 @@ define([
             if (msg.action == 'init') {
                 partsColored = msg.content[0]
                 players = msg.content[1]
+                console.log(partsColored);
 
                 // Load the skeleton model
                 loader.load(
@@ -535,7 +536,7 @@ define([
             .then((data) => {
                 bodyParts = data
                 for (let i = 0; i < bodyParts.length; i++) {
-                    partsColored.push(bodyParts[i].name, '#000000')
+                    partsColored.push([bodyParts[i].name, '#000000'])
                 }
             })
             .catch((error) => {
@@ -856,7 +857,7 @@ define([
                             presence.sendMessage(presence.getSharedInfo().id, {
                                 user: presence.getUserInfo(),
                                 action: 'init',
-                                content: partsColored,
+                                content: [partsColored, players]
                             })
                         }
 
