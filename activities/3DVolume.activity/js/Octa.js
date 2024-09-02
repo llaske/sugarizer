@@ -136,15 +136,21 @@ function createOctahedron(
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
+	let y = yCoordinateShared == null ? 10 : 1;
 
 	const octahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
 		shape: octahedronShape,
 		position: new CANNON.Vec3(x, y, z),
 		material: new CANNON.Material(),
-		restitution: 5,
+		restitution: 0.3,
 	});
+
+	world.addBody(octahedronBody);
+
+	if (xCoordinateShared != null) {
+		octahedronBody.sleep()
+	}
 
 	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
@@ -153,7 +159,7 @@ function createOctahedron(
 	);
 
 	world.addContactMaterial(contactMat);
-	world.addBody(octahedronBody);
+	
 
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;

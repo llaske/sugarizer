@@ -200,7 +200,7 @@ function createDodecahedron(
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 4 : yCoordinateShared + 1; // Ensure initial y is above the plane
+	let y = yCoordinateShared == null ? 4 : 1; // Ensure initial y is above the plane
 	const dodecahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
 		shape: myShape,
@@ -215,6 +215,9 @@ function createDodecahedron(
 
 	world.addBody(dodecahedronBody);
 
+	if (xCoordinateShared != null) {
+		dodecahedronBody.sleep()
+	}	
 	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
 		dodecahedronBody.material,

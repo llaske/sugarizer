@@ -162,6 +162,7 @@ function createTetrahedron(
 		restitution: 5,
 	});
 	world.addBody(tetrahedronBody);
+	
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;
 	let angVel2 =

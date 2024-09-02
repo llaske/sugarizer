@@ -129,7 +129,7 @@ function createDecahedron(
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 10 : yCoordinateShared;
+	let y = yCoordinateShared == null ? 10 : 1;
 
 	const sides = 10;
 	const scalingFactor = 1.5;
@@ -188,12 +188,16 @@ function createDecahedron(
 		faces: correctedFacesGeo,
 	});
 	let decahedronBody = new CANNON.Body({
-		mass: 3, // Set mass
+		mass: 2, // Set mass
 		shape: decahedronShape2,
 		position: new CANNON.Vec3(x, y, z),
 		material: new CANNON.Material(),
-		restitution: 0.5,
+		restitution: 0.3,
 	});
+	world.addBody(decahedronBody);
+	if (xCoordinateShared != null) {
+		decahedronBody.sleep()
+	}
 	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
 		decahedronBody.material,
@@ -202,9 +206,9 @@ function createDecahedron(
 
 	world.addContactMaterial(contactMat);
 
-	world.addBody(decahedronBody);
 	decahedronBody.sleepSpeedLimit = 4;
 	decahedronBody.sleepTimeLimit = 10;
+	
 
 	let angVel1 =
 		sharedAngVel1 == null ? Math.random() * (1 - 0.1) + 0.1 : sharedAngVel1;

@@ -164,17 +164,21 @@ function createIcosahedron(
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;
 	let z = zCoordinateShared == null ? zCoordinate : zCoordinateShared;
-	let y = yCoordinateShared == null ? 4 : yCoordinateShared;
+	let y = yCoordinateShared == null ? 4 : 1;
 
 	const icosahedronBody = new CANNON.Body({
 		mass: 2, // Set mass
 		shape: icosahedronShape,
 		position: new CANNON.Vec3(x, y, z),
 		material: new CANNON.Material(),
-		restitution: 5,
+		restitution: 0.3,
 	});
 	icosahedronBody.sleepSpeedLimit = 0.5;
 	icosahedronBody.sleepTimeLimit = 3;
+
+	if (xCoordinateShared != null) {
+		icosahedronBody.sleep()
+	}
 
 	const contactMat = new CANNON.ContactMaterial(
 		groundPhysMat,
