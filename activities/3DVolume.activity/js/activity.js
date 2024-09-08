@@ -282,7 +282,27 @@ define([
 						break;
 					case "dodeca":
 						createFunction = createDodecahedron;
+								switch (msg.content.shape) {
+					case "cube":
+						createFunction = createCube;
 						break;
+					case "octa":
+						createFunction = createOctahedron;
+						break;
+					case "tetra":
+						createFunction = createTetrahedron;
+						break;
+					case "dodeca":
+						createFunction = createDodecahedron;
+						break;
+					case "deca":
+						createFunction = createDecahedron;
+						break;
+					case "icosa":
+						createFunction = createIcosahedron;
+						break;
+				}
+		break;
 					case "deca":
 						createFunction = createDecahedron;
 						break;
@@ -936,7 +956,6 @@ define([
 
 					scoresObject.presentScore =
 						scoresObject.presentScore - score;
-					console.log(scoresObject.presentScore);
 
 					let scoresArray = scoresObject.lastRoll.split(" + ");
 
@@ -951,8 +970,6 @@ define([
 					// Join the remaining scores back into a string
 					scoresObject.lastRoll = scoresArray.join(" + ");
 					updateElements();
-					console.log(scoresObject.lastRoll);
-					console.log(scoresObject.presentScore);
 					num--;
 				}
 				console.log(diceArray);
