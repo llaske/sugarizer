@@ -972,9 +972,6 @@ define([
 					updateElements();
 					num--;
 				}
-				console.log(diceArray);
-				console.log(diceArray[index][1]);
-				console.log(diceArray[index][0]);
 				world.removeBody(diceArray[index][1]);
 				scene.remove(diceArray[index][0]);
 				diceArray.splice(index, 1);
