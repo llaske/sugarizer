@@ -289,9 +289,6 @@ define([
 					case "icosa":
 						createFunction = createIcosahedron;
 						break;
-					default:
-						console.error("Unknown shape: " + msg.content.shape);
-						break;
 				}
 
 				if (createFunction) {
