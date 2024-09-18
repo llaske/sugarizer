@@ -29,18 +29,10 @@ define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
 					if (!me.tooltipDisplay || target_name!=me.tooltipDisplay) {
 						me.tooltipDisplay=target_name;
 						humane.timeout=1000;
-						if(target_name==="Timor-Leste"){
-							humane.log(flag[`${target_name.replace(/-/g,'_')}`]+" "+ l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
-						setTimeout(function() {
-							me.tooltipDisplay=null;
-						}, humane.timeout);
-						}
-						else{
 						humane.log(flag[`${target_name.replace(/ /g,'_')}`]+" "+ l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
 						setTimeout(function() {
 							me.tooltipDisplay=null;
 						}, humane.timeout);
-					}
 					}
 					var rgbColorString=colormyworld.getRGBColorString();
 					print(rgbColorString);
