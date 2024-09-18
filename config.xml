@@ -28,23 +28,7 @@
 	<preference name="android-targetSdkVersion" value="33" />
 	<preference name="android-compileSdkVersion" value="33" />
 
-	<engine name="android" spec="10.0.0" />
-	<plugin name="cordova-plugin-inappbrowser" spec="6.0.0" />
-	<plugin name="cordova-plugin-camera" spec="7.0.0" />
-	<plugin name="cordova-plugin-file" spec="8.1.0" />
-	<plugin name="cordova-plugin-device" spec="3.0.0" />
-	<plugin name="cordova-plugin-dialogs" spec="2.0.2" />
-	<plugin name="cordova-plugin-file-transfer" spec="2.0.0" />
-	<plugin name="cordova-plugin-fullscreen" spec="1.3.0" />
-	<plugin name="cordova-plugin-ios-longpress-fix" spec="1.1.0" />
-	<plugin name="cordova-plugin-media" spec="7.0.0" />
-	<plugin name="cordova-plugin-media-capture" spec="5.0.0" />
-	<plugin name="cordova-plugin-network-information" spec="3.0.0" />
-	<plugin name="cordova-plugin-qrscanner" spec="https://github.com/richmoh/cordova-plugin-qrscanner-13.git" />
-	<plugin name="cordova-plugin-add-swift-support" spec="2.0.2" />
-	<plugin name="cordova-plugin-vibration" spec="3.1.1" />
-	<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
-	<plugin name="cordova-plugin-audioinput" spec="1.0.3" />
+	<engine name="android" spec="12.0.0" />
 
 	<!-- &SugarizerOS
 	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />
@@ -61,23 +45,47 @@
 		<icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
 		<icon density="xxhdpi" src="res/icon/android/icon-144-xxhdpi.png" />
 		<icon density="xxxhdpi" src="res/icon/android/icon-192-xxxhdpi.png" />
+		<plugin name="cordova-plugin-inappbrowser" spec="6.0.0" />
+		<plugin name="cordova-plugin-camera" spec="7.0.0" />
+		<plugin name="cordova-plugin-file" spec="8.1.0" />
+		<plugin name="cordova-plugin-device" spec="3.0.0" />
+		<plugin name="cordova-plugin-dialogs" spec="2.0.2" />
+		<plugin name="cordova-plugin-file-transfer" spec="2.0.0" />
+		<plugin name="cordova-plugin-fullscreen" spec="1.3.0" />
+		<plugin name="cordova-plugin-ios-longpress-fix" spec="1.1.0" />
+		<plugin name="cordova-plugin-media" spec="7.0.0" />
+		<plugin name="cordova-plugin-media-capture" spec="5.0.0" />
+		<plugin name="cordova-plugin-network-information" spec="3.0.0" />
+		<plugin name="cordova-plugin-qrscanner-12" spec="https://github.com/Meeco/cordova-plugin-qrscanner" />
+		<plugin name="cordova-plugin-add-swift-support" spec="2.0.2" />
+		<plugin name="cordova-plugin-vibration" spec="3.1.1" />
+		<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
+		<plugin name="cordova-plugin-audioinput" spec="1.0.3" />
 		<plugin name="cordova-plugin-ionic-keyboard" spec="2.2.0" />
 		<preference name="AndroidPersistentFileLocation" value="Compatibility" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-land-hdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-land-ldpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-land-mdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-land-xhdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-land-xxhdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-land-xxxhdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-port-hdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-port-ldpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-port-mdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-port-xhdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-port-xxhdpi.png" />
-		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/splash/android/drawable-port-xxxhdpi.png" />
-		<preference name="AndroidWindowSplashScreenBackgroundColor" value="#000000" />
+		<preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/icon/android/icon-192x192.png" />
+		<preference name="AndroidWindowSplashScreenBackgroundColor" value="#FF000000" />
 	</platform>
 	<platform name="ios">
+		<plugin name="cordova-plugin-inappbrowser" spec="5.0.0" />
+		<plugin name="cordova-plugin-camera" spec="5.0.1" />
+		<plugin name="cordova-plugin-file" spec="6.0.2" />
+		<plugin name="cordova-plugin-device" spec="2.0.3" />
+		<plugin name="cordova-plugin-device-motion" spec="2.0.1" />
+		<plugin name="cordova-plugin-dialogs" spec="2.0.2" />
+		<plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
+		<plugin name="cordova-plugin-fullscreen" spec="1.3.0" />
+		<plugin name="cordova-plugin-ios-longpress-fix" spec="1.1.0" />
+		<plugin name="cordova-plugin-media" spec="5.0.3" />
+		<plugin name="cordova-plugin-media-capture" spec="3.0.3" />
+		<plugin name="cordova-plugin-network-information" spec="2.0.2" />
+		<plugin name="cordova-plugin-qrscanner" spec="3.0.1" />
+		<plugin name="cordova-plugin-splashscreen" spec="6.0.0" />
+		<plugin name="cordova-plugin-add-swift-support" spec="2.0.2" />
+		<plugin name="cordova-plugin-vibration" spec="3.1.1" />
+		<plugin name="cordova-plugin-whitelist" spec="1.3.4" />
+		<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
+		<plugin name="cordova-plugin-audioinput" spec="1.0.2" />
 		<plugin name="cordova-plugin-wkwebview-file-xhr" spec="https://github.com/llaske/cordova-plugin-wkwebview-file-xhr.git" />
 		<config-file parent="UIStatusBarHidden" target="*-Info.plist">
 			<true/>
