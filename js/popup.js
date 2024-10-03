@@ -8,7 +8,7 @@ enyo.kind({
 	published: { margin: null, header: null, items: null, footer: null },
 	components: [
 		{name: "popuptitle", classes: "popup-title", ontap: "runHeaderAction", components: [
-			{name: "icon", showing: false, kind: "Sugar.Icon", x: 5, y: 5, size: constant.iconSizeList},
+			{name: "icon", showing: false, kind: "Sugar.Icon", x: 1, y: 1, size: constant.iconSizeList},
 			{name: "name", classes: "popup-name-text"},
 			{name: "title", classes: "popup-title-text"},
 		]},
