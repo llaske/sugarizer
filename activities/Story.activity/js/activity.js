@@ -317,11 +317,11 @@ var app = new Vue({
 		getUrlImg: function(img){
 			if (this.isConnected){
 				if (img.includes("lower")){
-					return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '0.png';
+					return document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"0.png";
 				} else if (img.includes("upper")){
-					return '../Abecedarium.activity/images/letters/'+ img.toLowerCase()[6] + '1.png';
+					return document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/letters/"+img.toLowerCase()[6]+"1.png";
 				} else {
-					return '../Abecedarium.activity/images/database/'+ img + '.png';
+					return document.location.href.substr(0, document.location.href.indexOf("/activities/"))+"/activities/Abecedarium.activity/images/database/"+img+".png";
 				}
 			} else {
 				if (img.includes("lower")){
@@ -340,7 +340,7 @@ var app = new Vue({
 			if (this.grid){
 				if (this.gridImageURL==null && document.getElementById("display-grid")!=null){
 					var ele = document.getElementById("display-grid");
-					html2canvas(ele).then(function(canvas){
+					html2canvas(ele, {allowTaint:true, useCORS:true}).then(function(canvas){
 						var img = canvas.toDataURL('image/png');
 						that.gridImageURL = img;
 					})
@@ -480,7 +480,7 @@ var app = new Vue({
 				setTimeout(()=>{
 					if (document.getElementById("display-grid")!=null){
 						var ele = document.getElementById("display-grid");
-						html2canvas(ele).then(function(canvas){
+						html2canvas(ele, {allowTaint:true, useCORS:true}).then(function(canvas){
 							var img = canvas.toDataURL('image/png');
 							that.gridImageURL = img;
 						})
@@ -573,7 +573,7 @@ var app = new Vue({
 					that.storeData();
 					if (document.getElementById("display-grid")!=null){
 						var ele = document.getElementById("display-grid");
-						html2canvas(ele).then(function(canvas){
+						html2canvas(ele, {allowTaint:true, useCORS:true}).then(function(canvas){
 							var img = canvas.toDataURL('image/png');
 							that.gridImageURL = img;
 						})
@@ -701,7 +701,7 @@ var app = new Vue({
 					var doc = new jsPDF('p', 'mm' , '',true);
 
 					function generateOnePdf(i) {
-						html2canvas(document.getElementById("display-single")).then(function(canvasImgs){
+						html2canvas(document.getElementById("display-single"), {allowTaint:true, useCORS:true}).then(function(canvasImgs){
 							if (i<that.imageCount-1){
 								that.activeImageIndex = i+1;
 								that.activeImage = that.images[i+1];
@@ -711,7 +711,7 @@ var app = new Vue({
 							var h = that.editor.scrollingContainer.offsetHeight;
 							that.editor.scrollingContainer.style.height="auto";
 							that.editor.scrollingContainer.scrollTop=0;
-							html2canvas(that.editor.scrollingContainer).then(function(canvas){
+							html2canvas(that.editor.scrollingContainer, {allowTaint:true, useCORS:true}).then(function(canvas){
 								that.editor.scrollingContainer.style.height = h;
 								that.editor.scrollingContainer.style.overflowY = 'auto';
 								var imgData = canvas.toDataURL('image/png');
@@ -777,9 +777,9 @@ var app = new Vue({
 						that.editor.scrollingContainer.scrollTop=0;
 						var ele = document.getElementById("display-grid"); 
 						var textlen = that.editor.getText().length
-						await html2canvas(ele).then(function(canvasImgs){
+						await html2canvas(ele, {allowTaint:true, useCORS:true}).then(function(canvasImgs){
 							var imgs = canvasImgs.toDataURL('image/png');
-							html2canvas(that.editor.scrollingContainer).then(function(canvas){
+							html2canvas(that.editor.scrollingContainer, {allowTaint:true, useCORS:true}).then(function(canvas){
 								that.editor.scrollingContainer.style.height = h;
 								that.editor.scrollingContainer.style.overflowY = 'auto';
 								var imgData = canvas.toDataURL('image/png');

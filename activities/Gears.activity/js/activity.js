@@ -55,12 +55,16 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
         gearSketch.selectButton = function (buttonName) {
             return this.selectedButton = buttonName;
         }
-
+        function UISwitch(before, after){
+            playButton.classList.remove(before);
+            playButton.classList.add(after);
+        }
         // Gear button.
         gearButton.addEventListener('click', function (event) {
             if (gearSketch.isDemoPlaying) {
                 gearSketch.stopDemo();
             }
+            UISwitch('pause', 'play');
             gearSketch.selectButton("gearButton");
         });
 
@@ -69,6 +73,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             if (gearSketch.isDemoPlaying) {
                 gearSketch.stopDemo();
             }
+            UISwitch('pause', 'play');
             gearSketch.selectButton("chainButton");
         });
 
@@ -77,6 +82,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             if (gearSketch.isDemoPlaying) {
                 gearSketch.stopDemo();
             }
+            UISwitch('pause', 'play');
             gearSketch.selectButton("momentumButton");
         });
 
@@ -87,13 +93,11 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             }
             if(gearSketch.selectedButton == "playButton"){
                 gearSketch.selectButton(null);
-                playButton.classList.remove('pause');
-                playButton.classList.add('play');
+                UISwitch('pause', 'play');
             }
             else{
                 gearSketch.selectButton("playButton");
-                playButton.classList.remove('play');
-                playButton.classList.add('pause');
+                UISwitch('play', 'pause');
             }
         });
 
@@ -108,6 +112,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
                 gearSketch.stopDemo();
                 return;
             }
+            UISwitch('pause', 'play');
             gearSketch.board.clear();
         });
 
@@ -120,7 +125,7 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
             }
             gearSketch.playDemo();
         });
-
+        
         // Full screen.
         document.getElementById("fullscreen-button").addEventListener('click', function() {
             document.getElementById("main-toolbar").style.opacity = 0;

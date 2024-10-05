@@ -72,7 +72,11 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						zoom();
 					}
 					if (readyToWatch) {
-						watchId = navigator.accelerometer.watchAcceleration(accelerationChanged, null, { frequency: 500 });
+						var accelerometer = new Accelerometer({ frequency: 500 });
+						if (accelerometer) {
+							accelerometer.addEventListener('reading', accelerationChanged);
+							accelerometer.start();
+						}
 						readyToWatch = false;
 					}
 				});
@@ -183,8 +187,9 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				}
 			}, true);
 
-			function accelerationChanged(acceleration) {
+			function accelerationChanged(accelerationEvent) {
 				if (!sensorMode) return;
+				var acceleration = accelerationEvent.target;
 				if (acceleration.x < -4.5) {
 					if (acceleration.y > 4.75)
 						setGravity(3);

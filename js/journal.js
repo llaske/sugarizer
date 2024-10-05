@@ -53,6 +53,7 @@ enyo.kind({
 		this.journalType = constant.journalLocal;
 		this.smallTime = false;
 		this.dialogAction = -1;
+		this.forbiddenObjectId = null;
 		this.journalChanged();
 		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
 		if (l10n.language.direction == "rtl") {
@@ -474,7 +475,8 @@ enyo.kind({
 				var that = this;
 				this.loadEntry(activity, function(err, metadata, text) {
 					that.$.activityPopup.hidePopup();
-					util.openAsDocument(metadata, text);
+					that.forbiddenObjectId = activity.objectId; // To avoid display of the popup
+					util.openAsDocument(metadata, text, activity.objectId);
 					return;
 				});
 			}
@@ -619,6 +621,10 @@ enyo.kind({
 		if (!icon.owner) {
 			return;
 		}
+		if (this.forbiddenObjectId && icon.data && icon.data.objectId == this.forbiddenObjectId) {
+			return;
+		}
+		this.forbiddenObjectId = null;
 		var activity = icon.icon; // HACK: activity is stored as an icon
 		var entry = icon.getData();
 		var title = null;

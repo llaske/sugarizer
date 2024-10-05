@@ -394,5 +394,6 @@
 	"ErrorLoadingFileAssignment": "Impossible de dupliquer le devoir {{file}}",
 	"SortByDueDate": "Trier par date de rendu",
 	"CannotDuplicateAssignment": "Impossible de dupliquer un devoir",
-	"CannotDeleteAssignment": "Impossible de supprimer un devoir"
+	"CannotDeleteAssignment": "Impossible de supprimer un devoir",
+	"LoginRedirect": "Merci de vous connecter ou de créer un utilisateur"
 }

@@ -10,8 +10,7 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Paint, Memorize, Record, Calculate and Media Viewer by Michaël Ohayon
 * Gridpaint by Brian Silverman
 * Speak by Vishal Batchu
-* Chat by Utkarsh Siddhpura
-* Chart by Utkarsh Siddhpura 
+* Chat, Chart by Utkarsh Siddhpura
 * Markdown by Suraj Gillespie
 * Moon by Shirsh Zibbu
 * EToys by Vanessa Freudenberg
