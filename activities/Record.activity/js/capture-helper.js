@@ -532,6 +532,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                 navigator.mediaDevices.getUserMedia({video: true}).then(function (mediaStream) {
                     var recordRTC = RecordRTC(mediaStream, {
                         type: 'video',
+                        mimeType: 'video/webm;codecs=vp8',
                         frameRate: 80,
                         quality: 0
                     });

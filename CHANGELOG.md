@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bug in Calligra Activity when letters deleted #1466
 - Missing flag handling in ColorMyWorld #1603
 - Position of Sugar Icon in Popup on homescreen is toward bottom right #1662
+- Recording video doesn't work on Windows #1203
  
 ## [1.8.0] - 2024-04-10
 ### Added
