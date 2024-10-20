@@ -17,7 +17,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 		controls.target.set(0,0,0);
 
 		//Planet Information
-		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons", "Radius", "SunDistance"];
+		var infoType = ["Name", "Type", "Year", "Mass", "Temperature", "Moons", "Radius", "SunDistance", "DayLength", "SurfaceGravity", "Nickname"];
 		var planet = planets;
 
 		//Containers
@@ -94,7 +94,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					document.getElementById("planet-" + planet[i].name).appendChild(planetName);
 
 					//Init planet info and planet position view
-					initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
+					initPlanet(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun, planet[i].dayLength, planet[i].surfaceGravity, planet[i].nickname);
 					initPosition(planet[i].name, planet[i].type, planet[i].year, planet[i].mass, planet[i].temperature, planet[i].moons, planet[i].radius, planet[i].distancefromsun);
 
 					// Switch to fullscreen mode on click
@@ -182,7 +182,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 
 
 		//Show planet function
-		function initPlanet(name, type, year, mass, temperature, moons, radius, sunDistance){
+		function initPlanet(name, type, year, mass, temperature, moons, radius, sunDistance, dayLength, surfaceGravity, nickname){
 
 			//Url of planet files
 			var toload = {};
@@ -331,9 +331,32 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 					var information = document.createElement('div');
 					information.id = infoType[i];
 					information.className = 'info';
+					information.style.padding = "10px";
+        			information.style.margin = "5px";
+       				information.style.borderBottom = "1px solid #ccc"; // subtle line between items
+        			information.style.fontFamily = "Arial, sans-serif"; // better font
+        			information.style.color = "#333"; // Dark gray text
 					planetInfo.appendChild(information);
 				}
 
+				var earthMass = 5.972e24;
+				var massWithoutCommas = mass.replace(/,/g, '');
+				var massInKg = parseFloat(massWithoutCommas);
+				var earthMasses = (massInKg / earthMass).toPrecision(4);
+				
+				document.getElementById("Name").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Planet Name</p><p>' + l10n.get(name) + '</p>';
+				document.getElementById("Type").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Planet Type</p><p>' + l10n.get(type.replace(/\s+/g, '')) + '</p>';
+				document.getElementById("Year").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Year Length</p><p>' + l10n.get("EarthDays", {year:year}) + '</p>';
+				document.getElementById("Mass").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Mass</p><p>' + mass + ' (' + earthMasses + ' Earth masses)</p>';'</p>';
+				document.getElementById("Temperature").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Surface Temperature</p><p>' + temperature + '</p>';
+				document.getElementById("Moons").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Number Of Moons</p><p>' + moons + '</p>';
+				document.getElementById("Radius").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Planet Radius</p><p>' + radius + '</p>';
+				document.getElementById("SunDistance").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Distance from Sun</p><p>' + sunDistance + '</p>';
+				document.getElementById("DayLength").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Length of Day</p><p>' + dayLength + '</p>';
+				document.getElementById("SurfaceGravity").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Surface Gravity</p><p>' + surfaceGravity + '</p>';
+				document.getElementById("Nickname").innerHTML = '<p style="font-weight: bold; color: #0173F2;">Nickname</p><p>' + nickname + '</p>';
+
+				/*
 				document.getElementById("Name").innerHTML = '<p>' + l10n.get("PlanetName") + '</p><p>' + l10n.get(name) + '</p>';
 				document.getElementById("Type").innerHTML = '<p>' + l10n.get("PlanetType") + '</p><p>' + l10n.get(type.replace(/\s+/g, '')) + '</p>';
 				document.getElementById("Year").innerHTML = '<p>' + l10n.get("YearLength") + '</p><p>' + l10n.get("EarthDays", {year:year}) + '</p>';
@@ -342,7 +365,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 				document.getElementById("Moons").innerHTML = '<p>' + l10n.get("NumberOfMoons") + '</p><p>' + moons + '</p>';
 				document.getElementById("Radius").innerHTML = '<p>' + l10n.get("PlanetRadius") + '</p><p>' + radius + '</p>';
 				document.getElementById("SunDistance").innerHTML = '<p>' + l10n.get("SunDistance") + '</p><p>' + sunDistance + '</p>';
-
+				*/
 				saveImage = function(){
 
 					var mimetype = 'image/jpeg';
@@ -672,6 +695,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 			planetMesh.userData.moons = moons;
 			planetMesh.userData.radius = radius;
 			planetMesh.userData.sunDistance = sunDistance;
+			//planetMesh.userData.dayLength = dayLength;
+			//planetMesh.userData.surfaceGravity = surfaceGravity;
+			//planetMesh.userData.nickname = nickname;
 
 			//Show planet position and distance from Sun
 			document.getElementById("position-button").addEventListener("click", function(e){
@@ -748,7 +774,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 								intersects[i].object.name, intersects[i].object.userData.typeOfPlanet,
 								intersects[i].object.userData.year, intersects[i].object.userData.mass,
 								intersects[i].object.userData.temperature, intersects[i].object.userData.moons,
-								intersects[i].object.userData.radius, intersects[i].object.userData.sunDistance
+								intersects[i].object.userData.radius, intersects[i].object.userData.sunDistance, 
+								intersects[i].object.userData.dayLength, intersects[i].object.userData.surfaceGravity, 
+								intersects[i].object.userData.nickname
 							);
 						}
 
@@ -809,7 +837,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/datastore", "
 						//There was a bug where the planets rotate faster and faster on each click
 						//By setting requestAnim to false, initPlanet will stop initializaing, as it causes the bug
 						if (requestAnim){
-							initPlanet(name, type, year, mass, temperature, moons, radius, sunDistance);
+							initPlanet(name, type, year, mass, temperature, moons, radius, sunDistance, dayLength, surfaceGravity, nickname);
 						}
 
 						requestAnim = false;
