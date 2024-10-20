@@ -72,12 +72,17 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						zoom();
 					}
 					if (readyToWatch) {
-						var accelerometer = new Accelerometer({ frequency: 500 });
-						if (accelerometer) {
-							accelerometer.addEventListener('reading', accelerationChanged);
-							accelerometer.start();
+						if (window.Accelerometer) {
+							var accelerometer = new Accelerometer({ frequency: 500 });
+							if (accelerometer) {
+								accelerometer.addEventListener('reading', accelerationChanged);
+								accelerometer.start();
+							}
+							readyToWatch = false;
+						} else if (navigator.accelerometer) {	
+							navigator.accelerometer.watchAcceleration(accelerationChanged, null, { frequency: 500 });
+							readyToWatch = false;
 						}
-						readyToWatch = false;
 					}
 				});
 				// add the interaction
@@ -189,7 +194,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 			function accelerationChanged(accelerationEvent) {
 				if (!sensorMode) return;
-				var acceleration = accelerationEvent.target;
+				var acceleration = window.Accelerometer ? accelerationEvent.target : accelerationEvent;
 				if (acceleration.x < -4.5) {
 					if (acceleration.y > 4.75)
 						setGravity(3);
