@@ -3,14 +3,21 @@ Vue.component('sugar-device', {
 	template: `<div style="display: none">{{ watchId }}</div>`,
 	data: function () {
 		return {
-			watchId: null
+			watchId: null,
+			readyToWatch: false,
+			frequencyExpected: 0
 		}
 	},
-	created: function () {
-		var cordovaScript = document.createElement('script');
-		cordovaScript.setAttribute('type', 'text/javascript');
-		cordovaScript.setAttribute('src', '../../cordova.js');
-		document.head.appendChild(cordovaScript);
+	mounted: function () {
+		var vm = this;
+		requirejs(['domReady!'], function () {
+			document.addEventListener('deviceready', function() {
+				vm.readyToWatch = true;
+				if (vm.frequencyExpected > 0) {
+					vm.watchAcceleration(vm.frequencyExpected);
+				}
+			}, false);
+		});
 	},
 	methods: {
 		isMobile() {
@@ -85,13 +92,22 @@ Vue.component('sugar-device', {
 					accelerometer.start();
 				}
 			} else if (navigator.accelerometer) {
-				watchId = navigator.accelerometer.watchAcceleration(function () {
-					vm.accelerationCallback(accelerometer);
-				}, null, { frequency: frequency });
+				if (vm.readyToWatch) {
+					vm.watchId = navigator.accelerometer.watchAcceleration(function (accelerometer) {
+						vm.accelerationCallback(accelerometer);
+					}, null, { frequency: frequency });
+				} else {
+					vm.frequencyExpected = frequency;
+				}
+			} else {
+				vm.frequencyExpected = frequency;
 			}
 		},
 
 		accelerationCallback: function (acceleration) {
+			if (this.readyToWatch) {
+				this.readyToWatch = false;
+			}
 			this.$emit('acceleration-callback', acceleration);
 		},
 

@@ -485,8 +485,7 @@ let app = new Vue({
 			this.acceleration = {
 				x: acceleration.x,
 				y: acceleration.y,
-				z: acceleration.z,
-				type: acceleration.type
+				z: acceleration.z
 			};
 			this.accelerationUpdate();
 		},
