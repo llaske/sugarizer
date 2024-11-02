@@ -1173,9 +1173,16 @@ define([
 		var sensorButton = document.getElementById("sensor-button");
 		var sensorMode = false;
 
-		// Handles the accelerometer
-		if (navigator.accelerometer != null) {
-			// If the accelerometer is available then keep the accelerometer on by default.
+		// If the accelerometer is available then keep the accelerometer on by default.
+		if (window.Accelerometer) {
+			sensorMode = true;
+			sensorButton.classList.add("active");
+			var accelerometer = new Accelerometer({ frequency: 500 });
+			if (accelerometer) {
+				accelerometer.addEventListener('reading', accelerationChanged);
+				accelerometer.start();
+			}
+		} else if (navigator.accelerometer) {
 			sensorMode = true;
 			sensorButton.classList.add("active");
 			watchId = navigator.accelerometer.watchAcceleration(
@@ -1186,17 +1193,25 @@ define([
 		}
 
 		sensorButton.addEventListener("click", function () {
-			if (navigator.accelerometer == null) {
+			if (!navigator.accelerometer && !window.Accelerometer) {
 				return;
 			}
 			sensorMode = !sensorMode;
 			if (sensorMode) {
 				sensorButton.classList.add("active");
-				watchId = navigator.accelerometer.watchAcceleration(
-					accelerationChanged,
-					null,
-					{ frequency: 500 }
-				);
+				if (window.Accelerometer) {
+					var accelerometer = new Accelerometer({ frequency: 500 });
+					if (accelerometer) {
+						accelerometer.addEventListener('reading', accelerationChanged);
+						accelerometer.start();
+					}
+				} else if (navigator.accelerometer) {
+					watchId = navigator.accelerometer.watchAcceleration(
+						accelerationChanged,
+						null,
+						{ frequency: 500 }
+					);
+				}
 			} else {
 				sensorButton.classList.remove("active");
 				world.gravity.set(0, -9.81, 0);
@@ -1204,9 +1219,10 @@ define([
 			}
 		});
 
-		function accelerationChanged(acceleration) {
+		function accelerationChanged(accelerationEvent) {
 			if (!sensorMode) return;
-			if (window.orientation == -90) {
+			var acceleration = window.Accelerometer ? accelerationEvent.target : accelerationEvent;
+			if (window.orientation && window.orientation == -90) {
 				// If its in reverse.
 				if (acceleration.y > 0) {
 					if (acceleration.y < -2.8) {
