@@ -99,7 +99,7 @@ enyo.kind({
 		var popupTopPosition = mouse.position.y + this.margin.top;
 		var popupBottomPosition = mouse.position.x + this.margin.left;
 		if (mouse.position.y + popupSize > screenHeight) {
-			popupTopPosition -= (popupSize + 10);
+			popupTopPosition = screenHeight+this.margin.top-popupSize;
 		}
 		this.setStyle("bottom", "");
 		this.applyStyle("top", (popupTopPosition) + "px");
