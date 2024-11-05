@@ -35,7 +35,6 @@ define([
 		);
 		paletteBg.setBackgroundChangeCallback(changeBoardBackgroundHelper);
 		function changeBoardBackgroundHelper(selectedBoard) {
-			console.log("changing background from base func");
 			if (presence) {
 				presence.sendMessage(presence.getSharedInfo().id, {
 					user: presence.getUserInfo(),
@@ -135,7 +134,6 @@ define([
 					: ctx.presentColor;
 
 			scene.background = new THREE.Color("#ffffff");
-			console.log(ctx.presentColor);
 
 			ctx.textColor =
 				currentenv.user.colorvalue.stroke != null
@@ -148,8 +146,6 @@ define([
 				ctx.textColor;
 
 			if (environment.sharedId) {
-				console.log(environment.sharedId)
-				console.log("Shared instance");
 				presence = activity.getPresenceObject(function (
 					error,
 					network
@@ -172,9 +168,6 @@ define([
 		);
 
 		var onNetworkDataReceived = function (msg) {
-			console.log("received data");
-			console.log(msg);
-			console.log(msg.action);
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
 			}
@@ -209,7 +202,6 @@ define([
 							createFunction = createIcosahedron;
 							break;
 						default:
-							console.log(`Unexpected shape: ${data[i][0]}`);
 							continue;
 					}
 					// Add those volumes to the board.
@@ -241,7 +233,6 @@ define([
 			}
 
 			if (msg.action == "positions") {
-				console.log("received positonns");
 				copyPositions(msg.content);
 			}
 			// if (msg.action == "throw") {
@@ -282,27 +273,27 @@ define([
 						break;
 					case "dodeca":
 						createFunction = createDodecahedron;
-								switch (msg.content.shape) {
-					case "cube":
-						createFunction = createCube;
+						switch (msg.content.shape) {
+							case "cube":
+								createFunction = createCube;
+								break;
+							case "octa":
+								createFunction = createOctahedron;
+								break;
+							case "tetra":
+								createFunction = createTetrahedron;
+								break;
+							case "dodeca":
+								createFunction = createDodecahedron;
+								break;
+							case "deca":
+								createFunction = createDecahedron;
+								break;
+							case "icosa":
+								createFunction = createIcosahedron;
+								break;
+						}
 						break;
-					case "octa":
-						createFunction = createOctahedron;
-						break;
-					case "tetra":
-						createFunction = createTetrahedron;
-						break;
-					case "dodeca":
-						createFunction = createDodecahedron;
-						break;
-					case "deca":
-						createFunction = createDecahedron;
-						break;
-					case "icosa":
-						createFunction = createIcosahedron;
-						break;
-				}
-		break;
 					case "deca":
 						createFunction = createDecahedron;
 						break;
@@ -357,16 +348,14 @@ define([
 						diceArray[i][9],
 					]);
 				}
-				console.log("writing...");
 				var jsonData = JSON.stringify(journalDiceArray);
-				console.log(jsonData);
 				activity.getDatastoreObject().setDataAsText(jsonData);
 				activity.getDatastoreObject().save(function (error) {
-					if (error === null) {
-						console.log("write done.");
-					} else {
-						console.log("write failed.");
-					}
+					// if (error === null) {
+					// 	console.log("write done.");
+					// } else {
+					// 	console.log("write failed.");
+					// }
 				});
 			});
 
@@ -408,9 +397,6 @@ define([
 											createFunction = createIcosahedron;
 											break;
 										default:
-											console.log(
-												`Unexpected shape: ${data[i][0]}`
-											);
 											break;
 									}
 
@@ -972,9 +958,11 @@ define([
 					updateElements();
 					num--;
 				}
-				world.removeBody(diceArray[index][1]);
-				scene.remove(diceArray[index][0]);
-				diceArray.splice(index, 1);
+				if (diceArray.length != 0 && intersectedObject != null) {
+					world.removeBody(diceArray[index][1]);
+					scene.remove(diceArray[index][0]);
+					diceArray.splice(index, 1);
+				}
 			} else {
 				for (let i = 0; i < diceArray.length; i++) {
 					if (diceArray[i][0] == intersectedObject) {
@@ -1025,15 +1013,11 @@ define([
 									);
 									break;
 								default:
-									console.log(
-										`Unknown type: ${diceArray[i][3]}`
-									);
 									continue;
 							}
 
 							scoresObject.presentScore =
 								scoresObject.presentScore - score;
-							console.log(scoresObject.presentScore);
 
 							let scoresArray =
 								scoresObject.lastRoll.split(" + ");
@@ -1051,8 +1035,6 @@ define([
 							// Join the remaining scores back into a string
 							scoresObject.lastRoll = scoresArray.join(" + ");
 							updateElements();
-							console.log(scoresObject.lastRoll);
-							console.log(scoresObject.presentScore);
 							num--;
 						}
 						world.removeBody(diceArray[i][1]);
@@ -1076,18 +1058,14 @@ define([
 		var isHost = false;
 		palette.addEventListener("shared", function () {
 			palette.popDown();
-			console.log("Want to share");
 			presence = activity.getPresenceObject(function (error, network) {
 				if (error) {
-					console.log("Sharing error");
 					return;
 				}
 				network.createSharedActivity(
 					"org.sugarlabs.3DVolume",
 					function (groupId) {
-						console.log("Activity shared");
 						isHost = true;
-						console.log(groupId)
 					}
 				);
 				network.onDataReceived(onNetworkDataReceived);
@@ -1179,7 +1157,7 @@ define([
 			sensorButton.classList.add("active");
 			var accelerometer = new Accelerometer({ frequency: 500 });
 			if (accelerometer) {
-				accelerometer.addEventListener('reading', accelerationChanged);
+				accelerometer.addEventListener("reading", accelerationChanged);
 				accelerometer.start();
 			}
 		} else if (navigator.accelerometer) {
@@ -1202,7 +1180,10 @@ define([
 				if (window.Accelerometer) {
 					var accelerometer = new Accelerometer({ frequency: 500 });
 					if (accelerometer) {
-						accelerometer.addEventListener('reading', accelerationChanged);
+						accelerometer.addEventListener(
+							"reading",
+							accelerationChanged
+						);
 						accelerometer.start();
 					}
 				} else if (navigator.accelerometer) {
@@ -1221,7 +1202,9 @@ define([
 
 		function accelerationChanged(accelerationEvent) {
 			if (!sensorMode) return;
-			var acceleration = window.Accelerometer ? accelerationEvent.target : accelerationEvent;
+			var acceleration = window.Accelerometer
+				? accelerationEvent.target
+				: accelerationEvent;
 			if (window.orientation && window.orientation == -90) {
 				// If its in reverse.
 				if (acceleration.y > 0) {
@@ -1511,32 +1494,6 @@ define([
 		zoomEqualButton.addEventListener("click", zoomEqualFunction);
 		zoomToButton.addEventListener("click", zoomToFunction);
 
-		// This function handles the tossing of the volumes.
-
-		// function throwDice(sharedOffset, sharedRolling) {
-		// 	for (let i = 0; i < diceArray.length; i++) {
-		// 		scene.remove(diceArray[i][0]);
-		// 		world.removeBody(diceArray[i][1]);
-		// 	}
-		// 	if (diceArray.length > 0) {
-		// 		scoresObject.lastRoll = "";
-		// 		scoresObject.presentScore = 0;
-		// 		for (let i = 0; i < diceArray.length; i++) {
-		// 			diceArray[i][1].angularVelocity.set(
-		// 				diceArray[i][7],
-		// 				diceArray[i][8],
-		// 				diceArray[i][9]
-		// 			);
-		// 			diceArray[i][1].applyImpulse(ctx.offset, ctx.rollingForce);
-		// 			diceArray[i][1].position.set(0, 10, 0);
-		// 		}
-		// 		for (let i = 0; i < diceArray.length; i++) {
-		// 			scene.add(diceArray[i][0]);
-		// 			world.addBody(diceArray[i][1]);
-		// 		}
-		// 	}
-		// 	console.log(diceArray);
-		// }
 		function throwDice(sharedOffset, sharedRolling) {
 			throwingDice = true;
 			for (let i = 0; i < diceArray.length; i++) {
@@ -1560,7 +1517,6 @@ define([
 					world.addBody(diceArray[i][1]);
 				}
 			}
-			console.log(diceArray);
 		}
 
 		// Functions to get the scores of the dice.
@@ -1616,7 +1572,6 @@ define([
 		}
 		// This function calls the getScore functions for all the volumes and displays them.
 		function getScores() {
-			console.log("getting scores now");
 			scoresObject.presentScore = 0;
 			scoresObject.lastRoll = "";
 			lastRollElement.textContent = "";
@@ -1652,7 +1607,6 @@ define([
 							);
 							break;
 						default:
-							console.log(`Unknown type: ${diceArray[i][3]}`);
 							continue;
 					}
 					updateElements();
@@ -1661,7 +1615,6 @@ define([
 		}
 
 		function sendPositions() {
-			console.log("sending positions now");
 			let dicePositions = [];
 			for (let i = 0; i < diceArray.length; i++) {
 				dicePositions.push([
@@ -1677,8 +1630,6 @@ define([
 		}
 
 		function copyPositions(positions) {
-			console.log("copying positions now");
-			console.log(diceArray);
 			for (let i = 0; i < diceArray.length; i++) {
 				scene.remove(diceArray[i][0]);
 				world.removeBody(diceArray[i][1]);
@@ -1720,11 +1671,8 @@ define([
 				diceArray[i][0]?.position?.copy(diceArray[i][1].position);
 				diceArray[i][0]?.quaternion?.copy(diceArray[i][1].quaternion);
 			}
-			// console.log(world.hasActiveBodies);
-			// console.log(world.hasActiveBodies + "," + awake)
 			if (world.hasActiveBodies == false && awake == true) {
 				awake = false;
-				console.log("the world is going to sleep now bye bye");
 				getScores();
 				if (throwingDice) {
 					throwingDice = false;
