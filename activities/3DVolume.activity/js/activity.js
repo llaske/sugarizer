@@ -1404,8 +1404,11 @@ define([
 			renderer.domElement
 		);
 		camera.position.set(0, 25, -30);
+		orbit.enableRotate = false;
+		orbit.enablePan = false;
+		orbit.enableZoom = false;
+		orbit.enableDamping = false;
 		orbit.update();
-		orbit.listenToKeyEvents(document.querySelector("body"));
 
 		const goRightButton = document.querySelector("#right-button");
 		const goLeftButton = document.querySelector("#left-button");
