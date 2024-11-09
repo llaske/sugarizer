@@ -38,7 +38,7 @@ const ListView = {
 							:id="'help' + activity.id"
 							svgfile="./icons/help-rev.svg"
 							:color="256"
-							:size="44"
+							:size="35"
 							isNative="true"
 						></icon>
 					</div>

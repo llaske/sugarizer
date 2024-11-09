@@ -100,7 +100,7 @@ a {
     margin:20px;
 }
 .icon {
-	padding: 10px;
+	padding: 5px;
 	width: fit-content;
 }
 
@@ -1018,7 +1018,7 @@ a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px 50px 5px 0;
+	padding: 5px 50px 0px 0px;
 }
 
 .listview_left {
