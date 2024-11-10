@@ -100,8 +100,12 @@ a {
     margin:20px;
 }
 .icon {
-	padding: 5px;
+	padding: 6px 2px 2px 0px;
 	width: fit-content;
+}
+
+.listview_left .icon {
+	padding: 5px;
 }
 
 .icon:hover {
