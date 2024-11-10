@@ -235,10 +235,6 @@ define([
 			if (msg.action == "positions") {
 				copyPositions(msg.content);
 			}
-			// if (msg.action == "throw") {
-			// 	copyPosition();
-			// 	throwDice(msg.content[0], msg.content[1]);
-			// }
 			if (msg.action == "changeBg") {
 				changeBoardBackground(msg.content);
 			}
@@ -561,7 +557,7 @@ define([
 				if (presence) {
 					presence.sendMessage(presence.getSharedInfo().id, {
 						user: presence.getUserInfo(),
-						action: "throw",
+						action: "positions",
 						content: [ctx.offset, ctx.rollingForce],
 					});
 				}
@@ -1641,6 +1637,9 @@ define([
 				world.removeBody(diceArray[i][1]);
 			}
 			for (let i = 0; i < diceArray.length; i++) {
+				if (!positions[i] || !positions[i][0] || !positions[i][1]) {
+					continue;
+				}
 				diceArray[i][0].position.copy(positions[i][0]);
 				diceArray[i][1].position.copy(positions[i][0]);
 				diceArray[i][1].quaternion.copy(positions[i][1]);
