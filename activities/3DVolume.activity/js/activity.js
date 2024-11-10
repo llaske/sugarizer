@@ -1471,7 +1471,7 @@ define([
 		};
 
 		const clickZoom = (value, zoomType) => {
-			if (value >= 20 && zoomType === "zoomIn") {
+			if (value >= 10 && zoomType === "zoomIn") {
 				return value - 5;
 			} else if (value <= 75 && zoomType === "zoomOut") {
 				return value + 5;
