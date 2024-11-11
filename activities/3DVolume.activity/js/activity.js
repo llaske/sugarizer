@@ -98,7 +98,6 @@ define([
 		let imageData;
 		var currentenv;
 		let removeVolume = false;
-		let transparent = false;
 		let defaultVolume = true;
 		let isInit = false;
 
@@ -261,26 +260,6 @@ define([
 						break;
 					case "dodeca":
 						createFunction = createDodecahedron;
-						switch (msg.content.shape) {
-							case "cube":
-								createFunction = createCube;
-								break;
-							case "octa":
-								createFunction = createOctahedron;
-								break;
-							case "tetra":
-								createFunction = createTetrahedron;
-								break;
-							case "dodeca":
-								createFunction = createDodecahedron;
-								break;
-							case "deca":
-								createFunction = createDecahedron;
-								break;
-							case "icosa":
-								createFunction = createIcosahedron;
-								break;
-						}
 						break;
 					case "deca":
 						createFunction = createDecahedron;
@@ -339,11 +318,11 @@ define([
 				var jsonData = JSON.stringify(journalDiceArray);
 				activity.getDatastoreObject().setDataAsText(jsonData);
 				activity.getDatastoreObject().save(function (error) {
-					// if (error === null) {
-					// 	console.log("write done.");
-					// } else {
-					// 	console.log("write failed.");
-					// }
+					if (error === null) {
+						console.log("write done.");
+					} else {
+						console.log("write failed.");
+					}
 				});
 			});
 
@@ -444,17 +423,6 @@ define([
 					.slice(1)
 					.toUpperCase()
 			);
-		}
-
-		function hexToRgb(hex) {
-			let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-			return result
-				? {
-						r: parseInt(result[1], 16),
-						g: parseInt(result[2], 16),
-						b: parseInt(result[3], 16),
-				  }
-				: null;
 		}
 
 		function updateColorDisplayFill() {
@@ -652,7 +620,6 @@ define([
 
 		const buttons = ["cube", "tetra", "octa", "dodeca", "deca", "icosa"];
 		const removeButton = document.querySelector("#clear-button");
-		const solidButton = document.querySelector("#solid-button");
 
 		const toggleShape = (shape) => {
 			buttons.forEach((btn) => {
@@ -848,13 +815,6 @@ define([
 				var intersectedObject = intersects[0]?.object;
 				if (intersectedObject?.geometry.type == "PlaneGeometry") {
 					return;
-				}
-				let index = null;
-				for (let i = 0; i < diceArray.length; i++) {
-					if (intersectedObject == diceArray[i][0]) {
-						index = i;
-						break;
-					}
 				}
 
 				// Removing the volume for other users as well.
@@ -1091,7 +1051,6 @@ define([
 		};
 
 		renderer.setSize(window.innerWidth, window.innerHeight);
-		const canvas = document.getElementById("game-container");
 		document
 			.getElementById("game-container")
 			.appendChild(renderer.domElement);
@@ -1479,7 +1438,6 @@ define([
 			);
 		};
 
-		const fov = getFov();
 		camera.fov = 29;
 		camera.updateProjectionMatrix();
 
