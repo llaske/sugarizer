@@ -239,21 +239,13 @@ define([
 				changeBoardBackground(msg.content);
 			}
 			if (msg.action == "remove") {
-				// This starts a ray from the top of the scene and that ray intersects objects.
-				raycaster.setFromCamera(msg.content[0], camera);
-				var intersects = raycaster.intersectObjects(scene.children);
-
-				// The object that is intersected first is the object that needs to be removed.
-				var intersectedObject = intersects[0]?.object;
-
-				// If the first object is the board do not let it be removed
-				if (intersectedObject?.geometry.type == "PlaneGeometry") {
-					if (msg.content[1] != null) {
-						remove(null, msg.content[1]);
+				for (let i = 0; i < diceArray.length; i++) {
+					let dice = diceArray[i][0];
+					if (dice && dice.id && dice.id == msg.content) {
+						remove(dice);
+						break;
 					}
-					return;
 				}
-				remove(intersectedObject);
 			} else {
 				let createFunction = null;
 
@@ -866,11 +858,11 @@ define([
 				}
 
 				// Removing the volume for other users as well.
-				if (presence) {
+				if (presence && intersectedObject) {
 					presence.sendMessage(presence.getSharedInfo().id, {
 						user: presence.getUserInfo(),
 						action: "remove",
-						content: [mouse, index], // Send the point which the user is clicking on.
+						content: intersectedObject.id
 					});
 				}
 
