@@ -370,6 +370,7 @@
 	"PrivacyRemoveRemote": "Supprimer compte serveur",
 	"TutoActivityMeasureactivity": "L'activité Measure permet d'apprendre les concepts du son.",
 	"TutoActivityStoryactivity": "L'activité Story vous invite à raconter une histoire à partir d'un ensemble d'images. Vous devez essayer de raconter une histoire qui relie les images entre elles pour former un récit complet.",
+	"TutoActivity3DVolumeactivity": "Explorez le monde des volumes avec ce simulateur interactif ! Ajoutez et retirez des volumes de différentes formes et couleurs, transformez-les en dés, faites pivoter, zoomez, et secouez le plateau. Et partagez le plaisir et l'apprentissage en temps réel avec des amis !",
 	"FilterAssignment": "Filtrer Devoirs",
 	"SecondsSubmitted": "Rendu à l'instant",
 	"Submitted": "Rendu il y a {{time}}",
