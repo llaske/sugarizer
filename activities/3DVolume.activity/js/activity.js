@@ -103,6 +103,20 @@ define([
 
 		let xCoordinate, zCoordinate;
 
+		let getUniqueId = function() {
+			var s = [];
+			var hexDigits = "0123456789abcdef";
+			for (var i = 0; i < 36; i++) {
+				s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+			}
+			s[14] = "4";
+			s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+			s[8] = s[13] = s[18] = s[23] = "-";
+	
+			var uuid = s.join("");
+			return uuid;
+		};
+
 		var defaultButton = document.getElementById("default-button");
 		defaultButton.classList.toggle("active");
 
@@ -225,7 +239,8 @@ define([
 							groundPhysMat,
 							data[i][7],
 							data[i][8],
-							data[i][9]
+							data[i][9],
+							data[i][10]
 						);
 					}
 				}
@@ -240,7 +255,7 @@ define([
 			if (msg.action == "remove") {
 				for (let i = 0; i < diceArray.length; i++) {
 					let dice = diceArray[i][0];
-					if (dice && dice.id && dice.id == msg.content) {
+					if (dice && dice.userData && dice.userData == msg.content) {
 						remove(dice);
 						break;
 					}
@@ -288,7 +303,8 @@ define([
 						groundPhysMat,
 						msg.content.sharedAngVel1,
 						msg.content.sharedAngVel2,
-						msg.content.sharedAngVel3
+						msg.content.sharedAngVel3,
+						msg.content.uniqueId
 					);
 				}
 			}
@@ -388,7 +404,8 @@ define([
 											groundPhysMat,
 											data[i][7],
 											data[i][8],
-											data[i][9]
+											data[i][9],
+											getUniqueId()
 										);
 									}
 								}
@@ -746,6 +763,7 @@ define([
 							let angVel1 = Math.random() * (3 - 0.1) + 0.1;
 							let angVel2 = Math.random() * (3 - 0.1) + 0.1;
 							let angVel3 = Math.random() * (3 - 0.1) + 0.1;
+							let generatedId = getUniqueId();
 							createFunction(
 								null,
 								null,
@@ -764,7 +782,8 @@ define([
 								groundPhysMat,
 								angVel1,
 								angVel2,
-								angVel3
+								angVel3,
+								generatedId
 							);
 							// Create the volume for the connected users as well.
 							if (presence) {
@@ -788,6 +807,7 @@ define([
 											sharedAngVel1: angVel1,
 											sharedAngVel2: angVel2,
 											sharedAngVel3: angVel3,
+											uniqueId: generatedId
 										},
 									}
 								);
@@ -822,7 +842,7 @@ define([
 					presence.sendMessage(presence.getSharedInfo().id, {
 						user: presence.getUserInfo(),
 						action: "remove",
-						content: intersectedObject.id
+						content: intersectedObject.userData
 					});
 				}
 
@@ -1037,6 +1057,7 @@ define([
 						diceArray[i][7],
 						diceArray[i][8],
 						diceArray[i][9],
+						diceArray[i][0].userData,
 					]);
 				}
 				if (isHost) {

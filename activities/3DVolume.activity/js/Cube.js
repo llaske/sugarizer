@@ -16,7 +16,8 @@ function createCube(
 	groundPhysMat,
 	sharedAngVel1,
 	sharedAngVel2,
-	sharedAngVel3
+	sharedAngVel3,
+	uniqueId
 ) {
 	let boxMesh;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -100,6 +101,7 @@ function createCube(
 		boxMesh = new THREE.Mesh(boxGeo, boxMat);
 	}
 	boxMesh.castShadow = true;
+	boxMesh.userData = uniqueId;
 	scene.add(boxMesh);
 
 	let x = xCoordinateShared == null ? xCoordinate : xCoordinateShared;

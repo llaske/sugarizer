@@ -16,7 +16,8 @@ function createOctahedron(
 	groundPhysMat,
 	sharedAngVel1,
 	sharedAngVel2,
-	sharedAngVel3
+	sharedAngVel3,
+	uniqueId
 ) {
 	let octahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -104,6 +105,7 @@ function createOctahedron(
 		octahedron = new THREE.Mesh(octahedronGeometry, octaMaterial);
 	}
 	octahedron.castShadow = true;
+	octahedron.userData = uniqueId;
 	scene.add(octahedron);
 
 	const scaleFactor = 0.8; // Change this value to scale the shape

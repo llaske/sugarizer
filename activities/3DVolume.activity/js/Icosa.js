@@ -16,7 +16,8 @@ function createIcosahedron(
 	groundPhysMat,
 	sharedAngVel1,
 	sharedAngVel2,
-	sharedAngVel3
+	sharedAngVel3,
+	uniqueId
 ) {
 	let icosahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -111,6 +112,7 @@ function createIcosahedron(
 	}
 	icosahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
 	icosahedron.castShadow = true;
+	icosahedron.userData = uniqueId;
 	scene.add(icosahedron);
 
 	// Vertices

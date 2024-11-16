@@ -87,7 +87,8 @@ function createDodecahedron(
 	groundPhysMat,
 	sharedAngVel1,
 	sharedAngVel2,
-	sharedAngVel3
+	sharedAngVel3,
+	uniqueId
 ) {
 	let dodecahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -125,6 +126,7 @@ function createDodecahedron(
 
 	dodecahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
 	dodecahedron.castShadow = true;
+	dodecahedron.userData = uniqueId;
 	scene.add(dodecahedron);
 
 	const t = 1.618;

@@ -77,7 +77,8 @@ function createDecahedron(
 	groundPhysMat,
 	sharedAngVel1,
 	sharedAngVel2,
-	sharedAngVel3
+	sharedAngVel3,
+	uniqueId
 ) {
 	let decahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -122,6 +123,7 @@ function createDecahedron(
 
 	decahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0); // Rotates 90 degrees on X, 45 degrees on Y
 	decahedron.castShadow = true;
+	decahedron.userData = uniqueId;
 	// decahedron = diceMesh;
 	scene.add(decahedron);
 

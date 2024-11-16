@@ -16,7 +16,8 @@ function createTetrahedron(
 	groundPhysMat,
 	sharedAngVel1,
 	sharedAngVel2,
-	sharedAngVel3
+	sharedAngVel3,
+	uniqueId
 ) {
 	let tetrahedron;
 	let tempShowNumbers = ifNumbers == null ? ctx.showNumbers : ifNumbers;
@@ -130,6 +131,7 @@ function createTetrahedron(
 
 	tetrahedron.rotation.set(Math.PI / 4, Math.PI / 4, 0);
 	tetrahedron.castShadow = true;
+	tetrahedron.userData = uniqueId;
 	scene.add(tetrahedron);
 
 	const verticesTetra = [
