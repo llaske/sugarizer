@@ -370,6 +370,7 @@
 	"PrivacyRemoveRemote": "Delete server account",
 	"TutoActivityMeasureactivity": "Measure activity is an activity to learn the concepts of sound.",
 	"TutoActivityStoryactivity": "Story Activity uses images to prompt you to tell a story. You should try to tell a story that ties the images together into a comprehensive narrative.",
+	"TutoActivity3DVolumeactivity": "Explore the world of volumes with this interactive simulator! Add and remove volumes of different shapes and colors, transform them into dice, rotate, zoom, and shake the board. And share the fun and learning in real-time with friends!",
 	"FilterAssignment": "Filter Assignments",
 	"SecondsSubmitted": "Submitted seconds ago",
 	"Submitted": "Submitted {{time}} ago",
