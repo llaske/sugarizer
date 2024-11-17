@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- 3D Volume activity
 - Launch activity directly from url of CLI
 
 ### Changed
