@@ -104,6 +104,10 @@ a {
 	width: fit-content;
 }
 
+.listview_left .icon {
+	padding: 5px;
+}
+
 .icon:hover {
 	background-color: #d5d5d5;
 	border-radius: 5px;
@@ -1018,7 +1022,7 @@ a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px 50px 5px 0;
+	padding: 5px 50px 0px 0px;
 }
 
 .listview_left {
