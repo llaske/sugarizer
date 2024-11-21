@@ -1,0 +1,15 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="clipping-data">
+	<g>
+		<g>
+			<polygon fill="&fill_color;" points="10.932,6.088 31.874,6.088 43.818,18.027 43.818,48.914      10.932,48.914    " stroke="&stroke_color;" stroke-width="3.5"/>
+			<polyline fill="none" points="43.818,18.027 31.874,18.027 31.874,6.088    " stroke="&stroke_color;" stroke-width="3.5"/>
+		</g>
+	</g>
+	<rect fill="&stroke_color;" height="5.5" width="5.5" x="16.441" y="34.625"/>
+	<rect fill="&stroke_color;" height="5.5" width="5.5" x="21.941" y="29.125"/>
+	<rect fill="&stroke_color;" height="5.5" width="5.5" x="27.441" y="34.625"/>
+	<rect fill="&stroke_color;" height="5.5" width="5.5" x="32.941" y="29.125"/>
+</g></svg>

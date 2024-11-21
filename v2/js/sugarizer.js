@@ -4,6 +4,7 @@ requirejs.config({
 	paths: {
 		activity: "../js",
 		modules: "../js/modules",
+		platform: "../js/modules/platform/",
 	}
 });
 
@@ -14,6 +15,8 @@ let sugarizer = {
 	constant: {
 		webAppType: 0,
 		appType: 1,
+		mobileType: 2,
+		desktopAppType: 3,
 		sugarizerVersion: '2.0.0',
 		noServerMode: false,
 		platform: {
@@ -30,6 +33,7 @@ let sugarizer = {
 			touch: ('ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0),
 			androidChrome: /Android .* Chrome\/(\d+)[.\d]+/.test(navigator.userAgent)
 		},
+		timerBeforeClose: 1000,
 	},
 
 	// Init function
@@ -37,8 +41,8 @@ let sugarizer = {
 		return new Promise(function(resolve, reject) {
 			// Load modules
 			requirejs(
-				["modules/xocolor", "modules/contributors", "modules/server","modules/settings","modules/activities", "modules/journal", "modules/user", "modules/history", "modules/stats", 'modules/i18next', "lib/humane.js", "lib/sugar-web/presence.js"],
-				function(xocolor, contributors, server, settings, activities, journal, user, history, stats, i18next, humane, presence) {
+				["modules/xocolor", "modules/contributors", "modules/server","modules/settings","modules/activities", "modules/journal", "modules/file", "modules/user", "modules/history", "modules/stats", 'modules/i18next', "lib/humane.js", "lib/sugar-web/presence.js"],
+				function(xocolor, contributors, server, settings, activities, journal, file, user, history, stats, i18next, humane, presence) {
 					sugarizer.modules.xocolor = xocolor;
 					sugarizer.modules.contributors = contributors;
 					sugarizer.modules.server = server;
@@ -51,6 +55,7 @@ let sugarizer = {
 					sugarizer.modules.humane = humane;
 					sugarizer.modules.i18next = i18next;
 					sugarizer.modules.presence = presence;
+					sugarizer.modules.file = file;
 					i18next.init().then(resolve);
 				}
 			);
@@ -60,6 +65,17 @@ let sugarizer = {
 	// Get client type
 	getClientType: function() {
 		return (document.location.protocol.substr(0,4) == "http" && !this.constant.noServerMode) ? this.constant.webAppType : this.constant.appType;
+	},
+
+	// Get platform type from webAppType, mobileType, desktopAppType
+	getClientPlatform: function() {
+		if (this.getClientType() === this.constant.appType) {
+			if (this.constant.platform.electron) return this.constant.desktopAppType;
+			// else has to be Mobile Type
+			return this.constant.mobileType;
+		} else {
+			return this.constant.webAppType;
+		}
 	},
 
 	// Get client name
@@ -131,5 +147,26 @@ let sugarizer = {
 			location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
 		});
 		this.modules.stats.clean(true);
+	},
+
+	// Quit Desktop app
+	quitApp: function () {
+		document.getElementById("shutdown-image").style.display = "block";
+		window.setTimeout(function() {
+			if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
+				window.top.postMessage("", '*');
+			}
+			window.close();
+			if (!/Edge/.test(navigator.userAgent)) {
+				window.open('', '_self', ''); // HACK: Not allowed on all browsers
+				window.close();
+			}
+			if (navigator) {
+				if (navigator.app)
+					navigator.app.exitApp();
+				else if (navigator.device)
+					navigator.device.exitApp();
+			}
+		}, this.constant.timerBeforeClose);
 	},
 };

@@ -78,6 +78,7 @@ input[type="checkbox"], input[type="radio"] {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+	cursor: inherit;
  }
 
 input[type="checkbox"]:checked {
@@ -90,6 +91,18 @@ input[type="checkbox"] {
 a {
 	color: #0076c3;
 	text-decoration: none;
+}
+
+#shutdown-image {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+    background: url("../images/uiwarning.png") top/cover no-repeat, #000;
+    background-size: auto 100%;
 }
 
 /* sugar-vue-Icon */
@@ -131,14 +144,13 @@ a {
 	color: white;
 	background-color: #808080;
 	border: 2px solid #808080;
+	align-items: center;
 }
-
-.icon-button-icon {
-	align-self: center;
+.icon-button .icon {
+	padding: 0;
 }
 
 .icon-button-text {
-	margin-top: 10px;
 	width:inherit;
 	padding: 0px 10px;
 	display: inline-block;
@@ -272,6 +284,14 @@ a {
 	z-index: 1;
 	max-height: 80vh;
 	overflow-y: auto;
+}
+
+.popup-item-disabled, .popup-title-disabled {
+	pointer-events: none;
+	user-select: none;
+}
+.popup-item-disabled {
+	opacity: .6;
 }
 
 .popup-footer :hover{
@@ -429,15 +449,18 @@ a {
 }
 
 .filterBox-sugarizer {
-	margin-top: 0px;
-	height: 45px;
+	height: 50px;
 	width: fit-content;
-	margin: 10px;
-	color: white
+	color: white;
+	border: 2px solid transparent;
+	border-bottom: 0;
+	position: relative;
 }
 
 .filterBox {
 	display: flex;
+	height: 100%;
+	padding-inline: 6px;
 }
 
 .filterBox-sugarizer:hover {
@@ -445,8 +468,7 @@ a {
 }
 
 .filterBox-icon {
-	margin: 2px;
-	margin-top: 12px !important;
+	margin-top: 8px !important;
 }
 
 .filterBox-down {
@@ -463,35 +485,31 @@ a {
 	background-position-x: center;
 	background-color: black;
 	background-size: 47px;
-	border: 2px solid #808080;
-	border-bottom: 0;
+	border-color: #808080;
 }
 
 .filterBox-text {
 	margin-top: 14px;
-	margin-left: 15px;
-	margin-right: 4px;
+	margin-left: 4px;
 }
 
 .filterBox-content {
 	position: absolute;
 	background-color: black;
-	max-width: 271px;
-	min-width: 161px;
-	min-height: 51px;
-	max-height: 80vh;
+	max-width: 270px;
+	min-width: 200px;
 	pointer-events: auto;
 	border: 2px solid #808080;
 	color: white;
 	overflow: auto;
 	z-index: 1;
-	margin-top: 9px;
-	margin-left: -2px;
+	top: 100%;
+	left: 0;
 }
 
 .filterBox-header {
 	height: 40px;
-	margin-left: 5px;
+	margin-left: 8px;
 	margin-right: 5px;
 	margin-bottom: 10px;
 	font-weight: bold;
@@ -510,14 +528,19 @@ a {
 	color: white;
 	border-width: 2px;
 	z-index: 1;
-	max-height: 50vh;
+	max-height: 80vh;
 	overflow-y: auto;
+}
+
+.filterBox-items .filterBox-text, .filterBox-items .filterBox-icon {
+	margin-top: 0 !important;
 }
 
 .filterBox-items-item {
 	display: flex;
 	height: 35px;
-	margin: 3px 0px;
+	padding: 6px 8px;
+	align-items: center
 }
 
 .filterBox-items-item:hover {
@@ -740,7 +763,7 @@ a {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	overflow: hidden;
+	z-index: 1;
 }
 
 .tool_rightitems {
@@ -752,9 +775,8 @@ a {
 .toolbar hr {
 	display: inline-block;
 	height: 45px;
-	margin: 4.5px;
-	margin-bottom: -21px;
-	border: 1px solid #808080;
+	margin: 4px;
+	border: 1px solid #656565;
 }
 
 .toolbar .toolbutton {
@@ -1014,8 +1036,14 @@ a {
 .loginscreen_help, .firstscreen_help {
 	position: fixed;
 	top: 60px;
-	left: 30px;
+	left: 10%;
+	width: 80%;
+	margin-inline: auto;
  }
+.firstscreen_help {
+	display: flex;
+	justify-content: space-between;
+}
 
 /* listview */
 .listview {
@@ -1053,6 +1081,19 @@ a {
 	animation-name: sync-frame;
 	animation-duration: 2s;
 	animation-iteration-count: infinite;
+}
+
+#toolbar-assignment-btn {
+	position: relative;
+}
+#toolbar-assignment-btn .assignment-count {
+	position: absolute;
+	border-radius: 40px;
+    padding: 1px 6px;
+    bottom: -2px;
+    right: -8px;
+    font-size: 16px;
+    background: #5c5c5c;
 }
 
 @keyframes sync-frame {
@@ -1326,12 +1367,95 @@ a {
 	padding: 0px 5px;
 	margin-top: 10px;
 }
+#tick-icon {
+	height: 20px;	
+}
 
 .hidden-emoji {
 	font-family: "Noto Emoji";
 	position: absolute;
 	top: -10000px;
 	left: -10000px;
+}
+
+/* journal screen */
+.toolbar-disabled {
+	pointer-events: none;
+	filter: brightness(0.6);
+}
+#typepalette .filterBox-items {
+	height: 74vh;
+}
+.journal-toolleft {
+	gap: 10px !important;
+}
+.journal-list-container {
+	position: absolute;
+	top: 55px;
+	left: 0;
+	height: calc(100vh - 110px);
+	overflow-y: auto;
+	width: 100%;
+	background-color: white;
+}
+.journal-list-container.expanded {
+	height: calc(100vh - 55px);
+}
+
+.journal-warningbox {
+	background-color: #000000;
+	height: 55px;
+	color: white;
+	display: flex;
+	align-items: center;
+	padding-inline: 12px;
+	position: relative;
+	z-index: 1;
+}
+#journal-listview {
+	margin-inline: auto;
+	padding-left: 10px;
+	padding-right: 40px;
+}
+#journal-listview .activity-name.nonEditing {
+	border: none;
+	cursor: inherit;
+	outline: none;
+}
+#journal-listview .listview_left, .assignment-container {
+	width: 100%;
+}
+#journal-listview span, #journal-listview .journal-checkbox {
+	flex-shrink: 0;
+}
+#journal-listview .journal-checkbox {
+	width: 18px;
+	height: 18px;
+}
+#journal-listview .journal-star {
+	padding: 10px .5rem;
+}
+.assignment-container {
+	display: flex;
+	margin-left: 4vw;
+	column-gap: 2vw;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.assignment-container h3 {
+	margin-block: 0px;
+}
+.journal-footer {
+	position: absolute;
+	inset: 0;
+	top: auto;
+	justify-content: left;
+}
+.journal-footer .icon {
+	margin-right: .7rem !important;
+}
+#journal-sync {
+	margin-left: 34% !important;
 }
 
 /* neighborhood screen */
@@ -1355,6 +1479,12 @@ a {
 .fade-leave-active {
 	transition: opacity 0.3s ease-in;
 }
+.fade-fast-enter-active,
+.fade-fast-leave-active {
+	transition: opacity 0.2s ease-out;
+}
+.fade-fast-enter-from,
+.fade-fast-leave-to,
 .fade-enter-from,
 .fade-leave-to {
 	opacity: 0;
@@ -1382,23 +1512,35 @@ a {
 }
 
 /* Handle small screen resolution */
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 800px) {
+	.journal-view .toolbar {
+		padding-inline: 4px;
+	}
+	.journal-view .search-field-input {
+		width: 0px !important;
+		transition: width .5s;
+	}
+	.journal-view .search-field-border:focus .search-field-input, .journal-view .search-field-input:focus {
+		width: 150px !important;
+	}
+	.search-field-iconcancel {
+		display: none;
+	}
+	.journal-view .search-field-border {
+		width: min-content;
+		overflow: hidden;
+	}
+}
+@media screen and (max-width: 540px) {
 	.search-field-border {
-		visibility: hidden;
-		width: 0px;
+		display: none;
 	}
-
-	.search-field-input {
-		visibility: hidden;
-		width: 0px;
-	}
-	.settings-filter-text {
-		visibility: hidden;
-		width: 0px;
+	#toolbar-help-btn {
+		display: none;
 	}
 }
 
-@media screen and (min-width: 410px) and (max-width: 1023px) {
+@media screen and (min-width: 540px) and (max-width: 1023px) {
 	.search-field-border {
 		width: 200px;
 	}
@@ -1431,10 +1573,7 @@ a {
 	}
 }
 
-@media screen and (max-width: 650px){
-	#toolbar-help-btn {
-	visibility: hidden;
-	}
+@media screen and (max-width: 500px){
 }
 
 /*no matching activities display in listview */
@@ -1454,12 +1593,6 @@ a {
 	align-items: center;
 	margin: 10px;
 }  
-.clearSearchField {
-	padding: 10px 30px;
-	background-color: #808080;
-	border-radius: 20px;
-	color : white;
-}
 .loading-activities-message {
 	position: fixed;
 	top: 50%;
@@ -1481,4 +1614,7 @@ a {
 	z-index: 100;
 	user-select: none;
 }
-
+.journal-loader img {
+	display: block;
+	margin: 14px auto 24px auto;
+}

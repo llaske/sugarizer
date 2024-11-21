@@ -10,9 +10,10 @@ define([], function() {
 		user.color = sugarizer.modules.xocolor.findIndex(user.colorvalue);
 		user.privateJournal = user.private_journal;
 		user.sharedJournal = user.shared_journal;
-		user.private_journal = undefined;
-		user.shared_journal = undefined;
+		delete user.private_journal;
+		delete user.shared_journal;
 		user.activities = sugarizer.modules.activities.get();
+		user.networkId = user._id;
 		return user;
 	}
 
@@ -87,43 +88,39 @@ define([], function() {
 	}
 
 	// Signup user
-	user.signup = function(baseurl, name, password, color) {
-		return new Promise((resolve, reject) => {
-			const signupData = {
-				"name": `${name}`,
-				"password": `${password}`,
-				"color": {
-					"stroke": `${color.stroke}`,
-					"fill": `${color.fill}`,
-				},
-				"role": "student",
-				"language": sugarizer.modules.i18next.language,
-				"options": {stats: true, sync: true},
-			}
+	user.signup = async function(baseurl, name, password, color) {
+		const signupData = {
+			"name": `${name}`,
+			"password": `${password}`,
+			"color": {
+				"stroke": `${color.stroke}`,
+				"fill": `${color.fill}`,
+			},
+			"role": "student",
+			"language": sugarizer.modules.i18next.language,
+			"options": {stats: true, sync: true},
+		}
 
-			// In the app, create the user locally
-			if (sugarizer.getClientType() === sugarizer.constant.appType && (!baseurl || baseurl.length === 0)) {
-				signupData.colorvalue = signupData.color;
-				signupData.color = sugarizer.modules.xocolor.findIndex(signupData.colorvalue);
-				signupData.options = {stats: false, sync: false};
-				signupData.server = {url: ""};
-				sugarizer.modules.activities.load().then((activities) => {
-					signupData.activities = activities;
-					sugarizer.modules.settings.setUser(signupData);
-					resolve(signupData);
-				}, (error) => {
-					reject(error);
-				});
-				return;
-			}
+		await sugarizer.modules.activities
+			.load()
+			.catch((e) => console.error(e));
+		signupData.favorites = sugarizer.modules.activities.getFavoritesName();
 
-			// Create user on the server
-			sugarizer.modules.server.postUser(signupData, baseurl).then((user) => {
-				resolve(user);
-			}, (error) => {
-				reject(error);
-			}, baseurl);
-		});
+		// In the app, create the user locally
+		if (sugarizer.getClientType() === sugarizer.constant.appType && (!baseurl || baseurl.length === 0)) {
+			signupData.colorvalue = signupData.color;
+			signupData.color = sugarizer.modules.xocolor.findIndex(signupData.colorvalue);
+			signupData.options = {stats: false, sync: false};
+			signupData.server = {url: ""};
+			sugarizer.modules.settings.setUser(signupData);
+			return;
+		}
+
+		// Create user on the server
+		const user = await sugarizer.modules.server
+			.postUser(signupData, baseurl)
+			.catch((e) => console.error(e));
+		return user;
 	}
 
 	// Login user
@@ -135,15 +132,13 @@ define([], function() {
 			}
 
 			sugarizer.modules.server.loginUser(loginData, baseurl).then((response) => {
-				const { _id, ...user} = response.user;
 				let data = {
 					"token": {
 						"x_key": response.user._id,
 						"access_token": response.token,
 					},
-					networkId: _id,
 					connected: true,
-					...user,
+					...response.user,
 				}
 				data = convertFields(data);
 				sugarizer.modules.server.getServerInformation(baseurl).then((server) => {

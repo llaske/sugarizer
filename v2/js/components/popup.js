@@ -13,7 +13,7 @@ const Popup ={
 	template: `<transition name="bounce" appear><div ref="homePopup" class="home-activity-popup" 
 					v-if="itemData && isShown && itemData.icon && itemData.name"
 				>
-					<div class="popup-title" @click="itemClicked(itemData.id+'_'+itemData.icon.id)">
+					<div class="popup-title" :class="{'popup-title-disabled': itemData.icon.disabled}" @click="itemClicked(itemData.id+'_'+itemData.icon.id)">
 						<icon 
 							:key="iconKey"
 							class="item-icon-title"
@@ -38,6 +38,7 @@ const Popup ={
 								<div class="item-list-item" 
 									v-for="ele in itemData.itemList" key="ele.index"
 									@click="itemClicked(itemData.id+'_'+ele.icon.id)"
+									:class="{'popup-item-disabled': ele.disabled}"
 								>
 									<icon class="item-icon"
 										:key="iconKey"
