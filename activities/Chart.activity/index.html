@@ -40,7 +40,7 @@
 
 				<hr />
 				<template v-for="(string, key) in CHART_TYPES" :key="key">
-				<sugar-toolitem @click="setChartType(key)" :id="`${key}-chart-button`" :class="{active: pref.chartType==key}" :title="l10n[string]"></sugar-toolitem>
+					<sugar-toolitem @click="setChartType(key)" :id="`${key}-chart-button`" :class="{active: pref.chartType==key}" :title="l10n[string]"></sugar-toolitem>
 				</template>
 				<sugar-toolitem id="csv-button" :class="{active: pref.chartType == 'csvMode'}"  @click="setChartType('csvMode')" :title=l10n.stringViewCsv></sugar-toolitem>
 				<hr />
@@ -54,13 +54,13 @@
 					palette-file="lib/js/palettes/exportpalette.js"
 					palette-class="ExportPalette"
 					palette-event="export-file"
-					@export-file="expor:title="l10n.stringExportSettings"
+					@export-file="exportFile"
+					:title="l10n.stringExportSettings"
 				></sugar-toolitem>
 				</div>
 				<div id="toolbar-right">
 				<sugar-toolitem @click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
-				<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right"
-					:title="l10n.stringFullscreen"></sugar-toolitem>
+				<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right" :title="l10n.stringFullscreen"></sugar-toolitem>
 				<sugar-toolitem @click="onHelp" id="help-button" :title="l10n.stringHelp" class="pull-right"></sugar-toolitem>
 				</div>
 			</sugar-toolbar>
