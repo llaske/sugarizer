@@ -21,6 +21,7 @@
 	<body oncontextmenu="return false;">
 		<div id="app" :class="{fullscreen: isFullscreen}">
 			<sugar-toolbar ref="SugarToolbar">
+				<div id="toolbar-left">
 				<sugar-toolitem ref="activityPal" id="activity-button"></sugar-toolitem>
 				<sugar-toolitem
 					ref="sharedPal"
@@ -56,10 +57,12 @@
 					@export-file="exportFile"
 					:title="l10n.stringExportSettings"
 				></sugar-toolitem>
-
+				</div>
+				<div id="toolbar-right">
 				<sugar-toolitem @click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 				<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right" :title="l10n.stringFullscreen"></sugar-toolitem>
 				<sugar-toolitem @click="onHelp" id="help-button" :title="l10n.stringHelp" class="pull-right"></sugar-toolitem>
+				</div>
 			</sugar-toolbar>
 			<!-- Sub Toolbar -->
 			<div id="sub-toolbar" :class="{hidden: !configActive && !textPalActive}">
