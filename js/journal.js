@@ -703,7 +703,17 @@ enyo.kind({
 		this.$.activityPopup.setFooter(items);
 
 		// Show popup
-		this.$.activityPopup.setMargin({left: 0, top: (icon.owner.index*60)+20-mouse.position.y});
+		// Get the popup's size dynamically
+		var popupSize = 50; // Base header size
+		popupSize += (items.length * 42); // Add height for each item
+		var leftPostion = 0;
+		var topPosition = (icon.owner.index * 60) + 20 - mouse.position.y;
+		var bottomOverflow = mouse.position.y + popupSize - window.innerHeight+55;
+		if (bottomOverflow > 0) {
+			// If the popup overflows the bottom, adjust upwards
+			topPosition -= bottomOverflow;
+		}
+		this.$.activityPopup.setMargin({ left: leftPostion, top: topPosition });
 		this.$.activityPopup.showPopup();
 	},
 
