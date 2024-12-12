@@ -13,7 +13,7 @@ const HomeScreen = {
 										:id="activity.id"
 										:ref="'activity'+activity.id"
 										class="home-icon"
-										:svgfile="activity.directory + '/' + activity.icon"
+										:svgfile="'../../../' + activity.directory + '/' + activity.icon"										
 										:x="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].x : (activityPositions[index] ? activityPositions[index].x : 0)"
 										:y="restrictedModeInfo.positions != undefined ? restrictedModeInfo.positions[index].y : (activityPositions[index] ? activityPositions[index].y : 0)"
 										isNative="true"

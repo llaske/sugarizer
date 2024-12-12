@@ -21,8 +21,7 @@ const ListView = {
 							<div style="width:44px">
 								<icon 
 									:id=activity.id
-									:svgfile="activity.directory + '/' + activity.icon"
-									:size="40"
+									:svgfile="'../../../' + activity.directory + '/' + activity.icon"									:size="40"
 									isNative="true"
 									v-on:mouseover="showPopupTimer($event)"
 									v-on:mouseleave="removePopupTimer($event)"
