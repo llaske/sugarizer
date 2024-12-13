@@ -712,6 +712,9 @@ enyo.kind({
 		if (bottomOverflow > 0) {
 			// If the popup overflows the bottom, adjust upwards
 			topPosition -= bottomOverflow;
+			if(!this.$.footer.getShowing()){
+				topPosition += 55; // HACK: 55 is the footer height
+			}
 		}
 		this.$.activityPopup.setMargin({ left: leftPostion, top: topPosition });
 		this.$.activityPopup.showPopup();
