@@ -570,6 +570,20 @@ p {
 	height: 100%;
 }
 
+/* Toolbar */
+.toolbar {
+	display: flex;
+	align-items: center;
+  	justify-content: space-between;
+}
+#toolbar-left hr{
+	margin: 2.5px;
+}
+#toolbar-left {
+	display: flex;
+	align-items: center;
+}
+
 @media (max-width: 800px) {
 	.activity-title {
 		margin: 0;

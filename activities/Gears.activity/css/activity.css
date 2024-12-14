@@ -57,6 +57,20 @@ body {
 	z-index: 5;
 }
 
+/* Toolbar */
+.toolbar {
+	display: flex;
+	align-items: center;
+  	justify-content: space-between;
+}
+#toolbar-left hr{
+	margin: 2.5px;
+}
+#toolbar-left {
+	display: flex;
+	align-items: center;
+}
+
 @media screen and (max-width: 567px) {
 	.toolbar {
 		padding-left: 10px;
