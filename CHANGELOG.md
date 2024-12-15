@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Missing flag handling in ColorMyWorld #1603
 - Position of Sugar Icon in Popup on homescreen is toward bottom right #1662
 - Recording video doesn't work on Windows #1203
+- Activity Description opening downwards in Journal #1407
  
 ## [1.8.0] - 2024-04-10
 ### Added
