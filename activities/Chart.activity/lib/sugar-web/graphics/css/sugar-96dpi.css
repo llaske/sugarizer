@@ -26,22 +26,16 @@ a {
   height: 55px;
   padding: 0 57px;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: #282828;
   -webkit-user-select: none;
   -moz-user-select: none;
-}
-#toolbar-left {
-  display: flex;
-  align-items: center;
 }
 /* Toolbar separator */
 .toolbar hr {
   display: inline-block;
   height: 33px;
   margin: 2.5px;
+  margin-bottom: -17px;
   border: 1px solid #808080;
 }
 /* Toolbar toolbutton */
