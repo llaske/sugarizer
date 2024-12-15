@@ -95,9 +95,15 @@ enyo.kind({
 			// Popup will overflow window, prepare to shift menu
 			this.overflowY = true;
 		}
+		var screenHeight = document.getElementById("canvas").offsetHeight;
+		var popupTopPosition = mouse.position.y + this.margin.top;
+		var popupBottomPosition = mouse.position.x + this.margin.left;
+		if (mouse.position.y + popupSize > screenHeight) {
+			popupTopPosition = screenHeight+this.margin.top-popupSize;
+		}
 		this.setStyle("bottom", "");
-		this.applyStyle("top", (mouse.position.y+this.margin.top)+"px");
-		this.applyStyle("left", (mouse.position.x+this.margin.left)+"px");
+		this.applyStyle("top", (popupTopPosition) + "px");
+		this.applyStyle("left", (popupBottomPosition) + "px");
 		this.show();
 		this.timer = window.setInterval(enyo.bind(this, "showContent"), 0);
 	},
