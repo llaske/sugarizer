@@ -62,7 +62,7 @@ body {
 	display: inline-block;
 	width: 1px;
 	height: 40px;
-	background-color: #ffffff;
+	border-left: 2px solid #808080;
 }
 
 @media screen and (max-width: 567px) {
