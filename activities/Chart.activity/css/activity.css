@@ -570,18 +570,12 @@ p {
 	height: 100%;
 }
 
-/* Toolbar */
-.toolbar {
-	display: flex;
-	align-items: center;
-  	justify-content: space-between;
-}
-#toolbar-left hr{
-	margin: 2.5px;
-}
-#toolbar-left {
-	display: flex;
-	align-items: center;
+/* Toolbar seprator */
+.seprator-line{
+	display: inline-block;
+	width: 1px;
+	height: 40px;
+	background-color: #ffffff;
 }
 
 @media (max-width: 800px) {

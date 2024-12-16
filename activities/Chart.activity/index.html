@@ -21,7 +21,6 @@
 	<body oncontextmenu="return false;">
 		<div id="app" :class="{fullscreen: isFullscreen}">
 			<sugar-toolbar ref="SugarToolbar">
-				<div id="toolbar-left">
 				<sugar-toolitem ref="activityPal" id="activity-button"></sugar-toolitem>
 				<sugar-toolitem
 					ref="sharedPal"
@@ -34,19 +33,19 @@
 					v-if="SugarPresence"
 				></sugar-toolitem>
 
-				<hr />
+				<div class="seprator-line"></div>
 				<sugar-toolitem id="add-button" :title="l10n.stringAddValue" @click="addData"></sugar-toolitem>
 				<sugar-toolitem id="remove-button" :title="l10n.stringRemoveValue" @click="removeData"></sugar-toolitem>
 
-				<hr />
+				<div class="seprator-line"></div>
 				<template v-for="(string, key) in CHART_TYPES" :key="key">
 					<sugar-toolitem @click="setChartType(key)" :id="`${key}-chart-button`" :class="{active: pref.chartType==key}" :title="l10n[string]"></sugar-toolitem>
 				</template>
 				<sugar-toolitem id="csv-button" :class="{active: pref.chartType == 'csvMode'}"  @click="setChartType('csvMode')" :title=l10n.stringViewCsv></sugar-toolitem>
-				<hr />
+				<div class="seprator-line"></div>
 				<sugar-toolitem id="config-button" @click="toggleConfig" class="invoker" :class="{active: configActive}" :title="l10n.stringConfigs"></sugar-toolitem>
 				<sugar-toolitem id="text-palette-button" @click="toggleTextPal" class="invoker" :class="{active: textPalActive}" :title="l10n.stringConfigs"></sugar-toolitem>
-				<hr />
+				<div class="seprator-line"></div>
 				<sugar-toolitem 
 					id="export-button" 
 					ref="exportPal"
@@ -57,12 +56,10 @@
 					@export-file="exportFile"
 					:title="l10n.stringExportSettings"
 				></sugar-toolitem>
-				</div>
-				<div id="toolbar-right">
+
 				<sugar-toolitem @click="onStop" id="stop-button" title="Stop" class="pull-right"></sugar-toolitem>
 				<sugar-toolitem @click="isFullscreen = !isFullscreen" id="fullscreen-button" class="pull-right" :title="l10n.stringFullscreen"></sugar-toolitem>
 				<sugar-toolitem @click="onHelp" id="help-button" :title="l10n.stringHelp" class="pull-right"></sugar-toolitem>
-				</div>
 			</sugar-toolbar>
 			<!-- Sub Toolbar -->
 			<div id="sub-toolbar" :class="{hidden: !configActive && !textPalActive}">
