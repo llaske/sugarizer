@@ -425,13 +425,14 @@ var ChessGame = {
           return;
         }
         // if (possibleMove[2] === this.state.stalemate_scores[this.state.to_play]) {
-        //   console.log("Match draw due to stalemate proper");
+          // console.log("Match draw due to stalemate proper");
         //   this.game_draw = true;
         //   return;
         // }
         move = this.state.move(possibleMove[0], possibleMove[1]);
-        if (!(move.flags & (1))) {
-          this.game_won = true;
+        if (!(move.flags & (1)) && (move.flags & 2)) {
+          // console.log("Draws");
+          this.game_draw = true;
           return;
         }
       }
@@ -465,14 +466,15 @@ var ChessGame = {
 
         var move = this.state.move(source, target);
 
-        // console.log(`Move: ${source}-${target}, Flags: ${move.flags}`);
+        console.log(`Move: ${source}-${target}, Flags: ${move.flags}`);
         // illegal move
         if (move.flags === 0) return 'snapback';
 
         if (move.flags === 7 || move.flags === 15 || move.flags === 23 || move.flags === 39) {
-          // console.log("Game won by player");
+          console.log("Game won by player");
           this.game_won = true;
-        } else if ( (!(move.flags & 2 )) && (move.flags & 4 ) || move.flags & (64)) {
+        } else if ( (!(move.flags & 2 )) && ((move.flags & 4 ) || move.flags & (64))) {
+          // console.log("Match draw due to stalemate by player");
           this.game_draw = true;
         } else {
           this.game_check = false;
