@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>3D Volume Activity</title>
+		<meta
+			name="viewport"
+			content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"
+		/>
+		<link
+			rel="stylesheet"
+			media="not screen and (device-width: 1200px) and (device-height: 900px)"
+			href="lib/sugar-web/graphics/css/sugar-96dpi.css"
+		/>
+		<link
+			rel="stylesheet"
+			media="screen and (device-width: 1200px) and (device-height: 900px)"
+			href="lib/sugar-web/graphics/css/sugar-200dpi.css"
+		/>
+		<link rel="stylesheet" href="css/activity.css" />
+		<script>
+			if (typeof module === "object") {
+				window.module = module;
+				module = undefined;
+			}
+		</script>
+		<script src="lib/buffer.js"></script>
+		<script src="lib/three.js"></script>
+		<script src="lib/cannon.js"></script>
+		<script src="lib/orbit.js"></script>
+		<script src="lib/debug.js"></script>
+		<link rel="stylesheet" href="css/introjs.css" />
+		<script src="lib/intro.js"></script>
+		<script>
+			if (window.module) module = window.module;
+		</script>
+
+		<script data-main="js/loader" src="lib/require.js"></script>
+		<script type="text/javascript" src="../../cordova.js"></script>
+		<script src="js/Cube.js"></script>
+		<script src="js/Deca.js"></script>
+		<script src="js/Dodeca.js"></script>
+		<script src="js/Icosa.js"></script>
+		<script src="js/Tetra.js"></script>
+		<script src="js/Octa.js"></script>
+	</head>
+
+	<body>
+		<div id="main-toolbar" class="toolbar">
+			<div class="left-container">
+				<button
+					class="toolbutton"
+					id="activity-button"
+					title="My Activity"
+				></button>
+				<button
+					class="toolbutton"
+					id="network-button"
+					title="Network"
+				></button>
+
+				<hr />
+				<button
+					class="button-background toolbutton"
+					id="tetra-button"
+					data-i18n="AddTetra"
+					title="Add Tetrahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="cube-button"
+					data-i18n="AddCube"
+					title="Add Cube"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="octa-button"
+					data-i18n="AddOcta"
+					title="Add Octahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="deca-button"
+					data-i18n="AddDeca"
+					title="Add Decahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="dodeca-button"
+					data-i18n="AddDodeca"
+					title="Add Dodecahedron"
+				></button>
+				<button
+					class="button-background toolbutton"
+					id="icosa-button"
+					data-i18n="AddIcosa"
+					title="Add Icosahedron"
+				></button>
+
+				<hr />
+
+				<button
+					class="toolbutton"
+					class="active"
+					id="clear-button"
+					data-i18n="Clear"
+					title="Clear Button"
+				></button>
+
+				<hr id="remove-second" />
+
+				<button
+					class="toolbutton"
+					id="volume-button"
+					data-i18n="VolumeType"
+					title="Select a Volume Type"
+				></button>
+
+				<!-- <button class="toolbutton" id="image-button" title="Add images to volumes"></button> -->
+
+				<button
+					class="toolbutton"
+					id="color-button-fill"
+					data-i18n="FillColor"
+					title="Fill Color"
+				></button>
+
+				<button
+					class="toolbutton"
+					id="color-button-text"
+					data-i18n="TextColor"
+					title="Text Color"
+				></button>
+
+				<button
+					class="toolbutton"
+					id="bg-button"
+					data-i18n="Background"
+					title="Change Playmat"
+				></button>
+
+				<hr id="remove-first" />
+
+				<button
+					class="toolbutton"
+					id="zoom-button"
+					data-i18n="Zoom"
+					title="zoom palette"
+				></button>
+
+				<button
+					class="toolbutton"
+					id="throw-button"
+					data-i18n="ThrowDice"
+					title="Throw the dice"
+				></button>
+
+				<button
+					class="toolbutton"
+					id="sensor-button"
+					data-i18n="Sensor"
+					title="Sensor"
+				></button>
+			</div>
+
+			<!-- <button class="toolbutton" id="reset-button" title="Reset Values"></button> -->
+			<!-- <button class="toolbutton" id="volume-button" title="Add a volume"></button> -->
+
+			<!-- <button class="toolbutton" id="solid-button" title="Make all volumes transparent"></button> -->
+
+			<!-- Buttons with class="pull-right" will be right aligned -->
+			<div class="right-container">
+				<button
+					class="toolbutton pull-right"
+					id="stop-button"
+					data-i18n="StopButton"
+					title="Stop"
+				></button>
+				<button
+					class="toolbutton pull-right"
+					id="fullscreen-button"
+					data-i18n="Fullscreen"
+					title="Fullscreen"
+				></button>
+				<button
+					class="toolbutton pull-right"
+					id="help-button"
+					data-i18n="Help"
+					title="Tutorial"
+				></button>
+			</div>
+		</div>
+		<div id="game-container">
+			<!-- <button id="throw-button">Throw the Dice</button> -->
+			<div id="score-container">
+				<!-- <p id="total-score">Total Score: <span id="score">0</span> </p> -->
+				<div class="arrow-container">
+					<button id="up-button" class="arrow-button"></button>
+					<div class="left-right-buttons">
+						<button
+							id="left-button"
+							class="arrow-button left"
+						></button>
+						<button
+							id="right-button"
+							class="arrow-button right"
+						></button>
+					</div>
+					<button id="down-button" class="arrow-button down"></button>
+				</div>
+			</div>
+			<p id="last-roll"><span id="roll"></span></p>
+		</div>
+		<button
+			class="toolbutton pull-right"
+			id="unfullscreen-button"
+			title="UnFullscreen"
+		></button>
+		<script type="text/javascript">
+			requirejs.config({
+				baseUrl: "js",
+				paths: {
+					activity: "../js",
+				},
+			});
+			var l10n = null;
+			requirejs(["../lib/l10n"], function (il10n) {
+				l10n = il10n;
+			});
+			window.addEventListener(
+				"localized",
+				function () {
+					l10n.updateDocument();
+				},
+				false
+			);
+		</script>
+	</body>
+</html>

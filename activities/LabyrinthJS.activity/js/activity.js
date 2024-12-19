@@ -362,11 +362,18 @@ define(["sugar-web/activity/activity", "l10n", "sugar-web/datastore", "sugar-web
 				if (lastSelected == this) lastSelected = null;
 				return;
 			} else if (currentMode == 1) {
+				if (isSelectedNode(this)) {
+					unselectNode(this);
+					lastSelected = null;
+				}
+				else { selectNode(this); }
 				if (lastSelected != null && lastSelected != this) {
 					createEdge(lastSelected, this);
+					unselectNode(this);
+					lastSelected = null;
 					pushState();
 				}
-				lastSelected = this;
+				if (isSelectedNode(this)) lastSelected = this;
 				return;
 			} else {
 				if (isSelectedNode(this)) {

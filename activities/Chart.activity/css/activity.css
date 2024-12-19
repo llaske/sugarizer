@@ -570,6 +570,19 @@ p {
 	height: 100%;
 }
 
+/* Toolbar seprator */
+.seprator-line{
+	background-color: #808080;
+	background-position: center;
+	width: 2px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
 @media (max-width: 800px) {
 	.activity-title {
 		margin: 0;

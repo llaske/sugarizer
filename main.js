@@ -5,6 +5,7 @@ var electron = require('electron'),
 	temp = require('tmp'),
 	path = require('path'),
 	requirejs = require('requirejs'),
+	activities = require('./activities.json'),
 	l10n = require('./lib/l10n');
 
 var app = electron.app;
@@ -20,6 +21,7 @@ var debug = false;
 var frameless = true;
 var reinit = false;
 var logoff = false;
+var launch = null;
 
 
 // Save a file
@@ -66,6 +68,19 @@ function createWindow () {
 			reinit = true;
 		} else if (process.argv[i] == '--logoff') {
 			logoff = true;
+		} else if (process.argv[i] == '--launch') {
+			if (i+1 < process.argv.length) {
+				let activity = process.argv[i+1];
+				if (activity.indexOf('&') != -1) {
+					activity = activity.split('&')[0];
+				}
+				for (var j = 0 ; j < activities.length ; j++) {
+					if (activities[j].id == activity) {
+						launch = 'file://'+app.getAppPath()+'/'+activities[j].directory+'/index.html?n='+activities[j].name+'&a=' + process.argv[i+1];
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -89,7 +104,7 @@ function createWindow () {
 	}
 
 	// Load the index.html of Sugarizer
-	mainWindow.loadURL('file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':'')+(logoff?'?rst=2':''));
+	mainWindow.loadURL(launch ? launch : 'file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':'')+(logoff?'?rst=2':''));
 	if (frameless) {
 		mainWindow.maximize();
 	}

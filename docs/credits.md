@@ -10,8 +10,7 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Paint, Memorize, Record, Calculate and Media Viewer by Michaël Ohayon
 * Gridpaint by Brian Silverman
 * Speak by Vishal Batchu
-* Chat by Utkarsh Siddhpura
-* Chart by Utkarsh Siddhpura 
+* Chat, Chart by Utkarsh Siddhpura
 * Markdown by Suraj Gillespie
 * Moon by Shirsh Zibbu
 * EToys by Vanessa Freudenberg
@@ -30,6 +29,7 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Fraction, Curriculum, Vote by Dhruv Misra
 * Implode, Measure by Sarthak Gupta
 * Story by Saurabh Gupta
+* 3DVolume by Samarth Bagga
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra, Xmas Lights, Dollar Street by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
