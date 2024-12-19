@@ -433,6 +433,7 @@ var ChessGame = {
         if (!(move.flags & (1)) && (move.flags & 2)) {
           // console.log("Draws");
           this.game_draw = true;
+        
           return;
         }
       }
@@ -466,7 +467,7 @@ var ChessGame = {
 
         var move = this.state.move(source, target);
 
-        console.log(`Move: ${source}-${target}, Flags: ${move.flags}`);
+        // console.log(`Move: ${source}-${target}, Flags: ${move.flags}`);
         // illegal move
         if (move.flags === 0) return 'snapback';
 
