@@ -432,6 +432,7 @@ var ChessGame = {
         move = this.state.move(possibleMove[0], possibleMove[1]);
         if (!(move.flags & (1)) && (move.flags & 2)) {
           // console.log("Draws");
+          //  critical situation which cause the error
           this.game_draw = true;
         
           return;
