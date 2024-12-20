@@ -391,24 +391,10 @@ var ChessGame = {
       var start_time = Date.now();
       var possibleMove = this.state.findmove(this.level);
       var delta = Date.now() - start_time;
-
-      // console.log(`Random Move: ${possibleMove}, Delta: ${delta}`);
-
-      // game over
-      if (possibleMove.length === 0 && (move.flags === 7 || move.flags === 15 || move.flags === 23 || move.flags === 39)) {
-        // console.log("Game won by computer");
-        this.game_won = true;
-        return;
-      }
-  
-      if (possibleMove.length === 0 && (move.flags === 5 || move.flags === 13 || move.flags === 21 || move.flags === 37 || move.flags === 64)) {
-        // console.log("Match draw due to stalemate");
-        this.game_draw = true;
-        return;
-      }
       var move = this.state.move(possibleMove[0], possibleMove[1]);
 
       if (!(move.flags & (1))) {
+        //  this is where the king can't move or any valid move aren't available, usually happens on stalemate and checkmate
         var depth = this.level;
         depth++;
         //find at higher depths until it runs out of time
@@ -424,28 +410,22 @@ var ChessGame = {
           this.game_won = true;
           return;
         }
-        // if (possibleMove[2] === this.state.stalemate_scores[this.state.to_play]) {
-          // console.log("Match draw due to stalemate proper");
-        //   this.game_draw = true;
-        //   return;
-        // }
-        move = this.state.move(possibleMove[0], possibleMove[1]);
-        if (!(move.flags & (1)) && (move.flags & 2)) {
-          // console.log("Draws");
-          //  critical situation which cause the error
-          this.game_draw = true;
-        
-          return;
-        }
+        move = this.state.move(possibleMove[0], possibleMove[1]);        
       }
 
-      if (move.flags & (2) && move.flags & (4)) {
-        this.game_lost = true;
 
+      if (move.flags & 1 && move.flags & 2 && move.flags & 4) {
+        this.board.position(p4_state2fen(this.state, true));
+        this.updateMoves();
+        this.game_lost = true;
+        return;
       } else if (move.flags & (2) && !(move.flags & (4))) {
         this.game_check = true;
-      } else if ((!(move.flags & (2)) && move.flags & (4)) || move.flags & (64)) {
+      } else if (!(move.flags&2) && ( ((move.flags & 1) && move.flags & 4) || move.flags & (64))) {
+        this.board.position(p4_state2fen(this.state, true));
+        this.updateMoves();
         this.game_draw = true;
+        return;
       } else {
         this.game_check = false;
       }
@@ -468,16 +448,15 @@ var ChessGame = {
 
         var move = this.state.move(source, target);
 
-        // console.log(`Move: ${source}-${target}, Flags: ${move.flags}`);
         // illegal move
         if (move.flags === 0) return 'snapback';
 
         if (move.flags === 7 || move.flags === 15 || move.flags === 23 || move.flags === 39) {
-          console.log("Game won by player");
           this.game_won = true;
-        } else if ( (!(move.flags & 2 )) && ((move.flags & 4 ) || move.flags & (64))) {
-          // console.log("Match draw due to stalemate by player");
+          return;
+        } else if ( (!(move.flags & 2 )) && (((move.flags & 1) && (move.flags & 4)   ) || move.flags & (64))) {
           this.game_draw = true;
+          return;
         } else {
           this.game_check = false;
         }
