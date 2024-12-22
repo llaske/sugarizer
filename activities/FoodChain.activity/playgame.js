@@ -624,6 +624,11 @@ enyo.kind({
 			this.frog.useImage(0);
 			this.frog.draw(this.ctx);
 			this.frog.alive = true;
+			// Undraw and redraw all the rocks
+			for (var i = 0; i < this.rocks.length; i++) {
+				this.rocks[i].unDraw(this.ctx);  // Clear the rock from the canvas
+				this.rocks[i].draw(this.ctx);    // Redraw the rock in its original position
+			}
 			return;
 		}
 
