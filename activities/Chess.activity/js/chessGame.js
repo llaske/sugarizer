@@ -414,14 +414,14 @@ var ChessGame = {
       }
 
 
-      if (move.flags & 1 && move.flags & 2 && move.flags & 4) {
+      if ( (move.flags & 1<<0 )  && (move.flags & 1<<1) && (move.flags & 1<<2) ) {
         this.board.position(p4_state2fen(this.state, true));
         this.updateMoves();
         this.game_lost = true;
         return;
-      } else if (move.flags & (2) && !(move.flags & (4))) {
+      } else if (move.flags & (1<<1) && !(move.flags & (1<<2))) {
         this.game_check = true;
-      } else if (!(move.flags&2) && ( ((move.flags & 1) && move.flags & 4) || move.flags & (64))) {
+      } else if (!(move.flags& 1<<1) && ( ((move.flags & 1<<0) && move.flags & 1<<2) || move.flags & (1<<6))) {
         this.board.position(p4_state2fen(this.state, true));
         this.updateMoves();
         this.game_draw = true;
@@ -454,14 +454,14 @@ var ChessGame = {
         if (move.flags === 7 || move.flags === 15 || move.flags === 23 || move.flags === 39) {
           this.game_won = true;
           return;
-        } else if ( (!(move.flags & 2 )) && (((move.flags & 1) && (move.flags & 4)   ) || move.flags & (64))) {
+        } else if ( (!(move.flags & 1<<1 )) && (((move.flags & 1<<0) && (move.flags & 1<<2)   ) || move.flags & (1<<6))) {
           this.game_draw = true;
           return;
         } else {
           this.game_check = false;
         }
 
-        if (move.flags & (2) && !(move.flags & (4))) {
+        if (move.flags & (1<<1) && !(move.flags & (1<<2))) {
           this.other_check = true;
         } else {
           this.other_check = false;
