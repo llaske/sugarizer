@@ -393,7 +393,7 @@ var ChessGame = {
       var delta = Date.now() - start_time;
       var move = this.state.move(possibleMove[0], possibleMove[1]);
 
-      if (!(move.flags & (1))) {
+      if (!(move.flags & (1 << 0))) {
         //  this is where the king can't move or any valid move aren't available, usually happens on stalemate and checkmate
         var depth = this.level;
         depth++;
@@ -461,7 +461,7 @@ var ChessGame = {
           this.game_check = false;
         }
 
-        if (move.flags & (1<<1) && !(move.flags & (1<<2))) {
+        if (move.flags & (1 << 1) && !(move.flags & (1 << 2))) {
           this.other_check = true;
         } else {
           this.other_check = false;
