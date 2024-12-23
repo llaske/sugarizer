@@ -391,18 +391,10 @@ var ChessGame = {
       var start_time = Date.now();
       var possibleMove = this.state.findmove(this.level);
       var delta = Date.now() - start_time;
-      // game over
-      if (possibleMove.length === 0) {
-        this.game_won = true;
-        return;
-      }
-      if (1 / possibleMove[2] == 1 / this.state.stalemate_scores[this.state.to_play]) {
-        this.game_draw = true;
-        return;
-      }
       var move = this.state.move(possibleMove[0], possibleMove[1]);
 
       if (!(move.flags & (1 << 0))) {
+        //  this is where the king can't move or any valid move aren't available, usually happens on stalemate and checkmate
         var depth = this.level;
         depth++;
         //find at higher depths until it runs out of time
@@ -414,28 +406,26 @@ var ChessGame = {
             delta = Date.now() - start_time;
           }
         }
-        if (possibleMove.length === 0) {
+        if (possibleMove.length === 0 && flags & 2) {
           this.game_won = true;
           return;
         }
-        if (possibleMove[2] == this.state.stalemate_scores[this.state.to_play]) {
-          this.game_draw = true;
-          return;
-        }
-        move = this.state.move(possibleMove[0], possibleMove[1]);
-        if (!(move.flags & (1 << 0))) {
-          this.game_won = true;
-          return;
-        }
+        move = this.state.move(possibleMove[0], possibleMove[1]);        
       }
 
-      if (move.flags & (1 << 1) && move.flags & (1 << 2)) {
-        this.game_lost = true;
 
-      } else if (move.flags & (1 << 1) && !(move.flags & (1 << 2))) {
+      if ( (move.flags & 1<<0 )  && (move.flags & 1<<1) && (move.flags & 1<<2) ) {
+        this.board.position(p4_state2fen(this.state, true));
+        this.updateMoves();
+        this.game_lost = true;
+        return;
+      } else if (move.flags & (1<<1) && !(move.flags & (1<<2))) {
         this.game_check = true;
-      } else if ((!(move.flags & (1 << 1)) && move.flags & (1 << 2)) || move.flags & (1 << 6)) {
+      } else if (!(move.flags& 1<<1) && ( ((move.flags & 1<<0) && move.flags & 1<<2) || move.flags & (1<<6))) {
+        this.board.position(p4_state2fen(this.state, true));
+        this.updateMoves();
         this.game_draw = true;
+        return;
       } else {
         this.game_check = false;
       }
@@ -461,10 +451,12 @@ var ChessGame = {
         // illegal move
         if (move.flags === 0) return 'snapback';
 
-        if (move.flags === 7) {
+        if (move.flags === 7 || move.flags === 15 || move.flags === 23 || move.flags === 39) {
           this.game_won = true;
-        } else if ((!(move.flags & (1 << 1)) && move.flags & (1 << 2)) || move.flags & (1 << 6)) {
+          return;
+        } else if ( (!(move.flags & 1<<1 )) && (((move.flags & 1<<0) && (move.flags & 1<<2)   ) || move.flags & (1<<6))) {
           this.game_draw = true;
+          return;
         } else {
           this.game_check = false;
         }
