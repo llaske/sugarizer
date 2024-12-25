@@ -75,7 +75,7 @@ To draw the pawn we will reuse our nice pawn icon. So each time there will be a 
 Let's update the `js/activity.js` to add this. But first, we will slightly adapt our `getEnvironment` call. We just add a `currentenv` variable to store the environment to avoid multiple call of the `getEnvironment` method:
 ```js
 // Welcome user
-var currentenv;
+let currentenv;
 env.getEnvironment(function(err, environment) {
 	currentenv = environment;
 	document.getElementById("user").innerHTML = "<h1>"+"Hello"+" "+environment.user.name+" !</h1>";
@@ -85,7 +85,7 @@ Then just after the `getEnvironment` call, we will add the following event liste
 ```js
 // Handle click on add
 document.getElementById("add-button").addEventListener('click', function (event) {
-	var pawn = document.createElement("div");
+	let pawn = document.createElement("div");
 	pawn.className = "pawn";
 
 	document.getElementById("pawns").appendChild(pawn);
