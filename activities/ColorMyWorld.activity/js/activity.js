@@ -12,14 +12,6 @@ define([
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
 
-		// Create a loader so that the user knows that the activity is loading while acitvity features are being initialized.
-		// HACK: Features take 2 seconds to load.
-		const loader = document.getElementById('loader');
-    	loader.style.display = 'flex'; // Show the loader
-    	setTimeout(() => {
-        	loader.style.display = 'none'; // Hide the loader after 2 seconds
-    	}, 2000);
-
 		// Initialize the activity.
 		activity.setup();
 		print(colormyworld.test());
