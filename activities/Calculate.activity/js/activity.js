@@ -46,19 +46,36 @@ define(["sugar-web/activity/activity","mustache","sugar-web/graphics/palette","a
     //We auto fire the onResize event
     CalculateApp.onResize();
 
-    // Full screen
-    document.getElementById("fullscreen-button").addEventListener('click', function() {
-      document.getElementById("main-toolbar").style.visibility = "hidden";
-      document.getElementById("body").style.bottom = "40px";
-      document.getElementById("unfullscreen-button").style.visibility = "visible";    
-      document.getElementById("unfullscreen-button").style.top = "20px";    
-    });
-    // Unfull screen
-    document.getElementById("unfullscreen-button").addEventListener('click', function() {
-      document.getElementById("main-toolbar").style.visibility = "visible";
-      document.getElementById("body").style.bottom = "0px";
-      document.getElementById("unfullscreen-button").style.visibility = "hidden";
-    });
+   // Full screen
+  document.getElementById("fullscreen-button").addEventListener('click', function() {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    }
+    document.getElementById("fullscreen-button").style.display = "none";
+    document.getElementById("unfullscreen-button").style.display = "inline-block";
+  });
+
+  // Unfull screen
+  document.getElementById("unfullscreen-button").addEventListener('click', function() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+    document.getElementById("fullscreen-button").style.display = "inline-block";
+    document.getElementById("unfullscreen-button").style.display = "none";
+  });
+
 
     //Launch of the activity, color and data fetch
     activity.setup();

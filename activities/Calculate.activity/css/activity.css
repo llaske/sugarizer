@@ -34,22 +34,31 @@
   background-image: url(../icons/digits-6.svg);
   display: none;
 }
+#fullscreen-container {
+  position: relative;
+  display: inline;
+}
+#fullscreen-button, #unfullscreen-button {
+background-size: contain;
+background-repeat: no-repeat;
+border: 0;
+border-radius: 0px;
+margin: 0;
+width: 45px;
+height: 45px;
+position: absolute;
+top: 5px;
+right: 8px;
+z-index: 3;
+}
 #fullscreen-button {
-  background-image: url(../icons/view-fullscreen.svg);
-}
+background-image: url(../icons/view-fullscreen.svg);
+display: block;
+} 
 #unfullscreen-button {
-  background-image: url(../icons/view-return.svg);
-  border: 0;
-  border-radius: 0px;
-  margin: 1px;
-  width: 45px;
-  height: 45px;
-  top: 5px;
-  right: 3%;
-  position: fixed;
-  visibility: hidden;
-  z-index: 3;
-}
+background-image: url(../icons/view-return.svg);
+  display: none;
+}  
 .palette .wrapper {
   min-width: 10px;
   padding: 5px;
