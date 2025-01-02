@@ -25,10 +25,10 @@
 	<content src="index.html" />
 
 	<preference name="android-minSdkVersion" value="22" />
-	<preference name="android-targetSdkVersion" value="33" />
-	<preference name="android-compileSdkVersion" value="33" />
+	<preference name="android-targetSdkVersion" value="34" />
+	<preference name="android-compileSdkVersion" value="34" />
 
-	<engine name="android" spec="12.0.0" />
+	<engine name="android" spec="13.0.0" />
 
 	<!-- &SugarizerOS
 	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />
