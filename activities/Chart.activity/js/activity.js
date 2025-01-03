@@ -144,12 +144,25 @@ const app = new Vue({
 				e.target.value = this.activityInput.value;
 			});
 		},
-		localized() {
-			this.SugarL10n.localize(this.l10n);
-			document.getElementById("export-csv-button").title = this.l10n.stringexportAsCSV;
-			document.getElementById("export-img-button").title = this.l10n.stringSaveImage;
+    localized() {
+      this.SugarL10n.localize(this.l10n)
+      document.getElementById('export-csv-button').title =
+        this.l10n.stringexportAsCSV
+      document.getElementById('export-img-button').title =
+        this.l10n.stringSaveImage
 
-		},
+      // Add this to ensure translations are ready
+      if (this.tabularData.length === 0) {
+        this.onJournalNewInstance()
+      } else {
+        // Refresh existing labels with translations
+        this.tabularData = this.tabularData.map((data) => ({
+          ...data,
+          x: data.x.startsWith('EgLabel') ? this.SugarL10n.get(data.x) : data.x,
+          y: data.y,
+        }))
+      }
+    },
 
 		addData() {
 			const obj = {
@@ -269,22 +282,28 @@ const app = new Vue({
 		},
 
 
-		onJournalNewInstance() {
-			const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
-			for(let i = 0; i < 3; i++) {
-				const label = "EgLabel" + randArr[i];
-				this.tabularData.push({
-					x: this.SugarL10n.get(label),
-					y: randArr[i] + 6 + "",
-				})
-			}
-			this.pref.labels.x = this.SugarL10n.get("Sports"); 
-			this.pref.labels.y = this.SugarL10n.get("Students");
-			this.updateActivityTitle(this.l10n.stringChartActivity)
+    onJournalNewInstance() {
+        const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
+        for(let i = 0; i < 3; i++) {
+            const label = "EgLabel" + randArr[i];
+            const translatedLabel = this.SugarL10n.get(label);
+            
+            // Add fallback in case translation fails
+            this.tabularData.push({
+                x: translatedLabel || label,
+                y: randArr[i] + 6 + "",
+            });
+            
+            // Log for debugging
+            console.log(`Label: ${label}, Translated: ${translatedLabel}`);
+        }
+        this.pref.labels.x = this.SugarL10n.get("Sports"); 
+        this.pref.labels.y = this.SugarL10n.get("Students");
+        this.updateActivityTitle(this.l10n.stringChartActivity);
 
-			const header = [this.pref.labels.x, this.pref.labels.y];
-			this.$refs.csvView.updateJsonData(this.tabularData, header, true);
-		},
+        const header = [this.pref.labels.x, this.pref.labels.y];
+        this.$refs.csvView.updateJsonData(this.tabularData, header, true);
+    },
 		onJournalDataLoaded(data, metadata) {
 			this.LZ = this.SugarJournal.LZString;
 			if (metadata.mimetype === "text/csv") {
