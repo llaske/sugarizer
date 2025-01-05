@@ -11,7 +11,7 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 	me.mode=COLORING;
 	me.DELAY=1500.;
 	me.RUNNING=false;
-	me.LOADING=false;
+	me.LOADING=true;
 
 	me.saveStateCB=function(){
 		print("saveStateCB");
@@ -481,6 +481,9 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 		me.RUNNING=val;
 	}
 	me.toggleRunning=function(){
+		if (me.LOADING) {
+			return;
+		}
 		if (me.mode==COLORING) {
 			me.setMode(TOUR);
 			document.getElementById("modelabel").innerHTML=l10n.get(MODE_NAMES[me.mode]);
