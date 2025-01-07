@@ -41,6 +41,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
     var TYPE_CLOUD = 'CLOUD';
     var TYPE_EXCLAMATION = 'EXCLAMATION';
     var TYPE_RECTANGLE = 'RECTANGLE';
+    var TYPE_IMAGE = 'IMAGE';
+    var imageUrl = null;
 
     // TYPE_WHISPER is saved as TYPE_GLOBE and mode MODE_WHISPER
     var TYPE_WHISPER = 'WHISPER';
@@ -280,7 +282,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             }
         };
 
-        this.addGlobe = function(globeType) {
+        this.addGlobe = function(globeType, url) {
+            if(url) imageUrl = url;
             this.comicBox.addGlobe(globeType);
         };
 
@@ -534,7 +537,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         };
 
         this.remove  = function() {
-            console.log('remove');
             this._model.removeBox();
         };
 
@@ -1020,6 +1022,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                 this.createShapeExclamation(scaled_x, scaled_y, scale_x, scale_y);
             } else if (this._type == TYPE_RECTANGLE) {
                 this.createShapeRectangle();
+            } else if (this._type == TYPE_IMAGE) {
+                this.createImageBox();
             } else {
                 this.createShapeGlobe(scaled_x, scaled_y, scale_x, scale_y);
             };
@@ -1130,6 +1134,91 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
 
             this._shape.graphics.rect(x - w , y - h, w * 2, h * 2);
             this._shape.graphics.endStroke();
+        };
+
+        this.createImageBox = function () {
+            var x = this._x;
+            var y = this._y;
+            var w = this._width;
+            var h = this._height;
+
+            if (this._container) {
+                this._stage.removeChild(this._container);
+            }
+
+            this._container = new createjs.Container();
+            this._stage.addChild(this._container);
+
+            if (!this._backgroundBitmap) {
+                // Create new image from base64
+                var img = new Image();
+                var that = this;
+                img.onload = function () {
+                    var bitmap = new createjs.Bitmap(img);
+                    bitmap.name = 'background';
+
+                    // Set bounds and scale
+                    bitmap.setBounds(0, 0, img.width, img.height);
+                    // Set container size based on image dimensions
+                    that._width = img.width/2;  // Divide by 2 since the box extends both ways
+                    that._height = img.height/2;
+
+                    // Position bitmap
+                    bitmap.mouseEnabled = false;
+                    bitmap.x = that._x - that._width;
+                    bitmap.y = that._y - that._height;
+                    bitmap.scaleX = 1;  // Start with original size
+                    bitmap.scaleY = 1;
+
+                    that._backgroundBitmap = bitmap;
+                    that._container.addChild(bitmap);
+                    that._stage.update();
+                };
+                // Set base64 source
+                img.src = imageUrl;
+            } else {
+                this._backgroundBitmap.x = x - w + LINE_WIDTH;
+                this._backgroundBitmap.y = y - h + LINE_WIDTH;
+                this._container.addChild(this._backgroundBitmap);
+            }
+
+            // Add resize handler
+            this._container.on('pressmove', function (evt) {
+                if (this._resizing) {
+                    var newW = Math.abs(evt.stageX - this._x);
+                    var newH = Math.abs(evt.stageY - this._y);
+                    this._width = newW;
+                    this._height = newH;
+                    this.updateBitmapSize(this._backgroundBitmap, this._x, this._y, newW, newH);
+                    this._stage.update();
+                }
+            }.bind(this));
+
+            this._container.on('remove', function () {
+                this._stage.removeChild(this._container);
+                this._backgroundBitmap = null;
+                this._container = null;
+                this._stage.update();
+            }.bind(this))
+
+            // Create shape for border
+            this._shape = new createjs.Shape();
+            this._shape.name = 'rect';
+            this._container.addChild(this._shape);
+
+            this._shape.graphics.setStrokeStyle(0, "round", null, null, true);
+            this._shape.graphics.beginStroke('rgba(0,0,0,0)');
+            this._shape.graphics.beginFill('rgba(255,255,255,0.1)');
+            this._shape.graphics.rect(x - w, y - h, w * 2, h * 2);
+            this._shape.graphics.endStroke();
+        };
+
+        // Add helper method for updating bitmap size
+        this.updateBitmapSize = function (bitmap, x, y, w, h) {
+            bitmap.x = x - w;
+            bitmap.y = y - h;
+            bitmap.scaleX = w * 2 / bitmap.image.width;
+            bitmap.scaleY = h * 2 / bitmap.image.height;
         };
 
         this.createShapeCloud = function(x, y, scale_x, scale_y) {
@@ -1375,7 +1464,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
 
             if (this._resizeButton == null) {
                 createAsyncBitmapButton(this, './icons/resize.svg',
-                    function(globe, button) {
+                    function (globe, button) {
                         button.x = globe._x - globe._width - button.width / 2;
                         button.y = globe._y - globe._height - button.height / 2;
                         button.visible = globe.getSelected();
@@ -1383,15 +1472,32 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                         globe._stage.addChild(button);
                         globe._stage.update();
 
-                        button.on('pressmove', function(event) {
+                        button.on('pressmove', function (event) {
+                            // Update dimensions
                             this._width = Math.max(globe._x - event.stageX,
-                                                    SIZE_RESIZE_AREA / 2);
+                                SIZE_RESIZE_AREA / 2);
                             this._height = Math.max(globe._y - event.stageY,
-                                                     SIZE_RESIZE_AREA / 2);
+                                SIZE_RESIZE_AREA / 2);
+
+                            // If this is an image type, update the bitmap size
+                            if (this._type === TYPE_IMAGE && this._backgroundBitmap) {
+                                var x = this._x;
+                                var y = this._y;
+                                var w = this._width;
+                                var h = this._height;
+
+                                // Update bitmap position and scale
+                                this._backgroundBitmap.x = x - w + LINE_WIDTH;
+                                this._backgroundBitmap.y = y - h + LINE_WIDTH;
+
+                                // Apply scales independently for each dimension
+                                this._backgroundBitmap.scaleX = w * 2 / this._backgroundBitmap.image.width;
+                                this._backgroundBitmap.scaleY = h * 2 / this._backgroundBitmap.image.height;
+                            }
+
                             this._shapeChanged = true;
                             this.update();
                         }, globe);
-
                     });
             } else {
                 this._resizeButton.x = this._x - this._width - this._resizeButton.width / 2;
@@ -1467,6 +1573,13 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                 };
             };
 
+            // remove edit and rotate buttons for images
+            if (this._type == TYPE_IMAGE) {
+                this._stage.removeChild(this._pointerControl);
+                this._stage.removeChild(this._editButton);
+                this._stage.removeChild(this._rotateButton);
+
+            }
             this._shapeChanged = false;
             this._pointerChanged = false;
         };
@@ -1496,7 +1609,14 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             var globeIndex = this._box.globes.indexOf(this);
             if (globeIndex != -1) {
                 this._box.globes.splice(globeIndex, 1);
-                this._stage.removeChild(this._shape);
+                if (this._type == TYPE_IMAGE) {
+                    this._stage.removeChild(this._container);
+                } else {
+                    this._stage.removeChild(this._shape);
+                    if (this._type == TYPE_CLOUD) {
+                        this._stage.removeChild(this._shapeCircles);
+                    }
+                }
                 this._stage.removeChild(this._shapeControls);
                 if (this._type != TYPE_RECTANGLE) {
                     this._stage.removeChild(this._pointerControl);
@@ -1733,6 +1853,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
     toon.TYPE_EXCLAMATION = TYPE_EXCLAMATION;
     toon.TYPE_RECTANGLE = TYPE_RECTANGLE;
     toon.TYPE_WHISPER = TYPE_WHISPER;
+    toon.TYPE_IMAGE = TYPE_IMAGE;
 
     return toon;
 });
