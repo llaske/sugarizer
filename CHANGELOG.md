@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Vertical bar are broken in Chart/Gears activities on Windows #1646
 - In the activity of food chain, the picture of frog shows incomplete #1191
 - Unusual Draw in Chess Activity #1678
+- Pressing the start button in ColorMyWorld activity immediately shows "Congratulations! You finished!" #1691
  
 ## [1.8.0] - 2024-04-10
 ### Added
