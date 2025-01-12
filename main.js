@@ -69,6 +69,7 @@ function createWindow () {
 		} else if (process.argv[i] == '--logoff') {
 			logoff = true;
 		} else if (process.argv[i] == '--launch') {
+			let found = false;
 			if (i+1 < process.argv.length) {
 				let activity = process.argv[i+1];
 				if (activity.indexOf('&') != -1) {
@@ -77,9 +78,15 @@ function createWindow () {
 				for (var j = 0 ; j < activities.length ; j++) {
 					if (activities[j].id == activity) {
 						launch = 'file://'+app.getAppPath()+'/'+activities[j].directory+'/index.html?n='+activities[j].name+'&a=' + process.argv[i+1];
+						found = true;
 						break;
 					}
 				}
+				if (!found) {
+					console.log('Warning: Activity "'+process.argv[i+1]+'" not found');
+				}
+			} else {
+				console.log('Warning: No activity to launch provided');
 			}
 		}
 	}
