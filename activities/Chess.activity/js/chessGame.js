@@ -20,7 +20,7 @@ var ChessGame = {
         <div v-if="showPromotionDialog" class="promotion-dialog">
           <div class="promotion-content">
             <div class="dialog-header">
-              <h3>Choose Promotion Piece</h3>
+              <h3>{{ l10n.stringPromotionTitle }}</h3>
             </div>
             <div class="promotion-pieces">
               <div class="piece" @click="handlePromotion('Q')">♕</div>
@@ -123,6 +123,7 @@ var ChessGame = {
         stringMatchDraw: '',
         stringVs: '',
         stringTimeExpired: '',
+        stringPromotionTitle: '',
       }
     }
   },
