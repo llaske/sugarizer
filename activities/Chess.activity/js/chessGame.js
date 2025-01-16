@@ -12,45 +12,53 @@ var ChessGame = {
   template: `
   <div id="chess-container">
     <div id="play-container">
-        <div id="board"></div>
-        <div id="chess-panel" class="panel">
-            <!-- Promotion Dialog -->
-            <div v-if="showPromotionDialog" class="promotion-dialog">
-                <div class="promotion-content">
-                    <h3>Choose Promotion Piece</h3>
-                    <div class="promotion-pieces">
-                        <div class="piece" @click="handlePromotion('Q')">♕</div>
-                        <div class="piece" @click="handlePromotion('R')">♖</div>
-                        <div class="piece" @click="handlePromotion('B')">♗</div>
-                        <div class="piece" @click="handlePromotion('N')">♘</div>
-                    </div>
-                </div>
-            </div>
 
-            <div id="info-container">
-                <div id="opponent-clock">
-                    <div class="usrlogo"></div>
-                    <div class="usrtime">
-                        <div v-if="!opponentuser">PC</div>
-                        <div v-else-if="!clock">_:_</div>
-                        <div v-else>{{parsedOpponentClockTime}}</div>
-                    </div>
-                </div>
-                <div id="flagDiv">
-                    <div>{{infotext}}</div>
-                </div>
-                <div id="player-clock">
-                    <div class="usrlogo"></div>
-                    <div class="usrtime">
-                        <div v-if="!clock">_:_</div>
-                        <div v-else>{{parsedClockTime}}</div>
-                    </div>
-                </div>
+      <div id="board" ></div>
+
+
+		<div id="chess-panel" class="panel">
+        <div v-if="showPromotionDialog" class="promotion-dialog">
+          <div class="promotion-content">
+            <div class="dialog-header">
+              <h3>Choose Promotion Piece</h3>
             </div>
-            <div id="moves-container">
-                <ol id="ordered-moves" v-if="moves.length!=0">
-                    <template v-for="(move, index) in moves" v-bind:key="index">
-                        <li v-bind:class="{
+            <div class="promotion-pieces">
+              <div class="piece" @click="handlePromotion('Q')">♕</div>
+              <div class="piece" @click="handlePromotion('R')">♖</div>
+              <div class="piece" @click="handlePromotion('B')">♗</div>
+              <div class="piece" @click="handlePromotion('N')">♘</div>
+            </div>
+          </div>
+        </div>
+
+			<div id="info-container">
+        <div id="opponent-clock">
+          <div class="usrlogo">
+          </div>
+          <div class="usrtime">
+            <div v-if="!opponentuser">PC</div>
+            <div v-else-if="!clock">_:_</div>
+            <div v-else>{{parsedOpponentClockTime}}</div>
+          </div>
+
+        </div>
+        <div id="flagDiv">
+          <div>{{infotext}}</div>
+        </div>
+        <div id="player-clock">
+          <div class="usrlogo">
+          </div>
+          <div class="usrtime">
+          <div v-if="!clock">_:_</div>
+          <div v-else>{{parsedClockTime}}</div>
+            </div>
+        </div>
+
+			</div>
+			<div id="moves-container">
+        <ol id="ordered-moves" v-if="moves.length!=0">
+          <template v-for="(move, index) in moves" v-bind:key="index">
+          <li v-bind:class="{
             bB: move.piece == 'b',
             bK: move.piece == 'k',
             bN: move.piece == 'n',
@@ -63,14 +71,16 @@ var ChessGame = {
             wP: move.piece == 'P',
             wQ: move.piece == 'Q',
             wR: move.piece == 'R',
-          }"> {{move.from}}-{{move.to}}</li>
-                    </template>
-                </ol>
-            </div>
-        </div>
+          }"
+          > {{move.from}}-{{move.to}}</li>
+          </template>
+        </ol>
+			</div>
+		</div>
     </div>
-</div>
-  `,
+	</div>
+  `
+  ,
   props: ['currentuser', 'opponentuser', 'presence', 'ishost', 'humane'],
   data: function() {
     return {
