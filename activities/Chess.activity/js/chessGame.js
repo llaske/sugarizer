@@ -22,11 +22,15 @@ var ChessGame = {
             <div class="dialog-header">
               <h3>{{ l10n.stringPromotionTitle }}</h3>
             </div>
-            <div class="promotion-pieces">
-              <div class="piece" @click="handlePromotion('Q')">♕</div>
-              <div class="piece" @click="handlePromotion('R')">♖</div>
-              <div class="piece" @click="handlePromotion('B')">♗</div>
-              <div class="piece" @click="handlePromotion('N')">♘</div>
+             <div class="promotion-pieces">
+            <div v-if="playercolor === 0 " class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/wQ.png" alt="Queen"></div>
+              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/wR.png" alt="Rook"></div>
+              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/wB.png" alt="Bishop"></div>
+              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/wN.png" alt="Knight"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/bQ.png" alt="Queen"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/bR.png" alt="Rook"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/bB.png" alt="Bishop"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/bN.png" alt="Knight"></div>
             </div>
           </div>
         </div>
