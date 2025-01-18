@@ -508,7 +508,7 @@ var ChessGame = {
       // get list of possible moves for this square
       var moves = [];
       p4_prepare(this.state);
-      var allMoves = p4_parse(this.state, this.state.to_play, undefined, 0);
+      var allMoves = p4_parse(this.state, this.state.to_play,this.state.enpassant, 0);
 
       for (var i = 0; i < allMoves.length; i++) {
         if (p4_stringify_point(allMoves[i][1]) == square) {
