@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Sample values in Chart activity are not initialized #1695
 - No Move Hint for "En passant" in Chess Activity #1707
 - Info Update : Planet Activity #1709
+- Minute numbers still visible in clock activity even after switching to Nice Clock #1713
  
 ## [1.8.0] - 2024-04-10
 ### Added
