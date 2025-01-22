@@ -17,23 +17,23 @@ var ChessGame = {
 
 
 		<div id="chess-panel" class="panel">
-        <div v-if="showPromotionDialog" class="promotion-dialog">
-          <div class="promotion-content">
-            <div class="dialog-header">
-              <h3>{{ l10n.stringPromotionTitle }}</h3>
-            </div>
-             <div class="promotion-pieces">
-            <div v-if="playercolor === 0 " class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/wQ.png" alt="Queen"></div>
-              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/wR.png" alt="Rook"></div>
-              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/wB.png" alt="Bishop"></div>
-              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/wN.png" alt="Knight"></div>
-              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/bQ.png" alt="Queen"></div>
-              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/bR.png" alt="Rook"></div>
-              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/bB.png" alt="Bishop"></div>
-              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/bN.png" alt="Knight"></div>
-            </div>
-          </div>
-        </div>
+                  <div v-if="showPromotionDialog" class="promotion-dialog">
+                    <div class="promotion-content">
+                      <div class="dialog-header">
+                        <h3>{{ l10n.stringPromotionTitle }}</h3>
+                      </div>
+                      <div class="promotion-pieces">
+                      <div v-if="playercolor === 0 " class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/wQ.png" alt="Queen"></div>
+                        <div v-if="playercolor === 0" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/wR.png" alt="Rook"></div>
+                        <div v-if="playercolor === 0" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/wB.png" alt="Bishop"></div>
+                        <div v-if="playercolor === 0" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/wN.png" alt="Knight"></div>
+                        <div v-if="playercolor === 1" class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/bQ.png" alt="Queen"></div>
+                        <div v-if="playercolor === 1" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/bR.png" alt="Rook"></div>
+                        <div v-if="playercolor === 1" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/bB.png" alt="Bishop"></div>
+                        <div v-if="playercolor === 1" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/bN.png" alt="Knight"></div>
+                      </div>
+                    </div>
+                  </div>
 
 			<div id="info-container">
         <div id="opponent-clock">
@@ -114,12 +114,12 @@ var ChessGame = {
       opponentClockTime: 30,
       clockTotalTime: 30,
       showPromotionDialog: false,
-        pendingMove: {
-            source: null,
-            target: null,
-            piece: null,
-            turn: null,
-        },
+      pendingMove: {
+        source: null,
+        target: null,
+        piece: null,
+        turn: null,
+      },
       l10n: {
         stringYouWon: '',
         stringYouCheck: '',
@@ -472,7 +472,7 @@ var ChessGame = {
       var turn = this.playercolor ? this.state.moveno % 2 != 0 : this.state.moveno % 2 == 0;
       if (!this.opponentuser || (this.opponentuser && turn)) {
         this.removeGreySquares();
-        const piece = this.board.position()[source];
+      const piece = this.board.position()[source];
       const isWhitePawn = piece === 'wP';
       const isBlackPawn = piece === 'bP';
       const isLastRank = target[1] === '8';
