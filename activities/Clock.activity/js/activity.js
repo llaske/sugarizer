@@ -555,8 +555,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         Clock.prototype.drawNiceBackground = function () {
             var ctx = this.bgCanvasElem.getContext('2d');
 
-            ctx.clearRect(this.margin, this.margin,
-                              this.radius * 2, this.radius * 2);
+            ctx.clearRect(0, 0,
+                              this.size, this.size);
             ctx.drawImage(niceImage, this.margin, this.margin,
                               this.radius * 2, this.radius * 2);
         }
