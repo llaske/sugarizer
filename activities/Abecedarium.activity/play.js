@@ -352,9 +352,11 @@ enyo.kind({
 		if (this.playing != null)
 			this.playing.abort();
 		if (this.selected == null) {
-			Abcd.sound.play("audio/disappointed");
-			this.selected = this.from;
-			this.selected.addClass("entryPlayWrong");
+			requirejs(["l10n"], function(l10n) {
+			alert(l10n.get("OptionNotSelected"));
+			})
+			this.forbidentry = false;
+			return;
 		} else if (this.selected.index == this.from.index) {
 			Abcd.sound.play("audio/applause");
 			this.selected.removeClass("entryPlaySelected");
