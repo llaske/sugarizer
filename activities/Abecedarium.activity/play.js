@@ -348,14 +348,15 @@ enyo.kind({
 
 	// Check taped
 	checkTaped: function() {
+		if (this.forbidentry) 
+			return;
 		this.forbidentry = true;
 		if (this.playing != null)
 			this.playing.abort();
 		if (this.selected == null) {
-			requirejs(["l10n"], function(l10n) {
-			alert(l10n.get("OptionNotSelected"));
-			})
-			this.forbidentry = false;
+        	Abcd.sound.play("audio/disappointed");
+			this.selected=this.from;
+			this.selected.addClass("entryPlayWrong");
 			return;
 		} else if (this.selected.index == this.from.index) {
 			Abcd.sound.play("audio/applause");
