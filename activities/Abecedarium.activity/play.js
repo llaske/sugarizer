@@ -354,8 +354,8 @@ enyo.kind({
 		if (this.playing != null)
 			this.playing.abort();
 		if (this.selected == null) {
-        	Abcd.sound.play("audio/disappointed");
-			this.selected=this.from;
+			Abcd.sound.play("audio/disappointed");
+			this.selected = this.from;
 			this.selected.addClass("entryPlayWrong");
 			return;
 		} else if (this.selected.index == this.from.index) {
