@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Minute numbers still visible in clock activity even after switching to Nice Clock #1713
 - Default Promotion to Queen in Chess Activity #1704
 - Error loading Etoys activity #1717
+- Cheating in Abecedarium Activity #1720
  
 ## [1.8.0] - 2024-04-10
 ### Added
