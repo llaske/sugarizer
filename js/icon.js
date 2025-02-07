@@ -1,10 +1,8 @@
-
 // Colorized icons cache
 var iconColorCache = {
 	names: [],
 	values: []
 };
-
 
 // Class for a Sugar icon
 enyo.kind({
@@ -28,6 +26,23 @@ enyo.kind({
 		{ name: "icon", classes: "web-activity-icon", onmouseover: "popupShowTimer", onmouseout: "popupHideTimer"},
 		{ name: "disable", classes: "web-activity-disable", showing: false}
 	],
+
+	// ==== NEW: Add CSS for smoother and more appealing icons ====
+	css: `
+		.web-activity-icon {
+			transition: transform 0.2s ease, filter 0.2s ease;
+			border-radius: 10px; /* Rounded corners */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+		}
+		.web-activity-icon:hover {
+			transform: scale(1.1); /* Slight zoom on hover */
+			filter: brightness(1.2); /* Brighten on hover */
+		}
+		.web-activity-disable {
+			background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+			border-radius: 10px; /* Match rounded corners */
+		}
+	`,
 
 	// Constructor
 	create: function() {
@@ -126,7 +141,6 @@ enyo.kind({
 				iconColorCache.values.push(node.style.backgroundImage);
 			});
 		}
-
 	},
 
 	// Test is cursor is inside the icon

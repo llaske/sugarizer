@@ -1,4 +1,3 @@
-
 var _displayedPalette = null;
 
 // Class for a Sugar palette
@@ -17,6 +16,57 @@ enyo.kind({
 		{ name: "icon", kind: "Sugar.Icon", classes: "palette-icon", size: 20, x: 6, y: 6 },
 		{ name: "text", classes: "palette-text" }
 	],
+
+	// ==== NEW: Add CSS for modern and dynamic palette styling ====
+	css: `
+		.palette-sugarizer {
+			background-color: #ffffff; /* White background */
+			border: 1px solid #ddd; /* Subtle border */
+			border-radius: 8px; /* Rounded corners */
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft shadow */
+			transition: opacity 0.3s ease, transform 0.3s ease;
+			opacity: 0;
+			transform: translateY(-10px);
+			pointer-events: none;
+		}
+		.palette-sugarizer.palette-up {
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+		.palette-icon {
+			margin-right: 8px; /* Space between icon and text */
+		}
+		.palette-text {
+			font-size: 14px;
+			color: #333; /* Dark text color */
+			font-weight: 500; /* Slightly bold text */
+		}
+		.palette-content {
+			padding: 12px;
+		}
+		.palette-header {
+			font-size: 16px;
+			font-weight: bold;
+			color: #555; /* Slightly lighter text for header */
+			margin-bottom: 8px;
+		}
+		.palette-hr {
+			border: 0;
+			height: 1px;
+			background-color: #eee; /* Light separator */
+			margin: 8px 0;
+		}
+		.palette-item {
+			padding: 8px 12px;
+			cursor: pointer;
+			border-radius: 4px;
+			transition: background-color 0.2s ease;
+		}
+		.palette-item:hover {
+			background-color: #f0f0f0; /* Light gray on hover */
+		}
+	`,
 
 	// Constructor
 	create: function() {
@@ -46,22 +96,22 @@ enyo.kind({
 		if (this.contents == null) {
 			return;
 		}
-		var id = this.hasNode().id+"_content";
+		var id = this.hasNode().id + "_content";
 		this.palette = view.createComponent({
 			name: id,
-			classes: "palette-content "+this.contentsClasses
+			classes: "palette-content " + this.contentsClasses
 		});
 		if (this.header) {
-			this.palette.createComponent({content: this.header, classes: "palette-header"}, {owner: this.palette});
-			this.palette.createComponent({classes: "palette-hr"}, {owner: this.palette});
+			this.palette.createComponent({ content: this.header, classes: "palette-header" }, { owner: this.palette });
+			this.palette.createComponent({ classes: "palette-hr" }, { owner: this.palette });
 		}
 		this.paletteEvents = [];
-		for (var i = 0 ; i < this.contents.length ; i++) {
-			var newObject = this.palette.createComponent(this.contents[i], {owner: this.palette});
+		for (var i = 0; i < this.contents.length; i++) {
+			var newObject = this.palette.createComponent(this.contents[i], { owner: this.palette });
 			var tapMethod = this.contents[i].ontap;
 			if (tapMethod) {
 				this.palette[tapMethod] = enyo.bind(this, "bindedFunction");
-				this.paletteEvents.push({"event": "tap", "object": newObject, "name": tapMethod})
+				this.paletteEvents.push({ "event": "tap", "object": newObject, "name": tapMethod });
 			}
 		}
 		this.palette.render();
@@ -74,7 +124,7 @@ enyo.kind({
 	},
 
 	bindedFunction: function(o, e) {
-		for (var i = 0 ; i < this.paletteEvents.length ; i++) {
+		for (var i = 0; i < this.paletteEvents.length; i++) {
 			if (this.paletteEvents[i].event == e.type && this.paletteEvents[i].object == o) {
 				enyo.call(this.parent, this.paletteEvents[i].name, [o, e]);
 			}
@@ -111,9 +161,7 @@ enyo.kind({
 	}
 });
 
-
 // Internal functions adapted from sugar-web/palette.js
-
 function _getOffset(elem, paletteElem) {
 	// Ugly hack to consider the palette margin.
 	var style = elem.currentStyle || window.getComputedStyle(elem, '');
