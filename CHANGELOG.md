@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Default Promotion to Queen in Chess Activity #1704
 - Error loading Etoys activity #1717
 - Cheating in Abecedarium Activity #1720
+- X and Y axis labels are not Interchanged when switching between Vertical and Horizontal Bar Charts #1727
  
 ## [1.8.0] - 2024-04-10
 ### Added
