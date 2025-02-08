@@ -372,6 +372,15 @@ const app = new Vue({
 			});
 		},
 		setChartType(type) {
+			
+			if ((this.pref.chartType === "bar" && type === "horizontalBar") ||
+				(this.pref.chartType === "horizontalBar" && type === "bar")) {
+				
+				const tempLabel = this.pref.labels.x;
+				this.pref.labels.x = this.pref.labels.y;
+				this.pref.labels.y = tempLabel;
+			}
+		
 			this.executeAndSendAction(Action_Types.UPDATE_CHART_TYPE, {
 				chartType: type,
 			});
