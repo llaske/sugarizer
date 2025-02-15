@@ -37,6 +37,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Vertical bar are broken in Chart/Gears activities on Windows #1646
 - In the activity of food chain, the picture of frog shows incomplete #1191
 - Unusual Draw in Chess Activity #1678
+- Pressing the start button in ColorMyWorld activity immediately shows "Congratulations! You finished!" #1691
+- Broken dialog box on first screen tutorial #1418
+- Sample values in Chart activity are not initialized #1695
+- No Move Hint for "En passant" in Chess Activity #1707
+- Info Update : Planet Activity #1709
+- Minute numbers still visible in clock activity even after switching to Nice Clock #1713
+- Default Promotion to Queen in Chess Activity #1704
+- Error loading Etoys activity #1717
+- Cheating in Abecedarium Activity #1720
+- X and Y axis labels are not Interchanged when switching between Vertical and Horizontal Bar Charts #1727
  
 ## [1.8.0] - 2024-04-10
 ### Added
