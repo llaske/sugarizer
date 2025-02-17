@@ -828,11 +828,15 @@
               if (game._checkCollisions(x, y+1, blocks, true)) {
                 drop = false;
                 var blockIndex = 0;
+                var gameOver = false;
                 for (var i=0; i<cur.blocksLen; i+=2) {
-                  game._filled.add(x + blocks[i], y + blocks[i+1], cur.blockType, cur.blockVariation, blockIndex, cur.orientation);
-                  if (y + blocks[i] < 0) {
+                  var blockX = x + blocks[i];
+                  var blockY = y + blocks[i + 1];
+                  // Check if block would be placed at or above the top
+                  if (blockY <= 0) {
                     gameOver = true;
                   }
+                  game._filled.add(blockX, blockY, cur.blockType, cur.blockVariation, blockIndex, cur.orientation);
                   blockIndex++;
                 }
                 game._filled.checkForClears();
@@ -845,6 +849,9 @@
                 this.holding.drop = null;
 
                 game.options.onPlaced.call(game.element);
+                if (gameOver) {
+                  game.gameover();
+                }
               }
             }
           }
