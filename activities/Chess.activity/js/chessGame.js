@@ -17,6 +17,24 @@ var ChessGame = {
 
 
 		<div id="chess-panel" class="panel">
+      <div v-if="showPromotionDialog" class="promotion-dialog">
+        <div class="promotion-content">
+          <div class="dialog-header">
+            <h3>{{ l10n.stringPromotionTitle }}</h3>
+          </div>
+          <div class="promotion-pieces">
+            <div v-if="playercolor === 0 " class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/wQ.png" alt="Queen"></div>
+              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/wR.png" alt="Rook"></div>
+              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/wB.png" alt="Bishop"></div>
+              <div v-if="playercolor === 0" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/wN.png" alt="Knight"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('Q')"><img src="./img/chesspieces/wikipedia/bQ.png" alt="Queen"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('R')"><img src="./img/chesspieces/wikipedia/bR.png" alt="Rook"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('B')"><img src="./img/chesspieces/wikipedia/bB.png" alt="Bishop"></div>
+              <div v-if="playercolor === 1" class="piece" @click="handlePromotion('N')"><img src="./img/chesspieces/wikipedia/bN.png" alt="Knight"></div>
+            </div>
+          </div>
+      </div>
+
 			<div id="info-container">
         <div id="opponent-clock">
           <div class="usrlogo">
@@ -94,6 +112,13 @@ var ChessGame = {
       clockTime: 30,
       opponentClockTime: 30,
       clockTotalTime: 30,
+      showPromotionDialog: false,
+      pendingMove: {
+        source: null,
+        target: null,
+        piece: null,
+        turn: null,
+      },
       l10n: {
         stringYouWon: '',
         stringYouCheck: '',
@@ -101,6 +126,7 @@ var ChessGame = {
         stringMatchDraw: '',
         stringVs: '',
         stringTimeExpired: '',
+        stringPromotionTitle: '',
       }
     }
   },
@@ -391,18 +417,10 @@ var ChessGame = {
       var start_time = Date.now();
       var possibleMove = this.state.findmove(this.level);
       var delta = Date.now() - start_time;
-      // game over
-      if (possibleMove.length === 0) {
-        this.game_won = true;
-        return;
-      }
-      if (1 / possibleMove[2] == 1 / this.state.stalemate_scores[this.state.to_play]) {
-        this.game_draw = true;
-        return;
-      }
       var move = this.state.move(possibleMove[0], possibleMove[1]);
 
       if (!(move.flags & (1 << 0))) {
+        //  this is where the king can't move or any valid move aren't available, usually happens on stalemate and checkmate
         var depth = this.level;
         depth++;
         //find at higher depths until it runs out of time
@@ -414,28 +432,26 @@ var ChessGame = {
             delta = Date.now() - start_time;
           }
         }
-        if (possibleMove.length === 0) {
+        if (possibleMove.length === 0 && flags & 2) {
           this.game_won = true;
           return;
         }
-        if (possibleMove[2] == this.state.stalemate_scores[this.state.to_play]) {
-          this.game_draw = true;
-          return;
-        }
-        move = this.state.move(possibleMove[0], possibleMove[1]);
-        if (!(move.flags & (1 << 0))) {
-          this.game_won = true;
-          return;
-        }
+        move = this.state.move(possibleMove[0], possibleMove[1]);        
       }
 
-      if (move.flags & (1 << 1) && move.flags & (1 << 2)) {
-        this.game_lost = true;
 
-      } else if (move.flags & (1 << 1) && !(move.flags & (1 << 2))) {
+      if ( (move.flags & 1<<0 )  && (move.flags & 1<<1) && (move.flags & 1<<2) ) {
+        this.board.position(p4_state2fen(this.state, true));
+        this.updateMoves();
+        this.game_lost = true;
+        return;
+      } else if (move.flags & (1<<1) && !(move.flags & (1<<2))) {
         this.game_check = true;
-      } else if ((!(move.flags & (1 << 1)) && move.flags & (1 << 2)) || move.flags & (1 << 6)) {
+      } else if (!(move.flags& 1<<1) && ( ((move.flags & 1<<0) && move.flags & 1<<2) || move.flags & (1<<6))) {
+        this.board.position(p4_state2fen(this.state, true));
+        this.updateMoves();
         this.game_draw = true;
+        return;
       } else {
         this.game_check = false;
       }
@@ -455,16 +471,33 @@ var ChessGame = {
       var turn = this.playercolor ? this.state.moveno % 2 != 0 : this.state.moveno % 2 == 0;
       if (!this.opponentuser || (this.opponentuser && turn)) {
         this.removeGreySquares();
+        const piece = this.board.position()[source];
+        const isWhitePawn = piece === 'wP';
+        const isBlackPawn = piece === 'bP';
+        const isLastRank = target[1] === '8';
+        const isFirstRank = target[1] === '1';
 
+        if ((isWhitePawn && isLastRank) || (isBlackPawn && isFirstRank)) {
+          this.pendingMove = {
+            source: source,
+            target: target,
+            piece: piece,
+            turn: turn
+          };
+          this.showPromotionDialog = true;
+          return; // Wait for promotion choice
+        }
         var move = this.state.move(source, target);
 
         // illegal move
         if (move.flags === 0) return 'snapback';
 
-        if (move.flags === 7) {
+        if (move.flags === 7 || move.flags === 15 || move.flags === 23 || move.flags === 39) {
           this.game_won = true;
-        } else if ((!(move.flags & (1 << 1)) && move.flags & (1 << 2)) || move.flags & (1 << 6)) {
+          return;
+        } else if ( (!(move.flags & 1<<1 )) && (((move.flags & 1<<0) && (move.flags & 1<<2)   ) || move.flags & (1<<6))) {
           this.game_draw = true;
+          return;
         } else {
           this.game_check = false;
         }
@@ -516,7 +549,7 @@ var ChessGame = {
       // get list of possible moves for this square
       var moves = [];
       p4_prepare(this.state);
-      var allMoves = p4_parse(this.state, this.state.to_play, undefined, 0);
+      var allMoves = p4_parse(this.state, this.state.to_play,this.state.enpassant, 0);
 
       for (var i = 0; i < allMoves.length; i++) {
         if (p4_stringify_point(allMoves[i][1]) == square) {
@@ -726,8 +759,84 @@ var ChessGame = {
       }
       this.opponentClockTime = this.clockTotalTime;
 
-    }
-
+    },
+    handlePromotion: function(pieceType) {
+      if (!this.pendingMove.source || !this.pendingMove.target) {
+          this.showPromotionDialog = false;
+          return;
+      }
+  
+      this.showPromotionDialog = false;
+      const { source, target } = this.pendingMove;
+  
+      var move = this.state.move(source, target, P4_PIECE_LUT[pieceType]);
+  
+      // illegal move
+      if (move.flags === 0) {
+          this.board.position(p4_state2fen(this.state, true));
+          return;
+      }
+  
+      if (move.flags === 7 || move.flags === 15 || move.flags === 23 || move.flags === 39) {
+          this.game_won = true;
+          this.board.position(p4_state2fen(this.state, true));
+          return;
+      } else if (!(move.flags & 1<<1) && (((move.flags & 1<<0) && move.flags & 1<<2) || move.flags & (1<<6))) {
+          this.game_draw = true;
+          this.board.position(p4_state2fen(this.state, true));
+          return;
+      } else {
+          this.game_check = false;
+      }
+  
+      if (move.flags & (1 << 1) && !(move.flags & (1 << 2))) {
+          this.other_check = true;
+      } else {
+          this.other_check = false;
+      }
+  
+      this.board.position(p4_state2fen(this.state, true));
+  
+      if (this.opponentuser) {
+          if (this.ishost) {
+              this.stopClock = true;
+              this.stopOpponentClock = false;
+          }
+      } else {
+          this.stopClock = true;
+          this.stopOpponentClock = false;
+      }
+  
+      $('#player-clock').css('border-style', 'none');
+      $('#opponent-clock').css('border-style', 'solid');
+  
+      if (this.opponentuser) {
+          this.$emit('sendmove', {
+              data: {
+                  chessColor: this.playercolor,
+                  state: this.state,
+                  game_won: this.game_lost,
+                  game_lost: this.game_won,
+                  game_draw: this.game_draw,
+                  game_check: this.other_check,
+              }
+          });
+      }
+  
+      this.updateMoves();
+      
+      // Reset pending move
+      this.pendingMove = {
+          source: null,
+          target: null,
+          piece: null,
+          turn: null
+      };
+  
+      if (!this.opponentuser) {
+          window.setTimeout(this.makeRandomMove, 250);
+      }
+  },
   }
 
 }

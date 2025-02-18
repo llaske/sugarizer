@@ -79,56 +79,55 @@ define([
 				document.getElementById(20).title = l10n.get("ExportToPdf");
 				document.getElementById(21).title = l10n.get("ExportToDoc");
 				document.getElementById(22).title = l10n.get("ExportToOdt");
+
+				if (!environment.objectId && !environment.sharedId) {
+					// New instance
+					// Intentionally added setTimeout to allow locale.ini file to be loaded
+					setTimeout(function(){
+						editor.setContents([
+							{insert:  l10n.get('Welcome',{username: environment.user.name}) + '\n' , attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
+						]);
+						var length = editor.getLength();
+						editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Write'));
+						length = editor.getLength();
+						editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Writefeatures'));
+						length = editor.getLength();
+						editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Enjoy'));
+						length = editor.getLength();
+						editor.clipboard.dangerouslyPasteHTML(length,"<br></br>");
+						length = editor.getLength();
+						editor.updateContents(
+							new Delta()
+							.retain(editor.getSelection().index+1)
+							.insert({
+								image: window.initialImageDataUrl
+								})
+						);
+					},200);
+				} else {
+					// Existing instance
+					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+						if (error==null && data!=null) {
+							var delta = JSON.parse(data);
+							console.log(delta);
+							editor.setContents(delta);
+						}
+					});
+				}
+				// Shared instances
+				if (environment.sharedId) {
+					console.log("Shared instance");
+	
+					// Hide GUI of undo and redo for non host users
+					document.getElementById("edit-undo").style.display = "none";
+					document.getElementById("edit-redo").style.display = "none";
+					document.getElementById("shared-button").click();
+					presence = activity.getPresenceObject(function(error, network) {
+						network.onDataReceived(onNetworkDataReceived);
+						network.onSharedActivityUserChanged(onNetworkUserChanged);
+					});
+				}
 			});
-
-			if (!environment.objectId && !environment.sharedId) {
-				// New instance
-				// Intentionally added setTimeout to allow locale.ini file to be loaded
-				setTimeout(function(){
-					editor.setContents([
-						{insert:  l10n.get('Welcome',{username: environment.user.name}) + '\n' , attributes: { size: "40px" , color : environment.user.colorvalue.stroke , bold: true }},
-					]);
-					var length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Write'));
-					length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Writefeatures'));
-					length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,l10n.get('Enjoy'));
-					length = editor.getLength();
-					editor.clipboard.dangerouslyPasteHTML(length,"<br></br>");
-					length = editor.getLength();
-					editor.updateContents(
-						new Delta()
-						.retain(editor.getSelection().index+1)
-						.insert({
-							image: window.initialImageDataUrl
-							})
-					);
-				},200);
-			} else {
-				// Existing instance
-				activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
-					if (error==null && data!=null) {
-						var delta = JSON.parse(data);
-						console.log(delta);
-						editor.setContents(delta);
-					}
-				});
-			}
-			// Shared instances
-			if (environment.sharedId) {
-				console.log("Shared instance");
-
-				// Hide GUI of undo and redo for non host users
-				document.getElementById("edit-undo").style.display = "none";
-				document.getElementById("edit-redo").style.display = "none";
-				document.getElementById("shared-button").click();
-				presence = activity.getPresenceObject(function(error, network) {
-					network.onDataReceived(onNetworkDataReceived);
-					network.onSharedActivityUserChanged(onNetworkUserChanged);
-				});
-			}
-
 		});
 
 		// Save in Journal on Stop
