@@ -1,5 +1,4 @@
-((function ( $ ) {
-
+(function ($) {
   "use strict";
 
   $.widget("aerolab.blockrain", {
@@ -259,21 +258,6 @@
       }
     },
 
-    // _checkCollisions: function(x, y, blocks, checkDownOnly) {
-    //   // x & y should be aspirational values
-    //   var i = 0, len = blocks.length, a, b;
-    //   for (; i<len; i += 2) {
-    //     a = x + blocks[i];
-    //     b = y + blocks[i+1];
-
-    //     if (b >= this._BLOCK_HEIGHT || this._filled.check(a, b)) {
-    //       return true;
-    //     } else if (!checkDownOnly && a < 0 || a >= this._BLOCK_WIDTH) {
-    //       return true;
-    //     }
-    //   }
-    //   return false;
-    // },
     _checkCollisions: function (x, y, blocks, checkDownOnly) {
       var i = 0,
         len = blocks.length,
@@ -904,87 +888,108 @@
           return result;
         },
 
-animate: function() {
-  var drop = false,
-      moved = false,
-      gameOver = false,
-      now = Date.now();
+        animate: function () {
+          var drop = false,
+            moved = false,
+            gameOver = false,
+            now = Date.now();
 
-  if (this.animateTimeoutId) { clearTimeout(this.animateTimeoutId); }
-
-  if (!this.paused && !this.gameover) {
-    this.dropCount++;
-
-    if ((this.dropCount >= this.dropDelay) ||
-        (game.options.autoplay) ||
-        (this.holding.drop && (now - this.holding.drop) >= this.holdingThreshold)) {
-      drop = true;
-      moved = true;
-      this.dropCount = 0;
-    }
-
-    if (this.holding.left && (now - this.holding.left) >= this.holdingThreshold) {
-      moved = true;
-      this.cur.moveLeft();
-    }
-
-    if (this.holding.right && (now - this.holding.right) >= this.holdingThreshold) {
-      moved = true;
-      this.cur.moveRight();
-    }
-
-    if (drop) {
-      var cur = this.cur, x = cur.x, y = cur.y, blocks = cur.getBlocks();
-      if (game._checkCollisions(x, y + 1, blocks, true)) {
-        drop = false;
-        var blockIndex = 0;
-        for (var i = 0; i < cur.blocksLen; i += 2) {
-          let newX = x + blocks[i];
-          let newY = y + blocks[i + 1];
-          
-          game._filled.add(newX, newY, cur.blockType, cur.blockVariation, blockIndex, cur.orientation);
-          
-          if (newY < 0 && y > 0) { // Ensure game over only when game has started
-            gameOver = true;
+          if (this.animateTimeoutId) {
+            clearTimeout(this.animateTimeoutId);
           }
-          blockIndex++;
-        }
-        game._filled.checkForClears();
-        this.cur = this.nextShape();
-        this.renderChanged = true;
 
-        this.holding.left = null;
-        this.holding.right = null;
-        this.holding.drop = null;
+          if (!this.paused && !this.gameover) {
+            this.dropCount++;
 
-        game.options.onPlaced.call(game.element);
-      } else {
-        this.cur.y++; // Ensure the block keeps falling if no collision
-      }
-    }
-  }
+            if (
+              this.dropCount >= this.dropDelay ||
+              game.options.autoplay ||
+              (this.holding.drop &&
+                now - this.holding.drop >= this.holdingThreshold)
+            ) {
+              drop = true;
+              moved = true;
+              this.dropCount = 0;
+            }
 
-  if (drop || moved) {
-    this.renderChanged = true;
-  }
+            if (
+              this.holding.left &&
+              now - this.holding.left >= this.holdingThreshold
+            ) {
+              moved = true;
+              this.cur.moveLeft();
+            }
 
-  if (gameOver) {
-    this.gameover = true;
-    game.gameover();
+            if (
+              this.holding.right &&
+              now - this.holding.right >= this.holdingThreshold
+            ) {
+              moved = true;
+              this.cur.moveRight();
+            }
 
-    if (game.options.autoplay && game.options.autoplayRestart) {
-      game.restart();
-    }
-    this.renderChanged = true;
-  } else {
-    this.animateDelay = 1000 / game.options.speed;
+            if (drop) {
+              var cur = this.cur,
+                x = cur.x,
+                y = cur.y,
+                blocks = cur.getBlocks();
+              if (game._checkCollisions(x, y + 1, blocks, true)) {
+                drop = false;
+                var blockIndex = 0;
+                for (var i = 0; i < cur.blocksLen; i += 2) {
+                  let newX = x + blocks[i];
+                  let newY = y + blocks[i + 1];
 
-    this.animateTimeoutId = window.setTimeout(function() {
-      game._board.animate();
-    }, this.animateDelay);
-  }
-}
-,
+                  game._filled.add(
+                    newX,
+                    newY,
+                    cur.blockType,
+                    cur.blockVariation,
+                    blockIndex,
+                    cur.orientation
+                  );
+
+                  if (newY < 0 && y > 0) {
+                    // Ensure game over only when game has started
+                    gameOver = true;
+                  }
+                  blockIndex++;
+                }
+                game._filled.checkForClears();
+                this.cur = this.nextShape();
+                this.renderChanged = true;
+
+                this.holding.left = null;
+                this.holding.right = null;
+                this.holding.drop = null;
+
+                game.options.onPlaced.call(game.element);
+              } else {
+                this.cur.y++; // Ensure the block keeps falling if no collision
+              }
+            }
+          }
+
+          if (drop || moved) {
+            this.renderChanged = true;
+          }
+
+          if (gameOver) {
+            this.gameover = true;
+            game.gameover();
+
+            if (game.options.autoplay && game.options.autoplayRestart) {
+              game.restart();
+            }
+            this.renderChanged = true;
+          } else {
+            this.animateDelay = 1000 / game.options.speed;
+
+            this.animateTimeoutId = window.setTimeout(function () {
+              game._board.animate();
+            }, this.animateDelay);
+          }
+        },
         createRandomBoard: function () {
           var start = [],
             blockTypes = [],
@@ -2006,5 +2011,4 @@ animate: function() {
       $("#down-arrow").unbind("touchstart click");
     },
   });
-
-})(jQuery));
+})(jQuery);
