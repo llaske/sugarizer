@@ -49,6 +49,10 @@ define(["sugar-web/activity/activity","l10n","sugar-web/graphics/radiobuttonsgro
 					} else if (language == 'pt') {
 						l10n.language.code = "pt_BR";
 						l10n.init("pt_BR");
+					} else {
+						// Default to English if language is not selected
+						l10n.language.code = "en";
+						l10n.init("en");
 					}
 
 					// Init sound component
