@@ -107,8 +107,7 @@ enyo.kind({
 		
 		// Display the first card
 		this.currentcard = 0;
-		var card = this.$.startbox.createComponent({ kind: "FoodChain.Card", cardname: this.cardlist[this.currentcard].cardname, x: 10, y: 10, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this});	
-		FoodChain.sound.play(card.sound);	
+		var card = this.$.startbox.createComponent({ kind: "FoodChain.Card", cardname: this.cardlist[this.currentcard].cardname, x: 10, y: 10, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this});		
 		
 		// Saving context
 		FoodChain.saveContext();
