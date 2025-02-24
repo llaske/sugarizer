@@ -57,6 +57,19 @@ body {
 	z-index: 5;
 }
 
+/* Toolbar seprator */
+.seprator-line{
+	background-color: #808080;
+	background-position: center;
+	width: 2px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
 @media screen and (max-width: 567px) {
 	.toolbar {
 		padding-left: 10px;
