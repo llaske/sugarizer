@@ -41,6 +41,7 @@ The Sugarizer desktop application has four possible arguments:
 * `--sdebug` to open Sugarizer with the debug console
 * `--logoff` to logoff the previous user if one is connected (unsynchronized content will be lost)
 * `--init` to remove all existing Journal and settings (all will be lost)
+* `--launch <activityid>` to open Sugarizer with a specific activity (e.g. `--launch org.olpcfrance.Abecedarium`). If no user is created/connected, it will be asked to create/connect one first.
 
 If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First, install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
@@ -233,7 +234,7 @@ To remove media content for **Abecedarium**, remove directories:
 
 The activity will look for media content on the server referenced in [activities/Abecedarium.activity/database/db_url.json](activities/Abecedarium.activity/database/db_url.json), by default `http://server.sugarizer.org/activities/Abecedarium.activity/`.
 
-To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/resources/etoys.image`.
+To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and the file [activities/Etoys.activity/etoys.image](activities/Etoys.activity/etoys.image). Then replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/etoys.image`.
 
 To remove resources for **Scratch**, remove directory [activities/Scratch.activity/static/internal-assets](activities/Scratch.activity/static/internal-assets) and remove the value `class="offlinemode"` in [activities/Scratch.activity/index.html](activities/Scratch.activity/index.html).
 
@@ -315,3 +316,4 @@ Read [CONTRIBUTING](CONTRIBUTING.md) to learn more about how to contribute to Su
 Sugarizer is licensed under the **Apache-2.0** license. See [LICENSE](LICENSE) for full license text.  Most Sugarizer activities use this license too but some use a different license, see [here](docs/licenses.md) for details.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fllaske%2Fsugarizer.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fllaske%2Fsugarizer?ref=badge_shield&issueType=license)

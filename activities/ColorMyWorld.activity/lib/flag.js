@@ -1,6 +1,3 @@
-
-
-
 define(function (require) {
     const flag = {
         Antigua_and_Barbuda: "https://flagcdn.com/ag.svg",

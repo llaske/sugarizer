@@ -18,10 +18,6 @@ define(["sugar-web/graphics/palette","sugar-web/env","l10n","sugar-web/datastore
 	var awake = true;
 	var idletimer;
 
-	activity.getXOColor(function (error, retcolors) {
-		colors = retcolors;
-	});
-
 	function idleTimer() {
 		awake = true;
 		clearInterval(idletimer);
@@ -68,6 +64,9 @@ define(["sugar-web/graphics/palette","sugar-web/env","l10n","sugar-web/datastore
 			sugarSettings = environment.user;
 			l10n.init(defaultLanguage);
 			speech.init(sugarSettings);
+			activity.getXOColor(function (error, retcolors) {
+				colors = retcolors;
+			});
 			// If not IE, setup mouse for capture
 			if (!IE){
 				document.captureEvents(Event.MOUSEMOVE)
