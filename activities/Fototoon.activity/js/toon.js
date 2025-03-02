@@ -1485,7 +1485,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
 
             if (this._resizeButton == null) {
                 createAsyncBitmapButton(this, './icons/resize.svg',
-                    function (globe, button) {
+                    function(globe, button) {
                         button.x = globe._x - globe._width - button.width / 2;
                         button.y = globe._y - globe._height - button.height / 2;
                         button.visible = globe.getSelected();
@@ -1493,15 +1493,15 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                         globe._stage.addChild(button);
                         globe._stage.update();
 
-                        button.on('pressmove', function (event) {
-                            // Update dimensions
+                        button.on('pressmove', function(event) {
                             this._width = Math.max(globe._x - event.stageX,
-                                SIZE_RESIZE_AREA / 2);
+                                                    SIZE_RESIZE_AREA / 2);
                             this._height = Math.max(globe._y - event.stageY,
                                                      SIZE_RESIZE_AREA / 2);
                             this._shapeChanged = true;
                             this.update();
                         }, globe);
+
                     });
             } else {
                 this._resizeButton.x = this._x - this._width - this._resizeButton.width / 2;
