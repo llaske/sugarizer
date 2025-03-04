@@ -1562,7 +1562,7 @@ function init() {
             }
             if (len(window.files) > 0) {
                 tag.title = list(parsed_data)[0];
-                editor.swapDoc((ρσ_expr_temp = window.files)[ρσ_bound_index(tag.title, ρσ_expr_temp)]);
+                editor.setValue((ρσ_expr_temp = window.files)[ρσ_bound_index(tag.title, ρσ_expr_temp)]);
                 editor.setOption("mode", "python");
             }
             tag.update();
