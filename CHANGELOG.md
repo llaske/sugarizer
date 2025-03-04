@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - X and Y axis labels are not Interchanged when switching between Vertical and Horizontal Bar Charts #1727
 - BlockRain Activity Game Over Logic Fails When Side Columns Are Full #1739
 - Discrepancies in Lunar Information #1730
+- Bug in Jappy activity editor during initial rendering #1738
  
 ## [1.8.0] - 2024-04-10
 ### Added
