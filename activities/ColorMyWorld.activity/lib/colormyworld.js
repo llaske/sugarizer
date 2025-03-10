@@ -549,7 +549,13 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 
 		var xhtml="<center><h3>Next:</h3><h1>"+l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' ')+"</h1><h3>"+target_layer_name+"</h3></center>";
 		if(me.mode==TOUR){
-			xhtml="<center><h3>"+util.descore(l10n.get(util.enscore('Next')))+":</h3><h1>"+util.descore(flag[`${target_name.replace(/ /g,'_')}`]+" "+l10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
+		       var flagURL = flag[target_name.replace(/ /g, '_')];
+		       var flagDisplay = flagURL ? `<img src="./flags/${flagURL}.svg" alt="${target_name} flag" style="height:1em; width:auto; vertical-align:middle;">` : "";
+		       xhtml = `<center>
+			          <h3>${util.descore(l10n.get(util.enscore('Next')))}:</h3>
+				  <h1>${util.descore(flagDisplay + "&nbsp;&nbsp;" + l10n.get(util.enscore(target_name)))}</h1>
+				  <h3>${target_layer_name}</h3>
+				 </center>`;
 		} else if (me.mode==INTERACTIVE) {
 			xhtml="<center><h3>"+util.descore(l10n.get(util.enscore('Find')))+":</h3><h1>"+util.descore(l10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
 		}
