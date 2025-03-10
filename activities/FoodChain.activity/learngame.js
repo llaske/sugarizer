@@ -100,11 +100,50 @@ enyo.kind({
 		this.dragobject = null;
 		this.selectedobject = null;
 		
-		// Compute the card list to sort
+		// Compute the distinct card list for each level 
 		if (this.cardlist == null) {
-			this.cardlist = FoodChain.randomFeedList(FoodChain.learnLevels[this.level-1].size, FoodChain.learnLevels[this.level-1].count);
-		}
-		
+                      this.cardlist = FoodChain.randomFeedList(
+                      FoodChain.learnLevels[this.level-1].size, 
+                      FoodChain.learnLevels[this.level-1].count
+                );
+            
+	        var seen = {};
+                var used;
+                if (this.level <= 3) {
+                      if (!FoodChain.usedCardsGroup1) {
+                            FoodChain.usedCardsGroup1 = {};
+                       }
+                      used = FoodChain.usedCardsGroup1;
+                      }  else {
+                             if (!FoodChain.usedCardsGroup2) {
+                             FoodChain.usedCardsGroup2 = {};
+                       }
+                      used = FoodChain.usedCardsGroup2;
+                }
+
+                for (var i = 0; i < this.cardlist.length; i++) {
+                     var current = this.cardlist[i];
+                     if (seen[current.cardname] || used[current.cardname]) {
+                          var newCard;
+                     do {
+                          newCard = FoodChain.randomFeedList(
+                              FoodChain.learnLevels[this.level-1].size, 1
+                          )[0];
+                     } while (
+                          seen[newCard.cardname] || 
+                          used[newCard.cardname] ||
+                          this.cardlist.some(function(c) {
+                             return c.cardname === newCard.cardname;
+                      })
+                    );
+                 this.cardlist[i] = newCard;
+                   }
+                
+	        seen[this.cardlist[i].cardname] = true;
+                used[this.cardlist[i].cardname] = true;
+                   }
+               }
+				
 		// Display the first card
 		this.currentcard = 0;
 		var card = this.$.startbox.createComponent({ kind: "FoodChain.Card", cardname: this.cardlist[this.currentcard].cardname, x: 10, y: 10, ontap: "taped", ondragstart: "dragstart", ondragfinish: "dragfinish"}, {owner: this});	

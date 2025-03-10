@@ -9,9 +9,9 @@ FoodChain.cards = [
 
 // Feed strategy list and members
 FoodChain.feedStrategy = [
-	{ name: "herbivore", members: ["swan", "bee", "cow", "giraffe", "squirrel", "goat", "ox", "lamb", "mule", "camel", "chimp"] },
-	{ name: "carnivore", members: ["mosquito", "mole", "spike", "tick", "squid", "crab", "owl", "snake", "dog", "alligator", "bat", "crocodile", "frog", "shark", "spider", "starfish", "crocodile"] },
-	{ name: "omnivore", members: ["duck", "flies", "pig", "mice", "rat", "skunk", "chicken", "hen", "fox"] }
+	{ name: "herbivore", members: ["swan", "bee", "cow", "giraffe", "squirrel", "goat", "ox", "lamb", "mule", "camel", "chimp", "clam", "snail"] },
+	{ name: "carnivore", members: ["mosquito", "mole", "spike", "tick", "squid", "crab", "owl", "snake", "dog", "alligator", "bat","frog", "shark", "spider", "starfish", "crocodile","cat", "bird" ] },
+	{ name: "omnivore", members: ["duck", "flies", "pig", "mice", "rat", "skunk", "chicken", "hen", "fox" , "crow", "shrimp", "fish"] }
 ];
 
 // Chains computation
