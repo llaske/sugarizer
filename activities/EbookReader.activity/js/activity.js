@@ -15,7 +15,9 @@ var app = new Vue({
 		currentEpub: null,
 		currentView: LibraryViewer,
 		currentLibrary: {database: []},
-		timer: null
+		timer: null,
+		isSpeaking: false,
+	        utterance: null
 	},
 
 	created: function() {
@@ -58,6 +60,8 @@ var app = new Vue({
 				}
 			});
 		});
+
+		this.$refs.toolbar.$on("read-aloud-clicked", this.toggleReadAloud);
 
 		// Handle resize
 		window.addEventListener("resize", function() {
@@ -234,6 +238,40 @@ var app = new Vue({
 				}, 500);
 			}
 		},
+
+		toggleReadAloud: function() {
+			
+			if (!('speechSynthesis' in window)) {
+			  alert("Text-to-Speech is not supported in your browser.");
+			  return;
+			}
+			
+			let iframe = document.querySelector("#area iframe");
+			if (!iframe || !iframe.contentDocument) {
+			  alert("Content not available for reading.");
+			  return;
+			}
+			
+			let storyText = iframe.contentDocument.body.innerText;
+			console.log("Extracted full iframe text:", storyText);
+			
+			if (!storyText || storyText.trim() === "") {
+			  alert("No text available for narration.");
+			  return;
+			}
+			
+			if (!this.isSpeaking) {
+			  this.utterance = new SpeechSynthesisUtterance(storyText);
+			  this.utterance.rate = 1.0;
+			  this.utterance.pitch = 1.0;
+			  this.utterance.onend = () => { this.isSpeaking = false; };
+			  window.speechSynthesis.speak(this.utterance);
+			  this.isSpeaking = true;
+			} else {
+			  window.speechSynthesis.cancel();
+			  this.isSpeaking = false;
+			}
+		  },
 
 		onHelp: function() {
 			var options = {};
