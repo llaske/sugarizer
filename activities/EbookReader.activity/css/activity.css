@@ -349,3 +349,13 @@ body {
 	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
 	border: 0px;
 }
+
+#read-button {
+	background-image: url("../icons/read.svg"); 
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 47px;  
+	height: 47px; 
+	border: none;
+	outline: none;
+}
