@@ -27,6 +27,8 @@ var Toolbar = {
 			<toolbar-item ref="contentsbutton" v-on:clicked="getApp().showContents()" class="toolbutton" id="contents-button" v-bind:title="l10n.stringContents" v-if="showContentsBtn()"></toolbar-item>
 			<div class="splitbar" v-if="showContentsBtn()"></div>
 			<toolbar-item ref="settings" v-on:clicked="getApp().setLibraryUrl()" class="toolbutton" id="settings-button" v-bind:title="l10n.stringSettings"></toolbar-item>
+                        <div class="splitbar"></div>
+			<toolbar-item ref="readAloudButton" v-on:clicked="onReadAloud" id="read-button" v-bind:title="l10n.stringReadAloud"></toolbar-item>
 
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
@@ -43,7 +45,8 @@ var Toolbar = {
 				stringSettings: '',
 				stringHelp: '',
 				stringFullscreen: '',
-				stringContents: ''
+				stringContents: '',
+				stringReadAloud: ''
 			}
 		}
 	},
@@ -66,6 +69,10 @@ var Toolbar = {
 
 		getReader: function() {
 			return EbookReader;
-		}
+		},
+
+		onReadAloud: function() {
+			this.$emit("read-aloud-clicked");
+		},
 	}
 }
