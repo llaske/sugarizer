@@ -509,8 +509,13 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
 
                 
                 if (that._image_width && that._image_height) {
-                    bitmap.scaleX = that._image_width / img.width;
-                    bitmap.scaleY = that._image_height / img.height;
+                    // Preserve aspect ratio by using the same scale for both dimensions
+                    var targetScale = Math.min(
+                        that._image_width / img.width,
+                        that._image_height / img.height
+                    );
+                    bitmap.scaleX = targetScale;
+                    bitmap.scaleY = targetScale;
                 } else {
                     bitmap.scaleX = scale;
                     bitmap.scaleY = scale;
