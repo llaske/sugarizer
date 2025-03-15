@@ -458,10 +458,11 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             if (this._data != null) {
                 if (this._data['image_name'] != '' &&
                     this._data['image_name'] != undefined) {
-                    this._image_x = this._data['img_x'];
-                    this._image_y = this._data['img_y'];
-                    this._image_width = this._data['img_w'];
-                    this._image_height = this._data['img_h'];
+                    // Use the stored dimensions and position if available
+                    this._image_x = this._data['img_x'] !== undefined ? this._data['img_x'] : 0;
+                    this._image_y = this._data['img_y'] !== undefined ? this._data['img_y'] : 0;
+                    this._image_width = this._data['img_w'] !== undefined ? this._data['img_w'] : canvas.width;
+                    this._image_height = this._data['img_h'] !== undefined ? this._data['img_h'] : canvas.height;
                     this._image_name = this._data['image_name'];
                     this._slideshow_duration = this._data['slideshow_duration'];
 
@@ -483,58 +484,172 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             this.stage.update();
         };
 
-        this._setBackgroundImageDataUrl = function(imageUrl, context, callback) {
-            this._image_x = 0;
-            this._image_y = 0;
-            this._image_width = this._width;
-            this._image_height = this._height;
+        this._setBackgroundImageDataUrl = function (imageUrl, context, callback) {
             var img = new Image();
-			var that = this;
-			img.addEventListener("load", function() {
-				bitmap = new createjs.Bitmap(img);
-	            bitmap.setBounds(0, 0, img.width, img.height);
-	            // calculate scale
-	            var scale_x = that._width / img.width;
-	            var scale_y = that._height / img.height;
-	            var scale = Math.min(scale_x, scale_y);
+            var that = this;
+            img.addEventListener("load", function () {
+                bitmap = new createjs.Bitmap(img);
+                bitmap.setBounds(0, 0, img.width, img.height);
 
-	            bitmap.mouseEnabled = false;
-	            bitmap.x = LINE_WIDTH;
-	            bitmap.y = LINE_WIDTH;
-	            bitmap.scaleX = scale;
-	            bitmap.scaleY = scale;
-	            that._backContainer.addChildAt(bitmap, 0);
+                var scale_x = that._width / img.width;
+                var scale_y = that._height / img.height;
+                var scale = Math.min(scale_x, scale_y);
 
-	            // add a trash button
-	            if (that.canRemove) {
-	                createAsyncBitmapButton(that, './icons/remove.svg',
-	                    function(comicBox, button) {
-	                        button.x = 0;
-	                        button.y = comicBox._height - button.height;
-	                        button.visible = true;
-	                        comicBox._removeButton = button;
-	                        comicBox._backContainer.addChildAt(button, 1);
-	                        comicBox._backContainer.updateCache();
+                // If new image set defaults
+                if (that._image_width === undefined || that._image_height === undefined) {
+                    that._image_width = that._width;
+                    that._image_height = that._height;
+                    that._image_x = 0;
+                    that._image_y = 0;
+                }
 
-	                        button.on('click', function(event) {
-	                            comicBox.remove();
-	                        });
+                bitmap.mouseEnabled = true;
+                bitmap.x = LINE_WIDTH + that._image_x;
+                bitmap.y = LINE_WIDTH + that._image_y;
 
-	                        comicBox.createGlobes();
-	                    });
-	            } else {
-	                that._backContainer.updateCache();
-	                that.createGlobes();
-	            };
-				if (callback) {
-					callback(context);
-				}
-			});
+                
+                if (that._image_width && that._image_height) {
+                    // Preserve aspect ratio by using the same scale for both dimensions
+                    var targetScale = Math.min(
+                        that._image_width / img.width,
+                        that._image_height / img.height
+                    );
+                    bitmap.scaleX = targetScale;
+                    bitmap.scaleY = targetScale;
+                } else {
+                    bitmap.scaleX = scale;
+                    bitmap.scaleY = scale;
+                }
+
+                that._backContainer.addChildAt(bitmap, 0);
+                that._backgroundBitmap = bitmap; 
+
+
+                
+                var dragStartX, dragStartY;
+                bitmap.on("mousedown", function (event) {
+                    dragStartX = event.stageX - bitmap.x;
+                    dragStartY = event.stageY - bitmap.y;
+                });
+
+                bitmap.on("pressmove", function (event) {
+                    // Calculate new position
+                    var newX = Math.max(LINE_WIDTH, Math.min(event.stageX - dragStartX,
+                        that._width - bitmap.getBounds().width * bitmap.scaleX + LINE_WIDTH));
+                    var newY = Math.max(LINE_WIDTH, Math.min(event.stageY - dragStartY,
+                        that._height - bitmap.getBounds().height * bitmap.scaleY + LINE_WIDTH));
+
+                    bitmap.x = newX;
+                    bitmap.y = newY;
+
+                    that._image_x = newX - LINE_WIDTH;
+                    that._image_y = newY - LINE_WIDTH;
+
+                    if (that._imageMoveButton) {
+                        that._imageMoveButton.x = newX;
+                        that._imageMoveButton.y = newY;
+                    }
+
+                    // Update resize button position if it exists
+                    if (that._imageResizeButton) {
+                        that._imageResizeButton.x = newX + bitmap.getBounds().width *
+                            bitmap.scaleX - that._imageResizeButton.width;
+                        that._imageResizeButton.y = newY + bitmap.getBounds().height *
+                            bitmap.scaleY - that._imageResizeButton.height;
+                    }
+
+                    // Update remove button position if it exists
+                    if (that._removeButton) {
+                        that._removeButton.x = newX;
+                        that._removeButton.y = newY + bitmap.getBounds().height * bitmap.scaleY - that._removeButton.height;
+                    }
+
+                    that._backContainer.updateCache();
+                    that.stage.update();
+                });
+
+                // add a trash button
+                if (that.canRemove) {
+                    createAsyncBitmapButton(that, './icons/remove.svg',
+                        function (comicBox, button) {
+                            button.x = bitmap.x;
+                            button.y = bitmap.y + bitmap.getBounds().height * bitmap.scaleY - button.height;
+                            button.visible = true;
+                            comicBox._removeButton = button;
+                            comicBox._backContainer.addChildAt(button, 1);
+                            comicBox._backContainer.updateCache();
+
+                            button.on('click', function (event) {
+                                comicBox.remove();
+                            });
+
+                            comicBox.createGlobes();
+                        });
+                }
+
+                // Add image resize button
+                createAsyncBitmapButton(that, './icons/resize.svg',
+                    function (comicBox, button) {
+                        button.x = comicBox._backgroundBitmap.x + comicBox._backgroundBitmap.getBounds().width *
+                            comicBox._backgroundBitmap.scaleX - button.width;
+                        button.y = comicBox._backgroundBitmap.y + comicBox._backgroundBitmap.getBounds().height *
+                            comicBox._backgroundBitmap.scaleY - button.height;
+                        button.visible = true;
+                        comicBox._imageResizeButton = button;
+                        comicBox._backContainer.addChildAt(button, 1);
+
+                        button.on('pressmove', function (event) {
+                            if (comicBox._backgroundBitmap) {
+                                var newWidth = event.stageX - comicBox._backgroundBitmap.x;
+                                var newHeight = event.stageY - comicBox._backgroundBitmap.y;
+
+                                // Keep aspect ratio
+                                var aspectRatio = img.width / img.height;
+                                if (newWidth / newHeight > aspectRatio) {
+                                    newWidth = newHeight * aspectRatio;
+                                } else {
+                                    newHeight = newWidth / aspectRatio;
+                                }
+
+                                comicBox._backgroundBitmap.scaleX = newWidth / img.width;
+                                comicBox._backgroundBitmap.scaleY = newHeight / img.height;
+
+                                // Store the resized dimensions
+                                comicBox._image_width = newWidth;
+                                comicBox._image_height = newHeight;
+
+                                button.x = comicBox._backgroundBitmap.x + newWidth - button.width;
+                                button.y = comicBox._backgroundBitmap.y + newHeight - button.height;
+
+                                if (comicBox._removeButton) {
+                                    comicBox._removeButton.x = comicBox._backgroundBitmap.x;
+                                    comicBox._removeButton.y = comicBox._backgroundBitmap.y + newHeight - comicBox._removeButton.height;
+                                }
+
+                                comicBox._backContainer.updateCache();
+                                comicBox.stage.update();
+                            }
+                        });
+
+                        comicBox._backContainer.updateCache();
+                        comicBox.stage.update();
+                    });
+
+                if (that.canRemove) {
+                    that._backContainer.updateCache();
+                    that.createGlobes();
+                } else {
+                    that._backContainer.updateCache();
+                    that.createGlobes();
+                };
+                if (callback) {
+                    callback(context);
+                }
+            });
             img.src = imageUrl;
         };
 
         this.remove  = function() {
-            console.log('remove');
             this._model.removeBox();
         };
 
