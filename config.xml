@@ -87,6 +87,7 @@
 		<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
 		<plugin name="cordova-plugin-audioinput" spec="1.0.2" />
 		<plugin name="cordova-plugin-wkwebview-file-xhr" spec="https://github.com/llaske/cordova-plugin-wkwebview-file-xhr.git" />
+		<allow-navigation href="*" />
 		<config-file parent="UIStatusBarHidden" target="*-Info.plist">
 			<true/>
 		</config-file>
