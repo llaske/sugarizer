@@ -359,3 +359,13 @@ body {
 	border: none;
 	outline: none;
 }
+
+#read-play {
+	background-image: url("../icons/read-play.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 47px;
+	height: 47px;
+	border: none;
+	outline: none;
+  }

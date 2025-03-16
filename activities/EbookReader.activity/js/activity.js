@@ -17,7 +17,8 @@ var app = new Vue({
 		currentLibrary: {database: []},
 		timer: null,
 		isSpeaking: false,
-	        utterance: null
+		isPaused: false,
+	    utterance: null
 	},
 
 	created: function() {
@@ -245,34 +246,58 @@ var app = new Vue({
 			  alert("Text-to-Speech is not supported in your browser.");
 			  return;
 			}
+		  
 			
-			let iframe = document.querySelector("#area iframe");
-			if (!iframe || !iframe.contentDocument) {
-			  alert("Content not available for reading.");
-			  return;
-			}
-			
-			let storyText = iframe.contentDocument.body.innerText;
-			console.log("Extracted full iframe text:", storyText);
-			
-			if (!storyText || storyText.trim() === "") {
-			  alert("No text available for narration.");
-			  return;
-			}
-			
-			if (!this.isSpeaking) {
+			if (!this.utterance) {
+			  
+			  let iframe = document.querySelector("#area iframe");
+			  if (!iframe || !iframe.contentDocument) {
+				alert("Content not available for reading.");
+				return;
+			  }
+		  
+			  
+			  let storyText = iframe.contentDocument.body.innerText;
+			  console.log("Extracted full iframe text:", storyText);
+		  
+			  if (!storyText || storyText.trim() === "") {
+				alert("No text available for narration.");
+				return;
+			  }
+		  
 			  this.utterance = new SpeechSynthesisUtterance(storyText);
 			  this.utterance.rate = 1.0;
 			  this.utterance.pitch = 1.0;
-			  this.utterance.onend = () => { this.isSpeaking = false; };
+			  this.utterance.onend = () => {
+				
+				this.isSpeaking = false;
+				this.isPaused = false;
+				this.utterance = null; 
+			  };
+			}
+		  
+			
+			if (!this.isSpeaking && !this.isPaused) {
+			  
 			  window.speechSynthesis.speak(this.utterance);
 			  this.isSpeaking = true;
-			} else {
-			  window.speechSynthesis.cancel();
+			  this.isPaused = false;
+			  console.log("Speech started from the beginning");
+			} else if (this.isSpeaking && !this.isPaused) {
+			  
+			  window.speechSynthesis.pause();
 			  this.isSpeaking = false;
+			  this.isPaused = true;
+			  console.log("Speech paused");
+			} else if (!this.isSpeaking && this.isPaused) {
+			  
+			  window.speechSynthesis.resume();
+			  this.isSpeaking = true;
+			  this.isPaused = false;
+			  console.log("Speech resumed from paused position");
 			}
 		  },
-
+		
 		onHelp: function() {
 			var options = {};
 			options.switchbutton = this.$refs.toolbar.$refs.switchbutton.$el;
@@ -316,7 +341,12 @@ var app = new Vue({
 		},
 
 		onStop: function() {
+	        
+			window.speechSynthesis.cancel();
+			this.utterance = null;
+			this.isSpeaking = false;
+			this.isPaused = false;
 			this.saveContextToJournal();
-		}
+		  }
 	}
 });
