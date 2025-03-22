@@ -5,13 +5,15 @@ define([
 	"activity/palettes/zoompalette",
 	"activity/palettes/settingspalette",
 	"sugar-web/graphics/presencepalette",
+	"three"
 ], function (
 	activity,
 	env,
 	colorpaletteFill,
 	zoompalette,
 	settingspalette,
-	presencepalette
+	presencepalette,
+	THREE
 ) {
 	requirejs(["domReady!"], function (doc) {
 		activity.setup();
@@ -28,7 +30,33 @@ define([
 		let presenceIndex = 0;
 		let ifDoctorHost = false;
 		let firstAnswer = true;
-        let numModals = 0;
+		let numModals = 0;
+
+		// Layer constants
+		const LAYERS = {
+			SKELETON: 'skeleton',
+			ORGANS: 'organs',
+			MUSCLES: 'muscles'
+		};
+
+		// Layer metadata
+		const LAYER_INFO = {
+			[LAYERS.SKELETON]: {
+				name: 'Skeleton',
+				icon: 'skeleton-icon',
+				color: '#ffffff'
+			},
+			[LAYERS.ORGANS]: {
+				name: 'Organs',
+				icon: 'organs-icon',
+				color: '#ff9999'
+			},
+			[LAYERS.MUSCLES]: {
+				name: 'Muscles',
+				icon: 'muscles-icon',
+				color: '#ff4444'
+			}
+		};
 
 		var paletteColorFill = new colorpaletteFill.ColorPalette(
 			document.getElementById("color-button-fill"),
@@ -59,7 +87,6 @@ define([
 			currentenv = environment;
 			username = environment.user.name;
 
-			// Load from datastore
 			// Load from datastore
 			if (!environment.objectId) {
 				console.log("New instance");
@@ -225,7 +252,7 @@ define([
 			}
 
 			if (msg.action == "answer") {
-                console.log("answering")
+				console.log("answering")
 				if (!ifDoctorHost || !firstAnswer) {
 					return;
 				}
@@ -242,7 +269,6 @@ define([
 				console.log(players);
 				showLeaderboard();
 				presenceIndex++;
-				// startDoctorModePresence();
 			}
 
 			if (msg.action == "startDoctor") {
@@ -597,19 +623,13 @@ define([
 			modal.style.color = "#333"; // Darker text color for better contrast
 
 			modal.innerHTML = text;
-            numModals++;
-            // if (numModals > 1) {
-            //     console.log("have modals already")
-            //     modal.style.top = "30%"
-            // }
-            document.body.appendChild(modal);
-
-            
+			numModals++;
+			document.body.appendChild(modal);
 
 			// Make the modal disappear after 1.5 seconds
 			setTimeout(() => {
 				document.body.removeChild(modal);
-                numModals--;
+				numModals--;
 			}, 1500);
 		}
 
@@ -767,43 +787,6 @@ define([
 			});
 		}
 
-		// loader.load(
-		// 	"models/heart/heart.gltf",
-		// 	function (gltf) {
-		// 		gltf.scene.position.y += 4;
-		// 		setModelColor(gltf.scene, new THREE.Color(0xff0000));
-		// 		scene.add(gltf.scene);
-
-		// 		console.log("Heart loaded", gltf.scene);
-		// 	},
-		// 	function (xhr) {
-		// 		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-		// 	},
-		// 	function (error) {
-		// 		console.log("An error happened");
-		// 		console.log(error);
-		// 	}
-		// );
-
-		// loader.load(
-		//     'models/digestive/digestive.gltf',
-		//     function (gltf) {
-		//         gltf.scene.position.y += 3;
-		//         gltf.scene.scale.set(4, 4, 4);
-		//         setModelColor(gltf.scene, new THREE.Color(0x00ff00));
-		//         scene.add(gltf.scene);
-
-		//         console.log('Digestive system loaded', gltf.scene);
-		//     },
-		//     function (xhr) {
-		//         console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-		//     },
-		//     function (error) {
-		//         console.log('An error happened');
-		//         console.log(error);
-		//     }
-		// );
-
 		const raycaster = new THREE.Raycaster();
 		const mouse = new THREE.Vector2();
 
@@ -893,7 +876,7 @@ define([
 								let target = players.findIndex(
 									(innerArray) => innerArray[0] === username
 								);
-                                console.log("the doctor is in")
+								console.log("the doctor is in")
 								players[target][1]++;
 								presence.sendMessage(
 									presence.getSharedInfo().id,
@@ -903,8 +886,6 @@ define([
 										content: players,
 									}
 								);
-                                // presenceIndex++;
-								// startDoctorModePresence();
 								showLeaderboard();
 							}
 							if (!ifDoctorHost) {
@@ -917,8 +898,8 @@ define([
 								);
 							}
 							showModal("Correct! But were you the fastest?");
-                            presenceIndex++;
-                            setTimeout(startDoctorModePresence, 1500)
+							presenceIndex++;
+							setTimeout(startDoctorModePresence, 1500)
 						} else {
 							showModal("Wrong!");
 						}
@@ -960,5 +941,129 @@ define([
 		}
 
 		renderer.setAnimationLoop(animate);
+
+		// Main activity object
+		var HumanBodyActivity = {
+			currentLayer: LAYERS.SKELETON,
+			layers: {},
+			
+			// Initialize the activity
+			init: function() {
+				this.initializeLayers();
+				this.setupLayerControls();
+			},
+
+			// Initialize layer system
+			initializeLayers: function() {
+				// Create layer groups
+				Object.keys(LAYERS).forEach(layerKey => {
+					this.layers[layerKey] = new THREE.Group();
+					this.scene.add(this.layers[layerKey]);
+					
+					// Initially hide all except skeleton
+					this.layers[layerKey].visible = (layerKey === LAYERS.SKELETON);
+				});
+			},
+
+			// Setup layer selection controls
+			setupLayerControls: function() {
+				var toolbar = document.getElementById('main-toolbar');
+				var layerSelect = document.createElement('div');
+				layerSelect.className = 'layer-select';
+				
+				Object.keys(LAYER_INFO).forEach(layerKey => {
+					var button = document.createElement('button');
+					button.className = 'toolbar-button ' + LAYER_INFO[layerKey].icon;
+					button.title = LAYER_INFO[layerKey].name;
+					
+					button.addEventListener('click', () => {
+						this.switchToLayer(layerKey);
+					});
+					
+					layerSelect.appendChild(button);
+				});
+				
+				toolbar.appendChild(layerSelect);
+			},
+
+			// Handle layer switching with transition
+			switchToLayer: function(newLayer) {
+				if (newLayer === this.currentLayer) return;
+
+				// Store old layer for transition
+				const oldLayer = this.layers[this.currentLayer];
+				const targetLayer = this.layers[newLayer];
+
+				// Fade out current layer
+				this.transitionLayer(oldLayer, 1, 0, () => {
+					oldLayer.visible = false;
+					targetLayer.visible = true;
+					
+					// Fade in new layer
+					this.transitionLayer(targetLayer, 0, 1, () => {
+						this.currentLayer = newLayer;
+						this.saveState();
+					});
+				});
+			},
+
+			// Handle layer opacity transition
+			transitionLayer: function(layer, startOpacity, endOpacity, callback) {
+				const duration = 500; // ms
+				const startTime = Date.now();
+				
+				const animate = () => {
+					const progress = (Date.now() - startTime) / duration;
+					
+					if (progress >= 1) {
+						layer.traverse(child => {
+							if (child.material) {
+								child.material.opacity = endOpacity;
+							}
+						});
+						callback();
+						return;
+					}
+					
+					const currentOpacity = startOpacity + (endOpacity - startOpacity) * progress;
+					
+					layer.traverse(child => {
+						if (child.material) {
+							child.material.opacity = currentOpacity;
+							child.material.transparent = true;
+						}
+					});
+					
+					requestAnimationFrame(animate);
+				};
+				
+				animate();
+			},
+
+			// Save current state
+			saveState: function() {
+				var state = {
+					currentLayer: this.currentLayer
+				};
+				
+				// Use activity's data store
+				this.activity.getDatastoreObject().setDataAsText(JSON.stringify(state));
+				this.activity.getDatastoreObject().save();
+			},
+
+			// Load saved state
+			loadState: function() {
+				this.activity.getDatastoreObject().loadAsText((error, metadata, data) => {
+					if (error === null && data !== null) {
+						var state = JSON.parse(data);
+						if (state.currentLayer) {
+							this.switchToLayer(state.currentLayer);
+						}
+					}
+				});
+			}
+		};
+
+		return HumanBodyActivity;
 	});
 });
