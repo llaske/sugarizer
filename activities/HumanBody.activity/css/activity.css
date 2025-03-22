@@ -263,5 +263,42 @@ body {
     border-bottom: none;
 }
 
+.layer-select {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.layer-select .toolbar-button {
+    width: 47px;
+    height: 47px;
+    margin: 0 4px;
+    background-size: contain;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.layer-select .toolbar-button:hover {
+    background-color: #999;
+}
+
+.layer-select .toolbar-button.selected {
+    border-color: #fff;
+}
+
+/* Layer icons */
+.skeleton-icon {
+    background-image: url('../icons/skeleton.svg');
+}
+
+.organs-icon {
+    background-image: url('../icons/organs.svg');
+}
+
+.muscles-icon {
+    background-image: url('../icons/muscles.svg');
+}
+
 
 
