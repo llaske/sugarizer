@@ -53,6 +53,7 @@ enyo.kind({
 		this.journalType = constant.journalLocal;
 		this.smallTime = false;
 		this.dialogAction = -1;
+		this.forbiddenObjectId = null;
 		this.journalChanged();
 		this.$.footer.setShowing(preferences.getNetworkId() != null && preferences.getPrivateJournal() != null && preferences.getSharedJournal() != null);
 		if (l10n.language.direction == "rtl") {
@@ -474,7 +475,8 @@ enyo.kind({
 				var that = this;
 				this.loadEntry(activity, function(err, metadata, text) {
 					that.$.activityPopup.hidePopup();
-					util.openAsDocument(metadata, text);
+					that.forbiddenObjectId = activity.objectId; // To avoid display of the popup
+					util.openAsDocument(metadata, text, activity.objectId);
 					return;
 				});
 			}
@@ -619,6 +621,10 @@ enyo.kind({
 		if (!icon.owner) {
 			return;
 		}
+		if (this.forbiddenObjectId && icon.data && icon.data.objectId == this.forbiddenObjectId) {
+			return;
+		}
+		this.forbiddenObjectId = null;
 		var activity = icon.icon; // HACK: activity is stored as an icon
 		var entry = icon.getData();
 		var title = null;
@@ -697,7 +703,20 @@ enyo.kind({
 		this.$.activityPopup.setFooter(items);
 
 		// Show popup
-		this.$.activityPopup.setMargin({left: 0, top: (icon.owner.index*60)+20-mouse.position.y});
+		// Get the popup's size dynamically
+		var popupSize = 50; // Base header size
+		popupSize += (items.length * 42); // Add height for each item
+		var leftPostion = 0;
+		var topPosition = (icon.owner.index * 60) + 20 - mouse.position.y;
+		var bottomOverflow = mouse.position.y + popupSize - window.innerHeight+55;
+		if (bottomOverflow > 0) {
+			// If the popup overflows the bottom, adjust upwards
+			topPosition -= bottomOverflow;
+			if(!this.$.footer.getShowing()){
+				topPosition += 55; // HACK: 55 is the footer height
+			}
+		}
+		this.$.activityPopup.setMargin({ left: leftPostion, top: topPosition });
 		this.$.activityPopup.showPopup();
 	},
 

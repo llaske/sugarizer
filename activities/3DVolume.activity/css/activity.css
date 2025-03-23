@@ -1,0 +1,613 @@
+#main-toolbar #activity-button {
+  background-image: url(../activity/activity-icon.svg);
+}
+#main-toolbar #network-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+}
+.toolbar hr {
+  vertical-align: bottom;
+  margin-bottom: 10px;
+  height: 45px;
+}
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+.left-container {
+  display: flex;
+}
+
+#private-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+#shared-button {
+  background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-neighborhood.svg);
+  width: 47px;
+  height: 47px;
+  margin: 4px 2px;
+  color: white;
+  color: transparent;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 5.5px;
+}
+
+body {
+  height: 100vh;
+}
+#main-toolbar #bg-button {
+  background-image: url(../icons/insert-picture.svg);
+  outline: none;
+}
+#volume-button {
+  background-image: url(../icons/default_volume.svg);
+  outline: none;
+
+}
+#main-toolbar #clear-button {
+  background-image: url(../icons/minus.svg);
+  outline: none;
+}
+#clear-button.active {
+  background-color: #d3d3d3;
+}
+
+#main-toolbar #solid-button {
+  background-image: url(../icons/cube_solid.svg);
+  height: 100px;
+  width: 65px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  outline: none;
+}
+#number-button {
+  height: 65px;
+  width: 65px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../icons/number_volume.svg);
+  border-radius: 5px;
+}
+#fullscreen-button {
+  background-image: url(../icons/view-fullscreen.svg);
+}
+
+#unfullscreen-button {
+  background-image: url(../icons/view-return.svg);
+  border: 0;
+  border-radius: 0px;
+  margin: 1px;
+  width: 45px;
+  height: 45px;
+  top: 10px;
+  right: 15px;
+  position: absolute;
+  visibility: hidden;
+}
+
+#zoom-button {
+  height: 45px;
+  width: 45xpx;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../icons/glass.svg);
+  outline: none;
+
+}
+#throw-button {
+  height: 45px;
+  width: 45xpx;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../icons/throw.svg);
+  outline: none;
+}
+#sensor-button {
+  height: 45px;
+  width: 45xpx;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../icons/sensor.svg);
+  outline: none;
+}
+#transparent-button {
+  margin: 0;
+  padding: 0;
+  height: 65px;
+  width: 65px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(../icons/transparent_volume.svg);
+  border-radius: 5px;
+}
+
+#default-button {
+  margin: 0;
+  padding: 0;
+  height: 65px;
+  width: 65px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(../icons/default_volume.svg);
+  outline: none;
+  border-radius: 5px;
+}
+
+#colors-button-fill {
+  display: none;
+}
+.button-background {
+  background-color: #000;
+}
+#cube-button {
+  background-image: url(../icons/cube.svg);
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: calc(100% - 5px) calc(100% - 5px); /* Adjust the values as needed */
+}
+#tetra-button {
+  background-image: url(../icons/tetra.svg);
+  outline: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
+
+}
+#octa-button {
+  background-image: url(../icons/octa.svg);
+  outline: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
+
+}
+#dodeca-button {
+  background-image: url(../icons/dodeca.svg);
+  outline: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
+
+}
+#deca-button {
+  background-image: url(../icons/deca.svg);
+  outline: none;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: calc(100% - 5px) calc(100% - 5px); /* Adjust the values as needed */
+
+}
+#icosa-button {
+  background-image: url(../icons/icosa.svg);
+  outline: none;
+  margin-left: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: calc(100% - 10px) calc(100% - 10px); /* Adjust the values as needed */
+
+}
+.active {
+  background-color: #656565 !important;
+}
+
+#main-toolbar #help-button {
+  background-image: url(../icons/help.svg);
+}
+/* #main-toolbar {
+  visibility: hidden;
+} */
+.vertical-line {
+  width: 5px;
+  height: 55px;
+  background-color: white;
+  transform: translateX(-50%);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.selector {
+  display: flex;
+}
+.bg-select {
+  /* padding: 10px; */
+  width: fit-content;
+  text-align: center;
+  background-color: black;
+}
+.bg-select button {
+  border: none;
+  border-radius: 0;
+}
+.bg-select-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background: transparent;
+  width: 90%;
+}
+.bg-select-item img {
+  width: 40px;
+  margin: 10px;
+}
+.bg-select-item div {
+  margin: 0 10px;
+}
+#main-toolbar #reset-button {
+  background-image: url(../icons/restart.svg);
+}
+#main-toolbar #image-button {
+  background-image: url(../icons/image.svg);
+}
+body {
+  margin: 0;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.gray-rectangle {
+  width: 50px; /* Adjust the width as needed */
+  height: 25px; /* Adjust the height as needed */
+  background-color: #9C9C9C;
+  margin-bottom: 5px; /* Adjust the spacing between the rectangle and the text as needed */
+}
+
+#wood img {
+  margin-right: 25px;
+}
+
+#game-container {
+  position: absolute;
+}
+
+/* #throw-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+} */
+
+#score-container {
+  position: absolute;
+  height: 70vh;
+  width: 70vh;
+  top: 70px;
+  left: 20px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+#sum-display {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 18px;
+}
+
+#last-roll {
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  font-size: 1.5rem;
+}
+#roll {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by most browsers */
+
+}
+
+.color-palette {
+  display: flex;
+  width: 370px; /* ugly hack */
+  background-color: #000000;
+  border: #808080 2px solid;
+}
+
+#color-grid-fill {
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  grid-gap: 10px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+#color-grid-text {
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  grid-gap: 10px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.slider-container {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#zoom-in-button {
+  background-image: url(../icons/zoom-in.svg);
+  width: 50px;
+  height: 50px;
+  background-color: #000000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#zoom-out-button {
+  background-image: url(../icons/zoom-out.svg);
+  width: 50px;
+  height: 50px;
+  background-color: #000000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#zoom-equal-button {
+  background-image: url(../icons/zoom-original.svg);
+  width: 50px;
+  height: 50px;
+  background-color: #000000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#zoom-to-button {
+  background-image: url(../icons/zoom-to-width.svg);
+  width: 50px;
+  height: 50px;
+  background-color: #000000;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#right-button {
+  background-image: url(../icons/go-right.svg);
+}
+#up-button {
+  background-image: url(../icons/go-right.svg);
+  transform: rotate(-90deg);
+}
+#down-button {
+  background-image: url(../icons/go-left.svg);
+  transform: rotate(-90deg);
+}
+
+#left-button {
+  background-image: url(../icons/go-left.svg);
+}
+#increase-button {
+  background-image: url(../icons/go-left.svg);
+}
+#try-button {
+  background-image: url(../icons/go-left.svg);
+  transform: rotate(-90deg);
+}
+
+.arrow-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color:white; */
+}
+
+.arrow-button {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 5px 0;
+}
+
+.left-right-buttons {
+  display: flex;
+  justify-content: space-between;
+  /* background-color:pink; */
+  width: 80%;
+}
+
+.left-right-buttons .arrow-button {
+  margin: 0 5px;
+}
+
+.color-fill {
+  width: 45px; /* Decreased circle size */
+  height: 45px; /* Decreased circle size */
+  border-radius: 50%;
+  cursor: pointer;
+  border: white solid 2px;
+}
+
+.color-text {
+  width: 45px; /* Decreased circle size */
+  height: 45px; /* Decreased circle size */
+  border-radius: 50%;
+  cursor: pointer;
+  border: white solid 2px;
+}
+
+/* UI styling for introJs-tutorial */
+
+.introjs-overlay {
+  background-color: #000 !important;
+  opacity: .8 !important;
+}
+
+.introjs-tooltip {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  border-radius: 6px !important;
+  padding: 2px 1px !important;
+  font-size: 14px !important;
+}
+
+.introjs-helperLayer{
+  background: inherit !important;
+  opacity: 0.6 !important;
+}
+
+.customTooltip .introjs-tooltip-header {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color : #ffffff;
+  text-shadow: none;
+  background-color: #808080;
+  margin: 0;
+  padding: 0px 10px;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0;
+}
+
+.customTooltip .introjs-tooltip-title {
+  font-size: 14px;
+  padding: 0px 8px;
+  font-weight: 800;
+}
+
+.customTooltip .introjs-tooltiptext {
+  color: #000000;
+  line-height: 1.42857143;
+}
+
+.customTooltip .introjs-skipbutton {
+  float: right;
+  cursor: pointer;
+  background-image: url(../icons/dialog-cancel.svg);
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  margin-top: 2px;
+  padding: 0px;
+  white-space: nowrap;
+  color: transparent;
+  line-height: 27px;
+}
+
+.customTooltip .introjs-nextbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-right.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-prevbutton::before {
+  content: "";
+  margin-right: 6px;
+  background-image: url(../icons/go-left.svg);
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+}
+
+.customTooltip .introjs-tooltipbuttons {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-top: 0px;
+  padding: 0px;
+  text-align: center;
+  white-space: normal;
+}
+
+.customTooltip .introjs-button {
+  text-shadow: none;
+  border-radius: 22px;
+  margin: 5px 8px 8px 8px;
+  width: fit-content;
+  background-color: #808080 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: white !important;
+  padding: 6px 20px 6px 10px;
+  border: 0px;
+}
+
+.customTooltip .introjs-button:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+  background-color: #808080 !important;
+}
+
+.customTooltip .introjs-disabled {
+  color: black !important;
+  border: 0px;
+  opacity: .65;
+}
+
+.customTooltip .introjs-disabled:focus {
+  -webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
+  border: 0px;
+}
+
+@media (max-width: 1120px) {
+  #color-button-text,
+  #bg-button,
+  #zoom-button {
+    display: none;
+  }
+
+  /* Adjust remaining buttons to fit within the toolbar */
+  .toolbutton {
+    margin: 2px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 800px) {
+  #volume-button, #color-button-fill, #remove-first {
+    display: none;
+  }
+}
+
+@media (max-width: 690px) {
+  #sensor-button, #throw-button {
+    display: none;
+  }
+}

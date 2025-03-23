@@ -33,6 +33,7 @@ enyo.kind({
 		this.scrollbar_session_value = 0;
 		this.scroll_count = 0;
 		this.favoriteActivityButton = null;
+		this.forbiddenActivity = null;
 		if (!window.sugarizerOS) {
 			this.activitiesChanged();
 			this.computeSize();
@@ -207,12 +208,17 @@ enyo.kind({
 		// Start a new activity instance
 		util.vibrate();
 		this.$.activityPopup.hidePopup();
+		this.forbiddenActivity = activity.id;
 		preferences.runActivity(activity, null);
 	},
 
 	// Popup menu handling
 	showActivityPopup: function(icon) {
 		// Create popup
+		if (window.sugarizerOS && this.forbiddenActivity && this.forbiddenActivity == icon.icon.id) {
+			return;
+		}
+		this.forbiddenActivity = null;
 		var activity = icon.icon;
 		this.$.activityPopup.setHeader({
 			icon: activity,

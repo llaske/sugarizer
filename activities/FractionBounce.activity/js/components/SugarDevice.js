@@ -3,33 +3,21 @@ Vue.component('sugar-device', {
 	template: `<div style="display: none">{{ watchId }}</div>`,
 	data: function () {
 		return {
+			watchId: null,
 			readyToWatch: false,
-			frequency: null
+			frequencyExpected: 0
 		}
-	},
-	created: function () {
-		var cordovaScript = document.createElement('script');
-		cordovaScript.setAttribute('type', 'text/javascript');
-		cordovaScript.setAttribute('src', '../../cordova.js');
-		document.head.appendChild(cordovaScript);
 	},
 	mounted: function () {
 		var vm = this;
-		//Accelerometer
-		if (this.isMobile()) {
-			document.addEventListener('deviceready', function () {
+		requirejs(['domReady!'], function () {
+			document.addEventListener('deviceready', function() {
 				vm.readyToWatch = true;
+				if (vm.frequencyExpected > 0) {
+					vm.watchAcceleration(vm.frequencyExpected);
+				}
 			}, false);
-		}
-
-	},
-	computed: {
-		watchId: function () {
-			if (this.readyToWatch && this.frequency) {
-				return navigator.accelerometer.watchAcceleration(this.accelerationCallback, null, { frequency: this.frequency });
-			}
-			return null;
-		}
+		});
 	},
 	methods: {
 		isMobile() {
@@ -95,18 +83,31 @@ Vue.component('sugar-device', {
 
 		watchAcceleration: function (frequency) {
 			var vm = this;
-			var accelerometer = new Accelerometer({ frequency: frequency });
-			if (accelerometer) {
-				accelerometer.addEventListener('reading', function () {
-					vm.accelerationCallback(accelerometer);
-				});
-				accelerometer.start();
+			if (window.Accelerometer) {
+				var accelerometer = new Accelerometer({ frequency: frequency });
+				if (accelerometer) {
+					accelerometer.addEventListener('reading', function () {
+						vm.accelerationCallback(accelerometer);
+					});
+					accelerometer.start();
+				}
+			} else if (navigator.accelerometer) {
+				if (vm.readyToWatch) {
+					vm.watchId = navigator.accelerometer.watchAcceleration(function (accelerometer) {
+						vm.accelerationCallback(accelerometer);
+					}, null, { frequency: frequency });
+				} else {
+					vm.frequencyExpected = frequency;
+				}
 			} else {
-				this.frequency = frequency;
+				vm.frequencyExpected = frequency;
 			}
 		},
 
 		accelerationCallback: function (acceleration) {
+			if (this.readyToWatch) {
+				this.readyToWatch = false;
+			}
 			this.$emit('acceleration-callback', acceleration);
 		},
 
@@ -129,6 +130,8 @@ Vue.component('sugar-device', {
 		}
 	},
 	beforeDestroy: function () {
-		navigator.accelerometer.clearWatch(this.watchId);
+		if (navigator.accelerometer && this.watchId) {
+			navigator.accelerometer.clearWatch(this.watchId);
+		}
 	}
 });

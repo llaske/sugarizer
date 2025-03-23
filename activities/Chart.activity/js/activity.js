@@ -22,6 +22,8 @@ const app = new Vue({
 		"csv-view": CsvView,
 	},
 	data: {
+		isLocalized: false,
+		pendingNewInstance: false,
 		currentenv: null,
 		SugarL10n: null,
 		SugarPresence: null,
@@ -145,9 +147,15 @@ const app = new Vue({
 			});
 		},
 		localized() {
+			this.isLocalized = true;
 			this.SugarL10n.localize(this.l10n);
 			document.getElementById("export-csv-button").title = this.l10n.stringexportAsCSV;
 			document.getElementById("export-img-button").title = this.l10n.stringSaveImage;
+			// If onJournalNewInstance was triggered before localization
+			if (this.pendingNewInstance) {
+				this.onJournalNewInstance(); // Execute the pending call
+				this.pendingNewInstance = false;
+			}
 
 		},
 
@@ -270,6 +278,10 @@ const app = new Vue({
 
 
 		onJournalNewInstance() {
+			if (!this.isLocalized) {
+				this.pendingNewInstance = true; // Mark the call as pending
+				return;
+			}
 			const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
 			for(let i = 0; i < 3; i++) {
 				const label = "EgLabel" + randArr[i];
@@ -372,6 +384,15 @@ const app = new Vue({
 			});
 		},
 		setChartType(type) {
+			
+			if ((this.pref.chartType === "bar" && type === "horizontalBar") ||
+				(this.pref.chartType === "horizontalBar" && type === "bar")) {
+				
+				const tempLabel = this.pref.labels.x;
+				this.pref.labels.x = this.pref.labels.y;
+				this.pref.labels.y = tempLabel;
+			}
+		
 			this.executeAndSendAction(Action_Types.UPDATE_CHART_TYPE, {
 				chartType: type,
 			});
