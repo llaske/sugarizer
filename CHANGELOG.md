@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- Bug in Jappy activity editor during initial rendering #1738
+- Country flag doesn't display in ColorMyWorld on Windows #1757
+
 ## [1.9.0] - 2025-03-25
 ### Added
 - 3D Volume activity
@@ -49,8 +54,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - X and Y axis labels are not Interchanged when switching between Vertical and Horizontal Bar Charts #1727
 - BlockRain Activity Game Over Logic Fails When Side Columns Are Full #1739
 - Discrepancies in Lunar Information #1730
-- Bug in Jappy activity editor during initial rendering #1738
-- Country flag doesn't display in ColorMyWorld on Windows #1757
  
 ## [1.8.0] - 2024-04-10
 ### Added
