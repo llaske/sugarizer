@@ -4,7 +4,7 @@
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
 		version   = "1.9.0"
-		android-versionCode = "19000">
+		android-versionCode = "19001">
 	<name>Sugarizer</name>
 
 	<description>
@@ -25,10 +25,10 @@
 	<content src="index.html" />
 
 	<preference name="android-minSdkVersion" value="22" />
-	<preference name="android-targetSdkVersion" value="33" />
-	<preference name="android-compileSdkVersion" value="33" />
+	<preference name="android-targetSdkVersion" value="34" />
+	<preference name="android-compileSdkVersion" value="34" />
 
-	<engine name="android" spec="12.0.0" />
+	<engine name="android" spec="13.0.0" />
 
 	<!-- &SugarizerOS
 	<plugin name="cordova-plugin-sugarizeros" spec="../cordova-plugin-sugarizeros" />
@@ -87,6 +87,7 @@
 		<plugin name="com.develcode.plugins.volumeControl" spec="https://github.com/manusimpson/Phonegap-Android-VolumeControl.git" />
 		<plugin name="cordova-plugin-audioinput" spec="1.0.2" />
 		<plugin name="cordova-plugin-wkwebview-file-xhr" spec="https://github.com/llaske/cordova-plugin-wkwebview-file-xhr.git" />
+		<allow-navigation href="*" />
 		<config-file parent="UIStatusBarHidden" target="*-Info.plist">
 			<true/>
 		</config-file>
