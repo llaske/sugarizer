@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Bug in Jappy activity editor during initial rendering #1738
 - Country flag doesn't display in ColorMyWorld on Windows #1757
+- Add Country Flags to Interactive Mode in ColorMyWorld Activity #1771
 
 ## [1.9.0] - 2025-03-25
 ### Added
