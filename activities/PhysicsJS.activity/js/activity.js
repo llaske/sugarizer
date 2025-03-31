@@ -6,6 +6,35 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		// Initialize the activity
 		activity.setup();
 
+		// Initialize variables
+		var body = document.getElementById("body");
+		var innerWidth = body.offsetWidth;
+		var innerHeight = body.offsetHeight;
+		var toolbarHeight = 55;
+		var outerWidth = 0;
+		var init = false;
+		var gravityMode = 0;
+		var currentType = 0;
+		var physicsActive = true;
+		var speedMultiplier = 1;
+		var readyToWatch = true;
+		var sensorMode = false;
+		var newtonMode = false;
+		var resizeTimer = null;
+		var savedPositions = null; // Add variable to store positions
+
+		// Initialize buttons
+		var sensorButton = document.getElementById("sensor-button");
+		var gravityButton = document.getElementById("gravity-button");
+		var appleButton = document.getElementById("apple-button");
+		var runButton = document.getElementById("run-button");
+		var timelapseButton = document.getElementById("timelapse-button");
+
+		// Set initial icon for timelapse button
+		timelapseButton.style.backgroundImage = "url(../../activities/PhysicsJS.activity/icons/speed-1x-icon.png)";
+		timelapseButton.title = "Speed: 1x";
+
+		// Set language
 		env.getEnvironment(function(err, environment) {
 			currentenv = environment;
 		
@@ -17,14 +46,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 		// Initialize cordova
 		var useragent = navigator.userAgent.toLowerCase();
-		var sensorButton = document.getElementById("sensor-button");
-		var gravityButton = document.getElementById("gravity-button");
-		var appleButton = document.getElementById("apple-button");
-		var runButton = document.getElementById("run-button");
-		var readyToWatch = false;
-		var sensorMode = true;
-		var newtonMode = false;
-		var resizeTimer = null;
 		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
 			document.addEventListener('deviceready', function() {
 				readyToWatch = true;
@@ -35,16 +56,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			sensorButton.disabled = true;
 		}
 
-		// Initialize the world
-		var body = document.getElementById("body");
-		var innerWidth = body.offsetWidth;
-		var innerHeight = body.offsetHeight;
-		var toolbarHeight = 55;
-		var outerWidth = 0; // Use to determine if items could disappear, could be 300;
-		var init = false;
-		var gravityMode = 0;
-		var currentType = 0;
-		var physicsActive = true;
+		// Initialize the physics world with adjusted timestep
 		Physics({ timestep: 6 }, function (world) {
 
 			// bounds of the window
@@ -117,21 +129,47 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			// handle toolbar buttons
 			document.getElementById("box-button").addEventListener('click', function (e) {
 				currentType = 1;
-				switchToType(currentType);
+				document.getElementById("box-button").classList.add('active');
+				document.getElementById("circle-button").classList.remove('active');
+				document.getElementById("polygon-button").classList.remove('active');
+				document.getElementById("triangle-button").classList.remove('active');
+				document.getElementById("clear-button").classList.remove('active');
 			}, true);
+
 			document.getElementById("circle-button").addEventListener('click', function (e) {
 				currentType = 0;
-				switchToType(currentType);
+				document.getElementById("circle-button").classList.add('active');
+				document.getElementById("box-button").classList.remove('active');
+				document.getElementById("polygon-button").classList.remove('active');
+				document.getElementById("triangle-button").classList.remove('active');
+				document.getElementById("clear-button").classList.remove('active');
 			}, true);
 
 			document.getElementById("triangle-button").addEventListener('click', function (e) {
 				currentType = 2;
-				switchToType(currentType);
+				document.getElementById("triangle-button").classList.add('active');
+				document.getElementById("box-button").classList.remove('active');
+				document.getElementById("circle-button").classList.remove('active');
+				document.getElementById("polygon-button").classList.remove('active');
+				document.getElementById("clear-button").classList.remove('active');
 			}, true);
 
 			document.getElementById("polygon-button").addEventListener('click', function (e) {
 				currentType = 3;
-				switchToType(currentType);
+				document.getElementById("polygon-button").classList.add('active');
+				document.getElementById("box-button").classList.remove('active');
+				document.getElementById("circle-button").classList.remove('active');
+				document.getElementById("triangle-button").classList.remove('active');
+				document.getElementById("clear-button").classList.remove('active');
+			}, true);
+
+			document.getElementById("clear-button").addEventListener('click', function (e) {
+				currentType = -1;
+				document.getElementById("clear-button").classList.add('active');
+				document.getElementById("box-button").classList.remove('active');
+				document.getElementById("circle-button").classList.remove('active');
+				document.getElementById("polygon-button").classList.remove('active');
+				document.getElementById("triangle-button").classList.remove('active');
 			}, true);
 
 			gravityButton.addEventListener('click', function () {
@@ -140,11 +178,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 			runButton.addEventListener('click', function () {
 				togglePause();
-			}, true);
-
-			document.getElementById("clear-button").addEventListener('click', function () {
-				currentType = -1;
-				switchToType(currentType);
 			}, true);
 
 			// Launch tutorial
@@ -191,6 +224,54 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					gravityButton.disabled = false;
 				}
 			}, true);
+
+			// Add function to save positions
+			function savePositions() {
+				var bodies = world.getBodies();
+				savedPositions = [];
+				for(var i = 0; i < bodies.length; i++) {
+					savedPositions.push({
+						x: bodies[i].state.pos.x,
+						y: bodies[i].state.pos.y,
+						angle: bodies[i].state.angular.pos,
+						vel: {
+							x: bodies[i].state.vel.x,
+							y: bodies[i].state.vel.y
+						}
+					});
+				}
+			}
+
+			// Add function to restore positions
+			function restorePositions() {
+				if (!savedPositions) return;
+				var bodies = world.getBodies();
+				for(var i = 0; i < bodies.length && i < savedPositions.length; i++) {
+					bodies[i].state.pos.x = savedPositions[i].x;
+					bodies[i].state.pos.y = savedPositions[i].y;
+					bodies[i].state.angular.pos = savedPositions[i].angle;
+					bodies[i].state.vel.x = savedPositions[i].vel.x;
+					bodies[i].state.vel.y = savedPositions[i].vel.y;
+				}
+				savedPositions = null;
+			}
+
+			// Add timelapse button event listener
+			document.getElementById("timelapse-button").addEventListener("click", function() {
+				// Only increase speed up to 4x
+				if (speedMultiplier < 4) {
+					speedMultiplier = speedMultiplier + 1;
+					this.style.backgroundImage = "url(../../activities/PhysicsJS.activity/icons/speed-" + speedMultiplier + "x-icon.png)";
+					this.title = "Speed: " + speedMultiplier + "x";
+					
+					// Wake up all bodies when speed changes
+					world.each(function(body) {
+						if (body.treatment === "dynamic") {
+							body.sleep(false);
+						}
+					});
+				}
+			});
 
 			function accelerationChanged(accelerationEvent) {
 				if (!sensorMode) return;
@@ -270,90 +351,73 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				return (Math.random() * (max-min) + min)|0;
 			}
 
-			function switchToType(newtype) {
-				document.getElementById("box-button").classList.remove('active');
-				document.getElementById("circle-button").classList.remove('active');
-				document.getElementById("polygon-button").classList.remove('active');
-				document.getElementById("triangle-button").classList.remove('active');
-				document.getElementById("clear-button").classList.remove('active');
-				if (newtype == 0) document.getElementById("circle-button").classList.add('active');
-				else if (newtype == 1) document.getElementById("box-button").classList.add('active');
-				else if (newtype == 2) document.getElementById("triangle-button").classList.add('active');
-				else if (newtype == 3) document.getElementById("polygon-button").classList.add('active');
-				else if (newtype == -1) document.getElementById("clear-button").classList.add('active');
-			}
-
 			function dropInBody(type, pos){
-
 				var body;
 				var c;
 
 				switch (type){
-
-						// add a circle
-					case 0:
+					case 0: // circle
 						c = colors[random(0, colors.length-1)];
 						body = Physics.body('circle', {
-							x: pos.x
-							,y: pos.y
-							,vx: random(-5, 5)/100
-							,radius: 40
-							,restitution: 0.9
-							,styles: {
-								fillStyle: c[0]
-								,strokeStyle: c[1]
-								,lineWidth: 1
-								,angleIndicator: c[1]
+							x: pos.x,
+							y: pos.y,
+							vx: random(-5, 5)/100,
+							vy: random(-5, 5)/100,
+							radius: 40,
+							restitution: 0.9,
+							styles: {
+								fillStyle: c[0],
+								strokeStyle: c[1],
+								lineWidth: 1,
+								angleIndicator: c[1]
 							}
 						});
 						break;
 
-						// add a square
-					case 1:
+					case 1: // square
 						c = colors[random(0, colors.length-1)];
 						var l = random(0, 70);
 						body = Physics.body('rectangle', {
-							width: 50+l
-							,height: 50+l
-							,x: pos.x
-							,y: pos.y
-							,vx: random(-5, 5)/100
-							,restitution: 0.9
-							,styles: {
-								fillStyle: c[0]
-								,strokeStyle: c[1]
-								,lineWidth: 1
-								,angleIndicator: c[1]
+							width: 50+l,
+							height: 50+l,
+							x: pos.x,
+							y: pos.y,
+							vx: random(-5, 5)/100,
+							vy: random(-5, 5)/100,
+							restitution: 0.9,
+							styles: {
+								fillStyle: c[0],
+								strokeStyle: c[1],
+								lineWidth: 1,
+								angleIndicator: c[1]
 							}
 						});
 						break;
 
-
-						// add a polygon
-					case 2:
-					case 3:
+					case 2: // triangle
+					case 3: // polygon
 						var s = (type == 2 ? 3 : random( 5, 10 ));
 						c = colors[ random(0, colors.length-1) ];
 						body = Physics.body('convex-polygon', {
-							vertices: Physics.geometry.regularPolygonVertices( s, 30 )
-							,x: pos.x
-							,y: pos.y
-							,vx: random(-5, 5)/100
-							,angle: random( 0, 2 * Math.PI )
-							,restitution: 0.9
-							,styles: {
-								fillStyle: c[0]
-								,strokeStyle: c[1]
-								,lineWidth: 1
-								,angleIndicator: c[1]
+							vertices: Physics.geometry.regularPolygonVertices( s, 30 ),
+							x: pos.x,
+							y: pos.y,
+							vx: random(-5, 5)/100,
+							vy: random(-5, 5)/100,
+							angle: random( 0, 2 * Math.PI ),
+							restitution: 0.9,
+							styles: {
+								fillStyle: c[0],
+								strokeStyle: c[1],
+								lineWidth: 1,
+								angleIndicator: c[1]
 							}
 						});
 						break;
 				}
 
 				body.treatment = "static";
-
-				world.add( body );
+				world.add(body);
 				return body;
 			}
 
@@ -447,12 +511,14 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			    if (physicsActive) {
 					document.getElementById("run-button").classList.remove('running');
 					document.getElementById("run-button").setAttribute('title', 'Play');
+					Physics.util.ticker.stop(); // Stop the physics ticker
 					setBodiesTreatmentStatic();
 				} else {
 					document.getElementById("run-button").classList.add('running');
 					document.getElementById("run-button").setAttribute('title', 'Pause');
-					Physics.util.ticker.start();
+					Physics.util.ticker.start(); // Start the physics ticker
 					setBodiesTreatmentDynamic();
+					world.wakeUpAll(); // Ensure all bodies are active when resuming
 				}
 				physicsActive = !physicsActive;
 			}
@@ -516,7 +582,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						createdBody.treatment = "dynamic";
 					}
 					// create body at a static place
-					if (currentType != -1 && pos.y > 55) {
+					if (currentType != -1 && pos.y > toolbarHeight) {
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}
@@ -540,7 +606,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 								object.radius = Math.max(40, distance);
 							} else if (object.type == "rectangle") {
 								object.width = object.height = Math.max(50, distance);
-							} else if (object.type = "convex-polygon") {
+							} else if (object.type == "convex-polygon") {
 								object.vertices = Physics.geometry.regularPolygonVertices( object.vertices.length, Math.max(30, distance));
 							}
 							world.removeBody(createdBody);
@@ -582,17 +648,24 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 			// subscribe to ticker to advance the simulation
 			Physics.util.ticker.on(function( time ) {
-				// next step
-				world.step( time );
+				// next step with speed multiplier
+				world.step( time * speedMultiplier );
 
-				// remove bodies out of
+				// remove bodies out of bounds with adjusted limits
 				var bodies = world.getBodies();
 				var limit = outerWidth / 2;
 				if (limit > 0) {
 					for(var i = 0 ; i < bodies.length ; i++) {
 						var body = bodies[i];
-						if (body.state.pos.x < 0-limit || body.state.pos.x > innerWidth+limit)
+						// Adjust limits based on speed
+						var adjustedLimit = limit * speedMultiplier * 2;
+						// Only remove if object is completely out of bounds
+						if (body.state.pos.x < -adjustedLimit || 
+							body.state.pos.x > innerWidth + adjustedLimit ||
+							body.state.pos.y < -adjustedLimit || 
+							body.state.pos.y > innerHeight + adjustedLimit) {
 							world.remove(body);
+						}
 					}
 				}
 			});
