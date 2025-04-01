@@ -20,6 +20,8 @@
 	"TutoAppleContent": "Click here to turn on the Newton laws. Objects will attract each other. The strength of attraction depends on size of the object",
 	"TutoClearTitle": "Remove",
 	"TutoClearContent": "Click here to pass in remove mode. Every object you will click will be deleted",
+	"TutoTimelapseTitle": "Timelapse",
+	"TutoTimelapseContent": "Click here to change simulation speed. Each click cycles through 1x, 2x, 3x, and 4x speed",
 	"TutoPauseTitle": "Pause",
 	"TutoPauseContent": "Click here to freeze the screen or unfreeze it",
 	"TutoBoardTitle": "Board",
