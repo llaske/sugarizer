@@ -72,7 +72,29 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         img.cont = null;
         img.globe = globe;
 
+        // Add a flag to track if this button is still valid
+        img.valid = true;
+        
+        // Store reference to track button loading
+        if (!globe._pendingButtons) {
+            globe._pendingButtons = [];
+        }
+        globe._pendingButtons.push(img);
+
         img.onload = function () {
+            // Remove from pending buttons
+            if (globe._pendingButtons) {
+                var index = globe._pendingButtons.indexOf(this);
+                if (index !== -1) {
+                    globe._pendingButtons.splice(index, 1);
+                }
+            }
+            
+            // Check if this button is still valid before proceeding
+            if (!this.valid) {
+                return;
+            }
+            
             var bitmap = new createjs.Bitmap(img);
             bitmap.setBounds(0, 0, img.width, img.height);
             bounds = bitmap.getBounds();
@@ -93,6 +115,16 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                 this.cont.addChild(bitmap);
                 callback(this.globe, this.cont);
             };
+        };
+        
+        img.onerror = function() {
+            // Remove from pending buttons on error
+            if (globe._pendingButtons) {
+                var index = globe._pendingButtons.indexOf(this);
+                if (index !== -1) {
+                    globe._pendingButtons.splice(index, 1);
+                }
+            }
         };
         img.src = url;
         return img;
@@ -124,6 +156,8 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         this._boxSorter = null;
         this._sortButton = null;
         this._data['previews'] = [];
+        this._isChangingBox = false;
+        this._pendingBoxChange = null;
 
         // wait dialog
         this._waitMsg = document.getElementById("wait");
@@ -214,16 +248,57 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         };
 
         this.changeBox = function(newOrder) {
+            // Don't allow changing to the same box
+            if (newOrder === this.activeBox) {
+                return;
+            }
+            
+            // If already changing a box, queue this change
+            if (this._isChangingBox) {
+                this._pendingBoxChange = newOrder;
+                return;
+            }
+            
             if (newOrder >= 0 && newOrder < this._data['boxs'].length) {
+                this._isChangingBox = true;
+                
+                // Update data from current box
                 this.updateData();
-
+                
+                // Before changing boxes, ensure the stage is properly updated
+                if (this.comicBox && this.comicBox.stage) {
+                    this.comicBox.stage.update();
+                }
+                
                 // load the new data
                 this.activeBox = newOrder;
-                this.comicBox.init(this._data['boxs'][this.activeBox],
-                                   this._data['images'], (this.activeBox > 0));
-
-                this._updatePageCounter();
-            };
+                
+                var self = this;
+                
+                // Create a completion handler to process any pending changes
+                var onBoxChangeComplete = function() {
+                    self._isChangingBox = false;
+                    self._updatePageCounter();
+                    
+                    // If there's a pending box change, process it now
+                    if (self._pendingBoxChange !== null) {
+                        var nextBox = self._pendingBoxChange;
+                        self._pendingBoxChange = null;
+                        setTimeout(function() {
+                            self.changeBox(nextBox);
+                        }, 50); // Small delay to let the UI update
+                    }
+                };
+                
+                // Initialize the new comic box with callback
+                this.comicBox.init(
+                    this._data['boxs'][this.activeBox],
+                    this._data['images'], 
+                    (this.activeBox > 0),
+                    null,
+                    onBoxChangeComplete
+                );
+            }
         };
 
         this.removeBox = function() {
@@ -440,6 +515,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         this._textpalette = null;
 
         this.init = function (data, imagesData, canRemove, context, callback) {
+            // Clean up previous resources first
+            this.cleanup();
+
             this._data = data;
             this.imagesData = imagesData
             this.canRemove = canRemove;
@@ -484,10 +562,126 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             this.stage.update();
         };
 
+        this.cleanup = function() {
+            // Add to your existing cleanup method
+            if (this._loadingImage) {
+                this._loadingImage.onload = null;
+                this._loadingImage.onerror = null;
+                this._loadingImage = null;
+            }
+
+            if (this._currentLoadOperation) {
+                this._currentLoadOperation.cancelled = true;
+                this._currentLoadOperation = null;
+            }
+
+            // Add this to your existing cleanup method
+            if (this._pendingButtons) {
+                // Mark all pending button loads as invalid
+                for (var i = 0; i < this._pendingButtons.length; i++) {
+                    this._pendingButtons[i].valid = false;
+                }
+                this._pendingButtons = [];
+            }
+            
+            // Reset image transformation values
+            this._image_x = 0;
+            this._image_y = 0;
+            this._image_width = this._width;
+            this._image_height = this._height;
+
+            // Remove all event listeners from the previous bitmap
+            if (this._backgroundBitmap) {
+                this._backgroundBitmap.removeAllEventListeners();
+                this._backgroundBitmap = null;
+            }
+            
+            // Clean up control buttons
+            if (this._imageResizeButton) {
+                this._imageResizeButton.removeAllEventListeners();
+                this._imageResizeButton = null;
+            }
+            
+            if (this._removeButton) {
+                this._removeButton.removeAllEventListeners();
+                this._removeButton = null;
+            }
+            
+            // Clean up globes and their event listeners
+            for (var i = 0; i < this.globes.length; i++) {
+                var globe = this.globes[i];
+                if (globe._shape) {
+                    globe._shape.removeAllEventListeners();
+                }
+                if (globe._textViewer && globe._textViewer._textView) {
+                    globe._textViewer.remove();
+                }
+                
+                // Clean up globe controls
+                if (globe._pointerControl) {
+                    globe._pointerControl.removeAllEventListeners();
+                }
+                if (globe._resizeButton) {
+                    globe._resizeButton.removeAllEventListeners();
+                }
+                if (globe._editButton) {
+                    globe._editButton.removeAllEventListeners();
+                }
+                if (globe._rotateButton) {
+                    globe._rotateButton.removeAllEventListeners();
+                }
+                if (globe._removeButton) {
+                    globe._removeButton.removeAllEventListeners();
+                }
+            }
+            
+            // Uncache the containers
+            if (this._backContainer) {
+                this._backContainer.uncache();
+            }
+            
+            // Clear the stage and update
+            this.stage.clear();
+            this.stage.update();
+        };
+
         this._setBackgroundImageDataUrl = function (imageUrl, context, callback) {
             var img = new Image();
             var that = this;
+
+            // First, abort any current image load
+            if (this._loadingImage) {
+                this._loadingImage.onload = null;
+                this._loadingImage.onerror = null;
+                this._loadingImage = null;
+            }
+            
+            // Clear any previous cached bitmap
+            if (this._backgroundBitmap) {
+                this._backContainer.removeChild(this._backgroundBitmap);
+                this._backgroundBitmap.removeAllEventListeners();
+                this._backgroundBitmap = null;
+            }
+
+            // Keep track of this loading operation
+            var loadOperation = {
+                cancelled: false
+            };
+            this._currentLoadOperation = loadOperation;
+            
+            // Store reference to current loading image
+            this._loadingImage = img;
+
             img.addEventListener("load", function () {
+                // If this operation was cancelled, don't proceed
+                if (loadOperation.cancelled || that._currentLoadOperation !== loadOperation) {
+                    return;
+                }
+
+                // Clear the reference since loading is complete
+                that._loadingImage = null;
+                that._currentLoadOperation = null;
+
                 bitmap = new createjs.Bitmap(img);
                 bitmap.setBounds(0, 0, img.width, img.height);
 
@@ -642,10 +836,30 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                     that._backContainer.updateCache();
                     that.createGlobes();
                 };
+
+                // Force stage update to prevent stale displays
+                that.stage.update();
+                
                 if (callback) {
                     callback(context);
                 }
             });
+
+            // Handle image load errors
+            img.addEventListener("error", function() {
+                if (loadOperation.cancelled || that._currentLoadOperation !== loadOperation) {
+                    return;
+                }
+                
+                that._loadingImage = null;
+                that._currentLoadOperation = null;
+                console.log("Error loading image: " + imageUrl);
+                
+                if (callback) {
+                    callback(context);
+                }
+            });
+
             img.src = imageUrl;
         };
 
