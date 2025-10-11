@@ -282,3 +282,17 @@ var app = new Vue({
 		}
 	}
 });
+
+document.addEventListener("click", function (event) {
+	const link = event.target.closest("a");
+	if (link && link.href) {
+		event.preventDefault();
+		const url = link.href;
+		if (typeof window.sugarizerOS !== "undefined" && window.sugarizerOS.openBrowser) {
+			window.sugarizerOS.openBrowser(url);
+		} else {
+			window.open(url, "_blank", "noopener,noreferrer");
+		}
+	}
+});
+
