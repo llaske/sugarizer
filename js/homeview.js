@@ -764,8 +764,10 @@ enyo.kind({
 		{name: "assignmentCount", tag:"p", classes: " assignment-count ", title:"count",},
 		{name: "radialbutton", kind: "Button", classes: "toolbutton view-radial-button active", title:"Home", ontap: "showRadialView"},
 		{name: "neighborbutton", kind: "Button", classes: "toolbutton view-neighbor-button", title:"Home", ontap: "showNeighborView"},
-		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"}
-	],
+		{name: "listbutton", kind: "Button", classes: "toolbutton view-list-button", title:"List", ontap: "showListView"},
+		{name: "quitbutton", kind: "Button", classes: "toolbutton quit-button", title: "Quit", ontap: "quitApp"}
+	
+	],	
 
 	// Constructor
 	create: function() {
@@ -785,6 +787,8 @@ enyo.kind({
 		this.$.neighborbutton.setNodeProperty("title", l10n.get("NeighborhoodView"));
 		this.$.helpbutton.setNodeProperty("title", l10n.get("Tutorial"));
 		this.$.offlinebutton.setNodeProperty("title", l10n.get("NotConnected"));
+		this.$.quitbutton.setNodeProperty("title", l10n.get("Quit"));
+
 		if (app.localize) {
 			app.localize();
 		}
@@ -891,6 +895,18 @@ enyo.kind({
 		}
 		var otherview = app.$.otherview.createComponent({kind: "Sugar.DialogServer", standalone: true}, {owner:this});
 		otherview.show();
+	},
+
+	quitApp: function() {
+		// Reuse the existing desktop quit logic if available
+		if (app && app.doQuit) {
+			app.doQuit();           // calls stats.trace + util.quitApp()
+		} else if (typeof util !== "undefined" && util.quitApp) {
+			util.quitApp();         // fallback
+		} else {
+			// Final fallback: try to close browser window
+			window.close();
+		}
 	},
 
 	startTutorial: function() {

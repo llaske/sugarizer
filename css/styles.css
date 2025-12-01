@@ -95,6 +95,13 @@ body {
 	right: 90px;
 }
 
+.quit-button {
+	background-image: url(../icons/system-shutdown.svg);
+	position: absolute !important;
+	top: 0px;
+	right: 210px;   /* try this first, then tweak */
+}
+
 .help-button {
 	background-image: url(../icons/help.svg);
 	position: absolute !important;
