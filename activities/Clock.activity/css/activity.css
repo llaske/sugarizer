@@ -49,6 +49,11 @@ canvas {
   background-image: url(../icons/simple-clock.svg);
 }
 
+#main-toolbar #global-time-button {
+  background-image: url(../icons/global-time.svg);
+}
+
+
 #main-toolbar #nice-clock-button {
   background-image: url(../icons/nice-clock.svg);
 }

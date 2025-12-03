@@ -1,4 +1,7 @@
-define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","l10n", "tutorial"], function (activity,env,radioButtonsGroup,mustache,moment, l10n, tutorial) {
+define(
+  ["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","l10n","tutorial","sugar-web/graphics/palette"],
+  function (activity,env,radioButtonsGroup,mustache,moment,l10n,tutorial,palette) 
+ {
 
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
@@ -103,6 +106,15 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             window.msRequestAnimationFrame;
         var show_am_pm = false;
         var show_mins = false;
+
+        var selectedTimezone = "local";
+        function getCurrentDate() {
+            if (selectedTimezone === "local") {
+                return new Date();
+            }
+            var localeString = new Date().toLocaleString("en-US", { timeZone: selectedTimezone });
+            return new Date(localeString);
+        }
 
         function Clock() {
             this.face = "simple";
@@ -234,8 +246,78 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 show_mins = document.getElementById("show-mins").classList.contains("active");
                 that.drawBackground();
             });
+
+            var globalTimeButton = document.getElementById("global-time-button");
+            if (globalTimeButton) {
+                var globalTimePalette = new palette.Palette(globalTimeButton);
+
+                var paletteContent = document.createElement("div");
+                paletteContent.innerHTML = `
+                <div style="padding:8px;min-width:230px;">
+                  <label for="timezone-select">Choose location:</label><br/>
+                  <select id="timezone-select">
+
+                    <option value="local">Local Time</option>
+                    <option value="Etc/UTC">UTC</option>
+
+                    <optgroup label="Asia">
+                      <option value="Asia/Kolkata">India (Kolkata)</option>
+                      <option value="Asia/Dubai">Dubai</option>
+                      <option value="Asia/Singapore">Singapore</option>
+                      <option value="Asia/Bangkok">Bangkok</option>
+                      <option value="Asia/Shanghai">Shanghai</option>
+                      <option value="Asia/Hong_Kong">Hong Kong</option>
+                      <option value="Asia/Seoul">Seoul</option>
+                      <option value="Asia/Tokyo">Tokyo</option>
+                    </optgroup>
+
+                    <optgroup label="Europe">
+                      <option value="Europe/London">London</option>
+                      <option value="Europe/Paris">Paris</option>
+                      <option value="Europe/Rome">Rome</option>
+                      <option value="Europe/Berlin">Berlin</option>
+                      <option value="Europe/Madrid">Madrid</option>
+                      <option value="Europe/Moscow">Moscow</option>
+                    </optgroup>
+
+                    <optgroup label="Africa">
+                      <option value="Africa/Cairo">Cairo</option>
+                      <option value="Africa/Nairobi">Nairobi</option>
+                      <option value="Africa/Johannesburg">Johannesburg</option>
+                    </optgroup>
+
+                    <optgroup label="Americas">
+                      <option value="America/New_York">New York</option>
+                      <option value="America/Chicago">Chicago</option>
+                      <option value="America/Denver">Denver</option>
+                      <option value="America/Los_Angeles">Los Angeles</option>
+                      <option value="America/Toronto">Toronto</option>
+                      <option value="America/Mexico_City">Mexico City</option>
+                      <option value="America/Sao_Paulo">São Paulo</option>
+                      <option value="America/Argentina/Buenos_Aires">Buenos Aires</option>
+                    </optgroup>
+
+                    <optgroup label="Australia / Pacific">
+                      <option value="Australia/Sydney">Sydney</option>
+                      <option value="Australia/Melbourne">Melbourne</option>
+                      <option value="Pacific/Auckland">Auckland</option>
+                    </optgroup>
+
+                  </select>
+                </div>
+                `;
+
+
+                globalTimePalette.setContent([paletteContent]);
+
+                var timezoneSelect = paletteContent.querySelector("#timezone-select");
+                timezoneSelect.addEventListener("change", function () {
+                    selectedTimezone = timezoneSelect.value;
+                    globalTimePalette.popDown();
+                });
+            }
             
-            var date = new Date();
+            var date = getCurrentDate();
             var hours = date.getHours();
             if (hours<12){
               this.toggleAMPM = true;
@@ -325,7 +407,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
 
             this.updateSizes();
-            var date = new Date();
+            var date = getCurrentDate();
             this.displayDate(date);
             this.drawBackground();
         }
@@ -335,7 +417,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
             this.changeWriteTime(this.writeTime);
             this.updateSizes();
-            var date = new Date();
+            var date = getCurrentDate();
             this.displayDate(date);
             this.drawBackground();
         }
@@ -382,7 +464,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         // Update text and hand angles using the current time.
         Clock.prototype.update = function () {
-            var date = new Date();
+            var date = getCurrentDate();
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
@@ -479,7 +561,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var lineWidthBackground = this.lineWidthBase * 4;
             ctx.lineCap = 'round';
             ctx.lineWidth = lineWidthBackground;
-            var date = new Date();
+            var date = getCurrentDate();
             var hours = date.getHours();
             if (show_am_pm){
               if (this.setTime){
