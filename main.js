@@ -4,7 +4,6 @@ var electron = require('electron'),
 	fs = require('fs'),
 	temp = require('tmp'),
 	path = require('path'),
-	requirejs = require('requirejs'),
 	activities = require('./activities.json'),
 	l10n = require('./lib/l10n');
 
