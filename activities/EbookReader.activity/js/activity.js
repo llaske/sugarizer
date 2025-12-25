@@ -15,7 +15,12 @@ var app = new Vue({
 		currentEpub: null,
 		currentView: LibraryViewer,
 		currentLibrary: {database: []},
-		timer: null
+		timer: null,
+		isSpeaking: false,
+		isPaused: false,
+	    utterance: null,
+		originalText: null,
+		currentCharIndex: 0
 	},
 
 	created: function() {
@@ -58,6 +63,8 @@ var app = new Vue({
 				}
 			});
 		});
+
+		this.$refs.toolbar.$on("read-aloud-clicked", this.toggleReadAloud);
 
 		// Handle resize
 		window.addEventListener("resize", function() {
@@ -235,6 +242,71 @@ var app = new Vue({
 			}
 		},
 
+		toggleReadAloud: function() {
+			if (!('speechSynthesis' in window)) {
+				alert("Text-to-Speech is not supported in your browser.");
+				return;
+			}
+
+			let iframe = document.querySelector("#area iframe");
+			if (!iframe || !iframe.contentDocument) {
+				alert("Content not available for reading.");
+				return;
+			}
+
+			// First time: get the full text of the current page
+			if (!this.originalText) {
+				this.originalText = iframe.contentDocument.body.innerText.trim();
+				if (!this.originalText) {
+					alert("No text available for narration.");
+					return;
+				}
+				this.currentCharIndex = 0;
+			}
+
+			if (this.isSpeaking) {
+				// PAUSE: stop immediately and remember position
+				window.speechSynthesis.cancel();
+				this.isSpeaking = false;
+				this.isPaused = true;
+			} else {
+				// PLAY or RESUME
+				let remainingText = this.originalText.substring(this.currentCharIndex);
+				if (!remainingText.trim()) {
+					this.resetSpeech();
+					return;
+				}
+
+				this.utterance = new SpeechSynthesisUtterance(remainingText);
+				this.utterance.rate = 1.0;
+				this.utterance.pitch = 1.0;
+
+				let startIndex = this.currentCharIndex;
+				this.utterance.onboundary = (event) => {
+					if (event.name === 'word') {
+						this.currentCharIndex = startIndex + event.charIndex;
+					}
+				};
+
+				this.utterance.onend = () => {
+					this.resetSpeech();
+				};
+
+				window.speechSynthesis.speak(this.utterance);
+				this.isSpeaking = true;
+				this.isPaused = false;
+			}
+		},
+
+		resetSpeech: function() {
+			window.speechSynthesis.cancel();
+			this.isSpeaking = false;
+			this.isPaused = false;
+			this.utterance = null;
+			this.originalText = null;
+			this.currentCharIndex = 0;
+		},
+		
 		onHelp: function() {
 			var options = {};
 			options.switchbutton = this.$refs.toolbar.$refs.switchbutton.$el;
@@ -278,6 +350,10 @@ var app = new Vue({
 		},
 
 		onStop: function() {
+			if (window.speechSynthesis) {
+				window.speechSynthesis.cancel();
+			}
+			this.resetSpeech();
 			this.saveContextToJournal();
 		}
 	}
