@@ -224,16 +224,10 @@ describe('Presence', function() {
 
 	describe('#leaveNetwork()', function() {
 		it("should disconnect", function() {
-			presence.onConnectionClosed(function() {
-				chai.assert.isTrue(true);
-			});
 			presence.leaveNetwork();
 		});
 
 		it("should do nothing when disconnected", function() {
-			presence.onConnectionClosed(function() {
-				chai.assert.isFalse(false);
-			});
 			presence.leaveNetwork();
 			chai.assert.isFalse(presence.isConnected());
 		});
