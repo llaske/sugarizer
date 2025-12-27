@@ -18,7 +18,9 @@ var app = new Vue({
 		timer: null,
 		isSpeaking: false,
 		isPaused: false,
-	    utterance: null
+	    utterance: null,
+		originalText: null,
+		currentCharIndex: 0
 	},
 
 	created: function() {
@@ -241,62 +243,68 @@ var app = new Vue({
 		},
 
 		toggleReadAloud: function() {
-			
 			if (!('speechSynthesis' in window)) {
-			  alert("Text-to-Speech is not supported in your browser.");
-			  return;
+				alert("Text-to-Speech is not supported in your browser.");
+				return;
 			}
-		  
-			
-			if (!this.utterance) {
-			  
-			  let iframe = document.querySelector("#area iframe");
-			  if (!iframe || !iframe.contentDocument) {
+
+			let iframe = document.querySelector("#area iframe");
+			if (!iframe || !iframe.contentDocument) {
 				alert("Content not available for reading.");
 				return;
-			  }
-		  
-			  
-			  let storyText = iframe.contentDocument.body.innerText;
-			  console.log("Extracted full iframe text:", storyText);
-		  
-			  if (!storyText || storyText.trim() === "") {
-				alert("No text available for narration.");
-				return;
-			  }
-		  
-			  this.utterance = new SpeechSynthesisUtterance(storyText);
-			  this.utterance.rate = 1.0;
-			  this.utterance.pitch = 1.0;
-			  this.utterance.onend = () => {
-				
+			}
+
+			if (!this.originalText) {
+				this.originalText = iframe.contentDocument.body.innerText.trim();
+				if (!this.originalText) {
+					alert("No text available for narration.");
+					return;
+				}
+				this.currentCharIndex = 0;
+			}
+
+			if (this.isSpeaking) {
+				// PAUSE: stop immediately and remember position
+				window.speechSynthesis.cancel();
 				this.isSpeaking = false;
+				this.isPaused = true;
+			} else {
+				// PLAY or RESUME
+				let remainingText = this.originalText.substring(this.currentCharIndex);
+				if (!remainingText.trim()) {
+					this.resetSpeech();
+					return;
+				}
+
+				this.utterance = new SpeechSynthesisUtterance(remainingText);
+				this.utterance.rate = 1.0;
+				this.utterance.pitch = 1.0;
+
+				let startIndex = this.currentCharIndex;
+				this.utterance.onboundary = (event) => {
+					if (event.name === 'word') {
+						this.currentCharIndex = startIndex + event.charIndex;
+					}
+				};
+
+				this.utterance.onend = () => {
+					this.resetSpeech();
+				};
+
+				window.speechSynthesis.speak(this.utterance);
+				this.isSpeaking = true;
 				this.isPaused = false;
-				this.utterance = null; 
-			  };
 			}
-		  
-			
-			if (!this.isSpeaking && !this.isPaused) {
-			  
-			  window.speechSynthesis.speak(this.utterance);
-			  this.isSpeaking = true;
-			  this.isPaused = false;
-			  console.log("Speech started from the beginning");
-			} else if (this.isSpeaking && !this.isPaused) {
-			  
-			  window.speechSynthesis.pause();
-			  this.isSpeaking = false;
-			  this.isPaused = true;
-			  console.log("Speech paused");
-			} else if (!this.isSpeaking && this.isPaused) {
-			  
-			  window.speechSynthesis.resume();
-			  this.isSpeaking = true;
-			  this.isPaused = false;
-			  console.log("Speech resumed from paused position");
-			}
-		  },
+		},
+
+		resetSpeech: function() {
+			window.speechSynthesis.cancel();
+			this.isSpeaking = false;
+			this.isPaused = false;
+			this.utterance = null;
+			this.originalText = null;
+			this.currentCharIndex = 0;
+		},
 		
 		onHelp: function() {
 			var options = {};
@@ -341,12 +349,11 @@ var app = new Vue({
 		},
 
 		onStop: function() {
-	        
-			window.speechSynthesis.cancel();
-			this.utterance = null;
-			this.isSpeaking = false;
-			this.isPaused = false;
+			if (window.speechSynthesis) {
+				window.speechSynthesis.cancel();
+			}
+			this.resetSpeech();
 			this.saveContextToJournal();
-		  }
+		}
 	}
 });
