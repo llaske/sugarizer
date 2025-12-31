@@ -568,13 +568,11 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					object.width = body.view.width;
 					object.height = body.view.height;
 				} else if (body.geometry.name == "convex-polygon") {
-					// modified
 					// Save the vertices properly
 					object.vertices = [];
 					for (var i = 0; i <body.vertices.length; i++) {
 						object.vertices.push( { x: body.vertices[i].x,  y: body.vertices[i].y } );
 					}
-					// closed
 				}
 				object.restitution = body.restitution;
 				object.styles = body.styles;
@@ -616,7 +614,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					newOptions.width = savedObject.width;
 					newOptions.height = savedObject.height;
 				} else if (savedObject.type == "convex-polygon") {
-					// Modified
 					// Restore vertices properly
 					newOptions.vertices = [];
 					for (var i = 0; i < savedObject.vertices.length; i++) {
