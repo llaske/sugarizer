@@ -48,6 +48,11 @@ body {
   z-index: 3;
 }
 
+#main-toolbar #pen-button {
+  background-image: url(../icons/pen.svg);
+  z-index: 3;
+}
+
 #main-toolbar #apple-button {
   background-image: url(../icons/apple.svg);
   z-index: 3;
