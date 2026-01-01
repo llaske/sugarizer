@@ -28,5 +28,9 @@
 	"TutoPrevButtonTitle": "Previous page",
 	"TutoPrevButtonContent": "Click here to display the previous page of the book.",
 	"TutoNextButtonTitle": "Next page",
-	"TutoNextButtonContent": "Click here to display the next page of the book."
+	"TutoNextButtonContent": "Click here to display the next page of the book.",
+	"TutoReadAloudButtonTitle": "Vorlesen",
+	"TutoReadAloudButtonContent": "Klicke auf dieses Symbol, um die Geschichte vorlesen zu lassen.",
+	"TutoVoiceButtonTitle": "Stimme",
+	"TutoVoiceButtonContent": "Wähle eine männliche oder weibliche Stimme zum Vorlesen."
 }

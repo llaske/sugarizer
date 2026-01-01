@@ -2,16 +2,16 @@
 
 // Toolbar item
 var ToolbarItem = {
-	template: `
-		<div class="splitbar" v-if="isSplitbar"/>
-		<button v-on:click="onClick()" v-bind:id="id" v-bind:title="title" v-bind:class="toRight ? 'toolbutton pull-right' : 'toolbutton'" v-else/>
-	`,
-	props: ['id', 'title', 'isSplitbar', 'toRight'],
-	methods: {
-		onClick: function() {
-			this.$emit('clicked');
-		}
-	}
+    template: `
+        <div class="splitbar" v-if="isSplitbar"/>
+        <button v-on:click="onClick($event)" v-bind:id="id" v-bind:title="title" v-bind:class="toRight ? 'toolbutton pull-right' : 'toolbutton'" v-else/>
+    `,
+    props: ['id', 'title', 'isSplitbar', 'toRight'],
+    methods: {
+        onClick: function(event) {
+            this.$emit('clicked', event);
+        }
+    }
 }
 
 // Toolbar component
@@ -28,6 +28,11 @@ var Toolbar = {
 			<div class="splitbar" v-if="showContentsBtn()"></div>
 			<toolbar-item ref="settings" v-on:clicked="getApp().setLibraryUrl()" class="toolbutton" id="settings-button" v-bind:title="l10n.stringSettings"></toolbar-item>
 
+			<div class="splitbar"></div>
+			<toolbar-item :id="readButtonIcon" v-on:clicked="onReadAloud" ref="readAloudButton" v-bind:title="l10n.stringReadAloud"></toolbar-item>
+			<div class="splitbar"></div>
+			<toolbar-item ref="languageButton" id="language-button" v-on:clicked="onLanguage($event)" v-bind:title="l10n.stringLanguage"></toolbar-item>
+
 			<toolbar-item v-on:clicked="getApp().onStop()" id="stop-button" title="Stop" toRight="true"></toolbar-item>
 			<toolbar-item ref="fullscreen" v-on:clicked="getApp().fullscreen()" id="fullscreen-button" v-bind:title="l10n.stringFullscreen" toRight="true"></toolbar-item>
 			<toolbar-item v-on:clicked="getApp().onHelp()" id="help-button" v-bind:title="l10n.stringHelp" toRight="true"></toolbar-item>
@@ -43,10 +48,22 @@ var Toolbar = {
 				stringSettings: '',
 				stringHelp: '',
 				stringFullscreen: '',
-				stringContents: ''
+				stringContents: '',
+				stringReadAloud: '',
+				stringLanguage: ''
 			}
 		}
 	},
+	
+	computed: {
+			readButtonIcon() {
+			if (this.$root.isSpeaking && !this.$root.isPaused) {
+				return "read-play";
+			}
+			return "read-button";
+			}
+		},
+
 	methods: {
 		localized: function(localization) {
 			var vm = this;
@@ -66,6 +83,16 @@ var Toolbar = {
 
 		getReader: function() {
 			return EbookReader;
+		},
+
+		onReadAloud: function() {
+			this.$emit("read-aloud-clicked");
+		},
+
+		onLanguage: function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			this.getApp().showVoicePalette(this.$refs.languageButton.$el);
 		}
 	}
 }

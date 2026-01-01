@@ -102,14 +102,9 @@
 	box-sizing: initial;
 }
 
-.palette *, ::after, ::before {
-	box-sizing: initial;
-}
-
 body {
 	overflow-x: hidden;
 	overflow-y: hidden;
-	height: 100vh;
 }
 
 #canvas {
@@ -349,3 +344,79 @@ body {
 	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
 	border: 0px;
 }
+
+#read-button {
+	background-image: url("../icons/read.svg"); 
+	background-size: contain;
+	background-repeat: no-repeat; 
+	border: none;
+	outline: none;
+}
+
+#read-play {
+	background-image: url("../icons/read-play.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	border: none;
+	outline: none;
+  }
+
+#language-button {
+    background-image: url("../icons/voice.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    outline: none;
+}
+
+.palette .wrapper:has(.voice-palette) {
+    padding: 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+}
+
+.palette .wrapper:has(.voice-palette) {
+    box-sizing: border-box !important;
+}
+
+.palette .voice-palette {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 8px 10px;
+    background: #111;
+    color: #eee;
+    border-radius: 6px;
+    font-family: sans-serif;
+    width: max-content;
+}
+
+.palette .voice-palette > div:first-child {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #444;
+    color: #ccc;
+}
+
+.palette .voice-palette > div:not(:first-child) {
+    padding: 6px 10px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.palette .voice-palette > div:not(:first-child):hover {
+    background: #333;
+}
+
+.palette .voice-palette > div.selected {
+    background: #555;
+    font-weight: bold;
+}
+
+.palette .wrapper:has(.voice-palette) .row {
+    box-sizing: border-box !important;
+}
+

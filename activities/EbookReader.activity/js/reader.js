@@ -8,7 +8,8 @@ var EbookReader = {
 		</div>`,
 	data: function() {
 		return {
-			rendition: null
+			rendition: null,
+			book: null
 		};
 	},
 	created: function() {
@@ -38,10 +39,35 @@ var EbookReader = {
 				this.rendition.clear();
 				this.rendition.destroy();
 			}
+
+			if (window.speechSynthesis) {
+				window.speechSynthesis.cancel();
+			}
+			if (window.app) {
+				app.utterance = null;
+				app.isSpeaking = false;
+				app.isPaused = false;
+				app.pausedCfi = null;
+			}
 			var options = this.computeScreenSize();
 			document.getElementById("left").style.height = options.height + "px";
-			document.getElementById("right").style.height = options.height + "px";
+			document.getElementById("right").style.height = options.height + "px";	
 			this.rendition = book.renderTo("area", options);
+			this.book = book;
+
+			this.rendition.on("relocated", function(location) {
+				if (window.app) {
+					window.speechSynthesis.cancel();
+					window.app.isSpeaking = false;
+					window.app.isPaused = false;
+					window.app.utterance = null;
+					window.app.pausedCfi = null;
+					window.app.currentChunks = [];
+					window.app.currentChunkIndex = 0;
+					console.log("Page turned: speech fully reset");
+				}
+			});
+
 			this.rendition.display(location);
 		},
 
@@ -52,9 +78,10 @@ var EbookReader = {
 				if (location == null) {
 					return;
 				}
-				vm.rendition.next().then(function() {},
-					function() {vm.rendition.display(location)}
-				);
+				vm.rendition.next().then(function() {}, function() {
+					vm.rendition.display(location);
+				});
+				
 				document.getElementById("right").classList.add("reader-right-sel");
 				setTimeout(function() {
 					document.getElementById("right").classList.remove("reader-right-sel");
@@ -69,9 +96,10 @@ var EbookReader = {
 				if (location == null) {
 					return;
 				}
-				vm.rendition.prev().then(function() {},
-					function() {vm.rendition.display(location)}
-				);
+				vm.rendition.prev().then(function() {}, function() {
+					vm.rendition.display(location);
+				});
+
 				document.getElementById("left").classList.add("reader-left-sel");
 				setTimeout(function() {
 					document.getElementById("left").classList.remove("reader-left-sel");

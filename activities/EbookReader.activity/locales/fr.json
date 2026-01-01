@@ -28,5 +28,9 @@
 	"TutoPrevButtonTitle": "Page précédente",
 	"TutoPrevButtonContent": "Cliquer ici pour passer à la page précédente du livre.",
 	"TutoNextButtonTitle": "Page suivante",
-	"TutoNextButtonContent": "Cliquer ici pour passer à la page suivante du livre."
+	"TutoNextButtonContent": "Cliquer ici pour passer à la page suivante du livre.",
+	"TutoReadAloudButtonTitle": "Lecture à voix haute",
+	"TutoReadAloudButtonContent": "Cliquez sur cette icône pour écouter la lecture du livre.",
+	"TutoVoiceButtonTitle": "Voix",
+	"TutoVoiceButtonContent": "Choisissez une voix masculine ou féminine pour la lecture à voix haute."
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 48 48"
+     width="48"
+     height="48"
+     fill="none">
+
+  <!-- Microphone capsule -->
+  <rect x="18" y="8" width="12" height="20" rx="6"
+        fill="white"/>
+
+  <!-- Microphone holder -->
+  <path d="M14 22c0 6 5 10 10 10s10-4 10-10"
+        stroke="white"
+        stroke-width="2"
+        fill="none"/>
+
+  <!-- Stand -->
+  <path d="M24 32v6"
+        stroke="white"
+        stroke-width="2"/>
+
+  <!-- Base -->
+  <path d="M16 38h16"
+        stroke="white"
+        stroke-width="2"/>
+
+</svg>

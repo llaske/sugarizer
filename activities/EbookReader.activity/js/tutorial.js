@@ -24,6 +24,10 @@ var Tutorial = {
 				stringTutoNextButtonContent: '',
 				stringTutoPrevButtonTitle: '',
 				stringTutoPrevButtonContent: '',
+				stringTutoReadAloudButtonTitle: '',
+				stringTutoReadAloudButtonContent: '',
+				stringTutoVoiceButtonTitle: '',
+				stringTutoVoiceButtonContent: '',
 			}
 		}
 	},
@@ -66,6 +70,18 @@ var Tutorial = {
 					position: "bottom",
 					title: this.l10n.stringTutoSettingsButtonTitle,
 					intro: this.l10n.stringTutoSettingsButtonContent
+				},
+				{
+				element: options.readaloudbutton,
+				position: "bottom",
+				title: this.l10n.stringTutoReadAloudButtonTitle,
+				intro: this.l10n.stringTutoReadAloudButtonContent
+				},
+				{
+					element: options.voicebutton,
+					position: "bottom",
+					title: this.l10n.stringTutoVoiceButtonTitle,
+					intro: this.l10n.stringTutoVoiceButtonContent
 				},
 				{
 					element: options.fullscreenbutton,
