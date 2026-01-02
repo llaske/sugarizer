@@ -26,7 +26,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		var sensorMode = true;
 		var newtonMode = false;
 		var resizeTimer = null;
-		var penMode = false;
 		var isDrawing = false;
 		var drawingPoints = [];
 		var tempCanvas = null;
@@ -76,7 +75,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				world.on('step', function () {
 					world.render();
 					// Draw pen preview if drawing
-					if (penMode && isDrawing && drawingPoints.length > 0) {
+					if (currentType == 4 && isDrawing && drawingPoints.length > 0) {
 						drawPenPreview();
 					}					
 					if (!init) {
@@ -134,24 +133,32 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			document.getElementById("box-button").addEventListener('click', function (e) {
 				currentType = 1;
 				switchToType(currentType);
-				disablePenMode();
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 			}, true);
 			document.getElementById("circle-button").addEventListener('click', function (e) {
 				currentType = 0;
 				switchToType(currentType);
-				disablePenMode();
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 			}, true);
 
 			document.getElementById("triangle-button").addEventListener('click', function (e) {
 				currentType = 2;
 				switchToType(currentType);
-				disablePenMode();
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 			}, true);
 
 			document.getElementById("polygon-button").addEventListener('click', function (e) {
 				currentType = 3;
 				switchToType(currentType);
-				disablePenMode();
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 			}, true);
 
 			gravityButton.addEventListener('click', function () {
@@ -165,12 +172,15 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			document.getElementById("clear-button").addEventListener('click', function () {
 				currentType = -1;
 				switchToType(currentType);
-				disablePenMode();
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 			}, true);
 
 			// Pen button event listener
 			penButton.addEventListener('click', function () {
-				togglePenMode();
+				currentType = 4;
+				switchToType(currentType);
 			}, true);
 
 			// Launch tutorial
@@ -302,10 +312,16 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				document.getElementById("polygon-button").classList.remove('active');
 				document.getElementById("triangle-button").classList.remove('active');
 				document.getElementById("clear-button").classList.remove('active');
+				document.getElementById("pen-button").classList.remove('active');
+				document.getElementById("viewport").style.cursor = "default";
 				if (newtype == 0) document.getElementById("circle-button").classList.add('active');
 				else if (newtype == 1) document.getElementById("box-button").classList.add('active');
 				else if (newtype == 2) document.getElementById("triangle-button").classList.add('active');
 				else if (newtype == 3) document.getElementById("polygon-button").classList.add('active');
+				else if (newtype == 4) {
+					document.getElementById("pen-button").classList.add('active');
+					document.getElementById("viewport").style.cursor = "crosshair";
+				}
 				else if (newtype == -1) document.getElementById("clear-button").classList.add('active');
 			}
 
@@ -327,36 +343,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				tempCtx = tempCanvas.getContext('2d');
 			}
 
-			function togglePenMode() {
-				penMode = !penMode;
-
-				if (penMode) {
-					penButton.classList.add('active');
-					currentType = -2;
-					switchToType(-2);
-					document.getElementById("viewport").style.cursor = "crosshair";
-				} else {
-					penButton.classList.remove('active');
-					currentType = 0;
-					switchToType(currentType);
-					document.getElementById("viewport").style.cursor = "default";
-					isDrawing = false;
-					drawingPoints = [];
-					clearTempCanvas();
-				}
-			}
-
-			function disablePenMode() {
-				if (penMode) {
-					penMode = false;
-					penButton.classList.remove('active');
-					document.getElementById("viewport").style.cursor = "default";
-					isDrawing = false;
-					drawingPoints = [];
-					clearTempCanvas();
-				}
-			}
-
 			function clearTempCanvas() {
 				if (tempCtx) {
 					tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
@@ -376,7 +362,8 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				for (var i = 1; i < drawingPoints.length; i++) {
 					tempCtx.lineTo(drawingPoints[i].x, drawingPoints[i].y);
 				}
-				tempCtx.stroke();
+
+				tempCtx.stroke()
 			}
 
 			function simplifyPath(points, tolerance) {
@@ -430,7 +417,19 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				if (points.length < 3) return;
 
 				// Simplify and create convex hull
-				var simplified = simplifyPath(points, 10);
+				var simplified = simplifyPath(points, 15);
+				if (simplified.length < 3) return;
+
+				// force close the polygon
+				var firstPoint = simplified[0];
+				var lastPoint = simplified[simplified.length - 1];
+				var dx = firstPoint.x - lastPoint.x;
+				var dy = firstPoint.y - lastPoint.y;
+				var dist = Math.sqrt(dx*dx + dy*dy);
+				if (dist > 5) {
+					simplified.push({x: firstPoint.x, y: firstPoint.y});
+				}
+
 				var hull = createConvexHull(simplified);
 
 				if (hull.length < 3) return;
@@ -449,23 +448,28 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				for (var i = 0; i < hull.length; i++) {
 					vertices.push(Physics.vector(hull[i].x - cx, hull[i].y - cy));
 				}
+
 				// Create physics body
 				var c = colors[random(0, colors.length-1)];
-				var body = Physics.body('convex-polygon', {
-					x: cx,
-					y: cy,
-					vertices: vertices,
-					mass: 1,
-					restitution: 0.9,
-					styles: {
-						fillStyle: c[0],
-						strokeStyle: c[1],
-						lineWidth: 1,
-						angleIndicator: c[1]
-					}
-				});
-				body.treatment = physicsActive ? "dynamic" : "static";
-				world.add(body);
+				try { 
+					var body = Physics.body('convex-polygon', {
+						x: cx,
+						y: cy,
+						vertices: vertices,
+						mass: 1,
+						restitution: 0.9,
+						styles: {
+							fillStyle: c[0],
+							strokeStyle: c[1],
+							lineWidth: 1,
+							angleIndicator: c[1]
+						}
+					});
+					body.treatment = physicsActive ? "dynamic" : "static";
+					world.add(body);
+				} catch (e) {
+					console.log("Failed to create shape: " + e.message);
+				}
 			}
 
 			function dropInBody(type, pos){
@@ -706,7 +710,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			world.on({
 				'interact:poke': function( pos ){
 					// Handle pen drawing mode
-					if (penMode && pos.y > toolbarHeight) {
+					if (currentType == 4 && pos.y > toolbarHeight) {
 						isDrawing = true;
 						drawingPoints = [];
 						drawingPoints.push({x: pos.x, y: pos.y});
@@ -718,14 +722,14 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						createdBody.treatment = "dynamic";
 					}
 					// create body at a static place
-					if (currentType != -1 && currentType != -2 && pos.y > toolbarHeight) {
+					if (currentType >= 0 && currentType <= 3 && pos.y > toolbarHeight) {
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}
 				}
 				,'interact:move': function( pos ){
 					// Handle pen drawing
-					if (penMode && isDrawing) {
+					if (currentType == 4 && isDrawing && pos.y > toolbarHeight) {
 						drawingPoints.push({x: pos.x, y: pos.y});
 						return;
 					}
@@ -763,7 +767,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				}
 				,'interact:release': function( pos ){
 					// Finish pen drawing
-					if (penMode && isDrawing) {
+					if (currentType == 4 && isDrawing) {
 						isDrawing = false;
 						if (drawingPoints.length >= 10) {
 							createPhysicsBodyFromPath(drawingPoints);
