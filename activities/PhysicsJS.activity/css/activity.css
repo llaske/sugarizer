@@ -8,6 +8,23 @@ body {
   width: 100%;
 }
 
+#viewport::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: rgba(0, 150, 255, 0.15);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#viewport.water-mode::after {
+    opacity: 1;
+}
+
 #main-toolbar #activity-button {
   background-image: url(../activity/activity-icon.svg);
   z-index: 3;
@@ -35,6 +52,11 @@ body {
 
 #main-toolbar #sensor-button {
   background-image: url(../icons/sensor.svg);
+  z-index: 3;
+}
+
+#main-toolbar #water-button {
+  background-image: url(../icons/water.svg);
   z-index: 3;
 }
 
@@ -93,6 +115,38 @@ body {
 #circle-button, #box-button, #triangle-button, #polygon-button, #gravity-button, #sensor-button, #apple-button, #clear-button, #run-button, #fullscreen-button, #help-button {
   display: none;
 }
+
+#densityOverlay {
+    position: absolute;
+    display: none;
+    padding: 6px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+
+    z-index: 9999; /* ABOVE canvas & interactions */
+}
+
+#densityInput {
+    width: 100px;
+    font-size: 12px;
+}
+
+#closedensity {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    cursor: pointer;
+    background: #d9534f;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+}
+
 
 @media only screen and (min-width: 220px) {
   #fullscreen-button {

@@ -20,11 +20,28 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		var sensorButton = document.getElementById("sensor-button");
 		var gravityButton = document.getElementById("gravity-button");
 		var appleButton = document.getElementById("apple-button");
+		var waterButton = document.getElementById("water-button");
 		var runButton = document.getElementById("run-button");
 		var readyToWatch = false;
 		var sensorMode = true;
 		var newtonMode = false;
 		var resizeTimer = null;
+		var watermode = false;
+		var inputActive = false;
+		var densityOverlay = document.getElementById("densityOverlay");
+		var densityInput = document.getElementById("densityInput");
+		var massInput = document.getElementById("massInput");
+		var closedensity = document.getElementById("closedensity");
+
+		// ['mousedown','mouseup','click','touchstart','touchend'].forEach(function(evt){
+    	// 	densityOverlay.addEventListener(evt, function(e){
+        // 		if (densityOverlay.style.display === "block") {
+        //     	e.stopPropagation();
+        // 		}
+    	// 	}, false); // ❗ bubble phase
+		// });
+
+
 		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
 			document.addEventListener('deviceready', function() {
 				readyToWatch = true;
@@ -45,6 +62,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		var gravityMode = 0;
 		var currentType = 0;
 		var physicsActive = true;
+		var waterDensity = 0.01;
 		Physics({ timestep: 6 }, function (world) {
 
 			// bounds of the window
@@ -95,6 +113,51 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				,restitution: 0.2
 				,cof: 0.8
 			});
+				// ---------------- WATER BEHAVIOR ----------------
+
+
+			Physics.behavior('water', function (parent) {
+    return {
+        init: function (options) {
+            parent.init.call(this);
+        },
+        connect: function (world) {
+            world.on('integrate:velocities', this.behave, this);
+        },
+        disconnect: function (world) {
+            world.off('integrate:velocities', this.behave, this);
+        },
+        behave: function (data) {
+    if (!watermode) return;
+
+    var bodies = data.bodies;
+    var gravityConstant = 0.0004; // Matches your setGravity value
+
+    for (var i = 0; i < bodies.length; i++) {
+        var body = bodies[i];
+        if (body.awaitingdensityInput || body.treatment === 'static') continue;
+
+        // Use your custom values, falling back to 1 if not defined
+        var rho_obj = body.customDensity || 1;
+        var volume = body.customVolume || 1; 
+        
+        // BUOYANCY FORMULA:
+		var buoyancyAcc = (waterDensity / rho_obj - 1) * gravityConstant;
+
+        // Apply upward force (negative Y)
+        body.state.acc.vadd(Physics.vector(0, -buoyancyAcc));
+
+        // SIMPLE DRAG
+        var dragCoeff = 0.03; // "water thickness"
+		body.state.acc.x -= (dragCoeff * body.state.vel.x);
+		body.state.acc.y -= (dragCoeff * body.state.vel.y);
+
+    }
+}
+
+    };
+});
+
 
 			// resize events
 			window.addEventListener('resize', function () {
@@ -191,6 +254,23 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					gravityButton.disabled = false;
 				}
 			}, true);
+			
+			waterButton.addEventListener('click', function () {
+    			watermode = !watermode;
+    			if (watermode) {
+					world.remove(gravity);
+					world.add(waterBehavior);
+        			waterButton.classList.add('active');
+					gravityButton.disabled = true;
+        			document.getElementById('viewport').classList.add('water-mode');
+    			} else {
+					world.remove(waterBehavior);
+					world.add(gravity);
+        			waterButton.classList.remove('active');
+					gravityButton.disabled = false;
+        			document.getElementById('viewport').classList.remove('water-mode');
+    			}
+			});
 
 			function accelerationChanged(accelerationEvent) {
 				if (!sensorMode) return;
@@ -283,6 +363,51 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				else if (newtype == -1) document.getElementById("clear-button").classList.add('active');
 			}
 
+			// 1. Add a variable at the top of your script to track the body being edited
+			var bodyBeingEdited = null;
+
+			// 2. Update the inputdensit function
+			function inputdensity(body, screenPos) {
+    			
+    			bodyBeingEdited = body; // Store the reference
+
+    			var viewport = document.getElementById("viewport");
+    			var rect = viewport.getBoundingClientRect();
+
+    			densityOverlay.style.left = (screenPos.x) + "px";
+    			densityOverlay.style.top  = (screenPos.y) + "px";
+    			densityOverlay.style.display = "block";
+    
+    			densityInput.value = "";
+    			densityInput.focus();
+			}
+
+			function handleDensityMassEnter(e) {
+    if (e.key === "Enter" && bodyBeingEdited) {
+        var dVal = densityInput.value;
+        var mVal = massInput.value; 
+        applyDensityFromdensity(bodyBeingEdited, dVal, mVal);
+        densityOverlay.style.display = "none";
+        inputActive = false;
+        bodyBeingEdited = null;
+        e.preventDefault();
+    }
+}
+
+densityInput.addEventListener('keydown', handleDensityMassEnter);
+massInput.addEventListener('keydown', handleDensityMassEnter);
+
+			closedensity.addEventListener('click', function(e) {
+    			if (bodyBeingEdited) {
+        			// Remove the body that was awaiting input
+        			world.remove(bodyBeingEdited);
+        			bodyBeingEdited = null;
+    			}
+    			densityOverlay.style.display = "none";
+    			inputActive = false; // ← CRITICAL: Reset the flag
+    			e.stopPropagation();
+			});
+
 			function dropInBody(type, pos){
 
 				var body;
@@ -293,7 +418,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						// add a circle
 					case 0:
 						c = colors[random(0, colors.length-1)];
-						body = Physics.body('circle', {
+						body = Physics.body('circle',{
 							x: pos.x
 							,y: pos.y
 							,vx: random(-5, 5)/100
@@ -312,7 +437,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					case 1:
 						c = colors[random(0, colors.length-1)];
 						var l = random(0, 70);
-						body = Physics.body('rectangle', {
+						body = Physics.body('rectangle',{
 							width: 50+l
 							,height: 50+l
 							,x: pos.x
@@ -334,7 +459,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					case 3:
 						var s = (type == 2 ? 3 : random( 5, 10 ));
 						c = colors[ random(0, colors.length-1) ];
-						body = Physics.body('convex-polygon', {
+						body = Physics.body('convex-polygon',{
 							vertices: Physics.geometry.regularPolygonVertices( s, 30 )
 							,x: pos.x
 							,y: pos.y
@@ -352,9 +477,39 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				}
 
 				body.treatment = "static";
-
+    
+    			if (watermode) {
+        			// Mark body as awaiting density input to prevent physics
+        			body.awaitingdensityInput = true;
+        			inputdensity(body, pos);
+					body.state.vel.zero(); // Stop any velocity
+    				body.state.angular.vel = 0; // Stop rotation
+    			} 
 				world.add( body );
 				return body;
+			}
+
+			function applyDensityFromdensity(body, densityValue, massValue) {
+    			// 1. Parse and validate the inputs
+    			var d = parseFloat(densityValue) || 1.0;
+    			var m = parseFloat(massValue) || 1.0;
+
+    			// 2. Store them as custom properties on the body
+    			body.customDensity = d;
+    			body.customMass = m;
+    
+    			// 3. Calculate Volume (optional, but helpful for your formula)
+    			body.customVolume = m / d;
+
+    			// 4. Update PhysicsJS internal mass to match the user input
+    			body.mass = m; 
+
+    			// Resume physics
+    			body.recalc();
+    			body.awaitingdensityInput = false;
+    			body.treatment = 'dynamic';
+    			body.sleep(false);
+    			world.wakeUpAll();
 			}
 
 			// Save world to datastore
@@ -543,12 +698,14 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 							} else if (object.type = "convex-polygon") {
 								object.vertices = Physics.geometry.regularPolygonVertices( object.vertices.length, Math.max(30, distance));
 							}
+							var saveddensity = createdBody.density || 1;
 							world.removeBody(createdBody);
 							var v1 = new Physics.vector(createdStart.x, 0);
 							var v2 = new Physics.vector(pos.x-createdStart.x, pos.y-createdStart.y);
 							object.angle = -v1.angle(v2);
 							createdBody = deserializeObject(object);
-							createdBody.treatment = "static";
+							createdBody.treatment = watermode ? "dynamic" : "static";
+							applyDensityFromdensity(createdBody, saveddensity);
 							world.add(createdBody);
 						}
 					}
@@ -572,6 +729,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			// add things to the world
 			var gravity = Physics.behavior('constant-acceleration');
 			var newton = Physics.behavior('newtonian', { strength: .5 });
+			var waterBehavior = Physics.behavior('water');
 			world.add([
 				gravity
 				,Physics.behavior('body-impulse-response')

@@ -32,6 +32,7 @@
   <button class="toolbutton" id="gravity-button" title="Gravity"></button>
   <button class="toolbutton" id="sensor-button" title="Sensor"></button>
   <button class="toolbutton" id="apple-button" title="Newton"></button>
+  <button class="toolbutton" id="water-button" title="Water"></button>
   <button class="toolbutton" id="clear-button" title="Clear"></button>
   <button class="toolbutton running" id="run-button" title="Pause"></button>
 
@@ -40,7 +41,13 @@
   <button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 
-<div id="viewport"></div>
+<div id="viewport">
+  <div id="densityOverlay">
+    <span id="closedensity">✕</span>
+    <input id="densityInput" type="number" step="0.001" placeholder="Enter density value" />
+    <input id="massInput" type="number" placeholder="Enter mass value" />
+</div>
+</div>
 <button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 </body>
 </html>
