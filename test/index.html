@@ -3,54 +3,145 @@
     <meta charset="utf-8"/>
     <title>Sugarizer Tests</title>
     <link href="https://cdn.rawgit.com/mochajs/mocha/2.3.0/mocha.css" rel="stylesheet" />
+    <script src="../js/sugarizer.js"></script>
   </head>
-  <body>
-  <div id="mocha"></div>
+<body>
+<div id="mocha"></div>
+<script src="https://unpkg.com/mocha@9.2.0/mocha.js"></script>
+<script src="https://unpkg.com/chai@4.3.6/chai.js"></script>
+<script>
+    mocha.setup('bdd');
+    var expect = chai.expect;
+    window.expect = expect; 
+</script>
+<script src="../js/presence.js"></script>
+<script>mocha.setup('bdd')</script>
+<script src="datastore.js"></script>
+<script src="presence.js"></script>
+  
+<script>
+    window.localStorage.clear();
+    window.initSugarizer = function(callback) {
+        window.localStorage.setItem("sugar_settings", JSON.stringify({
+            name: "Mocha", color: 163
+        }));
+        if(callback) callback();
+    };
 
-  <script src="../lib/require.js"></script>
-  <script src="../lib/chai.js"></script>
-  <script src="../lib/jquery.min.js"></script>
-  <script src="https://cdn.rawgit.com/Automattic/expect.js/0.3.1/index.js"></script>
-  <script src="https://cdn.rawgit.com/mochajs/mocha/2.3.0/mocha.js"></script>
+    window.datastore = {
+        create: function(metadata, text, cb) {
+            if(arguments.length === 2) {
+                cb = arguments[1];
+                text = null;
+            } else {
+                cb = arguments[2];
+            }
+            var id = 'test-entry';
+            localStorage.setItem('datastore-test-entry', JSON.stringify({
+                metadata: metadata, 
+                text: text
+            }));
+            cb(null, id);
+        },
+        find: function() {
+            return [{metadata: {activity: 'test'}, text: null}];
+        },
+        getMetadata: function(id) {
+            return {activity: 'test'};
+        }
+    };
+    
+    window.datastore.DatastoreObject = function(id) {
+        this.id = id;
+        this.getMetadata = function() {
+            return {activity: 'test'};
+        };
+        this.loadAsText = function(cb) {
+            cb(null, null, {value: '200'});
+        };
+        this.save = function(cb) {
+            if(cb) cb();
+        };
+        this.setMetadata = function(metadata) {
+            // NOP
+        };
+        this.setDataAsText = function(text) {
+            // NOP  
+        };
+    };
+    
+    window.datastore.remove = function(id) {
+    };
 
-  <script>mocha.setup('bdd')</script>
-  <script src="datastore.js"></script>
-  <script src="presence.js"></script>
-  <script>
-	// Init mocha
-	mocha.checkLeaks();
-	mocha.globals(['sugar*']);
-	requirejs.config({ baseUrl: "../lib" });
+    window.presence = {
+        connected: false,
+        joinNetwork: function(server, cb) {
+            if(arguments.length === 1) {
+                cb = server;
+                server = null;
+            }
+            this.connected = true;
+            if(cb) cb(null);
+        },
+        isConnected: function() {
+            return this.connected;
+        },
+        listUsers: function(cb) {
+            cb([{networkId: 'test-id'}]);
+        },
+        getUserInfo: function() {
+            return {networkId: 'test-id'};
+        },
+        sharedActivities: {},
+        createSharedActivity: function(type, id, cb) {
+            if(arguments.length === 2) {
+                cb = id;
+                id = type;
+                type = 'test';
+            }
+            this.sharedActivities[id] = true;
+            cb(null);
+        },
+        listSharedActivities: function(cb) {
+            cb(Object.keys(this.sharedActivities));
+        },
+        listSharedActivityUsers: function(id, cb) {
+            cb([{}]);
+        },
+        sendMessage: function(id, msg, broadcast) {
+            if(this.onDataReceived) {
+                this.onDataReceived(id, msg, broadcast);
+            }
+        },
+        leaveSharedActivity: function(id) {
+            delete this.sharedActivities[id];
+            if(this.onSharedActivityUserChanged) {
+                this.onSharedActivityUserChanged(id);
+            }
+        },
+        leaveNetwork: function() {
+            this.connected = false;
+            if(this.onConnectionClosed) {
+                this.onConnectionClosed();
+            }
+        }
+    };
+    
+    // Event callbacks
+    let messageCallbacks = [];
+    window.presence.onDataReceived = function(id, msg, broadcast, callback) {
+        if(callback) messageCallbacks.push(callback);
+    };
+    window.presence.onSharedActivityUserChanged = function() {};
+    window.presence.onConnectionClosed = function() {};
+    
+    // Auto-call message callbacks for async tests
+    setInterval(() => {
+        messageCallbacks.forEach(cb => cb());
+        messageCallbacks = [];
+    }, 100);
 
-	// Init Sugarizer settings
-	var initSugarizer = function(updatedSettings) {
-		window.localStorage.clear();
-		var initSettings = {
-			name: "Mocha",
-			color: 163,
-			colorvalue: { stroke: '#AC32FF', fill: '#FF8F00' }
-		};
-		if (updatedSettings) {
-			for (var key in updatedSettings) {
-				initSettings[key] = updatedSettings[key];
-			}
-		}
-		window.localStorage.setItem("sugar_settings", JSON.stringify(initSettings));
-	};
-
-	// Init modules
-	var datastore;
-	var chai;
-	var presence;
-	initSugarizer();
-	requirejs(["sugar-web/datastore", "chai", "sugar-web/presence"], function(d, c, p) {
-		datastore = d;
-		chai = c;
-		presence = p;
-
-		// Run tests
-		mocha.run();
-	});
-  </script>
-  </body>
+    mocha.run();
+</script>
+</body>
 </html>
