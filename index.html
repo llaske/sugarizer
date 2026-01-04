@@ -2,63 +2,72 @@
 <html>
 
   <head>
-    <meta charset="utf-8" />
-    <title>Sugarizer</title>
+	<meta charset="utf-8" />
+	<title>Sugarizer</title>
 
+	<link href="css/xocolor.css" rel="stylesheet" type="text/css" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
 
-	<!-- Sugar Web Framework -->
-	<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
-	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
-	<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
-	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
-    <link rel="stylesheet" href="css/activity.css">
-    <link rel="stylesheet" href="css/libnotify.css">
-    <link rel="stylesheet" href="css/introjs.css">
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-	<script type="text/javascript" src="js/init.js"></script>
-    <script src="lib/intro.js"></script>
+
+	<script src="lib/vue.global.prod.js"></script>
 	<script src="lib/axios.min.js"></script>
-    <script data-main="js/loader" src="lib/require.js"></script>
-
-	<!-- Enyo Framework -->
-	<link href="lib/enyo/enyo.css" rel="stylesheet" type="text/css" />
-	<script src="lib/enyo/enyo.js" type="text/javascript"></script>
-
+    <script src="lib/intro.js"></script>
+	<!-- Load other libs before require.js -->
+	<script src="lib/require.js"></script>
 	<script type="text/javascript" src="cordova.js"></script>
 
 	<!-- Sugarizer classes -->
 	<link href="css/styles.css" rel="stylesheet" type="text/css" />
-	<script src="js/constant.js" type="text/javascript"></script>
-	<script src="js/icon.js" type="text/javascript"></script>
-	<script src="js/iconbutton.js" type="text/javascript"></script>
-	<script src="js/palette.js" type="text/javascript"></script>
-	<script src="js/password.js" type="text/javascript"></script>
-	<script src="js/homeview.js" type="text/javascript"></script>
-	<script src="js/firstscreen.js" type="text/javascript"></script>
-	<script src="js/neighborhood.js" type="text/javascript"></script>
-	<script src="js/listview.js" type="text/javascript"></script>
-	<script src="js/journal.js" type="text/javascript"></script>
-	<script src="js/popup.js" type="text/javascript"></script>
-	<script src="js/audio.js" type="text/javascript"></script>
-	<script src="js/searchfield.js" type="text/javascript"></script>
-	<script src="js/selectbox.js" type="text/javascript"></script>
-	<script src="js/dialog.js" type="text/javascript"></script>
+	<link href="css/libnotify.css" rel="stylesheet" type="text/css" />
+    <link href="css/introjs.css" rel="stylesheet" type="text/css" />
+    <link href="css/custom-introjs.css" rel="stylesheet" type="text/css" />
 	<script>if (window.module) module = window.module;</script>
   </head>
 
   <body id="body">
-	<!-- Toolbar -->
-	<div id="toolbar" class="toolbar">
+	<div id="app">
+		<div class="sugarizer-canvas" v-if="isFirstScreen">
+			<firstscreen @showmainscreen="setIsFirstScreen"/>
+		</div>
+		<div v-else-if="!isFirstScreen && isFirstScreen !== null">
+			<mainscreen ref="mainscreen" />
+		</div>
 	</div>
 
-    <!-- The content of the desktop goes inside the canvas -->
-    <div id="canvas" class="sugarizer-canvas">
-    </div>
+	<!-- Shutdown Image for Desktop -->
+	<div id="shutdown-image"></div>
 
-    <button class="toolbutton first-qrswitch-button" id="qrswitchbutton"></button>
-    <button class="toolbutton first-qrclose-button" id="qrclosebutton"></button>
+	<!-- Icons for QR code scanning -->
+	<button class="toolbutton first-qrswitch-button" id="qrswitchbutton"></button>
+	<button class="toolbutton first-qrclose-button" id="qrclosebutton"></button>
+
 	<span class="hidden-emoji">Sugarizer</span>
+	<script src="js/sugarizer.js"></script>
+	<script src="js/components/icon.js"></script>
+	<script src="js/components/iconbutton.js"></script>
+	<script src="js/components/password.js"></script>
+	<script src="js/components/searchfield.js"></script>
+	<script src="js/components/popup.js"></script>
+	<script src="js/components/prompt.js"></script>
+	<script src="js/components/selectbox.js"></script>
+	<script src="js/components/filterbox.js"></script>
+	<script src="js/components/dialog.js"></script>
+	<script src="js/screens/loginscreen.js"></script>
+	<script src="js/screens/firstscreen.js"></script>
+	<script src="js/screens/settings-aboutme.js"></script>
+	<script src="js/screens/settings-aboutcomputer.js"></script>
+	<script src="js/screens/settings-aboutmyserver.js"></script>
+	<script src="js/screens/settings-mysecurity.js"></script>
+	<script src="js/screens/settings-myprivacy.js"></script>
+	<script src="js/screens/settings-languagebox.js"></script>
+	<script src="js/screens/settings.js"></script>
+	<script src="js/screens/journal.js"></script>
+	<script src="js/screens/neighborhood.js"></script>
+	<script src="js/screens/homescreen.js"></script>
+	<script src="js/screens/listview.js"></script>
+	<script src="js/screens/mainscreen.js"></script>
+	<script src="js/app.js"></script>
   </body>
-
 </html>
+

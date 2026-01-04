@@ -618,7 +618,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					newOptions.width = savedObject.width;
 					newOptions.height = savedObject.height;
 				} else if (savedObject.type == "convex-polygon") {
-					// Restore vertices properly
 					newOptions.vertices = savedObject.vertices;
 				}
 				return Physics.body(savedObject.type, newOptions);
@@ -749,7 +748,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 								object.radius = Math.max(40, distance);
 							} else if (object.type == "rectangle") {
 								object.width = object.height = Math.max(50, distance);
-							} else if (object.type = "convex-polygon") {
+							} else if (object.type == "convex-polygon") {
 								object.vertices = Physics.geometry.regularPolygonVertices( object.vertices.length, Math.max(30, distance));
 							}
 							world.removeBody(createdBody);

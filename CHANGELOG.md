@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Added
+- Human Body activity
+- Stickman activity
+- Add "Global Time" feature to Clock activity with timezone selection #1825
+
+### Changed
+- Rewrite of Sugarizer Core using Vue.js
+
+### Fixed
+- Bug in Jappy activity editor during initial rendering #1738
+- Country flag doesn't display in ColorMyWorld on Windows #1757
+- Add Country Flags to Interactive Mode in ColorMyWorld Activity #1771
+- On Safari and iOS only the tutorial first step popup is displayed #1790
+- Incorrect Total Dice Value Subtraction After Shaking #1774
+- CSV View data not updated in chart activity without saving #1809
+- Undo button for Gears activity #838
+- Replace Enyo by vue.js #257
+- UUID v4 generation bug: incorrect bitwise operation forces variant to 8 #1840
+- Variable Shadowing - Overwrites Module Object #1846
+- Use of '=' instead of '==' in if else statement in Physics game activity.js #1870
+
 ## [1.9.0] - 2025-03-25
 ### Added
 - 3D Volume activity

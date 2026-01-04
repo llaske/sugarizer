@@ -295,7 +295,9 @@ const app = new Vue({
 			this.updateActivityTitle(this.l10n.stringChartActivity)
 
 			const header = [this.pref.labels.x, this.pref.labels.y];
-			this.$refs.csvView.updateJsonData(this.tabularData, header, true);
+			if (this.$refs.csvView) {
+				this.$refs.csvView.updateJsonData(this.tabularData, header, true);
+			}
 		},
 		onJournalDataLoaded(data, metadata) {
 			this.LZ = this.SugarJournal.LZString;
@@ -304,7 +306,9 @@ const app = new Vue({
 				this.csvTitle = this.currentenv.activityName;
 				this.pref.chartType = "csvMode";
 				const json = CSVParser.csvToJson(data);
-				this.$refs.csvView.updateJsonData(json.data, json.headers);
+				if (this.$refs.csvView) {
+					this.$refs.csvView.updateJsonData(json.data, json.headers);
+				}
 				return;
 			}
 			const parsedData = JSON.parse(this.LZ.decompressFromUTF16(data));
@@ -312,7 +316,9 @@ const app = new Vue({
 
 			let xKey = pref.labels.x;
 			if (xKey == pref.labels.y) xKey += "__";
-			this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
+			if (this.$refs.csvView) {
+				this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
+			}
 			this.updatePreference(pref);
 		},
 
@@ -396,6 +402,9 @@ const app = new Vue({
 			this.executeAndSendAction(Action_Types.UPDATE_CHART_TYPE, {
 				chartType: type,
 			});
+			if (type === "csvMode" && this.$refs.csvView) {
+				this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
+			}
 		},
 
 		handleTextColor(e) {
@@ -669,6 +678,9 @@ const app = new Vue({
 			const index = this.selectedFontIdx;
 			return this.pref.font.propertyOrder[index];
 		},
+		csvHeader() {
+			return [this.pref.labels.x, this.pref.labels.y];
+		},
 	},
 	watch: {
 		"pref.labels.x"() {
@@ -678,7 +690,12 @@ const app = new Vue({
 			this.chartview.updateLabel("y");
 		},
 		"pref.chartType"() {
-			if (this.pref.chartType === "csvMode") return;
+			if (this.pref.chartType === "csvMode") {
+				if (this.$refs.csvView) {
+					this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
+				}
+				return;
+			}
 			this.chartview.updateChartType();
 		},
 		"pref.chartColor": {
