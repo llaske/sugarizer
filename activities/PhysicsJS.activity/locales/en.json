@@ -12,6 +12,8 @@
 	"TutoTriangleContent": "Click here to set triangle mode. The next item created will be a triangle",
 	"TutoPolygonTitle": "Polygon",
 	"TutoPolygonContent": "Click here to set polygon mode. The next item created will be a polygon",
+	"TutoPenTitle": "Pen",
+	"TutoPenContent": "Click here to set pen mode. Draw custom shapes on the board.The shape will become a physics object.",
 	"TutoGravityTitle": "Gravity direction",
 	"TutoGravityContent": "Click on this icon to change gravity direction. Each time you click on the button, the gravity is rotated from 45 degrees",
 	"TutoSensorTitle": "Sensor",

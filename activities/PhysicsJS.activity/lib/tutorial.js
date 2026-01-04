@@ -38,6 +38,12 @@ define(["l10n"], function (l10n) {
 				intro: l10n.get("TutoPolygonContent")
 			},
 			{
+				element: "#pen-button",
+				position: "bottom",
+				title: l10n.get("TutoPenTitle"),
+				intro: l10n.get("TutoPenContent")
+			},
+			{
 				element: "#gravity-button",
 				position: "bottom",
 				title: l10n.get("TutoGravityTitle"),

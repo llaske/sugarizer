@@ -619,10 +619,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					newOptions.height = savedObject.height;
 				} else if (savedObject.type == "convex-polygon") {
 					// Restore vertices properly
-					newOptions.vertices = [];
-					for (var i = 0; i < savedObject.vertices.length; i++) {
-						newOptions.vertices.push(new Physics.vector(savedObject.vertices[i].x, savedObject.vertices[i].y));
-					}
+					newOptions.vertices = savedObject.vertices;
 				}
 				return Physics.body(savedObject.type, newOptions);
 			}
