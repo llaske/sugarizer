@@ -133,32 +133,21 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			document.getElementById("box-button").addEventListener('click', function (e) {
 				currentType = 1;
 				switchToType(currentType);
-				isDrawing = false;
-				drawingPoints = [];
-				clearTempCanvas();
 			}, true);
+
 			document.getElementById("circle-button").addEventListener('click', function (e) {
 				currentType = 0;
 				switchToType(currentType);
-				isDrawing = false;
-				drawingPoints = [];
-				clearTempCanvas();
 			}, true);
 
 			document.getElementById("triangle-button").addEventListener('click', function (e) {
 				currentType = 2;
 				switchToType(currentType);
-				isDrawing = false;
-				drawingPoints = [];
-				clearTempCanvas();
 			}, true);
 
 			document.getElementById("polygon-button").addEventListener('click', function (e) {
 				currentType = 3;
 				switchToType(currentType);
-				isDrawing = false;
-				drawingPoints = [];
-				clearTempCanvas();
 			}, true);
 
 			gravityButton.addEventListener('click', function () {
@@ -172,9 +161,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			document.getElementById("clear-button").addEventListener('click', function () {
 				currentType = -1;
 				switchToType(currentType);
-				isDrawing = false;
-				drawingPoints = [];
-				clearTempCanvas();
 			}, true);
 
 			// Pen button event listener
@@ -307,6 +293,9 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			}
 
 			function switchToType(newtype) {
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 				document.getElementById("box-button").classList.remove('active');
 				document.getElementById("circle-button").classList.remove('active');
 				document.getElementById("polygon-button").classList.remove('active');
