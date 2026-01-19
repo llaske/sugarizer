@@ -698,7 +698,12 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					if (currentType == 4 && pos.y > toolbarHeight) {
 						isDrawing = true;
 						drawingPoints = [];
-						drawingPoints.push({x: pos.x, y: pos.y});
+						var rect = render.container.getBoundingClientRect();
+						var adjustedPos = {
+							x: pos.x - rect.left,
+							y: pos.y - rect.top
+						};
+						drawingPoints.push(adjustedPos);
 						return;
 					}
 
@@ -715,7 +720,13 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				,'interact:move': function( pos ){
 					// Handle pen drawing
 					if (currentType == 4 && isDrawing && pos.y > toolbarHeight) {
-						drawingPoints.push({x: pos.x, y: pos.y});
+
+						var rect = renderer.container.getBoundingClientRect();
+						var adjustedPos = {
+							x: pos.x - rect.left,
+							y: pos.y - rect.top
+						};
+						drawingPoints.push(adjustedPos);
 						return;
 					}
 
