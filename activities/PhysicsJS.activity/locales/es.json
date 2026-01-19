@@ -12,6 +12,8 @@
 	"TutoTriangleContent": "Haz clic aquí para entrar en el modo \"Triángulo\". El próximo objeto generado será un triángulo",
 	"TutoPolygonTitle": "Polígono",
 	"TutoPolygonContent": "Haz clic aquí para entrar en el modo \"Polígono\". El próximo objeto generado será un polígono",
+	"TutoPenTitle": "Pen",
+	"TutoPenContent": "Click here to set pen mode. Draw custom shapes on the board.The shape will become a physics object.",
 	"TutoGravityTitle": "Dirección de la gravedad",
 	"TutoGravityContent": "Haz clic aquí para cambiar la dirección de la gravedad. Cada vez que hagas clic en el botón, la gravedad rotará 45 grados",
 	"TutoSensorTitle": "Sensor",

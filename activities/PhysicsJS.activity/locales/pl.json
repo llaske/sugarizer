@@ -12,6 +12,8 @@
 	"TutoTriangleContent": "Kliknij aby zacząć tworzyć trójkąt.",
 	"TutoPolygonTitle": "Wielokąt",
 	"TutoPolygonContent": "Kliknij aby zacząć tworzyć wielokąt.",
+	"TutoPenTitle": "Pen",
+	"TutoPenContent": "Click here to set pen mode. Draw custom shapes on the board.The shape will become a physics object.",
 	"TutoGravityTitle": "Grawitacja",
 	"TutoGravityContent": "Kliknij aby zmienić środek grawitacji.",
 	"TutoSensorTitle": "Sensor",
