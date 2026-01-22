@@ -73,11 +73,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				createTempCanvas();
 				// render on each step
 				world.on('step', function () {
-					world.render();
-					// Draw pen preview if drawing
-					if (currentType == 4 && isDrawing && drawingPoints.length > 0) {
-						drawPenPreview();
-					}					
+					world.render();					
 					if (!init) {
 						init = true;
 						zoom();
@@ -352,7 +348,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					tempCtx.lineTo(drawingPoints[i].x, drawingPoints[i].y);
 				}
 
-				tempCtx.stroke()
+				tempCtx.stroke();
 			}
 
 			function simplifyPath(points, tolerance) {
@@ -727,6 +723,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 							y: pos.y - rect.top
 						};
 						drawingPoints.push(adjustedPos);
+						drawPenPreview();
 						return;
 					}
 
