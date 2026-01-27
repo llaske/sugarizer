@@ -185,6 +185,10 @@ enyo.kind({
 			this.scrollToField(this.$.passbox);
 			vpassbox = vprevious = vnext = true;
 			this.$.password.setLabel(l10n.get(this.createnew ? "ChoosePassword" : "Password", {min: util.getMinPasswordSize()}));
+			if (this.createnew) {
+				this.$.password.setPlaceholder("Choose 4 emojis to create your password. Remember them!");
+			}
+			
 			this.$.next.setText(l10n.get(this.createnew ? "Next" : "Done"));
 			break;
 
