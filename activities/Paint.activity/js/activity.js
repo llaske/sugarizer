@@ -115,20 +115,18 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
     }
 
     // Fix: Resize canvas when window size changes
-window.addEventListener("resize", function () {
-    if (!PaintApp || !PaintApp.elements || !PaintApp.elements.canvas) {
+    window.addEventListener("resize", function () {
+      if (!PaintApp || !PaintApp.elements || !PaintApp.elements.canvas) {
         return;
-    }
+      }
 
-    var canvas = PaintApp.elements.canvas;
+      var canvas = PaintApp.elements.canvas;
 
-    canvas.width = window.innerWidth * window.devicePixelRatio;
-    canvas.height = window.innerHeight * window.devicePixelRatio;
+      canvas.width = window.innerWidth * window.devicePixelRatio;
+      canvas.height = window.innerHeight * window.devicePixelRatio;
 
-    canvas.style.width = window.innerWidth + "px";
-    canvas.style.height = window.innerHeight + "px";
-});
-
-  });
-
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      });
+    });
 });
