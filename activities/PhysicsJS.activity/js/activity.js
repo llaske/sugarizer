@@ -694,11 +694,6 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					if (currentType == 4 && pos.y > toolbarHeight) {
 						isDrawing = true;
 						drawingPoints = [];
-						var rect = render.container.getBoundingClientRect();
-						var adjustedPos = {
-							x: pos.x - rect.left,
-							y: pos.y - rect.top
-						};
 						drawingPoints.push(adjustedPos);
 						return;
 					}
