@@ -121,12 +121,17 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
       }
 
       var canvas = PaintApp.elements.canvas;
+      var ctx = canvas.getContext("2d");
+
+      var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
       canvas.width = window.innerWidth * window.devicePixelRatio;
       canvas.height = window.innerHeight * window.devicePixelRatio;
 
       canvas.style.width = window.innerWidth + "px";
       canvas.style.height = window.innerHeight + "px";
+
+      ctx.putImageData(imageData, 0, 0);
       });
     });
 });
