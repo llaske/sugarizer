@@ -1,5 +1,5 @@
 /* PaintApp is a big object containing UI stuff, libraries and helpers */
-define([], function() {
+define([], function () {
   /* Function to disable all active class inside the toolbar */
   function paletteRemoveActiveClass() {
     for (var i = 0; i < PaintApp.paletteModesButtons.length; i++) {
@@ -26,9 +26,13 @@ define([], function() {
 
   /* Clear the canvas */
   function clearCanvas() {
-    var ctx = PaintApp.elements.canvas.getContext('2d');
-    ctx.fillStyle = "#ffffff"
-    ctx.fillRect(0, 0, parseInt(PaintApp.elements.canvas.style.width), parseInt(PaintApp.elements.canvas.style.height));
+    var canvas = PaintApp.elements.canvas;
+    var ctx = canvas.getContext('2d');
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
     PaintApp.saveCanvas();
   }
 
@@ -48,7 +52,7 @@ define([], function() {
     var imgSrc2 = PaintApp.data.history.undo[PaintApp.data.history.undo.length - 1];
 
     /* Loading of the image stored in history */
-    img.onload = function() {
+    img.onload = function () {
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -98,7 +102,7 @@ define([], function() {
     var imgSrc = PaintApp.data.history.redo[PaintApp.data.history.redo.length - 1];
 
     /* Loading of the image stored in history */
-    img.onload = function() {
+    img.onload = function () {
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -116,7 +120,7 @@ define([], function() {
               src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
             }
           });
-        } catch (e) {}
+        } catch (e) { }
       }
     };
     img.src = imgSrc;
@@ -162,7 +166,7 @@ define([], function() {
     var canvas = PaintApp.elements.canvas;
     try {
       var image = canvas.toDataURL();
-    } catch (e) {}
+    } catch (e) { }
 
     /* If doing a new action, setting redo to an empty list */
     if ((PaintApp.data.history.undo.length > 0 && PaintApp.data.history.undo[PaintApp.data.history.undo.length - 1] !== image) || (PaintApp.data.history.undo.length === 0)) {
