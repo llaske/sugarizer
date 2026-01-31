@@ -242,8 +242,69 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             this._updatePageCounter();
         };
 
-        this.setData = function(data) {
+        this._scaleData = function (data, scale) {
+            console.log("Scaling data by factor: " + scale);
+            if (!data['boxs']) return;
+
+            for (var i = 0; i < data['boxs'].length; i++) {
+                var box = data['boxs'][i];
+
+                // Scale image properties
+                if (box['img_x'] !== undefined) box['img_x'] *= scale;
+                if (box['img_y'] !== undefined) box['img_y'] *= scale;
+                if (box['img_w'] !== undefined) box['img_w'] *= scale;
+                if (box['img_h'] !== undefined) box['img_h'] *= scale;
+
+                // Scale globes
+                if (box['globes']) {
+                    for (var j = 0; j < box['globes'].length; j++) {
+                        var globe = box['globes'][j];
+                        globe['x'] *= scale;
+                        globe['y'] *= scale;
+                        globe['width'] *= scale;
+                        globe['height'] *= scale;
+                        globe['radio'] *= scale;
+
+                        if (globe['point_0'] !== undefined) globe['point_0'] *= scale;
+                        if (globe['point_1'] !== undefined) globe['point_1'] *= scale;
+
+                        // Globe text scaling
+                        if (globe['text_width'] !== undefined) globe['text_width'] *= scale;
+                        if (globe['text_height'] !== undefined) globe['text_height'] *= scale;
+
+                        // Font scaling
+                        if (globe['text_font_description']) {
+                            // Format: "Sans 30" or "Sans bold 30"
+                            var parts = globe['text_font_description'].split(' ');
+                            var sizeIndex = parts.length - 1;
+                            var size = parseFloat(parts[sizeIndex]);
+                            if (!isNaN(size)) {
+                                parts[sizeIndex] = Math.max(1, Math.round(size * scale));
+                                globe['text_font_description'] = parts.join(' ');
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        this.setData = function (data) {
             this._data = data;
+            // Check for canvas scaling
+            if (this._data['canvas_width'] && this._data['canvas_width'] > 0) {
+                var scale = this._canvas.width / this._data['canvas_width'];
+                // Allow small epsilon difference
+                if (Math.abs(scale - 1.0) > 0.01) {
+                    this._scaleData(this._data, scale);
+                    this._data['canvas_width'] = this._canvas.width;
+                    this._data['canvas_height'] = this._canvas.height;
+                }
+            } else {
+                // New or legacy data - assume simple fit or do nothing.
+                // We just set current dimensions so next save is correct.
+                this._data['canvas_width'] = this._canvas.width;
+                this._data['canvas_height'] = this._canvas.height;
+            }
             this._data['previews'] = [];
             this.init();
         };
