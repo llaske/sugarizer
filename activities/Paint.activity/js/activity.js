@@ -125,7 +125,7 @@ define(["sugar-web/activity/activity", "tutorial", "l10n", "sugar-web/env", "act
       var canvas = PaintApp.elements.canvas;
       var ctx = canvas.getContext("2d");
 
-      // 1. Save current content before any changes
+      // 1. Save current content synchronously at the START of resize
       if (!resizeBaseCanvas) {
         resizeBaseCanvas = document.createElement('canvas');
         resizeBaseCanvas.width = canvas.width;
@@ -137,41 +137,36 @@ define(["sugar-web/activity/activity", "tutorial", "l10n", "sugar-web/env", "act
       var newWidth = window.innerWidth;
       var newHeight = window.innerHeight - 55;
 
-      // 3. Sync Paper.js AND Canvas Buffer
-      // This is crucial for Windows 11 High DPI display compatibility
+      // 3. Update Paper.js view size (resizes the canvas internally)
       if (typeof paper !== 'undefined' && paper.view) {
         paper.view.viewSize = new paper.Size(newWidth, newHeight);
+        // Important: Stop Paper.js from clearing the canvas manually
         paper.view.autoUpdate = false;
       }
 
-      // Explicitly set styles to ensure no "dead area"
+      // 4. Update CSS size
       canvas.style.width = newWidth + "px";
       canvas.style.height = newHeight + "px";
 
-      // 4. Reset Transform to identity
+      // 5. Restore content synchronously and scale to fit the new size
+      // Reset transform to identity for whole-buffer drawImage
       ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-      // 5. High-Quality Scaling Setup
+      // High-quality scaling settings
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
-      ctx.mozImageSmoothingEnabled = true;
-      ctx.webkitImageSmoothingEnabled = true;
-      ctx.msImageSmoothingEnabled = true;
 
-      // 6. Clear and Restore
+      // Fill with white background (standard for Paint)
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 7. Restore content from the BASE canvas and scale to fit the new size
+      // Draw the original content scaled to fit the new buffer
       ctx.drawImage(resizeBaseCanvas, 0, 0, canvas.width, canvas.height);
 
-      // 8. Refresh Paper.js View (Critical for stability in some browsers)
-      if (typeof paper !== 'undefined' && paper.view) {
-        paper.view.draw();
+      // 6. Reset the base canvas after a period of inactivity (resize finished)
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
       }
-
-      // Cleanup timeout
-      if (resizeTimeout) clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(function () {
         resizeBaseCanvas = null;
       }, 500);
