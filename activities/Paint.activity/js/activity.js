@@ -114,9 +114,71 @@ define(["sugar-web/activity/activity", "tutorial", "l10n", "sugar-web/env", "act
       PaintApp.collaboration.shareActivity();
     }
 
-    // Fix: Resize canvas when window size changes
-    var resizeBaseCanvas = null;
-    var resizeTimeout = null;
+    // Fix: Persistent Resize Buffer to prevent erasing hidden content
+    var resizeBufferCanvas = document.createElement('canvas');
+    var resizeBufferContext = resizeBufferCanvas.getContext('2d');
+
+    function syncResizeBuffer() {
+      if (!PaintApp || !PaintApp.elements || !PaintApp.elements.canvas) return;
+      var canvas = PaintApp.elements.canvas;
+
+      // Grow buffer if needed
+      var needsResize = false;
+      if (canvas.width > resizeBufferCanvas.width) {
+        resizeBufferCanvas.width = canvas.width;
+        needsResize = true;
+      }
+      if (canvas.height > resizeBufferCanvas.height) {
+        resizeBufferCanvas.height = canvas.height;
+        needsResize = true;
+      }
+
+      // If we grew the buffer, we should fill the new area with white first
+      if (needsResize) {
+        var tmpCanvas = document.createElement('canvas');
+        tmpCanvas.width = resizeBufferCanvas.width;
+        tmpCanvas.height = resizeBufferCanvas.height;
+        var tmpCtx = tmpCanvas.getContext('2d');
+        tmpCtx.fillStyle = "#ffffff";
+        tmpCtx.fillRect(0, 0, tmpCanvas.width, tmpCanvas.height);
+        tmpCtx.drawImage(resizeBufferCanvas, 0, 0);
+
+        resizeBufferCanvas.width = tmpCanvas.width;
+        resizeBufferCanvas.height = tmpCanvas.height;
+        resizeBufferContext.drawImage(tmpCanvas, 0, 0);
+      }
+
+      // Sync active canvas content to buffer at (0,0)
+      resizeBufferContext.drawImage(canvas, 0, 0);
+    }
+
+    // Wrap PaintApp functions to sync buffer on every state change
+    var oldSaveCanvas = PaintApp.saveCanvas;
+    PaintApp.saveCanvas = function () {
+      oldSaveCanvas.apply(this, arguments);
+      syncResizeBuffer();
+    };
+
+    var oldDisplayButtons = PaintApp.displayUndoRedoButtons;
+    PaintApp.displayUndoRedoButtons = function () {
+      oldDisplayButtons.apply(this, arguments);
+      syncResizeBuffer();
+    };
+
+    var oldClearCanvas = PaintApp.clearCanvas;
+    PaintApp.clearCanvas = function () {
+      oldClearCanvas.apply(this, arguments);
+      // Reset buffer on clear
+      resizeBufferCanvas.width = PaintApp.elements.canvas.width;
+      resizeBufferCanvas.height = PaintApp.elements.canvas.height;
+      resizeBufferContext.fillStyle = "#ffffff";
+      resizeBufferContext.fillRect(0, 0, resizeBufferCanvas.width, resizeBufferCanvas.height);
+    };
+
+    // Initial sync
+    setTimeout(syncResizeBuffer, 500);
+
+    // Update resize listener to use the persistent buffer
     window.addEventListener("resize", function () {
       if (!PaintApp || !PaintApp.elements || !PaintApp.elements.canvas) {
         return;
@@ -125,51 +187,27 @@ define(["sugar-web/activity/activity", "tutorial", "l10n", "sugar-web/env", "act
       var canvas = PaintApp.elements.canvas;
       var ctx = canvas.getContext("2d");
 
-      // 1. Save current content synchronously at the START of resize
-      if (!resizeBaseCanvas) {
-        resizeBaseCanvas = document.createElement('canvas');
-        resizeBaseCanvas.width = canvas.width;
-        resizeBaseCanvas.height = canvas.height;
-        resizeBaseCanvas.getContext('2d').drawImage(canvas, 0, 0);
-      }
-
-      // 2. Compute new size
+      // 1. Compute new size
       var newWidth = window.innerWidth;
       var newHeight = window.innerHeight - 55;
 
-      // 3. Update Paper.js view size (resizes the canvas internally)
+      // 2. Update Paper.js view size (resizes the canvas internally)
       if (typeof paper !== 'undefined' && paper.view) {
         paper.view.viewSize = new paper.Size(newWidth, newHeight);
-        // Important: Stop Paper.js from clearing the canvas manually
         paper.view.autoUpdate = false;
       }
 
-      // 4. Update CSS size
+      // 3. Update CSS size
       canvas.style.width = newWidth + "px";
       canvas.style.height = newHeight + "px";
 
-      // 5. Restore content synchronously and scale to fit the new size
-      // Reset transform to identity for whole-buffer drawImage
+      // 4. Restore content synchronously from persistent buffer
       ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-      // High-quality scaling settings
-      ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
-
-      // Fill with white background (standard for Paint)
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw the original content scaled to fit the new buffer
-      ctx.drawImage(resizeBaseCanvas, 0, 0, canvas.width, canvas.height);
-
-      // 6. Reset the base canvas after a period of inactivity (resize finished)
-      if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-      }
-      resizeTimeout = setTimeout(function () {
-        resizeBaseCanvas = null;
-      }, 500);
+      // Draw the persistent buffer content at (0,0) without scaling
+      ctx.drawImage(resizeBufferCanvas, 0, 0);
     });
   });
 });
