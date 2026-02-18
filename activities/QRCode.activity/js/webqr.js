@@ -12,6 +12,7 @@ var v=null;
 var qrSize = 0;
 var margin = 0;
 var scannedCallback = null;
+var currentStream = null;
 
 
 var vidhtml = '<video id="video-stream" autoplay></video>';
@@ -83,8 +84,8 @@ function isCanvasSupported(){
   return !!(elem.getContext && elem.getContext('2d'));
 }
 function success(stream)
-{
-
+{    
+    currentStream = stream;
     v.srcObject = stream;
     v.play();
 
@@ -183,4 +184,25 @@ function setwebcam2(options)
 
     stype=1;
     setTimeout(captureToCanvas, 500);
+}
+function stopWebcam() {
+    if (currentStream) {
+        currentStream.getTracks().forEach(function(track) {
+            track.stop();
+        });
+        currentStream = null;
+    }
+
+    if (v) {
+        v.pause();
+        v.srcObject = null;
+    }
+
+    gUM = false;
+    stype = 0;
+
+    var outdiv = document.getElementById("outdiv");
+    if (outdiv) {
+        outdiv.innerHTML = "";
+    }
 }

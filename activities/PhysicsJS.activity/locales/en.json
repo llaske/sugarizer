@@ -18,6 +18,8 @@
 	"TutoSensorContent": "When this icon is active, your device support gravity so you could just turn your device to change the direction of gravity",
 	"TutoAppleTitle": "Newton",
 	"TutoAppleContent": "Click here to turn on the Newton laws. Objects will attract each other. The strength of attraction depends on size of the object",
+	"TutoWaterTitle": "Water",
+	"TutoWaterContent": "Click here to turn on water mode. A water surface will appear and objects will float or sink depending on their density",
 	"TutoClearTitle": "Remove",
 	"TutoClearContent": "Click here to pass in remove mode. Every object you will click will be deleted",
 	"TutoPauseTitle": "Pause",

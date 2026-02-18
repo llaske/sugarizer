@@ -1,5 +1,7 @@
-define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","l10n", "tutorial"], function (activity,env,radioButtonsGroup,mustache,moment, l10n, tutorial) {
+define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiobuttonsgroup","mustache","moment-with-locales.min","l10n","tutorial","sugar-web/graphics/palette"], function (activity,env,radioButtonsGroup,mustache,moment, l10n, tutorial, palette) {
 
+    // Alias localization helper
+    var l10n_s = l10n;
     // Manipulate the DOM only when it is ready.
     requirejs(['domReady!'], function (doc) {
 
@@ -20,6 +22,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 console.log("New instance");
             } else {
                 activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
+                    if (data.selectedTimezoneId) {
+                        restoredTimezoneId = data.selectedTimezoneId;
+                    }
                     if (error==null && data!=null) {
                         show_am_pm = data.show_am_pm;
                         show_mins = data.show_mins;
@@ -29,7 +34,14 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                         if(show_mins) {
                           document.getElementById("show-mins").classList.add("active");
                         }
+
+                        // Restore selected timezone if saved
+                        if (data.selectedTimezoneId) {
+                          selectedTimezoneId = data.selectedTimezoneId;
+                        }
+
                         Clock.face=data.face;
+
                         if(data.face=="simple"){
                             document.getElementById("simple-clock-button").classList.add("active");
                             document.getElementById("nice-clock-button").classList.remove("active");
@@ -103,6 +115,87 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             window.msRequestAnimationFrame;
         var show_am_pm = false;
         var show_mins = false;
+
+        // Global time state (saved in Journal)
+        var selectedTimezoneId = "local"; // "local" or IANA timezone id
+        var restoredTimezoneId = null;
+
+        // Mapping timezone -> localization keys
+        var TIMEZONE_LABEL_KEYS = {
+            "local": "TimezoneLocal",
+            "Etc/UTC": "TimezoneUTC",
+            "Asia/Kolkata": "TimezoneAsiaKolkata",
+            "Asia/Dubai": "TimezoneAsiaDubai",
+            "Asia/Singapore": "TimezoneAsiaSingapore",
+            "Asia/Bangkok": "TimezoneAsiaBangkok",
+            "Asia/Shanghai": "TimezoneAsiaShanghai",
+            "Asia/Hong_Kong": "TimezoneAsiaHongKong",
+            "Asia/Seoul": "TimezoneAsiaSeoul",
+            "Asia/Tokyo": "TimezoneAsiaTokyo",
+            "Europe/London": "TimezoneEuropeLondon",
+            "Europe/Paris": "TimezoneEuropeParis",
+            "Europe/Rome": "TimezoneEuropeRome",
+            "Europe/Berlin": "TimezoneEuropeBerlin",
+            "Europe/Madrid": "TimezoneEuropeMadrid",
+            "Europe/Moscow": "TimezoneEuropeMoscow",
+            "Africa/Cairo": "TimezoneAfricaCairo",
+            "Africa/Nairobi": "TimezoneAfricaNairobi",
+            "Africa/Johannesburg": "TimezoneAfricaJohannesburg",
+            "America/New_York": "TimezoneAmericaNewYork",
+            "America/Chicago": "TimezoneAmericaChicago",
+            "America/Denver": "TimezoneAmericaDenver",
+            "America/Los_Angeles": "TimezoneAmericaLosAngeles",
+            "America/Toronto": "TimezoneAmericaToronto",
+            "America/Mexico_City": "TimezoneAmericaMexicoCity",
+            "America/Sao_Paulo": "TimezoneAmericaSaoPaulo",
+            "America/Argentina/Buenos_Aires": "TimezoneAmericaBuenosAires",
+            "Australia/Sydney": "TimezoneAustraliaSydney",
+            "Australia/Melbourne": "TimezoneAustraliaMelbourne",
+            "Pacific/Auckland": "TimezonePacificAuckland"
+        };
+
+        function getUtcOffsetMinutes(timezoneId) {
+            var now = new Date();
+            var localOffset = -now.getTimezoneOffset();
+
+            if (timezoneId === "local") {
+                return localOffset;
+            }
+
+            var tzString = now.toLocaleString("en-US", { timeZone: timezoneId });
+            var tzDate = new Date(tzString);
+            var diffToLocal = (tzDate.getTime() - now.getTime()) / 60000;
+
+            return localOffset + diffToLocal;
+        }
+
+        function formatUtcOffset(offsetMinutes) {
+            var sign = offsetMinutes >= 0 ? "+" : "-";
+            var abs = Math.abs(offsetMinutes);
+            var hours = Math.floor(abs / 60);
+            var mins = abs % 60;
+
+            if (mins === 0) {
+                return "UTC" + sign + hours;
+            }
+            var minsStr = mins < 10 ? "0" + mins : "" + mins;
+            return "UTC" + sign + hours + ":" + minsStr;
+        }
+
+
+        function getCurrentDate() {
+            if (selectedTimezoneId === "local") {
+                return new Date();
+            }
+            var localeString = new Date().toLocaleString("en-US", { timeZone: selectedTimezoneId });
+            return new Date(localeString);
+        }
+
+        function getSelectedTimezoneLabel() {
+            var key = TIMEZONE_LABEL_KEYS[selectedTimezoneId] || "TimezoneLocal";
+            return l10n_s.get(key);
+        }
+
 
         function Clock() {
             this.face = "simple";
@@ -235,9 +328,205 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                 that.drawBackground();
             });
             
-            var date = new Date();
+            var globalTimeButton = document.getElementById("global-time-button");
+            if (globalTimeButton) {
+                var globalTimePalette = new palette.Palette(globalTimeButton);
+                globalTimeButton.addEventListener("click", function () {
+                    refreshActiveCityHighlight();
+                });
+
+                var paletteContent = document.createElement("div");
+                paletteContent.className = "global-time-palette";
+
+                var title = document.createElement("div");
+                title.className = "global-time-title";
+                title.textContent = l10n_s.get("ChooseLocation");
+                paletteContent.appendChild(title);
+
+                // container for items
+                var list = document.createElement("div");
+                list.className = "global-time-list";
+
+                (function () {
+                    var localItem = document.createElement("div");
+                    localItem.className = "global-time-item";
+                    localItem.setAttribute("data-timezone-id", "local");
+                    localItem.textContent = l10n_s.get(TIMEZONE_LABEL_KEYS["local"]);
+
+                    localItem.addEventListener("click", function () {
+                        selectedTimezoneId = "local";
+                        refreshActiveCityHighlight();
+                        globalTimePalette.popDown();
+                    });
+                    list.appendChild(localItem);
+                })();
+
+                var GROUPED_TIMEZONES = [
+                    "Etc/UTC",
+                    "Asia/Kolkata",
+                    "Asia/Dubai",
+                    "Asia/Singapore",
+                    "Asia/Bangkok",
+                    "Asia/Shanghai",
+                    "Asia/Hong_Kong",
+                    "Asia/Seoul",
+                    "Asia/Tokyo",
+                    "Europe/London",
+                    "Europe/Paris",
+                    "Europe/Rome",
+                    "Europe/Berlin",
+                    "Europe/Madrid",
+                    "Europe/Moscow",
+                    "Africa/Cairo",
+                    "Africa/Nairobi",
+                    "Africa/Johannesburg",
+                    "America/New_York",
+                    "America/Chicago",
+                    "America/Denver",
+                    "America/Los_Angeles",
+                    "America/Toronto",
+                    "America/Mexico_City",
+                    "America/Sao_Paulo",
+                    "America/Argentina/Buenos_Aires",
+                    "Australia/Sydney",
+                    "Australia/Melbourne",
+                    "Pacific/Auckland"
+                ];
+
+                var groupsByOffset = {};
+                for (var gi = 0; gi < GROUPED_TIMEZONES.length; gi++) {
+                    var tzId = GROUPED_TIMEZONES[gi];
+                    var offset = Math.round(getUtcOffsetMinutes(tzId));
+                    var key = offset.toString();
+                    if (!groupsByOffset[key]) {
+                        groupsByOffset[key] = [];
+                    }
+                    groupsByOffset[key].push(tzId);
+                }
+
+                var offsets = Object.keys(groupsByOffset).map(function (k) {
+                    return parseInt(k, 10);
+                }).sort(function (a, b) {
+                    return a - b;
+                });
+
+                function refreshActiveCityHighlight() {
+                    var items = list.querySelectorAll(".global-time-item");
+                    for (var j = 0; j < items.length; j++) {
+                        items[j].classList.remove("active");
+                    }
+                    var cities = list.querySelectorAll(".global-time-city");
+                    var activeRow = null;
+                    for (var i = 0; i < cities.length; i++) {
+                        var span = cities[i];
+                        if (span.getAttribute("data-timezone-id") === selectedTimezoneId) {
+                            span.classList.add("active");
+                            activeRow = span.parentNode;
+                        } else {
+                            span.classList.remove("active");
+                        }
+                    }
+
+                    // Special case: local time row
+                    if (selectedTimezoneId === "local") {
+                        var localLine = list.querySelector('.global-time-item[data-timezone-id="local"]');
+                        if (localLine) {
+                            activeRow = localLine;
+                        }
+                    }
+
+                    if (activeRow) {
+                        activeRow.classList.add("active");
+                    }
+                }
+
+                function syncCycleIndexWithSelectedTimezone() {
+                    var rows = list.querySelectorAll(".global-time-item[data-cycle-index]");
+                    for (var r = 0; r < rows.length; r++) {
+                        var cities = rows[r].querySelectorAll(".global-time-city");
+                        for (var i = 0; i < cities.length; i++) {
+                            if (cities[i].getAttribute("data-timezone-id") === selectedTimezoneId) {
+                                rows[r].setAttribute("data-cycle-index", i);
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                for (var oi = 0; oi < offsets.length; oi++) {
+                    var offsetMinutes = offsets[oi];
+                    var tzIds = groupsByOffset[offsetMinutes.toString()];
+                    if (!tzIds || tzIds.length === 0) {
+                        continue;
+                    }
+
+                    var groupDiv = document.createElement("div");
+                    groupDiv.className = "global-time-item";
+                    groupDiv.setAttribute("data-cycle-index", "0");
+
+                    groupDiv.addEventListener("click", function () {
+                      var cities = this.querySelectorAll(".global-time-city");
+                      if (!cities.length) return;
+
+                      var index = parseInt(this.getAttribute("data-cycle-index"), 10) || 0;
+
+                      // Cycle through cities
+                      selectedTimezoneId = cities[index].getAttribute("data-timezone-id");
+
+                      index++;
+                      if (index >= cities.length) index = 0;
+
+                      this.setAttribute("data-cycle-index", index);
+
+                      refreshActiveCityHighlight();
+                      globalTimePalette.popDown();
+                    });
+
+
+                    var offsetSpan = document.createElement("span");
+                    offsetSpan.className = "global-time-offset";
+                    offsetSpan.textContent = formatUtcOffset(offsetMinutes) + ":";
+                    groupDiv.appendChild(offsetSpan);
+                    for (var ci = 0; ci < tzIds.length; ci++) {
+                        (function (tzIdInner, index, total) {
+
+                            var citySpan = document.createElement("span");
+                            citySpan.className = "global-time-city";
+                            citySpan.setAttribute("data-timezone-id", tzIdInner);
+                            citySpan.textContent = l10n_s.get(TIMEZONE_LABEL_KEYS[tzIdInner]);
+
+                            if (tzIdInner === selectedTimezoneId) {
+                                citySpan.classList.add("active");
+                            }
+
+                            citySpan.addEventListener("click", function (event) {
+                                // Don't let the city pick directly, just use the row cycling
+                                event.preventDefault();
+                                // Trigger the same behavior as clicking the line
+                                groupDiv.click();
+                            });
+
+                            groupDiv.appendChild(citySpan);
+                            if (index < total - 1) {
+                                groupDiv.appendChild(document.createTextNode(", "));
+                            }
+
+                        })(tzIds[ci], ci, tzIds.length);
+                    }
+
+
+                    list.appendChild(groupDiv);
+                }
+
+                paletteContent.appendChild(list);
+                globalTimePalette.setContent([paletteContent]);
+                syncCycleIndexWithSelectedTimezone();
+                refreshActiveCityHighlight();
+            }
+
+            var date = getCurrentDate();
             var hours = date.getHours();
-            if (hours<12){
+            if (hours < 12) {
               this.toggleAMPM = true;
             } else {
               this.toggleAMPM = false;
@@ -255,6 +544,11 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             document.getElementById("text-time").innerHTML = l10n_s.get("WhatTime");
             document.getElementById("show-am-pm").title = l10n_s.get("ShowAmPmTitle");
             document.getElementById("show-mins").title = l10n_s.get("ShowMinsTitle");
+
+            var globalTimeBtn = document.getElementById("global-time-button");
+            if (globalTimeBtn) {
+                globalTimeBtn.title = l10n_s.get("GlobalTime");
+            }
         }
 
         Clock.prototype.start = function (face) {
@@ -301,19 +595,16 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.drawBackground();
         }
 
-
         Clock.prototype.changeWriteTime = function (writeTime) {
-          this.writeTime = writeTime;
-
-          if (writeTime) {
-              this.textTimeElem.style.display = "block";
-          } else {
-              this.textTimeElem.style.display = "none";
-          }
-
-          this.writeTimeInSetTime();
-
-      }
+            this.writeTime = writeTime;           
+            if (this.setTime || this.setTimeGame) {
+                this.writeTimeInSetTime();
+            } else {
+                this.update();  
+            }
+            this.updateSizes();
+            this.drawBackground();
+        }
 
         Clock.prototype.changeWriteDate = function (writeDate) {
             this.writeDate = writeDate;
@@ -325,7 +616,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             }
 
             this.updateSizes();
-            var date = new Date();
+            var date = getCurrentDate();
             this.displayDate(date);
             this.drawBackground();
         }
@@ -335,7 +626,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
             this.changeWriteTime(this.writeTime);
             this.updateSizes();
-            var date = new Date();
+            var date = getCurrentDate();
             this.displayDate(date);
             this.drawBackground();
         }
@@ -358,7 +649,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             this.clockContainerElem.style.width = this.size + "px";
             this.clockContainerElem.style.height = this.size + "px";
 
-			this.clockCanvasElem.style.width = (this.size+4) + "px";
+            this.clockCanvasElem.style.width = (this.size + 4) + "px";
 
             this.margin = this.size * 0.02;
             this.radius = (this.size - (2 * this.margin)) / 2;
@@ -382,58 +673,121 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
 
         // Update text and hand angles using the current time.
         Clock.prototype.update = function () {
-            var date = new Date();
+            var date = getCurrentDate();
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var seconds = date.getSeconds();
-            if (show_am_pm){
-              this.displayTime(hours, minutes, seconds);
+
+            var displayHours;
+            if (show_am_pm) {
+                displayHours = hours;
+            } else if (hours == 0) {
+                displayHours = hours + 12;
+            } else if (hours <= 12) {
+                displayHours = hours;
             } else {
-              if (hours==0) {
-                this.displayTime(hours+12, minutes, seconds);
-              } else if (hours <= 12) {
-                this.displayTime(hours, minutes, seconds);
-              } else {
-                this.displayTime(hours-12, minutes, seconds);
-              }
+                displayHours = hours - 12;
             }
+
+            var offsetMinutes = getUtcOffsetMinutes(selectedTimezoneId);
+            var offsetLabel = formatUtcOffset(Math.round(offsetMinutes));
+
+            var labelKey;
+            if (selectedTimezoneId === "local") {
+                labelKey = "TimezoneLocal";
+            } else {
+                labelKey = TIMEZONE_LABEL_KEYS[selectedTimezoneId] || "TimezoneLocal";
+            }
+
+            var labelText = l10n_s.get(labelKey);
+
+            // Fallback if localization not ready or returns the key itself
+            if (!labelText || labelText === labelKey) {
+                if (selectedTimezoneId === "local") {
+                    labelText = "Local time";
+                } else {
+                    labelText = selectedTimezoneId;
+                }
+            }
+
+            var suffix = "";
+            if (selectedTimezoneId !== "local") {
+              suffix = labelText + " (" + offsetLabel + ")";
+            }
+
+            // Show digits only when writeTime=true, but ALWAYS show suffix
+            this.displayTime(
+                this.writeTime ? displayHours : "",
+                this.writeTime ? minutes : "",
+                (this.writeTime && this.writeSeconds) ? seconds : "",
+                suffix
+            );
+
             this.displayDate(date);
 
             this.handAngles.hours = Math.PI / 6 * (hours % 12) + Math.PI / 360 * minutes;
-
             this.handAngles.minutes = Math.PI / 30 * minutes + Math.PI / 1800 * seconds;
             this.handAngles.seconds = Math.PI / 30 * seconds;
             this.drawBackground();
         }
 
         Clock.prototype.displayTime = function (hours, minutes, seconds, txt) {
-          if (!txt) { txt = "" };
-          var zeroFill = function (number) {
-              return ('00' + number).substr(-2);
-          };
+            if (!txt) { txt = ""; }
+            var zeroFill = function (number) {
+                if (number === undefined || number === "") {
+                    return "";
+                }
+                return ('00' + number).substr(-2);
+            };
 
-          var template =
-              '<span style="color: {{ colors.hours }}">{{ hours }}' +
-              '</span>' +
-              ':<span style="color: {{ colors.minutes }}">{{ minutes }}' +
-              '</span>' +
-              (this.writeSeconds ? ':<span style="color: {{ colors.seconds }}">{{ seconds }}</span>' : '') +
-              '<span style="color: {{ colors.yellow }}">' + txt +
-              '</span>'
-              ;
+            var wasHidden =
+                (this.textTimeElem.style.display === "" ||
+                this.textTimeElem.style.display === "none");
 
-          if (this.writeTime) {
-              var templateData = {'colors': this.colors,
-                                  'hours': zeroFill(hours),
-                                  'minutes': zeroFill(minutes),
-                                  'seconds': zeroFill(seconds)
-                                 }
+            var template =
+                '<span style="color: {{ colors.hours }}">{{ hours }}' +
+                '</span>' +
+                ':<span style="color: {{ colors.minutes }}">{{ minutes }}' +
+                '</span>' +
+                (this.writeSeconds ? ':<span style="color: {{ colors.seconds }}">{{ seconds }}</span>' : '');
 
-              this.textTimeElem.innerHTML = mustache.render(template,
-                                                            templateData);
-          }
+            var suffixHtml = '';
+            if (txt) {
+                suffixHtml =
+                    '<span style="color: {{ colors.yellow }}">' +
+                    ' ' + txt +
+                    '</span>';
+            }
 
-        }
+            if (this.writeTime && (hours !== "" || minutes !== "")) {
+                var templateData = {
+                    'colors': this.colors,
+                    'hours': zeroFill(hours),
+                    'minutes': zeroFill(minutes),
+                    'seconds': zeroFill(seconds)
+                };
+                this.textTimeElem.innerHTML =
+                    mustache.render(template, templateData) +
+                    mustache.render(suffixHtml, templateData);
+                this.textTimeElem.style.display = "block";
+            } else if (txt) {
+                this.textTimeElem.innerHTML =
+                    mustache.render(suffixHtml, { colors: this.colors });
+                this.textTimeElem.style.display = "block";
+            } else {
+                this.textTimeElem.innerHTML = "";
+                this.textTimeElem.style.display = "none";
+            }
+
+            var isHidden =
+                (this.textTimeElem.style.display === "" ||
+                this.textTimeElem.style.display === "none");
+
+            if ((txt && wasHidden && !isHidden) || (!txt && !wasHidden && isHidden)) {
+                this.updateSizes();
+                this.drawBackground();
+            }
+        };
 
         Clock.prototype.displayDate = function (date) {
           if (this.writeDate) {
@@ -479,7 +833,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
             var lineWidthBackground = this.lineWidthBase * 4;
             ctx.lineCap = 'round';
             ctx.lineWidth = lineWidthBackground;
-            var date = new Date();
+            var date = getCurrentDate();
             var hours = date.getHours();
             if (show_am_pm){
               if (this.setTime){
@@ -499,7 +853,7 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
                   ctx.fillStyle = this.colors.black;
                 }
               } else {
-                if (hours<12){
+                if (hours < 12) {
                   ctx.strokeStyle = this.colors.black;
                   ctx.fillStyle = this.colors.white;
                 } else {
@@ -911,6 +1265,9 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
         // Create the clock.
 
         var clock = new Clock();
+        if (restoredTimezoneId) {
+            selectedTimezoneId = restoredTimezoneId;
+        }
         clock.start();
 
         // UI controls.
@@ -935,6 +1292,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               this.classList.toggle('active');
               var active = this.classList.contains('active');
               clock.changeWriteTime(active);
+              clock.updateSizes();
+              clock.drawBackground();
             }
         };
 
@@ -943,6 +1302,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               this.classList.toggle('active');
               var active = this.classList.contains('active');
               clock.changeWriteDate(active);
+              clock.updateSizes();
+              clock.drawBackground();
         };
 
         var writeSecondsButton = document.getElementById("write-seconds-button");
@@ -1117,7 +1478,8 @@ define(["sugar-web/activity/activity","sugar-web/env","sugar-web/graphics/radiob
               handAngles : clock.handAngles,
               timeToBeDisplayed : clock.timeToBeDisplayed,
               show_am_pm: show_am_pm,
-              show_mins: show_mins
+              show_mins: show_mins,
+              selectedTimezoneId: selectedTimezoneId
             }
             activity.getDatastoreObject().setDataAsText(stateObj);
             activity.getDatastoreObject().save(function (error) {

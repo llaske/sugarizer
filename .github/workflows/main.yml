@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
+    if: github.repository == 'llaske/sugarizer'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy on Sugarizer Dev Server

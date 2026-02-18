@@ -18,6 +18,8 @@
 	"TutoSensorContent": "Kliknij aby stworzyć sensor.",
 	"TutoAppleTitle": "Newton",
 	"TutoAppleContent": "Klinij aby włączyć prawo Newtona. Obiekty zaczną się przyciągać. Wartość siły zależy od wielkości obiektu.",
+	"TutoWaterTitle": "Woda",
+	"TutoWaterContent": "Kliknij tutaj, aby włączyć tryb wody. Pojawi się powierzchnia wody, a obiekty będą unosić się lub tonąć w zależności od ich gęstości",
 	"TutoClearTitle": "Usuń",
 	"TutoClearContent": "Kliknij tutaj a później na obiekt aby go usunąć.",
 	"TutoPauseTitle": "Pauza",

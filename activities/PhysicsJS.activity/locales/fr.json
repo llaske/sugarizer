@@ -18,6 +18,8 @@
 	"TutoSensorContent": "Quand cet icône est actif, votre machine supporte la gravité, vous pouvez simplement tourner votre machine pour changer la direction de la gravité",
 	"TutoAppleTitle": "Newton",
 	"TutoAppleContent": "Cliquez ici pour passer à la loi de Newton. Les éléments seront attirés les uns par les autres. La force de l'attraction dépend de la taille de l'élément",
+	"TutoWaterTitle": "Eau",
+	"TutoWaterContent": "Cliquez ici pour activer le mode eau. Une surface d'eau apparaîtra et les objets flotteront ou couleront en fonction de leur densité",
 	"TutoClearTitle": "Supprimer",
 	"TutoClearContent": "Cliquez sur cet icône pour passer en mode suppression. Tous les objets sur lequel vous cliquerez ensuite seront supprimés",
 	"TutoPauseTitle": "Pause",

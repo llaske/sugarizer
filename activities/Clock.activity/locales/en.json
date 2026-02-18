@@ -50,5 +50,45 @@
   "ShowAmPmTitle": "Show hours",
   "TutoShowAmPmContent": "Click this icon to display 24 hour format in Simple Clock.",
   "ShowMinsTitle": "Show minutes",
-  "TutoShowMinsContent": "Click this icon to display minutes in Simple Clock."
+  "TutoShowMinsContent": "Click this icon to display minutes in Simple Clock.",
+  "GlobalTime": "Global time",
+  "ChooseLocation": "Choose location",
+  "TutoGlobalTimeContent": "Click this icon to open Global Time mode. In this mode, you can choose a city from around the world and the clock will display the current time for that location.",
+
+  "TimezoneLocal": "Local time",
+  "TimezoneUTC": "UTC",
+
+  "TimezoneAsiaKolkata": "India",
+  "TimezoneAsiaDubai": "Dubai",
+  "TimezoneAsiaSingapore": "Singapore",
+  "TimezoneAsiaBangkok": "Bangkok",
+  "TimezoneAsiaShanghai": "Shanghai",
+  "TimezoneAsiaHongKong": "Hong Kong",
+  "TimezoneAsiaSeoul": "Seoul",
+  "TimezoneAsiaTokyo": "Tokyo",
+
+  "TimezoneEuropeLondon": "London",
+  "TimezoneEuropeParis": "Paris",
+  "TimezoneEuropeRome": "Rome",
+  "TimezoneEuropeBerlin": "Berlin",
+  "TimezoneEuropeMadrid": "Madrid",
+  "TimezoneEuropeMoscow": "Moscow",
+
+  "TimezoneAfricaCairo": "Cairo",
+  "TimezoneAfricaNairobi": "Nairobi",
+  "TimezoneAfricaJohannesburg": "Johannesburg",
+
+  "TimezoneAmericaNewYork": "New York",
+  "TimezoneAmericaChicago": "Chicago",
+  "TimezoneAmericaDenver": "Denver",
+  "TimezoneAmericaLosAngeles": "Los Angeles",
+  "TimezoneAmericaToronto": "Toronto",
+  "TimezoneAmericaMexicoCity": "Mexico City",
+  "TimezoneAmericaSaoPaulo": "São Paulo",
+  "TimezoneAmericaBuenosAires": "Buenos Aires",
+
+  "TimezoneAustraliaSydney": "Sydney",
+  "TimezoneAustraliaMelbourne": "Melbourne",
+  "TimezonePacificAuckland": "Auckland"
 }
+

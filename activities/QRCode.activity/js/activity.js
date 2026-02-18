@@ -229,6 +229,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "l
 			// Handle HTML5 capture
 			var outdiv = document.getElementById("outdiv");
 			var videostream = document.getElementById("video-stream");
+			if (videostream) {
+				videostream.style.visibility = "visible";
+			}
 			if (!photoButton.classList.contains('active')) {
 				document.getElementById("qr-code").style.visibility = "hidden";
 				document.getElementById("loading-spinner").style.visibility = "visible";
@@ -243,8 +246,10 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "l
 					videostream.style.visibility = "visible";
 				}
 			} else {
-				outdiv.style.visibility = "hidden";
-				videostream.style.visibility = "hidden";
+				if (typeof stopWebcam === "function") {
+					stopWebcam();
+				}
+				photoInitialized = false;
 				document.getElementById("loading-spinner").style.visibility = "hidden";
 				document.getElementById("qr-code").style.visibility = "visible";
 				userText.value = oldUserText;

@@ -6,6 +6,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	this.colours = [xocolor.stroke,xocolor.fill];
 	this.level = 4;
 	this.turns = 1;
+	this.isgameOver=false;
 
 	this.gridwidth = 7;
 	this.gridheight = 7;
@@ -154,7 +155,9 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		if (this.startgridwidth<this.gridwidth){
 			this.startgridwidth++;
 			this.startgridheight++;
+			
 		}
+		this.isgameOver=true;
 		this.palette.setUsed();
 		var t = this;
 		this.newGameTimeout = setTimeout(function(){t.newGame();},2000);
@@ -193,11 +196,19 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 
 	//Init
 
+
+	// check to see if when window resized and new lvl abt to begin
+	this.checkNewGame=function(){
+		if(this.isgameOver==true){
+			this.newGame()
+		}
+	}
 	this.initialiseFromArray = function(){
 		clearTimeout(this.newGameTimeout);
 		clearTimeout(this.solveTimeout);
 		stage.removeAllChildren();
 		this.calculateDimensions();
+		this.checkNewGame()
 		var incr = (this.radius*2+this.margin);
 		var xp = (stage.canvas.width-this.circleswidth)/2+this.margin;
 		var yp = this.margin;
@@ -243,6 +254,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		//console.log(this.dotsarr);
 	}
 
+
 	this.calculateDimensions = function(){
 		var rad = this.canDoFromX();
 		if (rad===false){
@@ -256,6 +268,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 	this.newGame = function(){
 		clearTimeout(this.newGameTimeout);
 		clearTimeout(this.solveTimeout);
+		this.isgameOver=false;
 		stage.removeAllChildren();
 		this.calculateDimensions();
 		this.initDots();

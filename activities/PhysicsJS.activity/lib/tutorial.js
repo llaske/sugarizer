@@ -56,6 +56,12 @@ define(["l10n"], function (l10n) {
 				intro: l10n.get("TutoAppleContent")
 			},
 			{
+				element: "#water-button",
+				position: "bottom",
+				title: l10n.get("TutoWaterTitle"),
+				intro: l10n.get("TutoWaterContent")
+			},
+			{
 				element: "#clear-button",
 				position: "bottom",
 				title: l10n.get("TutoClearTitle"),

@@ -1,3 +1,8 @@
+> [!NOTE]
+> This is a preleminary v2.0 version of Sugarizer.
+> Some differences can be expected in the current documentation.
+> More [here](docs/v2.md).
+
 ![](images/sugarizer_logo_with_text.svg)
 
 # What is Sugarizer?
@@ -18,14 +23,14 @@ Sugarizer is available as:
 
 Sugarizer Application is a cross-platform application for installation on any GNU+Linux, Windows, Mac OS, Android or iOS device.
 
-To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](http://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
+To run **Sugarizer Application on Android**, download it on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer), [Amazon Store](https://www.amazon.com/gp/product/B00NKK7PZA) or [F-Droid](https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer).
 
 Sugarizer on Android is also available as a launcher to replace the current launcher of your device so you can launch native Android applications from Sugarizer. You can download this Sugarizer version on [Google Play](https://play.google.com/store/apps/details?id=org.olpc_france.sugarizeros).
 
 You could also build yourself the Sugarizer Application APK using the instructions below.
 
 <a href="https://play.google.com/store/apps/details?id=org.olpc_france.sugarizer"><img src="images/googleplay.png" alt="Google Play" width="20%" ></a>
-<a href="http://www.amazon.com/gp/product/B00NKK7PZA"><img src="images/amazonstore.png" alt="Amazon Store" width="20%" ></a>
+<a href="https://www.amazon.com/gp/product/B00NKK7PZA"><img src="images/amazonstore.png" alt="Amazon Store" width="20%" ></a>
 <a href="https://f-droid.org/repository/browse/?fdid=org.olpc_france.sugarizer"><img src="images/fdroid.png" alt="F-Droid" width="20%" ></a>
 
 
@@ -43,7 +48,7 @@ The Sugarizer desktop application has four possible arguments:
 * `--init` to remove all existing Journal and settings (all will be lost)
 * `--launch <activityid>` to open Sugarizer with a specific activity (e.g. `--launch org.olpcfrance.Abecedarium`). If no user is created/connected, it will be asked to create/connect one first.
 
-If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First, install Node.js and npm on your computer. See [here](http://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
+If you're a developer you could also launch Sugarizer desktop application using [electron](https://github.com/electron/electron). First, install Node.js and npm on your computer. See [here](https://nodejs.org/) for more information. Then install electron and specific modules for Sugarizer by running:
 
 	npm install
 
@@ -99,7 +104,7 @@ For **Safari** go to the `Safari/Preferences...` menu, under Advanced panel chec
 
 # Sugarizer Web Application
 
-[Try it now! (try.sugarizer.org)](http://try.sugarizer.org/)
+[Try it now! (try.sugarizer.org)](https://try.sugarizer.org/)
 
 Sugarizer Web App is a web application that runs on any device with a recent version of Chrome, Firefox or Safari browser.
 
@@ -201,7 +206,7 @@ To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRep
 
 # Build Application for Android and iOS
 
-Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
+Sugarizer Application could be packaged as an Android or iOS application using [Cordova](https://cordova.apache.org/).
 
 For Android:
 
@@ -215,13 +220,14 @@ Refer [this](docs/ios/ios_doc.md) documentation for building sugarizer for iOS.
 
 # Reduce package size
 
-The current size of Sugarizer is more than 400 Mb. This huge size is related to media content and resources included in three activities:
+The current size of Sugarizer is more than 650 Mb. This huge size is related to media content and resources included in four activities:
 
 * **Abecedarium activity**: about 150 Mb
 * **Etoys activity**: about 100 Mb
-* **Scratch activity**: about 50 Mb
+* **Scratch activity**: about 100 Mb
+* **Stickman activity**: about 100 Mb
 
-By the way, these activities are able to retrieve the content remotely if it's not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those three activities or just remove the media content of these activities.
+By the way, these activities are able to retrieve the content remotely if it's not deployed locally. So, if you want to reduce the Sugarizer package size (specifically for deployment on mobile) you could either remove completely those four activities or just remove the media content of these activities.
 
 To remove activities, just remove these activities directory and update [activities.json](activities.json) file as explained above.
 
@@ -232,17 +238,19 @@ To remove media content for **Abecedarium**, remove directories:
 * [activities/Abecedarium.activity/audio/es](activities/Abecedarium.activity/audio/es)
 * [activities/Abecedarium.activity/images/database](activities/Abecedarium.activity/images/database)
 
-The activity will look for media content on the server referenced in [activities/Abecedarium.activity/database/db_url.json](activities/Abecedarium.activity/database/db_url.json), by default `http://server.sugarizer.org/activities/Abecedarium.activity/`.
+The activity will look for media content on the server referenced in [activities/Abecedarium.activity/database/db_url.json](activities/Abecedarium.activity/database/db_url.json), by default `https://server.sugarizer.org/activities/Abecedarium.activity/`.
 
-To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and the file [activities/Etoys.activity/etoys.image](activities/Etoys.activity/etoys.image). Then replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example `http://server.sugarizer.org/activities/Etoys.activity/etoys.image`.
+To remove resources for **Etoys**, remove directory [activities/Etoys.activity/resources](activities/Etoys.activity/resources) and the file [activities/Etoys.activity/etoys.image](activities/Etoys.activity/etoys.image). Then replace the value `resources/etoys.image` in [activities/Etoys.activity/index.html](activities/Etoys.activity/index.html) by the remote location of the resources, for example `https://server.sugarizer.org/activities/Etoys.activity/etoys.image`.
 
 To remove resources for **Scratch**, remove directory [activities/Scratch.activity/static/internal-assets](activities/Scratch.activity/static/internal-assets) and remove the value `class="offlinemode"` in [activities/Scratch.activity/index.html](activities/Scratch.activity/index.html).
 
+To remove resources for **Stickman**, remove directory [activities/Stickman.activity/models](activities/Stickman.activity/models).The activity will look for models on the server referenced in [activities/Stickman.activity/js/network.js](activities/Stickman.activity/js/network.js), by default `https://server.sugarizer.org/activities/Stickman.activity/models`.
+
 # Optimize performance
 
-If you want to optimize JavaScript performance, you could generate an optimized version of Sugarizer with [Grunt](http://gruntjs.com). This optimized version will minimize and reduce the size of all JavaScript files.
+If you want to optimize JavaScript performance, you could generate an optimized version of Sugarizer with [Grunt](https://gruntjs.com). This optimized version will minimize and reduce the size of all JavaScript files.
 
-First, ensure that Node.js and npm are installed on your machine. See [here](http://nodejs.org/) for more information.
+First, ensure that Node.js and npm are installed on your machine. See [here](https://nodejs.org/) for more information.
 
 The [Gruntfile.js](Gruntfile.js) contains tasks settings to build an optimized version of Sugarizer. To do that, ensure first that grunt is installed:
 
@@ -261,7 +269,7 @@ At the end of the process, all JavaScript files in all directories have been rep
 
 # Localization
 
-If you're not a developer and you want to translate Sugarizer into your own language, please go to the [Sugarizer translation platform](http://translate.sugarizer.org) where you will be able to do that. If you're a developer, the following paragraphs will explain to you how the Sugarizer localization system works.
+If you're not a developer and you want to translate Sugarizer into your own language, please go to the [Sugarizer translation platform](https://translate.sugarizer.org) where you will be able to do that. If you're a developer, the following paragraphs will explain to you how the Sugarizer localization system works.
 
 Sugarizer use [i18next](https://www.i18next.com/) localization system.
 

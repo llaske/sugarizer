@@ -30,6 +30,8 @@ Initial activities in Sugarizer was developed by Lionel Laské (FoodChain, Abece
 * Implode, Measure by Sarthak Gupta
 * Story by Saurabh Gupta
 * 3DVolume by Samarth Bagga
+* Human Body by Samarth Bagga and Aditya Kumar Singh
+* Stickman by Aditya Kumar Singh
 * TamTam Micro, Physics, Labyrinth, Last One Loses, QR Code, Video Viewer, E-book reader, Shared Notes, Calligra, Xmas Lights, Dollar Street by Lionel Laské
 
 You could see credits details in the README file in the directory for each activity.
