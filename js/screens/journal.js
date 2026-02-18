@@ -70,7 +70,7 @@ const Journal = {
 						id="toolbar-help-btn"
 						svgfile="./icons/help.svg"
 						isNative="true"
-						:size="47"
+						:size="constant.iconSizeList"
 						:color="768"
 						:title="$t('Tutorial')"
 						isNative="true"
@@ -83,7 +83,7 @@ const Journal = {
 						id="journal_home_button"
 						svgfile="./icons/view-radial.svg" 
 						isNative="true"
-						:size="47"
+						:size="constant.iconSizeList"
 						:title="$t('FavoritesView')"
 						isNative="true"
 						@click="$emit('closeJournal')"
@@ -378,7 +378,7 @@ const Journal = {
 				id: "filter-type",
 				iconData: "icons/view-type.svg",
 				isNative: "true",
-				size: "20",
+				size: this.constant.iconSizeList,
 			},
 			name: this.$t("AllType"),
 			header: this.$t("SelectFilter"),
@@ -389,7 +389,7 @@ const Journal = {
 			icon: {
 				id: "filter-time",
 				iconData: "icons/view-created.svg",
-				size: "20",
+				size: this.constant.iconSizeList,
 				isNative: "true",
 			},
 			name: this.$t("Anytime"),
@@ -401,7 +401,7 @@ const Journal = {
 			icon: {
 				id: "sort-palette",
 				iconData: "icons/view-lastedit.svg",
-				size: "20",
+				size: this.constant.iconSizeList,
 				isNative: "true",
 			},
 			header: this.$t("SortDisplay"),
@@ -607,13 +607,13 @@ const Journal = {
 					disabled: activityDisabled
 				},
 				itemList: [
-					{ icon: { id: "activity-start", iconData: "icons/activity-start.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("RestartActivity"), disabled: activityDisabled},
-					{ icon: { id: "copy-journal", iconData: "icons/copy-journal.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToLocal"), disabled: copyToLocalDisabled},
-					{ icon: { id: "copy-cloud-one", iconData: "icons/copy-cloud-one.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToPrivate"), disabled: copyToPrivateDisabled},
-					{ icon: { id: "copy-cloud-all", iconData: "icons/copy-cloud-all.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToShared"), disabled: copyToSharedDisabled},
-					{ icon: { id: "copy-to-device", iconData: "icons/copy-to-device.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToDevice")},
-					{ icon: { id: "duplicate", iconData: "icons/duplicate.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Duplicate"), disabled: duplicateDisabled},
-					{ icon: { id: "list-remove", iconData: "icons/list-remove.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Erase")},
+					{ icon: { id: "activity-start", iconData: "icons/activity-start.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("RestartActivity"), disabled: activityDisabled },
+					{ icon: { id: "copy-journal", iconData: "icons/copy-journal.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToLocal"), disabled: copyToLocalDisabled },
+					{ icon: { id: "copy-cloud-one", iconData: "icons/copy-cloud-one.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToPrivate"), disabled: copyToPrivateDisabled },
+					{ icon: { id: "copy-cloud-all", iconData: "icons/copy-cloud-all.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToShared"), disabled: copyToSharedDisabled },
+					{ icon: { id: "copy-to-device", iconData: "icons/copy-to-device.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToDevice") },
+					{ icon: { id: "duplicate", iconData: "icons/duplicate.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Duplicate"), disabled: duplicateDisabled },
+					{ icon: { id: "list-remove", iconData: "icons/list-remove.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Erase") },
 				],
 				handlers: {
 					"pop-icon": () => { this.runCurrentActivity(entry); },
@@ -706,11 +706,11 @@ const Journal = {
 			this.showWarning = false;
 			const operation = this.currentOperation;
 			const selectedEntries = this.processedJournal.filter(e => e.isChecked);
-			
+
 			this.checkboxSelected = 0;
 			selectedEntries.forEach(entry => entry.isChecked = false);
 			this.isOperating = true;
-			
+
 			for (let entry of selectedEntries) {
 				if (operation && operation.action) {
 					await operation.action(entry, true);
@@ -977,7 +977,7 @@ const Journal = {
 				this.filterText ||
 				this.selectedActFilter > 0 ||
 				this.selectedTimeFilter !==
-					this.constant.DateRangeType.ANYTIME ||
+				this.constant.DateRangeType.ANYTIME ||
 				this.selectedSortFilter !== "timestamp"
 			);
 		},
@@ -1195,7 +1195,7 @@ const Journal = {
 				// Scrolled to top
 				const topElement =
 					this.$refs[
-						this.processedJournal[this.visibleStartIndex]?.objectId
+					this.processedJournal[this.visibleStartIndex]?.objectId
 					]?.[1];
 				this.visibleStartIndex = Math.max(
 					this.visibleStartIndex - pageJournalSize,

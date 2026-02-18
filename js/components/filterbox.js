@@ -7,8 +7,8 @@
  * @vue-event {Object} filterSelected - Emit selected item object with its icon and text when clicked
  */
 
-var currentFilterBoxRef= null;
-const FilterBox ={
+var currentFilterBoxRef = null;
+const FilterBox = {
 	name: 'FilterBox',
 	template: ` <div 
 					ref="filterBox"
@@ -65,10 +65,10 @@ const FilterBox ={
 	props: ['options'],
 	data() {
 		return {
-			optionsData: this.options? this.options: null,
+			optionsData: this.options ? this.options : null,
 			selectedData: {
-				icon: this.options? this.options.icon: null,
-				name: this.options? this.options.name: null,
+				icon: this.options ? this.options.icon : null,
+				name: this.options ? this.options.name : null,
 			},
 			showSubpopup: false,
 			iconKey: 0
@@ -76,38 +76,40 @@ const FilterBox ={
 	},
 	methods: {
 		removeFilterBox() {
-			this.showSubpopup= false;
-			currentFilterBoxRef= null;
+			this.showSubpopup = false;
+			currentFilterBoxRef = null;
 		},
 		showFilterBox() {
 			// retrieve current instance name attribute
-			const currRef= this.$refs.filterBox.getAttribute('name');
+			const currRef = this.$refs.filterBox.getAttribute('name');
 			// if currentFilterBoxRef is not null and active ref name is current ref then 
 			// hide subPopup, it will works as toggling subPopup
-			if(currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name') ==currRef) {
+			if (currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name') == currRef) {
 				this.removeFilterBox();
 				return;
 			}
 			// if currentFilterBoxRef is not null and active ref name is not current ref then 
 			// hide the active ref's subPopup so that we can open current one
-			if(currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name')!=currRef) {
+			if (currentFilterBoxRef && currentFilterBoxRef.$refs.filterBox.getAttribute('name') != currRef) {
 				currentFilterBoxRef.removeFilterBox();
-				currentFilterBoxRef= null;
+				currentFilterBoxRef = null;
 			}
 			// if there is no active subPopup and current subPopup is also false or if it's have options to show
-			if(!currentFilterBoxRef && !this.showSubpopup && this.optionsData.filterBoxList && this.optionsData.filterBoxList.length >0) {
-				this.showSubpopup= true;
-				this.iconKey= !this.iconKey;
-				currentFilterBoxRef= this;
+			if (!currentFilterBoxRef && !this.showSubpopup && this.optionsData.filterBoxList && this.optionsData.filterBoxList.length > 0) {
+				this.showSubpopup = true;
+				this.iconKey = !this.iconKey;
+				currentFilterBoxRef = this;
 			}
 		},
 		optionisSelected(item) {
-			var data= JSON.parse(JSON.stringify(item))
-			if(data.icon) {
-				this.selectedData.icon= data.icon;
-				this.iconKey= !this.iconKey;
+			var data = JSON.parse(JSON.stringify(item))
+			if (data.icon) {
+				var originalSize = this.selectedData.icon.size;
+				this.selectedData.icon = data.icon;
+				this.selectedData.icon.size = originalSize;
+				this.iconKey = !this.iconKey;
 			}
-			this.selectedData.name= data.name;
+			this.selectedData.name = data.name;
 			this.removeFilterBox();
 			this.$emit('filterSelected', data);
 		},
