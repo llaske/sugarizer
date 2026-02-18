@@ -97,8 +97,8 @@ function createWindow () {
 		backgroundColor: '#FFF',
 		minWidth: 640,
 		minHeight: 480,
-		fullscreen: frameless,
-		frame: !frameless,
+		fullscreen: false,
+		frame: true,
 		webPreferences: {
 			webSecurity: false,
 			contextIsolation: false,
@@ -112,9 +112,6 @@ function createWindow () {
 
 	// Load the index.html of Sugarizer
 	mainWindow.loadURL(launch ? launch : 'file://'+app.getAppPath()+'/index.html'+(reinit?'?rst=1':'')+(logoff?'?rst=2':''));
-	if (frameless) {
-		mainWindow.maximize();
-	}
 
 	// Wait for 'ready-to-show' to display our window
 	mainWindow.webContents.once('did-finish-load', function() {
