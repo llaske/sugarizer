@@ -22,6 +22,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		var appleButton = document.getElementById("apple-button");
 		var waterButton = document.getElementById("water-button");
 		var runButton = document.getElementById("run-button");
+		var penButton = document.getElementById("pen-button");
 		var readyToWatch = false;
 		var sensorMode = true;
 		var newtonMode = false;
@@ -30,6 +31,10 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		var currentGravity = { x: 0, y: 0.0004 };
 
 
+		var isDrawing = false;
+		var drawingPoints = [];
+		var tempCanvas = null;
+		var tempCtx = null;
 		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
 			document.addEventListener('deviceready', function() {
 				readyToWatch = true;
@@ -74,9 +79,11 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 				// add the renderer
 				world.add(renderer);
+				// Create temporary canvas for pen drawing preview
+				createTempCanvas();
 				// render on each step
 				world.on('step', function () {
-					world.render();
+					world.render();					
 					if (!init) {
 						init = true;
 						zoom();
@@ -303,45 +310,64 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			// resize events
 			// Optimized Real-Time Resize
 			window.addEventListener('resize', function () {
-				const newWidth = body.offsetWidth;
-				const newHeight = body.offsetHeight;
-				// 1. Calculate the instantaneous scale ratio
-				const scaleX = newWidth / prevWidth;
-				const scaleY = newHeight / prevHeight;
-				// 2. Update Physics Bounds immediately
-				viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, newWidth + outerWidth, newHeight);
-				edgeBounce.setAABB(viewportBounds);
-				// 3. Update all bodies smoothly
-				var physicsBodies = world.getBodies();
-				physicsBodies.forEach(function(b) {
-					// Update positions based on the change ratio
-					b.state.pos.x *= scaleX;
-					b.state.pos.y *= scaleY;
-					// Scale velocity so they don't lose or gain momentum unnaturally
-					b.state.vel.x *= scaleX;
-					b.state.vel.y *= scaleY;
-					b.recalc(); 
-				});
+    // 1. Immediate Logic: Smoothly scale physics bodies as the user drags
+    const newWidth = body.offsetWidth;
+    const newHeight = body.offsetHeight;
 
-				// 4. Update the renderer immediately for visual feedback
-				if (renderer) {
-					renderer.resize(newWidth, newHeight);
-				}
-				// 5. Update global state for the NEXT resize event
-				innerWidth = newWidth;
-				innerHeight = newHeight;
-				prevWidth = newWidth;
-				prevHeight = newHeight;
-				// Update water and force a render frame
-				WATER.updateBoundary();
-				world.wakeUpAll();
-				world.render(); 
-			}, true);
-			// handle toolbar buttons
-			document.getElementById("box-button").addEventListener('click', function (e) {
-				currentType = 1;
-				switchToType(currentType);
-			}, true);
+    // Calculate scale ratios based on previous dimensions
+    const scaleX = newWidth / prevWidth;
+    const scaleY = newHeight / prevHeight;
+
+    // Update Physics Bounds immediately
+    viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, newWidth + outerWidth, newHeight);
+    edgeBounce.setAABB(viewportBounds);
+
+    // Update all bodies smoothly
+    var physicsBodies = world.getBodies();
+    physicsBodies.forEach(function(b) {
+        b.state.pos.x *= scaleX;
+        b.state.pos.y *= scaleY;
+        b.state.vel.x *= scaleX;
+        b.state.vel.y *= scaleY;
+        b.recalc(); 
+    });
+
+    // Update the renderer immediately for visual feedback
+    if (renderer) {
+        renderer.resize(newWidth, newHeight);
+    }
+
+    // Sync state for the next frame
+    innerWidth = newWidth;
+    innerHeight = newHeight;
+    prevWidth = newWidth;
+    prevHeight = newHeight;
+
+    // Refresh visuals
+    WATER.updateBoundary();
+    world.wakeUpAll();
+    world.render();
+
+    // 2. Debounced Logic: Heavy lifting after the user stops dragging
+    if (resizeTimer) {
+        clearTimeout(resizeTimer);
+    }
+
+    resizeTimer = setTimeout(function() {
+        // Finalize viewport bounds using the latest renderer dimensions
+        viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, renderer.width + outerWidth, renderer.height);
+        edgeBounce.setAABB(viewportBounds);
+
+        // Call zoom or heavy canvas recreation
+        zoom();
+
+        if (tempCanvas) {
+            createTempCanvas();
+        }
+    }, 500);
+
+}, true);
+
 			document.getElementById("circle-button").addEventListener('click', function (e) {
 				currentType = 0;
 				switchToType(currentType);
@@ -367,6 +393,12 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 			document.getElementById("clear-button").addEventListener('click', function () {
 				currentType = -1;
+				switchToType(currentType);
+			}, true);
+
+			// Pen button event listener
+			penButton.addEventListener('click', function () {
+				currentType = 4;
 				switchToType(currentType);
 			}, true);
 
@@ -521,19 +553,173 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			}
 
 			function switchToType(newtype) {
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 				document.getElementById("box-button").classList.remove('active');
 				document.getElementById("circle-button").classList.remove('active');
 				document.getElementById("polygon-button").classList.remove('active');
 				document.getElementById("triangle-button").classList.remove('active');
 				document.getElementById("clear-button").classList.remove('active');
+				document.getElementById("pen-button").classList.remove('active');
+				document.getElementById("viewport").style.cursor = "default";
 				if (newtype == 0) document.getElementById("circle-button").classList.add('active');
 				else if (newtype == 1) document.getElementById("box-button").classList.add('active');
 				else if (newtype == 2) document.getElementById("triangle-button").classList.add('active');
 				else if (newtype == 3) document.getElementById("polygon-button").classList.add('active');
+				else if (newtype == 4) {
+					document.getElementById("pen-button").classList.add('active');
+					document.getElementById("viewport").style.cursor = "crosshair";
+				}
 				else if (newtype == -1) document.getElementById("clear-button").classList.add('active');
 			}
 
-			
+			function createTempCanvas() {
+				var viewport = document.getElementById("viewport");
+				if (tempCanvas) {
+					viewport.removeChild(tempCanvas);
+				}
+
+				tempCanvas = document.createElement('canvas');
+				tempCanvas.width = body.offsetWidth;
+				tempCanvas.height = body.offsetHeight;
+				tempCanvas.style.position = "absolute";
+				tempCanvas.style.top = "0";
+				tempCanvas.style.left = "0";
+				tempCanvas.style.pointerEvents = "none";
+				tempCanvas.style.zIndex = 1;
+				viewport.appendChild(tempCanvas);
+				tempCtx = tempCanvas.getContext('2d');
+			}
+
+			function clearTempCanvas() {
+				if (tempCtx) {
+					tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+				}	
+			}
+
+			function drawPenPreview() {
+				if (!tempCtx || drawingPoints.length < 2) return;
+				clearTempCanvas();
+				tempCtx.beginPath();
+				tempCtx.strokeStyle = '#00ff00';
+				tempCtx.lineWidth = 3;
+				tempCtx.lineJoin = 'round';
+				tempCtx.lineCap = 'round';
+
+				tempCtx.moveTo(drawingPoints[0].x, drawingPoints[0].y);
+				for (var i = 1; i < drawingPoints.length; i++) {
+					tempCtx.lineTo(drawingPoints[i].x, drawingPoints[i].y);
+				}
+
+				tempCtx.stroke();
+			}
+
+			function simplifyPath(points, tolerance) {
+				if (points.length <= 2) return points;
+				var simplified = [points[0]];
+
+				for (var i = 1; i < points.length - 1; i++) {
+					var prev = simplified[simplified.length - 1];
+					var curr = points[i];
+
+					var dist = Math.sqrt(
+						Math.pow(curr.x - prev.x, 2) +
+						Math.pow(curr.y - prev.y, 2)
+					);
+
+					if (dist > tolerance) {
+						simplified.push(curr);
+					}
+				}
+				simplified.push(points[points.length - 1]);
+				return simplified;
+			}
+
+			function createConvexHull(points) {
+				// Simple convex hull using gift wrapping algorithm
+				if (points.length < 3) return points;
+				var hull = [];
+				var leftmost = 0;
+				for (var i = 1; i < points.length; i++) {
+					if (points[i].x < points[leftmost].x) {
+						leftmost = i;
+					}
+				}
+
+				var p = leftmost;
+				do {
+					hull.push(points[p]);
+					var q = (p + 1) % points.length;
+					for(var i = 0; i < points.length; i++) {
+						var cross = (points[q].y - points[p].y) * (points[i].x - points[q].x) -	(points[q].x - points[p].x) * (points[i].y - points[q].y);
+						if (cross < 0) {
+							q = i;
+						}	
+					}
+					p = q;
+				} while (p != leftmost && hull.length < points.length);
+				return hull;
+			}
+
+			function createPhysicsBodyFromPath(points) {
+				if (points.length < 3) return;
+
+				// Simplify and create convex hull
+				var simplified = simplifyPath(points, 15);
+				if (simplified.length < 3) return;
+
+				// force close the polygon
+				var firstPoint = simplified[0];
+				var lastPoint = simplified[simplified.length - 1];
+				var dx = firstPoint.x - lastPoint.x;
+				var dy = firstPoint.y - lastPoint.y;
+				var dist = Math.sqrt(dx*dx + dy*dy);
+				if (dist > 5) {
+					simplified.push({x: firstPoint.x, y: firstPoint.y});
+				}
+
+				var hull = createConvexHull(simplified);
+
+				if (hull.length < 3) return;
+
+				// Calculate centroid
+				var cx = 0, cy = 0;
+				for (var i = 0; i < hull.length; i++) {
+					cx += hull[i].x;
+					cy += hull[i].y;
+				}
+				cx /= hull.length;
+				cy /= hull.length;
+
+				// Convert to vertices relative to centroid
+				var vertices = [];
+				for (var i = 0; i < hull.length; i++) {
+					vertices.push(Physics.vector(hull[i].x - cx, hull[i].y - cy));
+				}
+
+				// Create physics body
+				var c = colors[random(0, colors.length-1)];
+				try { 
+					var body = Physics.body('convex-polygon', {
+						x: cx,
+						y: cy,
+						vertices: vertices,
+						mass: 1,
+						restitution: 0.9,
+						styles: {
+							fillStyle: c[0],
+							strokeStyle: c[1],
+							lineWidth: 1,
+							angleIndicator: c[1]
+						}
+					});
+					body.treatment = physicsActive ? "dynamic" : "static";
+					world.add(body);
+				} catch (e) {
+					console.log("Failed to create shape: " + e.message);
+				}
+			}
 
 			function dropInBody(type, pos){
 
@@ -638,12 +824,17 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					object.width = body.view.width;
 					object.height = body.view.height;
 				} else if (body.geometry.name == "convex-polygon") {
-					object.vertices = body.vertices;
+					// Save the vertices properly
+					object.vertices = [];
+					for (var i = 0; i <body.vertices.length; i++) {
+						object.vertices.push( { x: body.vertices[i].x,  y: body.vertices[i].y } );
+					}
 				}
 				object.restitution = body.restitution;
 				object.styles = body.styles;
 				object.x = body.view.x;
 				object.y = body.view.y;
+				object.angle = body.state.angular.pos;// Save rotation angle
 				return object;
 			}
 
@@ -783,17 +974,38 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			var distance = null;
 			world.on({
 				'interact:poke': function( pos ){
+					// Handle pen drawing mode
+					if (currentType == 4 && pos.y > toolbarHeight) {
+						isDrawing = true;
+						drawingPoints = [];
+						drawingPoints.push(adjustedPos);
+						return;
+					}
+
 					// make previously created body dynamic
 					if (createdBody && physicsActive) {
 						createdBody.treatment = "dynamic";
 					}
 					// create body at a static place
-					if (currentType != -1 && pos.y > 55) {
+					if (currentType >= 0 && currentType <= 3 && pos.y > toolbarHeight) {
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}
 				}
 				,'interact:move': function( pos ){
+					// Handle pen drawing
+					if (currentType == 4 && isDrawing && pos.y > toolbarHeight) {
+
+						var rect = renderer.container.getBoundingClientRect();
+						var adjustedPos = {
+							x: pos.x - rect.left,
+							y: pos.y - rect.top
+						};
+						drawingPoints.push(adjustedPos);
+						drawPenPreview();
+						return;
+					}
+
 					// update size of created body
 					if (createdBody != null) {
 						// compute new size
@@ -827,6 +1039,16 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					}
 				}
 				,'interact:release': function( pos ){
+					// Finish pen drawing
+					if (currentType == 4 && isDrawing) {
+						isDrawing = false;
+						if (drawingPoints.length >= 10) {
+							createPhysicsBodyFromPath(drawingPoints);
+						}
+						drawingPoints = [];
+						clearTempCanvas();
+						return;
+					}
 					if (physicsActive) {
 						if (createdBody != null) {
 							createdBody.treatment = "dynamic";
