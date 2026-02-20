@@ -1,0 +1,1134 @@
+/* Sugar OS Design Language Basics */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    /* Standard web font, similar to Sugar OS default */
+    background-color: #000000;
+    overflow: hidden;
+    user-select: none;
+    /* Prevent selection for app-like feel */
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Toolbar */
+#main-toolbar {
+    height: 55px;
+    background-color: #282828;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.toolbar-item {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+/* Main Canvas */
+#canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 55px);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#main-workspace {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    /* Remove gap and use spacers logic if needed, but flex with spacers is easier for strict centering */
+}
+
+#left-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 420px;
+    min-width: 420px;
+    /* Increased width for larger harmony wheel */
+    padding-left: 50px;
+    box-sizing: border-box;
+    gap: 20px;
+}
+
+/* Right spacer to balance layout for centering */
+#right-spacer {
+    width: 420px;
+    min-width: 420px;
+    pointer-events: none;
+}
+
+/* Bowl Container - Right Side */
+#bowl-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    /* Take remaining space */
+    width: auto;
+    transform: translateY(-50px);
+}
+
+/* Harmony Wheel Section */
+#harmony-wheel-container {
+    display: flex;
+    flex-direction: row;
+    /* Side by side */
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform: translateY(50px);
+    gap: 20px;
+}
+
+#harmony-wheel {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightnessGradient {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: linear-gradient(rgb(0, 0, 0), rgb(102, 153, 122), rgb(240, 245, 242));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightnessInterstitial {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 50%;
+    transform: rotate(279deg);
+    /* Static rotation from snippet, likely dynamic later */
+    pointer-events: none;
+    /* Let clicks pass */
+}
+
+#lightnessTrack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+#lightnessThumb {
+    position: absolute;
+    z-index: 10;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    cursor: grab;
+    left: 50%;
+    top: 0;
+    /* Top center of the rotated track */
+    transform: translate(-50%, -50%);
+}
+
+.color-wheel {
+    position: absolute;
+    z-index: 10;
+    width: 245px;
+    height: 245px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* User's Exact Radial Gradient Stack */
+    background:
+        radial-gradient(circle at 50% 0px, red, rgba(242, 13, 13, 0.8) 10%, rgba(230, 26, 26, 0.6) 20%, rgba(204, 51, 51, 0.4) 30%, rgba(166, 89, 89, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 85.3553% 14.6447%, rgb(255, 191, 0), rgba(242, 185, 13, 0.8) 10%, rgba(230, 179, 26, 0.6) 20%, rgba(204, 166, 51, 0.4) 30%, rgba(166, 147, 89, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 100% 50%, rgb(128, 255, 0), rgba(128, 242, 13, 0.8) 10%, rgba(128, 230, 26, 0.6) 20%, rgba(128, 204, 51, 0.4) 30%, rgba(128, 166, 89, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 85.3553% 85.3553%, rgb(0, 255, 64), rgba(13, 242, 70, 0.8) 10%, rgba(26, 230, 77, 0.6) 20%, rgba(51, 204, 89, 0.4) 30%, rgba(89, 166, 108, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 50% 100%, rgb(0, 255, 255), rgba(13, 242, 242, 0.8) 10%, rgba(26, 230, 230, 0.6) 20%, rgba(51, 204, 204, 0.4) 30%, rgba(89, 166, 166, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 14.6447% 85.3553%, rgb(0, 64, 255), rgba(13, 70, 242, 0.8) 10%, rgba(26, 77, 230, 0.6) 20%, rgba(51, 89, 204, 0.4) 30%, rgba(89, 108, 166, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 0px 50%, rgb(127, 0, 255), rgba(128, 13, 242, 0.8) 10%, rgba(128, 26, 230, 0.6) 20%, rgba(128, 51, 204, 0.4) 30%, rgba(128, 89, 166, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 14.6447% 14.6447%, rgb(255, 0, 191), rgba(242, 13, 185, 0.8) 10%, rgba(230, 26, 179, 0.6) 20%, rgba(204, 51, 166, 0.4) 30%, rgba(166, 89, 147, 0.2) 40%, rgba(128, 128, 128, 0) 50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.harmony-marker {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    /* Thicker border */
+    background-color: transparent;
+    z-index: 10;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    /* Allow clicks to pass through to wheel */
+}
+
+/* Example positions for a split-complementary harmony */
+/* Main color at top (Red) */
+.main-marker {
+    width: 24px;
+    height: 24px;
+    border: 4px solid #ffffff;
+    /* Transform handled by JS */
+}
+
+/* Split complementary */
+
+
+#harmony-swatches {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.harmony-swatch {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    border: 2px solid #ffffff;
+    background-color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+
+}
+
+/* Harmony Dropdown Menu */
+#harmony-dropdown {
+    display: none;
+    position: absolute;
+    top: 55px;
+    left: 120px;
+    /* Position near wheel button */
+    background-color: #383838;
+    padding: 10px;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+}
+
+#harmony-dropdown.show {
+    display: block;
+}
+
+#harmony-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.harmony-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    background-color: #484848;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+    gap: 4px;
+    min-width: 70px;
+}
+
+.harmony-option:hover {
+    background-color: #585858;
+    border-color: #888;
+}
+
+.harmony-option.active {
+    border-color: #ffffff;
+    background-color: #505050;
+}
+
+.harmony-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.harmony-icon::before,
+.harmony-icon::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+/* Complementary - 2 dots opposite (top & bottom) */
+.harmony-option[data-harmony="complementary"] .harmony-icon::before {
+    top: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.harmony-option[data-harmony="complementary"] .harmony-icon::after {
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Split-complementary - 1 top, 2 at bottom corners */
+.harmony-option[data-harmony="split-complementary"] .harmony-icon::before {
+    top: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.harmony-option[data-harmony="split-complementary"] .harmony-icon::after {
+    bottom: 3px;
+    left: 3px;
+}
+
+.harmony-option[data-harmony="split-complementary"] .harmony-icon .dot3 {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+/* Analogous - 3 dots close together at top arc */
+.harmony-option[data-harmony="analogous"] .harmony-icon::before {
+    top: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.harmony-option[data-harmony="analogous"] .harmony-icon::after {
+    top: 4px;
+    left: 3px;
+}
+
+.harmony-option[data-harmony="analogous"] .harmony-icon .dot3 {
+    position: absolute;
+    top: 4px;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+/* Triadic - 3 dots triangle (120° apart) */
+.harmony-option[data-harmony="triadic"] .harmony-icon::before {
+    top: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.harmony-option[data-harmony="triadic"] .harmony-icon::after {
+    bottom: 4px;
+    left: 3px;
+}
+
+.harmony-option[data-harmony="triadic"] .harmony-icon .dot3 {
+    position: absolute;
+    bottom: 4px;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+/* Tetradic - 4 dots rectangle */
+.harmony-option[data-harmony="tetradic"] .harmony-icon::before {
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.harmony-option[data-harmony="tetradic"] .harmony-icon::after {
+    top: 8px;
+    right: 2px;
+    left: auto;
+}
+
+.harmony-option[data-harmony="tetradic"] .harmony-icon .dot3 {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+.harmony-option[data-harmony="tetradic"] .harmony-icon .dot4 {
+    position: absolute;
+    top: 8px;
+    left: 2px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+/* Square - 4 dots at 90° intervals */
+.harmony-option[data-harmony="square"] .harmony-icon::before {
+    top: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.harmony-option[data-harmony="square"] .harmony-icon::after {
+    right: 1px;
+    top: 50%;
+    left: auto;
+    transform: translateY(-50%);
+}
+
+.harmony-option[data-harmony="square"] .harmony-icon .dot3 {
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+.harmony-option[data-harmony="square"] .harmony-icon .dot4 {
+    position: absolute;
+    left: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+}
+
+/* Bowl Section */
+#bowl-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* No margin-bottom here, controlled by upper-workspace */
+    /* width is now auto to fit in flex row, or specific */
+}
+
+#color-name {
+    font-size: 42px;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 80px;
+    /* Bump margin for ring space */
+    text-align: center;
+    white-space: nowrap;
+}
+
+#bowl-center-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+#mixing-bowl {
+    width: 280px;
+    /* Slightly smaller to fit ring */
+    height: 280px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    /* Color Wheel Border Effect */
+    border: 10px solid transparent;
+    box-shadow: 0 0 0 10px #333333,
+        /* Dark inner rim */
+        0 0 0 20px #000000;
+    /* Spacing */
+    position: relative;
+    z-index: 2;
+    transition: background-color 0.1s ease;
+}
+
+/* Color Wheel Ring - Flower Style */
+/* Color Wheel Ring */
+#color-wheel-ring {
+    position: absolute;
+    width: 380px;
+    /* 280px bowl + 100px padding */
+    height: 380px;
+    border-radius: 50%;
+    /* Segmented gradient */
+    background: conic-gradient(#F44336 0deg 30deg,
+            #FF9800 30deg 60deg,
+            #FFEB3B 60deg 90deg,
+            #CDDC39 90deg 120deg,
+            #4CAF50 120deg 150deg,
+            #009688 150deg 180deg,
+            #00BCD4 180deg 210deg,
+            #2196F3 210deg 240deg,
+            #3F51B5 240deg 270deg,
+            #673AB7 270deg 300deg,
+            #9C27B0 300deg 330deg,
+            #E91E63 330deg 360deg);
+    z-index: 1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    /* Center it behind the bowl */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Hide inner white border if not needed or style it */
+
+#reset-button {
+    position: absolute;
+    right: 20px;
+    /* Adjust for wider spread */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    /* White border for visibility */
+    background-color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+#reset-button svg {
+    /* No absolute size needed if viewBox used, but lets keep it sharp */
+    width: 34px;
+    height: 34px;
+}
+
+
+
+#reset-button:active {
+    transform: scale(0.95);
+}
+
+/* Sliders Section */
+#sliders-grid {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    margin-top: auto;
+    margin-inline: auto;
+    /* center horizontally */
+    padding-bottom: 30px;
+}
+
+#main-workspace {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    justify-items: center;
+    /* keep items centered within columns */
+    width: 100%;
+    flex-grow: 1;
+    gap: 20px;
+}
+
+#left-panel {
+    grid-column: 1;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#bowl-container {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#right-spacer {
+    grid-column: 3;
+    width: 100%;
+}
+
+/* Custom Range Sliders */
+.slider-group {
+    flex: 1;
+    max-width: 400px;
+    /* Increased width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+    gap: 15px;
+    /* Explicit gap */
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    margin: 0;
+    background: transparent;
+    height: 40px;
+    /* Larger touch area */
+    display: flex;
+    align-items: center;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+/* Slider Track */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 0px;
+}
+
+/* Slider Thumb (Handle) */
+input[type=range]::-webkit-slider-thumb {
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -12px;
+    border: 3px solid #000000;
+    background: #ffffff;
+    box-shadow: none;
+}
+
+/* Track Colors */
+#red-slider::-webkit-slider-runnable-track {
+    background: #ff0000;
+}
+
+#green-slider::-webkit-slider-runnable-track {
+    background: #00ff00;
+}
+
+#blue-slider::-webkit-slider-runnable-track {
+    background: #0000ff;
+}
+
+/* Adjustment Buttons */
+.adjust-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    /* Prevent shrinking */
+    min-height: 44px;
+    /* Prevent shrinking */
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 12px;
+    padding: 0;
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+/* Fullscreen Mode */
+body.fullscreen-mode #main-toolbar {
+    display: none !important;
+}
+
+body.fullscreen-mode #canvas {
+    height: 100vh !important;
+    padding-top: 0 !important;
+    /* Remove padding to fill toolbar space */
+}
+
+body.fullscreen-mode #unfullscreen-button {
+    display: flex !important;
+}
+
+/* Network Menu Popup */
+.palette {
+    position: absolute;
+    top: 55px;
+    left: 60px;
+    /* Aligned near network button */
+    z-index: 2000;
+    display: none;
+    color: white;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+.palette .wrapper {
+    background-color: black;
+    border: 2px solid #808080;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 271px;
+    min-width: 161px;
+    min-height: 51px;
+    pointer-events: auto;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.network-text {
+    margin: 5px 0;
+    font-size: 12px;
+    /* Small size */
+    text-transform: uppercase;
+}
+
+.palette hr {
+    border: 0;
+    border-top: 1px solid #555;
+    margin: 10px 0;
+}
+
+.toolbutton {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+}
+
+#private-button {
+    background-image: url('../icons/zoom-home.svg');
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    width: 60px;
+    /* Increased size further */
+    height: 60px;
+}
+
+#shared-button {
+    background-image: url('../icons/zoom-neighborhood.svg');
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    width: 60px;
+    /* Increased size further */
+    height: 60px;
+}
+
+#users-list li {
+    padding: 5px;
+    border-bottom: 1px solid #333;
+}
+
+/* Sugarizer Scrollbar */
+::-webkit-scrollbar {
+    width: 11px;
+    background-color: #808080;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 2px solid #dddddd;
+    border-radius: 11px;
+}
+
+/* Arrow Indicator */
+.arrow-indicator {
+    width: 40px !important;
+    height: 9px !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    bottom: 2px;
+}
+
+.arrow-active {
+    background-image: url('../icons/arrow-up.svg') !important;
+}
+
+/* --- CHALLENGE MODE CSS --- */
+/* Bowl Container acting as anchor */
+.bowl-container {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Circular Progress Bar */
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+    pointer-events: none;
+    /* Let clicks pass through to bowl if needed */
+}
+
+.progress-ring__circle {
+    stroke: #FFD700;
+    /* Gold */
+    stroke-dasharray: 1194;
+    /* 2 * PI * 190 ≈ 1193.8 */
+    stroke-dashoffset: 1194;
+    transition: stroke-dashoffset 0.35s;
+    transform-origin: 50% 50%;
+}
+
+/* Bowls Area */
+#bowls-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 20px;
+    /* buffer off bottom screen */
+    width: 100%;
+    flex: 1;
+    /* allow it to grow and take space over sliders */
+    min-height: 450px;
+    /* prevent complete collapse */
+}
+
+.bowl-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    justify-content: center;
+}
+
+.bowl-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+}
+
+.bowl {
+    width: 350px;
+    height: 350px;
+    border: 5px solid #000000;
+    border-radius: 50%;
+    /* Full circle */
+    background-color: #CCCCCC;
+    /* Default gray */
+    transition: background-color 0.1s ease;
+}
+
+#divider-line {
+    width: 2px;
+    height: 400px;
+    /* Taller to match new bowl size */
+    background-color: #FFFFFF;
+    border-radius: 1px;
+}
+
+#target-wrapper {
+    opacity: 1;
+}
+
+#arrow-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Controls Area */
+#controls-area {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 20px;
+    /* buffer off bottom screen */
+    padding-bottom: 20px;
+}
+
+
+/* Toolbar active mode */
+.active-mode {
+    background-color: #555555;
+    border-radius: 8px;
+}
+
+/* Modal Win Screen */
+#win-overlay {
+    position: absolute;
+    top: 55px;
+    /* toolbar height */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 55px);
+    z-index: 3000;
+    /* above all else */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    /* Let clicks pass if needed, or block it */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#win-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#win-overlay.hidden {
+    display: none;
+}
+
+.sugarizer-modal {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content Container */
+.modal-content {
+    background-color: #FFFFFF;
+    /* Sugar red */
+    border-radius: 16px;
+    padding: 30px 50px;
+    text-align: center;
+    position: relative;
+    /* Above stars */
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+    /* Animation for the box itself */
+    transform: scale(0.5);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#win-overlay.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Typography */
+.modal-content h1 {
+    margin: 0;
+    font-size: 3rem;
+    color: #333333;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Checkmark Animation */
+.checkmark {
+    font-size: 5rem;
+    color: #4CAF50;
+    /* Green */
+    margin-top: 10px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
+    /* Delay */
+}
+
+#win-overlay.show .checkmark {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Starburst Background Effect */
+.star-burst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #FFEB3B;
+    border-radius: 50%;
+    transform-origin: center;
+    opacity: 0;
+}
+
+#win-overlay.show .star {
+    animation: shootStar 1s ease-out forwards;
+}
+
+/* Keyframes for shooting stars */
+@keyframes shootStar {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--dx), var(--dy)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* Define directions for 12 stars */
+.s1 {
+    --dx: -150px;
+    --dy: -150px;
+}
+
+.s2 {
+    --dx: 0px;
+    --dy: -200px;
+}
+
+.s3 {
+    --dx: 150px;
+    --dy: -150px;
+}
+
+.s4 {
+    --dx: 200px;
+    --dy: 0px;
+}
+
+.s5 {
+    --dx: 150px;
+    --dy: 150px;
+}
+
+.s6 {
+    --dx: 0px;
+    --dy: 200px;
+}
+
+.s7 {
+    --dx: -150px;
+    --dy: 150px;
+}
+
+.s8 {
+    --dx: -200px;
+    --dy: 0px;
+}
+
+/* Outer ring for extra pop */
+.s9 {
+    --dx: -100px;
+    --dy: -250px;
+    animation-delay: 0.1s !important;
+    background-color: #FF9800;
+}
+
+.s10 {
+    --dx: 100px;
+    --dy: -250px;
+    animation-delay: 0.1s !important;
+    background-color: #FF9800;
+}
+
+.s11 {
+    --dx: 250px;
+    --dy: 100px;
+    animation-delay: 0.1s !important;
+    background-color: #FF9800;
+}
+
+.s12 {
+    --dx: -250px;
+    --dy: 100px;
+    animation-delay: 0.1s !important;
+    background-color: #FF9800;
+}

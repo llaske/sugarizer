@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Color Lab Activity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body :class="{'fullscreen-mode': isFullscreen}">
+    <div id="app">
+        <!-- TOOLBAR -->
+        <div id="main-toolbar">
+            <div id="activity-palette-button" class="toolbar-item"
+                style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="icons/color lab.svg" alt="Color Lab" style="width: 40px; height: 40px;">
+                <div class="arrow-indicator" style="background-image: url('icons/arrow-down.svg');"></div>
+            </div>
+
+            <button id="network-button" class="toolbar-item" title="Network" @click.stop="toggleNetworkPopup"
+                style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55" width="40" height="40">
+                    <path
+                        d="M27.5,5C15.074,5,5,15.073,5,27.5C5,39.926,15.074,50,27.5,50 C39.928,50,50,39.926,50,27.5C50,15.073,39.926,5,27.5,5z M27.497,32.251c-2.621,0-4.749-2.131-4.749-4.75 c0-2.624,2.128-4.75,4.749-4.75c2.628,0,4.757,2.126,4.757,4.75C32.254,30.12,30.125,32.251,27.497,32.251z"
+                        fill="#ffffff" />
+                </svg>
+                <div class="arrow-indicator" id="network-arrow" :class="{'arrow-active': isNetworkPopupVisible}"
+                    style="background-image: url('icons/arrow-down.svg');"></div>
+            </button>
+
+            <button id="mixer-button" class="toolbar-item" :class="{'active-mode': currentMode === 'free'}"
+                title="Free Paint" @click="switchMode('free')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+                    <path
+                        d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+                        fill="#ffffff" />
+                </svg>
+            </button>
+
+            <button v-show="currentMode === 'free'" id="wheel-button" class="toolbar-item" title="Harmony"
+                @click.stop="toggleHarmonyDropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55" width="40" height="40">
+                    <circle cx="27.5" cy="27.5" r="22" stroke="#ffffff" stroke-width="2.5" fill="none" />
+                    <line x1="27.5" y1="5.5" x2="27.5" y2="49.5" stroke="#ffffff" stroke-width="2.5" />
+                    <line x1="46.55" y1="38.5" x2="8.45" y2="16.5" stroke="#ffffff" stroke-width="2.5" />
+                    <line x1="8.45" y1="38.5" x2="46.55" y2="16.5" stroke="#ffffff" stroke-width="2.5" />
+                    <circle cx="27.5" cy="27.5" r="5" fill="#ffffff" />
+                </svg>
+            </button>
+
+            <button id="activity-button" class="toolbar-item" :class="{'active-mode': currentMode === 'challenge'}"
+                title="Challenge Mode" @click="switchMode('challenge')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55" width="40" height="40">
+                    <circle cx="27.5" cy="27.5" r="20" stroke="#ffffff" stroke-width="4" fill="none" />
+                    <circle cx="27.5" cy="27.5" r="12" stroke="#ffffff" stroke-width="4" fill="none" />
+                    <circle cx="27.5" cy="27.5" r="4" fill="#ffffff" />
+                </svg>
+            </button>
+
+            <button id="reset-toolbar-button" class="toolbar-item" title="Reset" @click="resetApp">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none"
+                    stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M23 4v6h-6"></path>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+            </button>
+
+            <div class="spacer"></div>
+
+            <button id="help-button" class="toolbar-item" title="Help" @click="handleHelp">
+                <img src="icons/help.svg" alt="Help" style="width: 40px; height: 40px;">
+            </button>
+
+
+            <button id="fullscreen-button" class="toolbar-item" title="Fullscreen" @click="toggleFullscreen">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55" width="40" height="40">
+                    <path
+                        d="M4.875,5v45h45V5H4.875z M23.638,44.051H12.574c-0.071,0-0.141-0.013-0.21-0.021 c-0.042-0.005-0.084-0.004-0.126-0.013c-0.033-0.007-0.064-0.02-0.097-0.028c-0.079-0.021-0.158-0.04-0.234-0.071 c-0.013-0.006-0.025-0.015-0.038-0.021c-0.09-0.04-0.178-0.084-0.262-0.14c-0.096-0.063-0.187-0.137-0.269-0.219 c-0.083-0.083-0.157-0.175-0.222-0.272c-0.03-0.046-0.051-0.096-0.076-0.144c-0.028-0.052-0.06-0.102-0.083-0.157 c-0.032-0.076-0.052-0.156-0.072-0.235c-0.008-0.03-0.021-0.06-0.027-0.091c-0.019-0.098-0.027-0.196-0.029-0.296 c0-0.015-0.004-0.028-0.004-0.043V31.236c0-0.969,0.783-1.751,1.749-1.751c0.968,0,1.751,0.782,1.751,1.751v6.839l8.012-8.015 c0.684-0.682,1.792-0.682,2.476,0c0.682,0.684,0.682,1.792,0,2.477L16.8,40.549h6.838v0.003c0.966,0,1.75,0.782,1.75,1.748 C25.389,43.267,24.604,44.051,23.638,44.051z M42.573,25.114c-0.968,0-1.751-0.783-1.751-1.751v-6.84l-9.013,9.013 c-0.342,0.342-0.79,0.513-1.238,0.513c-0.447,0-0.896-0.171-1.237-0.513c-0.683-0.684-0.683-1.791,0-2.475l9.011-9.012h-6.834 c-0.966,0-1.751-0.785-1.751-1.751c0-0.966,0.785-1.751,1.751-1.751h11.062c0.104,0,0.209,0.012,0.312,0.031 c0.007,0.001,0.015,0.001,0.021,0.002c0.055,0.011,0.106,0.031,0.16,0.047c0.058,0.017,0.116,0.03,0.172,0.053 c0.032,0.013,0.062,0.033,0.093,0.049c0.071,0.034,0.144,0.067,0.21,0.112c0.057,0.037,0.105,0.083,0.156,0.127 c0.037,0.031,0.077,0.057,0.112,0.091c0.047,0.047,0.083,0.101,0.124,0.152c0.03,0.039,0.066,0.074,0.094,0.115 c0.061,0.091,0.11,0.187,0.151,0.285c0.003,0.006,0.007,0.011,0.01,0.017c0.034,0.083,0.057,0.168,0.077,0.255 c0.007,0.025,0.018,0.05,0.022,0.076c0.012,0.061,0.014,0.124,0.019,0.186c0.005,0.051,0.016,0.102,0.016,0.153l0.002,11.065 C44.324,24.332,43.54,25.114,42.573,25.114z"
+                        fill="#ffffff" />
+                </svg>
+            </button>
+            <button id="stop-button" class="toolbar-item" title="Stop" @click="handleStop">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55" width="40" height="40">
+                    <path
+                        d="M36.822,5H18.181L5.002,18.182V36.82L18.181,50h18.642l13.176-13.18V18.182L36.822,5z M35.75,35.414h-15.5v-15.5h15.5V35.414z"
+                        fill="#ffffff" />
+                </svg>
+            </button>
+
+        </div>
+
+        <button id="unfullscreen-button" class="toolbar-item" title="Exit Fullscreen" v-show="isFullscreen"
+            @click="exitFullscreen" style="position: absolute; top: 0px; right: 65px; z-index: 1000;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55" width="48" height="48">
+                <g transform="translate(2, 2)">
+                    <rect height="45" width="45" x="4.875" y="5" style="fill:#ffffff;stroke:#010101;stroke-width:3.5" />
+                    <line x1="23.573999" x2="12.574" y1="31.298" y2="42.299"
+                        style="fill:none;stroke:#010101;stroke-width:3.5;stroke-linecap:round" />
+                    <polyline points="12.512,31.298 23.574,31.298 23.574,42.361"
+                        style="fill:none;stroke:#010101;stroke-width:3.5;stroke-linecap:round" />
+                    <line x1="30.572001" x2="42.571999" y1="24.299" y2="12.298"
+                        style="fill:none;stroke:#010101;stroke-width:3.5;stroke-linecap:round" />
+                    <polyline points="41.635,24.299 30.572,24.299 30.572,13.234"
+                        style="fill:none;stroke:#010101;stroke-width:3.5;stroke-linecap:round" />
+                </g>
+            </svg>
+        </button>
+
+        <!-- FREE PAINT: HARMONY DROPDOWN -->
+        <div id="harmony-dropdown" :class="{show: isHarmonyDropdownVisible}" v-show="currentMode === 'free'">
+            <div id="harmony-options">
+                <div v-for="(angles, key) in harmonyTypes" :key="key" class="harmony-option"
+                    :class="{active: currentHarmony === key}" :data-harmony="key" @click="applyHarmony(key)">
+                    <div class="harmony-icon" style="position: relative;">
+                        <!-- Custom CSS representation for each harmony via classes -->
+                        <div class="harmony-icon-inner" :class="key"></div>
+                    </div>
+                    <span>{{ harmonyNames[key] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NETWORK POPUP -->
+        <div id="network-popup" class="palette" v-show="isNetworkPopupVisible">
+            <div class="wrapper">
+                <div class="container">
+                    <div>
+                        <span>
+                            <h4 id="private-text" style="margin-left:10px" class="network-text">Private</h4>
+                        </span>
+                        <hr>
+                        <button class="toolbutton" id="private-button"></button>
+                        <button class="toolbutton" id="shared-button"></button>
+                        <hr id="hr-users">
+                        <ul id="users-list" style="list-style:none;padding:0;max-height:150px;margin:-7px"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="canvas" @click="isHarmonyDropdownVisible = false">
+            <div id="canvas-content" style="width: 100%; height: 100%; display: flex; flex-direction: column;">
+                <!-- FREE PAINT MODE -->
+                <template v-if="currentMode === 'free'">
+                    <div id="main-workspace">
+                        <div id="left-panel" v-show="currentHarmony">
+                            <div id="harmony-wheel-container">
+                                <div id="harmony-wheel">
+                                    <div id="lightnessGradient">
+                                        <div id="lightnessInterstitial" :style="{ transform: lightnessTrackTransform }">
+                                            <div id="lightnessTrack" @mousedown="handleRingDown"
+                                                @touchstart.passive="handleRingDown">
+                                                <div id="lightnessThumb"></div>
+                                            </div>
+                                        </div>
+                                        <div class="color-wheel" id="harmony-wheel-inner" ref="wheelInnerRef" @mousedown="handleWheelDown"
+                                            @touchstart.passive="handleWheelDown">
+
+                                            <div v-for="(m, index) in markers" :key="index" class="harmony-marker"
+                                                :class="m.class" :style="m.style"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="harmony-swatches">
+                                    <div v-for="s in harmonySwatches" :key="s.id" class="harmony-swatch" :id="s.id"
+                                        :style="{ backgroundColor: s.backgroundColor, color: s.color }">{{ s.name }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="bowl-container">
+                            <div id="color-name">{{ mixingBowlName }}</div>
+                            <div id="bowl-center-wrapper">
+                                <div id="color-wheel-ring">
+                                    <svg width="100%" height="100%" viewBox="0 0 380 380"
+                                        style="transform: rotate(-90deg); overflow: visible;">
+                                        <path v-for="(segment, i) in ringSegments" :key="i" :d="segment.d"
+                                            :fill="segment.color" stroke="#ffffff" stroke-width="2"
+                                            style="cursor: pointer; transition: opacity 0.2s;"
+                                            :style="{opacity: segment.hover ? '0.8' : '1'}"
+                                            @mouseenter="segment.hover = true" @mouseleave="segment.hover = false"
+                                            @click.stop="setRingColor(segment)"></path>
+                                    </svg>
+                                </div>
+                                <div id="mixing-bowl" :style="{ backgroundColor: mixingBowlColor }"></div>
+                            </div>
+                        </div>
+
+                        <div id="right-spacer" v-show="currentHarmony"></div>
+                    </div>
+
+                    <div id="sliders-grid">
+                        <div class="slider-group group-red">
+                            <button class="adjust-button minus" @mousedown="adjustSlider('r', 'free', -1)"
+                                @touchstart.prevent="adjustSlider('r', 'free', -1)">-</button>
+                            <input type="range" min="0" max="255" v-model="redSliderFree" id="red-slider"
+                                @input="handleFreeSliderInput">
+                            <button class="adjust-button plus" @mousedown="adjustSlider('r', 'free', 1)"
+                                @touchstart.prevent="adjustSlider('r', 'free', 1)">+</button>
+                        </div>
+                        <div class="slider-group group-green">
+                            <button class="adjust-button minus" @mousedown="adjustSlider('g', 'free', -1)"
+                                @touchstart.prevent="adjustSlider('g', 'free', -1)">-</button>
+                            <input type="range" min="0" max="255" v-model="greenSliderFree" id="green-slider"
+                                @input="handleFreeSliderInput">
+                            <button class="adjust-button plus" @mousedown="adjustSlider('g', 'free', 1)"
+                                @touchstart.prevent="adjustSlider('g', 'free', 1)">+</button>
+                        </div>
+                        <div class="slider-group group-blue">
+                            <button class="adjust-button minus" @mousedown="adjustSlider('b', 'free', -1)"
+                                @touchstart.prevent="adjustSlider('b', 'free', -1)">-</button>
+                            <input type="range" min="0" max="255" v-model="blueSliderFree" id="blue-slider"
+                                @input="handleFreeSliderInput">
+                            <button class="adjust-button plus" @mousedown="adjustSlider('b', 'free', 1)"
+                                @touchstart.prevent="adjustSlider('b', 'free', 1)">+</button>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- CHALLENGE MODE -->
+                <template v-else-if="currentMode === 'challenge'">
+                    <div id="bowls-area">
+                        <div class="bowl-wrapper" id="user-wrapper">
+                            <div class="bowl-label">MY COLOR</div>
+                            <div class="bowl-container">
+                                <svg class="progress-ring" width="400" height="400">
+                                    <circle class="progress-ring__circle" stroke-width="10" fill="transparent" r="190"
+                                        cx="200" cy="200" :style="{ strokeDashoffset: challengeProgressOffset }" />
+                                </svg>
+                                <div id="user-bowl" class="bowl" :style="{ backgroundColor: mixingBowlColor }"></div>
+                            </div>
+                        </div>
+
+                        <div id="divider-line"></div>
+
+                        <div class="bowl-wrapper" id="target-wrapper">
+                            <div class="bowl-label">TARGET</div>
+                            <div id="target-bowl" class="bowl" :style="{ backgroundColor: challengeTargetColorHex }">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="controls-area">
+                        <!-- Red Slider -->
+                        <div class="slider-group group-red">
+                            <button class="adjust-button minus" @mousedown="adjustSlider('r', 'challenge', -1)"
+                                @touchstart.prevent="adjustSlider('r', 'challenge', -1)">-</button>
+                            <input type="range" min="0" max="255" v-model="challengeUserRgb.r" id="red-slider"
+                                @input="checkChallengeMatch">
+                            <button class="adjust-button plus" @mousedown="adjustSlider('r', 'challenge', 1)"
+                                @touchstart.prevent="adjustSlider('r', 'challenge', 1)">+</button>
+                        </div>
+
+                        <!-- Green Slider -->
+                        <div class="slider-group group-green">
+                            <button class="adjust-button minus" @mousedown="adjustSlider('g', 'challenge', -1)"
+                                @touchstart.prevent="adjustSlider('g', 'challenge', -1)">-</button>
+                            <input type="range" min="0" max="255" v-model="challengeUserRgb.g" id="green-slider"
+                                @input="checkChallengeMatch">
+                            <button class="adjust-button plus" @mousedown="adjustSlider('g', 'challenge', 1)"
+                                @touchstart.prevent="adjustSlider('g', 'challenge', 1)">+</button>
+                        </div>
+
+                        <!-- Blue Slider -->
+                        <div class="slider-group group-blue">
+                            <button class="adjust-button minus" @mousedown="adjustSlider('b', 'challenge', -1)"
+                                @touchstart.prevent="adjustSlider('b', 'challenge', -1)">-</button>
+                            <input type="range" min="0" max="255" v-model="challengeUserRgb.b" id="blue-slider"
+                                @input="checkChallengeMatch">
+                            <button class="adjust-button plus" @mousedown="adjustSlider('b', 'challenge', 1)"
+                                @touchstart.prevent="adjustSlider('b', 'challenge', 1)">+</button>
+                        </div>
+                    </div>
+
+                    <div id="win-overlay" :class="{'show': showWinOverlay, 'hidden': !showWinOverlay}">
+                        <div class="sugarizer-modal">
+                            <div class="star-burst">
+                                <div class="star s1"></div>
+                                <div class="star s2"></div>
+                                <div class="star s3"></div>
+                                <div class="star s4"></div>
+                                <div class="star s5"></div>
+                                <div class="star s6"></div>
+                                <div class="star s7"></div>
+                                <div class="star s8"></div>
+                                <div class="star s9"></div>
+                                <div class="star s10"></div>
+                                <div class="star s11"></div>
+                                <div class="star s12"></div>
+                            </div>
+                            <div class="modal-content">
+                                <h1>You Won!</h1>
+                                <div class="checkmark">✓</div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
