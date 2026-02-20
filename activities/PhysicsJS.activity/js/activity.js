@@ -310,63 +310,52 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			// resize events
 			// Optimized Real-Time Resize
 			window.addEventListener('resize', function () {
-    // 1. Immediate Logic: Smoothly scale physics bodies as the user drags
-    const newWidth = body.offsetWidth;
-    const newHeight = body.offsetHeight;
-
-    // Calculate scale ratios based on previous dimensions
-    const scaleX = newWidth / prevWidth;
-    const scaleY = newHeight / prevHeight;
-
-    // Update Physics Bounds immediately
-    viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, newWidth + outerWidth, newHeight);
-    edgeBounce.setAABB(viewportBounds);
-
-    // Update all bodies smoothly
-    var physicsBodies = world.getBodies();
-    physicsBodies.forEach(function(b) {
-        b.state.pos.x *= scaleX;
-        b.state.pos.y *= scaleY;
-        b.state.vel.x *= scaleX;
-        b.state.vel.y *= scaleY;
-        b.recalc(); 
-    });
-
-    // Update the renderer immediately for visual feedback
-    if (renderer) {
-        renderer.resize(newWidth, newHeight);
-    }
-
-    // Sync state for the next frame
-    innerWidth = newWidth;
-    innerHeight = newHeight;
-    prevWidth = newWidth;
-    prevHeight = newHeight;
-
-    // Refresh visuals
-    WATER.updateBoundary();
-    world.wakeUpAll();
-    world.render();
-
-    // 2. Debounced Logic: Heavy lifting after the user stops dragging
-    if (resizeTimer) {
-        clearTimeout(resizeTimer);
-    }
-
-    resizeTimer = setTimeout(function() {
-        // Finalize viewport bounds using the latest renderer dimensions
-        viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, renderer.width + outerWidth, renderer.height);
-        edgeBounce.setAABB(viewportBounds);
-
-        // Call zoom or heavy canvas recreation
-        zoom();
-
-        if (tempCanvas) {
-            createTempCanvas();
-        }
-    }, 500);
-
-}, true);
+				// 1. Immediate Logic: Smoothly scale physics bodies as the user drags
+				const newWidth = body.offsetWidth;
+				const newHeight = body.offsetHeight;
+				// Calculate scale ratios based on previous dimensions
+				const scaleX = newWidth / prevWidth;
+				const scaleY = newHeight / prevHeight;
+				// Update Physics Bounds immediately
+				viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, newWidth + outerWidth, newHeight);
+				edgeBounce.setAABB(viewportBounds);
+				// Update all bodies smoothly
+				var physicsBodies = world.getBodies();
+				physicsBodies.forEach(function(b) {
+					b.state.pos.x *= scaleX;
+					b.state.pos.y *= scaleY;
+					b.state.vel.x *= scaleX;
+					b.state.vel.y *= scaleY;
+					b.recalc(); 
+				});
+				// Update the renderer immediately for visual feedback
+				if (renderer) {
+					renderer.resize(newWidth, newHeight);
+				}
+				// Sync state for the next frame
+				innerWidth = newWidth;
+				innerHeight = newHeight;
+				prevWidth = newWidth;
+				prevHeight = newHeight;
+				// Refresh visuals
+				WATER.updateBoundary();
+				world.wakeUpAll();
+				world.render();
+				// 2. Debounced Logic: Heavy lifting after the user stops dragging
+				if (resizeTimer) {
+					clearTimeout(resizeTimer);
+				}
+				resizeTimer = setTimeout(function() {
+					// Finalize viewport bounds using the latest renderer dimensions
+					viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, renderer.width + outerWidth, renderer.height);
+					edgeBounce.setAABB(viewportBounds);
+					// Call zoom or heavy canvas recreation
+					zoom();
+					if (tempCanvas) {
+						createTempCanvas();
+					}
+				}, 500);
+			}, true);
 
 			document.getElementById("circle-button").addEventListener('click', function (e) {
 				currentType = 0;
@@ -461,17 +450,17 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					appleButton.classList.remove('active');
 					world.add(gravity);
 					world.add(waterBehavior);
-        			waterButton.classList.add('active');
+					waterButton.classList.add('active');
 					gravityButton.disabled = false;
 					WATER.updateBoundary();
-        			document.getElementById('viewport').classList.add('water-mode');
-    			} else {
+					document.getElementById('viewport').classList.add('water-mode');
+				} else {
 					world.remove(waterBehavior);
 					WATER.enabled = false;
-        			waterButton.classList.remove('active');
+					waterButton.classList.remove('active');
 					gravityButton.disabled = false;
-        			document.getElementById('viewport').classList.remove('water-mode');
-    			}
+					document.getElementById('viewport').classList.remove('water-mode');
+				}
 			}, true);
 
 			function accelerationChanged(accelerationEvent) {
