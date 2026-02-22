@@ -1,6 +1,8 @@
 [
+	{"id": "org.sugarlabs.3DVolume", "name": "3D Volume", "version": 1, "directory": "activities/3DVolume.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.olpcfrance.XmasLights", "name": "Xmas Lights", "version": 1, "directory": "activities/XmasLights.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.olpcfrance.DollarStreet", "name": "Dollar Street", "version": 1, "directory": "activities/DollarStreet.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.HumanBody", "name": "Human Body", "version": 1, "directory": "activities/HumanBody.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Tangram", "name": "Tangram", "version": 1, "directory": "activities/Tangram.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Vote", "name": "Vote", "version": 1, "directory": "activities/Vote.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.sugarlabs.MindMath", "name": "MindMath", "version": 1, "directory": "activities/MindMath.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
@@ -56,5 +58,7 @@
 	{"id": "org.sugarlabs.Planets", "name": "Planets", "version": 1, "directory": "activities/Planets.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Implode", "name": "Implode", "version": 1, "directory": "activities/Implode.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Measure", "name": "Measure", "version": 1, "directory": "activities/Measure.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.sugarlabs.ChartActivity", "name": "Chart", "version": 1, "directory": "activities/Chart.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
+	{"id": "org.sugarlabs.ChartActivity", "name": "Chart", "version": 1, "directory": "activities/Chart.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.Stickman", "name": "Stickman", "version": 1, "directory": "activities/Stickman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.ColorLab","name": "ColorLab","version": 1,"directory": "activities/ColorLab.activity","icon": "activity/activity-icon.svg","favorite": true,"activityId": null}
 ]
