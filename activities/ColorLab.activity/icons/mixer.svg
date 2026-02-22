@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Overlapping RGB Circles Venn Diagram -->
+  <style>
+    .circle { mix-blend-mode: screen; opacity: 0.9; }
+  </style>
+  
+  <g>
+    <!-- Red (Top) -->
+    <circle cx="32" cy="22" r="16" fill="#FF0000" class="circle"/>
+    <!-- Yellow/Green (Bottom Left) -->
+    <circle cx="20" cy="42" r="16" fill="#00FF00" class="circle"/> <!-- Using Green for Classic RGB -->
+    <!-- Blue (Bottom Right) -->
+    <circle cx="44" cy="42" r="16" fill="#0000FF" class="circle"/>
+  </g>
+</svg>

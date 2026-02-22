@@ -13,33 +13,28 @@ html {
     /* Prevent selection for app-like feel */
 }
 
-#app {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 /* Toolbar */
 #main-toolbar {
     height: 55px;
     background-color: #282828;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 0 10px;
+    overflow: hidden;
 }
 
 .toolbar-item {
-    width: 55px;
-    height: 55px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 47px;
+    height: 47px;
+    display: block;
     cursor: pointer;
     border: none;
     background-color: transparent;
     padding: 0;
+    margin: 4px 2px;
+    float: left;
+}
+
+.toolbar-item.pull-right {
+    float: right;
 }
 
 .spacer {
@@ -52,7 +47,7 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100% - 55px);
+    height: calc(100vh - 55px);
     padding: 20px;
     box-sizing: border-box;
     overflow: hidden;
@@ -199,7 +194,7 @@ html {
     border-radius: 50%;
     border: 4px solid #ffffff;
     /* Thicker border */
-    background-color: transparent;
+    /* background-color dynamically set by JS */
     z-index: 10;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     transform: translate(-50%, -50%);
@@ -249,8 +244,8 @@ html {
     display: none;
     position: absolute;
     top: 55px;
-    left: 120px;
-    /* Position near wheel button */
+    left: 102px;
+    /* Position exactly under harmony button (Activity 51 + Mixer 51 = 102) */
     background-color: #383838;
     padding: 10px;
     z-index: 100;
@@ -478,7 +473,7 @@ html {
 }
 
 #color-name {
-    font-size: 42px;
+    font-size: 32px;
     font-weight: bold;
     color: #ffffff;
     text-transform: uppercase;
@@ -549,27 +544,18 @@ html {
 #reset-button {
     position: absolute;
     right: 20px;
-    /* Adjust for wider spread */
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: 2px solid #ffffff;
-    /* White border for visibility */
     background-color: #333333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-size: 34px 34px;
+    background-repeat: no-repeat;
+    background-position: center;
     cursor: pointer;
     padding: 0;
+    z-index: 10;
 }
-
-#reset-button svg {
-    /* No absolute size needed if viewBox used, but lets keep it sharp */
-    width: 34px;
-    height: 34px;
-}
-
-
 
 #reset-button:active {
     transform: scale(0.95);
@@ -672,15 +658,18 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* Track Colors */
-#red-slider::-webkit-slider-runnable-track {
+#red-slider::-webkit-slider-runnable-track,
+#challenge-red-slider::-webkit-slider-runnable-track {
     background: #ff0000;
 }
 
-#green-slider::-webkit-slider-runnable-track {
+#green-slider::-webkit-slider-runnable-track,
+#challenge-green-slider::-webkit-slider-runnable-track {
     background: #00ff00;
 }
 
-#blue-slider::-webkit-slider-runnable-track {
+#blue-slider::-webkit-slider-runnable-track,
+#challenge-blue-slider::-webkit-slider-runnable-track {
     background: #0000ff;
 }
 
@@ -723,82 +712,7 @@ body.fullscreen-mode #unfullscreen-button {
     display: flex !important;
 }
 
-/* Network Menu Popup */
-.palette {
-    position: absolute;
-    top: 55px;
-    left: 60px;
-    /* Aligned near network button */
-    z-index: 2000;
-    display: none;
-    color: white;
-    pointer-events: none;
-    background-color: transparent;
-}
 
-.palette .wrapper {
-    background-color: black;
-    border: 2px solid #808080;
-    border-radius: 10px;
-    padding: 10px;
-    max-width: 271px;
-    min-width: 161px;
-    min-height: 51px;
-    pointer-events: auto;
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-.network-text {
-    margin: 5px 0;
-    font-size: 12px;
-    /* Small size */
-    text-transform: uppercase;
-}
-
-.palette hr {
-    border: 0;
-    border-top: 1px solid #555;
-    margin: 10px 0;
-}
-
-.toolbutton {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #fff;
-    border-radius: 5px;
-    margin-right: 10px;
-    cursor: pointer;
-    background-size: cover;
-    background-position: center;
-}
-
-#private-button {
-    background-image: url('../icons/zoom-home.svg');
-    background-color: transparent;
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: none;
-    width: 60px;
-    /* Increased size further */
-    height: 60px;
-}
-
-#shared-button {
-    background-image: url('../icons/zoom-neighborhood.svg');
-    background-color: transparent;
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: none;
-    width: 60px;
-    /* Increased size further */
-    height: 60px;
-}
-
-#users-list li {
-    padding: 5px;
-    border-bottom: 1px solid #333;
-}
 
 /* Sugarizer Scrollbar */
 ::-webkit-scrollbar {
@@ -870,6 +784,16 @@ body.fullscreen-mode #unfullscreen-button {
     /* allow it to grow and take space over sliders */
     min-height: 450px;
     /* prevent complete collapse */
+}
+
+.slider-val {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .bowl-wrapper {
