@@ -35,6 +35,14 @@ body {
   background-image: url(../icons/edit-clear.svg);
 }
 
+#main-toolbar #undo-button {
+  background-image: url(../icons/edit-undo.svg);
+}
+
+#main-toolbar #redo-button {
+  background-image: url(../icons/edit-redo.svg);
+}
+
 #main-toolbar #help-button {
   background-image: url(../icons/help.svg);
 }
@@ -55,6 +63,19 @@ body {
 	position: absolute;
 	visibility: hidden;
 	z-index: 5;
+}
+
+/* Toolbar seprator */
+.seprator-line{
+	background-color: #808080;
+	background-position: center;
+	width: 2px;
+	margin-left: 5px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+	height: 45px;
+	display: inline-block;
+	vertical-align: bottom;
 }
 
 @media screen and (max-width: 567px) {

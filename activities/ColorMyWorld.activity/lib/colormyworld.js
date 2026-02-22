@@ -11,6 +11,7 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 	me.mode=COLORING;
 	me.DELAY=1500.;
 	me.RUNNING=false;
+	me.LOADING=true;
 
 	me.saveStateCB=function(){
 		print("saveStateCB");
@@ -351,6 +352,11 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 	me.fill_all_features=function(){
 		print("fill_all_features");
 		var categories=me.CATEGORIES['keys'];
+		var loader = document.getElementById('loader');
+		if(!me.LOADING){	
+    		loader.style.display = 'flex'; // Show the loader
+			me.LOADING=true;
+		}
 		for(var cidx=0;cidx<categories.length;cidx++){
 			var category=categories[cidx];
 			var layer_names=me.CATEGORIES[category]['keys'];
@@ -377,6 +383,10 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 					me.CATEGORIES[category][layer_name]['feature_names'].push(feature_name);
 				}
 			}
+		}
+		if(me.LOADING){
+			loader.style.display = 'none'; // Hide the loader
+			me.LOADING=false;
 		}
 //		window.control_panel.rebuild();
 	}
@@ -471,6 +481,9 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 		me.RUNNING=val;
 	}
 	me.toggleRunning=function(){
+		if (me.LOADING) {
+			return;
+		}
 		if (me.mode==COLORING) {
 			me.setMode(TOUR);
 			document.getElementById("modelabel").innerHTML=l10n.get(MODE_NAMES[me.mode]);
@@ -536,9 +549,21 @@ define(["activity/ol","util","print","l10n","flag"],function(ol,util,print,l10n,
 
 		var xhtml="<center><h3>Next:</h3><h1>"+l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' ')+"</h1><h3>"+target_layer_name+"</h3></center>";
 		if(me.mode==TOUR){
-			xhtml="<center><h3>"+util.descore(l10n.get(util.enscore('Next')))+":</h3><h1>"+util.descore(flag[`${target_name.replace(/ /g,'_')}`]+" "+l10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
+		       var flagURL = flag[target_name.replace(/ /g, '_')];
+		       var flagDisplay = flagURL ? `<img src="./flags/${flagURL}.svg" alt="${target_name} flag" style="height:1em; width:auto; vertical-align:middle;">` : "";
+		       xhtml = `<center>
+			          <h3>${util.descore(l10n.get(util.enscore('Next')))}:</h3>
+				  <h1>${util.descore(flagDisplay + "&nbsp;&nbsp;" + l10n.get(util.enscore(target_name)))}</h1>
+				  <h3>${target_layer_name}</h3>
+				 </center>`;
 		} else if (me.mode==INTERACTIVE) {
-			xhtml="<center><h3>"+util.descore(l10n.get(util.enscore('Find')))+":</h3><h1>"+util.descore(l10n.get(util.enscore(target_name)))+"</h1><h3>"+target_layer_name+"</h3></center>";
+			var flagURL = flag[target_name.replace(/ /g, '_')];
+			var flagDisplay = flagURL ? `<img src="./flags/${flagURL}.svg" alt="${target_name} flag" style="height:1em; width:auto; vertical-align:middle;">` : "";
+			xhtml = `<center>
+					  <h3>${util.descore(l10n.get(util.enscore('Find')))}:</h3>
+					  <h1>${util.descore(flagDisplay + "&nbsp;&nbsp;" + l10n.get(util.enscore(target_name)))}</h1>
+					  <h3>${target_layer_name}</h3>
+					 </center>`;		
 		}
 		if(true)print("me.startMove:"+target_name+" "+target_layer_name);
 		me.showPopup(xhtml);

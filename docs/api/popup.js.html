@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: popup.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: popup.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module Popup
+ * @desc This is an popup component which contains title, name, icon with optional itemList and footerList
+ * @vue-prop {Object.&lt;Object>} item - stores a data object content with name, title, item and footerList of selected icon
+ * @vue-data {Object.&lt;Object>} [itemData=null] - to change the content of component
+ * @vue-data {Boolean} [isShown=false] - to ensure if popup instance is currently visible in DOM
+ * @vue-data {Number} [xData=null] - left position of popup component
+ * @vue-data {Number} [yData=null] - top position of popup component
+ * @vue-event {String} itemisClicked - Emit selected item when clicked in "'popup component id'_'selected item id'" format
+ */
+const Popup ={
+	name: 'Popup',
+	template: ` &lt;div ref="homePopup" class="home-activity-popup" 
+					v-if="itemData &amp;&amp; isShown &amp;&amp; itemData.icon &amp;&amp; itemData.name"
+				>
+					&lt;div class="popup-title" @click="itemClicked(itemData.id+'_'+itemData.icon.id)">
+						&lt;icon 
+							:key="iconKey"
+							class="item-icon-title"
+							:id=itemData.icon.id
+							:svgfile=itemData.icon.iconData
+							:color=itemData.icon.color
+							:size=itemData.icon.size
+							:x=itemData.icon.iconx
+							:y=itemData.icon.icony
+							:isNative=itemData.icon.isNative
+							:disableHoverEffect="true"
+						>
+						&lt;/icon>
+						&lt;div>
+							&lt;div class="popup-name-text">{{ itemData.name }}&lt;/div>
+							&lt;div class="popup-title-text">{{ itemData.title }}&lt;/div>
+						&lt;/div>
+					&lt;/div>
+					&lt;div id="items" class="popup-items" v-if="itemData.itemList &amp;&amp; itemData.itemList.length > 0">
+						&lt;div class="popup-item-listview">
+							&lt;div class="item-list">
+								&lt;div class="item-list-item" 
+									v-for="ele in itemData.itemList" key="ele.index"
+									@click="itemClicked(itemData.id+'_'+ele.icon.id)"
+								>
+									&lt;icon class="item-icon"
+										:key="iconKey"
+										:id=ele.icon.id
+										:svgfile=ele.icon.iconData
+										:color=ele.icon.color
+										:size=ele.icon.size
+										:x=ele.icon.iconx
+										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
+										:disableHoverEffect="true"
+									>&lt;/icon>
+									&lt;div class="item-name">{{ ele.name }}&lt;/div>
+								&lt;/div>
+							&lt;/div>
+						&lt;/div>
+					&lt;/div>
+					&lt;div id="footer" class="popup-items" v-if="itemData.footerList &amp;&amp; itemData.footerList.length > 0">
+						&lt;div class="popup-item-listview">
+							&lt;div class="item-list">
+								&lt;div class="item-list-item" 
+									v-for="ele in itemData.footerList" key="ele.index"
+									@click="itemClicked(itemData.id+'_'+ele.icon.id)"
+								>
+									&lt;icon class="item-icon"
+										:key="iconKey"
+										:id=ele.icon.id
+										:svgfile=ele.icon.iconData
+										:color=ele.icon.color
+										:size=ele.icon.size
+										:x=ele.icon.iconx
+										:y=ele.icon.icony
+										:isNative=ele.icon.isNative
+										:disableHoverEffect="true"
+									>&lt;/icon>
+									&lt;div class="item-name">{{ ele.name }}&lt;/div>
+								&lt;/div>
+							&lt;/div>
+						&lt;/div>
+					&lt;/div>
+				&lt;/div>`,
+	components: {
+		'icon': Icon, 
+	},
+	props: ['item'],
+	data() {
+		return {
+			itemData: this.item? this.item: null,
+			xData: null,
+			yData: null,
+			isShown: false,
+			iconKey: 0
+		}
+	},
+	watch: {
+		item: {
+			deep: true,
+			handler: function(newItem) {
+				this.itemData= newItem;
+				this.iconKey= !this.iconKey;
+			}
+		}
+	},
+	updated: function() {
+		var ele= this.$refs.homePopup;
+		if(ele) {
+			var deltaX= this.xData + ele.clientWidth - window.innerWidth + 5;
+			var deltaY= this.yData + ele.clientHeight - window.innerHeight + 5;
+			var dataX = this.xData;
+			var dataY = this.yData;
+			// check if popup component is out of screen window, then adjust it by extra width
+			if (deltaX >= 1) {
+				dataX = this.xData - deltaX;
+			}
+			if (deltaY >= 1) {
+				dataY = this.yData - deltaY;
+			}
+			ele.setAttribute("style", "left: "+dataX+"px; top: "+dataY+"px;");
+		}
+	},
+	methods: {
+		itemClicked(event) {
+			this.$emit('itemisClicked',event)
+		},
+		/** 
+		 * @memberOf module:Popup.methods
+		 * @method show
+		 * @desc set the position of popup component based on x, y argument data and display it
+		 * @param {Number} x - left position of cursor
+		 * @param {Number} y - top position of cursor
+		 */
+		show(x, y) {
+			if(this.isShown) return;
+			this.xData= x;
+			this.yData= y;
+			this.isShown= true;
+		},
+		/** 
+		 * @memberOf module:Popup.methods
+		 * @method isCursorInside
+		 * @desc check if cursor is inside the popup component or not
+		 * @param {Number} x - x position of cursor
+		 * @param {Number} y - y position of cursor
+		 * @returns {Boolean}
+		 */
+		isCursorInside(x, y) {
+			var ele= this.$refs.homePopup;
+			if(ele) {
+				var popupXmin= this.xData;
+				var popupXmax= this.xData + ele.clientWidth;
+				var popupYmin= this.yData;
+				var popupYmax= this.yData + ele.clientHeight;
+				if((x>= popupXmin &amp;&amp; x&lt;=popupXmax &amp;&amp; y>=popupYmin &amp;&amp; y&lt;=popupYmax))
+					return true;
+				else
+					return false;
+			} else 
+				return false;
+		},
+		/** 
+		 * @memberOf module:Popup.methods
+		 * @method hide
+		 * @desc hide the popup component and set all data values back to null
+		 */
+		hide() {
+			this.isShown= false;
+			this.itemData= null;
+			this.xData= null;
+			this.yData= null;
+		}
+	}
+};
+
+if (typeof module !== 'undefined') module.exports = { Popup }</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Dialog.html">Dialog</a></li><li><a href="module-FilterBox.html">FilterBox</a></li><li><a href="module-Icon.html">Icon</a></li><li><a href="module-IconButton.html">IconButton</a></li><li><a href="module-Password.html">Password</a></li><li><a href="module-Popup.html">Popup</a></li><li><a href="module-SearchField.html">SearchField</a></li><li><a href="module-SelectBox.html">SelectBox</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sat Jun 08 2024 22:04:06 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

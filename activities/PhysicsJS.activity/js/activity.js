@@ -20,11 +20,21 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		var sensorButton = document.getElementById("sensor-button");
 		var gravityButton = document.getElementById("gravity-button");
 		var appleButton = document.getElementById("apple-button");
+		var waterButton = document.getElementById("water-button");
 		var runButton = document.getElementById("run-button");
+		var penButton = document.getElementById("pen-button");
 		var readyToWatch = false;
 		var sensorMode = true;
 		var newtonMode = false;
 		var resizeTimer = null;
+		var watermode = false;
+		var currentGravity = { x: 0, y: 0.0004 };
+
+
+		var isDrawing = false;
+		var drawingPoints = [];
+		var tempCanvas = null;
+		var tempCtx = null;
 		if (useragent.indexOf('android') != -1 || useragent.indexOf('iphone') != -1 || useragent.indexOf('ipad') != -1 || useragent.indexOf('ipod') != -1 || useragent.indexOf('mozilla/5.0 (mobile') != -1) {
 			document.addEventListener('deviceready', function() {
 				readyToWatch = true;
@@ -39,13 +49,18 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 		var body = document.getElementById("body");
 		var innerWidth = body.offsetWidth;
 		var innerHeight = body.offsetHeight;
+		var prevWidth = innerWidth;
+		var prevHeight = innerHeight;
 		var toolbarHeight = 55;
 		var outerWidth = 0; // Use to determine if items could disappear, could be 300;
 		var init = false;
 		var gravityMode = 0;
 		var currentType = 0;
 		var physicsActive = true;
+
 		Physics({ timestep: 6 }, function (world) {
+
+			window.world = world;
 
 			// bounds of the window
 			var viewWidth = innerWidth
@@ -64,16 +79,27 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 				// add the renderer
 				world.add(renderer);
+				// Create temporary canvas for pen drawing preview
+				createTempCanvas();
 				// render on each step
 				world.on('step', function () {
-					world.render();
+					world.render();	
 					if (!init) {
 						init = true;
 						zoom();
 					}
 					if (readyToWatch) {
-						watchId = navigator.accelerometer.watchAcceleration(accelerationChanged, null, { frequency: 500 });
-						readyToWatch = false;
+						if (window.Accelerometer) {
+							var accelerometer = new Accelerometer({ frequency: 500 });
+							if (accelerometer) {
+								accelerometer.addEventListener('reading', accelerationChanged);
+								accelerometer.start();
+							}
+							readyToWatch = false;
+						} else if (navigator.accelerometer) {	
+							navigator.accelerometer.watchAcceleration(accelerationChanged, null, { frequency: 500 });
+							readyToWatch = false;
+						}
 					}
 				});
 				// add the interaction
@@ -87,24 +113,247 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				,cof: 0.8
 			});
 
-			// resize events
-			window.addEventListener('resize', function () {
-				if (resizeTimer) {
-					clearTimeout(resizeTimer);
+			
+			
+			const WATER_PERCENTAGE = 0.60; // fraction of screen water covers
+			const WATER = {
+				enabled: false,
+				region: null,      // 'bottom', 'top', 'left', 'right', 'bottom-right', etc
+				boundary: null,    // {x1,y1,x2,y2} for rectangles, {p1,p2,p3} for triangles
+				density: 0.0011,
+				drag: 0.02,
+				lift: 0.9,
+				
+				updateBoundary: function() {
+					const w = innerWidth, h = innerHeight;
+					const px = currentGravity.x, py = currentGravity.y;
+					// Reset
+					this.boundary = null;
+					this.region = null;
+					
+					if (Math.abs(px) < 0.0001 && py > 0) {
+						this.region = 'bottom';
+						this.boundary = { x1: 0, y1: h*(1-WATER_PERCENTAGE), x2: w, y2: h };
+					} else if (Math.abs(px) < 0.0001 && py < 0) { 
+						this.region = 'top';
+						this.boundary = { x1: 0, y1: 0, x2: w, y2: h*WATER_PERCENTAGE };
+					} else if (px > 0 && Math.abs(py) < 0.0001) { 
+						this.region = 'right';
+						this.boundary = { x1: w*(1-WATER_PERCENTAGE), y1: 0, x2: w, y2: h };
+					} else if (px < 0 && Math.abs(py) < 0.0001) { 
+						this.region = 'left';
+						this.boundary = { x1: 0, y1: 0, x2: w*WATER_PERCENTAGE, y2: h };
+					} else if (px > 0 && py > 0) { 
+						this.region = 'bottom-right';
+						this.boundary = {
+							p1: {x: w*(1-WATER_PERCENTAGE), y: h}, 
+							p2: {x: w, y: h}, 
+							p3: {x: w, y: h*(1-WATER_PERCENTAGE)}
+						};
+					} else if (px < 0 && py > 0) { 
+						this.region = 'bottom-left';
+						this.boundary = {
+							p1: {x: 0, y: h*(1-WATER_PERCENTAGE)}, 
+							p2: {x: 0, y: h}, 
+							p3: {x: w*WATER_PERCENTAGE, y: h}
+						};
+					} else if (px > 0 && py < 0) { 
+						this.region = 'top-right';
+						this.boundary = {
+							p1: {x: w*(1-WATER_PERCENTAGE), y: 0}, 
+							p2: {x: w, y: 0}, 
+							p3: {x: w, y: h*WATER_PERCENTAGE}
+						};
+					} else if (px < 0 && py < 0) { 
+						this.region = 'top-left';
+						this.boundary = {
+							p1: {x: 0, y: 0}, 
+							p2: {x: w*WATER_PERCENTAGE, y: 0}, 
+							p3: {x: 0, y: h*WATER_PERCENTAGE}
+						};
+					}
+					const viewport = document.getElementById('viewport');
+					if (viewport && this.region) {
+						viewport.setAttribute('data-water-region', this.region);
+					}
+				},
+				isInside: function(body) {
+					if (!this.boundary) return false;
+					const x = body.state.pos.x;
+					const y = body.state.pos.y;
+					// Rectangle check
+					if (this.boundary.x1 !== undefined) {
+						return x >= this.boundary.x1 && x <= this.boundary.x2 &&
+						y >= this.boundary.y1 && y <= this.boundary.y2;
+					}
+					// Triangle check using barycentric coordinates
+					if (this.boundary.p1) {
+						const {p1, p2, p3} = this.boundary;
+						const denom = (p2.y - p3.y)*(p1.x - p3.x) + (p3.x - p2.x)*(p1.y - p3.y);
+						const a = ((p2.y - p3.y)*(x - p3.x) + (p3.x - p2.x)*(y - p3.y)) / denom;
+						const b = ((p3.y - p1.y)*(x - p3.x) + (p1.x - p3.x)*(y - p3.y)) / denom;
+						const c = 1 - a - b;
+						return a >= 0 && b >= 0 && c >= 0;
+					}
+					return false;
 				}
-				resizerTimer = setTimeout(function() {
-					renderer.resize(body.offsetWidth,body.offsetHeight);
-					// as of 0.7.0 the renderer will auto resize... so we just take the values from the renderer
-					viewportBounds = Physics.aabb(0-outerWidth, toolbarHeight, renderer.width+outerWidth, renderer.height);
-					// update the boundaries
-					edgeBounce.setAABB(viewportBounds);
-					innerWidth = body.offsetWidth;
-					innerHeight = body.offsetHeight;
-					zoom();
-				}, 500);
+			};
 
-			}, true);
 
+
+
+			
+
+			const DENSITY_MAP = {
+				VERY_LIGHT: 0.0008,
+				LIGHT: 0.0009,
+				MEDIUM: 0.0012,
+				HEAVY: 0.0018,
+				VERY_HEAVY: 0.0025
+			};
+			function getDensityBySize(body) {
+				if (body.geometry.name === 'circle') {
+					const r = body.radius;
+					if (r < 50) return DENSITY_MAP.VERY_LIGHT;
+					else if (r < 60 && r >= 50) return DENSITY_MAP.LIGHT;
+					else if (r >= 100) return DENSITY_MAP.VERY_HEAVY;
+					else if (r > 80) return DENSITY_MAP.HEAVY;
+					else return DENSITY_MAP.MEDIUM;
+				} 
+    
+				if (body.geometry.name === 'rectangle') {
+					const size = Math.max(body.geometry.width, body.geometry.height);
+					if (size < 50) return DENSITY_MAP.VERY_LIGHT;
+					else if (size < 70) return DENSITY_MAP.LIGHT;
+					else if (size > 80) return DENSITY_MAP.HEAVY;
+					else if (size >= 100) return DENSITY_MAP.VERY_HEAVY;
+					else return DENSITY_MAP.MEDIUM;
+				}
+
+				if (body.geometry.name === 'convex-polygon') {
+					const q=body.geometry.vertices[0];
+					const polyRadius = Math.sqrt(q.x * q.x + q.y * q.y);
+					if (polyRadius < 50) {
+						return DENSITY_MAP.VERY_LIGHT;
+					} else if (polyRadius < 70 && polyRadius >= 50) {
+						return DENSITY_MAP.LIGHT;
+					} else if (polyRadius > 80) {
+						return DENSITY_MAP.HEAVY;
+					} else if (polyRadius >= 100) {
+						return DENSITY_MAP.VERY_HEAVY;
+					}
+					else{
+						return DENSITY_MAP.MEDIUM;
+					}
+				}
+				return DENSITY_MAP.MEDIUM; 
+				}
+			
+				
+
+
+			var waterBehavior = Physics.behavior('water', function (parent) {
+				return {
+					behave: function (data) {
+						if (!WATER.enabled) return;
+						var bodies = data.bodies;
+						const gravityAccX = currentGravity.x || 0;
+						const gravityAccY = currentGravity.y || 0; 
+						const g=0.0004;
+						const gravityAcc = Math.sqrt(gravityAccX * gravityAccX + gravityAccY * gravityAccY);
+
+						for (var i = 0; i < bodies.length; i++) {
+							var body = bodies[i];
+							if (!WATER.isInside(body)) continue;
+							body.density = getDensityBySize(body);
+							const v = body.state.vel;
+							// Dynamic Drag
+							const dragFactor = (body.density > WATER.density) ? WATER.drag * 0.5 : WATER.drag;
+							body.applyForce({
+								x: -v.x * dragFactor * body.mass,
+								y: -v.y * dragFactor * body.mass
+							});
+							// Archimedes Buoyancy Buoyancy Force = Weight of displaced water
+							// Formula: F = -(Density_Water / Density_Body) * Weight_of_Body
+							const displacementRatio = WATER.density / body.density;
+							const weight = body.mass * g;
+							let buoyancyForceX=0;
+							let buoyancyForceY=0;
+							if(gravityAccX > 0){
+								buoyancyForceX = -(displacementRatio * weight);
+							} else if(gravityAccX < 0){ 
+								buoyancyForceX = (displacementRatio * weight);
+							}
+							if(gravityAccY > 0){
+								buoyancyForceY = -(displacementRatio * weight);
+							} else if(gravityAccY < 0){
+								buoyancyForceY = (displacementRatio * weight);
+							}
+							body.applyForce({
+								x: buoyancyForceX * WATER.lift,
+								y: buoyancyForceY * WATER.lift
+							});
+							// If density is higher than water, adding a little extra downward push
+							if (body.density > WATER.density) {
+								body.applyForce({ x: gravityAccX*body.mass*0.2, y:  gravityAccY*body.mass*0.2 });
+							}
+							body.state.angular.vel *= 0.95;
+						}
+						
+					}
+					
+				};
+			});
+
+
+
+			// resize events
+			// Optimized Real-Time Resize
+		window.addEventListener('resize', function () {
+
+			const newWidth = body.offsetWidth;
+			const newHeight = body.offsetHeight;
+
+			const scaleX = newWidth / prevWidth;
+			const scaleY = newHeight / prevHeight;
+
+			// Update physics bounds
+			viewportBounds = Physics.aabb(0 - outerWidth, toolbarHeight, newWidth + outerWidth, newHeight);
+			edgeBounce.setAABB(viewportBounds);
+
+			// Scale all bodies
+			var physicsBodies = world.getBodies();
+			physicsBodies.forEach(function(b) {
+				b.state.pos.x *= scaleX;
+				b.state.pos.y *= scaleY;
+				b.state.vel.x *= scaleX;
+				b.state.vel.y *= scaleY;
+				b.recalc();
+			});
+
+			// Resize renderer
+			if (renderer) {
+				renderer.resize(newWidth, newHeight);
+			}
+
+			// Update globals
+			innerWidth = newWidth;
+			innerHeight = newHeight;
+			prevWidth = newWidth;
+			prevHeight = newHeight;
+
+			// Recreate temp canvas (pen feature)
+			if (tempCanvas) {
+				createTempCanvas();
+			}
+
+			// Update water boundary
+			WATER.updateBoundary();
+
+			world.wakeUpAll();
+			world.render();
+
+		}, true);
 			// handle toolbar buttons
 			document.getElementById("box-button").addEventListener('click', function (e) {
 				currentType = 1;
@@ -135,6 +384,12 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 			document.getElementById("clear-button").addEventListener('click', function () {
 				currentType = -1;
+				switchToType(currentType);
+			}, true);
+
+			// Pen button event listener
+			penButton.addEventListener('click', function () {
+				currentType = 4;
 				switchToType(currentType);
 			}, true);
 
@@ -172,6 +427,11 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				newtonMode = !newtonMode;
 				if (newtonMode) {
 					world.remove(gravity);
+					world.remove(waterBehavior);
+					WATER.enabled = false;
+					watermode = false; 
+					waterButton.classList.remove('active');
+					document.getElementById('viewport').classList.remove('water-mode');
 					world.add(newton);
 					appleButton.classList.add('active');
 					gravityButton.disabled = true;
@@ -182,9 +442,32 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					gravityButton.disabled = false;
 				}
 			}, true);
+			
+			waterButton.addEventListener('click', function () {
+				watermode = !watermode;
+				if (watermode) {
+					WATER.enabled = true;
+					newtonMode = false;
+					world.remove(newton);
+					appleButton.classList.remove('active');
+					world.add(gravity);
+					world.add(waterBehavior);
+        			waterButton.classList.add('active');
+					gravityButton.disabled = false;
+					WATER.updateBoundary();
+        			document.getElementById('viewport').classList.add('water-mode');
+    			} else {
+					world.remove(waterBehavior);
+					WATER.enabled = false;
+        			waterButton.classList.remove('active');
+					gravityButton.disabled = false;
+        			document.getElementById('viewport').classList.remove('water-mode');
+    			}
+			}, true);
 
-			function accelerationChanged(acceleration) {
+			function accelerationChanged(accelerationEvent) {
 				if (!sensorMode) return;
+				var acceleration = window.Accelerometer ? accelerationEvent.target : accelerationEvent;
 				if (acceleration.x < -4.5) {
 					if (acceleration.y > 4.75)
 						setGravity(3);
@@ -261,16 +544,172 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			}
 
 			function switchToType(newtype) {
+				isDrawing = false;
+				drawingPoints = [];
+				clearTempCanvas();
 				document.getElementById("box-button").classList.remove('active');
 				document.getElementById("circle-button").classList.remove('active');
 				document.getElementById("polygon-button").classList.remove('active');
 				document.getElementById("triangle-button").classList.remove('active');
 				document.getElementById("clear-button").classList.remove('active');
+				document.getElementById("pen-button").classList.remove('active');
+				document.getElementById("viewport").style.cursor = "default";
 				if (newtype == 0) document.getElementById("circle-button").classList.add('active');
 				else if (newtype == 1) document.getElementById("box-button").classList.add('active');
 				else if (newtype == 2) document.getElementById("triangle-button").classList.add('active');
 				else if (newtype == 3) document.getElementById("polygon-button").classList.add('active');
+				else if (newtype == 4) {
+					document.getElementById("pen-button").classList.add('active');
+					document.getElementById("viewport").style.cursor = "crosshair";
+				}
 				else if (newtype == -1) document.getElementById("clear-button").classList.add('active');
+			}
+
+			function createTempCanvas() {
+				var viewport = document.getElementById("viewport");
+				if (tempCanvas) {
+					viewport.removeChild(tempCanvas);
+				}
+
+				tempCanvas = document.createElement('canvas');
+				tempCanvas.width = body.offsetWidth;
+				tempCanvas.height = body.offsetHeight;
+				tempCanvas.style.position = "absolute";
+				tempCanvas.style.top = "0";
+				tempCanvas.style.left = "0";
+				tempCanvas.style.pointerEvents = "none";
+				tempCanvas.style.zIndex = 1;
+				viewport.appendChild(tempCanvas);
+				tempCtx = tempCanvas.getContext('2d');
+			}
+
+			function clearTempCanvas() {
+				if (tempCtx) {
+					tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+				}	
+			}
+
+			function drawPenPreview() {
+				if (!tempCtx || drawingPoints.length < 2) return;
+				clearTempCanvas();
+				tempCtx.beginPath();
+				tempCtx.strokeStyle = '#00ff00';
+				tempCtx.lineWidth = 3;
+				tempCtx.lineJoin = 'round';
+				tempCtx.lineCap = 'round';
+
+				tempCtx.moveTo(drawingPoints[0].x, drawingPoints[0].y);
+				for (var i = 1; i < drawingPoints.length; i++) {
+					tempCtx.lineTo(drawingPoints[i].x, drawingPoints[i].y);
+				}
+
+				tempCtx.stroke();
+			}
+
+			function simplifyPath(points, tolerance) {
+				if (points.length <= 2) return points;
+				var simplified = [points[0]];
+
+				for (var i = 1; i < points.length - 1; i++) {
+					var prev = simplified[simplified.length - 1];
+					var curr = points[i];
+
+					var dist = Math.sqrt(
+						Math.pow(curr.x - prev.x, 2) +
+						Math.pow(curr.y - prev.y, 2)
+					);
+
+					if (dist > tolerance) {
+						simplified.push(curr);
+					}
+				}
+				simplified.push(points[points.length - 1]);
+				return simplified;
+			}
+
+			function createConvexHull(points) {
+				// Simple convex hull using gift wrapping algorithm
+				if (points.length < 3) return points;
+				var hull = [];
+				var leftmost = 0;
+				for (var i = 1; i < points.length; i++) {
+					if (points[i].x < points[leftmost].x) {
+						leftmost = i;
+					}
+				}
+
+				var p = leftmost;
+				do {
+					hull.push(points[p]);
+					var q = (p + 1) % points.length;
+					for(var i = 0; i < points.length; i++) {
+						var cross = (points[q].y - points[p].y) * (points[i].x - points[q].x) -	(points[q].x - points[p].x) * (points[i].y - points[q].y);
+						if (cross < 0) {
+							q = i;
+						}	
+					}
+					p = q;
+				} while (p != leftmost && hull.length < points.length);
+				return hull;
+			}
+
+			function createPhysicsBodyFromPath(points) {
+				if (points.length < 3) return;
+
+				// Simplify and create convex hull
+				var simplified = simplifyPath(points, 15);
+				if (simplified.length < 3) return;
+
+				// force close the polygon
+				var firstPoint = simplified[0];
+				var lastPoint = simplified[simplified.length - 1];
+				var dx = firstPoint.x - lastPoint.x;
+				var dy = firstPoint.y - lastPoint.y;
+				var dist = Math.sqrt(dx*dx + dy*dy);
+				if (dist > 5) {
+					simplified.push({x: firstPoint.x, y: firstPoint.y});
+				}
+
+				var hull = createConvexHull(simplified);
+
+				if (hull.length < 3) return;
+
+				// Calculate centroid
+				var cx = 0, cy = 0;
+				for (var i = 0; i < hull.length; i++) {
+					cx += hull[i].x;
+					cy += hull[i].y;
+				}
+				cx /= hull.length;
+				cy /= hull.length;
+
+				// Convert to vertices relative to centroid
+				var vertices = [];
+				for (var i = 0; i < hull.length; i++) {
+					vertices.push(Physics.vector(hull[i].x - cx, hull[i].y - cy));
+				}
+
+				// Create physics body
+				var c = colors[random(0, colors.length-1)];
+				try { 
+					var body = Physics.body('convex-polygon', {
+						x: cx,
+						y: cy,
+						vertices: vertices,
+						mass: 1,
+						restitution: 0.9,
+						styles: {
+							fillStyle: c[0],
+							strokeStyle: c[1],
+							lineWidth: 1,
+							angleIndicator: c[1]
+						}
+					});
+					body.treatment = physicsActive ? "dynamic" : "static";
+					world.add(body);
+				} catch (e) {
+					console.log("Failed to create shape: " + e.message);
+				}
 			}
 
 			function dropInBody(type, pos){
@@ -283,7 +722,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						// add a circle
 					case 0:
 						c = colors[random(0, colors.length-1)];
-						body = Physics.body('circle', {
+						body = Physics.body('circle',{
 							x: pos.x
 							,y: pos.y
 							,vx: random(-5, 5)/100
@@ -301,8 +740,8 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						// add a square
 					case 1:
 						c = colors[random(0, colors.length-1)];
-						var l = random(0, 70);
-						body = Physics.body('rectangle', {
+						var l = random(0, 70)
+						body = Physics.body('rectangle',{
 							width: 50+l
 							,height: 50+l
 							,x: pos.x
@@ -324,7 +763,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					case 3:
 						var s = (type == 2 ? 3 : random( 5, 10 ));
 						c = colors[ random(0, colors.length-1) ];
-						body = Physics.body('convex-polygon', {
+						body = Physics.body('convex-polygon',{
 							vertices: Physics.geometry.regularPolygonVertices( s, 30 )
 							,x: pos.x
 							,y: pos.y
@@ -342,7 +781,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				}
 
 				body.treatment = "static";
-
+				body.density = getDensityBySize(body);
 				world.add( body );
 				return body;
 			}
@@ -359,7 +798,10 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 				// Save to datastore
 				var datastoreObject = activity.getDatastoreObject();
-				var jsonData = JSON.stringify({world: objects});
+				var jsonData = JSON.stringify({
+					world: objects
+					,watermode: watermode
+				});
 				datastoreObject.setDataAsText(jsonData);
 				datastoreObject.save(callback);
 			}
@@ -373,12 +815,17 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					object.width = body.view.width;
 					object.height = body.view.height;
 				} else if (body.geometry.name == "convex-polygon") {
-					object.vertices = body.vertices;
+					// Save the vertices properly
+					object.vertices = [];
+					for (var i = 0; i <body.vertices.length; i++) {
+						object.vertices.push( { x: body.vertices[i].x,  y: body.vertices[i].y } );
+					}
 				}
 				object.restitution = body.restitution;
 				object.styles = body.styles;
 				object.x = body.view.x;
 				object.y = body.view.y;
+				object.angle = body.state.angular.pos;// Save rotation angle
 				return object;
 			}
 
@@ -395,6 +842,20 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					for(var i = 0 ; i < objects.length ; i++) {
 						var newBody = deserializeObject(objects[i]);
 						world.add(newBody);
+					}
+					if (data.watermode) {
+						watermode = true;
+						WATER.enabled = true;
+						world.add(waterBehavior);
+						document.getElementById('viewport').classList.add('water-mode');
+						WATER.updateBoundary();
+						waterButton.classList.add('active');
+						gravityButton.disabled = false;
+					} else {
+						watermode = false;
+						WATER.enabled = false;
+						document.getElementById('viewport').classList.remove('water-mode');
+						waterButton.classList.remove('active');
 					}
 				});
 			}
@@ -413,7 +874,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				} else if (savedObject.type == "rectangle") {
 					newOptions.width = savedObject.width;
 					newOptions.height = savedObject.height;
-				} else if (savedObject.type = "convex-polygon") {
+				} else if (savedObject.type == "convex-polygon") {
 					newOptions.vertices = savedObject.vertices;
 				}
 				return Physics.body(savedObject.type, newOptions);
@@ -481,6 +942,9 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				acc = { x: acc.x * reverse, y: acc.y * reverse };
 				document.getElementById("gravity-button").style.backgroundImage = "url(icons/gravity"+(reverse == -1 ? (value+4)%8 : value)+".svg)";
 				gravity.setAcceleration(acc);
+				currentGravity.x = acc.x;
+				currentGravity.y = acc.y;
+				WATER.updateBoundary();
 				world.wakeUpAll();
 				gravityMode = value;
 			}
@@ -501,17 +965,32 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			var distance = null;
 			world.on({
 				'interact:poke': function( pos ){
+					// Handle pen drawing mode
+					if (currentType == 4) {
+						isDrawing = true;
+						drawingPoints = [];
+						return;
+					}
+
 					// make previously created body dynamic
 					if (createdBody && physicsActive) {
 						createdBody.treatment = "dynamic";
 					}
 					// create body at a static place
-					if (currentType != -1 && pos.y > 55) {
+					if (currentType >= 0 && currentType <= 3 && pos.y > toolbarHeight) {
 						createdBody = dropInBody(currentType, pos);
 						createdStart = pos;
 					}
 				}
 				,'interact:move': function( pos ){
+					// Handle pen drawing
+					if (currentType == 4 && isDrawing && pos.y > toolbarHeight) {
+
+						drawingPoints.push(pos);
+						drawPenPreview();
+						return;
+					}
+
 					// update size of created body
 					if (createdBody != null) {
 						// compute new size
@@ -530,7 +1009,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 								object.radius = Math.max(40, distance);
 							} else if (object.type == "rectangle") {
 								object.width = object.height = Math.max(50, distance);
-							} else if (object.type = "convex-polygon") {
+							} else if (object.type == "convex-polygon") {
 								object.vertices = Physics.geometry.regularPolygonVertices( object.vertices.length, Math.max(30, distance));
 							}
 							world.removeBody(createdBody);
@@ -538,12 +1017,23 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 							var v2 = new Physics.vector(pos.x-createdStart.x, pos.y-createdStart.y);
 							object.angle = -v1.angle(v2);
 							createdBody = deserializeObject(object);
-							createdBody.treatment = "static";
+							createdBody.treatment = watermode ? "dynamic" : "static";
+							
 							world.add(createdBody);
 						}
 					}
 				}
 				,'interact:release': function( pos ){
+					// Finish pen drawing
+					if (currentType == 4 && isDrawing) {
+						isDrawing = false;
+						if (drawingPoints.length >= 10) {
+							createPhysicsBodyFromPath(drawingPoints);
+						}
+						drawingPoints = [];
+						clearTempCanvas();
+						return;
+					}
 					if (physicsActive) {
 						if (createdBody != null) {
 							createdBody.treatment = "dynamic";
@@ -562,6 +1052,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			// add things to the world
 			var gravity = Physics.behavior('constant-acceleration');
 			var newton = Physics.behavior('newtonian', { strength: .5 });
+			var waterBehavior = Physics.behavior('water');
 			world.add([
 				gravity
 				,Physics.behavior('body-impulse-response')
@@ -587,6 +1078,5 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				}
 			});
 		});
-    });
-
+	});
 });

@@ -1,0 +1,18 @@
+[
+  { "name": "Brain", "mesh": "brain", "position": [0.01, 5.31, 0.04], "frontView": true },
+  { "name": "Eye", "mesh": "Eye_Eye_0001", "position": [0.01, 4.87, 0.82], "frontView": true },
+  { "name": "Mouth", "mesh": "mouth", "position": [-0.01, 4.21, 0.73], "frontView": true },
+  { "name": "Trachea", "mesh": "windpipe001", "position": [0, 2.67, 2.2], "frontView": true },
+  { "name": "Esophagus", "mesh": "food_pipe", "position": [-0.03, 1.71, -0.08], "frontView": false, "sideView": true },
+  { "name": "SpinalCord", "mesh": "Spinal_chord", "position": [-0.01, 1.66, -0.75], "frontView": false },
+  { "name": "Lungs", "mesh": "lungs001", "position": [0.03, 1.07, 2], "frontView": true },
+  { "name": "Heart", "mesh": "heart", "position": [0.05, 1.75, 0.59], "frontView": true },
+  { "name": "Liver", "mesh": "liver", "position": [-0.46, -0.42, 0.44], "frontView": true },
+  { "name": "Stomach", "mesh": "stomach", "position": [0.52, -0.7, 0.55], "frontView": true },
+  { "name": "Pancreas", "mesh": "pancreas", "position": [-0.05, -1, 0], "frontView": false },
+  { "name": "Kidney", "mesh": "kidney", "position": [0.11, -1.58, -1.79], "frontView": false },
+  { "name": "LargeIntestine", "mesh": "large_intestine", "position": [0.01, -2.69, 0.22], "frontView": true },
+  { "name": "SmallIntestine", "mesh": "small_intestine", "position": [0.04, -2.96, 0.68], "frontView": true },
+  { "name": "Ureter", "mesh": "ureter", "position": [0, -2.83, -1.76], "frontView": false },
+  { "name": "UrinaryBladder", "mesh": "urinary_blader", "position": [-0.01, -4.9, -1.71], "frontView": false }
+]

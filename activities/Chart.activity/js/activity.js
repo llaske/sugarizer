@@ -22,6 +22,8 @@ const app = new Vue({
 		"csv-view": CsvView,
 	},
 	data: {
+		isLocalized: false,
+		pendingNewInstance: false,
 		currentenv: null,
 		SugarL10n: null,
 		SugarPresence: null,
@@ -145,9 +147,15 @@ const app = new Vue({
 			});
 		},
 		localized() {
+			this.isLocalized = true;
 			this.SugarL10n.localize(this.l10n);
 			document.getElementById("export-csv-button").title = this.l10n.stringexportAsCSV;
 			document.getElementById("export-img-button").title = this.l10n.stringSaveImage;
+			// If onJournalNewInstance was triggered before localization
+			if (this.pendingNewInstance) {
+				this.onJournalNewInstance(); // Execute the pending call
+				this.pendingNewInstance = false;
+			}
 
 		},
 
@@ -270,6 +278,10 @@ const app = new Vue({
 
 
 		onJournalNewInstance() {
+			if (!this.isLocalized) {
+				this.pendingNewInstance = true; // Mark the call as pending
+				return;
+			}
 			const randArr = this.shuffleArray([1, 2, 3, 4, 5, 6]);
 			for(let i = 0; i < 3; i++) {
 				const label = "EgLabel" + randArr[i];
@@ -283,7 +295,9 @@ const app = new Vue({
 			this.updateActivityTitle(this.l10n.stringChartActivity)
 
 			const header = [this.pref.labels.x, this.pref.labels.y];
-			this.$refs.csvView.updateJsonData(this.tabularData, header, true);
+			if (this.$refs.csvView) {
+				this.$refs.csvView.updateJsonData(this.tabularData, header, true);
+			}
 		},
 		onJournalDataLoaded(data, metadata) {
 			this.LZ = this.SugarJournal.LZString;
@@ -292,7 +306,9 @@ const app = new Vue({
 				this.csvTitle = this.currentenv.activityName;
 				this.pref.chartType = "csvMode";
 				const json = CSVParser.csvToJson(data);
-				this.$refs.csvView.updateJsonData(json.data, json.headers);
+				if (this.$refs.csvView) {
+					this.$refs.csvView.updateJsonData(json.data, json.headers);
+				}
 				return;
 			}
 			const parsedData = JSON.parse(this.LZ.decompressFromUTF16(data));
@@ -300,7 +316,9 @@ const app = new Vue({
 
 			let xKey = pref.labels.x;
 			if (xKey == pref.labels.y) xKey += "__";
-			this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
+			if (this.$refs.csvView) {
+				this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
+			}
 			this.updatePreference(pref);
 		},
 
@@ -372,9 +390,21 @@ const app = new Vue({
 			});
 		},
 		setChartType(type) {
+			
+			if ((this.pref.chartType === "bar" && type === "horizontalBar") ||
+				(this.pref.chartType === "horizontalBar" && type === "bar")) {
+				
+				const tempLabel = this.pref.labels.x;
+				this.pref.labels.x = this.pref.labels.y;
+				this.pref.labels.y = tempLabel;
+			}
+		
 			this.executeAndSendAction(Action_Types.UPDATE_CHART_TYPE, {
 				chartType: type,
 			});
+			if (type === "csvMode" && this.$refs.csvView) {
+				this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
+			}
 		},
 
 		handleTextColor(e) {
@@ -648,6 +678,9 @@ const app = new Vue({
 			const index = this.selectedFontIdx;
 			return this.pref.font.propertyOrder[index];
 		},
+		csvHeader() {
+			return [this.pref.labels.x, this.pref.labels.y];
+		},
 	},
 	watch: {
 		"pref.labels.x"() {
@@ -657,7 +690,12 @@ const app = new Vue({
 			this.chartview.updateLabel("y");
 		},
 		"pref.chartType"() {
-			if (this.pref.chartType === "csvMode") return;
+			if (this.pref.chartType === "csvMode") {
+				if (this.$refs.csvView) {
+					this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
+				}
+				return;
+			}
 			this.chartview.updateChartType();
 		},
 		"pref.chartColor": {

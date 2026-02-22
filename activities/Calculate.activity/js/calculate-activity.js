@@ -49,20 +49,16 @@ function doGetCaretPosition(oField) {
 //We will remove one character from the calc input
 //If on desktop, we remove a character from the carret position
 function removeCharacter() {
+  var caretPosition = doGetCaretPosition(CalculateApp.elements.calcInput);
+  var currentValue = CalculateApp.elements.calcInput.value;
+  
   if (CalculateApp.data.isMobile) {
-    CalculateApp.elements.calcInput.value = CalculateApp.elements.calcInput.value.substring(0, CalculateApp.elements.calcInput.value.length - 1);
+    CalculateApp.elements.calcInput.value = currentValue.substring(0, currentValue.length - 1);
   } else {
-    var caretPosition = doGetCaretPosition(CalculateApp.elements.calcInput);
-    if (caretPosition === CalculateApp.elements.calcInput.value.length) {
-      caretPosition = caretPosition - 1;
+    if(caretPosition > 0) {
+      CalculateApp.elements.calcInput.value = currentValue.slice(0,caretPosition - 1) +currentValue.slice(caretPosition);
+      CalculateApp.elements.calcInput.setSelectionRange(caretPosition- 1,caretPosition- 1);
     }
-    if (caretPosition < 0) {
-      caretPosition = 0;
-    }
-    var currentValue = CalculateApp.elements.calcInput.value;
-
-    CalculateApp.elements.calcInput.value = currentValue.slice(0, caretPosition) + currentValue.slice(caretPosition + 1);
-    CalculateApp.elements.calcInput.setSelectionRange(caretPosition, caretPosition);
   }
   CalculateApp.focus();
 }

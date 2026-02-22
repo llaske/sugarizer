@@ -100,7 +100,7 @@ The name "palette" refers to a popup menu in the toolbar. When the user clicks o
 
 As usual, to integrate this library, we will update the dependencies list at the first line of `js/activity.js`.
 ```js
-define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "webL10n","sugar-web/graphics/presencepalette"], function (activity, env, icon, webL10n, presencepalette) {
+define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/icon", "l10n","sugar-web/graphics/presencepalette"], function (activity, env, icon, l10n, presencepalette) {
 ```
 This palette must be initialized in the code. You just have to call the PresencePalette constructor with the toolbar element. So add this line in the end of the require function of `js/activity.js`:
 ```js
@@ -169,7 +169,7 @@ document.getElementById("add-button").addEventListener('click', function (event)
 	pawns.push(currentenv.user.colorvalue);
 	drawPawns();
 
-	document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:currentenv.user.name})+"</h1>";
+	document.getElementById("user").innerHTML = "<h1>"+l10n.get("Played", {name:currentenv.user.name})+"</h1>";
 
 	if (presence) {
 		presence.sendMessage(presence.getSharedInfo().id, {
@@ -215,7 +215,7 @@ var onNetworkDataReceived = function(msg) {
 	}
 	pawns.push(msg.content);
 	drawPawns();
-	document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:msg.user.name})+"</h1>";
+	document.getElementById("user").innerHTML = "<h1>"+l10n.get("Played", {name:msg.user.name})+"</h1>";
 }; 
 ```
 This callback is called each time a message is received from the server. The message is the parameter for the callback. We first test the `networkId` in this message to ignore the message that we sent ourselves. Then we add the message `content` (i.e. colors for the user sending the message) to our `pawns` array and redraw the board with the `drawPawns()` call. Finally, we update the welcome message to give the player's name.
@@ -309,7 +309,7 @@ var onNetworkDataReceived = function(msg) {
 		case 'update':
 			pawns.push(msg.content.data);
 			drawPawns();
-			document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:msg.user.name})+"</h1>";
+			document.getElementById("user").innerHTML = "<h1>"+l10n.get("Played", {name:msg.user.name})+"</h1>";
 			break;
 	}
 };

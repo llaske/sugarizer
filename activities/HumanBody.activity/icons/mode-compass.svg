@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="55"
+   height="55"
+   viewBox="0 0 1.1 1.1"
+   fill="none"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="mode-compass.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="8.4113639"
+     inkscape:cx="44.5231"
+     inkscape:cy="27.106187"
+     inkscape:window-width="1534"
+     inkscape:window-height="831"
+     inkscape:window-x="66"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <g
+     id="g849"
+     transform="matrix(0.0475,0,0,0.0475,0.17789932,0.1448744)"
+     style="stroke-width:21.0526;fill:#ffffff">
+    <path
+       d="M 8,9 C 8.55229,9 9,8.55229 9,8 9,7.44772 8.55229,7 8,7 7.44772,7 7,7.44772 7,8 7,8.55229 7.44772,9 8,9 Z"
+       fill="#000000"
+       id="path2"
+       style="stroke-width:421.053;fill:#ffffff" />
+    <path
+       fill-rule="evenodd"
+       clip-rule="evenodd"
+       d="m 16,8 c 0,4.4183 -3.5817,8 -8,8 C 3.58172,16 0,12.4183 0,8 0,3.58172 3.58172,0 8,0 c 4.4183,0 8,3.58172 8,8 z M 6,6 4,11 5,12 10,10 12,5 11,4 Z"
+       fill="#000000"
+       id="path4"
+       style="stroke-width:421.053;fill:#ffffff" />
+  </g>
+</svg>

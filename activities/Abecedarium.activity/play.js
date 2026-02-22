@@ -348,6 +348,8 @@ enyo.kind({
 
 	// Check taped
 	checkTaped: function() {
+		if (this.forbidentry) 
+			return;
 		this.forbidentry = true;
 		if (this.playing != null)
 			this.playing.abort();
@@ -355,6 +357,7 @@ enyo.kind({
 			Abcd.sound.play("audio/disappointed");
 			this.selected = this.from;
 			this.selected.addClass("entryPlayWrong");
+			return;
 		} else if (this.selected.index == this.from.index) {
 			Abcd.sound.play("audio/applause");
 			this.selected.removeClass("entryPlaySelected");

@@ -316,7 +316,7 @@ var CalculateApp = {
             var parenthesisRegex = new RegExp("\\(([^\\)]+)\\)", "gi");
             var arrayToReplace = parenthesisRegex.exec(results[j]);
             if (arrayToReplace && arrayToReplace.length >= 2) {
-              equation = equation.replace(arrayToReplace[1], arrayToReplace[1] + " * " + CalculateApp.data.pi + " / 180");
+              equation = equation.replace(arrayToReplace[1], "(" + arrayToReplace[1] + ") * " + CalculateApp.data.pi + " / 180");
             }
           }
           resultIndex = equation.substr(resultIndex + 1).search(regex);

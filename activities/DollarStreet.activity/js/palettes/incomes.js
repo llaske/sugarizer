@@ -34,6 +34,10 @@ define(['sugar-web/graphics/palette',"text!activity/palettes/incomes.html"], fun
 			that.getPalette().dispatchEvent(that.incomeEvent);
 		});
 
+		document.querySelector('#content').addEventListener('click', function(event){
+			that.popDown();
+		});	
+
 		let wrapper = this.getPalette().childNodes[1];
 		wrapper.style.width = "450px";
 		wrapper.style.maxWidth = "400px";

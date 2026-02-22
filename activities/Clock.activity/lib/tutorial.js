@@ -65,7 +65,14 @@ define(["l10n"], function (l10n) {
 				position: "bottom",
 				title: l10n.get("TutoSetTimeGameTitle"),
 				intro: l10n.get("TutoSetTimeGameContent")
+			},
+			{
+				element: "#global-time-button",
+				position: "bottom",
+				title: l10n.get("GlobalTime"),
+				intro: l10n.get("TutoGlobalTimeContent")
 			}
+
 		];
 		steps = steps.filter((obj) =>  !('element' in obj) || ((obj.element).length && document.querySelector(obj.element) && document.querySelector(obj.element).style.display != 'none'));
 		introJs().setOptions({

@@ -1,17 +1,71 @@
 function Board(boardState, lineColor, deadCellColor, trailsColor , aliveYoungCellColor, aliveOldCellColor, cellWidth, cellHeight, rowPadding, colPadding, canvas) {
 
   this.showTrails = false;
+  this.nowY = -1;
+  this.nowX = -1;
 
   this.onClick = function (clickHandler) {
     var _this = this;
+    var isMouseDown = false;
+    var isMouseMove = false;
+
+    // Function to handle drag event
+    function dragEvent(e) {
+        if (isMouseDown) {
+            isMouseMove = true;
+            var x, y;
+            if (e.type === 'mousemove') {
+                x = e.clientX - canvas.getBoundingClientRect().left;
+                y = e.clientY - canvas.getBoundingClientRect().top;
+            } else if (e.type === 'touchmove') {
+                x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+                y = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+            }
+            var cellX = Math.floor(x / (_this.cellWidth + 2));
+            var cellY = Math.floor(y / (_this.cellHeight + 2));
+            if (_this.nowX !== cellX || _this.nowY !== cellY) {
+                clickHandler(cellX, cellY);
+            }
+            _this.nowX = cellX;
+            _this.nowY = cellY;
+        }
+    }
+
+    canvas.addEventListener('mousedown', function () {
+        isMouseDown = true;
+    });
+
+    canvas.addEventListener('touchstart', function () {
+        isMouseDown = true;
+    });
+
+    canvas.addEventListener('mouseup', function () {
+        isMouseDown = false;
+        _this.nowX = -1;
+            _this.nowY = -1
+    });
+
+    canvas.addEventListener('touchend', function () {
+        isMouseDown = false;
+        isMouseMove = false; 
+        _this.nowX = -1;
+            _this.nowY = -1
+    });
+
+    canvas.addEventListener('mousemove', dragEvent);
+
+    canvas.addEventListener('touchmove', dragEvent);
 
     canvas.addEventListener('click', function (e) {
+      if(isMouseMove) {
+        isMouseMove = false; return;
+      }
       var x = e.clientX - canvas.getBoundingClientRect().left;
       var y = e.clientY - canvas.getBoundingClientRect().top;
       var cellX = Math.floor(x / (_this.cellWidth + 2));
       var cellY = Math.floor(y / (_this.cellHeight + 2));
       clickHandler(cellX, cellY);
-    });
+  });
   };
 
   this.draw = function (state) {

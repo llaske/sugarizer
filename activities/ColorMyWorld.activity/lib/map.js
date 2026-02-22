@@ -18,37 +18,86 @@ define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
 			}),
 		});
 
-		window.map.on('click',function(evt){
-			if(colormyworld.mode==COLORING){
-				var FOUND=false;
-				dummmy=window.map.forEachFeatureAtPixel(evt.pixel,function(target_feature,layer){
-				var target_name=target_feature.get("NAME");
-				if(!target_name)target_name=target_feature.get("Name");
-				if(!target_name)target_name=target_feature.get("name");
-				if(colormyworld.currents.indexOf(target_name)<0){
-					if (!me.tooltipDisplay || target_name!=me.tooltipDisplay) {
-						me.tooltipDisplay=target_name;
-						humane.timeout=1000;
-						humane.log(flag[`${target_name.replace(/ /g,'_')}`]+" "+ l10n.get(target_name.replace(/ /g,'_')).replace(/_/g,' '));
-						setTimeout(function() {
-							me.tooltipDisplay=null;
-						}, humane.timeout);
+		window.map.on('click', function(evt) {
+			if (colormyworld.mode == COLORING) {
+				var FOUND = false;
+				var clickedFeature = null;
+
+				window.map.forEachFeatureAtPixel(evt.pixel, function(target_feature, layer) {
+					if (layer === me.featureOverlay) return;
+
+					var name = target_feature.get("NAME") || 
+							target_feature.get("Name") || 
+							target_feature.get("name") || "";
+					if (!name || name.trim() === "") return;
+
+					if (colormyworld.currents.indexOf(name) >= 0) return;
+
+					var geom = target_feature.getGeometry();
+					if (!geom || (geom.getType() !== 'Polygon' && geom.getType() !== 'MultiPolygon')) {
+						return;
 					}
-					var rgbColorString=colormyworld.getRGBColorString();
-					print(rgbColorString);
-					var nouveau_style=new ol.style.Style({
-						fill: new ol.style.Fill({color: colormyworld.getRGBColorString()}),
-						stroke:new ol.style.Stroke({color: DEFAULT_STROKE,width: 1}),
-					});
-					target_feature.setStyle(nouveau_style);
-					FOUND=true;
-				}});
-				if(!FOUND){
-					colormyworld.set_background(null);
+
+					if (!clickedFeature) {
+						clickedFeature = target_feature;
+					}
+
+					if (!me.tooltipDisplay || me.tooltipDisplay != name) {
+						me.tooltipDisplay = name;
+						humane.timeout = 1000;
+						humane.log(
+							"<img src='./flags/" + (flag[name.replace(/ /g, '_')] || 'world') + ".svg' " +
+							"style='width:auto;height:1.4em;vertical-align:middle;margin-right:8px;'>" +
+							l10n.get(name.replace(/ /g, '_')).replace(/_/g, ' ')
+						);
+						setTimeout(function() { me.tooltipDisplay = null; }, 1000);
+					}
+
+					FOUND = true;
+					return false;
+
+				}, {
+					hitTolerance: 4
+				});
+
+				if (clickedFeature) {
+					var selectedColor = colormyworld.getRGBColorString();
+					var style = clickedFeature.getStyle();
+
+					var currentFill = null;
+					if (style && style.getFill()) {
+						currentFill = style.getFill().getColor();
+					}
+
+					if (currentFill && currentFill === selectedColor) {
+						clickedFeature.setStyle(null);
+					} 
+					else {
+						var strokeColor = (typeof DEFAULT_STROKE !== 'undefined') ? DEFAULT_STROKE : '#333333';
+
+						var newStyle = new ol.style.Style({
+							fill: new ol.style.Fill({ color: selectedColor }),
+							stroke: new ol.style.Stroke({ color: strokeColor, width: 1.5 })
+						});
+						clickedFeature.setStyle(newStyle);
+					}
 				}
+
+				if (!FOUND) {
+					var selectedColor = colormyworld.getRGBColorString();
+					var currentBg = colormyworld.background_color;
+
+					if (currentBg === selectedColor) {
+						colormyworld.set_background('rgb(0,120,255)');
+					} 
+					else {
+						colormyworld.set_background(selectedColor);
+					}
+				}
+			} else {
+				colormyworld.check_feature(evt.pixel);
 			}
-			else colormyworld.check_feature(evt.pixel);
-			});
+		});
 
 			var highlightStyleCache = {};
 			me.featureOverlay = new ol.layer.Vector({

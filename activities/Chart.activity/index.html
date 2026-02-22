@@ -33,19 +33,19 @@
 					v-if="SugarPresence"
 				></sugar-toolitem>
 
-				<hr />
+				<div class="seprator-line"></div>
 				<sugar-toolitem id="add-button" :title="l10n.stringAddValue" @click="addData"></sugar-toolitem>
 				<sugar-toolitem id="remove-button" :title="l10n.stringRemoveValue" @click="removeData"></sugar-toolitem>
 
-				<hr />
+				<div class="seprator-line"></div>
 				<template v-for="(string, key) in CHART_TYPES" :key="key">
 					<sugar-toolitem @click="setChartType(key)" :id="`${key}-chart-button`" :class="{active: pref.chartType==key}" :title="l10n[string]"></sugar-toolitem>
 				</template>
 				<sugar-toolitem id="csv-button" :class="{active: pref.chartType == 'csvMode'}"  @click="setChartType('csvMode')" :title=l10n.stringViewCsv></sugar-toolitem>
-				<hr />
+				<div class="seprator-line"></div>
 				<sugar-toolitem id="config-button" @click="toggleConfig" class="invoker" :class="{active: configActive}" :title="l10n.stringConfigs"></sugar-toolitem>
 				<sugar-toolitem id="text-palette-button" @click="toggleTextPal" class="invoker" :class="{active: textPalActive}" :title="l10n.stringConfigs"></sugar-toolitem>
-				<hr />
+				<div class="seprator-line"></div>
 				<sugar-toolitem 
 					id="export-button" 
 					ref="exportPal"

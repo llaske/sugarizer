@@ -5,9 +5,9 @@ define([
 		"activity/ol",
 		"activity/hammer.min",
 		"l10n",
-		"config","colormyworld","map","roll_up_div","util","languagepalette","sugar-web/graphics/colorpalette","filterpalette","modepalette","tutorial","sugar-web/env"
+		"config","colormyworld","map","roll_up_div","util","languagepalette","sugar-web/graphics/colorpalette","filterpalette","modepalette","tutorial","sugar-web/env","./palettes/zoompalette"
 	],
-	function (activity,messages,print,jquery,ol,hammer,l10n,config,colormyworld,map,rollupdiv,util,languagepalette,colorpalette,filterpalette,modepalette,tutorial,env){
+	function (activity,messages,print,jquery,ol,hammer,l10n,config,colormyworld,map,rollupdiv,util,languagepalette,colorpalette,filterpalette,modepalette,tutorial,env,zoompalette){
 
 	// Manipulate the DOM only when it is ready.
 	requirejs(['domReady!'], function (doc) {
@@ -73,6 +73,9 @@ define([
 			print(e.detail.color); // New color selected
 			colormyworld.setRGBColorString(e.detail.color);
 		});
+
+		var zoomButton = document.getElementById("zoom-button");
+		var zoomButtonPalette = new zoompalette.ZoomPalette(zoomButton);
 
 		var modeButton = document.getElementById("mode-button");
 		modepalette = new modepalette.ModePalette(modeButton, undefined);

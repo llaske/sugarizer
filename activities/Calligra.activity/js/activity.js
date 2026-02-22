@@ -167,14 +167,34 @@ var app = new Vue({
 			if (vm.currentView === TemplateViewer) {
 				// Remove item
 				if (editMode) {
+					const images = vm.currentTemplate.images.map(item=>{
+						return {
+							...item,
+							visible: item.visible !== undefined ? item.visible : true,
+							delete: item.delete !== undefined ? item.delete : false
+						}
+					});
+
+					if(vm.currentTemplate.name === 'template-word'){
 					var index = -1;
 					for (var i = 0 ; i < vm.currentTemplate.images.length ; i++) {
 						if (vm.currentTemplate.images[i] == item) {
 							index = i;
-							break;
+							break; 
 						}
 					}
 					vm.currentTemplate.images.splice(index, 1);
+					return;
+					}
+					var index = -1;
+					for (var i = 0 ; i < vm.currentTemplate.images.length ; i++) {
+						if (images[i].image == item.image) {
+							index = i;
+							break;
+						}
+					}
+					images[index].delete = true;
+					vm.currentTemplate.images = images;
 					return;
 				}
 

@@ -35,10 +35,8 @@ window.onload = function() {
         spinner: sqSpinner,
         files: ["etoys.changes", "EtoysV5.stc"],
         root: "/Etoys",
-        templates: { "/Etoys": "resources" },
-        onQuit: function() {
-            history.back();
-        },
+        templates: { "/Etoys": "." },   // templates are relative to image dir
+        onQuit: () => history.back(),
     });
 };
 </script>

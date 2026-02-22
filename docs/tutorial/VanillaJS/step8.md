@@ -215,7 +215,7 @@ addpalette.addEventListener('pawnClick', function (event) {
 		pawns.push(currentenv.user.colorvalue);
 		drawPawns();
 
-		document.getElementById("user").innerHTML = "<h1>"+webL10n.get("Played", {name:currentenv.user.name})+"</h1>";
+		document.getElementById("user").innerHTML = "<h1>"+l10n.get("Played", {name:currentenv.user.name})+"</h1>";
 
 		if (presence) {
 			presence.sendMessage(presence.getSharedInfo().id, {

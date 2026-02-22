@@ -29,7 +29,7 @@ define(function () {
 					callback(null, window.top.sugar.environment);
 				});
 			} else {
-				window.top.sugar.environment.user = JSON.parse(localStorage.sugar_settings);
+				window.top.sugar.environment.user = localStorage.sugar_settings ? JSON.parse(localStorage.sugar_settings) : {};
 				setTimeout(function () {
 					callback(null, window.top.sugar.environment);
 				}, 0);
@@ -83,17 +83,8 @@ define(function () {
     };
 
     env.isSugarizer = function() {
-		// HACK: If in Chrome App automatic deduction that in Sugarizer
-		if (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) {
-			return true;
-        } else if (typeof(Storage)!=="undefined" && typeof(window.localStorage)!=="undefined") {
-            try {
-                return (window.localStorage.getItem('sugar_settings') !== null);
-            } catch(err) {
-                return false;
-            }
-        }
-        return false;
+        // DEPRECATED: This method was there to detect execution outside Sugarizer - aka on Sugar
+        return true;
     };
 
     env.isSugarizerOS = function() {

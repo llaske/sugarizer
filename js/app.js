@@ -1,149 +1,85 @@
 
-
-// Desktop handling
-define(["l10n", "sugar-web/graphics/icon", "sugar-web/graphics/xocolor", "sugar-web/graphics/radiobuttonsgroup", "sugar-web/datastore", "sugar-web/presence", "settings", "server", "humane", "util", "tutorial", "stats", "autosync", "history", "activities"], function (_l10n, _iconLib, _xoPalette, _radioButtonsGroup, _datastore, _presence, _preferences, _myserver, _humane, _util, _tutorial, _stats, _autosync, _historic, _activities) {
-	// Load required library
-	l10n = _l10n;
-	iconLib = _iconLib;
-	xoPalette = _xoPalette;
-	radioButtonsGroup = _radioButtonsGroup;
-	datastore = _datastore;
-	presence = _presence;
-	preferences = _preferences;
-	myserver = _myserver;
-	humane = _humane;
-	tutorial = _tutorial;
-	stats = _stats;
-	autosync = _autosync;
-	historic = _historic;
-	activities = _activities;
-	util = _util;
-	var toload = 1;
-	var preferenceset = false;
-
-	// Main program
-	var main = function() {
-		if (!preferenceset) {
-			app = new Sugar.FirstScreen();
-		} else {
-			app = new Sugar.Desktop();
+const appVue = Vue.createApp({
+	components: {
+		"firstscreen": FirstScreen,
+		"mainscreen": MainScreen,
+	},
+	data() {
+		return {
+			isFirstScreen: null
 		}
-		document.onmousemove = function(e) { mouse.position = {x: e.pageX, y: e.pageY}; } // Save mouse position
-		util.handleVolumeButtons();
-		app.renderInto(document.getElementById("canvas"));
-	}
+	},
+	
+	created: async function () {
+		await this.checkReset();
+		this.checkUserLoggedIn();
+	},
 
-	// Connect to server if an user is connected
-	var connectToServer = function(callback) {
-		if (!preferences.isUserConnected()) {
-			callback(true);
-			return;
-		}
-		var networkId = preferences.getNetworkId();
-		var that = this;
-		myserver.getUser(
-			networkId,
-			function(inSender, inResponse) {
-				preferences.merge(inResponse);
-				util.updateFavicon();
-				callback(true);
-			},
-			function() {
-				var token = preferences.getToken();
-				if (token && token.expired) {
-					callback(true);
-				} else {
-					preferences.setToken({...token, expired: true});
-					console.log("WARNING: Can't read network user settings, force token expiration");
-					callback(true);
-				}
+	methods: {
+		setIsFirstScreen(value) {
+			this.isFirstScreen = value;
+		},
+
+		async checkReset() {
+			if (location.href.indexOf("rst=1") != -1) {
+				await sugarizer.modules.settings.reinitialize(true);
+				location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
+			} else if (location.href.indexOf("rst=2") != -1) {
+				await sugarizer.modules.settings.reinitialize(false);
+				location.assign(location.href.replace(/\?rst=?./g,"?rst=0"));
 			}
-		);
-	};
+		},
 
-	// Load activities list if an user is connected
-	var loadActivities = function(callback) {
-		if (!preferences.isInitialized()) {
-			callback();
-			return;
-		}
-		activities.load().then(function(data) {
-			callback();
-		}).catch(function(error) {
-			console.log("Error loading init activities");
-			util.cleanDatastore(null, function() {
-				util.restartApp();
-			});
-		});
-	};
-
-	// Wait for preferences
-	var loadpreference = function() {
-		var getUrlParameter = function(name) {
-			var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-			return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-		};
-		var rst = getUrlParameter('rst');
-		preferences.load(function(load) {
-			preferenceset = (load != null);
-			if (util.getClientType() == constant.appType && (util.platform.electron || util.platform.android)) {
-				if (rst == 1) {
-					// Restart from a fresh install, use from Electon option --init
-					util.cleanDatastore(true);
-					preferenceset = false;
-				} else if (rst == 2) {
-					// Sugarizer OS auto logoff or Electron option --logoff
-					if (preferences.isConnected()) {
-						util.cleanDatastore(null);
-						preferenceset = false;
-					}
-				}
+		checkUserLoggedIn() {
+			if (sugarizer.modules.settings.getUser() != null) {
+				sugarizer.modules.user.get().then((user) => {
+					this.setIsFirstScreen(false);
+					this.updateFavicon();
+				},(error) => {
+					console.log("Error: ", error);
+					this.setIsFirstScreen(true);
+					this.updateFavicon();
+				});
+			} else {
+				this.setIsFirstScreen(true);
+				this.updateFavicon();
 			}
-			connectToServer(function(success) {
-				if (success) {
-					loadActivities(function() {
-						if (!preferences.isUserConnected() || window.sugarizerOS) {
-							// Update favorites
-							var list = activities.get();
-							for(var i = 0 ; i < list.length ; i++) {
-								for (var j = 0 ; j < load.activities.length ; j++) {
-									if (load.activities[j].id == list[i].id) {
-										list[i].favorite = load.activities[j].favorite;
-									}
-								}
-							}
-						}
-						main();
-					})
-				}
-			});
-		});
-	}
+		},
 
-	// Wait for localized strings are here
-	window.addEventListener('localized', function() {
-		if (app) {
-			var toLocalize = app.getToolbar ? app.getToolbar() : app;
-			toLocalize.localize();
-			app.render();
-		} else if (--toload == 0) {
-			loadpreference();
-		}
-	}, false);
+		updateFavicon() {
+			var buddyIcon='<?xml version="1.0" encoding="UTF-8" standalone="no"?>\
+			<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" version="1.0" >\
+			<g transform="translate(37.943468,-309.4636)">\
+			<g transform="matrix(0.05011994,0,0,0.05012004,-41.76673,299.66011)" style="fill:&fill_color;;fill-opacity:1;stroke:&stroke_color;;stroke-opacity:1">\
+			<circle transform="matrix(0.969697,0,0,0.969697,-90.879133,125.06999)" style="fill:&fill_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:20.62502098;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" cx="331.38321" cy="134.2677" r="51.220825" />\
+			<path d="m 290.55846,302.47333 -58.81513,59.20058 -59.39461,-59.40024 c -25.19828,-24.48771 -62.7038,13.33148 -38.1941,37.98719 l 60.04451,58.9817 -59.73639,59.42563 c -24.83976,24.97559 12.91592,63.26505 37.66786,37.75282 l 59.95799,-59.28294 58.75912,59.21065 c 24.50656,25.09065 62.43116,-13.00322 37.87956,-37.85772 l -59.24184,-59.02842 58.87574,-59.14782 c 25.1689,-25.18348 -13.0489,-62.75154 -37.80271,-37.84143 z" style="fill:&fill_color;;fill-opacity:1;stroke:&stroke_color;;stroke-width:20.00002098;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />\
+			</g></g></svg>';
+			var settings = sugarizer.modules.settings.getUser();
+			var color = settings && settings.colorvalue ? settings.colorvalue : {stroke: "#005FE4", fill: "#FF2B34"};
+			var name = settings && settings.name ? settings.name : "<No name>";
+			document.title = ((name&&name!="<No name>")?name+" - ":"")+"Sugarizer";
+			var icon = buddyIcon.replace(new RegExp("&fill_color;","g"),color.fill).replace(new RegExp("&stroke_color;","g"),color.stroke);
+			var svg_xml = (new XMLSerializer()).serializeToString((new DOMParser()).parseFromString(icon, "text/xml"));
+			var canvas = document.createElement('canvas');
+			canvas.width = 16;
+			canvas.height = 16;
+			var ctx = canvas.getContext('2d');
+			var img = new Image();
+			img.src = "data:image/svg+xml;base64," + btoa(svg_xml);
+			img.onload = function() {
+				ctx.drawImage(img, 0, 0);
+				var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+				link.type = 'image/x-icon';
+				link.rel = 'shortcut icon';
+				link.href = canvas.toDataURL("image/x-icon");
+				document.getElementsByTagName('head')[0].appendChild(link);
+			}
+		},
+	},
+});
 
-	// HACK: on iOS, create a media to initialize sound
-	if (util.platform.ios && document.location.protocol.substr(0,4) != "http") {
-		document.addEventListener("deviceready", function() {
-			var release = function() { media.release(); }
-			var media = new Media("audio/silence.mp3", release, release, release);
-			media.play();
-		});
-	}
-
-	// Wait for DOM is ready.
-	requirejs(['domReady!'], function (doc) {
-		if (--toload == 0) {
-			loadpreference();
-		}
-	});
+let app;
+sugarizer.init().then(() => {
+	sugarizer.modules.i18next.useI18n(appVue)
+	app = appVue.mount('#app');
 });

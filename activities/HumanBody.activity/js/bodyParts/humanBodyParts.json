@@ -1,0 +1,40 @@
+[
+  { "name": "Hair", "mesh": "Hair_mesh", "position": [-0.01, 7.03, -0.32], "frontView": true },
+  { "name": "LeftEyebrow", "mesh": "Mesh0207_1", "position": [0.06, 6.69, 0.63], "frontView": true },
+  { "name": "RightEyebrow", "mesh": "Mesh0207_3", "position": [0.06, 6.69, 0.63], "frontView": true },
+  { "name": "LeftEar", "mesh": "leftear_mesh", "position": [0.62, 6.42, -0.13], "frontView": true },
+  { "name": "RightEar", "mesh": "righear_mesh", "position": [-0.53, 6.4, -0.13], "frontView": true },  
+  { "name": "Face", "mesh": "Face_mesh", "position": [0.05, 6.35, 0.36], "frontView": true },
+  { "name": "Neck", "mesh": "Neck_mesh", "position": [0.04, 5.54, -0.23], "frontView": true },
+  { "name": "Chest", "mesh": "Chest_mesh", "position": [0.04, 4.55, 0.11], "frontView": true },
+  { "name": "Back", "mesh": "back_mesh", "position": [0.04, 3.78, -0.83], "frontView": false },
+  { "name": "Belly", "mesh": "stomach_mesh", "position": [0.04, 2.41, 0.2], "frontView": true },
+
+  { "name": "LeftShoulder", "mesh": "leftshoulder_mesh", "position": [1.41, 4.69, -0.56], "frontView": true },
+  { "name": "LeftArmUpper", "mesh": "leftarmup_mesh", "position": [1.73, 3.65, -0.68], "frontView": true },
+  { "name": "LeftElbow", "mesh": "leftelbow_mesh", "position": [2.02, 3.02, -0.84], "frontView": false },
+  { "name": "LeftArmLower", "mesh": "leftarmdown_mesh", "position": [2.41, 2.09, -0.54], "frontView": true },
+  { "name": "LeftHand", "mesh": "lefthand_mesh", "position": [2.72, 0.66, -0.16], "frontView": true },
+
+  { "name": "RightShoulder", "mesh": "rightshoulder_mesh", "position": [-1.35, 4.58, -0.55], "frontView": true },
+  { "name": "RightArmUpper", "mesh": "rightarmup_mesh", "position": [-1.66, 3.58, -0.71], "frontView": true },
+  { "name": "RightElbow", "mesh": "rightelbow_mesh", "position": [-1.96, 3.02, -0.82], "frontView": false },
+  { "name": "RightArmLower", "mesh": "rightarmdown_mesh", "position": [-2.32, 2.09, -0.53], "frontView": true },
+  { "name": "RightHand", "mesh": "righthand_mesh", "position": [-2.63, 0.66, -0.15], "frontView": true },
+
+  { "name": "Hips", "mesh": "hips_mesh", "position": [0.04, 1.14, -0.39], "frontView": false },
+
+  { "name": "LeftThigh", "mesh": "leftthigh_mesh", "position": [0.74, -0.6, -0.34], "frontView": true },
+  { "name": "LeftKnee", "mesh": "leftknee_mesh", "position": [0.8, -1.83, -0.38], "frontView": true },
+  { "name": "LeftShin", "mesh": "leftlshin_mesh", "position": [0.86, -3.22, -0.44], "frontView": true },
+  { "name": "LeftCalf", "mesh": "leftcalves_mesh", "position": [0.81, -3.07, -0.77], "frontView": false },
+  { "name": "LeftAnkle", "mesh": "Sphere001", "position": [0.93, -4.59, -0.62], "frontView": true },
+  { "name": "LeftFoot", "mesh": "leftfoot_mesh", "position": [1.04, -4.85, 0.1], "frontView": true },
+
+  { "name": "RightThigh", "mesh": "rightthigh_mesh", "position": [-0.65, -0.6, -0.34], "frontView": true },
+  { "name": "RightKnee", "mesh": "rightknee_mesh", "position": [-0.71, -1.83, -0.38], "frontView": true },
+  { "name": "RightShin", "mesh": "rightshin_mesh", "position": [-0.74, -3.19, -0.47], "frontView": true },
+  { "name": "RightCalf", "mesh": "rightcalves_mesh", "position": [-0.74, -3.06, -0.79], "frontView": false },
+  { "name": "RightAnkle", "mesh": "Sphere", "position": [-0.86, -4.59, -0.57], "frontView": true },
+  { "name": "RightFoot", "mesh": "rightfoot_mesh", "position": [-0.95, -4.85, 0.1], "frontView": true }
+]
