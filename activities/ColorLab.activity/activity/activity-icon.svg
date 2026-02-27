@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
-	<!ENTITY stroke_color "#010101">
-	<!ENTITY fill_color "#FFFFFF">
+	<!ENTITY stroke_color "#1f1f1f">
+	<!ENTITY fill_color "#999999">
 ]>
 <svg
-	xmlns:dc="http://purl.org/dc/elements/1.1/"
-	xmlns:cc="http://creativecommons.org/ns#"
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:svg="http://www.w3.org/2000/svg"
-	xmlns="http://www.w3.org/2000/svg"
-	xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-	xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-	width="55pt"
-	height="55pt"
-	version="1.1"
-	viewBox="0 0 60 60"
-	id="svg2"
-	inkscape:version="0.91 r13725"
-	sodipodi:docname="circles-icon.svg">
-  
-	<metadata id="metadata8">
-		<rdf:RDF>
-			<cc:Work rdf:about="">
-				<dc:format>image/svg+xml</dc:format>
-				<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-			</cc:Work>
-		</rdf:RDF>
-	</metadata>
-
-	<g
-		id="g4"
-		style="fill:&fill_color;;fill-rule:evenodd" 
-		transform="matrix(1,0,0,1,0,0)">
-		
-		<circle
-			id="circle-r"
-			cx="30"
-			cy="20"
-			r="15"
-			style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2;" />
-		<circle
-			id="circle-g"
-			cx="20"
-			cy="40"
-			r="15"
-			style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2;" />
-		<circle
-			id="circle-b"
-			cx="40"
-			cy="40"
-			r="15"
-			style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2;" />
-	</g>
+   width="55"
+   height="55"
+   viewBox="0 0 14.552083 14.552083"
+   version="1.1"
+   id="svg6310"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6307">
+    <linearGradient
+       id="linearGradient8696">
+      <stop
+         style="stop-color:&fill_color;;stop-opacity:1;"
+         offset="0"
+         id="stop8692" />
+      <stop
+         style="stop-color:&stroke_color;;stop-opacity:0.49803922;"
+         offset="1"
+         id="stop8700" />
+      <stop
+         style="stop-color:&fill_color;;stop-opacity:0;"
+         offset="1"
+         id="stop8694" />
+    </linearGradient>
+    <linearGradient
+       xlink:href="#linearGradient8696"
+       id="linearGradient8698"
+       x1="23.357961"
+       y1="26.75295"
+       x2="32.739266"
+       y2="26.75295"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     id="layer1">
+    <circle
+       style="opacity:0.89;fill:&fill_color;;stroke:#000000;stroke-width:0.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       id="path7935"
+       cx="5.3198266"
+       cy="7.0653443"
+       r="3.7" />
+    <circle
+       style="opacity:0.89;fill:none;stroke:#000000;stroke-width:0.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       id="circle8663"
+       cx="9.5531588"
+       cy="7.0653443"
+       r="3.7" />
+    <path
+       style="opacity:0.89;fill:&stroke_color;;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       d="m 33.572249,39.172589 c -1.065226,-0.233827 -2.926315,-0.85871 -3.191697,-1.071653 -0.04574,-0.0367 0.346184,-0.525721 0.870931,-1.086717 5.413508,-5.787479 5.386368,-14.824368 -0.06226,-20.729121 -0.964218,-1.044938 -0.978246,-1.0216 1.035986,-1.723585 1.947109,-0.678591 5.92234,-0.666767 7.874972,0.02342 3.787977,1.338924 6.723754,4.234711 8.014024,7.904858 0.709458,2.018038 0.882027,5.053702 0.403148,7.091771 -1.564387,6.657905 -8.380335,11.032039 -14.945109,9.591023 z"
+       id="path8665"
+       transform="scale(0.26458333)" />
+    <path
+       style="opacity:0.89;fill:url(#linearGradient8698);stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;fill-opacity:1"
+       d="m 26.669648,35.223575 c -3.502802,-3.822691 -4.311736,-9.463557 -2.019945,-14.085492 0.785891,-1.584934 2.281164,-3.521045 3.105729,-4.021361 0.500289,-0.303558 0.555315,-0.286148 1.268603,0.401367 1.130061,1.089229 2.568115,3.371931 3.171402,5.034142 0.472142,1.300869 0.540256,1.811649 0.543766,4.077608 0.0043,2.756311 -0.210101,3.732887 -1.296495,5.906229 -0.847253,1.694938 -2.844539,4.041104 -3.440183,4.041104 -0.0509,0 -0.650697,-0.609119 -1.332877,-1.353597 z"
+       id="path8667"
+       transform="scale(0.26458333)" />
+  </g>
 </svg>

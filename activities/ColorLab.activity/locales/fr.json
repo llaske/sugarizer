@@ -33,5 +33,9 @@
 	"White": "Blanc",
 	"DarkGrey": "Gris Foncé",
 	"LightGrey": "Gris Clair",
-	"Grey": "Gris"
+	"Grey": "Gris",
+	"Difficulty": "Difficulté",
+	"Easy": "Facile",
+	"Medium": "Moyen",
+	"Hard": "Difficile"
 }

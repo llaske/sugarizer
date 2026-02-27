@@ -39,8 +39,21 @@ p {
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
-#main-toolbar #mixer-button {
-	background-image: url(../icons/mixer.svg);
+#main-toolbar #mode-button {
+	background-image: url(../icons/free-paint.svg);
+	/* default icon */
+}
+
+#main-toolbar #mode-button.free-paint-icon {
+	background-image: url(../icons/free-paint.svg);
+}
+
+#main-toolbar #mode-button.challenge-icon {
+	background-image: url(../icons/challenge.svg);
+}
+
+#main-toolbar #mode-button.harmony-icon {
+	background-image: url(../icons/harmony.svg);
 }
 
 #main-toolbar #wheel-button {

@@ -5,7 +5,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         var state = {
             currentMode: 'free',
             isFullscreen: false,
-            isHarmonyDropdownVisible: false,
             mainHue: 0,
             mainSaturation: 1.0,
             mainLightness: 0.5,
@@ -21,7 +20,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             challengeSimilarity: 0,
             showWinOverlay: false,
             hasWon: false,
-            ringSegments: []
+            ringSegments: [],
+            challengeDifficulty: 'hard'
         };
 
         var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
@@ -53,10 +53,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         // --- DOM Elements ---
         var elements = {};
+        var modePalette; // Expose modePalette so we can close it on click
+        var difficultyPalette;
         var elementIds = [
-            'activity-button', 'network-button', 'mixer-button', 'wheel-button', 'challenge-button', 'reset-toolbar-button',
+            'activity-button', 'network-button', 'mode-button', 'reset-toolbar-button',
             'stop-button', 'fullscreen-button', 'unfullscreen-button', 'help-button',
-            'harmony-dropdown', 'harmony-options', 'free-mode', 'challenge-mode',
+            'mode-dropdown', 'mode-options', 'harmony-dropdown-button', 'free-mode', 'challenge-mode', 'harmony-mode',
+            'challenge-difficulty-button', 'difficulty-dropdown', 'difficulty-options',
             'harmony-wheel-inner', 'lightnessInterstitial', 'lightnessTrack',
             'harmony-swatches', 'color-name', 'mixing-bowl', 'ring-svg',
             'red-slider', 'green-slider', 'blue-slider',
@@ -138,38 +141,88 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             for (var i = 0; i < colorNames.length; i++) {
                 if (angle >= colorNames[i].min && angle < colorNames[i].max) { baseName = colorNames[i].name; break; }
             }
-            if (l < 0.1) return l10n.get('Black');
-            if (l > 0.95) return l10n.get('White');
-            if (s < 0.1) {
-                if (l < 0.3) return l10n.get('DarkGrey');
-                if (l > 0.7) return l10n.get('LightGrey');
-                return l10n.get('Grey');
+
+            var finalName = '';
+            if (l < 0.1) {
+                finalName = l10n.get('Black');
+            } else if (l > 0.95) {
+                finalName = l10n.get('White');
+            } else if (s < 0.1) {
+                if (l < 0.3) finalName = l10n.get('DarkGrey');
+                else if (l > 0.7) finalName = l10n.get('LightGrey');
+                else finalName = l10n.get('Grey');
+            } else {
+                var qualifier = '';
+                if (l < 0.35) qualifier = 'dark';
+                else if (l > 0.65) qualifier = 'light';
+
+                var translatedBase = l10n.get(baseName);
+                if (qualifier) {
+                    finalName = qualifier + translatedBase.charAt(0).toUpperCase() + translatedBase.slice(1);
+                } else {
+                    finalName = translatedBase.charAt(0).toLowerCase() + translatedBase.slice(1);
+                }
             }
-            var qualifier = '';
-            if (l < 0.35) qualifier = 'Dark ';
-            else if (l > 0.65) qualifier = 'Light ';
-            return qualifier + l10n.get(baseName);
+
+            // Convert to strict camelCase
+            return finalName.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+                return index === 0 ? word.toLowerCase() : word.toUpperCase();
+            }).replace(/\s+/g, '');
         }
 
         // --- UI Update Logic ---
         function updateUI() {
             // Mode Visibility
-            elements['free-mode'].style.display = state.currentMode === 'free' ? 'block' : 'none';
-            elements['challenge-mode'].style.display = state.currentMode === 'challenge' ? 'block' : 'none';
-            elements['wheel-button'].style.display = state.currentMode === 'free' ? '' : 'none';
+            elements['free-mode'].style.display = state.currentMode === 'free' ? 'flex' : 'none';
+            elements['challenge-mode'].style.display = state.currentMode === 'challenge' ? 'flex' : 'none';
+            elements['harmony-mode'].style.display = state.currentMode === 'harmony' ? 'flex' : 'none';
 
-            // Toolbar Actives
-            elements['mixer-button'].classList.toggle('active', state.currentMode === 'free');
-            elements['challenge-button'].classList.toggle('active', state.currentMode === 'challenge');
+            // Update Mode Button Icon
+            elements['mode-button'].classList.remove('free-paint-icon', 'challenge-icon', 'harmony-icon');
+            var currentIconUrl = 'url(icons/free-paint.svg)';
 
-            // Harmony Dropdown
-            elements['harmony-dropdown'].classList.toggle('show', state.isHarmonyDropdownVisible);
-            elements['harmony-dropdown'].style.display = (state.isHarmonyDropdownVisible && state.currentMode === 'free') ? 'block' : 'none';
+            if (state.currentMode === 'free') {
+                elements['mode-button'].classList.add('free-paint-icon');
+                elements['mode-button'].title = l10n.get('FreePaint') || 'Free Paint';
+            } else if (state.currentMode === 'challenge') {
+                elements['mode-button'].classList.add('challenge-icon');
+                elements['mode-button'].title = l10n.get('ChallengeMode') || 'Challenge Mode';
+                currentIconUrl = 'url(icons/challenge.svg)';
+            } else if (state.currentMode === 'harmony') {
+                elements['mode-button'].classList.add('harmony-icon');
+                elements['mode-button'].title = l10n.get('Harmony') || 'Color Harmony';
+                currentIconUrl = 'url(icons/harmony.svg)';
+            }
+
+            // Sugarizer's palette.js creates a cloned icon (.palette-invoker) to cover the button
+            // when the dropdown opens. We must manually update its stored inline background image.
+            if (typeof modePalette !== 'undefined' && modePalette.getPalette) {
+                var invokerIcon = modePalette.getPalette().querySelector('.palette-invoker');
+                if (invokerIcon) {
+                    invokerIcon.style.backgroundImage = currentIconUrl;
+                }
+            }
+
+            // Harmony Dropdown Button
+            if (state.currentMode === 'harmony') {
+                elements['harmony-dropdown-button'].style.display = 'inline-block';
+            } else {
+                elements['harmony-dropdown-button'].style.display = 'none';
+            }
+
+            // Challenge Difficulty Button
+            if (state.currentMode === 'challenge') {
+                elements['challenge-difficulty-button'].style.display = 'inline-block';
+            } else {
+                elements['challenge-difficulty-button'].style.display = 'none';
+            }
 
             if (state.currentMode === 'free') {
                 updateFreePaintUI();
-            } else {
+            } else if (state.currentMode === 'challenge') {
                 updateChallengeUI();
+            } else if (state.currentMode === 'harmony') {
+                updateHarmonyUI();
             }
 
             // Fullscreen
@@ -180,49 +233,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function updateFreePaintUI() {
             var markerAngles = getMarkerAngles();
-
-            // Panels Visibility
-            var hasHarmony = state.currentHarmony !== null;
-            elements['left-panel'].style.visibility = hasHarmony ? 'visible' : 'hidden';
-            elements['right-spacer'].style.visibility = hasHarmony ? 'visible' : 'hidden';
-
-            // Wheel Markers
-            elements['harmony-wheel-inner'].innerHTML = '';
-            var maxRadius = 122.5;
-            var currentRadius = state.mainSaturation * maxRadius;
-
-            markerAngles.forEach(function (angle, index) {
-                var marker = document.createElement('div');
-                marker.className = 'harmony-marker ' + (index === 0 ? 'main-marker' : 'split-marker-' + index);
-
-                // Color the marker itself
-                var rgb = hslToRgb(angle, state.mainSaturation, state.mainLightness);
-                var hex = rgbToHex(rgb);
-                marker.style.backgroundColor = hex;
-                marker.style.borderColor = '#ffffff'; // White stroke
-
-                marker.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) translateY(-' + currentRadius + 'px) rotate(-' + angle + 'deg)';
-                elements['harmony-wheel-inner'].appendChild(marker);
-            });
-
-            // Lightness Track
-            elements['lightnessInterstitial'].style.transform = 'rotate(' + (state.mainLightness * 360) + 'deg)';
-
-            // Swatches
-            elements['harmony-swatches'].innerHTML = '';
-            if (state.currentHarmony) {
-                markerAngles.forEach(function (angle, index) {
-                    var swatch = document.createElement('div');
-                    swatch.className = 'harmony-swatch';
-                    var rgb = hslToRgb(angle, state.mainSaturation, state.mainLightness);
-                    var hex = rgbToHex(rgb);
-                    swatch.style.backgroundColor = hex;
-                    var yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
-                    swatch.style.color = yiq >= 128 ? '#000000' : '#ffffff';
-                    swatch.textContent = getColorName(angle, state.mainSaturation, state.mainLightness);
-                    elements['harmony-swatches'].appendChild(swatch);
-                });
-            }
 
             // Mixing Bowl
             var bowlColor = '#ffffff';
@@ -254,7 +264,79 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             elements['blue-val'].textContent = state.blueSliderFree;
         }
 
+        function updateHarmonyUI() {
+            var markerAngles = getMarkerAngles();
+
+            // Wheel Markers
+            elements['harmony-wheel-inner'].innerHTML = '';
+            var maxRadiusPercent = 45.789;
+            var currentRadiusPercent = state.mainSaturation * maxRadiusPercent;
+
+            markerAngles.forEach(function (angle, index) {
+                var marker = document.createElement('div');
+                marker.className = 'harmony-marker ' + (index === 0 ? 'main-marker' : 'split-marker-' + index);
+
+                // Color the marker itself
+                var rgb = hslToRgb(angle, state.mainSaturation, state.mainLightness);
+                var hex = rgbToHex(rgb);
+                marker.style.backgroundColor = hex;
+                marker.style.borderColor = '#ffffff'; // White stroke
+
+                var rad = (angle - 90) * Math.PI / 180;
+                var top = 50 + currentRadiusPercent * Math.sin(rad);
+                var left = 50 + currentRadiusPercent * Math.cos(rad);
+                marker.style.top = top + '%';
+                marker.style.left = left + '%';
+                marker.style.transform = 'translate(-50%, -50%)';
+
+                elements['harmony-wheel-inner'].appendChild(marker);
+            });
+
+            // Lightness Track
+            elements['lightnessInterstitial'].style.transform = 'rotate(' + (state.mainLightness * 360) + 'deg)';
+
+            // Swatches
+            elements['harmony-swatches'].innerHTML = '';
+            markerAngles.forEach(function (angle, index) {
+                var swatch = document.createElement('div');
+                swatch.className = 'harmony-swatch';
+                var rgb = hslToRgb(angle, state.mainSaturation, state.mainLightness);
+                var hex = rgbToHex(rgb);
+                swatch.style.backgroundColor = hex;
+                var yiq = ((rgb.r * 299) + (rgb.g * 587) + (rgb.b * 114)) / 1000;
+                swatch.style.color = yiq >= 128 ? '#000000' : '#ffffff';
+                swatch.textContent = getColorName(angle, state.mainSaturation, state.mainLightness);
+                elements['harmony-swatches'].appendChild(swatch);
+            });
+
+            // Highlight active harmony option
+            var options = elements['harmony-options'].querySelectorAll('.harmony-option');
+            options.forEach(function (opt) {
+                if (opt.dataset.harmony === state.currentHarmony) {
+                    opt.classList.add('active');
+                } else {
+                    opt.classList.remove('active');
+                }
+            });
+        }
+
+        function updateChallengeDifficultyUI() {
+            if (!elements['difficulty-options']) return;
+            var options = elements['difficulty-options'].querySelectorAll('.difficulty-option');
+            options.forEach(function (opt) {
+                if (opt.dataset.difficulty === state.challengeDifficulty) {
+                    opt.classList.add('active');
+                    // Add checkmark visual indicator
+                    opt.innerHTML = '<span>' + (l10n.get(opt.dataset.difficulty.charAt(0).toUpperCase() + opt.dataset.difficulty.slice(1)) || opt.dataset.difficulty) + ' ✔</span>';
+                } else {
+                    opt.classList.remove('active');
+                    opt.innerHTML = '<span>' + (l10n.get(opt.dataset.difficulty.charAt(0).toUpperCase() + opt.dataset.difficulty.slice(1)) || opt.dataset.difficulty) + '</span>';
+                }
+            });
+        }
+
         function updateChallengeUI() {
+            updateChallengeDifficultyUI();
             elements['user-bowl'].style.backgroundColor = rgbToHex(state.challengeUserRgb);
             elements['target-bowl'].style.backgroundColor = rgbToHex(state.challengeTargetRgb);
 
@@ -263,6 +345,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             var offset = circumference - (state.challengeSimilarity * circumference);
             elements['challenge-progress-circle'].style.strokeDasharray = circumference + ' ' + circumference;
             elements['challenge-progress-circle'].style.strokeDashoffset = offset;
+
+            var step = getChallengeStep(state.challengeDifficulty);
+            elements['challenge-red-slider'].step = step;
+            elements['challenge-green-slider'].step = step;
+            elements['challenge-blue-slider'].step = step;
 
             elements['challenge-red-slider'].value = state.challengeUserRgb.r;
             elements['challenge-green-slider'].value = state.challengeUserRgb.g;
@@ -313,9 +400,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 state.redSliderFree = 255;
                 state.greenSliderFree = 255;
                 state.blueSliderFree = 255;
+            } else if (state.currentMode === 'harmony') {
+                state.isInitialState = true;
+                state.mainHue = 0;
+                state.mainSaturation = 1.0;
+                state.mainLightness = 0.5;
             } else {
-                state.challengeUserRgb = { r: 255, g: 255, b: 255 };
-                checkChallengeMatch();
+                state.challengeDifficulty = 'hard';
+                initChallenge();
             }
             updateUI();
             broadcastStateUpdate();
@@ -324,7 +416,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         function applyHarmony(harmony) {
             state.currentHarmony = harmony;
             state.isInitialState = false;
-            state.isHarmonyDropdownVisible = false;
             updateUI();
             broadcastStateUpdate();
         }
@@ -359,11 +450,26 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             broadcastStateUpdate();
         }
 
+        function getChallengeStep(difficulty) {
+            if (difficulty === 'easy') return 51;
+            if (difficulty === 'medium') return 15;
+            return 1;
+        }
+
         function initChallenge() {
+            var step = getChallengeStep(state.challengeDifficulty);
+            var maxSteps = 255 / step;
+            var targetR, targetG, targetB;
+            do {
+                targetR = Math.floor(Math.random() * (maxSteps + 1)) * step;
+                targetG = Math.floor(Math.random() * (maxSteps + 1)) * step;
+                targetB = Math.floor(Math.random() * (maxSteps + 1)) * step;
+            } while (targetR === 255 && targetG === 255 && targetB === 255); // Prevent instant win
+
             state.challengeTargetRgb = {
-                r: Math.floor(Math.random() * 256),
-                g: Math.floor(Math.random() * 256),
-                b: Math.floor(Math.random() * 256)
+                r: targetR,
+                g: targetG,
+                b: targetB
             };
             state.challengeUserRgb = { r: 255, g: 255, b: 255 };
             checkChallengeMatch();
@@ -376,6 +482,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             var distance = Math.sqrt(diffR * diffR + diffG * diffG + diffB * diffB);
             var maxDistance = Math.sqrt(255 * 255 * 3);
             state.challengeSimilarity = 1 - (distance / maxDistance);
+
+            // Strict matching is required regardless of difficulty (0.995)
             if (state.challengeSimilarity >= 0.995) {
                 triggerWin();
             }
@@ -448,16 +556,22 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             });
         }
 
+        var harmonyPalette;
         function setupHarmonyOptions() {
-            elements['harmony-options'].innerHTML = '';
+            harmonyPalette = new palette.Palette(elements['harmony-dropdown-button']);
+            var container = document.createElement('div');
+            container.id = 'harmony-options';
+            elements['harmony-options'] = container;
+
             Object.keys(harmonyTypes).forEach(function (key) {
-                var option = document.createElement('div');
+                var option = document.createElement('button');
                 option.className = 'harmony-option';
                 option.dataset.harmony = key;
 
                 var icon = document.createElement('div');
                 icon.className = 'harmony-icon';
                 icon.style.position = 'relative';
+
                 var inner = document.createElement('div');
                 inner.className = 'harmony-icon-inner ' + key;
                 icon.appendChild(inner);
@@ -465,16 +579,104 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 var d4 = document.createElement('div'); d4.className = 'dot4'; icon.appendChild(d4);
 
                 var span = document.createElement('span');
-                span.textContent = l10n.get(harmonyNames[key]);
+                span.textContent = l10n.get(harmonyNames[key]) || harmonyNames[key];
 
                 option.appendChild(icon);
                 option.appendChild(span);
-                option.addEventListener('click', function (e) {
-                    e.stopPropagation();
+
+                option.addEventListener('click', function () {
+                    harmonyPalette.popDown();
                     applyHarmony(key);
                 });
-                elements['harmony-options'].appendChild(option);
+
+                container.appendChild(option);
             });
+
+            harmonyPalette.setContent([container]);
+            harmonyPalette.getPalette().id = 'harmony-palette';
+        }
+
+        var isModeDropdownVisible = false;
+        function setupModeOptions() {
+            modePalette = new palette.Palette(elements['mode-button']);
+
+            var html = '';
+            html += '<div style="margin: 10px;">';
+
+            // Free Paint
+            html += '<button id="mode-free" style="width: 100%; border: none; background: transparent; padding: 5px; cursor: pointer; display: flex; align-items: center; border-radius: 5px;">';
+            html += '<div style="background-image: url(icons/free-paint.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; margin-right: 15px; border: 2px solid transparent;"></div>';
+            html += '<span style="color: white; font-size: 14px; font-weight: bold;">' + (l10n.get('FreePaint') || 'Free Paint') + '</span>';
+            html += '</button>';
+
+            html += '<hr style="border: 0; border-top: 1px solid #555; margin: 5px 0;">';
+
+            // Challenge Mode
+            html += '<button id="mode-challenge" style="width: 100%; border: none; background: transparent; padding: 5px; cursor: pointer; display: flex; align-items: center; border-radius: 5px;">';
+            html += '<div style="background-image: url(icons/challenge.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; margin-right: 15px; border: 2px solid transparent;"></div>';
+            html += '<span style="color: white; font-size: 14px; font-weight: bold;">' + (l10n.get('ChallengeMode') || 'Challenge Mode') + '</span>';
+            html += '</button>';
+
+            html += '<hr style="border: 0; border-top: 1px solid #555; margin: 5px 0;">';
+
+            // Harmony Mode
+            html += '<button id="mode-harmony" style="width: 100%; border: none; background: transparent; padding: 5px; cursor: pointer; display: flex; align-items: center; border-radius: 5px;">';
+            html += '<div style="background-image: url(icons/harmony.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; margin-right: 15px; border: 2px solid transparent;"></div>';
+            html += '<span style="color: white; font-size: 14px; font-weight: bold;">' + (l10n.get('Harmony') || 'Color Harmony') + '</span>';
+            html += '</button>';
+
+            html += '</div>';
+
+            var div = document.createElement('div');
+            div.innerHTML = html;
+            modePalette.setContent([div]);
+
+            div.querySelector('#mode-free').addEventListener('click', function () { modePalette.popDown(); switchMode('free'); });
+            div.querySelector('#mode-challenge').addEventListener('click', function () { modePalette.popDown(); switchMode('challenge'); });
+            div.querySelector('#mode-harmony').addEventListener('click', function () { modePalette.popDown(); switchMode('harmony'); });
+
+            // Make it match standard styling
+            var style = document.createElement('style');
+            style.innerHTML = `
+                #mode-free:hover, #mode-challenge:hover, #mode-harmony:hover {
+                    background-color: #555 !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function setupDifficultyOptions() {
+            difficultyPalette = new palette.Palette(elements['challenge-difficulty-button']);
+            var container = document.createElement('div');
+            container.id = 'difficulty-options';
+            elements['difficulty-options'] = container;
+
+            var difficulties = ['easy', 'medium', 'hard'];
+
+            difficulties.forEach(function (level) {
+                var option = document.createElement('button');
+                option.className = 'difficulty-option';
+                option.dataset.difficulty = level;
+
+                var span = document.createElement('span');
+                var labelName = level.charAt(0).toUpperCase() + level.slice(1);
+                span.textContent = l10n.get(labelName) || labelName;
+
+                option.appendChild(span);
+
+                option.addEventListener('click', function () {
+                    difficultyPalette.popDown();
+                    state.challengeDifficulty = level;
+                    initChallenge();
+                    updateUI();
+                    broadcastStateUpdate();
+                });
+
+                container.appendChild(option);
+            });
+
+            difficultyPalette.setContent([container]);
+            difficultyPalette.getPalette().id = 'difficulty-palette';
         }
 
         // --- Interaction Handlers ---
@@ -488,7 +690,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             var angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
             if (angle < 0) angle += 360;
             state.mainHue = Math.round(angle);
-            state.mainSaturation = Math.min(Math.sqrt(dx * dx + dy * dy) / 122.5, 1.0);
+            var maxDragRadius = (rect.width / 2) * 0.9157;
+            if (maxDragRadius <= 0) maxDragRadius = 174;
+            state.mainSaturation = Math.min(Math.sqrt(dx * dx + dy * dy) / maxDragRadius, 1.0);
             state.isInitialState = false;
             updateSlidersFromHue();
             updateUI();
@@ -519,9 +723,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 state.mainHue = hsl.h * 360; state.mainSaturation = hsl.s; state.mainLightness = hsl.l;
                 state.isInitialState = false;
             } else {
-                if (type === 'r') state.challengeUserRgb.r = Math.max(0, Math.min(255, state.challengeUserRgb.r + amount));
-                if (type === 'g') state.challengeUserRgb.g = Math.max(0, Math.min(255, state.challengeUserRgb.g + amount));
-                if (type === 'b') state.challengeUserRgb.b = Math.max(0, Math.min(255, state.challengeUserRgb.b + amount));
+                var step = getChallengeStep(state.challengeDifficulty);
+                var adjustAmount = amount > 0 ? step : -step;
+                if (type === 'r') state.challengeUserRgb.r = Math.max(0, Math.min(255, state.challengeUserRgb.r + adjustAmount));
+                if (type === 'g') state.challengeUserRgb.g = Math.max(0, Math.min(255, state.challengeUserRgb.g + adjustAmount));
+                if (type === 'b') state.challengeUserRgb.b = Math.max(0, Math.min(255, state.challengeUserRgb.b + adjustAmount));
+
+                // Snap to valid step just in case
+                state.challengeUserRgb.r = Math.round(state.challengeUserRgb.r / step) * step;
+                state.challengeUserRgb.g = Math.round(state.challengeUserRgb.g / step) * step;
+                state.challengeUserRgb.b = Math.round(state.challengeUserRgb.b / step) * step;
+
                 checkChallengeMatch();
             }
             updateUI();
@@ -548,6 +760,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                         msg.content.data.challengeUserRgb = state.challengeUserRgb;
                         msg.content.data.challengeSimilarity = state.challengeSimilarity;
                         msg.content.data.showWinOverlay = state.showWinOverlay;
+                        // Always accept the host's difficulty setting
+                        if (!isHost && msg.content.data.challengeDifficulty) {
+                            state.challengeDifficulty = msg.content.data.challengeDifficulty;
+                        } else if (isHost) {
+                            msg.content.data.challengeDifficulty = state.challengeDifficulty;
+                        }
                     }
 
                     // Update local state with network state safely filtered
@@ -601,13 +819,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         activity.setup();
 
         // Setup Network Palette
-        var networkPalette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
+        var currentPresencePalette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
         initElements();
         setupColorRing();
 
-        var palette = new presencepalette.PresencePalette(elements['network-button'], undefined);
-        palette.addEventListener('shared', function () {
-            palette.popDown();
+        currentPresencePalette.addEventListener('shared', function () {
+            currentPresencePalette.popDown();
             presence = activity.getPresenceObject(function (error, network) {
                 if (error) {
                     console.error("Presence sharing error:", error);
@@ -636,9 +853,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         window.addEventListener('localized', function () {
             setupHarmonyOptions();
-            elements['mixer-button'].title = l10n.get('FreePaint');
-            elements['wheel-button'].title = l10n.get('Harmony');
-            elements['challenge-button'].title = l10n.get('ChallengeMode');
+            setupModeOptions();
+            setupDifficultyOptions();
+            elements['mode-button'].title = l10n.get('FreePaint');
+            elements['challenge-difficulty-button'].title = l10n.get('Difficulty') || 'Difficulty';
             elements['reset-toolbar-button'].title = l10n.get('Reset');
             elements['stop-button'].title = l10n.get('Stop');
             elements['fullscreen-button'].title = l10n.get('Fullscreen');
@@ -666,13 +884,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         });
 
         // Event Listeners
-        elements['mixer-button'].addEventListener('click', function () { switchMode('free'); });
-        elements['challenge-button'].addEventListener('click', function () { switchMode('challenge'); });
-        elements['wheel-button'].addEventListener('click', function (e) {
-            e.stopPropagation();
-            state.isHarmonyDropdownVisible = !state.isHarmonyDropdownVisible;
-            updateUI();
-        });
         elements['reset-toolbar-button'].addEventListener('click', resetApp);
         window.addEventListener('activityStop', function (event) {
             event.preventDefault();
@@ -691,10 +902,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         elements['fullscreen-button'].addEventListener('click', toggleFullscreen);
         elements['unfullscreen-button'].addEventListener('click', exitFullscreen);
 
-        document.addEventListener('click', function () {
-            if (state.isHarmonyDropdownVisible) {
-                state.isHarmonyDropdownVisible = false;
-                updateUI();
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.palette') && !e.target.closest('.toolbutton')) {
+                if (currentPresencePalette) currentPresencePalette.popDown();
+                if (modePalette) modePalette.popDown();
+                if (harmonyPalette) harmonyPalette.popDown();
+                if (difficultyPalette) difficultyPalette.popDown();
             }
         });
 

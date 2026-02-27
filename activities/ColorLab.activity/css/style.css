@@ -55,13 +55,20 @@ html {
     color: #ffffff;
 }
 
+.mode-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 #main-workspace {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    flex: 1;
     /* Remove gap and use spacers logic if needed, but flex with spacers is easier for strict centering */
 }
 
@@ -101,18 +108,17 @@ html {
 #harmony-wheel-container {
     display: flex;
     flex-direction: row;
-    /* Side by side */
     align-items: center;
     justify-content: center;
     position: relative;
-    transform: translateY(50px);
-    gap: 20px;
+    width: 100%;
+    height: 100%;
 }
 
 #harmony-wheel {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: 450px;
+    height: 450px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,8 +126,8 @@ html {
 
 #lightnessGradient {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: 450px;
+    height: 450px;
     border-radius: 50%;
     background: linear-gradient(rgb(0, 0, 0), rgb(102, 153, 122), rgb(240, 245, 242));
     display: flex;
@@ -168,8 +174,8 @@ html {
 .color-wheel {
     position: absolute;
     z-index: 10;
-    width: 245px;
-    height: 245px;
+    width: 380px;
+    height: 380px;
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -217,14 +223,20 @@ html {
 
 
 #harmony-swatches {
+    position: absolute;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    left: 50%;
+    margin-left: 260px;
+    /* Half of 450px wheel + padding */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .harmony-swatch {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 8px;
     border: 2px solid #ffffff;
     background-color: #333;
@@ -232,36 +244,24 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 9px;
+    font-size: 14px;
     font-weight: bold;
-    text-transform: uppercase;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 
 }
 
-/* Harmony Dropdown Menu */
-#harmony-dropdown {
-    display: none;
-    position: absolute;
-    top: 55px;
-    left: 102px;
-    /* Position exactly under harmony button (Activity 51 + Mixer 51 = 102) */
-    background-color: #383838;
-    padding: 10px;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    border-radius: 8px;
-}
-
-#harmony-dropdown.show {
-    display: block;
+#harmony-palette {
+    width: max-content !important;
+    min-width: 320px;
+    z-index: 9999 !important;
 }
 
 #harmony-options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 8px;
+    gap: 0;
+    padding: 5px;
 }
 
 .harmony-option {
@@ -269,28 +269,39 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px;
-    background-color: #484848;
-    border: 2px solid transparent;
-    border-radius: 6px;
+    padding: 8px 4px;
+    background-color: transparent;
+    border-right: 1px solid #555;
+    border-bottom: 1px solid #555;
+    border-left: none;
+    border-top: none;
+    border-radius: 0;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s;
     color: #ffffff;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: bold;
-    text-transform: uppercase;
-    gap: 4px;
-    min-width: 70px;
+    gap: 6px;
+    min-width: 80px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Remove bottom border for bottom row elements (4, 5, 6) */
+.harmony-option:nth-child(n+4) {
+    border-bottom: none;
+}
+
+/* Remove right border for rightmost column elements (3, 6) */
+.harmony-option:nth-child(3n) {
+    border-right: none;
 }
 
 .harmony-option:hover {
-    background-color: #585858;
-    border-color: #888;
+    background-color: #555 !important;
 }
 
-.harmony-option.active {
-    border-color: #ffffff;
-    background-color: #505050;
+.harmony-option * {
+    pointer-events: none;
 }
 
 .harmony-icon {
@@ -463,6 +474,51 @@ html {
     background-color: #ffffff;
 }
 
+/* Difficulty Options */
+#difficulty-palette {
+    width: max-content !important;
+    min-width: 150px;
+    z-index: 9999 !important;
+}
+
+#difficulty-options {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.difficulty-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #555;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 120px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+
+.difficulty-option:last-child {
+    border-bottom: none;
+}
+
+.difficulty-option:hover,
+.difficulty-option.active {
+    background-color: #555 !important;
+}
+
+.difficulty-option * {
+    pointer-events: none;
+}
+
+
 /* Bowl Section */
 #bowl-container {
     display: flex;
@@ -476,7 +532,6 @@ html {
     font-size: 32px;
     font-weight: bold;
     color: #ffffff;
-    text-transform: uppercase;
     letter-spacing: 4px;
     margin-bottom: 80px;
     /* Bump margin for ring space */
@@ -695,6 +750,11 @@ input[type=range]::-webkit-slider-thumb {
     padding: 0;
     line-height: 1;
     box-sizing: border-box;
+    text-align: center;
+}
+
+.adjust-button.minus {
+    padding-bottom: 4px;
 }
 
 /* Fullscreen Mode */
@@ -705,14 +765,8 @@ body.fullscreen-mode #main-toolbar {
 body.fullscreen-mode #canvas {
     height: 100vh !important;
     padding-top: 0 !important;
-    /* Remove padding to fill toolbar space */
+    z-index: 1000;
 }
-
-body.fullscreen-mode #unfullscreen-button {
-    display: flex !important;
-}
-
-
 
 /* Sugarizer Scrollbar */
 ::-webkit-scrollbar {
@@ -738,6 +792,11 @@ body.fullscreen-mode #unfullscreen-button {
 
 .arrow-active {
     background-image: url('../icons/arrow-up.svg') !important;
+}
+
+/* Palette Z-Index Fix */
+.palette {
+    z-index: 2000 !important;
 }
 
 /* --- CHALLENGE MODE CSS --- */
@@ -1055,4 +1114,244 @@ body.fullscreen-mode #unfullscreen-button {
     --dy: 100px;
     animation-delay: 0.1s !important;
     background-color: #FF9800;
+}
+
+/* --- RESPONSIVE LAYOUT --- */
+@media (max-width: 900px),
+(max-height: 700px) {
+
+    /* Main Layouts */
+    #canvas {
+        padding: 10px;
+    }
+
+    /* Free Paint */
+    #mixing-bowl {
+        width: 40vmin !important;
+        height: 40vmin !important;
+        border-width: 5px !important;
+        box-shadow: 0 0 0 5px #333333, 0 0 0 10px #000000 !important;
+    }
+
+    #color-wheel-ring {
+        width: 60vmin !important;
+        height: 60vmin !important;
+    }
+
+    #color-name {
+        font-size: 24px !important;
+        margin-bottom: 30vmin !important;
+    }
+
+    #sliders-grid {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        align-items: center !important;
+    }
+
+    /* Harmony Mode */
+    #harmony-wheel-container {
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    #harmony-wheel,
+    #lightnessGradient {
+        width: 60vmin !important;
+        height: 60vmin !important;
+    }
+
+    .color-wheel {
+        width: 50vmin !important;
+        height: 50vmin !important;
+    }
+
+    #harmony-swatches {
+        position: relative !important;
+        flex-direction: column !important;
+        left: auto !important;
+        top: auto !important;
+        margin-left: 0 !important;
+        transform: none !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+
+    .harmony-swatch {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 10px !important;
+    }
+
+    /* Challenge Mode */
+    #bowls-area {
+        flex-direction: row !important;
+        gap: 15px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: auto !important;
+    }
+
+    .bowl-container {
+        width: 40vmin !important;
+        height: 40vmin !important;
+    }
+
+    .bowl {
+        width: 35vmin !important;
+        height: 35vmin !important;
+        border-width: 3px !important;
+    }
+
+    .bowl-label {
+        font-size: 1rem !important;
+    }
+
+    #divider-line {
+        width: 2px !important;
+        height: 40vmin !important;
+    }
+
+    #controls-area {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 10px !important;
+    }
+
+    .slider-group {
+        flex: 1 !important;
+        min-width: 220px !important;
+        max-width: 320px !important;
+        margin: 5px 5px !important;
+        gap: 8px !important;
+        justify-content: space-between !important;
+    }
+
+    .adjust-button {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+        font-size: 22px !important;
+        flex-shrink: 0 !important;
+    }
+
+    input[type=range] {
+        flex-shrink: 1 !important;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        width: 28px !important;
+        height: 28px !important;
+        margin-top: -8px !important;
+    }
+
+    .slider-val {
+        font-size: 1rem !important;
+        min-width: 35px !important;
+        text-align: right !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* --- LANDSCAPE MODE FOR PHONES --- */
+@media (max-height: 700px) and (orientation: landscape) {
+
+    #free-mode,
+    #challenge-mode {
+        flex-direction: row !important;
+        justify-content: space-evenly !important;
+        align-items: center !important;
+    }
+
+    #main-workspace {
+        flex: 1 !important;
+        height: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    #bowl-container {
+        transform: none !important;
+    }
+
+    #sliders-grid {
+        flex: 1 !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        padding: 0 10px !important;
+        margin: 0 !important;
+    }
+
+    #bowls-area {
+        flex: 1 !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 20px !important;
+        height: 100% !important;
+    }
+
+    #controls-area {
+        flex: 1 !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 15px !important;
+        padding: 0 10px !important;
+        margin: 0 !important;
+    }
+
+    .slider-group {
+        width: 100% !important;
+        max-width: none !important;
+    }
+
+    #mixing-bowl {
+        width: 45vmin !important;
+        height: 45vmin !important;
+    }
+
+    #color-wheel-ring {
+        width: 65vmin !important;
+        height: 65vmin !important;
+    }
+
+    .bowl-container {
+        width: 35vmin !important;
+        height: 35vmin !important;
+    }
+
+    .bowl {
+        width: 30vmin !important;
+        height: 30vmin !important;
+    }
+
+    #divider-line {
+        height: 40vmin !important;
+    }
+
+    input[type=range] {
+        height: 30px !important;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        width: 24px !important;
+        height: 24px !important;
+        margin-top: -6px !important;
+    }
+
+    .adjust-button {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        min-height: 30px !important;
+        font-size: 18px !important;
+    }
 }
