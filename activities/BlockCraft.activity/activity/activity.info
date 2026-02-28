@@ -1,0 +1,6 @@
+[Activity]
+name = BlockCraft
+activity_version = 1
+bundle_id = org.sugarlabs.BlockCraft
+exec = sugar-activity-web
+icon = activity-icon

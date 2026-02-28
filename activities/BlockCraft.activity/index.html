@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>BlockCraft Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<script data-main="js/loader" src="lib/require.js"></script>
+<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+  <button class="toolbutton" id="activity-button" title="BlockCraft"></button>
+  <button class="toolbutton" id="clear-button" title="Clear">Clear</button>
+  <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+</div>
+
+<div id="canvas">
+  <div id="blockcraft-container">
+    <div id="block-palette">
+      <div class="palette-title">Blocks</div>
+      <div id="block-types">
+        <div class="block-type" data-type="cube" data-color="#E74C3C" title="Red block"></div>
+        <div class="block-type" data-type="cube" data-color="#3498DB" title="Blue block"></div>
+        <div class="block-type" data-type="cube" data-color="#2ECC71" title="Green block"></div>
+        <div class="block-type" data-type="cube" data-color="#F39C12" title="Orange block"></div>
+        <div class="block-type" data-type="cube" data-color="#9B59B6" title="Purple block"></div>
+        <div class="block-type" data-type="cube" data-color="#1ABC9C" title="Teal block"></div>
+        <div class="block-type" id="eraser" data-type="erase" title="Delete block">✕</div>
+      </div>
+    </div>
+    <div id="build-area">
+      <div id="grid"></div>
+    </div>
+    <div id="rotation-controls">
+      <button class="toolbutton" id="rotate-left" title="Rotate left">↶</button>
+      <button class="toolbutton" id="rotate-right" title="Rotate right">↷</button>
+      <span id="selected-info"></span>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
