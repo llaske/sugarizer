@@ -58,7 +58,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         var elementIds = [
             'activity-button', 'network-button', 'mode-button', 'reset-toolbar-button',
             'stop-button', 'fullscreen-button', 'unfullscreen-button', 'help-button',
-            'mode-dropdown', 'mode-options', 'harmony-dropdown-button', 'free-mode', 'challenge-mode', 'harmony-mode',
+            'mode-dropdown', 'mode-options', 'harmony-dropdown-button', 'cycle-harmony-button', 'free-mode', 'challenge-mode', 'harmony-mode',
             'challenge-difficulty-button', 'difficulty-dropdown', 'difficulty-options',
             'harmony-wheel-inner', 'lightnessInterstitial', 'lightnessTrack',
             'harmony-swatches', 'color-name', 'mixing-bowl', 'ring-svg',
@@ -144,30 +144,41 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
             var finalName = '';
             if (l < 0.1) {
-                finalName = l10n.get('Black');
+                finalName = l10n.get('Black') || 'Black';
             } else if (l > 0.95) {
-                finalName = l10n.get('White');
+                finalName = l10n.get('White') || 'White';
             } else if (s < 0.1) {
-                if (l < 0.3) finalName = l10n.get('DarkGrey');
-                else if (l > 0.7) finalName = l10n.get('LightGrey');
-                else finalName = l10n.get('Grey');
+                if (l < 0.3) finalName = l10n.get('DarkGrey') || 'Dark Grey';
+                else if (l > 0.7) finalName = l10n.get('LightGrey') || 'Light Grey';
+                else finalName = l10n.get('Grey') || 'Grey';
             } else {
                 var qualifier = '';
-                if (l < 0.35) qualifier = 'dark';
-                else if (l > 0.65) qualifier = 'light';
+                if (l < 0.35) qualifier = 'Dark';
+                else if (l > 0.65) qualifier = 'Light';
 
-                var translatedBase = l10n.get(baseName);
+                var translatedBase = l10n.get(baseName) || baseName;
                 if (qualifier) {
-                    finalName = qualifier + translatedBase.charAt(0).toUpperCase() + translatedBase.slice(1);
+                    var combinedKey = qualifier + baseName;
+                    var combinedTrans = l10n.get(combinedKey);
+
+                    if (combinedTrans && combinedTrans !== combinedKey && combinedTrans !== "") {
+                        finalName = combinedTrans;
+                    } else {
+                        var templateKey = qualifier + 'Color';
+                        var templateTrans = l10n.get(templateKey, { color: translatedBase });
+
+                        if (templateTrans && templateTrans !== templateKey && templateTrans !== "") {
+                            finalName = templateTrans;
+                        } else {
+                            finalName = qualifier + ' ' + translatedBase;
+                        }
+                    }
                 } else {
-                    finalName = translatedBase.charAt(0).toLowerCase() + translatedBase.slice(1);
+                    finalName = translatedBase;
                 }
             }
 
-            // Convert to strict camelCase
-            return finalName.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-                return index === 0 ? word.toLowerCase() : word.toUpperCase();
-            }).replace(/\s+/g, '');
+            return finalName;
         }
 
         // --- UI Update Logic ---
@@ -203,11 +214,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 }
             }
 
-            // Harmony Dropdown Button
+            // Harmony mode active
             if (state.currentMode === 'harmony') {
-                elements['harmony-dropdown-button'].style.display = 'inline-block';
+                var currentName = harmonyNames[state.currentHarmony] || state.currentHarmony || '';
+                var translatedName = l10n.get(currentName) || currentName;
+                if (elements['cycle-harmony-button']) {
+                    elements['cycle-harmony-button'].style.display = 'inline-block';
+                    elements['cycle-harmony-button'].title = translatedName;
+                }
             } else {
-                elements['harmony-dropdown-button'].style.display = 'none';
+                if (elements['cycle-harmony-button']) {
+                    elements['cycle-harmony-button'].style.display = 'none';
+                }
             }
 
             // Challenge Difficulty Button
@@ -309,15 +327,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 elements['harmony-swatches'].appendChild(swatch);
             });
 
-            // Highlight active harmony option
-            var options = elements['harmony-options'].querySelectorAll('.harmony-option');
-            options.forEach(function (opt) {
-                if (opt.dataset.harmony === state.currentHarmony) {
-                    opt.classList.add('active');
-                } else {
-                    opt.classList.remove('active');
-                }
-            });
         }
 
         function updateChallengeDifficultyUI() {
@@ -375,6 +384,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         function switchMode(mode) {
             state.currentMode = mode;
             state.isHarmonyDropdownVisible = false;
+            if (mode === 'harmony' && !state.currentHarmony) {
+                state.currentHarmony = 'complementary';
+            }
             if (mode === 'challenge') initChallenge();
             updateUI();
             broadcastStateUpdate();
@@ -405,6 +417,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 state.mainHue = 0;
                 state.mainSaturation = 1.0;
                 state.mainLightness = 0.5;
+                state.currentHarmony = 'complementary';
             } else {
                 state.challengeDifficulty = 'hard';
                 initChallenge();
@@ -415,7 +428,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function applyHarmony(harmony) {
             state.currentHarmony = harmony;
-            state.isInitialState = false;
             updateUI();
             broadcastStateUpdate();
         }
@@ -451,7 +463,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         }
 
         function getChallengeStep(difficulty) {
-            if (difficulty === 'easy') return 51;
+            if (difficulty === 'easy') return 85;
             if (difficulty === 'medium') return 15;
             return 1;
         }
@@ -556,44 +568,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             });
         }
 
-        var harmonyPalette;
+        var harmonyPalette; // Kept for variable declaration compatibility
         function setupHarmonyOptions() {
-            harmonyPalette = new palette.Palette(elements['harmony-dropdown-button']);
-            var container = document.createElement('div');
-            container.id = 'harmony-options';
-            elements['harmony-options'] = container;
-
-            Object.keys(harmonyTypes).forEach(function (key) {
-                var option = document.createElement('button');
-                option.className = 'harmony-option';
-                option.dataset.harmony = key;
-
-                var icon = document.createElement('div');
-                icon.className = 'harmony-icon';
-                icon.style.position = 'relative';
-
-                var inner = document.createElement('div');
-                inner.className = 'harmony-icon-inner ' + key;
-                icon.appendChild(inner);
-                var d3 = document.createElement('div'); d3.className = 'dot3'; icon.appendChild(d3);
-                var d4 = document.createElement('div'); d4.className = 'dot4'; icon.appendChild(d4);
-
-                var span = document.createElement('span');
-                span.textContent = l10n.get(harmonyNames[key]) || harmonyNames[key];
-
-                option.appendChild(icon);
-                option.appendChild(span);
-
-                option.addEventListener('click', function () {
-                    harmonyPalette.popDown();
-                    applyHarmony(key);
+            if (elements['cycle-harmony-button']) {
+                elements['cycle-harmony-button'].addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    var keys = Object.keys(harmonyTypes);
+                    var index = keys.indexOf(state.currentHarmony);
+                    if (index === -1) index = 0;
+                    var nextIndex = (index + 1) % keys.length;
+                    applyHarmony(keys[nextIndex]);
                 });
-
-                container.appendChild(option);
-            });
-
-            harmonyPalette.setContent([container]);
-            harmonyPalette.getPalette().id = 'harmony-palette';
+            }
         }
 
         var isModeDropdownVisible = false;

@@ -12,7 +12,6 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
   z-index: 100000;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
 }
 
 .humane,
@@ -56,7 +55,6 @@ body {
   background: -ms-linear-gradient(top, rgba(0, 0, 50, 0.9) 0%, rgba(0, 0, 100, 0.9) 100%) no-repeat;
   background: -o-linear-gradient(top, rgba(0, 0, 50, 0.9) 0%, rgba(0, 0, 100, 0.9) 100%) no-repeat;
   background: linear-gradient(top, rgba(0, 0, 50, 0.9) 0%, rgba(0, 0, 100, 0.9) 100%) no-repeat;
-  *background-color: #030;
 }
 
 .humane.humane-libnotify-success,
@@ -68,7 +66,6 @@ body {
   background: -ms-linear-gradient(top, rgba(0, 50, 0, 0.9) 0%, rgba(0, 100, 0, 0.9) 100%) no-repeat;
   background: -o-linear-gradient(top, rgba(0, 50, 0, 0.9) 0%, rgba(0, 100, 0, 0.9) 100%) no-repeat;
   background: linear-gradient(top, rgba(0, 50, 0, 0.9) 0%, rgba(0, 100, 0, 0.9) 100%) no-repeat;
-  *background-color: #030;
 }
 
 .humane.humane-libnotify-error,
@@ -80,7 +77,6 @@ body {
   background: -ms-linear-gradient(top, rgba(50, 0, 0, 0.9) 0%, rgba(100, 0, 0, 0.9) 100%) no-repeat;
   background: -o-linear-gradient(top, rgba(50, 0, 0, 0.9) 0%, rgba(100, 0, 0, 0.9) 100%) no-repeat;
   background: linear-gradient(top, rgba(50, 0, 0, 0.9) 0%, rgba(100, 0, 0, 0.9) 100%) no-repeat;
-  *background-color: #300;
 }
 
 .humane.humane-animate,
@@ -111,5 +107,4 @@ body {
 .humane.humane-animate:hover,
 .humane-libnotify.humane-libnotify-js-animate:hover {
   opacity: 0.2;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
 }

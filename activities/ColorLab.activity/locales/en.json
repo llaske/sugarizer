@@ -33,5 +33,11 @@
 	"White": "White",
 	"DarkGrey": "Dark Grey",
 	"LightGrey": "Light Grey",
-	"Grey": "Grey"
+	"Grey": "Grey",
+	"Difficulty": "Difficulty",
+	"Easy": "Easy",
+	"Medium": "Medium",
+	"Hard": "Hard",
+	"DarkColor": "Dark {{color}}",
+	"LightColor": "Light {{color}}"
 }

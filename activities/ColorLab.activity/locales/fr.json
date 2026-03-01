@@ -37,5 +37,7 @@
 	"Difficulty": "Difficulté",
 	"Easy": "Facile",
 	"Medium": "Moyen",
-	"Hard": "Difficile"
+	"Hard": "Difficile",
+	"DarkColor": "{{color}} foncé",
+	"LightColor": "{{color}} clair"
 }

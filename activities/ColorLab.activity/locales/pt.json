@@ -28,5 +28,7 @@
 	"PastMonth": "Mês passado",
 	"PastYear": "Ano passado",
 	"UserJoined": "{{name}} ingressou",
-	"UserLeft": "{{name}} saiu"
+	"UserLeft": "{{name}} saiu",
+	"DarkColor": "{{color}} escuro",
+	"LightColor": "{{color}} claro"
 }

@@ -48,9 +48,10 @@ html {
     align-items: center;
     justify-content: center;
     height: calc(100vh - 55px);
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     overflow: hidden;
+    /* Force everything to strictly scale down to screen layout without scrolling */
     background-color: #000000;
     color: #ffffff;
 }
@@ -62,15 +63,7 @@ html {
     flex-direction: column;
 }
 
-#main-workspace {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    flex: 1;
-    /* Remove gap and use spacers logic if needed, but flex with spacers is easier for strict centering */
-}
+/* Top #main-workspace rule removed to avoid flex-direction conflicts */
 
 #left-panel {
     display: flex;
@@ -92,17 +85,7 @@ html {
     pointer-events: none;
 }
 
-/* Bowl Container - Right Side */
-#bowl-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    /* Take remaining space */
-    width: auto;
-    transform: translateY(-50px);
-}
+/* Removed duplicate aggressive #bowl-container styles */
 
 /* Harmony Wheel Section */
 #harmony-wheel-container {
@@ -235,19 +218,18 @@ html {
 }
 
 .harmony-swatch {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    border: 2px solid #ffffff;
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    border: 3px solid #ffffff;
     background-color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-
 }
 
 #harmony-palette {
@@ -524,19 +506,23 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* No margin-bottom here, controlled by upper-workspace */
-    /* width is now auto to fit in flex row, or specific */
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: 15px;
+    /* Anchors it near the top */
 }
 
 #color-name {
-    font-size: 32px;
+    font-size: min(32px, 5vmin);
     font-weight: bold;
     color: #ffffff;
     letter-spacing: 4px;
-    margin-bottom: 80px;
-    /* Bump margin for ring space */
+    margin-bottom: 15px;
+    /* Added small margin so it doesn't touch exactly */
     text-align: center;
     white-space: nowrap;
+    position: relative;
+    z-index: 5;
 }
 
 #bowl-center-wrapper {
@@ -544,14 +530,15 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    max-width: 600px;
+    width: min(800px, 60vmin);
+    height: min(800px, 60vmin);
+    max-width: 900px;
 }
 
 #mixing-bowl {
-    width: 280px;
+    width: min(650px, 45vmin);
     /* Slightly smaller to fit ring */
-    height: 280px;
+    height: min(650px, 45vmin);
     border-radius: 50%;
     background-color: #ffffff;
     /* Color Wheel Border Effect */
@@ -569,9 +556,9 @@ html {
 /* Color Wheel Ring */
 #color-wheel-ring {
     position: absolute;
-    width: 380px;
-    /* 280px bowl + 100px padding */
-    height: 380px;
+    width: min(800px, 60vmin);
+    /* 650px bowl + padding */
+    height: min(800px, 60vmin);
     border-radius: 50%;
     /* Segmented gradient */
     background: conic-gradient(#F44336 0deg 30deg,
@@ -616,49 +603,57 @@ html {
     transform: scale(0.95);
 }
 
-/* Sliders Section */
 #sliders-grid {
     width: 100%;
     max-width: 1100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 30px;
-    margin-top: auto;
+    gap: 15px;
     margin-inline: auto;
     /* center horizontally */
-    padding-bottom: 30px;
+    padding-bottom: min(15px, 2vmin);
+    margin-top: auto;
+    /* Forces elements down away from the top-anchored bowl */
+    flex-wrap: wrap;
+    /* baseline wrap before media queries */
 }
 
 #main-workspace {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    justify-items: center;
-    /* keep items centered within columns */
-    width: 100%;
-    flex-grow: 1;
-    gap: 20px;
-}
-
-#left-panel {
-    grid-column: 1;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-#bowl-container {
-    grid-column: 2;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    /* Anchor to top of screen by default */
     align-items: center;
+    width: 100%;
+    flex: 1;
+    /* Consume space */
+    min-height: 0;
 }
 
-#right-spacer {
-    grid-column: 3;
-    width: 100%;
+/* On large monitors, push the bowl slightly down from the absolute ceiling */
+@media (min-height: 800px) {
+    #bowl-container {
+        margin-top: 15vh;
+    }
+
+    /* Dramatically scale up challenge mode bowls on large heights */
+    #challenge-mode .bowl-container {
+        width: min(650px, 55vmin);
+        height: min(650px, 55vmin);
+    }
+
+    #challenge-mode .bowl {
+        width: min(600px, 50vmin);
+        height: min(600px, 50vmin);
+    }
+
+    #challenge-mode #divider-line {
+        height: min(650px, 55vmin);
+    }
 }
+
+/* Left and Right panels removed since we converted to flex column */
 
 /* Custom Range Sliders */
 .slider-group {
@@ -668,7 +663,8 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 15px 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
     gap: 15px;
     /* Explicit gap */
 }
@@ -803,8 +799,8 @@ body.fullscreen-mode #canvas {
 /* Bowl Container acting as anchor */
 .bowl-container {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: min(500px, 45vmin);
+    height: min(500px, 45vmin);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -871,8 +867,8 @@ body.fullscreen-mode #canvas {
 }
 
 .bowl {
-    width: 350px;
-    height: 350px;
+    width: min(450px, 40vmin);
+    height: min(450px, 40vmin);
     border: 5px solid #000000;
     border-radius: 50%;
     /* Full circle */
@@ -883,7 +879,7 @@ body.fullscreen-mode #canvas {
 
 #divider-line {
     width: 2px;
-    height: 400px;
+    height: min(500px, 45vmin);
     /* Taller to match new bowl size */
     background-color: #FFFFFF;
     border-radius: 1px;
@@ -1126,34 +1122,41 @@ body.fullscreen-mode #canvas {
     }
 
     /* Free Paint */
+    #bowl-center-wrapper {
+        width: 50vmin !important;
+        height: 50vmin !important;
+    }
+
     #mixing-bowl {
-        width: 40vmin !important;
-        height: 40vmin !important;
+        width: 35vmin !important;
+        height: 35vmin !important;
         border-width: 5px !important;
         box-shadow: 0 0 0 5px #333333, 0 0 0 10px #000000 !important;
     }
 
     #color-wheel-ring {
-        width: 60vmin !important;
-        height: 60vmin !important;
+        width: 50vmin !important;
+        height: 50vmin !important;
     }
 
     #color-name {
-        font-size: 24px !important;
-        margin-bottom: 30vmin !important;
+        font-size: min(24px, 5vmin) !important;
+        margin-bottom: min(15px, 2vh) !important;
     }
 
     #sliders-grid {
         flex-direction: row !important;
-        flex-wrap: wrap !important;
+        flex-wrap: nowrap !important;
         justify-content: center !important;
-        gap: 10px !important;
+        gap: 5px !important;
         align-items: center !important;
+        width: 100% !important;
     }
 
     /* Harmony Mode */
     #harmony-wheel-container {
         flex-direction: row !important;
+        flex-wrap: wrap !important;
         justify-content: center !important;
         align-items: center !important;
         gap: 10px !important;
@@ -1187,13 +1190,103 @@ body.fullscreen-mode #canvas {
         font-size: 10px !important;
     }
 
-    /* Challenge Mode */
     #bowls-area {
         flex-direction: row !important;
+        flex-wrap: wrap !important;
         gap: 15px !important;
         align-items: center !important;
         justify-content: center !important;
         min-height: auto !important;
+    }
+
+    .bowl-container {
+        width: 45vmin !important;
+        height: 45vmin !important;
+    }
+
+    .bowl {
+        width: 40vmin !important;
+        height: 40vmin !important;
+        border-width: 3px !important;
+    }
+
+    .bowl-label {
+        font-size: 1rem !important;
+    }
+
+    #divider-line {
+        width: 2px !important;
+        height: 45vmin !important;
+    }
+
+    #controls-area {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        width: 100% !important;
+    }
+
+    .slider-group {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        margin: 2px !important;
+        gap: 2px !important;
+        justify-content: center !important;
+    }
+
+    .adjust-button {
+        width: 25px !important;
+        height: 25px !important;
+        min-width: 25px !important;
+        min-height: 25px !important;
+        font-size: 16px !important;
+        flex-shrink: 0 !important;
+    }
+
+    input[type=range] {
+        flex: 1 1 0 !important;
+        min-width: 10px !important;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        width: 20px !important;
+        height: 20px !important;
+        margin-top: -5px !important;
+    }
+
+    .slider-val {
+        font-size: 0.8rem !important;
+        min-width: 25px !important;
+        text-align: right !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* --- LANDSCAPE MODE FOR PHONES --- */
+@media (max-height: 700px) and (orientation: landscape) {
+
+    /* Keep UI scaled tight so sliders stay at the bottom horizontally */
+
+    #color-name {
+        font-size: min(20px, 4vh) !important;
+        margin-bottom: min(10px, 2vh) !important;
+    }
+
+    #bowl-center-wrapper {
+        width: 55vmin !important;
+        height: 55vmin !important;
+    }
+
+    #mixing-bowl {
+        width: 40vmin !important;
+        height: 40vmin !important;
+    }
+
+    #color-wheel-ring {
+        width: 55vmin !important;
+        height: 55vmin !important;
     }
 
     .bowl-container {
@@ -1204,133 +1297,6 @@ body.fullscreen-mode #canvas {
     .bowl {
         width: 35vmin !important;
         height: 35vmin !important;
-        border-width: 3px !important;
-    }
-
-    .bowl-label {
-        font-size: 1rem !important;
-    }
-
-    #divider-line {
-        width: 2px !important;
-        height: 40vmin !important;
-    }
-
-    #controls-area {
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 10px !important;
-    }
-
-    .slider-group {
-        flex: 1 !important;
-        min-width: 220px !important;
-        max-width: 320px !important;
-        margin: 5px 5px !important;
-        gap: 8px !important;
-        justify-content: space-between !important;
-    }
-
-    .adjust-button {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        min-height: 36px !important;
-        font-size: 22px !important;
-        flex-shrink: 0 !important;
-    }
-
-    input[type=range] {
-        flex-shrink: 1 !important;
-    }
-
-    input[type=range]::-webkit-slider-thumb {
-        width: 28px !important;
-        height: 28px !important;
-        margin-top: -8px !important;
-    }
-
-    .slider-val {
-        font-size: 1rem !important;
-        min-width: 35px !important;
-        text-align: right !important;
-        flex-shrink: 0 !important;
-    }
-}
-
-/* --- LANDSCAPE MODE FOR PHONES --- */
-@media (max-height: 700px) and (orientation: landscape) {
-
-    #free-mode,
-    #challenge-mode {
-        flex-direction: row !important;
-        justify-content: space-evenly !important;
-        align-items: center !important;
-    }
-
-    #main-workspace {
-        flex: 1 !important;
-        height: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    #bowl-container {
-        transform: none !important;
-    }
-
-    #sliders-grid {
-        flex: 1 !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        gap: 10px !important;
-        padding: 0 10px !important;
-        margin: 0 !important;
-    }
-
-    #bowls-area {
-        flex: 1 !important;
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 20px !important;
-        height: 100% !important;
-    }
-
-    #controls-area {
-        flex: 1 !important;
-        flex-direction: column !important;
-        justify-content: center !important;
-        gap: 15px !important;
-        padding: 0 10px !important;
-        margin: 0 !important;
-    }
-
-    .slider-group {
-        width: 100% !important;
-        max-width: none !important;
-    }
-
-    #mixing-bowl {
-        width: 45vmin !important;
-        height: 45vmin !important;
-    }
-
-    #color-wheel-ring {
-        width: 65vmin !important;
-        height: 65vmin !important;
-    }
-
-    .bowl-container {
-        width: 35vmin !important;
-        height: 35vmin !important;
-    }
-
-    .bowl {
-        width: 30vmin !important;
-        height: 30vmin !important;
     }
 
     #divider-line {
