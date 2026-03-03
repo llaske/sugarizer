@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/libnotify.css?v=4">
     <link rel="stylesheet" href="css/activity.css?v=7">
     <link rel="stylesheet" href="css/style.css?v=7">
+    <script src="lib/intro.js"></script>
     <script data-main="js/loader" src="lib/require.js"></script>
     <script type="text/javascript" src="../../cordova.js"></script>
 </head>
@@ -24,6 +25,8 @@
         <button class="toolbutton" id="network-button" title="Network"></button>
         <button class="toolbutton" id="mode-button" title="Mode"></button>
         <button class="toolbutton" id="harmony-dropdown-button" title="Harmony Types"
+            style="display: none; background-image: url(icons/harmony.svg);"></button>
+        <button id="cycle-harmony-button" class="toolbutton" title="Cycle Harmony Mode"
             style="display: none; background-image: url(icons/harmony.svg);"></button>
         <button class="toolbutton" id="challenge-difficulty-button" title="Difficulty"
             style="display: none; background-image: url(icons/difficulty.svg);"></button>
@@ -54,7 +57,7 @@
             <!-- FREE PAINT MODE -->
             <div id="free-mode" class="mode-container">
                 <div id="main-workspace">
-                    <div id="bowl-container" style="margin: 0 auto;">
+                    <div id="bowl-container">
                         <div id="color-name">White</div>
                         <div id="bowl-center-wrapper">
                             <div id="color-wheel-ring">
@@ -66,36 +69,39 @@
                             <div id="mixing-bowl" style="background-color: #ffffff"></div>
                         </div>
                     </div>
-                </div>
-
-                <div id="sliders-grid">
-                    <div class="slider-group group-red">
-                        <button class="adjust-button minus" id="red-minus">-</button>
-                        <input type="range" min="0" max="255" value="255" id="red-slider">
-                        <button class="adjust-button plus" id="red-plus">+</button>
-                        <span class="slider-val" id="red-val">255</span>
-                    </div>
-                    <div class="slider-group group-green">
-                        <button class="adjust-button minus" id="green-minus">-</button>
-                        <input type="range" min="0" max="255" value="255" id="green-slider">
-                        <button class="adjust-button plus" id="green-plus">+</button>
-                        <span class="slider-val" id="green-val">255</span>
-                    </div>
-                    <div class="slider-group group-blue">
-                        <button class="adjust-button minus" id="blue-minus">-</button>
-                        <input type="range" min="0" max="255" value="255" id="blue-slider">
-                        <button class="adjust-button plus" id="blue-plus">+</button>
-                        <span class="slider-val" id="blue-val">255</span>
+                    <div id="sliders-grid">
+                        <div class="slider-group group-red">
+                            <button class="adjust-button minus" id="red-minus">-</button>
+                            <input type="range" min="0" max="255" value="255" id="red-slider">
+                            <button class="adjust-button plus" id="red-plus">+</button>
+                            <span class="slider-val" id="red-val">255</span>
+                        </div>
+                        <div class="slider-group group-green">
+                            <button class="adjust-button minus" id="green-minus">-</button>
+                            <input type="range" min="0" max="255" value="255" id="green-slider">
+                            <button class="adjust-button plus" id="green-plus">+</button>
+                            <span class="slider-val" id="green-val">255</span>
+                        </div>
+                        <div class="slider-group group-blue">
+                            <button class="adjust-button minus" id="blue-minus">-</button>
+                            <input type="range" min="0" max="255" value="255" id="blue-slider">
+                            <button class="adjust-button plus" id="blue-plus">+</button>
+                            <span class="slider-val" id="blue-val">255</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- HARMONY MODE -->
             <div id="harmony-mode" class="mode-container"
-                style="display: none; width: 100%; height: 100%; overflow: hidden;">
+                style="display: none; width: 100%; height: 100%; overflow: hidden; position: relative;">
                 <div id="harmony-workspace"
                     style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%;">
-                    <div id="harmony-wheel-container">
+                    <div id="harmony-wheel-container"
+                        style="display: flex; flex-direction: column; align-items: center;">
+                        <div id="harmony-name-display"
+                            style="font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #ffffff;">
+                            Complementary</div>
                         <div id="harmony-wheel">
                             <div id="lightnessGradient">
                                 <div id="lightnessInterstitial">

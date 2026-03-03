@@ -68,7 +68,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             'challenge-red-slider', 'challenge-green-slider', 'challenge-blue-slider',
             'challenge-red-minus', 'challenge-red-plus', 'challenge-green-minus', 'challenge-green-plus', 'challenge-blue-minus', 'challenge-blue-plus',
             'left-panel', 'right-spacer', 'label-my-color', 'label-target', 'label-you-won',
-            'red-val', 'green-val', 'blue-val', 'challenge-red-val', 'challenge-green-val', 'challenge-blue-val'
+            'red-val', 'green-val', 'blue-val', 'challenge-red-val', 'challenge-green-val', 'challenge-blue-val',
+            'harmony-name-display'
         ];
 
         function initElements() {
@@ -181,6 +182,144 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             return finalName;
         }
 
+        // --- Tutorial Logic ---
+        function initTutorial(currentMode) {
+            var steps = [];
+
+            // Common intro step for all modes
+            steps.push({
+                position: "bottom",
+                title: l10n.get("TutoExplainTitle"),
+                intro: l10n.get("TutoExplainContent")
+            });
+
+            // Mode-specific steps
+            if (currentMode === 'free') {
+                steps = steps.concat([
+                    {
+                        element: "#mode-button",
+                        position: "bottom",
+                        title: l10n.get("TutoModeTitle"),
+                        intro: l10n.get("TutoModeContent")
+                    },
+                    {
+                        element: "#network-button",
+                        position: "bottom",
+                        title: l10n.get("TutoNetworkTitle"),
+                        intro: l10n.get("TutoNetworkContent")
+                    },
+                    {
+                        element: "#reset-toolbar-button",
+                        position: "bottom",
+                        title: l10n.get("TutoResetTitle") || "Reset",
+                        intro: l10n.get("TutoResetContent") || "Click here to reset the current activity."
+                    },
+                    {
+                        element: "#bowl-container",
+                        position: "right",
+                        title: l10n.get("TutoBowlTitle"),
+                        intro: l10n.get("TutoBowlContent")
+                    },
+                    {
+                        element: "#sliders-grid",
+                        position: "left",
+                        title: l10n.get("TutoSlidersTitle"),
+                        intro: l10n.get("TutoSlidersContent")
+                    }
+                ]);
+            } else if (currentMode === 'challenge') {
+                steps = steps.concat([
+                    {
+                        element: "#mode-button",
+                        position: "bottom",
+                        title: l10n.get("TutoModeTitle"),
+                        intro: l10n.get("TutoModeContent")
+                    },
+                    {
+                        element: "#network-button",
+                        position: "bottom",
+                        title: l10n.get("TutoNetworkTitle"),
+                        intro: l10n.get("TutoNetworkContent")
+                    },
+                    {
+                        element: "#reset-toolbar-button",
+                        position: "bottom",
+                        title: l10n.get("TutoResetTitle") || "Reset",
+                        intro: l10n.get("TutoResetContent") || "Click here to reset the current activity."
+                    },
+                    {
+                        element: "#challenge-difficulty-button",
+                        position: "bottom",
+                        title: l10n.get("TutoDifficultyTitle") || "Difficulty",
+                        intro: l10n.get("TutoDifficultyContent") || "Change the difficulty of the challenge here."
+                    },
+                    {
+                        element: "#bowls-area",
+                        position: "right",
+                        title: l10n.get("TutoChallengeBowlTitle") || "Challenge Bowls",
+                        intro: l10n.get("TutoChallengeBowlContent") || "Match the left bowl color to the target bowl."
+                    },
+                    {
+                        element: "#challenge-sliders-grid",
+                        position: "left",
+                        title: l10n.get("TutoSlidersTitle"),
+                        intro: l10n.get("TutoSlidersContent")
+                    }
+                ]);
+            } else if (currentMode === 'harmony') {
+                steps = steps.concat([
+                    {
+                        element: "#mode-button",
+                        position: "bottom",
+                        title: l10n.get("TutoModeTitle"),
+                        intro: l10n.get("TutoModeContent")
+                    },
+                    {
+                        element: "#network-button",
+                        position: "bottom",
+                        title: l10n.get("TutoNetworkTitle"),
+                        intro: l10n.get("TutoNetworkContent")
+                    },
+                    {
+                        element: "#reset-toolbar-button",
+                        position: "bottom",
+                        title: l10n.get("TutoResetTitle") || "Reset",
+                        intro: l10n.get("TutoResetContent") || "Click here to reset the current activity."
+                    },
+                    {
+                        element: "#cycle-harmony-button",
+                        position: "bottom",
+                        title: l10n.get("TutoHarmonyTitle") || "Harmony Type",
+                        intro: l10n.get("TutoHarmonyContent") || "Select the type of color harmony to display."
+                    },
+                    {
+                        element: "#harmony-wheel-container",
+                        position: "right",
+                        title: l10n.get("TutoWheelTitle") || "Color Wheel",
+                        intro: l10n.get("TutoWheelContent") || "Drag the points to pick harmony colors."
+                    },
+                    {
+                        element: "#harmony-swatches",
+                        position: "left",
+                        title: l10n.get("TutoSwatchesTitle") || "Swatches",
+                        intro: l10n.get("TutoSwatchesContent") || "The resulting colors form a generated palette."
+                    }
+                ]);
+            }
+
+            var intro = introJs();
+            intro.setOptions({
+                tooltipClass: 'customTooltip',
+                steps: steps,
+                prevLabel: l10n.get("TutoPrev"),
+                nextLabel: l10n.get("TutoNext"),
+                exitOnOverlayClick: false,
+                nextToDone: false,
+                showBullets: false
+            });
+            intro.start();
+        }
+
         // --- UI Update Logic ---
         function updateUI() {
             // Mode Visibility
@@ -221,6 +360,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 if (elements['cycle-harmony-button']) {
                     elements['cycle-harmony-button'].style.display = 'inline-block';
                     elements['cycle-harmony-button'].title = translatedName;
+                }
+                if (elements['harmony-name-display']) {
+                    elements['harmony-name-display'].textContent = translatedName;
                 }
             } else {
                 if (elements['cycle-harmony-button']) {
@@ -887,6 +1029,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         });
         elements['fullscreen-button'].addEventListener('click', toggleFullscreen);
         elements['unfullscreen-button'].addEventListener('click', exitFullscreen);
+        elements['help-button'].addEventListener('click', function (e) {
+            initTutorial(state.currentMode);
+        });
 
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.palette') && !e.target.closest('.toolbutton')) {

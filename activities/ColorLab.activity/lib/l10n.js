@@ -1,5 +1,5 @@
 define(['i18next.min', 'axios.min'], function (i18next, axios) {
-    const l10n = {language: {direction: "ltr"}};
+    const l10n = { language: { direction: "ltr" } };
 
     l10n.init = async (lang) => {
         await i18next.init({
@@ -16,12 +16,13 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
         return i18next.t(key, parameter);
     };
 
+    const supportedLanguages = ['en', 'es', 'fr', 'pt'];
+
     l10n.loadLanguageResource = (lang) => {
         return new Promise((resolve, reject) => {
             axios.get("./locales/" + lang + ".json").then((response) => {
                 resolve(response.data);
             }).catch((error) => {
-                console.log("Failed to load " + lang + " language: " + error);
                 resolve(null); // Resolve with null to indicate failure
             });
         });
@@ -29,14 +30,29 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
 
     l10n.switchTo = (lang) => {
         if (!i18next.hasResourceBundle(lang, "translation")) {
-            console.log("Loading " + lang + " language");
-            l10n.loadLanguageResource(lang).then((locales) => {
+            // Check if language is supported before making the request
+            let targetLang = lang;
+            if (!supportedLanguages.includes(lang) && lang.length > 2) {
+                const shortLang = lang.substring(0, 2);
+                if (supportedLanguages.includes(shortLang)) {
+                    targetLang = shortLang;
+                } else {
+                    targetLang = 'en';
+                }
+            } else if (!supportedLanguages.includes(lang)) {
+                targetLang = 'en';
+            }
+
+            console.log("Loading " + targetLang + " language");
+            l10n.loadLanguageResource(targetLang).then((locales) => {
                 if (locales !== null) {
-                    i18next.addResourceBundle(lang, "translation", locales);
-                    i18next.changeLanguage(lang);
+                    i18next.addResourceBundle(targetLang, "translation", locales);
+                    i18next.changeLanguage(targetLang);
                     triggerLocalizedEvent();
                 } else {
-                    l10n.init("en");
+                    if (targetLang !== 'en') {
+                        l10n.init("en");
+                    }
                 }
             });
         } else {
@@ -46,21 +62,21 @@ define(['i18next.min', 'axios.min'], function (i18next, axios) {
     };
 
 
-	l10n.updateDocument = () => {
-		const elements = document.getElementsByTagName("*");
-		for (let i = 0; i < elements.length; i++) {
-		  const element = elements[i];
-		  const key = element.getAttribute("data-i18n");
-		  //handle innerHTML
-          if (key !== null && i18next.exists(key)) {
-			element.innerHTML = i18next.t(key);
-		  }
-          //handle tooltips
-          if (key !== null && i18next.exists(key+".title")) {
-			element.setAttribute('title', i18next.t(key+".title"));
-		  }
-		}
-	};
+    l10n.updateDocument = () => {
+        const elements = document.getElementsByTagName("*");
+        for (let i = 0; i < elements.length; i++) {
+            const element = elements[i];
+            const key = element.getAttribute("data-i18n");
+            //handle innerHTML
+            if (key !== null && i18next.exists(key)) {
+                element.innerHTML = i18next.t(key);
+            }
+            //handle tooltips
+            if (key !== null && i18next.exists(key + ".title")) {
+                element.setAttribute('title', i18next.t(key + ".title"));
+            }
+        }
+    };
 
     function triggerLocalizedEvent() {
         const event = new Event("localized");
