@@ -4,9 +4,9 @@
 
 Sugarizer is a free/libre learning platform. The Sugarizer UI uses ergonomic principles from The [Sugar platform](https://sugarlabs.org/), developed for the One Laptop per Child project and used by more than 2 million children around the world.
 
-Sugarizer runs on every device: laptops, desktops, tiny computers, tablets or smartphones.
+Sugarizer runs on almost every device: laptops, desktops, small computers, tablets, and smartphones.
 
-Sugarizer includes a large set of pedagogic activities thought for children, see [here](https://sugarizer.org/activities.html) for a full list.
+Sugarizer includes a large set of pedagogical activities designed for children, see [here](https://sugarizer.org/activities.html) for a full list.
 
 Sugarizer is available as:
 
@@ -168,7 +168,7 @@ Each line in this file is one activity. Here is the description of each field:
 
 Remove in this file rows for activities that you want to remove. Add in this file a line for each activity you want to add.
 
-Note than:
+Note that:
 
 1. The [activities/ActivityTemplate](activities/ActivityTemplate) directory does not contain a real activity. It's just a template that you could use to create your own activity.
 2. The [activities.json](activities.json) is used only by Sugarizer Application, the Web Application relies on the */api/activities* API that dynamically browse the [activities](activities) directory. By the way, it's a good practice to match the content of the activities.json file and the content of the activities directory.
@@ -201,11 +201,11 @@ To run unit tests for Sugarizer Application, run "file:///PathToYourSugarizerRep
 
 # Build Application for Android and iOS
 
-Sugarizer Application could be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
+The Sugarizer Application can be packaged as an Android or iOS application using [Cordova](http://cordova.apache.org/).
 
 For Android:
 
-A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allow you to create the Android packaging without any Android knowledge.
+A dedicated tool named [Sugarizer APK Builder](https://github.com/llaske/sugarizer-apkbuilder) allows you to create the Android package without any Android knowledge.
 
 If you want to build it yourself, you could adapt the [source code](https://github.com/llaske/sugarizer-apkbuilder/blob/master/src/make_android.sh) of this tool.
 
@@ -263,7 +263,7 @@ At the end of the process, all JavaScript files in all directories have been rep
 
 If you're not a developer and you want to translate Sugarizer into your own language, please go to the [Sugarizer translation platform](http://translate.sugarizer.org) where you will be able to do that. If you're a developer, the following paragraphs will explain to you how the Sugarizer localization system works.
 
-Sugarizer use [i18next](https://www.i18next.com/) localization system.
+Sugarizer uses the [i18next](https://www.i18next.com/) localization system.
 
 All strings are localized in JSON files in the [locales](locales) directory at the root of the repository.
 If you want to add a new translation, copy the `en.json` files in a new one and:
