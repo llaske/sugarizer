@@ -223,13 +223,21 @@ function StandardAbacus(stage,rods,topnumber,factor,bottomnumber,base,colours,st
 				this.bottomcolumns[i].updateAges();
 				var topuse = this.topcolumns[i].howManyInUse();
 				var bottomuse = this.bottomcolumns[i].howManyInUse();
-				var sum = factor*topuse.length;
-				sum += bottomuse.length;
-				if (sum!=0){
-					this.rodtext[i].text=sum.toString();
-				} else {
-					this.rodtext[i].text="";
-				}
+				var sum = factor * topuse.length;
+                sum += bottomuse.length;
+                var tempsum = new window.Fraction(0,1);
+                var tmp = this.topcolumns[i].value;
+                tmp = tmp.mul(topuse.length);
+                tempsum = tempsum.add(tmp);
+                tmp = this.bottomcolumns[i].value;
+                tmp = tmp.mul(bottomuse.length);
+                tempsum = tempsum.add(tmp);
+
+                if (!tempsum.equals(new window.Fraction(0))) {
+                    this.rodtext[i].text = tempsum.toFraction(true);
+                } else {
+                    this.rodtext[i].text = "";
+                }
 				var tempsum = new window.Fraction(0,1);
 				var tmp = this.topcolumns[i].value;
 				tmp = tmp.mul(topuse.length);
