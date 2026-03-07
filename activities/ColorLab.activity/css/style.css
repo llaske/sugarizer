@@ -89,19 +89,14 @@ html {
 
 /* Harmony Wheel Section */
 #harmony-wheel-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    /* Set by inline styles inside index.html now (flex row, width 100%, max-width 900px, etc) */
     position: relative;
-    width: 100%;
-    height: 100%;
 }
 
 #harmony-wheel {
     position: relative;
-    width: 450px;
-    height: 450px;
+    width: min(450px, 60vmin);
+    height: min(450px, 60vmin);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,8 +104,8 @@ html {
 
 #lightnessGradient {
     position: relative;
-    width: 450px;
-    height: 450px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     background: linear-gradient(rgb(0, 0, 0), rgb(102, 153, 122), rgb(240, 245, 242));
     display: flex;
@@ -157,8 +152,8 @@ html {
 .color-wheel {
     position: absolute;
     z-index: 10;
-    width: 380px;
-    height: 380px;
+    width: 85%;
+    height: 85%;
     border-radius: 50%;
     top: 50%;
     left: 50%;
@@ -206,20 +201,19 @@ html {
 
 
 #harmony-swatches {
-    position: absolute;
+    /* Set back to pure column based on user feedback */
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    left: 50%;
-    margin-left: 260px;
-    /* Half of 450px wheel + padding */
-    top: 50%;
-    transform: translateY(-50%);
+    justify-content: center;
+    gap: 15px;
+    z-index: 100;
 }
 
 .harmony-swatch {
-    width: 120px;
-    height: 120px;
+    width: clamp(10px, 16vmin, 120px);
+    height: clamp(10px, 16vmin, 120px);
+    flex-shrink: 0;
+    box-sizing: border-box;
     border-radius: 12px;
     border: 3px solid #ffffff;
     background-color: #333;
@@ -227,9 +221,10 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: clamp(8px, 2.4vmin, 18px);
     font-weight: bold;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
 #harmony-palette {
