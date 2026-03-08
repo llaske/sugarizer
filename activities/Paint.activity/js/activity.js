@@ -55,7 +55,8 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
     // Export as PNG image
     document.getElementById("save-image-button").addEventListener('click', function () {
       var mimetype = 'image/png';
-      var inputData = document.getElementById("paint-canvas").toDataURL(mimetype, 1);
+      var canvasToSave = PaintApp.data.masterCanvas || document.getElementById("paint-canvas");
+      var inputData = canvasToSave.toDataURL(mimetype, 1);
       var metadata = {
         mimetype: mimetype,
         title: l10n.get("PaintBy", { name: currentenv.user.name }),
@@ -71,10 +72,11 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
     });
 
     document.getElementById("stop-button").addEventListener('click', function(event) {
+      var canvasToSave = PaintApp.data.masterCanvas || PaintApp.elements.canvas;
       var data = {
-        width: PaintApp.elements.canvas.width / window.devicePixelRatio,
-        height: PaintApp.elements.canvas.height / window.devicePixelRatio,
-        src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
+        width: canvasToSave.width / window.devicePixelRatio,
+        height: canvasToSave.height / window.devicePixelRatio,
+        src: PaintApp.collaboration.compress(canvasToSave.toDataURL())
       }
 
       var jsonData = JSON.stringify(data);
@@ -97,8 +99,16 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
         PaintApp.clearCanvas();
         img = new Image();
         img.onload = function() {
-          PaintApp.elements.canvas.getContext('2d').drawImage(img, 0, 0, data.width, data.height);
-          PaintApp.saveCanvas();
+          if (!PaintApp.data.masterCanvas) {
+            PaintApp.data.masterCanvas = document.createElement('canvas');
+          }
+          PaintApp.data.masterCanvas.width = img.width;
+          PaintApp.data.masterCanvas.height = img.height;
+          PaintApp.data.masterCanvas.getContext('2d').drawImage(img, 0, 0);
+          PaintApp.data.history.undo.push(img.src);
+          if (PaintApp.onResize) {
+            PaintApp.onResize();
+          }
         };
         img.src = PaintApp.collaboration.decompress(data.src);
         //DISPLAY

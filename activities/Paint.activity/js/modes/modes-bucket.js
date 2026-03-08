@@ -89,27 +89,29 @@ define([], function() {
       var ctx = PaintApp.elements.canvas.getContext('2d');
 
       /* Transformation of the color used inside the palette to match with the bucket fill functions prototypes */
-      var colorFillStrings = PaintApp.data.color.fill.slice(4, -1).split(',');
-      var colorFill = [
-        parseInt(colorFillStrings[0]),
-        parseInt(colorFillStrings[1]),
-        parseInt(colorFillStrings[2]),
-        0
-      ];
-      var colorHex = colorFill.map(function(x) {
-        x = parseInt(x).toString(16);
-        return x.length == 1 ? '0' + x : x;
-      });
-      var fillColor = {
-        a: 1,
-        r: parseInt(colorFill[0]),
-        g: parseInt(colorFill[1]),
-        b: parseInt(colorFill[2])
-      };
+      var fillColor = { a: 255, r: 255, g: 0, b: 0 };
+      var colorStr = PaintApp.data.color.fill;
 
+      if (colorStr.indexOf('rgb') === 0) {
+        var parts = colorStr.slice(colorStr.indexOf('(') + 1, colorStr.indexOf(')')).split(',');
+        fillColor.r = parseInt(parts[0]);
+        fillColor.g = parseInt(parts[1]);
+        fillColor.b = parseInt(parts[2]);
+      } else if (colorStr.indexOf('#') === 0) {
+        if (colorStr.length === 4) {
+          fillColor.r = parseInt(colorStr[1] + colorStr[1], 16);
+          fillColor.g = parseInt(colorStr[2] + colorStr[2], 16);
+          fillColor.b = parseInt(colorStr[3] + colorStr[3], 16);
+        } else {
+          fillColor.r = parseInt(colorStr.slice(1, 3), 16);
+          fillColor.g = parseInt(colorStr.slice(3, 5), 16);
+          fillColor.b = parseInt(colorStr.slice(5, 7), 16);
+        }
+      }
 
       /* Getting the clicked point */
-      var p = ctx.getImageData(event.point.x * window.devicePixelRatio, event.point.y * window.devicePixelRatio, 1, 1).data;
+      var pr = window.devicePixelRatio || 1;
+      var p = ctx.getImageData(parseInt(event.point.x * pr), parseInt(event.point.y * pr), 1, 1).data;
 
       /* If the color of the point is too close to the required color we stop the process */
       /* We can't do a strict equality because browsers will auto change a few colors and we cannot prevent it... */
@@ -117,9 +119,48 @@ define([], function() {
         PaintApp.modes.Bucket.lock = false;
         return;
       }
-      /* Proceed with the bucket fill */
+      /* Proceed with the bucket fill on the visible canvas */
       floodfill(parseInt(event.point.x * window.devicePixelRatio), parseInt(event.point.y * window.devicePixelRatio), fillColor, ctx, ctx.canvas.width, ctx.canvas.height, 5);
 
+      /* Stretch the bucket-filled canvas across the entire masterCanvas so that the
+         fill color covers the full screen-sized buffer. saveCanvas will then re-sync
+         the small in-bounds region at 1:1 scale on top. */
+      var pr = window.devicePixelRatio || 1;
+      var screenW = Math.ceil(screen.width * pr);
+      var screenH = Math.ceil(screen.height * pr);
+
+      if (!PaintApp.data.masterCanvas) {
+        PaintApp.data.masterCanvas = document.createElement('canvas');
+        PaintApp.data.masterCanvas.width = Math.max(PaintApp.elements.canvas.width, screenW);
+        PaintApp.data.masterCanvas.height = Math.max(PaintApp.elements.canvas.height, screenH);
+        var mCtxInit = PaintApp.data.masterCanvas.getContext('2d');
+        mCtxInit.fillStyle = "#ffffff";
+        mCtxInit.fillRect(0, 0, PaintApp.data.masterCanvas.width, PaintApp.data.masterCanvas.height);
+      }
+
+      if (PaintApp.data.masterCanvas) {
+        var mc = PaintApp.data.masterCanvas;
+
+        // Explicitly ensuring masterCanvas covers the screen before stretching
+        if (mc.width < screenW || mc.height < screenH) {
+          var expandW = Math.max(mc.width, screenW);
+          var expandH = Math.max(mc.height, screenH);
+          var tmp = document.createElement('canvas');
+          tmp.width = mc.width; tmp.height = mc.height;
+          tmp.getContext('2d').drawImage(mc, 0, 0);
+          mc.width = expandW; mc.height = expandH;
+          var mcCtx = mc.getContext('2d');
+          mcCtx.fillStyle = "#ffffff";
+          mcCtx.fillRect(0, 0, expandW, expandH);
+          mcCtx.drawImage(tmp, 0, 0);
+        }
+        var mCtx = PaintApp.data.masterCanvas.getContext('2d');
+        mCtx.drawImage(
+          PaintApp.elements.canvas,
+          0, 0, PaintApp.elements.canvas.width, PaintApp.elements.canvas.height,
+          0, 0, PaintApp.data.masterCanvas.width, PaintApp.data.masterCanvas.height
+        );
+      }
 
       PaintApp.saveCanvas();
       PaintApp.modes.Bucket.lock = false;

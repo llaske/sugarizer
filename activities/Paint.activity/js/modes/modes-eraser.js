@@ -26,6 +26,35 @@ define([], function() {
       ctx.lineTo(event.point.x, event.point.y);
       ctx.stroke();
 
+      /* Mirror erase stroke to masterCanvas with pixelRatio scaling, expanding masterCanvas if needed */
+      if (PaintApp.data.masterCanvas) {
+        var pr = window.devicePixelRatio || 1;
+        var px = event.point.x * pr;
+        var py = event.point.y * pr;
+        var mc = PaintApp.data.masterCanvas;
+        var neededW = Math.ceil(px + PaintApp.data.size * pr + 10);
+        var neededH = Math.ceil(py + PaintApp.data.size * pr + 10);
+        if (neededW > mc.width || neededH > mc.height) {
+          var expandW = Math.max(mc.width, neededW, Math.ceil(screen.width * pr));
+          var expandH = Math.max(mc.height, neededH, Math.ceil(screen.height * pr));
+          var tmp = document.createElement('canvas');
+          tmp.width = mc.width; tmp.height = mc.height;
+          tmp.getContext('2d').drawImage(mc, 0, 0);
+          mc.width = expandW; mc.height = expandH;
+          var newMc = mc.getContext('2d');
+          newMc.fillStyle = '#ffffff'; newMc.fillRect(0, 0, expandW, expandH);
+          newMc.drawImage(tmp, 0, 0);
+        }
+        var mCtx = mc.getContext('2d');
+        mCtx.beginPath();
+        mCtx.strokeStyle = '#fff';
+        mCtx.lineCap = 'round';
+        mCtx.lineWidth = PaintApp.data.size * pr;
+        mCtx.moveTo((event.point.x + 1) * pr, (event.point.y + 1) * pr);
+        mCtx.lineTo(px, py);
+        mCtx.stroke();
+      }
+
       /* If the activity is shared, we send the point to everyone */
       if (PaintApp.data.isShared) {
 
@@ -62,6 +91,35 @@ define([], function() {
       ctx.moveTo(PaintApp.modes.Eraser.point.x, PaintApp.modes.Eraser.point.y);
       ctx.lineTo(event.point.x, event.point.y);
       ctx.stroke();
+
+      /* Mirror erase stroke to masterCanvas with pixelRatio scaling, expanding masterCanvas if needed */
+      if (PaintApp.data.masterCanvas) {
+        var pr = window.devicePixelRatio || 1;
+        var px = event.point.x * pr;
+        var py = event.point.y * pr;
+        var mc = PaintApp.data.masterCanvas;
+        var neededW = Math.ceil(Math.max(PaintApp.modes.Eraser.point.x * pr, px) + PaintApp.data.size * pr + 10);
+        var neededH = Math.ceil(Math.max(PaintApp.modes.Eraser.point.y * pr, py) + PaintApp.data.size * pr + 10);
+        if (neededW > mc.width || neededH > mc.height) {
+          var expandW = Math.max(mc.width, neededW, Math.ceil(screen.width * pr));
+          var expandH = Math.max(mc.height, neededH, Math.ceil(screen.height * pr));
+          var tmp = document.createElement('canvas');
+          tmp.width = mc.width; tmp.height = mc.height;
+          tmp.getContext('2d').drawImage(mc, 0, 0);
+          mc.width = expandW; mc.height = expandH;
+          var newMc = mc.getContext('2d');
+          newMc.fillStyle = '#ffffff'; newMc.fillRect(0, 0, expandW, expandH);
+          newMc.drawImage(tmp, 0, 0);
+        }
+        var mCtx = mc.getContext('2d');
+        mCtx.beginPath();
+        mCtx.strokeStyle = '#fff';
+        mCtx.lineCap = 'round';
+        mCtx.lineWidth = PaintApp.data.size * pr;
+        mCtx.moveTo(PaintApp.modes.Eraser.point.x * pr, PaintApp.modes.Eraser.point.y * pr);
+        mCtx.lineTo(px, py);
+        mCtx.stroke();
+      }
 
       /* If the activity is shared, we send the move to everyone */
       if (PaintApp.data.isShared) {
