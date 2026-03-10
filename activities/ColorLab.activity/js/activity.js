@@ -58,8 +58,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         var elementIds = [
             'activity-button', 'network-button', 'mode-button', 'reset-toolbar-button',
             'stop-button', 'fullscreen-button', 'unfullscreen-button', 'help-button',
-            'mode-dropdown', 'mode-options', 'harmony-dropdown-button', 'cycle-harmony-button', 'free-mode', 'challenge-mode', 'harmony-mode',
-            'challenge-difficulty-button', 'difficulty-dropdown', 'difficulty-options',
+            'mode-dropdown', 'mode-options', 'harmony-dropdown-button', 'board-harmony-button', 'free-mode', 'challenge-mode', 'harmony-mode',
+            'challenge-difficulty-button', 'hint-button', 'difficulty-dropdown', 'difficulty-options',
             'harmony-wheel-inner', 'lightnessInterstitial', 'lightnessTrack',
             'harmony-swatches', 'color-name', 'mixing-bowl', 'ring-svg',
             'red-slider', 'green-slider', 'blue-slider',
@@ -131,9 +131,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             angle = ((angle % 360) + 360) % 360;
             var colorNames = [
                 { min: 0, max: 15, name: 'Red' }, { min: 15, max: 45, name: 'Orange' },
-                { min: 45, max: 75, name: 'Yellow' }, { min: 75, max: 105, name: 'Lime' },
-                { min: 105, max: 135, name: 'Green' }, { min: 135, max: 165, name: 'Teal' },
-                { min: 165, max: 195, name: 'Cyan' }, { min: 195, max: 225, name: 'Sky' },
+                { min: 45, max: 60, name: 'Yellow' }, { min: 60, max: 105, name: 'Lime' },
+                { min: 105, max: 135, name: 'Green' }, { min: 135, max: 180, name: 'Teal' },
+                { min: 180, max: 195, name: 'Cyan' }, { min: 195, max: 225, name: 'Sky' },
                 { min: 225, max: 255, name: 'Blue' }, { min: 255, max: 285, name: 'Purple' },
                 { min: 285, max: 315, name: 'Magenta' }, { min: 315, max: 345, name: 'Pink' },
                 { min: 345, max: 360, name: 'Red' }
@@ -254,6 +254,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                         intro: l10n.get("TutoDifficultyContent") || "Change the difficulty of the challenge here."
                     },
                     {
+                        element: "#hint-button",
+                        position: "bottom",
+                        title: l10n.get("TutoHintTitle") || "Hint",
+                        intro: l10n.get("TutoHintContent") || "Click the robot to automatically solve the most incorrect color channel."
+                    },
+                    {
                         element: "#bowls-area",
                         position: "right",
                         title: l10n.get("TutoChallengeBowlTitle") || "Challenge Bowls",
@@ -287,10 +293,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                         intro: l10n.get("TutoResetContent") || "Click here to reset the current activity."
                     },
                     {
-                        element: "#cycle-harmony-button",
-                        position: "bottom",
-                        title: l10n.get("TutoHarmonyTitle") || "Harmony Type",
-                        intro: l10n.get("TutoHarmonyContent") || "Select the type of color harmony to display."
+                        element: "#board-harmony-button",
+                        position: "right",
+                        title: l10n.get("TutoHarmonyTitle") || "Harmony Layout",
+                        intro: l10n.get("TutoHarmonyContent") || "Click here to cycle through different geometric harmony patterns."
                     },
                     {
                         element: "#harmony-wheel-container",
@@ -357,24 +363,22 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             if (state.currentMode === 'harmony') {
                 var currentName = harmonyNames[state.currentHarmony] || state.currentHarmony || '';
                 var translatedName = l10n.get(currentName) || currentName;
-                if (elements['cycle-harmony-button']) {
-                    elements['cycle-harmony-button'].style.display = 'inline-block';
-                    elements['cycle-harmony-button'].title = translatedName;
+                if (elements['board-harmony-button']) {
+                    elements['board-harmony-button'].setAttribute('data-harmony', state.currentHarmony);
+                    elements['board-harmony-button'].title = l10n.get('CycleHarmonyMode') || 'Cycle Harmony: ' + translatedName;
                 }
                 if (elements['harmony-name-display']) {
                     elements['harmony-name-display'].textContent = translatedName;
                 }
-            } else {
-                if (elements['cycle-harmony-button']) {
-                    elements['cycle-harmony-button'].style.display = 'none';
-                }
             }
 
-            // Challenge Difficulty Button
+            // Challenge Difficulty Button & Hint Button
             if (state.currentMode === 'challenge') {
                 elements['challenge-difficulty-button'].style.display = 'inline-block';
+                elements['hint-button'].style.display = 'inline-block';
             } else {
                 elements['challenge-difficulty-button'].style.display = 'none';
+                elements['hint-button'].style.display = 'none';
             }
 
             if (state.currentMode === 'free') {
@@ -392,26 +396,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         }
 
         function updateFreePaintUI() {
-            var markerAngles = getMarkerAngles();
-
             // Mixing Bowl
             var bowlColor = '#ffffff';
             var bowlName = 'White';
+
             if (!state.isInitialState) {
-                var r = 0, g = 0, b = 0, count = 0;
-                markerAngles.forEach(function (angle) {
-                    var rgb = hslToRgb(angle, state.mainSaturation, state.mainLightness);
-                    r += rgb.r; g += rgb.g; b += rgb.b; count++;
-                });
-                if (count > 0) {
-                    var avgR = Math.round(r / count);
-                    var avgG = Math.round(g / count);
-                    var avgB = Math.round(b / count);
-                    bowlColor = rgbToHex({ r: avgR, g: avgG, b: avgB });
-                    var hsl = rgbToHsl(avgR, avgG, avgB);
-                    bowlName = getColorName(hsl.h * 360, hsl.s, hsl.l);
-                }
+                var rgbFree = { r: state.redSliderFree, g: state.greenSliderFree, b: state.blueSliderFree };
+                bowlColor = rgbToHex(rgbFree);
+                var hsl = rgbToHsl(rgbFree.r, rgbFree.g, rgbFree.b);
+                bowlName = getColorName(hsl.h * 360, hsl.s, hsl.l);
             }
+
             elements['color-name'].textContent = bowlName;
             elements['mixing-bowl'].style.backgroundColor = bowlColor;
 
@@ -574,14 +569,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             broadcastStateUpdate();
         }
 
-        function updateSlidersFromHue() {
-            if (state.isInitialState) return;
-            var rgb = hslToRgb(state.mainHue, state.mainSaturation, state.mainLightness);
-            state.redSliderFree = rgb.r;
-            state.greenSliderFree = rgb.g;
-            state.blueSliderFree = rgb.b;
-        }
-
         function handleFreeSliderInput() {
             state.isInitialState = false;
             state.redSliderFree = parseInt(elements['red-slider'].value);
@@ -625,7 +612,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 g: targetG,
                 b: targetB
             };
-            state.challengeUserRgb = { r: 255, g: 255, b: 255 };
+            state.challengeUserRgb = { r: 0, g: 0, b: 0 };
             checkChallengeMatch();
         }
 
@@ -699,11 +686,20 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 path.addEventListener('mouseleave', function () { path.style.opacity = '1'; });
                 path.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    state.mainHue = startAngle + 15;
+
+                    // Parse the exact material UI hex color so the bowl perfectly mirrors the clicked wedge
+                    var hex = color.replace('#', '');
+                    state.redSliderFree = parseInt(hex.substring(0, 2), 16);
+                    state.greenSliderFree = parseInt(hex.substring(2, 4), 16);
+                    state.blueSliderFree = parseInt(hex.substring(4, 6), 16);
+
+                    // Derive dynamic HSL strictly from this exact RGB so UI trackers follow it perfectly
+                    var hsl = rgbToHsl(state.redSliderFree, state.greenSliderFree, state.blueSliderFree);
+                    state.mainHue = hsl.h * 360;
+                    state.mainSaturation = hsl.s;
+                    state.mainLightness = hsl.l;
+
                     state.isInitialState = false;
-                    if (state.mainSaturation < 0.2) state.mainSaturation = 1.0;
-                    if (state.mainLightness < 0.2 || state.mainLightness > 0.8) state.mainLightness = 0.5;
-                    updateSlidersFromHue();
                     updateUI();
                 });
                 elements['ring-svg'].appendChild(path);
@@ -712,8 +708,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         var harmonyPalette; // Kept for variable declaration compatibility
         function setupHarmonyOptions() {
-            if (elements['cycle-harmony-button']) {
-                elements['cycle-harmony-button'].addEventListener('click', function (e) {
+            if (elements['board-harmony-button']) {
+                elements['board-harmony-button'].addEventListener('click', function (e) {
                     e.stopPropagation();
                     var keys = Object.keys(harmonyTypes);
                     var index = keys.indexOf(state.currentHarmony);
@@ -840,6 +836,16 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             updateSlidersFromHue();
             updateUI();
             broadcastStateUpdate();
+        }
+
+        function updateSlidersFromHue() {
+            var rgb = hslToRgb(state.mainHue, state.mainSaturation, state.mainLightness);
+            state.redSliderFree = rgb.r;
+            state.greenSliderFree = rgb.g;
+            state.blueSliderFree = rgb.b;
+            elements['red-slider'].value = rgb.r;
+            elements['green-slider'].value = rgb.g;
+            elements['blue-slider'].value = rgb.b;
         }
 
         function adjustSlider(type, mode, amount) {
@@ -985,6 +991,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             setupDifficultyOptions();
             elements['mode-button'].title = l10n.get('FreePaint');
             elements['challenge-difficulty-button'].title = l10n.get('Difficulty') || 'Difficulty';
+            elements['hint-button'].title = l10n.get('Hint') || 'Hint';
             elements['reset-toolbar-button'].title = l10n.get('Reset');
             elements['stop-button'].title = l10n.get('Stop');
             elements['fullscreen-button'].title = l10n.get('Fullscreen');
@@ -1031,6 +1038,35 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         elements['unfullscreen-button'].addEventListener('click', exitFullscreen);
         elements['help-button'].addEventListener('click', function (e) {
             initTutorial(state.currentMode);
+        });
+
+        // Hint Logic
+        elements['hint-button'].addEventListener('click', function () {
+            if (state.currentMode !== 'challenge' || state.hasWon) return;
+
+            // Animate robot icon to show activity
+            var hintBtn = elements['hint-button'];
+            hintBtn.style.backgroundImage = 'url(icons/robot-on.svg)';
+            setTimeout(function () {
+                hintBtn.style.backgroundImage = 'url(icons/robot-off.svg)';
+            }, 500);
+
+            // Find largest difference channel
+            var diffR = Math.abs(state.challengeUserRgb.r - state.challengeTargetRgb.r);
+            var diffG = Math.abs(state.challengeUserRgb.g - state.challengeTargetRgb.g);
+            var diffB = Math.abs(state.challengeUserRgb.b - state.challengeTargetRgb.b);
+
+            if (diffR >= diffG && diffR >= diffB && diffR > 0) {
+                state.challengeUserRgb.r = state.challengeTargetRgb.r;
+            } else if (diffG >= diffR && diffG >= diffB && diffG > 0) {
+                state.challengeUserRgb.g = state.challengeTargetRgb.g;
+            } else if (diffB > 0) {
+                state.challengeUserRgb.b = state.challengeTargetRgb.b;
+            }
+
+            checkChallengeMatch();
+            updateUI();
+            broadcastStateUpdate();
         });
 
         document.addEventListener('click', function (e) {
@@ -1093,6 +1129,77 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         bindAdjust('challenge-red-minus', 'r', 'challenge', -1); bindAdjust('challenge-red-plus', 'r', 'challenge', 1);
         bindAdjust('challenge-green-minus', 'g', 'challenge', -1); bindAdjust('challenge-green-plus', 'g', 'challenge', 1);
         bindAdjust('challenge-blue-minus', 'b', 'challenge', -1); bindAdjust('challenge-blue-plus', 'b', 'challenge', 1);
+
+        // Click-to-edit value inputs
+        function bindValueEdit(valId, sliderId, mode) {
+            var valSpan = elements[valId];
+            if (!valSpan) return;
+
+            valSpan.style.cursor = 'pointer';
+
+            valSpan.addEventListener('click', function () {
+                var currentVal = valSpan.textContent;
+                var input = document.createElement('input');
+                input.type = 'number';
+                input.className = 'slider-edit-input';
+                input.value = currentVal;
+                input.min = '0';
+                input.max = '255';
+
+                // Copy styles for seamless transition
+                input.style.width = '60px'; // Make room for 3 digits
+                input.style.fontSize = window.getComputedStyle(valSpan).fontSize;
+                input.style.fontWeight = window.getComputedStyle(valSpan).fontWeight;
+                input.style.color = window.getComputedStyle(valSpan).color;
+                input.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                input.style.border = '1px solid #ffffff';
+                input.style.borderRadius = '4px';
+                input.style.textAlign = 'center';
+                input.style.outline = 'none';
+
+                valSpan.parentNode.replaceChild(input, valSpan);
+                input.focus();
+                input.select();
+
+                function saveAndRestore() {
+                    var newVal = parseInt(input.value, 10);
+                    if (isNaN(newVal)) newVal = parseInt(currentVal, 10);
+                    newVal = Math.max(0, Math.min(255, newVal));
+
+                    if (input.parentNode) {
+                        input.parentNode.replaceChild(valSpan, input);
+                    }
+
+                    elements[sliderId].value = newVal;
+
+                    // Trigger appropriate update handler
+                    if (mode === 'free') {
+                        handleFreeSliderInput();
+                    } else if (mode === 'challenge') {
+                        handleChallengeSliderInput();
+                    }
+                }
+
+                input.addEventListener('blur', saveAndRestore);
+                input.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        input.blur(); // Trigger the blur event to save
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        input.value = currentVal; // Abort
+                        input.blur();
+                    }
+                });
+            });
+        }
+
+        bindValueEdit('red-val', 'red-slider', 'free');
+        bindValueEdit('green-val', 'green-slider', 'free');
+        bindValueEdit('blue-val', 'blue-slider', 'free');
+        bindValueEdit('challenge-red-val', 'challenge-red-slider', 'challenge');
+        bindValueEdit('challenge-green-val', 'challenge-green-slider', 'challenge');
+        bindValueEdit('challenge-blue-val', 'challenge-blue-slider', 'challenge');
 
         updateUI();
     });

@@ -56,6 +56,8 @@
 	"TutoDifficultyContent": "Changez la difficulté du défi ici.",
 	"TutoChallengeBowlTitle": "Bols de Défi",
 	"TutoChallengeBowlContent": "Faites correspondre la couleur du bol gauche au bol cible.",
+	"TutoHintTitle": "Indice",
+	"TutoHintContent": "Cliquez sur le robot pour résoudre automatiquement le canal de couleur le plus incorrect.",
 	"TutoHarmonyTitle": "Type d'Harmonie",
 	"TutoHarmonyContent": "Basculez entre différents types d'harmonie de couleurs.",
 	"TutoWheelTitle": "Roue des Couleurs",

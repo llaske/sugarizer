@@ -4,7 +4,7 @@ html {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     font-family: 'Arial', sans-serif;
     /* Standard web font, similar to Sugar OS default */
     background-color: #000000;
@@ -47,7 +47,7 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 55px);
+    height: calc(100% - 55px);
     padding: 10px;
     box-sizing: border-box;
     overflow: hidden;
@@ -61,6 +61,8 @@ html {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    position: relative;
 }
 
 /* Top #main-workspace rule removed to avoid flex-direction conflicts */
@@ -85,12 +87,50 @@ html {
     pointer-events: none;
 }
 
-/* Removed duplicate aggressive #bowl-container styles */
+/* Harmony Mode Layout */
+#harmony-workspace {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#board-cycle-harmony {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 50;
+    /* Above everything */
+}
 
 /* Harmony Wheel Section */
 #harmony-wheel-container {
-    /* Set by inline styles inside index.html now (flex row, width 100%, max-width 900px, etc) */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
+    padding: 20px;
+    min-width: 0;
+    /* Prevent flex box blowout */
+}
+
+#harmony-wheel-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#harmony-name-display {
+    font-size: min(32px, 5vmin);
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+    letter-spacing: 2px;
 }
 
 #harmony-wheel {
@@ -173,10 +213,11 @@ html {
 
 .harmony-marker {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: max(16px, 3.5vmin);
+    /* Fluid size to respond to short viewports */
+    height: max(16px, 3.5vmin);
     border-radius: 50%;
-    border: 4px solid #ffffff;
+    border: max(2px, 0.5vmin) solid #ffffff;
     /* Thicker border */
     /* background-color dynamically set by JS */
     z-index: 10;
@@ -191,9 +232,9 @@ html {
 /* Example positions for a split-complementary harmony */
 /* Main color at top (Red) */
 .main-marker {
-    width: 24px;
-    height: 24px;
-    border: 4px solid #ffffff;
+    width: max(16px, 3.5vmin);
+    height: max(16px, 3.5vmin);
+    border: max(2px, 0.5vmin) solid #ffffff;
     /* Transform handled by JS */
 }
 
@@ -201,27 +242,33 @@ html {
 
 
 #harmony-swatches {
-    /* Set back to pure column based on user feedback */
+    /* Large vertical blocks touching together */
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 15px;
+    gap: 0;
     z-index: 100;
+    flex: 1;
+    /* take up vertical space */
+    min-width: 35%;
+    /* roughly 1/3 of the screen width */
+    height: 100%;
 }
 
 .harmony-swatch {
-    width: clamp(10px, 16vmin, 120px);
-    height: clamp(10px, 16vmin, 120px);
+    flex: 1;
+    /* Ensure they stretch vertically */
+    width: 100%;
     flex-shrink: 0;
     box-sizing: border-box;
-    border-radius: 12px;
-    border: 3px solid #ffffff;
+    border-radius: 0;
+    border: none;
     background-color: #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(8px, 2.4vmin, 18px);
+    font-size: clamp(20px, 4vmin, 32px);
+    /* Larger text */
     font-weight: bold;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     text-align: center;
@@ -290,6 +337,48 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Board Inline Harmony Icon */
+.board-switch-icon {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background-color: #282828;
+}
+
+/* Fix for intro.js highlighting this element, ensure button itself stands out */
+.introjs-showElement.board-switch-icon {
+    background-color: #000000 !important;
+    border-color: #ffffff !important;
+    /* Make sure the container border stands out */
+    z-index: 9999999 !important;
+    position: relative !important;
+}
+
+.introjs-showElement.board-switch-icon .harmony-icon {
+    z-index: 9999999 !important;
+    opacity: 1 !important;
+    transform: scale(1.5) !important;
+    /* Match default 1.5x scaling so it doesn't shrink */
+}
+
+.introjs-showElement.board-switch-icon .harmony-icon::before,
+.introjs-showElement.board-switch-icon .harmony-icon::after,
+.introjs-showElement.board-switch-icon .harmony-icon .dot3,
+.introjs-showElement.board-switch-icon .harmony-icon .dot4 {
+    z-index: 9999999 !important;
+    opacity: 1 !important;
+}
+
+.board-switch-icon:hover {
+    background-color: #383838 !important;
+}
+
+.board-harmony-icon {
+    transform: scale(1.5);
+    /* Make the dot representation larger */
 }
 
 .harmony-icon::before,
@@ -600,7 +689,7 @@ html {
 
 #sliders-grid {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1300px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -608,8 +697,7 @@ html {
     margin-inline: auto;
     /* center horizontally */
     padding-bottom: min(15px, 2vmin);
-    margin-top: auto;
-    /* Forces elements down away from the top-anchored bowl */
+    margin-top: 10px;
     flex-wrap: wrap;
     /* baseline wrap before media queries */
 }
@@ -617,8 +705,7 @@ html {
 #main-workspace {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    /* Anchor to top of screen by default */
+    justify-content: center;
     align-items: center;
     width: 100%;
     flex: 1;
@@ -626,11 +713,8 @@ html {
     min-height: 0;
 }
 
-/* On large monitors, push the bowl slightly down from the absolute ceiling */
+/* On large monitors, scale up challenge mode bowls */
 @media (min-height: 800px) {
-    #bowl-container {
-        margin-top: 15vh;
-    }
 
     /* Dramatically scale up challenge mode bowls on large heights */
     #challenge-mode .bowl-container {
@@ -653,8 +737,8 @@ html {
 /* Custom Range Sliders */
 .slider-group {
     flex: 1;
-    max-width: 400px;
-    /* Increased width */
+    max-width: 650px;
+    /* Wider for large screens */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -719,6 +803,36 @@ input[type=range]::-webkit-slider-thumb {
     background: #0000ff;
 }
 
+/* Value Text Colors */
+#red-val,
+#challenge-red-val {
+    color: #F44336;
+    font-weight: bold;
+}
+
+#green-val,
+#challenge-green-val {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+#blue-val,
+#challenge-blue-val {
+    color: #2196F3;
+    font-weight: bold;
+}
+
+/* Input edit for sliders */
+.slider-edit-input::-webkit-outer-spin-button,
+.slider-edit-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.slider-edit-input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* Adjustment Buttons */
 .adjust-button {
     width: 44px;
@@ -754,10 +868,27 @@ body.fullscreen-mode #main-toolbar {
 }
 
 body.fullscreen-mode #canvas {
-    height: 100vh !important;
-    padding-top: 0 !important;
+    height: 100% !important;
+    padding: 10px !important;
+    padding-top: 55px !important;
+    box-sizing: border-box !important;
+    /* Critical to prevent height overflow with padding */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
     z-index: 1000;
 }
+
+body.fullscreen-mode #harmony-wheel,
+body.fullscreen-mode #color-wheel-ring {
+    max-width: 80vh !important;
+    max-height: 80vh !important;
+    /* Cap height to leave margin for buttons */
+}
+
+
+
 
 /* Sugarizer Scrollbar */
 ::-webkit-scrollbar {
@@ -892,13 +1023,14 @@ body.fullscreen-mode #canvas {
 /* Controls Area */
 #controls-area {
     width: 90%;
+    max-width: 1300px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 40px;
     align-items: center;
-    margin-bottom: 20px;
-    /* buffer off bottom screen */
+    margin: 0 auto 20px auto;
+    /* center horizontally, buffer off bottom */
     padding-bottom: 20px;
 }
 
@@ -939,8 +1071,8 @@ body.fullscreen-mode #canvas {
 
 .sugarizer-modal {
     position: relative;
-    width: 400px;
-    height: 300px;
+    width: min(90%, 400px);
+    height: min(40%, 300px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -951,7 +1083,7 @@ body.fullscreen-mode #canvas {
     background-color: #FFFFFF;
     /* Sugar red */
     border-radius: 16px;
-    padding: 30px 50px;
+    padding: 4vmin 6vmin;
     text-align: center;
     position: relative;
     /* Above stars */
@@ -972,7 +1104,7 @@ body.fullscreen-mode #canvas {
 /* Typography */
 .modal-content h1 {
     margin: 0;
-    font-size: 3rem;
+    font-size: min(8vmin, 3rem);
     color: #333333;
     font-weight: 800;
     text-transform: uppercase;
@@ -981,7 +1113,7 @@ body.fullscreen-mode #canvas {
 
 /* Checkmark Animation */
 .checkmark {
-    font-size: 5rem;
+    font-size: min(15vmin, 5rem);
     color: #4CAF50;
     /* Green */
     margin-top: 10px;
@@ -1039,70 +1171,70 @@ body.fullscreen-mode #canvas {
 
 /* Define directions for 12 stars */
 .s1 {
-    --dx: -150px;
-    --dy: -150px;
+    --dx: -35vmin;
+    --dy: -35vmin;
 }
 
 .s2 {
     --dx: 0px;
-    --dy: -200px;
+    --dy: -45vmin;
 }
 
 .s3 {
-    --dx: 150px;
-    --dy: -150px;
+    --dx: 35vmin;
+    --dy: -35vmin;
 }
 
 .s4 {
-    --dx: 200px;
+    --dx: 45vmin;
     --dy: 0px;
 }
 
 .s5 {
-    --dx: 150px;
-    --dy: 150px;
+    --dx: 35vmin;
+    --dy: 35vmin;
 }
 
 .s6 {
     --dx: 0px;
-    --dy: 200px;
+    --dy: 45vmin;
 }
 
 .s7 {
-    --dx: -150px;
-    --dy: 150px;
+    --dx: -35vmin;
+    --dy: 35vmin;
 }
 
 .s8 {
-    --dx: -200px;
+    --dx: -45vmin;
     --dy: 0px;
 }
 
 /* Outer ring for extra pop */
 .s9 {
-    --dx: -100px;
-    --dy: -250px;
+    --dx: -25vmin;
+    --dy: -55vmin;
     animation-delay: 0.1s !important;
     background-color: #FF9800;
 }
 
 .s10 {
-    --dx: 100px;
-    --dy: -250px;
+    --dx: 25vmin;
+    --dy: -55vmin;
     animation-delay: 0.1s !important;
     background-color: #FF9800;
 }
 
 .s11 {
-    --dx: 250px;
-    --dy: 100px;
+    --dx: 55vmin;
+    --dy: 25vmin;
     animation-delay: 0.1s !important;
     background-color: #FF9800;
 }
 
 .s12 {
-    --dx: -250px;
-    --dy: 100px;
+    --dx: -55vmin;
+    --dy: 25vmin;
     animation-delay: 0.1s !important;
     background-color: #FF9800;
 }
@@ -1149,12 +1281,38 @@ body.fullscreen-mode #canvas {
     }
 
     /* Harmony Mode */
-    #harmony-wheel-container {
+    #harmony-workspace {
         flex-direction: row !important;
-        flex-wrap: wrap !important;
+        padding-left: 0 !important;
+    }
+
+    #board-cycle-harmony {
+        position: absolute !important;
+        top: 15px !important;
+        left: 15px !important;
+        align-self: flex-start !important;
+        margin-top: 0;
+        z-index: 50;
+    }
+
+    /* Shrink the cycle button for small screens */
+    .board-switch-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .board-harmony-icon {
+        transform: scale(1) !important;
+    }
+
+    #harmony-wheel-container {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
         justify-content: center !important;
         align-items: center !important;
         gap: 10px !important;
+        padding: 5px !important;
+        flex: 1 !important;
     }
 
     #harmony-wheel,
@@ -1168,21 +1326,32 @@ body.fullscreen-mode #canvas {
         height: 50vmin !important;
     }
 
+    #harmony-name-display {
+        font-size: min(24px, 5vmin) !important;
+        margin-bottom: min(10px, 2vmin) !important;
+    }
+
     #harmony-swatches {
         position: relative !important;
         flex-direction: column !important;
+        /* Stack vertically on the right */
         left: auto !important;
         top: auto !important;
         margin-left: 0 !important;
         transform: none !important;
         justify-content: center !important;
-        gap: 8px !important;
+        gap: 0 !important;
+        flex: 0 0 auto !important;
+        width: 25% !important;
+        /* Take up 25% of screen width */
+        min-width: 80px !important;
+        height: 100% !important;
     }
 
     .harmony-swatch {
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 10px !important;
+        width: 100% !important;
+        flex: 1 !important;
+        font-size: min(14px, 4vmin) !important;
     }
 
     #bowls-area {
@@ -1265,33 +1434,58 @@ body.fullscreen-mode #canvas {
     /* Keep UI scaled tight so sliders stay at the bottom horizontally */
 
     #color-name {
-        font-size: min(20px, 4vh) !important;
-        margin-bottom: min(10px, 2vh) !important;
+        font-size: min(18px, 4vh) !important;
+        margin-bottom: min(8px, 1.5vh) !important;
     }
 
     #bowl-center-wrapper {
-        width: 55vmin !important;
-        height: 55vmin !important;
+        width: 45vh !important;
+        /* Force to height constraints */
+        height: 45vh !important;
     }
 
     #mixing-bowl {
-        width: 40vmin !important;
-        height: 40vmin !important;
+        width: 30vh !important;
+        height: 30vh !important;
+        border-width: 3px !important;
+        box-shadow: 0 0 0 3px #333, 0 0 0 6px #000 !important;
     }
 
     #color-wheel-ring {
-        width: 55vmin !important;
-        height: 55vmin !important;
+        width: 45vh !important;
+        height: 45vh !important;
     }
 
+    /* Challenge Mode Shrinks */
     .bowl-container {
-        width: 40vmin !important;
-        height: 40vmin !important;
+        width: 35vh !important;
+        height: 35vh !important;
     }
 
     .bowl {
-        width: 35vmin !important;
-        height: 35vmin !important;
+        width: 30vh !important;
+        height: 30vh !important;
+    }
+
+    #divider-line {
+        height: 35vh !important;
+    }
+
+    /* Harmony Mode Shrinks */
+    #harmony-wheel,
+    #lightnessGradient {
+        width: 45vh !important;
+        height: 45vh !important;
+    }
+
+    .color-wheel {
+        width: 35vh !important;
+        height: 35vh !important;
+    }
+
+    #harmony-name-display {
+        font-size: min(18px, 4vh) !important;
+        margin-bottom: min(8px, 1.5vh) !important;
     }
 
     #divider-line {

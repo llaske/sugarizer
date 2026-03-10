@@ -47,6 +47,8 @@
 	"TutoDifficultyContent": "Mude a dificuldade do desafio aqui.",
 	"TutoChallengeBowlTitle": "Bacias de Desafio",
 	"TutoChallengeBowlContent": "Combine a cor da bacia esquerda com a bacia alvo.",
+	"TutoHintTitle": "Dica",
+	"TutoHintContent": "Clique no robô para resolver automaticamente o canal de cor mais incorreto.",
 	"TutoHarmonyTitle": "Tipo de Harmonia",
 	"TutoHarmonyContent": "Alterne entre diferentes tipos de harmonia de cores.",
 	"TutoWheelTitle": "Roda de Cores",

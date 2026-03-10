@@ -56,6 +56,8 @@
 	"TutoDifficultyContent": "Cambia la dificultad del desafío aquí.",
 	"TutoChallengeBowlTitle": "Tazones de Desafío",
 	"TutoChallengeBowlContent": "Iguala el color del tazón izquierdo con el tazón objetivo.",
+	"TutoHintTitle": "Pista",
+	"TutoHintContent": "Haz clic en el robot para resolver automáticamente el canal de color más incorrecto.",
 	"TutoHarmonyTitle": "Tipo de Armonía",
 	"TutoHarmonyContent": "Cambia entre diferentes tipos de armonía de color.",
 	"TutoWheelTitle": "Círculo Cromático",
