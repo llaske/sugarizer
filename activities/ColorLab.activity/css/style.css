@@ -831,6 +831,7 @@ input[type=range]::-webkit-slider-thumb {
 
 .slider-edit-input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 /* Adjustment Buttons */
@@ -845,7 +846,7 @@ input[type=range]::-webkit-slider-thumb {
     border: 3px solid #ffffff;
     background-color: #ffffff;
     color: #000000;
-    font-size: 28px;
+    font-size: 38px;
     font-weight: bold;
     display: flex;
     justify-content: center;
@@ -859,7 +860,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .adjust-button.minus {
-    padding-bottom: 4px;
+    padding-bottom: 6px;
 }
 
 /* Fullscreen Mode */
@@ -995,7 +996,7 @@ body.fullscreen-mode #color-wheel-ring {
 .bowl {
     width: min(450px, 40vmin);
     height: min(450px, 40vmin);
-    border: 5px solid #000000;
+    border: 5px solid #ffffff;
     border-radius: 50%;
     /* Full circle */
     background-color: #CCCCCC;

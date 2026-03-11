@@ -374,11 +374,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
             // Challenge Difficulty Button & Hint Button
             if (state.currentMode === 'challenge') {
-                elements['challenge-difficulty-button'].style.display = 'inline-block';
-                elements['hint-button'].style.display = 'inline-block';
+                elements['challenge-difficulty-button'].disabled = false;
             } else {
-                elements['challenge-difficulty-button'].style.display = 'none';
-                elements['hint-button'].style.display = 'none';
+                elements['challenge-difficulty-button'].disabled = true;
             }
 
             if (state.currentMode === 'free') {
@@ -470,13 +468,28 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             if (!elements['difficulty-options']) return;
             var options = elements['difficulty-options'].querySelectorAll('.difficulty-option');
             options.forEach(function (opt) {
-                if (opt.dataset.difficulty === state.challengeDifficulty) {
+                var level = opt.dataset.difficulty;
+                var svgHTML = '<svg width="20" height="20" viewBox="0 0 24 24" style="margin-right: 10px; flex-shrink: 0;" fill="#ffffff">';
+                if (level === 'easy' || level === 'medium' || level === 'hard') {
+                    svgHTML += '<rect x="2" y="14" width="5" height="8" />';
+                }
+                if (level === 'medium' || level === 'hard') {
+                    svgHTML += '<rect x="9" y="8" width="5" height="14" />';
+                }
+                if (level === 'hard') {
+                    svgHTML += '<rect x="16" y="2" width="5" height="20" />';
+                }
+                svgHTML += '</svg>';
+
+                var labelName = level.charAt(0).toUpperCase() + level.slice(1);
+                var translatedLabel = l10n.get(labelName) || labelName;
+
+                if (level === state.challengeDifficulty) {
                     opt.classList.add('active');
-                    // Add checkmark visual indicator
-                    opt.innerHTML = '<span>' + (l10n.get(opt.dataset.difficulty.charAt(0).toUpperCase() + opt.dataset.difficulty.slice(1)) || opt.dataset.difficulty) + ' ✔</span>';
+                    opt.innerHTML = svgHTML + '<span style="flex: 1;">' + translatedLabel + '</span><span>✔</span>';
                 } else {
                     opt.classList.remove('active');
-                    opt.innerHTML = '<span>' + (l10n.get(opt.dataset.difficulty.charAt(0).toUpperCase() + opt.dataset.difficulty.slice(1)) || opt.dataset.difficulty) + '</span>';
+                    opt.innerHTML = svgHTML + '<span style="flex: 1;">' + translatedLabel + '</span><span style="visibility: hidden;">✔</span>';
                 }
             });
         }
@@ -701,6 +714,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
                     state.isInitialState = false;
                     updateUI();
+                    broadcastStateUpdate();
                 });
                 elements['ring-svg'].appendChild(path);
             });
@@ -782,11 +796,21 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 option.className = 'difficulty-option';
                 option.dataset.difficulty = level;
 
-                var span = document.createElement('span');
-                var labelName = level.charAt(0).toUpperCase() + level.slice(1);
-                span.textContent = l10n.get(labelName) || labelName;
+                var svgHTML = '<svg width="20" height="20" viewBox="0 0 24 24" style="margin-right: 10px; flex-shrink: 0;" fill="#ffffff">';
+                if (level === 'easy' || level === 'medium' || level === 'hard') {
+                    svgHTML += '<rect x="2" y="14" width="5" height="8" />';
+                }
+                if (level === 'medium' || level === 'hard') {
+                    svgHTML += '<rect x="9" y="8" width="5" height="14" />';
+                }
+                if (level === 'hard') {
+                    svgHTML += '<rect x="16" y="2" width="5" height="20" />';
+                }
+                svgHTML += '</svg>';
 
-                option.appendChild(span);
+                var labelName = level.charAt(0).toUpperCase() + level.slice(1);
+                var translatedLabel = l10n.get(labelName) || labelName;
+                option.innerHTML = svgHTML + '<span style="flex: 1;">' + translatedLabel + '</span><span style="visibility: hidden;">✔</span>';
 
                 option.addEventListener('click', function () {
                     difficultyPalette.popDown();
@@ -1042,8 +1066,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         // Hint Logic
         elements['hint-button'].addEventListener('click', function () {
-            if (state.currentMode !== 'challenge' || state.hasWon) return;
-
             // Animate robot icon to show activity
             var hintBtn = elements['hint-button'];
             hintBtn.style.backgroundImage = 'url(icons/robot-on.svg)';
@@ -1051,20 +1073,41 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 hintBtn.style.backgroundImage = 'url(icons/robot-off.svg)';
             }, 500);
 
-            // Find largest difference channel
-            var diffR = Math.abs(state.challengeUserRgb.r - state.challengeTargetRgb.r);
-            var diffG = Math.abs(state.challengeUserRgb.g - state.challengeTargetRgb.g);
-            var diffB = Math.abs(state.challengeUserRgb.b - state.challengeTargetRgb.b);
+            if (state.currentMode !== 'challenge') {
+                // Free/Harmony mode: random color
+                var targetR = Math.floor(Math.random() * 256);
+                var targetG = Math.floor(Math.random() * 256);
+                var targetB = Math.floor(Math.random() * 256);
 
-            if (diffR >= diffG && diffR >= diffB && diffR > 0) {
-                state.challengeUserRgb.r = state.challengeTargetRgb.r;
-            } else if (diffG >= diffR && diffG >= diffB && diffG > 0) {
-                state.challengeUserRgb.g = state.challengeTargetRgb.g;
-            } else if (diffB > 0) {
-                state.challengeUserRgb.b = state.challengeTargetRgb.b;
+                state.redSliderFree = targetR;
+                state.greenSliderFree = targetG;
+                state.blueSliderFree = targetB;
+
+                var hsl = rgbToHsl(state.redSliderFree, state.greenSliderFree, state.blueSliderFree);
+                state.mainHue = hsl.h * 360;
+                state.mainSaturation = hsl.s;
+                state.mainLightness = hsl.l;
+                state.isInitialState = false;
+
+            } else {
+                if (state.hasWon) return;
+
+                // Challenge mode logic
+                // Find largest difference channel
+                var diffR = Math.abs(state.challengeUserRgb.r - state.challengeTargetRgb.r);
+                var diffG = Math.abs(state.challengeUserRgb.g - state.challengeTargetRgb.g);
+                var diffB = Math.abs(state.challengeUserRgb.b - state.challengeTargetRgb.b);
+
+                if (diffR >= diffG && diffR >= diffB && diffR > 0) {
+                    state.challengeUserRgb.r = state.challengeTargetRgb.r;
+                } else if (diffG >= diffR && diffG >= diffB && diffG > 0) {
+                    state.challengeUserRgb.g = state.challengeTargetRgb.g;
+                } else if (diffB > 0) {
+                    state.challengeUserRgb.b = state.challengeTargetRgb.b;
+                }
+                checkChallengeMatch();
             }
 
-            checkChallengeMatch();
             updateUI();
             broadcastStateUpdate();
         });
