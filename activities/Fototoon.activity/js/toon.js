@@ -465,12 +465,20 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                                  this._data['images'], false, {canvas: previewCanvas, order: boxOrder}, function(context) {                 
                     // Add delay to ensure rendering is fully complete (font loading, rasterization)
                     setTimeout(function () {
+                        document.body.appendChild(previewCanvas);
+                        previewCanvas.style.visibility = "hidden";
+                        previewCanvas.style.position = "absolute";
+                        previewComicBox.stage.update();
+                        setTimeout(function () {
                         // FORCE update to ensure everything (globes, images) is painted to the canvas
                         previewComicBox.stage.update();
                         var dataURL = context.canvas.toDataURL("image/png");
+                        document.body.removeChild(previewCanvas);
                         console.log("Preview generated for box " + context.order + ", length: " + dataURL.length);
                         that._data['previews'][context.order] = dataURL;
                         if (doneCallback) doneCallback();
+                        }, 300);
+
                     }, 500);
 
                 }, false, true); // editable=false, hasBorder=true
@@ -550,6 +558,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         this.saveAsImage = function(columns) {
             /* columns can be '0', '1', or '2'
                if '0' means show the images in a single row */
+               this.updateData();
             this.showWait();
             var cantBoxes = this._data['boxs'].length;
             var MARGIN = 20;
@@ -586,8 +595,14 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
 
                     that._data['images'], false, tmpCanvas, function (mycanvas) {
                         setTimeout(function () {
-                            // FORCE update to render globes/shapes
+                            // Ensure the canvas is fully initialized mathematically by adding to DOM temporarily
+                            document.body.appendChild(tmpCanvas);
+                            tmpCanvas.style.visibility = "hidden";
+                            tmpCanvas.style.position = "absolute";
+                            
+                            // FORCE update to render globes/shapes twice 
                             tmpComicBox.stage.update();
+                            setTimeout(function() {                            tmpComicBox.stage.update();
                             // calculate coordinates using index 'i' to ensure correct order
                             var x, y;
                             if (columns == '0') {
@@ -603,6 +618,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                             // draw directly from off-screen canvas to result canvas
 
                             ctx.drawImage(mycanvas, x, y);
+                            document.body.removeChild(tmpCanvas); // cleanup
                             boxesProcessed++;
                             if(boxesProcessed >= cantBoxes) {
                                 // save in datastore
@@ -626,8 +642,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                                     that.hideWait();
                                 }, imgAsDataURL);
                             }
-                        }, 500); // Delay for rendering consistency
-                    }, false); // editable=false
+                        },300);
+                    },1000); // Delay for rendering consistency
+                }, false,true); // editable=false, hasBorder=true
             };
             for (var i = 0; i < cantBoxes; i++) {
                 processBox(i);
