@@ -74,10 +74,10 @@ const MySecurity = {
 
 	mounted() {
 		// Hack to focus on password field initially
-		setInterval(() => {
+		const userId = setInterval(() => {
 			if (this.$refs.password) {
 				this.$refs.password.$refs.password.focus();
-				clearInterval();
+				clearInterval(userId);
 			}
 		}, 1000);
 	},
