@@ -3,8 +3,8 @@
 	<!ENTITY stroke_color "#010101">
 	<!ENTITY fill_color "#FFFFFF">
 ]>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="75px" height="75px" viewBox="0 0 75 75">
-<g fill="&stroke_color;" stroke="&fill_color;" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="75px" height="75px" viewBox="-5 -5 85 85">
+<g fill="&fill_color;" stroke="&fill_color;" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 22,15 H 53 V 35 C 53,44 46,51 37.5,51 C 29,51 22,44 22,35 Z" />
     <path fill="none" d="M 22,20 C 15,20 12,25 12,30 C 12,35 15,38 22,38" />
     <path fill="none" d="M 53,20 C 60,20 63,25 63,30 C 63,35 60,38 53,38" />

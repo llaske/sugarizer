@@ -67,26 +67,6 @@ html {
 
 /* Top #main-workspace rule removed to avoid flex-direction conflicts */
 
-#left-panel {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 420px;
-    min-width: 420px;
-    /* Increased width for larger harmony wheel */
-    padding-left: 50px;
-    box-sizing: border-box;
-    gap: 20px;
-}
-
-/* Right spacer to balance layout for centering */
-#right-spacer {
-    width: 420px;
-    min-width: 420px;
-    pointer-events: none;
-}
-
 /* Harmony Mode Layout */
 #harmony-workspace {
     display: flex;
@@ -617,6 +597,7 @@ html {
     width: min(800px, 60vmin);
     height: min(800px, 60vmin);
     max-width: 900px;
+    transition: width 0.3s ease, height 0.3s ease;
 }
 
 #mixing-bowl {
@@ -633,7 +614,7 @@ html {
     /* Spacing */
     position: relative;
     z-index: 2;
-    transition: background-color 0.1s ease;
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.1s ease, box-shadow 0.3s ease, border-width 0.3s ease;
 }
 
 /* Color Wheel Ring - Flower Style */
@@ -663,6 +644,7 @@ html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
 }
 
 /* Hide inner white border if not needed or style it */
@@ -931,6 +913,7 @@ body.fullscreen-mode #color-wheel-ring {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: width 0.3s ease, height 0.3s ease;
 }
 
 /* Circular Progress Bar */
@@ -962,10 +945,6 @@ body.fullscreen-mode #color-wheel-ring {
     margin-bottom: 20px;
     /* buffer off bottom screen */
     width: 100%;
-    flex: 1;
-    /* allow it to grow and take space over sliders */
-    min-height: 450px;
-    /* prevent complete collapse */
 }
 
 .slider-val {
@@ -993,6 +972,16 @@ body.fullscreen-mode #color-wheel-ring {
     color: #FFFFFF;
 }
 
+.challenge-color-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
 .bowl {
     width: min(450px, 40vmin);
     height: min(450px, 40vmin);
@@ -1001,7 +990,7 @@ body.fullscreen-mode #color-wheel-ring {
     /* Full circle */
     background-color: #CCCCCC;
     /* Default gray */
-    transition: background-color 0.1s ease;
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.1s ease, border-width 0.3s ease;
 }
 
 #divider-line {
@@ -1010,6 +999,7 @@ body.fullscreen-mode #color-wheel-ring {
     /* Taller to match new bowl size */
     background-color: #FFFFFF;
     border-radius: 1px;
+    transition: height 0.3s ease;
 }
 
 #target-wrapper {
@@ -1384,11 +1374,13 @@ body.fullscreen-mode #color-wheel-ring {
         height: 45vmin !important;
     }
 
+    #sliders-grid,
     #controls-area {
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         justify-content: center !important;
         gap: 5px !important;
+        align-items: center !important;
         width: 100% !important;
     }
 

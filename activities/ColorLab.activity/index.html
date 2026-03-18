@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/activity.css?v=7">
     <link rel="stylesheet" href="css/style.css?v=7">
     <script src="lib/intro.js"></script>
+    <script src="lib/confetti.browser.min.js"></script>
     <script data-main="js/loader" src="lib/require.js"></script>
     <script type="text/javascript" src="../../cordova.js"></script>
 </head>
@@ -24,8 +25,6 @@
         <button class="toolbutton" id="activity-button" title="Color Lab"></button>
         <button class="toolbutton" id="network-button" title="Network"></button>
         <button class="toolbutton" id="mode-button" title="Mode"></button>
-        <button class="toolbutton" id="harmony-dropdown-button" title="Harmony Types"
-            style="display: none; background-image: url(icons/harmony.svg);"></button>
         <button class="toolbutton" id="challenge-difficulty-button" title="Difficulty"
             style="background-image: url(icons/difficulty.svg);"></button>
         <button class="toolbutton" id="reset-toolbar-button" title="Reset"></button>
@@ -135,49 +134,53 @@
 
             <!-- CHALLENGE MODE -->
             <div id="challenge-mode" class="mode-container" style="display: none;">
-                <div id="bowls-area">
-                    <div class="bowl-wrapper" id="user-wrapper">
-                        <div class="bowl-label" id="label-my-color">My Color</div>
-                        <div class="bowl-container">
-                            <svg class="progress-ring" width="100%" height="100%" viewBox="0 0 400 400">
-                                <circle id="challenge-progress-circle" class="progress-ring__circle" stroke-width="10"
-                                    fill="transparent" r="190" cx="200" cy="200" />
-                            </svg>
-                            <div id="user-bowl" class="bowl" style="background-color: #000000"></div>
+                <div id="challenge-workspace" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%; flex: 1; min-height: 0;">
+                    <div id="bowls-area">
+                        <div class="bowl-wrapper" id="user-wrapper">
+                            <div class="bowl-label" id="label-my-color">My Color</div>
+                            <div class="challenge-color-name" id="user-color-name">White</div>
+                            <div class="bowl-container">
+                                <svg class="progress-ring" width="100%" height="100%" viewBox="0 0 400 400">
+                                    <circle id="challenge-progress-circle" class="progress-ring__circle" stroke-width="10"
+                                        fill="transparent" r="190" cx="200" cy="200" />
+                                </svg>
+                                <div id="user-bowl" class="bowl" style="background-color: #000000"></div>
+                            </div>
+                        </div>
+
+                        <div id="divider-line"></div>
+
+                        <div class="bowl-wrapper" id="target-wrapper">
+                            <div class="bowl-label" id="label-target">Target</div>
+                            <div class="challenge-color-name" id="target-color-name">White</div>
+                            <div id="target-bowl" class="bowl"></div>
                         </div>
                     </div>
 
-                    <div id="divider-line"></div>
+                    <div id="controls-area">
+                        <!-- Red Slider -->
+                        <div class="slider-group group-red">
+                            <button class="adjust-button minus" id="challenge-red-minus">-</button>
+                            <input type="range" min="0" max="255" value="0" id="challenge-red-slider">
+                            <button class="adjust-button plus" id="challenge-red-plus">+</button>
+                            <span class="slider-val" id="challenge-red-val">0</span>
+                        </div>
 
-                    <div class="bowl-wrapper" id="target-wrapper">
-                        <div class="bowl-label" id="label-target">Target</div>
-                        <div id="target-bowl" class="bowl"></div>
-                    </div>
-                </div>
+                        <!-- Green Slider -->
+                        <div class="slider-group group-green">
+                            <button class="adjust-button minus" id="challenge-green-minus">-</button>
+                            <input type="range" min="0" max="255" value="0" id="challenge-green-slider">
+                            <button class="adjust-button plus" id="challenge-green-plus">+</button>
+                            <span class="slider-val" id="challenge-green-val">0</span>
+                        </div>
 
-                <div id="controls-area">
-                    <!-- Red Slider -->
-                    <div class="slider-group group-red">
-                        <button class="adjust-button minus" id="challenge-red-minus">-</button>
-                        <input type="range" min="0" max="255" value="0" id="challenge-red-slider">
-                        <button class="adjust-button plus" id="challenge-red-plus">+</button>
-                        <span class="slider-val" id="challenge-red-val">0</span>
-                    </div>
-
-                    <!-- Green Slider -->
-                    <div class="slider-group group-green">
-                        <button class="adjust-button minus" id="challenge-green-minus">-</button>
-                        <input type="range" min="0" max="255" value="0" id="challenge-green-slider">
-                        <button class="adjust-button plus" id="challenge-green-plus">+</button>
-                        <span class="slider-val" id="challenge-green-val">0</span>
-                    </div>
-
-                    <!-- Blue Slider -->
-                    <div class="slider-group group-blue">
-                        <button class="adjust-button minus" id="challenge-blue-minus">-</button>
-                        <input type="range" min="0" max="255" value="0" id="challenge-blue-slider">
-                        <button class="adjust-button plus" id="challenge-blue-plus">+</button>
-                        <span class="slider-val" id="challenge-blue-val">0</span>
+                        <!-- Blue Slider -->
+                        <div class="slider-group group-blue">
+                            <button class="adjust-button minus" id="challenge-blue-minus">-</button>
+                            <input type="range" min="0" max="255" value="0" id="challenge-blue-slider">
+                            <button class="adjust-button plus" id="challenge-blue-plus">+</button>
+                            <span class="slider-val" id="challenge-blue-val">0</span>
+                        </div>
                     </div>
                 </div>
 

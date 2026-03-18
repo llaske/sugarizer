@@ -15,13 +15,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             redSliderFree: 255,
             greenSliderFree: 255,
             blueSliderFree: 255,
-            challengeUserRgb: { r: 255, g: 255, b: 255 },
+            challengeUserRgb: { r: 0, g: 0, b: 0 },
             challengeTargetRgb: { r: 100, g: 150, b: 200 },
             challengeSimilarity: 0,
             showWinOverlay: false,
             hasWon: false,
             ringSegments: [],
-            challengeDifficulty: 'hard'
+            challengeDifficulty: 'easy'
         };
 
         var xoLogo = '<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC \'-//W3C//DTD SVG 1.1//EN\'  \'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\' [<!ENTITY stroke_color "#010101"><!ENTITY fill_color "#FFFFFF">]><svg enable-background="new 0 0 55 55" height="55px" version="1.1" viewBox="0 0 55 55" width="55px" x="0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" y="0px"><g display="block" id="stock-xo_1_"><path d="M33.233,35.1l10.102,10.1c0.752,0.75,1.217,1.783,1.217,2.932   c0,2.287-1.855,4.143-4.146,4.143c-1.145,0-2.178-0.463-2.932-1.211L27.372,40.961l-10.1,10.1c-0.75,0.75-1.787,1.211-2.934,1.211   c-2.284,0-4.143-1.854-4.143-4.141c0-1.146,0.465-2.184,1.212-2.934l10.104-10.102L11.409,24.995   c-0.747-0.748-1.212-1.785-1.212-2.93c0-2.289,1.854-4.146,4.146-4.146c1.143,0,2.18,0.465,2.93,1.214l10.099,10.102l10.102-10.103   c0.754-0.749,1.787-1.214,2.934-1.214c2.289,0,4.146,1.856,4.146,4.145c0,1.146-0.467,2.18-1.217,2.932L33.233,35.1z" fill="&fill_color;" stroke="&stroke_color;" stroke-width="3.5"/><circle cx="27.371" cy="10.849" fill="&fill_color;" r="8.122" stroke="&stroke_color;" stroke-width="3.5"/></g></svg>';
@@ -58,7 +58,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         var elementIds = [
             'activity-button', 'network-button', 'mode-button', 'reset-toolbar-button',
             'stop-button', 'fullscreen-button', 'unfullscreen-button', 'help-button',
-            'mode-dropdown', 'mode-options', 'harmony-dropdown-button', 'board-harmony-button', 'free-mode', 'challenge-mode', 'harmony-mode',
+            'mode-dropdown', 'mode-options', 'board-harmony-button', 'free-mode', 'challenge-mode', 'harmony-mode',
             'challenge-difficulty-button', 'hint-button', 'difficulty-dropdown', 'difficulty-options',
             'harmony-wheel-inner', 'lightnessInterstitial', 'lightnessTrack',
             'harmony-swatches', 'color-name', 'mixing-bowl', 'ring-svg',
@@ -67,9 +67,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             'user-bowl', 'target-bowl', 'challenge-progress-circle', 'win-overlay',
             'challenge-red-slider', 'challenge-green-slider', 'challenge-blue-slider',
             'challenge-red-minus', 'challenge-red-plus', 'challenge-green-minus', 'challenge-green-plus', 'challenge-blue-minus', 'challenge-blue-plus',
-            'left-panel', 'right-spacer', 'label-my-color', 'label-target', 'label-you-won',
+            'label-my-color', 'label-target', 'label-you-won',
             'red-val', 'green-val', 'blue-val', 'challenge-red-val', 'challenge-green-val', 'challenge-blue-val',
-            'harmony-name-display'
+            'harmony-name-display', 'user-color-name', 'target-color-name'
         ];
 
         function initElements() {
@@ -266,7 +266,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                         intro: l10n.get("TutoChallengeBowlContent") || "Match the left bowl color to the target bowl."
                     },
                     {
-                        element: "#challenge-sliders-grid",
+                        element: "#controls-area",
                         position: "left",
                         title: l10n.get("TutoSlidersTitle"),
                         intro: l10n.get("TutoSlidersContent")
@@ -499,6 +499,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             elements['user-bowl'].style.backgroundColor = rgbToHex(state.challengeUserRgb);
             elements['target-bowl'].style.backgroundColor = rgbToHex(state.challengeTargetRgb);
 
+            if (elements['user-color-name']) {
+                var hslUser = rgbToHsl(state.challengeUserRgb.r, state.challengeUserRgb.g, state.challengeUserRgb.b);
+                elements['user-color-name'].textContent = getColorName(hslUser.h * 360, hslUser.s, hslUser.l);
+            }
+            if (elements['target-color-name']) {
+                var hslTarget = rgbToHsl(state.challengeTargetRgb.r, state.challengeTargetRgb.g, state.challengeTargetRgb.b);
+                elements['target-color-name'].textContent = getColorName(hslTarget.h * 360, hslTarget.s, hslTarget.l);
+            }
+
             var radius = 190;
             var circumference = 2 * Math.PI * radius;
             var offset = circumference - (state.challengeSimilarity * circumference);
@@ -567,9 +576,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 state.mainHue = 0;
                 state.mainSaturation = 1.0;
                 state.mainLightness = 0.5;
-                state.currentHarmony = 'complementary';
+                // Preserve current harmony type if it exists, otherwise default to complementary
+                if (!state.currentHarmony) {
+                    state.currentHarmony = 'complementary';
+                }
             } else {
-                state.challengeDifficulty = 'hard';
+                state.challengeDifficulty = 'easy';
                 initChallenge();
             }
             updateUI();
@@ -664,12 +676,41 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 });
             }
 
+            var existingCanvas = document.getElementById('victory-confetti-canvas');
+            if (existingCanvas) {
+                existingCanvas.parentNode.removeChild(existingCanvas);
+            }
+
+            var myCanvas = document.createElement('canvas');
+            myCanvas.id = 'victory-confetti-canvas';
+            myCanvas.style.position = 'fixed';
+            myCanvas.style.top = '0';
+            myCanvas.style.left = '0';
+            myCanvas.style.width = '100vw';
+            myCanvas.style.height = '100vh';
+            myCanvas.style.pointerEvents = 'none';
+            myCanvas.style.zIndex = '9999';
+            document.body.appendChild(myCanvas);
+
+            var myConfetti = confetti.create(myCanvas, {
+                resize: true,
+                useWorker: true
+            });
+            myConfetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
+
             setTimeout(function () {
                 state.showWinOverlay = false;
                 state.hasWon = false;
                 initChallenge();
                 updateUI();
                 broadcastStateUpdate();
+                if (myCanvas.parentNode) {
+                    myCanvas.parentNode.removeChild(myCanvas);
+                }
             }, 3000);
         }
 
@@ -720,7 +761,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             });
         }
 
-        var harmonyPalette; // Kept for variable declaration compatibility
+
         function setupHarmonyOptions() {
             if (elements['board-harmony-button']) {
                 elements['board-harmony-button'].addEventListener('click', function (e) {
@@ -936,7 +977,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                     var winnerColor = winnerObj.colorvalue;
                     var html = "";
                     if (winnerName && winnerColor) {
-                        winnerName = winnerName.replace('<', '&lt;').replace('>', '&gt;');
+                        winnerName = winnerName.replace(/</g, '&lt;').replace(/>/g, '&gt;');
                         html = "<img style='height:30px; vertical-align:middle; margin-right:10px;' src='" + generateXOLogoWithColor(winnerColor) + "'>";
                     } else {
                         // Fallback for older clients that just send a string
@@ -1045,7 +1086,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         // Event Listeners
         elements['reset-toolbar-button'].addEventListener('click', resetApp);
         window.addEventListener('activityStop', function (event) {
-            event.preventDefault();
+            // Reset transient flags before saving
+            state.hasWon = false;
+            state.showWinOverlay = false;
 
             var jsonData = JSON.stringify(state);
             activity.getDatastoreObject().setDataAsText(jsonData);
@@ -1116,7 +1159,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             if (!e.target.closest('.palette') && !e.target.closest('.toolbutton')) {
                 if (currentPresencePalette) currentPresencePalette.popDown();
                 if (modePalette) modePalette.popDown();
-                if (harmonyPalette) harmonyPalette.popDown();
+
                 if (difficultyPalette) difficultyPalette.popDown();
             }
         });
