@@ -86,6 +86,11 @@ html {
     /* Above everything */
 }
 
+/* Elevate the entire parent if the button is being highlighted by tutorial */
+#board-cycle-harmony:has(.introjs-showElement) {
+    z-index: 9999999 !important;
+}
+
 /* Harmony Wheel Section */
 #harmony-wheel-container {
     flex: 1;
@@ -309,14 +314,13 @@ html {
 }
 
 .harmony-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid #ffffff;
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
 }
 
 /* Board Inline Harmony Icon */
@@ -328,197 +332,25 @@ html {
     background-color: #282828;
 }
 
-/* Fix for intro.js highlighting this element, ensure button itself stands out */
-.introjs-showElement.board-switch-icon {
-    background-color: #000000 !important;
-    border-color: #ffffff !important;
-    /* Make sure the container border stands out */
-    z-index: 9999999 !important;
-    position: relative !important;
-}
-
-.introjs-showElement.board-switch-icon .harmony-icon {
-    z-index: 9999999 !important;
-    opacity: 1 !important;
-    transform: scale(1.5) !important;
-    /* Match default 1.5x scaling so it doesn't shrink */
-}
-
-.introjs-showElement.board-switch-icon .harmony-icon::before,
-.introjs-showElement.board-switch-icon .harmony-icon::after,
-.introjs-showElement.board-switch-icon .harmony-icon .dot3,
-.introjs-showElement.board-switch-icon .harmony-icon .dot4 {
-    z-index: 9999999 !important;
-    opacity: 1 !important;
-}
-
 .board-switch-icon:hover {
     background-color: #383838 !important;
 }
 
-.board-harmony-icon {
-    transform: scale(1.5);
-    /* Make the dot representation larger */
+/* Fix for intro.js highlighting this element, ensure button itself stands out */
+.introjs-showElement.board-switch-icon {
+    background-color: #000000 !important;
+    border-color: #ffffff !important;
+    z-index: 9999999 !important;
+    position: relative !important;
+    transform: none !important; /* Strictly no scaling */
 }
 
-.harmony-icon::before,
-.harmony-icon::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
-
-/* Complementary - 2 dots opposite (top & bottom) */
-.harmony-option[data-harmony="complementary"] .harmony-icon::before {
-    top: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.harmony-option[data-harmony="complementary"] .harmony-icon::after {
-    bottom: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* Split-complementary - 1 top, 2 at bottom corners */
-.harmony-option[data-harmony="split-complementary"] .harmony-icon::before {
-    top: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.harmony-option[data-harmony="split-complementary"] .harmony-icon::after {
-    bottom: 3px;
-    left: 3px;
-}
-
-.harmony-option[data-harmony="split-complementary"] .harmony-icon .dot3 {
-    position: absolute;
-    bottom: 3px;
-    right: 3px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
-
-/* Analogous - 3 dots close together at top arc */
-.harmony-option[data-harmony="analogous"] .harmony-icon::before {
-    top: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.harmony-option[data-harmony="analogous"] .harmony-icon::after {
-    top: 4px;
-    left: 3px;
-}
-
-.harmony-option[data-harmony="analogous"] .harmony-icon .dot3 {
-    position: absolute;
-    top: 4px;
-    right: 3px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
-
-/* Triadic - 3 dots triangle (120° apart) */
-.harmony-option[data-harmony="triadic"] .harmony-icon::before {
-    top: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.harmony-option[data-harmony="triadic"] .harmony-icon::after {
-    bottom: 4px;
-    left: 3px;
-}
-
-.harmony-option[data-harmony="triadic"] .harmony-icon .dot3 {
-    position: absolute;
-    bottom: 4px;
-    right: 3px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
-
-/* Tetradic - 4 dots rectangle */
-.harmony-option[data-harmony="tetradic"] .harmony-icon::before {
-    top: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.harmony-option[data-harmony="tetradic"] .harmony-icon::after {
-    top: 8px;
-    right: 2px;
-    left: auto;
-}
-
-.harmony-option[data-harmony="tetradic"] .harmony-icon .dot3 {
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
-
-.harmony-option[data-harmony="tetradic"] .harmony-icon .dot4 {
-    position: absolute;
-    top: 8px;
-    left: 2px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
-
-/* Square - 4 dots at 90° intervals */
-.harmony-option[data-harmony="square"] .harmony-icon::before {
-    top: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.harmony-option[data-harmony="square"] .harmony-icon::after {
-    right: 1px;
-    top: 50%;
-    left: auto;
-    transform: translateY(-50%);
-}
-
-.harmony-option[data-harmony="square"] .harmony-icon .dot3 {
-    position: absolute;
-    bottom: 1px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
-
-.harmony-option[data-harmony="square"] .harmony-icon .dot4 {
-    position: absolute;
-    left: 1px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: #ffffff;
-}
+[data-harmony="complementary"] .harmony-icon { background-image: url(../icons/harmony-complementary.svg); }
+[data-harmony="split-complementary"] .harmony-icon { background-image: url(../icons/harmony-split-complementary.svg); }
+[data-harmony="analogous"] .harmony-icon { background-image: url(../icons/harmony-analogous.svg); }
+[data-harmony="triadic"] .harmony-icon { background-image: url(../icons/harmony-triadic.svg); }
+[data-harmony="tetradic"] .harmony-icon { background-image: url(../icons/harmony-tetradic.svg); }
+[data-harmony="square"] .harmony-icon { background-image: url(../icons/harmony-square.svg); }
 
 /* Difficulty Options */
 #difficulty-palette {

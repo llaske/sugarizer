@@ -388,7 +388,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             }
 
             // Fullscreen
-            elements['unfullscreen-button'].style.display = state.isFullscreen ? 'block' : 'none';
+            if (elements['unfullscreen-button']) {
+                elements['unfullscreen-button'].style.display = state.isFullscreen ? 'block' : 'none';
+            }
             document.body.classList.toggle('fullscreen-mode', state.isFullscreen);
             document.getElementById('main-toolbar').style.display = state.isFullscreen ? 'none' : 'flex';
         }
@@ -542,7 +544,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         // --- Core Methods ---
         function switchMode(mode) {
             state.currentMode = mode;
-            state.isHarmonyDropdownVisible = false;
             if (mode === 'harmony' && !state.currentHarmony) {
                 state.currentHarmony = 'complementary';
             }
@@ -775,7 +776,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             }
         }
 
-        var isModeDropdownVisible = false;
         function setupModeOptions() {
             modePalette = new palette.Palette(elements['mode-button']);
 
@@ -1102,7 +1102,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             });
         });
         elements['fullscreen-button'].addEventListener('click', toggleFullscreen);
-        elements['unfullscreen-button'].addEventListener('click', exitFullscreen);
+        if (elements['unfullscreen-button']) {
+            elements['unfullscreen-button'].addEventListener('click', exitFullscreen);
+        }
         elements['help-button'].addEventListener('click', function (e) {
             initTutorial(state.currentMode);
         });
