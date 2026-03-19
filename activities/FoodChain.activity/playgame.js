@@ -575,6 +575,12 @@ enyo.kind({
 			fly.unDraw(this.ctx);
 			return false;
 		}
+
+		// Since testFlyDead will be called on each frame of the fly animation
+		// the frog gets oftern redrawn making sure that no fly can 
+		// puncture a hole in the frog png
+		this.frog.draw(this.ctx);
+
 		return true;
 	},
 
