@@ -243,18 +243,31 @@ var Player = {
 				e.preventDefault();
 				vm.drawing = false;
 			});
-			letter.addEventListener(moveEvent, function(e) {
-				e.preventDefault();
-				if (vm.mode != 'input' || !vm.drawing) {
-					return;
-				}
-				if (touchScreen) {
-					e = e.touches[0];
-				}
-				var x = Math.floor((e.clientX-letter.getBoundingClientRect().left)/vm.zoom);
-				var y = Math.floor((e.clientY-letter.getBoundingClientRect().top)/vm.zoom);
-				vm.handleMouseMove(x, y);
-			});
+			let lastMoveTime = 0;
+
+letter.addEventListener(moveEvent, function(e) {
+	e.preventDefault();
+
+	const now = Date.now();
+	if (now - lastMoveTime < 16) { // limit to ~60fps
+		return;
+	}
+	lastMoveTime = now;
+
+	if (vm.mode != 'input' || !vm.drawing) {
+		return;
+	}
+
+	if (touchScreen) {
+		e = e.touches[0];
+	}
+
+	var rect = letter.getBoundingClientRect();
+	var x = Math.floor((e.clientX - rect.left) / vm.zoom);
+	var y = Math.floor((e.clientY - rect.top) / vm.zoom);
+
+	vm.handleMouseMove(x, y);
+});
 		},
 
 		draw: function() {
