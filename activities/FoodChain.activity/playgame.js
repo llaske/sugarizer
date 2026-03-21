@@ -508,11 +508,6 @@ enyo.kind({
 					if (free)
 					freeInterval.push(x);
 				}
-				
-				// If there is nowhere to spawn, skip this spawn attempt for now
-				if (freeInterval.length === 0) {
-					continue;
-				}
 
 				// Compute the snake position
 				x = freeInterval[Math.floor(Math.random()*freeInterval.length)];
