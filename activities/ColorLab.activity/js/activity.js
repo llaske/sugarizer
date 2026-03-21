@@ -664,7 +664,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             elements['label-you-won'].textContent = l10n.get('YouWon');
             updateUI();
 
-            if (presence) {
+            if (typeof presence !== 'undefined' && presence) {
                 presence.sendMessage(presence.getSharedInfo().id, {
                     user: presence.getUserInfo(),
                     content: {

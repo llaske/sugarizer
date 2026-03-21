@@ -1,9 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55" version="1.1">
-    <g stroke="#010101" stroke-width="3" fill="#FFFFFF">
-        <!-- Using mix-blend-mode or opacity to show harmonies -->
-        <circle cx="27.5" cy="20" r="12" opacity="0.8"/>
-        <circle cx="19" cy="33" r="12" opacity="0.8"/>
-        <circle cx="36" cy="33" r="12" opacity="0.8"/>
-    </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY stroke_color "#FFFFFF">
+	<!ENTITY fill_color "#999999">
+]>
+<svg
+   width="55"
+   height="55"
+   viewBox="0 0 14.552083 14.552083"
+   version="1.1"
+   xmlns="http://www.w3.org/2000/svg">
+  <g id="layer1">
+    <!-- Outer Circle (Increased to radius 5.5) -->
+    <circle style="fill:none;stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;stroke-linejoin:round;" cx="7.276" cy="7.276" r="5.5" />
+    
+    <!-- Radial spokes adjusted to 5.5 radius -->
+    <!-- 0 deg -->
+    <line x1="7.276" y1="7.276" x2="12.776" y2="7.276" style="stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;" />
+    <!-- 60 deg: 7.276 + 5.5*0.5, 7.276 + 5.5*0.866 -->
+    <line x1="7.276" y1="7.276" x2="10.026" y2="12.039" style="stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;" />
+    <!-- 120 deg: 7.276 - 5.5*0.5, 7.276 + 5.5*0.866 -->
+    <line x1="7.276" y1="7.276" x2="4.526" y2="12.039" style="stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;" />
+    <!-- 180 deg -->
+    <line x1="7.276" y1="7.276" x2="1.776" y2="7.276" style="stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;" />
+    <!-- 240 deg: 7.276 - 5.5*0.5, 7.276 - 5.5*0.866 -->
+    <line x1="7.276" y1="7.276" x2="4.526" y2="2.513" style="stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;" />
+    <!-- 300 deg: 7.276 + 5.5*0.5, 7.276 - 5.5*0.866 -->
+    <line x1="7.276" y1="7.276" x2="10.026" y2="2.513" style="stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;" />
+    
+    <!-- Central Filled Hub (radius 1.4) -->
+    <circle style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:0.6;stroke-linecap:round;stroke-linejoin:round;" cx="7.276" cy="7.276" r="1.4" />
+  </g>
 </svg>

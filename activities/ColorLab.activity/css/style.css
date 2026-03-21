@@ -502,18 +502,16 @@ html {
 }
 
 #sliders-grid {
-    width: 100%;
+    width: 95%;
     max-width: 1300px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 15px;
+    gap: clamp(5px, 2vw, 40px);
     margin-inline: auto;
-    /* center horizontally */
     padding-bottom: min(15px, 2vmin);
     margin-top: 10px;
-    flex-wrap: wrap;
-    /* baseline wrap before media queries */
+    flex-wrap: nowrap;
 }
 
 #main-workspace {
@@ -550,16 +548,15 @@ html {
 
 /* Custom Range Sliders */
 .slider-group {
-    flex: 1;
-    max-width: 650px;
-    /* Wider for large screens */
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 5px;
     margin-bottom: 5px;
-    gap: 15px;
-    /* Explicit gap */
+    gap: clamp(2px, 1vw, 15px);
 }
 
 input[type=range] {
@@ -768,15 +765,14 @@ body.fullscreen-mode #color-wheel-ring {
     transform-origin: 50% 50%;
 }
 
-/* Bowls Area */
 #bowls-area {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 50px;
-    margin-bottom: 20px;
-    /* buffer off bottom screen */
+    margin-bottom: max(60px, 10vh);
     width: 100%;
+    flex-shrink: 0;
 }
 
 .slider-val {
@@ -845,16 +841,17 @@ body.fullscreen-mode #color-wheel-ring {
 
 /* Controls Area */
 #controls-area {
-    width: 90%;
+    width: 95%;
     max-width: 1300px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 40px;
+    gap: clamp(5px, 2vw, 40px);
     align-items: center;
     margin: 0 auto 20px auto;
-    /* center horizontally, buffer off bottom */
     padding-bottom: 20px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
 }
 
 
@@ -1206,24 +1203,7 @@ body.fullscreen-mode #color-wheel-ring {
         height: 45vmin !important;
     }
 
-    #sliders-grid,
-    #controls-area {
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        justify-content: center !important;
-        gap: 5px !important;
-        align-items: center !important;
-        width: 100% !important;
-    }
 
-    .slider-group {
-        flex: 1 1 0 !important;
-        min-width: 0 !important;
-        max-width: none !important;
-        margin: 2px !important;
-        gap: 2px !important;
-        justify-content: center !important;
-    }
 
     .adjust-button {
         width: 25px !important;
