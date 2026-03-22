@@ -462,26 +462,15 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
 			var that = this;
             // Pass editable=false to hide resize buttons, hasBorder=true to render globes properly
             previewComicBox.init(this._data['boxs'][boxOrder],
-                                 this._data['images'], false, {canvas: previewCanvas, order: boxOrder}, function(context) {                 
-                    // Add delay to ensure rendering is fully complete (font loading, rasterization)
-                    setTimeout(function () {
-                        document.body.appendChild(previewCanvas);
-                        previewCanvas.style.visibility = "hidden";
-                        previewCanvas.style.position = "absolute";
-                        previewComicBox.stage.update();
-                        setTimeout(function () {
+                                 this._data['images'], false, {canvas: previewCanvas, order: boxOrder}, null, false, true).then(function(context) {                 
                         // FORCE update to ensure everything (globes, images) is painted to the canvas
                         previewComicBox.stage.update();
                         var dataURL = context.canvas.toDataURL("image/png");
-                        document.body.removeChild(previewCanvas);
                         console.log("Preview generated for box " + context.order + ", length: " + dataURL.length);
                         that._data['previews'][context.order] = dataURL;
                         if (doneCallback) doneCallback();
-                        }, 300);
 
-                    }, 500);
-
-                }, false, true); // editable=false, hasBorder=true
+                });
             };
 
         this._updatePageCounter = function() {
@@ -558,7 +547,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         this.saveAsImage = function(columns) {
             /* columns can be '0', '1', or '2'
                if '0' means show the images in a single row */
-               this.updateData();
+            this.updateData();
             this.showWait();
             var cantBoxes = this._data['boxs'].length;
             var MARGIN = 20;
@@ -593,16 +582,9 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                   // Pass editable=false
                 tmpComicBox.init(that._data['boxs'][i],
 
-                    that._data['images'], false, tmpCanvas, function (mycanvas) {
-                        setTimeout(function () {
-                            // Ensure the canvas is fully initialized mathematically by adding to DOM temporarily
-                            document.body.appendChild(tmpCanvas);
-                            tmpCanvas.style.visibility = "hidden";
-                            tmpCanvas.style.position = "absolute";
-                            
-                            // FORCE update to render globes/shapes twice 
+                    that._data['images'], false, tmpCanvas, null, false).then(function (mycanvas) {
+                            // FORCE update to render globes/shapes
                             tmpComicBox.stage.update();
-                            setTimeout(function() {                            tmpComicBox.stage.update();
                             // calculate coordinates using index 'i' to ensure correct order
                             var x, y;
                             if (columns == '0') {
@@ -618,7 +600,6 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                             // draw directly from off-screen canvas to result canvas
 
                             ctx.drawImage(mycanvas, x, y);
-                            document.body.removeChild(tmpCanvas); // cleanup
                             boxesProcessed++;
                             if(boxesProcessed >= cantBoxes) {
                                 // save in datastore
@@ -642,9 +623,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
                                     that.hideWait();
                                 }, imgAsDataURL);
                             }
-                        },300);
-                    },1000); // Delay for rendering consistency
-                }, false,true); // editable=false, hasBorder=true
+                    }); // editable=false
             };
             for (var i = 0; i < cantBoxes; i++) {
                 processBox(i);
@@ -676,95 +655,101 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         this._textpalette = null;
 
         this.init = function (data, imagesData, canRemove, context, callback, editable, hasBorder) {
+            var that = this;
+            return new Promise(function (resolve) {
+                var internalCallback = function (ctx) {
+                    if (callback) callback(ctx);
+                    resolve(ctx);
+                };
+
              // Clean up previous resources first
-            this.cleanup();
+            that.cleanup();
             
-            this._data = data;
-            this.imagesData = imagesData
-            this.canRemove = canRemove;
-            this.editable = (editable !== undefined) ? editable : true; // Default to true if not specified
-            this.hasBorder = (hasBorder !== undefined) ? hasBorder : true; // Default to true
-            this.borderWidth = this.hasBorder ? LINE_WIDTH : 0;
-            this._width = canvas.width - this.borderWidth * 2;
-            this._height = canvas.height - this.borderWidth * 2;
+            that._data = data;
+            that.imagesData = imagesData
+            that.canRemove = canRemove;
+            that.editable = (editable !== undefined) ? editable : true; // Default to true if not specified
+            that.hasBorder = (hasBorder !== undefined) ? hasBorder : true; // Default to true
+            that.borderWidth = that.hasBorder ? LINE_WIDTH : 0;
+            that._width = canvas.width - that.borderWidth * 2;
+            that._height = canvas.height - that.borderWidth * 2;
 
 
-            this.globes = [];
-            this.stage.removeAllChildren();
+            that.globes = [];
+            that.stage.removeAllChildren();
             // 1. Content Container (Image + White Background) - Masked
-            this._backContainer = new createjs.Container();
+            that._backContainer = new createjs.Container();
             // Create mask to clip content strictly to inner box dimensions
             var mask = new createjs.Shape();
-            mask.graphics.rect(this.borderWidth, this.borderWidth, this._width, this._height);
-            this._backContainer.mask = mask;
+            mask.graphics.rect(that.borderWidth, that.borderWidth, that._width, that._height);
+            that._backContainer.mask = mask;
             // White Background Fill (inside container)
             var bgFill = new createjs.Shape();
-            bgFill.graphics.beginFill(WHITE).drawRect(this.borderWidth, this.borderWidth,
-                this._width, this._height);
-            this._backContainer.addChild(bgFill);
-            this.stage.addChild(this._backContainer);
+            bgFill.graphics.beginFill(WHITE).drawRect(that.borderWidth, that.borderWidth,
+                that._width, that._height);
+            that._backContainer.addChild(bgFill);
+            that.stage.addChild(that._backContainer);
            
             // 2. Border Frame (Top Layer)
             // Draw border separately on stage so it stays ON TOP of the masked image
-            if (this.hasBorder) {
+            if (that.hasBorder) {
                 var border = new createjs.Shape();
-                border.graphics.setStrokeStyle(this.borderWidth, "round");
+                border.graphics.setStrokeStyle(that.borderWidth, "round");
                 border.graphics.beginStroke(BLACK);
-                border.graphics.drawRect(this.borderWidth, this.borderWidth,
-                    this._width, this._height);
-                this.stage.addChild(border);}
+                border.graphics.drawRect(that.borderWidth, that.borderWidth,
+                    that._width, that._height);
+                that.stage.addChild(border);}
 
             // 3. Controls Container (UI Layer)
-            this._controlsContainer = new createjs.Container();
-            this.stage.addChild(this._controlsContainer);
+            that._controlsContainer = new createjs.Container();
+            that.stage.addChild(that._controlsContainer);
 
-
-            if (this._data != null) {
-                if (this._data['image_name'] != '' &&
-                    this._data['image_name'] != undefined) {
+            var hasImage = false;
+            if (that._data != null) {
+                if (that._data['image_name'] != '' &&
+                    that._data['image_name'] != undefined) {
+                    hasImage = true;
                     // Use the stored dimensions and position if available
-                    this._image_x = this._data['img_x'] !== undefined ? this._data['img_x'] : 0;
-                    this._image_y = this._data['img_y'] !== undefined ? this._data['img_y'] : 0;
-                    this._image_width = this._data['img_w'] !== undefined ? this._data['img_w'] : canvas.width;
-                    this._image_height = this._data['img_h'] !== undefined ? this._data['img_h'] : canvas.height;
-                    this._image_name = this._data['image_name'];
-                    this._slideshow_duration = this._data['slideshow_duration'];
+                    that._image_x = that._data['img_x'] !== undefined ? that._data['img_x'] : 0;
+                    that._image_y = that._data['img_y'] !== undefined ? that._data['img_y'] : 0;
+                    that._image_width = that._data['img_w'] !== undefined ? that._data['img_w'] : canvas.width;
+                    that._image_height = that._data['img_h'] !== undefined ? that._data['img_h'] : canvas.height;
+                    that._image_name = that._data['image_name'];
+                    that._slideshow_duration = that._data['slideshow_duration'];
 
-                    if (this.imagesData != null) {
-                        this._setBackgroundImageDataUrl(
-                            this.imagesData[this._image_name], context, callback);
-                    };
                 } else {
-                    this._image_x = 0;
-                    this._image_y = 0;
-                    this._image_width = canvas.width;
-                    this._image_height = canvas.height;
-                    this._image_name = '';
-                    this._slideshow_duration = 10;
+                    that._image_x = 0;
+                    that._image_y = 0;
+                    that._image_width = canvas.width;
+                    that._image_height = canvas.height;
+                    that._image_name = '';
+                    that._slideshow_duration = 10;
                 };
             };
-            this.createGlobes();
+            that.createGlobes();
 
             // Fix for Title page visibility in Sort view (!hasBorder)
-            if(!this.hasBorder && context && context.order === 0){
+            if(!that.hasBorder && context && context.order === 0){
                 var titleContent = "Title";
-                var globes = this._data['globes'];
+                var globes = that._data['globes'];
                 if(globes && globes.length > 0 && globes[0]['text_text']){
                     titleContent = globes[0]['text_text'];
                 }
                 var titleText =new createjs.Text(titleContent, "40px Arial", "#000000");
                 titleText.textAlign = "center";
                 titleText.textBaseline = "middle";
-                titleText.x = this._width / 2;
-                titleText.y = this._height / 2;
-                this.stage.addChild(titleText);
+                titleText.x = that._width / 2;
+                titleText.y = that._height / 2;
+                that.stage.addChild(titleText);
             }
-            this.stage.update();
+            that.stage.update();
             
-            // For boxes without background images, call callback AFTER rendering
-            if(this._data != null && (this._data['image_name'] == '' || this._data['image_name'] == undefined)){
-                if(callback) callback(context);
+            if (hasImage && that.imagesData != null && that.imagesData[that._image_name]) {
+                that._setBackgroundImageDataUrl(that.imagesData[that._image_name], context, internalCallback);
+            } else {
+                internalCallback(context);
             }
+    });
 
         };
 
