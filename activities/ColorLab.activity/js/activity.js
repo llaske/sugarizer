@@ -18,7 +18,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             challengeUserRgb: { r: 0, g: 0, b: 0 },
             challengeTargetRgb: { r: 100, g: 150, b: 200 },
             challengeSimilarity: 0,
-            showWinOverlay: false,
             hasWon: false,
             ringSegments: [],
             challengeDifficulty: 'easy'
@@ -64,10 +63,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             'harmony-swatches', 'color-name', 'mixing-bowl', 'ring-svg',
             'red-slider', 'green-slider', 'blue-slider',
             'red-minus', 'red-plus', 'green-minus', 'green-plus', 'blue-minus', 'blue-plus',
-            'user-bowl', 'target-bowl', 'challenge-progress-circle', 'win-overlay',
+            'user-bowl', 'target-bowl', 'challenge-progress-circle',
             'challenge-red-slider', 'challenge-green-slider', 'challenge-blue-slider',
             'challenge-red-minus', 'challenge-red-plus', 'challenge-green-minus', 'challenge-green-plus', 'challenge-blue-minus', 'challenge-blue-plus',
-            'label-my-color', 'label-target', 'label-you-won',
+            'label-my-color', 'label-target',
             'red-val', 'green-val', 'blue-val', 'challenge-red-val', 'challenge-green-val', 'challenge-blue-val',
             'harmony-name-display', 'user-color-name', 'target-color-name'
         ];
@@ -528,8 +527,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             elements['challenge-green-val'].textContent = state.challengeUserRgb.g;
             elements['challenge-blue-val'].textContent = state.challengeUserRgb.b;
 
-            elements['win-overlay'].classList.toggle('hidden', !state.showWinOverlay);
-            elements['win-overlay'].classList.toggle('show', state.showWinOverlay);
         }
 
         function getMarkerAngles() {
@@ -583,6 +580,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 }
             } else {
                 state.challengeDifficulty = 'easy';
+                state.hasWon = false;
                 initChallenge();
             }
             updateUI();
@@ -631,7 +629,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 targetR = Math.floor(Math.random() * (maxSteps + 1)) * step;
                 targetG = Math.floor(Math.random() * (maxSteps + 1)) * step;
                 targetB = Math.floor(Math.random() * (maxSteps + 1)) * step;
-            } while (targetR === 255 && targetG === 255 && targetB === 255); // Prevent instant win
+            } while (targetR === 0 && targetG === 0 && targetB === 0); // Prevent instant win
 
             state.challengeTargetRgb = {
                 r: targetR,
@@ -659,10 +657,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         function triggerWin() {
             if (state.hasWon) return;
             state.hasWon = true;
-
-            state.showWinOverlay = true;
-            elements['label-you-won'].textContent = l10n.get('YouWon');
-            updateUI();
 
             if (typeof presence !== 'undefined' && presence) {
                 presence.sendMessage(presence.getSharedInfo().id, {
@@ -704,11 +698,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             });
 
             setTimeout(function () {
-                state.showWinOverlay = false;
                 state.hasWon = false;
-                initChallenge();
-                updateUI();
-                broadcastStateUpdate();
                 if (myCanvas.parentNode) {
                     myCanvas.parentNode.removeChild(myCanvas);
                 }
@@ -956,9 +946,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
                     if (isChallengeLocal && isChallengeRemote) {
                         // In Challenge Mode, players only sync the target bowl. Ignore their local slider values!
-                        msg.content.data.challengeUserRgb = state.challengeUserRgb;
-                        msg.content.data.challengeSimilarity = state.challengeSimilarity;
-                        msg.content.data.showWinOverlay = state.showWinOverlay;
+                        var remoteTarget = msg.content.data.challengeTargetRgb;
+                        var localTarget = state.challengeTargetRgb;
+                        var targetChanged = remoteTarget.r !== localTarget.r || remoteTarget.g !== localTarget.g || remoteTarget.b !== localTarget.b;
+
+                        if (targetChanged) {
+                            // If target changed, someone reset the game. Allow the remote reset to propagate
+                            state.hasWon = false;
+                        } else {
+                            // Otherwise, ignore their slider values to keep my own progress
+                            msg.content.data.challengeUserRgb = state.challengeUserRgb;
+                            msg.content.data.challengeSimilarity = state.challengeSimilarity;
+                        }
                         // Always accept the host's difficulty setting
                         if (!isHost && msg.content.data.challengeDifficulty) {
                             state.challengeDifficulty = msg.content.data.challengeDifficulty;
@@ -1063,7 +1062,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             elements['help-button'].title = l10n.get('Help');
             elements['label-my-color'].textContent = l10n.get('MyColor');
             elements['label-target'].textContent = l10n.get('Target');
-            elements['label-you-won'].textContent = l10n.get('YouWon');
             updateUI();
 
             env.getEnvironment(function (err, environment) {
@@ -1088,7 +1086,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         window.addEventListener('activityStop', function (event) {
             // Reset transient flags before saving
             state.hasWon = false;
-            state.showWinOverlay = false;
 
             var jsonData = JSON.stringify(state);
             activity.getDatastoreObject().setDataAsText(jsonData);
