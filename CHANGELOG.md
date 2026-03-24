@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Eraser tool sends incorrect coordinates in shared sessions #2022
 - Saved Chess game fails to restore difficulty setting #2040
 - Globes not displayed when exporting a single image in fototoon #2020
+- Snake spawning too close to the frog in the FoodChain Activity #2023
 
 ## [1.9.0] - 2025-03-25
 ### Added
