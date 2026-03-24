@@ -747,7 +747,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             if (hasImage && that.imagesData != null && that.imagesData[that._image_name]) {
                 that._setBackgroundImageDataUrl(that.imagesData[that._image_name], context, internalCallback);
             } else {
-                internalCallback(context);
+                requestAnimationFrame(() => internalCallback(context));
             }
     });
 
