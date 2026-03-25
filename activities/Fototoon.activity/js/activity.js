@@ -281,8 +281,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                     modal.modalElem().addEventListener("click", function(evt) {
                         if (evt.target && evt.target.matches(".continue")) {
                             toonModel._data['boxs'].splice(1, toonModel._data['boxs'].length-1);
-                            toonModel._data['boxs'][0]['globes'] = [];
+                            toonModel._data['boxs'][0]= {'globes': [] };
                             toonModel._data['previews'] = [];
+                            toonModel.cleanupImages();
                             toonModel.init();
                             modal.close();
                         } else if (evt.target && evt.target.matches(".cancel-changes")) {
