@@ -425,6 +425,7 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
             // remove the actual box */
             this._data['boxs'].splice(this.activeBox, 1);
             this._data['previews'] = [];
+            this.cleanupImages(); // Clean up images after removing a box
             if (this.activeBox > this._data['boxs'].length - 1) {
                 this.activeBox --;
             }
@@ -529,6 +530,21 @@ define(["easel","sugar-web/datastore","sugar-web/env","l10n","humane"], function
         this.getData = function() {
             this.updateData();
             return this._data;
+        };
+        this.cleanupImages = function () {
+            if (!this._data['images']) return;
+            var usedImages = {};
+            for (var i = 0; i < this._data['boxs'].length; i++) {
+                var imageName = this._data['boxs'][i]['image_name'];
+                if (imageName) {
+                    usedImages[imageName] = true;
+                }
+            }
+            for (var key in this._data['images']) {
+                if (!usedImages[key]) {
+                    delete this._data['images'][key];
+                }
+            }
         };
 
         this.attachPageCounterViewer = function(div) {
