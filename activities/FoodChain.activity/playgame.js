@@ -499,7 +499,7 @@ enyo.kind({
 						// Test each sprite
 						var s = spritesToAvoid[j];
 						if (s == currentsnake) continue;
-						if ((x > s.getX() && x-currentsnake.width/2 < s.getX()+s.width/2) || (x < s.getX() && x+currentsnake.width/2 > s.getX()-s.width/2)) {
+						if ((x >= s.getX() && x-currentsnake.width/2 <= s.getX()+s.width/2) || (x <= s.getX() && x+currentsnake.width/2 >= s.getX()-s.width/2)) {
 							free = false;
 						}
 					}
@@ -507,6 +507,11 @@ enyo.kind({
 					// No, add to busyList
 					if (free)
 					freeInterval.push(x);
+				}
+				
+				// If there is nowhere to spawn, skip this spawn attempt for now
+				if (freeInterval.length === 0) {
+					continue;
 				}
 
 				// Compute the snake position
