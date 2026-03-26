@@ -82,6 +82,7 @@ Evaluation.prototype.getValue = function (mode) {
             /* Order according to both a low number of outer outline vertices
              * and a high convex percentage */
             evaluation = (this.outerOutlineVertices - 3) / 26 + 1.0-this.convexPercentage ;
+            break;
         default:
             evaluation = 0;
     }
