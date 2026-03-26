@@ -203,6 +203,7 @@ let app = new Vue({
 				this.cx = mainCanvas.width / 2;
 				this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
 			}
+			
 			// Initializing the slope
 			this.$refs.slopecanvas.initSlope();
 
