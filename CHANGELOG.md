@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Snake spawning too close to the frog in the FoodChain Activity #2023
 - Paint Activity: Copy tool only works when dragging top-left to bottom-right #2049
 - Fototoon "Clean All" leaves image data in storage while clearing the UI #2051
+- Snakes clipping when having nowhere to go in FoodChain activity #2050
 
 ## [1.9.0] - 2025-03-25
 ### Added
