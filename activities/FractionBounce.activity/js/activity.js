@@ -48,6 +48,9 @@ let app = new Vue({
 		failSound: null,
 		score: 0,
 		count: 0,
+		ballSrc: 'images/soccerball.svg',
+		canvasWidth: 0,
+		canvasHeight: 0,
 		l10n: {
 			stringFractionBounceActivity: '',
 			stringTemplate: '',
@@ -189,6 +192,17 @@ let app = new Vue({
 			} else {
 				mainCanvas.height = window.innerHeight - 56;
 			}
+
+			// If ball is bouncing, scale its position
+			if (!this.onSlope && this.canvasWidth > 0 && this.canvasHeight > 0) {
+				var widthRatio = mainCanvas.width / this.canvasWidth;
+				var heightRatio = mainCanvas.height / this.canvasHeight;
+				this.cx *= widthRatio;
+				this.cy *= heightRatio;
+			} else if (this.onSlope) {
+				this.cx = mainCanvas.width / 2;
+				this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
+			}
 			// Initializing the slope
 			this.$refs.slopecanvas.initSlope();
 
@@ -207,10 +221,10 @@ let app = new Vue({
 					vm.context.drawImage(vm.img, vm.cx, vm.cy);
 				}
 			}
-			this.img.src = 'images/soccerball.svg';
+			this.img.src = this.ballSrc;
 			this.img.width = this.radius; this.img.height = this.radius; this.img.style.width = this.radius; this.img.style.height = this.radius;
-			this.cx = mainCanvas.width / 2;
-			this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
+			this.canvasWidth = mainCanvas.width;
+			this.canvasHeight = mainCanvas.height;
 
 			if (this.successSound == null || this.failSound == null) {
 				this.initSounds();
@@ -589,7 +603,8 @@ let app = new Vue({
 				return;
 			}
 
-			this.img.src = 'images/' + event.ball + '.svg';
+			this.ballSrc = 'images/' + event.ball + '.svg';
+			this.img.src = this.ballSrc;
 			switch (event.ball) {
 				case 'rugbyball':
 				case 'soccerball':
@@ -645,6 +660,7 @@ let app = new Vue({
 						var dataentry = new datastore.DatastoreObject(entry.objectId);
 						dataentry.loadAsText(function (err, metadata, data) {
 							if (to == 'ball') {
+								vm.ballSrc = data;
 								vm.img.src = data;
 							} else if (to == 'bg') {
 								document.body.style.backgroundImage = 'url(' + data + ')';
