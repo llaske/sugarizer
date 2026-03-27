@@ -467,6 +467,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function updateChallengeDifficultyUI() {
             if (!elements['difficulty-options']) return;
+
+            // Update the main button icon: show level-specific icon in challenge mode, full icon otherwise
+            if (elements['challenge-difficulty-button']) {
+                if (state.currentMode === 'challenge') {
+                    elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-' + state.challengeDifficulty + '.svg)';
+                } else {
+                     elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-hard.svg)';
+                }
+            }
             var options = elements['difficulty-options'].querySelectorAll('.difficulty-option');
             options.forEach(function (opt) {
                 var level = opt.dataset.difficulty;
