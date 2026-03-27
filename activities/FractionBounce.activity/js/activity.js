@@ -48,6 +48,12 @@ let app = new Vue({
 		failSound: null,
 		score: 0,
 		count: 0,
+		ballSrc: 'images/soccerball.svg',
+		backgroundSrc: 'url(images/grass_background.png)',
+		backgroundSize: 'cover',
+		canvasWidth: 0,
+		canvasHeight: 0,
+
 		l10n: {
 			stringFractionBounceActivity: '',
 			stringTemplate: '',
@@ -146,6 +152,13 @@ let app = new Vue({
 				this.changeGameState();
 				this.isFirstPauseClick = true;
 			}
+		},
+		backgroundSrc: function (newVal) {
+			document.body.style.backgroundImage = newVal;
+		},
+		backgroundSize: function (newVal) {
+			document.body.style.backgroundSize = newVal;
+
 		}
 	},
 
@@ -162,7 +175,20 @@ let app = new Vue({
 
 		onJournalDataLoaded: function (data, metadata) {
 			console.log("Existing instance");
-			this.userFractions = data.userFractions;
+			this.userFractions = data.userFractions || [];
+			if (data.ballSrc) {
+				this.ballSrc = data.ballSrc;
+			}
+			if (data.backgroundSrc) {
+				this.backgroundSrc = data.backgroundSrc;
+			}
+			if (data.backgroundSize) {
+				this.backgroundSize = data.backgroundSize;
+			}
+			if (data.mode) {
+				this.mode = data.mode;
+			}
+			this.init();
 		},
 
 		onJournalLoadError: function (error) {
@@ -189,6 +215,18 @@ let app = new Vue({
 			} else {
 				mainCanvas.height = window.innerHeight - 56;
 			}
+
+			// If ball is bouncing, scale its position
+			if (!this.onSlope && this.canvasWidth > 0 && this.canvasHeight > 0) {
+				var widthRatio = mainCanvas.width / this.canvasWidth;
+				var heightRatio = mainCanvas.height / this.canvasHeight;
+				this.cx *= widthRatio;
+				this.cy *= heightRatio;
+			} else if (this.onSlope) {
+				this.cx = mainCanvas.width / 2;
+				this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
+			}
+
 			// Initializing the slope
 			this.$refs.slopecanvas.initSlope();
 
@@ -207,16 +245,17 @@ let app = new Vue({
 					vm.context.drawImage(vm.img, vm.cx, vm.cy);
 				}
 			}
-			this.img.src = 'images/soccerball.svg';
+			this.img.src = this.ballSrc;
 			this.img.width = this.radius; this.img.height = this.radius; this.img.style.width = this.radius; this.img.style.height = this.radius;
-			this.cx = mainCanvas.width / 2;
-			this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
+			this.canvasWidth = mainCanvas.width;
+			this.canvasHeight = mainCanvas.height;
 
 			if (this.successSound == null || this.failSound == null) {
 				this.initSounds();
 			}
 
 			// start by clicking ball
+			document.getElementById('slopeCanvas').removeEventListener('click', this.startGame);
 			document.getElementById('slopeCanvas').addEventListener('click', this.startGame);
 		},
 
@@ -589,21 +628,23 @@ let app = new Vue({
 				return;
 			}
 
-			this.img.src = 'images/' + event.ball + '.svg';
+			this.ballSrc = 'images/' + event.ball + '.svg';
+			this.img.src = this.ballSrc;
+			this.backgroundSize = 'cover';
 			switch (event.ball) {
 				case 'rugbyball':
 				case 'soccerball':
-					document.body.style.backgroundImage = 'url(images/grass_background.png)';
+					this.backgroundSrc = 'url(images/grass_background.png)';
 					break;
 				case 'bowlingball':
 				case 'basketball':
-					document.body.style.backgroundImage = 'url(images/parquet_background.png)';
+					this.backgroundSrc = 'url(images/parquet_background.png)';
 					break;
 				case 'feather':
-					document.body.style.backgroundImage = 'url(images/feather_background.png)';
+					this.backgroundSrc = 'url(images/feather_background.png)';
 					break;
 				case 'beachball':
-					document.body.style.backgroundImage = 'url(images/beach_background.png)';
+					this.backgroundSrc = 'url(images/beach_background.png)';
 					break;
 			}
 		},
@@ -614,19 +655,19 @@ let app = new Vue({
 				this.insertImage('bg');
 				return;
 			}
-			document.body.style.backgroundSize = 'cover';
+			this.backgroundSize = 'cover';
 			switch (event.bg) {
 				case 'grass':
-					document.body.style.backgroundImage = 'url(images/grass_background.png)';
+					this.backgroundSrc = 'url(images/grass_background.png)';
 					break;
 				case 'wood':
-					document.body.style.backgroundImage = 'url(images/parquet_background.png)';
+					this.backgroundSrc = 'url(images/parquet_background.png)';
 					break;
 				case 'clouds':
-					document.body.style.backgroundImage = 'url(images/feather_background.png)';
+					this.backgroundSrc = 'url(images/feather_background.png)';
 					break;
 				case 'sand':
-					document.body.style.backgroundImage = 'url(images/beach_background.png)';
+					this.backgroundSrc = 'url(images/beach_background.png)';
 					break;
 			}
 		},
@@ -638,6 +679,7 @@ let app = new Vue({
 					journalchooser.show(function (entry) {
 						if (!entry) {
 							if (to == 'ball') {
+								vm.ballSrc = data;
 								vm.img.onload();
 							}
 							return;
@@ -647,8 +689,8 @@ let app = new Vue({
 							if (to == 'ball') {
 								vm.img.src = data;
 							} else if (to == 'bg') {
-								document.body.style.backgroundImage = 'url(' + data + ')';
-								document.body.style.backgroundSize = 'contain';
+								vm.backgroundSrc = 'url(' + data + ')';
+								vm.backgroundSize = 'contain';
 							}
 						});
 					}, { mimetype: 'image/png' }, { mimetype: 'image/jpeg' });
@@ -747,7 +789,11 @@ let app = new Vue({
 		onStop: function () {
 			// Save current library in Journal on Stop
 			var context = {
-				userFractions: this.userFractions
+				userFractions: this.userFractions,
+				ballSrc: this.ballSrc,
+				backgroundSrc: this.backgroundSrc,
+				backgroundSize: this.backgroundSize,
+				mode: this.mode
 			}
 			this.$refs.SugarJournal.saveData(context);
 			this.$refs.SugarDevice.vibrate(100);
