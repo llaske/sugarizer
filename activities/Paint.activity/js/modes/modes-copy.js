@@ -61,36 +61,37 @@ define([], function() {
       /* We resize the floating element with the user drag */
 
       var end = event.point;
-      if (begin.x <= end.x) {
-        PaintApp.data.currentElement.element.style.width = end.x - begin.x + 'px';
-      } else {
-        PaintApp.data.currentElement.element.style.width = 0 + 'px';
-      }
-      if (begin.y <= end.y) {
-        PaintApp.data.currentElement.element.style.height = Math.abs(begin.y - end.y) + 'px';
-      } else {
-        PaintApp.data.currentElement.element.style.height = 0 + 'px';
-      }
+      var minX = Math.min(begin.x, end.x);
+      var minY = Math.min(begin.y, end.y);
+      var width = Math.abs(end.x - begin.x);
+      var height = Math.abs(end.y - begin.y);
+
+      PaintApp.data.currentElement.element.style.left = minX + 'px';
+      PaintApp.data.currentElement.element.style.top = (minY + 55) + 'px';
+      PaintApp.data.currentElement.element.style.width = width + 'px';
+      PaintApp.data.currentElement.element.style.height = height + 'px';
     },
 
     onMouseUp: function(event) {
       /* When the user stops clicking we will do a calculation of the selected area */
 
-      var end = event.point;
-      end.y = end.y + 55;
       var width = parseInt(PaintApp.data.currentElement.element.style.width);
       var height = parseInt(PaintApp.data.currentElement.element.style.height);
       var canvas = PaintApp.elements.canvas;
       var ctx = PaintApp.elements.canvas.getContext('2d');
 
-      if (begin.x < end.x && begin.y < end.y) {
+      /* Get the selection position from the element (already normalized in onMouseDrag) */
+      var startX = parseInt(PaintApp.data.currentElement.element.style.left);
+      var startY = parseInt(PaintApp.data.currentElement.element.style.top) - 55;
+
+      if (width > 0 && height > 0) {
         /* We save the whole canvas and then cut the selection corresponding to the floating selection */
         try {
           PaintApp.modes.Paste.data = canvas.toDataURL();
         } catch (e) {
           return;
         }
-        var imgData = ctx.getImageData(begin.x * window.devicePixelRatio, begin.y * window.devicePixelRatio, width * window.devicePixelRatio, height * window.devicePixelRatio);
+        var imgData = ctx.getImageData(startX * window.devicePixelRatio, startY * window.devicePixelRatio, width * window.devicePixelRatio, height * window.devicePixelRatio);
         canvas = document.createElement('canvas');
         canvas.width = width * window.devicePixelRatio;
         canvas.height = height * window.devicePixelRatio;

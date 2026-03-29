@@ -440,7 +440,7 @@ const app = Vue.createApp({
 
     addHintPenalty: function() {
       var vm = this;
-      var valid = document.getElementById('hint-text').innerHTML !== "No Hint";
+      var valid = document.getElementById('hint-text').innerHTML !== vm.l10n.stringNoHint;
       if (valid) {
         vm.noOfHintsUsed[vm.slots[vm.qNo].length] = 1;
       }

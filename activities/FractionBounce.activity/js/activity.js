@@ -685,6 +685,7 @@ let app = new Vue({
 						var dataentry = new datastore.DatastoreObject(entry.objectId);
 						dataentry.loadAsText(function (err, metadata, data) {
 							if (to == 'ball') {
+								vm.ballSrc = data;
 								vm.img.src = data;
 							} else if (to == 'bg') {
 								vm.backgroundSrc = 'url(' + data + ')';

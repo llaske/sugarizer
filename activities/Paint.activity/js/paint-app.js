@@ -27,9 +27,15 @@ define([], function() {
   /* Clear the canvas */
   function clearCanvas() {
     var ctx = PaintApp.elements.canvas.getContext('2d');
+    const worldCanvas=PaintApp.data.worldCanvas
     ctx.fillStyle = "#ffffff"
     ctx.fillRect(0, 0, parseInt(PaintApp.elements.canvas.style.width), parseInt(PaintApp.elements.canvas.style.height));
-    PaintApp.saveCanvas();
+    
+    if(worldCanvas){
+      worldCanvas.getContext('2d').fillStyle = "#ffffff"
+      worldCanvas.getContext('2d').fillRect(0, 0, parseInt(worldCanvas.width), parseInt(worldCanvas.height));
+    }
+      PaintApp.saveCanvas();
   }
 
   /* Trigger undo click, undo using the history */
@@ -41,29 +47,32 @@ define([], function() {
     }
 
     PaintApp.modes.Pen.point = undefined;
+    var worldCanvas = PaintApp.data.worldCanvas;
     var canvas = PaintApp.elements.canvas;
+    var worldCtx = worldCanvas.getContext('2d');
     var ctx = canvas.getContext('2d');
     var img = new Image();
     var imgSrc = PaintApp.data.history.undo[PaintApp.data.history.undo.length - 2];
     var imgSrc2 = PaintApp.data.history.undo[PaintApp.data.history.undo.length - 1];
-
     /* Loading of the image stored in history */
     img.onload = function() {
-      ctx.save();
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-      ctx.restore();
-
+      worldCtx.save();
+      worldCtx.setTransform(1, 0, 0, 1, 0, 0);
+      worldCtx.clearRect(0, 0, worldCanvas.width, worldCanvas.height);
+      worldCtx.drawImage(img, 0, 0);
+      worldCtx.restore();
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.drawImage(worldCanvas,0,0,window.innerWidth,window.innerHeight-55,0,0,window.innerWidth,window.innerHeight-55);
+      ctx.restore()
       /* If the activity is shared, will send the instruction to everyone */
       if (PaintApp.data.isShared) {
         try {
           PaintApp.collaboration.sendMessage({
             action: 'toDataURL',
             data: {
-              width: PaintApp.elements.canvas.width / window.devicePixelRatio,
-              height: PaintApp.elements.canvas.height / window.devicePixelRatio,
-              src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
+              width: worldCanvas.width/ window.devicePixelRatio,
+              height: worldCanvas.height/ window.devicePixelRatio,
+              src: PaintApp.collaboration.compress(worldCanvas.toDataURL())
             }
           });
         } catch (e) {
@@ -73,7 +82,7 @@ define([], function() {
 
     };
     img.src = imgSrc;
-
+    
     PaintApp.data.history.redo.push(imgSrc2);
     PaintApp.data.history.undo.pop();
 
@@ -92,35 +101,39 @@ define([], function() {
     }
 
     PaintApp.modes.Pen.point = undefined;
+    var worldCanvas = PaintApp.data.worldCanvas;
     var canvas = PaintApp.elements.canvas;
-    var ctx = canvas.getContext('2d');
+    var ctx=canvas.getContext('2d');
+    var worldCtx = worldCanvas.getContext('2d');
     var img = new Image();
     var imgSrc = PaintApp.data.history.redo[PaintApp.data.history.redo.length - 1];
 
     /* Loading of the image stored in history */
     img.onload = function() {
-      ctx.save();
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-      ctx.restore();
-
+      worldCtx.save();
+      worldCtx.setTransform(1, 0, 0, 1, 0, 0);
+      worldCtx.clearRect(0, 0, worldCanvas.width, worldCanvas.height);
+      worldCtx.drawImage(img, 0, 0);
+      worldCtx.restore();
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.drawImage(worldCanvas,0,0,window.innerWidth,window.innerHeight-55,0,0,window.innerWidth,window.innerHeight-55);
+      ctx.restore()
       /* If the activity is shared, will send the instruction to everyone */
       if (PaintApp.data.isShared) {
         try {
           PaintApp.collaboration.sendMessage({
             action: 'toDataURL',
             data: {
-              width: PaintApp.elements.canvas.width / window.devicePixelRatio,
-              height: PaintApp.elements.canvas.height / window.devicePixelRatio,
-              src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
+              width: worldCanvas.width / window.devicePixelRatio,
+              height:worldCanvas.height / window.devicePixelRatio,
+              src: PaintApp.collaboration.compress(PaintApp.data.worldCanvas.toDataURL())
             }
           });
         } catch (e) {}
       }
     };
     img.src = imgSrc;
-
+   
     PaintApp.data.history.undo.push(imgSrc);
     PaintApp.data.history.redo.pop();
 
@@ -134,7 +147,6 @@ define([], function() {
   function displayUndoRedoButtons() {
     var notAvailableOpacity = '0.4';
     var availableOpacity = '1';
-
     /* If activity is shared and we are not the host we cannot do undo/redo */
     if (PaintApp.data.isShared && !PaintApp.data.isHost) {
       PaintApp.elements.redoButton.style.opacity = notAvailableOpacity;
@@ -159,8 +171,14 @@ define([], function() {
 
   /* Storing canvas onto history */
   function saveCanvas() {
+
     var canvas = PaintApp.elements.canvas;
+    if(PaintApp.data.worldCanvas)  
+      {canvas=PaintApp.data.worldCanvas
+        canvas.getContext('2d').drawImage(PaintApp.elements.canvas, 0, 0,PaintApp.prevScreenWidth,PaintApp.prevScreenHeight);
+      }
     try {
+      
       var image = canvas.toDataURL();
     } catch (e) {}
 

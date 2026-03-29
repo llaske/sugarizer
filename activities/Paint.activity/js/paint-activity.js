@@ -42,9 +42,37 @@ function initGui() {
 
   /* Scrolling top prevent any overflow */
   window.scrollTo(0, -1000);
-
   PaintApp.clearCanvas();
+
+  
+  /* Created a World Canvas As Big As the screen to Keep track of Drawings outside the Window When Resized*/
+  PaintApp.prevScreenWidth=parseInt(window.innerWidth);
+  PaintApp.prevScreenHeight=parseInt(window.innerHeight) - 55;
+
+  const worldCanvas = document.createElement('canvas');
+  worldCanvas.width = screen.width
+  worldCanvas.height = screen.height
+  PaintApp.data.worldCanvas = worldCanvas;
+
 }
+
+/* The initial drawing is transferred to a world canvas, from which only the visible portion is rendered onto the main canvas. */
+function canvasResize() {
+  const canvas=PaintApp.elements.canvas
+  const worldCanvas=PaintApp.data.worldCanvas
+  const newWidth = parseInt(window.innerWidth);
+  const newHeight = parseInt(window.innerHeight) - 55;
+  worldCanvas.getContext('2d').drawImage(canvas, 0, 0,PaintApp.prevScreenWidth,PaintApp.prevScreenHeight);
+  paper.view.viewSize = new paper.Size(newWidth, newHeight);
+  PaintApp.prevScreenHeight = parseInt(window.innerHeight) - 55;
+  PaintApp.prevScreenWidth = parseInt(window.innerWidth);
+  canvas.style.width = newWidth+"px";
+  canvas.style.height = newHeight+"px";
+     PaintApp.elements.canvas.width=newWidth;
+   PaintApp.elements.canvas.height=newHeight;
+   PaintApp.elements.canvas.getContext('2d').drawImage(worldCanvas,0,0,newWidth,newHeight,0,0,newWidth,newHeight);
+}
+window.addEventListener("resize", canvasResize);
 
 /* Initialization of the presence palette */
 function initPresencePalette() {

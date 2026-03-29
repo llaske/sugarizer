@@ -86,7 +86,7 @@ define([], function() {
       if (PaintApp.modes.Bucket.lock) {
         return;
       }
-      var ctx = PaintApp.elements.canvas.getContext('2d');
+      var ctx = PaintApp.data.worldCanvas.getContext('2d');
 
       /* Transformation of the color used inside the palette to match with the bucket fill functions prototypes */
       var colorFillStrings = PaintApp.data.color.fill.slice(4, -1).split(',');
@@ -119,7 +119,7 @@ define([], function() {
       }
       /* Proceed with the bucket fill */
       floodfill(parseInt(event.point.x * window.devicePixelRatio), parseInt(event.point.y * window.devicePixelRatio), fillColor, ctx, ctx.canvas.width, ctx.canvas.height, 5);
-
+       PaintApp.elements.canvas.getContext('2d').drawImage(PaintApp.data.worldCanvas,0,0,window.innerWidth,window.innerHeight-55,0,0,window.innerWidth,window.innerHeight-55);
 
       PaintApp.saveCanvas();
       PaintApp.modes.Bucket.lock = false;
@@ -130,9 +130,9 @@ define([], function() {
           PaintApp.collaboration.sendMessage({
             action: 'toDataURL',
             data: {
-              width: PaintApp.elements.canvas.width / window.devicePixelRatio,
-              height: PaintApp.elements.canvas.height / window.devicePixelRatio,
-              src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
+              width: PaintApp.data.worldCanvas.width / window.devicePixelRatio,
+              height: PaintApp.data.worldCanvas.height / window.devicePixelRatio,
+              src: PaintApp.collaboration.compress(PaintApp.data.worldCanvas.toDataURL())
             }
           })
         } catch (e) {}

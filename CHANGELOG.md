@@ -34,6 +34,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fototoon don't handle window resize #559
 - Bug in Flip Activity when resize an ended game #1956
 - Inconsistent degree trigonometric evaluation in Calculate activity #1964
+- Paint canvas does not resize when window size changes #1944
+- Eraser tool sends incorrect coordinates in shared sessions #2022
+- Saved Chess game fails to restore difficulty setting #2040
+- Globes not displayed when exporting a single image in fototoon #2020
+- Snake spawning too close to the frog in the FoodChain Activity #2023
+- Paint Activity: Copy tool only works when dragging top-left to bottom-right #2049
+- Fototoon "Clean All" leaves image data in storage while clearing the UI #2051
+- Snakes clipping when having nowhere to go in FoodChain activity #2050
+- Player icon disappears on window resize in Maze activity #2056
+- Tangram Activity: Missing break statement in evaluation.js causes case 5 to always return 0 #2057
+- Fullscreen Reset Bug in FractionBounce Causes Ball Selection Loss & Bounce Glitch #2060
+- MindMath: Non-English Users Get Unfair Hint Penalty When No Hint Available #2070
+- TankOp: Enemy Tanks Move 2 Positions Per Turn Instead of 1 #2078
 
 ## [1.9.0] - 2025-03-25
 ### Added

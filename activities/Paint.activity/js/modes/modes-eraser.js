@@ -71,9 +71,11 @@ define([], function() {
             lineWidth: PaintApp.data.size,
             lineCap: 'round',
             strokeStyle: '#fff',
+            /*Use the previously tracked eraser position instead of the current point,
+             so collaborators receive correctly connected stroke segments */
             from: {
-              x: event.point.x + 1,
-              y: event.point.y + 1
+              x: PaintApp.modes.Eraser.point.x,
+              y: PaintApp.modes.Eraser.point.y
             },
             to: {
               x: event.point.x,

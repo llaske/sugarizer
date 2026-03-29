@@ -71,7 +71,7 @@ var app = new Vue({
               vm.$refs.chessgame.game_check = data.game_check;
 
               vm.$refs.chessgame.level = data.level;
-              document.getElementById("compLevelValue").value = (this.level-1) * 25;
+              document.getElementById("compLevelValue").value = (data.level-1) * 25;
 
               vm.$refs.chessgame.state = Object.assign(vm.$refs.chessgame.state, data.state);
               vm.$refs.chessgame.board.position(p4_state2fen(vm.$refs.chessgame.state, true));
