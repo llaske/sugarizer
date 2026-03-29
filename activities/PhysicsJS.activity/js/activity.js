@@ -921,7 +921,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 			// Change gravity value
 			function setGravity(value) {
-				if ( gravityMode == value ) return;
+				if (gravityMode == value) return;
 				var acc = {};
 				switch(value) {
 				case 0:
