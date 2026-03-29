@@ -31,7 +31,7 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             localStorage.clear();
 
             var onLoaded = function (error, metadata, jsonData) {
-                var data = JSON.parse(jsonData);
+                var data = JSON.parse(jsonData || "{}");
                 for (var i in data) {
                     localStorage[i] = data[i];
                 }
