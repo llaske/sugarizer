@@ -44,6 +44,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Snakes clipping when having nowhere to go in FoodChain activity #2050
 - Player icon disappears on window resize in Maze activity #2056
 - Tangram Activity: Missing break statement in evaluation.js causes case 5 to always return 0 #2057
+- Fullscreen Reset Bug in FractionBounce Causes Ball Selection Loss & Bounce Glitch #2060
 
 ## [1.9.0] - 2025-03-25
 ### Added
