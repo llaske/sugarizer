@@ -53,7 +53,6 @@ let app = new Vue({
 		backgroundSize: 'cover',
 		canvasWidth: 0,
 		canvasHeight: 0,
-
 		l10n: {
 			stringFractionBounceActivity: '',
 			stringTemplate: '',
@@ -158,7 +157,6 @@ let app = new Vue({
 		},
 		backgroundSize: function (newVal) {
 			document.body.style.backgroundSize = newVal;
-
 		}
 	},
 
@@ -226,7 +224,7 @@ let app = new Vue({
 				this.cx = mainCanvas.width / 2;
 				this.cy = this.calcY(mainCanvas.width / 2) - this.radius;
 			}
-
+			
 			// Initializing the slope
 			this.$refs.slopecanvas.initSlope();
 
