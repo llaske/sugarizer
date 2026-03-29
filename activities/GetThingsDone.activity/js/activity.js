@@ -99,7 +99,15 @@ define(["sugar-web/activity/activity","l10n","sugar-web/datastore","activity/mod
         todo = new Todo();
         var datastoreObject = activity.getDatastoreObject();
         function onLoaded(error, metadata, data) {
-            todo.controller.loadItems(JSON.parse(data));
+            let parsed = [];
+
+            try {
+                parsed = data ? JSON.parse(data) : [];
+            } catch (e) {
+                console.warn("Invalid JSON data:", e);
+            }
+
+            todo.controller.loadItems(parsed);
         }
         datastoreObject.loadAsText(onLoaded);
         var input = document.getElementById("new-todo");
