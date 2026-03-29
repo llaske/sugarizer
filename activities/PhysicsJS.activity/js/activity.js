@@ -803,6 +803,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					,watermode: watermode
 					,newtonMode: newtonMode
 					,gravityMode : gravityMode
+					
 				});
 				datastoreObject.setDataAsText(jsonData);
 				datastoreObject.save(callback);
@@ -866,6 +867,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						gravityButton.disabled = true;
 					}
 					
+					data.gravityMode = data.gravityMode == undefined ? 0 : data.gravityMode
 					setGravity(data.gravityMode)
 					
 				});
