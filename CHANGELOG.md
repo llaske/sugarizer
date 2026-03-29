@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Player icon disappears on window resize in Maze activity #2056
 - Tangram Activity: Missing break statement in evaluation.js causes case 5 to always return 0 #2057
 - Fullscreen Reset Bug in FractionBounce Causes Ball Selection Loss & Bounce Glitch #2060
+- MindMath: Non-English Users Get Unfair Hint Penalty When No Hint Available #2070
 
 ## [1.9.0] - 2025-03-25
 ### Added
