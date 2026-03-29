@@ -48,6 +48,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - MindMath: Non-English Users Get Unfair Hint Penalty When No Hint Available #2070
 - TankOp: Enemy Tanks Move 2 Positions Per Turn Instead of 1 #2078
 - In Fraction activity user changes are not saved for ball and background #2068
+- Curriculum Activity: blank white screen due to TypeError when entering achievements page #2073
 
 ## [1.9.0] - 2025-03-25
 ### Added
