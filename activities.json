@@ -1,5 +1,14 @@
 [
 	{"id": "org.sugarlabs.3DVolume", "name": "3D Volume", "version": 1, "directory": "activities/3DVolume.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{
+    "id": "org.sugarizer.ConnectTheDots",
+    "name": "Connect The Dots",
+    "directory": "activities/ConnectTheDots.activity",
+    "icon": "activity/activity-icon.svg",
+    "favorite": true,
+    "user_can_list": true,
+    "colorized": true
+},
 	{"id": "org.olpcfrance.XmasLights", "name": "Xmas Lights", "version": 1, "directory": "activities/XmasLights.activity", "icon": "activity/activity-icon.svg", "favorite": false, "activityId": null},
 	{"id": "org.olpcfrance.DollarStreet", "name": "Dollar Street", "version": 1, "directory": "activities/DollarStreet.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Tangram", "name": "Tangram", "version": 1, "directory": "activities/Tangram.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},

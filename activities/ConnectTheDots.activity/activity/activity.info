@@ -1,0 +1,6 @@
+[Activity]
+name = Connect The Dots
+activity_version = 1
+bundle_id = org.sugarizer.ConnectTheDots
+exec = sugar-directory-index
+icon = activity-icon

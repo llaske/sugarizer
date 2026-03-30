@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Connect The Dots</title>
+    <link rel="stylesheet" href="css/activity.css">
+</head>
+<body>
+   <div id="main-toolbar" class="toolbar">
+    <div class="group">
+        <button class="toolbutton" id="activity-button"></button>
+        <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    </div>
+</div>
+
+<div id="canvas-container" style="display: flex; flex-direction: column; align-items: center; margin-top: 50px;">
+    <h1 class="neon-text">Connect the Dots</h1>
+    <canvas id="gameCanvas"></canvas>
+</div>
+
+<script src="../../lib/require.js"></script>
+<script>
+    requirejs.config({
+        baseUrl: "../../lib",
+        paths: {
+            activity: "../activities/ConnectTheDots.activity/js/activity"
+        }
+    });
+    requirejs(["activity"]);
+</script>
+</body>
+</html>
