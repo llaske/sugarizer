@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - TankOp: Enemy Tanks Move 2 Positions Per Turn Instead of 1 #2078
 - In Fraction activity user changes are not saved for ball and background #2068
 - Curriculum Activity: blank white screen due to TypeError when entering achievements page #2073
+- PhysicsJS newton/gravity settings are not saved after leaving #2072
 
 ## [1.9.0] - 2025-03-25
 ### Added
