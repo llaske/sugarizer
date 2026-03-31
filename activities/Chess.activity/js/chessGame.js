@@ -428,11 +428,11 @@ var ChessGame = {
           var min_time = 25 * depth;
           while (delta < min_time) {
             depth++;
-            possibleMove = state.findmove(depth);
+            possibleMove = this.state.findmove(depth);
             delta = Date.now() - start_time;
           }
         }
-        if (possibleMove.length === 0 && flags & 2) {
+        if (possibleMove.length === 0 && move.flags & 2) {
           this.game_won = true;
           return;
         }
