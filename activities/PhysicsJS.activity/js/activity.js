@@ -801,6 +801,9 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				var jsonData = JSON.stringify({
 					world: objects
 					,watermode: watermode
+					,newtonMode: newtonMode
+					,gravityMode : gravityMode
+					
 				});
 				datastoreObject.setDataAsText(jsonData);
 				datastoreObject.save(callback);
@@ -851,12 +854,22 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						WATER.updateBoundary();
 						waterButton.classList.add('active');
 						gravityButton.disabled = false;
-					} else {
-						watermode = false;
+					} else if (!data.watermode && data.newtonMode){
+						newtonMode = true
+						world.remove(gravity);
+						world.remove(waterBehavior);
 						WATER.enabled = false;
-						document.getElementById('viewport').classList.remove('water-mode');
+						watermode = false; 
 						waterButton.classList.remove('active');
+						document.getElementById('viewport').classList.remove('water-mode');
+						world.add(newton);
+						appleButton.classList.add('active');
+						gravityButton.disabled = true;
 					}
+					
+					data.gravityMode = data.gravityMode == undefined ? 0 : data.gravityMode
+					setGravity(data.gravityMode)
+					
 				});
 			}
 
