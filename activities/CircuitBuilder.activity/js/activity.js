@@ -11,6 +11,7 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
         var components = [];
         var wires = [];
         var switchStates = {};
+        var batteryVoltages = {}; // Store voltage per battery (1-10V)
         var nextId = 1;
         var currentTool = 'select';
         var terminals = [];
@@ -20,7 +21,7 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
         var hoverTerminal = null;
         var mousePos = { x: 0, y: 0 };
         var sparkParticles = [];
-
+        var showLabels = false; // Show V and I labels
         // Component dragging
         var isDraggingComponent = false;
         var dragComp = null;
@@ -75,6 +76,9 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             if (type === COMP.SWITCH) {
                 switchStates[id] = false;
             }
+            if (type === COMP.BATTERY) {
+                batteryVoltages[id] = 10; // Default 9V
+            }
             recalcTerminals();
             addSparks(fracX * canvas.width, fracY * canvas.height);
             return comp;
@@ -86,6 +90,7 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             });
             components = components.filter(function (c) { return c.id !== compId; });
             delete switchStates[compId];
+            delete batteryVoltages[compId];
             recalcTerminals();
         }
 
@@ -114,6 +119,7 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             components = [];
             wires = [];
             switchStates = {};
+            batteryVoltages = {};
             terminals = [];
             sparkParticles = [];
             selectedTerminalId = null;
@@ -246,7 +252,7 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
                 if (comp.type !== COMP.BULB) return;
                 var aId = comp.id + '_a';
                 var bId = comp.id + '_b';
-                states[comp.id] = false;
+                states[comp.id] = { isOn: false, voltage: 0 };
 
                 for (var b = 0; b < batteries.length; b++) {
                     var bat = batteries[b];
@@ -254,7 +260,8 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
                     var negId = bat.id + '_neg';
                     var reachFromPos = bfsReachable(adj, posId);
                     if (reachFromPos[aId] && reachFromPos[bId] && reachFromPos[negId]) {
-                        states[comp.id] = true;
+                        var voltage = batteryVoltages[bat.id] || 9;
+                        states[comp.id] = { isOn: true, voltage: voltage };
                         break;
                     }
                 }
@@ -338,25 +345,48 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             ctx.fillText('\u2212', cx, cy + h * 0.22);
         }
 
-        function drawBulb(comp, size, isOn) {
+        function drawBulb(comp, size, isOn, voltage) {
             var cx = comp.x * canvas.width;
             var cy = comp.y * canvas.height;
             var radius = size * 0.9;
 
-            // Glow
-            if (isOn) {
-                var grad = ctx.createRadialGradient(cx, cy - size * 0.3, 0, cx, cy - size * 0.3, radius * 2.5);
-                grad.addColorStop(0, 'rgba(255,255,150,0.5)');
-                grad.addColorStop(0.5, 'rgba(255,255,100,0.15)');
-                grad.addColorStop(1, 'rgba(255,255,100,0)');
+            // Calculate brightness based on voltage (1-10V)
+            // Make the difference much more dramatic
+            var brightness = isOn ? (voltage || 9) / 10 : 0;
+
+            // Glow - much more dramatic difference
+            if (isOn && brightness > 0) {
+                // Glow size: tiny at 1V, huge at 10V
+                var glowSize = radius * (1.0 + brightness * 2.5);
+                // Glow alpha: barely visible at 1V, very bright at 10V
+                var glowAlpha = brightness * brightness * 0.7; // Exponential for more drama
+
+                var grad = ctx.createRadialGradient(cx, cy - size * 0.3, 0, cx, cy - size * 0.3, glowSize);
+
+                // Color: dim red-orange at low V, bright white-yellow at high V
+                var r = 255;
+                var g = Math.floor(150 + brightness * 105); // 150-255
+                var b = Math.floor(brightness * brightness * 200); // 0-200, exponential
+
+                grad.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + glowAlpha + ')');
+                grad.addColorStop(0.4, 'rgba(' + r + ',' + g + ',' + b + ',' + (glowAlpha * 0.4) + ')');
+                grad.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
                 ctx.fillStyle = grad;
                 ctx.beginPath();
-                ctx.arc(cx, cy - size * 0.3, radius * 2.5, 0, Math.PI * 2);
+                ctx.arc(cx, cy - size * 0.3, glowSize, 0, Math.PI * 2);
                 ctx.fill();
             }
 
-            // Glass
-            ctx.fillStyle = isOn ? COLORS.bulbGlassOn : COLORS.bulbGlass;
+            // Glass bulb - color changes dramatically with voltage
+            if (isOn && brightness > 0) {
+                // Low voltage: dim orange, High voltage: bright white-yellow
+                var glassR = 255;
+                var glassG = Math.floor(120 + brightness * 135); // 120-255
+                var glassB = Math.floor(brightness * brightness * 180); // 0-180
+                ctx.fillStyle = 'rgb(' + glassR + ',' + glassG + ',' + glassB + ')';
+            } else {
+                ctx.fillStyle = COLORS.bulbGlass;
+            }
             ctx.strokeStyle = '#888888';
             ctx.lineWidth = 2;
             ctx.beginPath();
@@ -364,9 +394,18 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             ctx.fill();
             ctx.stroke();
 
-            // Filament
-            ctx.strokeStyle = isOn ? COLORS.bulbFilamentOn : COLORS.bulbFilament;
-            ctx.lineWidth = isOn ? 2.5 : 1.5;
+            // Filament - glows much more dramatically
+            if (isOn && brightness > 0) {
+                // Low voltage: dark red, High voltage: bright white
+                var filR = 255;
+                var filG = Math.floor(50 + brightness * 200); // 50-250
+                var filB = Math.floor(brightness * brightness * 150); // 0-150
+                ctx.strokeStyle = 'rgb(' + filR + ',' + filG + ',' + filB + ')';
+                ctx.lineWidth = 1.5 + brightness * 2.5; // Thicker at high voltage
+            } else {
+                ctx.strokeStyle = COLORS.bulbFilament;
+                ctx.lineWidth = 1.5;
+            }
             ctx.beginPath();
             ctx.moveTo(cx - radius * 0.35, cy + radius * 0.1);
             ctx.lineTo(cx, cy - radius * 0.5);
@@ -433,6 +472,90 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(isOn ? 'ON' : 'OFF', cx, cy + h * 0.9);
+        }
+
+        function drawVoltageLabel(comp, size) {
+            var cx = comp.x * canvas.width;
+            var cy = comp.y * canvas.height;
+            var voltage = batteryVoltages[comp.id] || 9;
+
+            // Simple badge next to battery
+            var badgeX = cx + size * 2;
+            var badgeY = cy;
+            var badgeSize = size * 0.8;
+
+            // Badge background
+            ctx.fillStyle = '#4ECDC4';
+            ctx.beginPath();
+            ctx.arc(badgeX, badgeY, badgeSize, 0, Math.PI * 2);
+            ctx.fill();
+
+            // White border
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Voltage text
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold ' + (badgeSize * 1.0) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(voltage + 'V', badgeX, badgeY);
+        }
+
+        function drawCurrentLabel(fromT, toT, isActive) {
+            if (!isActive) return;
+
+            // Calculate midpoint of wire
+            var mx = (fromT.x + toT.x) / 2;
+            var my = (fromT.y + toT.y) / 2;
+            var labelSize = Math.min(canvas.width, canvas.height) * 0.025;
+
+            // Draw playful bubble for I
+            ctx.fillStyle = '#4ECDC4';
+            ctx.beginPath();
+            ctx.arc(mx, my - labelSize * 1.5, labelSize, 0, Math.PI * 2);
+            ctx.fill();
+
+            // White border
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // I text
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold ' + (labelSize * 1.2) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('I', mx, my - labelSize * 1.5);
+
+            // Draw animated current flow arrows - SLOWER speed
+            var time = Date.now() * 0.0008; // Much slower (was 0.003)
+            var dx = toT.x - fromT.x;
+            var dy = toT.y - fromT.y;
+            var len = Math.sqrt(dx * dx + dy * dy);
+            if (len === 0) return;
+
+            // Normalize direction
+            var ndx = dx / len;
+            var ndy = dy / len;
+
+            // Draw small arrows along the wire
+            var arrowCount = 3;
+            for (var i = 0; i < arrowCount; i++) {
+                var offset = ((time + i * 0.33) % 1);
+                var ax = fromT.x + dx * offset;
+                var ay = fromT.y + dy * offset;
+
+                // Arrow head
+                ctx.fillStyle = '#FFE66D';
+                ctx.beginPath();
+                ctx.moveTo(ax + ndx * 6, ay + ndy * 6);
+                ctx.lineTo(ax - ndx * 3 - ndy * 4, ay - ndy * 3 + ndx * 4);
+                ctx.lineTo(ax - ndx * 3 + ndy * 4, ay - ndy * 3 - ndx * 4);
+                ctx.closePath();
+                ctx.fill();
+            }
         }
 
         function drawTerminal(t, isHover, isActive) {
@@ -698,6 +821,148 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             clearAll();
         });
 
+        // Show/hide V & I labels button
+        var showLabelsButton = document.getElementById('show-labels-button');
+        showLabelsButton.addEventListener('click', function () {
+            showLabels = !showLabels;
+            if (showLabels) {
+                showLabelsButton.classList.add('active');
+            } else {
+                showLabelsButton.classList.remove('active');
+                hideVoltageControl();
+            }
+        });
+
+        // Voltage control popup - Matching Sugar UI style
+        var voltageControlPopup = document.createElement('div');
+        voltageControlPopup.id = 'voltage-control';
+        voltageControlPopup.style.cssText = 'display:none;position:fixed;z-index:99999;background:#333;border:2px solid #555;border-radius:8px;padding:12px;box-shadow:0 4px 16px rgba(0,0,0,0.4);text-align:center;';
+
+        // Stop clicks inside popup from propagating
+        voltageControlPopup.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+        voltageControlPopup.addEventListener('mousedown', function (e) {
+            e.stopPropagation();
+        });
+        voltageControlPopup.addEventListener('touchstart', function (e) {
+            e.stopPropagation();
+        });
+
+        // Title
+        var voltageHeader = document.createElement('div');
+        voltageHeader.style.cssText = 'color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #555;';
+        voltageHeader.textContent = 'Set Voltage';
+        voltageControlPopup.appendChild(voltageHeader);
+
+        var voltageButtonsContainer = document.createElement('div');
+        voltageButtonsContainer.style.cssText = 'display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px;';
+
+        var selectedBatteryId = null;
+
+        for (var v = 1; v <= 10; v++) {
+            (function (voltage) {
+                var btn = document.createElement('div');
+                btn.textContent = voltage + 'V';
+                btn.className = 'voltage-btn';
+                btn.setAttribute('data-voltage', voltage);
+                btn.style.cssText = 'padding:8px 4px;background:#444;border-radius:4px;color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:13px;cursor:pointer;transition:background 0.15s;text-align:center;';
+
+                btn.onmouseenter = function () {
+                    if (btn.getAttribute('data-selected') !== 'true') {
+                        btn.style.background = 'rgba(255,255,255,0.15)';
+                    }
+                };
+                btn.onmouseleave = function () {
+                    if (btn.getAttribute('data-selected') !== 'true') {
+                        btn.style.background = '#444';
+                    }
+                };
+                btn.onclick = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (selectedBatteryId) {
+                        batteryVoltages[selectedBatteryId] = voltage;
+                        var comp = components.find(function (c) { return c.id === selectedBatteryId; });
+                        if (comp) {
+                            addSparks(comp.x * canvas.width, comp.y * canvas.height);
+                        }
+                        updateVoltageButtonHighlights(voltage);
+                    }
+                };
+                voltageButtonsContainer.appendChild(btn);
+            })(v);
+        }
+        voltageControlPopup.appendChild(voltageButtonsContainer);
+
+        // Brightness hint - simple text
+        var brightnessHint = document.createElement('div');
+        brightnessHint.style.cssText = 'color:#888;font-family:Helvetica,Arial,sans-serif;font-size:11px;margin-bottom:10px;';
+        brightnessHint.textContent = '1V = Dim, 10V = Bright';
+        voltageControlPopup.appendChild(brightnessHint);
+
+        // Done button - matching Sugar style
+        var closeBtn = document.createElement('div');
+        closeBtn.textContent = 'Done';
+        closeBtn.style.cssText = 'padding:8px 16px;background:#444;border-radius:4px;color:#fff;font-family:Helvetica,Arial,sans-serif;font-size:13px;cursor:pointer;transition:background 0.15s;';
+        closeBtn.onmouseenter = function () { closeBtn.style.background = 'rgba(255,255,255,0.15)'; };
+        closeBtn.onmouseleave = function () { closeBtn.style.background = '#444'; };
+        closeBtn.onclick = function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            hideVoltageControl();
+        };
+        voltageControlPopup.appendChild(closeBtn);
+
+        document.body.appendChild(voltageControlPopup);
+
+        function updateVoltageButtonHighlights(selectedVoltage) {
+            var buttons = voltageButtonsContainer.querySelectorAll('div');
+            buttons.forEach(function (btn, idx) {
+                var v = idx + 1;
+                if (v === selectedVoltage) {
+                    btn.style.background = '#4ECDC4';
+                    btn.style.color = '#fff';
+                    btn.setAttribute('data-selected', 'true');
+                } else {
+                    btn.style.background = '#444';
+                    btn.style.color = '#fff';
+                    btn.setAttribute('data-selected', 'false');
+                }
+            });
+        }
+
+        function showVoltageControl(batteryId, screenX, screenY) {
+            selectedBatteryId = batteryId;
+            var currentVoltage = batteryVoltages[batteryId] || 9;
+
+            // Update button highlights
+            updateVoltageButtonHighlights(currentVoltage);
+
+            // Position popup
+            var popupWidth = 220;
+            var popupHeight = 180;
+            var x = Math.max(20, Math.min(screenX - popupWidth / 2, window.innerWidth - popupWidth - 20));
+            var y = Math.max(80, Math.min(screenY + 20, window.innerHeight - popupHeight - 20));
+            voltageControlPopup.style.left = x + 'px';
+            voltageControlPopup.style.top = y + 'px';
+            voltageControlPopup.style.display = 'block';
+        }
+
+        function hideVoltageControl() {
+            voltageControlPopup.style.display = 'none';
+            selectedBatteryId = null;
+        }
+
+        // Only hide when clicking outside the popup and canvas
+        document.addEventListener('mousedown', function (e) {
+            if (voltageControlPopup.style.display === 'block' &&
+                !voltageControlPopup.contains(e.target) &&
+                e.target !== canvas) {
+                hideVoltageControl();
+            }
+        });
+
         // Preset circuits palette
         var presetCircuits = {
             'simple-loop': {
@@ -808,6 +1073,12 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             wires = JSON.parse(JSON.stringify(data.wires));
             switchStates = JSON.parse(JSON.stringify(data.switchStates));
             nextId = data.nextId;
+            // Initialize battery voltages for preset
+            components.forEach(function (comp) {
+                if (comp.type === COMP.BATTERY) {
+                    batteryVoltages[comp.id] = 9; // Default 9V for presets
+                }
+            });
             recalcTerminals();
         }
 
@@ -915,6 +1186,14 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             // SELECT MODE - check component for dragging
             var comp = findComponentAt(pos.x, pos.y);
             if (comp) {
+                // Show voltage control for battery when labels are on
+                if (showLabels && comp.type === COMP.BATTERY) {
+                    var rect = canvas.getBoundingClientRect();
+                    var screenX = rect.left + (pos.x / canvas.width) * rect.width;
+                    var screenY = rect.top + (pos.y / canvas.height) * rect.height;
+                    showVoltageControl(comp.id, screenX, screenY);
+                    return;
+                }
                 isDraggingComponent = true;
                 dragComp = comp;
                 dragOffset.x = pos.x - comp.x * canvas.width;
@@ -1083,9 +1362,39 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
             // Draw components
             components.forEach(function (comp) {
                 if (comp.type === COMP.BATTERY) drawBattery(comp, size);
-                else if (comp.type === COMP.BULB) drawBulb(comp, size, !!bulbStates[comp.id]);
+                else if (comp.type === COMP.BULB) {
+                    var state = bulbStates[comp.id] || { isOn: false, voltage: 0 };
+                    drawBulb(comp, size, state.isOn, state.voltage);
+                }
                 else if (comp.type === COMP.SWITCH) drawSwitch(comp, size);
             });
+
+            // Draw V and I labels when enabled
+            if (showLabels) {
+                // Draw V labels on batteries
+                components.forEach(function (comp) {
+                    if (comp.type === COMP.BATTERY) {
+                        drawVoltageLabel(comp, size);
+                    }
+                });
+
+                // Draw I labels on active wires
+                wires.forEach(function (w) {
+                    var fromT = findTerminal(w.from);
+                    var toT = findTerminal(w.to);
+                    if (fromT && toT) {
+                        var isActive = false;
+                        for (var b = 0; b < batteries.length; b++) {
+                            var reach = bfsReachable(adj, batteries[b].id + '_pos');
+                            if (reach[batteries[b].id + '_neg'] && reach[w.from] && reach[w.to]) {
+                                isActive = true;
+                                break;
+                            }
+                        }
+                        drawCurrentLabel(fromT, toT, isActive);
+                    }
+                });
+            }
 
             // Draw delete highlights
             if (currentTool === 'delete') {
@@ -1126,7 +1435,14 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
                             if (state.components) components = state.components;
                             if (state.wires) wires = state.wires;
                             if (state.switchStates) switchStates = state.switchStates;
+                            if (state.batteryVoltages) batteryVoltages = state.batteryVoltages;
                             if (state.nextId) nextId = state.nextId;
+                            if (state.showLabels !== undefined) {
+                                showLabels = state.showLabels;
+                                if (showLabels) {
+                                    showLabelsButton.classList.add('active');
+                                }
+                            }
                             recalcTerminals();
                         } catch (e) {
                             console.log('[CircuitBuilder] Error loading state:', e);
@@ -1140,7 +1456,9 @@ define(["sugar-web/activity/activity", "sugar-web/env"], function (activity, env
                     components: components,
                     wires: wires,
                     switchStates: switchStates,
-                    nextId: nextId
+                    batteryVoltages: batteryVoltages,
+                    nextId: nextId,
+                    showLabels: showLabels
                 };
                 var jsonData = JSON.stringify(state);
                 activity.getDatastoreObject().setDataAsText(jsonData);

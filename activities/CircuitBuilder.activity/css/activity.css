@@ -32,6 +32,10 @@
   background-image: url(../icons/preset-circuits.svg);
 }
 
+#main-toolbar #show-labels-button {
+  background-image: url(../icons/show-labels.svg);
+}
+
 #fullscreen-button {
   background-image: url(../icons/view-fullscreen.svg);
 }
