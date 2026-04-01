@@ -145,7 +145,7 @@ var DatasetList = {
       },
       actionButtons: {
         width: 30,
-        width: 30,
+        height: 30,
       },
       totalScore: 0,
       puzzlesSet: [],

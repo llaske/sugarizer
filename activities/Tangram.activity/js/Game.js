@@ -221,7 +221,7 @@ var Game = {
       },
       actionButtons: {
         width: 30,
-        width: 30,
+        height: 30,
       },
       tans: [],
       tanState: 0,
