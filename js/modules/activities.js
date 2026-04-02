@@ -3,6 +3,7 @@ define(["sugar-web/datastore"], function (datastore) {
 	var activities = {};
 
 	var list = [];
+	var serverActivityIds = null;
 
 	var genericActivity = {directory: "icons", icon: "application-x-generic.svg"};
 
@@ -10,11 +11,26 @@ define(["sugar-web/datastore"], function (datastore) {
 		staticInitActivitiesURL: "activities.json",
 	};
 
+	var updateServerActivityIds = function(newlist) {
+		if (newlist === undefined || newlist == null) {
+			serverActivityIds = null;
+			return;
+		}
+		serverActivityIds = {};
+		for (var i = 0 ; i < newlist.length ; i++) {
+			serverActivityIds[newlist[i].id] = true;
+		}
+	};
+
 	// Update activity list
-	var updateList = function(newlist) {
+	var updateList = function(newlist, removeMissing) {
 		// Nothing to do
 		if (newlist === undefined || newlist == null) {
 			return false;
+		}
+
+		if (removeMissing === undefined) {
+			removeMissing = true;
 		}
 
 		// Empty list, just set it
@@ -48,7 +64,7 @@ define(["sugar-web/datastore"], function (datastore) {
 		}
 
 		// Some activities disappeared, remove it
-		if (seen != list.length) {
+		if (removeMissing && seen != list.length) {
 			updated = true;
 			var newactivities = [];
 			for (var i = 0 ; i < list.length ; i++) {
@@ -88,20 +104,30 @@ define(["sugar-web/datastore"], function (datastore) {
 		// Get activities list from server
 		if (sugarizer.getClientType() == sugarizer.constant.webAppType || sugarizer.modules.user.isConnected()) {
 			return new Promise(function(resolve, reject) {
-				sugarizer.modules.server.getActivities(sugarizer.modules.user.getServerURL()).then(function(response) {
-					updateList(response);
-					updateSugarizerOS(function() {
-						resolve(list);
-					});
-				}, function(error) {
-					// Error on server, try to load it locally
-					axios.get(constant.staticInitActivitiesURL).then(function(response) {
-						updateList(response.data);
+				axios.get(constant.staticInitActivitiesURL).then(function(localResponse) {
+					updateServerActivityIds(null);
+					updateList(localResponse.data, true);
+					sugarizer.modules.server.getActivities(sugarizer.modules.user.getServerURL()).then(function(serverResponse) {
+						updateServerActivityIds(serverResponse);
+						updateList(serverResponse, false);
 						updateSugarizerOS(function() {
 							resolve(list);
 						});
-					}).catch(function(error) {
-						reject(error);
+					}, function() {
+						updateServerActivityIds(null);
+						updateSugarizerOS(function() {
+							resolve(list);
+						});
+					});
+				}).catch(function(localError) {
+					sugarizer.modules.server.getActivities(sugarizer.modules.user.getServerURL()).then(function(serverResponse) {
+						updateServerActivityIds(serverResponse);
+						updateList(serverResponse, true);
+						updateSugarizerOS(function() {
+							resolve(list);
+						});
+					}, function(error) {
+						reject(error || localError);
 					});
 				});
 			});
@@ -110,6 +136,7 @@ define(["sugar-web/datastore"], function (datastore) {
 		// Get activities list from local file
 		return new Promise(function(resolve, reject) {
 			axios.get(constant.staticInitActivitiesURL).then(function(response) {
+				updateServerActivityIds(null);
 				updateList(response.data);
 				updateSugarizerOS(function() {
 					resolve(list);
@@ -181,7 +208,11 @@ define(["sugar-web/datastore"], function (datastore) {
 			return;
 		}
 		for (var i = 0 ; i < list.length ; i++) {
-			list[i].favorite = (favorites.indexOf(list[i].id) != -1);
+			if (favorites.indexOf(list[i].id) != -1) {
+				list[i].favorite = true;
+			} else if (!serverActivityIds || serverActivityIds[list[i].id]) {
+				list[i].favorite = false;
+			}
 		}
 	}
 
