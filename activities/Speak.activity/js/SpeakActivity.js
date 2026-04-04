@@ -72,9 +72,12 @@ define(["sugar-web/graphics/palette","sugar-web/env","l10n","sugar-web/datastore
 				document.captureEvents(Event.MOUSEMOVE)
 			}
 			var FPS = 30;
-			setInterval(function() {
+			var canvasInterval = setInterval(function() {
 			  updateCanvas();
 			}, 1000/FPS);
+			document.getElementById("stop-button").addEventListener('click', function() {
+				clearInterval(canvasInterval);
+			});
 			window.addEventListener('localized', function() {
 				if (first) {
 					l10n.init(sugarSettings.language);
