@@ -63,16 +63,16 @@ function LoadFile(event, file) {
 		var text = json
 			? data
 			: "data:" +
-			  fileProperty.type +
-			  ";base64," +
-			  data.toString("base64");
+			fileProperty.type +
+			";base64," +
+			data.toString("base64");
 		event.sender.send("choose-files-reply", fileProperty, err, text);
 	});
 }
 
 // Generate a fake UUID v4
 function uuidv4() {
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
 		var r = Math.random() * 16 | 0,
 			v = c === 'x' ? r : (r & 0x3 | 0x8);
 		return v.toString(16);
@@ -134,16 +134,16 @@ function createWindow() {
 	if (process.platform === "darwin") {
 		app.dock.setIcon(app.getAppPath() + "/res/icon/electron/icon-1024.png");
 	}
-
+	mainWindow.webContents.openDevTools();
 	// Load the index.html of Sugarizer
 	mainWindow.loadURL(
 		launch
 			? launch
 			: "file://" +
-					app.getAppPath() +
-					"/index.html" +
-					(reinit ? "?rst=1" : "") +
-					(logoff ? "?rst=2" : "")
+			app.getAppPath() +
+			"/index.html" +
+			(reinit ? "?rst=1" : "") +
+			(logoff ? "?rst=2" : "")
 	);
 	if (frameless) {
 		mainWindow.maximize();
