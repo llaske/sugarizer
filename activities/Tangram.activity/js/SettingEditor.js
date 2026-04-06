@@ -134,7 +134,7 @@ var SettingEditor = {
       },
       actionButtons: {
         width: 30,
-        width: 30,
+        height: 30,
       },
       tanState: 0,
       currentTan: 0,

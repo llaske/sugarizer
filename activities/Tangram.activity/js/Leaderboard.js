@@ -85,7 +85,7 @@ var Leaderboard = {
       initP: 0,
       actionButtons: {
         width: 30,
-        width: 30,
+        height: 30,
       },
     }
   },
