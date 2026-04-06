@@ -49,7 +49,7 @@ var CategoryForm = {
     return {
       actionButtons: {
         width: 30,
-        width: 30,
+        height: 30,
       },
       category: {
         title: ''
