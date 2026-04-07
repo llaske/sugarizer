@@ -345,5 +345,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		stage.removeAllChildren();
 		this.calculateDimensions();
 		this.initDots(data.dots);
+		document.getElementById("turnno").innerHTML = " " + (this.turns);
+		this.drawIndicator();
 	}
 }
