@@ -326,19 +326,6 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 			this.restoreFromDatastore(data);
 
 			//Restore saved data from datastore
-			this.stack = data.stack;
-			this.startgridwidth = data.startgridwidth;
-			this.startgridheight = data.startgridheight;
-			this.setSize(data.startgridheight);
-			this.turns = data.turns;
-			document.getElementById("turnno").innerHTML = " " + (this.turns);
-			document.getElementById("fliptext").style.borderBottom = data.indcolour;
-			clearTimeout(this.newGameTimeout);
-			clearTimeout(this.solveTimeout);
-			stage.removeAllChildren();
-			this.calculateDimensions();
-			this.initDots(data.dots);
-
 		} else {
 			this.newGame();
 		}
@@ -348,6 +335,9 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		this.stack = data.stack;
 		this.startgridwidth = data.startgridwidth;
 		this.startgridheight = data.startgridheight;
+		this.setGridDimension(data.startgridheight);
+		this.palette.setUsed();
+		this.level = data.level;
 		this.turns = data.turns;
 		document.getElementById("fliptext").style.borderBottom = data.indcolour;
 		clearTimeout(this.newGameTimeout);
@@ -355,5 +345,7 @@ function Game(stage,xocolor,doc,datastore,activity,sizepalette){
 		stage.removeAllChildren();
 		this.calculateDimensions();
 		this.initDots(data.dots);
+		document.getElementById("turnno").innerHTML = " " + (this.turns);
+		this.drawIndicator();
 	}
 }
