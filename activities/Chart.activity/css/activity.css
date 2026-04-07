@@ -52,7 +52,7 @@ p {
 
 #config-toolbar.sub-toolbar-itm {
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 
 #sub-toolbar {
@@ -307,6 +307,7 @@ p {
 
 #xLabel-button, #yLabel-button {
   	margin-left: 14px;
+	transform: translateY(6px);
   	width: 35px;
 }
 #xLabel-button {
@@ -485,20 +486,20 @@ p {
 #config-toolbar .input-text {
 	padding-inline: 12px;
 	font-size: 18px;
-	height: 32px;            
-    align-self: center;      
-    box-sizing: border-box;  
+	height: 32px;
+    align-self: center;
+    box-sizing: border-box;
 }
 
 #chart-stroke, #chart-fill {
 	align-self: end;
 }
 
-#sub-toolbar hr {
+#config-toolbar hr {
     border: none;
     background-color: #808080;
     width: 2px;
-    height: 35px;            
+    height: 35px;
     margin: 0 10px;
     display: inline-block;
 }
