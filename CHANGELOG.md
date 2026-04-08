@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Chess Activity: AI crashes due to undefined variables (missing 'this' and 'flags') #2062
 - In Flip activity grid size not saved & robot fails to complete the game after reopen #2083
 - Duplicate 'width' property in actionButtons across Tangram activity #2090
+- In Chart Activity X and Y axis field in config window seem too close to the bottom #2103
 
 ## [1.9.0] - 2025-03-25
 ### Added
