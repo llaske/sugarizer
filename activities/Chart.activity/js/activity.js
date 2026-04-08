@@ -303,7 +303,8 @@ const app = new Vue({
 			this.LZ = this.SugarJournal.LZString;
 			if (metadata.mimetype === "text/csv") {
 				this.isCsvFile = true;
-				this.csvTitle = this.currentenv.activityName;
+				this.csvTitle = metadata.title || (this.currentenv ? this.currentenv.activityName : "Chart Data.csv");
+                this.updateActivityTitle(this.csvTitle);
 				this.pref.chartType = "csvMode";
 				const json = CSVParser.csvToJson(data);
 				if (this.$refs.csvView) {
