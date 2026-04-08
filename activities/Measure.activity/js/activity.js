@@ -858,9 +858,12 @@ var app = new Vue({
 			}
 
 			var vm = this;
+			var userName = (vm.currentenv && vm.currentenv.user && vm.currentenv.user.name) ? vm.currentenv.user.name : "Unknown";
+            var logTitle = this.SugarL10n.get("MeasureLoggingBy", { name: userName });
+            var csvTitle = logTitle ? logTitle + ".csv" : "Measure Data.csv";
 			var metadata = {
 				mimetype: "text/csv",
-				title: this.SugarL10n.get("MeasureLoggingBy", { name: vm.currentenv.user.name}) + ".csv",
+				title: csvTitle,
 				activity: "org.sugarlabs.ChartActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
