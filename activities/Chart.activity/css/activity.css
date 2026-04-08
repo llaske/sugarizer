@@ -301,8 +301,14 @@ p {
 
 #xLabel-button, #yLabel-button {
   	margin-left: 14px;
-  	transform: translateY(-6px);
   	width: 35px;
+}
+#config-toolbar {
+	display: flex;
+	align-items: center;
+}
+#config-toolbar .input-text {
+	margin-top: 0;
 }
 #xLabel-button {
     background-image: url(../icons/hlabel.svg);
