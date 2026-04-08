@@ -117,7 +117,7 @@ p {
 .introjs-overlay {
 	background-color: #000 !important;
 	opacity: .8 !important;
-}
+}  
 
 .introjs-tooltip {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
@@ -125,12 +125,12 @@ p {
 	padding: 2px 1px !important;
 	font-size: 14px !important;
 }
-
+  
 .introjs-helperLayer{
 	background: inherit !important;
 	opacity: 0.6 !important;
 }
-
+  
 .customTooltip .introjs-tooltip-header {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	color : #ffffff;
@@ -200,7 +200,7 @@ p {
 	text-align: center;
 	white-space: normal;
 }
-
+  
 .customTooltip .introjs-button {
 	text-shadow: none;
 	border-radius: 22px;
@@ -213,7 +213,7 @@ p {
 	padding: 6px 20px 6px 10px;
 	border: 0px;
 }
-
+  
 .customTooltip .introjs-button:focus {
 	-webkit-box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
 	box-shadow: 0 0 0 0rem rgba(158, 158, 158, .5);
@@ -307,7 +307,7 @@ p {
 
 #xLabel-button, #yLabel-button {
   	margin-left: 14px;
-	transform: translateY(6px);
+  	transform: translateY(6px);
   	width: 35px;
 }
 #xLabel-button {
@@ -357,12 +357,12 @@ p {
 
 /* Color Palette */
 #sub-toolbar .colorpalette, .colorpalette .palette-invoker {
-	border-radius: 50%;
+	border-radius: 50%;	
 	border: 2px solid #777;
 	width: 35px; height: 35px;
 }
 #sub-toolbar .colorpalette:before {
-	width: 47px;
+	width: 47px;	
 }
 .colorpalette .palette-invoker:after {
 	top: 28px;
@@ -403,7 +403,7 @@ p {
 }
 .data-labels {
 	display: flex;
-	font-size: 1rem;
+	font-size: 1rem;	
 	font-weight: bold;
 	background-color: #282828;
 	color: white;
@@ -530,7 +530,7 @@ p {
 	background-color: #FCF9BE !important;
 }
 .csv-header .cell.invalid {
-	background-color: #FF7D7D !important;
+	background-color: #FF7D7D !important;	
 }
 
 .csv-container .csv-header .marker {
@@ -554,7 +554,7 @@ p {
 	width: 190px;
 	background-color: white;
 	word-break: break-word;
-	position: relative;
+	position: relative;	
 }
 .csv-container .cell-group .cell:nth-of-type(1),
 .csv-container .cell-group .cell:nth-of-type(2) {
