@@ -108,9 +108,17 @@ define([
 					// Existing instance
 					activity.getDatastoreObject().loadAsText(function(error, metadata, data) {
 						if (error==null && data!=null) {
-							var delta = JSON.parse(data);
-							console.log(delta);
-							editor.setContents(delta);
+							try {
+								var delta = JSON.parse(data);
+								console.log(delta);
+								editor.setContents(delta);
+							} catch (e) {
+								if (metadata && metadata.mimetype === "text/plain") {
+									editor.insertText(0, data);
+								} else {
+									console.error("Failed to parse document", e);
+								}
+							}
 						}
 					});
 				}
