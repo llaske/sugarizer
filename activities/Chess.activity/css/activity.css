@@ -530,3 +530,67 @@ body {
   .piece:hover {
     background: #eee;
   }
+
+  .tutMedia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pawn_tutorial {
+  background-image: url(../img/gifs/pawn_tutorial.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
+
+.knight_tutorial {
+  background-image: url(../img/gifs/knight_tutorial.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
+.rook_tutorial {
+  background-image: url(../img/gifs/rook_tutorial.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
+
+.bishop_tutorial {
+  background-image: url(../img/gifs/bishop_tutorial.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
+.queen_tutorial {
+  background-image: url(../img/gifs/queen_tutorial.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
+.king_tutorial {
+  background-image: url(../img/gifs/king_tutorial.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
