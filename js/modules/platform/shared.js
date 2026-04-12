@@ -23,6 +23,7 @@ define(["sugar-web/datastore"], function (datastore) {
 		...imageTypes,
 		...audioTypes,
 		...videoTypes,
+		...csvTypes,
 		...documentTypes,
 		...otherTypes,
 	];
