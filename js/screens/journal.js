@@ -744,8 +744,8 @@ const Journal = {
 							this.journalId
 						);
 					sugarizer.modules.file.openAsDocument(metadata, text, entry.objectId);
-					return;
 				}
+				return;
 			}
 			// Load text content
 			const { metadata, text } =
