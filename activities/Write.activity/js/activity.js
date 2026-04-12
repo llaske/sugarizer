@@ -381,7 +381,7 @@ define([
 		document.getElementById("19").addEventListener('click',function(){
 			var title = document.getElementById("title").value;
 			var mimetype = 'text/plain';
-			var inputData = document.getElementById("editor").textContent;
+			var inputData = editor.getText();
 			var metadata = {
 			mimetype: mimetype,
 			title: title+".txt",
