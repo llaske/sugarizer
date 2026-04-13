@@ -197,9 +197,9 @@ var Export = {
 			var vm = this;
 			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
 				.then(() => {
-						vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'TXT' }));
-						console.log('Export to TXT done');
-						vm.$emit('export-completed');
+					vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'TXT' }));
+					console.log('Export to TXT done');
+					vm.$emit('export-completed');
 				});
 		},
 
