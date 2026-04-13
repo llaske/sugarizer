@@ -197,9 +197,9 @@ var Export = {
 			var vm = this;
 			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
 				.then(() => {
-					vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'CSV' }));
-					console.log('Export to CSV complete');
-					vm.$emit('export-completed');
+						vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'TXT' }));
+						console.log('Export to TXT done');
+						vm.$emit('export-completed');
 				});
 		},
 
@@ -220,7 +220,7 @@ var Export = {
 					this.$root.$refs.SugarJournal.createEntry(inputData, metadata)
 						.then(() => {
 							vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'ODT' }));
-							console.log('Export to ODT complete');
+							console.log('Export to ODT done');
 							vm.$emit('export-completed');
 						});
 				});
@@ -345,7 +345,7 @@ var Export = {
 				vm.$root.$refs.SugarJournal.createEntry(inputData, metadata)
 					.then(() => {
 						vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'DOC' }));
-						console.log('Export to DOC complete');
+						console.log('Export to DOC done');
 						vm.$emit('export-completed');
 					});
 			});
@@ -369,7 +369,7 @@ var Export = {
 					vm.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
 						.then(() => {
 							vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'PDF' }));
-							console.log('Export to PDF complete');
+							console.log('Export to PDF done');
 							vm.$emit('export-completed');
 						});
 				})
