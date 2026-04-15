@@ -151,32 +151,39 @@ var Tutorial = {
         {
 
           title: this.l10n.stringTutoPawnTitle,
-          intro: this.l10n.stringTutoPawnContent+"<div class='wP tutPiece'></div>"
+          intro: this.l10n.stringTutoPawnContent+
+            "<div class='wP tutPiece'></div>" +
+            "<div class = 'pawn_tutorial tutMedia'></div>"
         },
         {
 
           title: this.l10n.stringTutoKnightTitle,
-          intro: this.l10n.stringTutoKnightContent+"<div class='wN tutPiece'></div>"
+          intro: this.l10n.stringTutoKnightContent+"<div class='wN tutPiece'></div>" +
+          "<div class = 'knight_tutorial tutMedia'></div>"
         },
         {
 
           title: this.l10n.stringTutoBishopTitle,
-          intro: this.l10n.stringTutoBishopContent+"<div class='wB tutPiece'></div>"
+          intro: this.l10n.stringTutoBishopContent+"<div class='wB tutPiece'></div>" + 
+          "<div class = 'bishop_tutorial tutMedia'></div>"
         },
         {
 
           title: this.l10n.stringTutoRookTitle,
-          intro: this.l10n.stringTutoRookContent+"<div class='wR tutPiece'></div>"
+          intro: this.l10n.stringTutoRookContent+"<div class='wR tutPiece'></div>" + 
+          "<div class = 'rook_tutorial tutMedia'></div>"
         },
         {
 
           title: this.l10n.stringTutoQueenTitle,
-          intro: this.l10n.stringTutoQueenContent+"<div class='wQ tutPiece'></div>"
+          intro: this.l10n.stringTutoQueenContent+"<div class='wQ tutPiece'></div>" + 
+          "<div class = 'queen_tutorial tutMedia'></div>"
         },
         {
 
           title: this.l10n.stringTutoKingTitle,
-          intro: this.l10n.stringTutoKingContent+"<div class='wK tutPiece'></div>"
+          intro: this.l10n.stringTutoKingContent+"<div class='wK tutPiece'></div>" + 
+          "<div class = 'king_tutorial tutMedia'></div>"
         },
         {
 

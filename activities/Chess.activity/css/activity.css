@@ -530,3 +530,37 @@ body {
   .piece:hover {
     background: #eee;
   }
+
+  .tutMedia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+}
+
+.pawn_tutorial {
+  background-image: url(../img/gifs/pawn_tutorial.gif);
+}
+
+.knight_tutorial {
+  background-image: url(../img/gifs/knight_tutorial.gif);
+}
+.rook_tutorial {
+  background-image: url(../img/gifs/rook_tutorial.gif);
+}
+
+.bishop_tutorial {
+  background-image: url(../img/gifs/bishop_tutorial.gif);
+}
+.queen_tutorial {
+  background-image: url(../img/gifs/queen_tutorial.gif);
+}
+.king_tutorial {
+  background-image: url(../img/gifs/king_tutorial.gif);
+}
