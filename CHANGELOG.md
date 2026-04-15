@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - In Chart Activity X and Y axis field in config window seem too close to the bottom #2103
 - Undefined titles and logging occurs without pressing Record in Measure Activity #2097
 - Write activity .txt export squashes text and loses paragraph spacing #2125
+- Lack of Visual Demonstration in Chess Tutorial #2126
 
 ## [1.9.0] - 2025-03-25
 ### Added
