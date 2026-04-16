@@ -88,7 +88,7 @@ FoodChain.createWithCondition = function(create, condition, set, isRock=false) {
 		newObject = create();
 		for (var i = 0; conditionValue && i < set.length ; i++) {
 			conditionValue = condition(newObject, set[i]);
-		}	
+		}
 		time++;
 	} while (!conditionValue && time < limit); // time to avoid infinite or too long loop in very complex situation
 	if (!conditionValue)

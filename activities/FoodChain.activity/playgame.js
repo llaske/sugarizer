@@ -151,7 +151,7 @@ enyo.kind({
 
 				// ... while don't intersect with ...
 				function(n, s) {
-					return !n.intersect(s) && (n.distance(s,true) <=100 || n.distance(s,true) >= 300);
+					return !n.intersect(s) && (n.distance(s,true) <= 100 || n.distance(s,true) >= 300);
 				},
 
 				// ... other rocks and frog
