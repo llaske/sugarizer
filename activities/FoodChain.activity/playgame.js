@@ -151,13 +151,18 @@ enyo.kind({
 
 				// ... while don't intersect with ...
 				function(n, s) {
-					return !n.intersect(s);
+					return !n.intersect(s) && (n.distance(s,true) <=100 || n.distance(s,true) >= 300);
 				},
 
 				// ... other rocks and frog
-				enyo.cloneArray(this.rocks).concat(this.frog)
+				enyo.cloneArray(this.rocks).concat(this.frog),
+
+				// We are trying to spawn a rock
+				true
 			);
-			this.rocks.push(rock);
+			if (rock != null) {
+				this.rocks.push(rock);
+			}
 		}
 
 		// Set randomely flies

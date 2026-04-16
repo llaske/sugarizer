@@ -100,9 +100,11 @@ enyo.kind({
 	},
 	
 	// Compute distance between two sprites
-	distance: function(sprite) {
+	distance: function(sprite, manhattanlike=false) {
 		var dx = sprite.x-this.x;
 		var dy = sprite.y-this.y;
+		if (manhattanlike)
+			return Math.max(dx,dy);
 		var dist = Math.sqrt(dx*dx+dy*dy);
 		
 		return dist;	
