@@ -985,6 +985,31 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						return;
 					}
 
+					// Special high DPI hitbox logic for deleting elements
+					if (currentType == -1) {
+						var dpr = window.devicePixelRatio;
+						var bodies = world.getBodies();
+						var closestBody = null;
+						var minDist = Infinity;
+						for (var i = 0; i < bodies.length; i++) {
+							var b = bodies[i];
+							if (!b.geometry) continue;
+							var size = (b.geometry.radius || Math.max(b.geometry.width || 0, b.geometry.height || 0) / 2 || 40) * dpr;
+							var dx = Math.abs(b.state.pos.x - pos.x);
+							var dy = Math.abs(b.state.pos.y - pos.y);
+							var m = Math.sqrt(dx * dx + dy * dy);
+							
+							if (dx <= size + 15 && dy <= size + 15 && m < minDist) {
+								minDist = m;
+								closestBody = b;
+							}
+						}
+						if (closestBody) {
+							world.remove(closestBody);
+							return;
+						}
+					}
+
 					// make previously created body dynamic
 					if (createdBody && physicsActive) {
 						createdBody.treatment = "dynamic";
