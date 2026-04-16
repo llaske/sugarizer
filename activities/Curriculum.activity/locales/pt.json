@@ -454,7 +454,7 @@
 	"TutoSettingsButtonTitle": "Settings Button",
 	"TutoSettingsButtonContent": "This button opens the Settings Mode. Here you can rearrange, add, edit and delete categories and skills",
 	"TutoExportButtonTitle": "Export Palette",
-	"TutoExportButtonContent": "This palette can be used to export a report in TXT, PDF, DOC or ODT format",
+	"TutoExportButtonContent": "This palette can be used to export a report in CSV, PDF, DOC or ODT format",
 	"TutoNetworkButtonTitle": "Network Button",
 	"TutoNetworkButtonContent": "This button is used to share your skills with the network.  Anyone in the network can view your skills",
 	"TutoSkillCardTitle": "Skill",

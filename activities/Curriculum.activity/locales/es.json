@@ -454,7 +454,7 @@
 	"TutoSettingsButtonTitle": "Ajustes",
 	"TutoSettingsButtonContent": "Este botón abre los ajustes, donde podrás reorganizar, añadir, editar y borrar categorías y habilidades",
 	"TutoExportButtonTitle": "Exportar",
-	"TutoExportButtonContent": "Esta sección te permitirá exportar un informe en formato TXT, PDF, DOC u ODT",
+	"TutoExportButtonContent": "Esta sección te permitirá exportar un informe en formato CSV, PDF, DOC u ODT",
 	"TutoNetworkButtonTitle": "Compartir",
 	"TutoNetworkButtonContent": "Este botón se usa para compartir tu lista de habilidades con tu servidor.  Cualquier usuario conectado al mismo podrá ver las habilidades que tienes",
 	"TutoSkillCardTitle": "Habilidad",
