@@ -202,6 +202,14 @@ var ChessGame = {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
       }
+    },
+    moves: function() {
+      this.$nextTick(function() {
+        var movesContainer = document.getElementById("moves-container");
+        if (movesContainer) {
+          movesContainer.scrollTop = movesContainer.scrollHeight;
+        }
+      });
     }
 
   },
@@ -236,12 +244,6 @@ var ChessGame = {
 
     this.state = new p4_new_game();
 
-  },
-  updated: function() {
-    const lastChild = $("#ordered-moves li:last-child");
-    if (lastChild.offset() != undefined) {
-      document.getElementById("moves-container").scrollTo(0, lastChild.offset().top + lastChild.height());
-    }
   },
   mounted: function() {
     let vm = this;
@@ -428,11 +430,11 @@ var ChessGame = {
           var min_time = 25 * depth;
           while (delta < min_time) {
             depth++;
-            possibleMove = state.findmove(depth);
+            possibleMove = this.state.findmove(depth);
             delta = Date.now() - start_time;
           }
         }
-        if (possibleMove.length === 0 && flags & 2) {
+        if (possibleMove.length === 0 && move.flags & 2) {
           this.game_won = true;
           return;
         }
