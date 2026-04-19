@@ -149,6 +149,7 @@ var Export = {
 		totalImages: 0,
 		loadedImages: 0,
 		l10n: {
+			stringCategory: '',
 			stringTitle: '',
 			stringDateOfAcquisition: '',
 			stringMediaUploaded: '',
@@ -276,7 +277,7 @@ var Export = {
 			var csvContent = "";
 
 			// Adding headers
-			csvContent += `"${this.l10n.stringTitle}"`;
+			csvContent += `"${this.l10n.stringCategory}","${this.l10n.stringTitle}"`;
 			var levels = this.levels[this.notationLevel];
 			for (var level of levels) {
 				csvContent += `,"${level.text}"`;
@@ -286,29 +287,22 @@ var Export = {
 			csvContent += `\n`;
 
 			for (var cat of this.categories) {
-				// Adding category row
-				csvContent += `"${cat.title}"`;
-				for (var key in levels) {
-					csvContent += `,""`;
-				}
-				csvContent += `\n`;
-
 				for (var skill of cat.skills) {
 					// Adding skill row
-					csvContent += `"${skill.title}"`;
+					csvContent += `"${cat.title}","${skill.title}"`;
 					var skillObj = this.user.skills[cat.id][skill.id];
 					for (var key in levels) {
 						if (key == skillObj.acquired) {
 							csvContent += `,"1"`;
 						} else {
-							csvContent += `,"-"`;
+							csvContent += `,"0"`;
 						}
 					}
 					// Date of aquisition
 					if (skillObj.timestamp) {
 						csvContent += `,"${new Date(skillObj.timestamp).toLocaleDateString()}"`;
 					} else {
-						csvContent += `,"-"`;
+						csvContent += `,"0"`;
 					}
 					// Media count
 					var count = 0;
