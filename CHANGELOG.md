@@ -58,6 +58,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Write activity .txt export squashes text and loses paragraph spacing #2125
 - Lack of Visual Demonstration in Chess Tutorial #2126
 - Chess activity move history scrollbar bug #2145
+- Speak activity settings not saving properly #2139
 
 ## [1.9.0] - 2025-03-25
 ### Added
