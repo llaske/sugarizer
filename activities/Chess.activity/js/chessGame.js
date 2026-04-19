@@ -202,6 +202,14 @@ var ChessGame = {
         $('#flagDiv').css('background-color', this.normalColor);
         this.infotext = this.l10n.stringVs;
       }
+    },
+    moves: function() {
+      this.$nextTick(function() {
+        var movesContainer = document.getElementById("moves-container");
+        if (movesContainer) {
+          movesContainer.scrollTop = movesContainer.scrollHeight;
+        }
+      });
     }
 
   },
@@ -236,12 +244,6 @@ var ChessGame = {
 
     this.state = new p4_new_game();
 
-  },
-  updated: function() {
-    const lastChild = $("#ordered-moves li:last-child");
-    if (lastChild.offset() != undefined) {
-      document.getElementById("moves-container").scrollTo(0, lastChild.offset().top + lastChild.height());
-    }
   },
   mounted: function() {
     let vm = this;
