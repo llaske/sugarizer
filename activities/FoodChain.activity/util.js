@@ -82,7 +82,7 @@ FoodChain.createWithCondition = function(create, condition, set, isRock=false) {
 	var conditionValue;
 	var newObject;
 	var time = 0;
-	var limit = isRock ? 12 : 24;
+	var limit = isRock ? 24 : 12;
 	do {
 		conditionValue = true;
 		newObject = create();

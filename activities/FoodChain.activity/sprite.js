@@ -104,7 +104,7 @@ enyo.kind({
 		var dx = sprite.x-this.x;
 		var dy = sprite.y-this.y;
 		if (manhattanlike)
-			return Math.max(dx,dy);
+			return Math.abs(Math.max(dx,dy));
 		var dist = Math.sqrt(dx*dx+dy*dy);
 		
 		return dist;	
