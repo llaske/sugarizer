@@ -403,7 +403,7 @@ const app = new Vue({
 			this.executeAndSendAction(Action_Types.UPDATE_CHART_TYPE, {
 				chartType: type,
 			});
-			if (type === "csvMode" && this.$refs.csvView) {
+			if (type === "csvMode" && this.$refs.csvView && !this.isCsvFile) {
 				this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
 			}
 		},
@@ -692,7 +692,7 @@ const app = new Vue({
 		},
 		"pref.chartType"() {
 			if (this.pref.chartType === "csvMode") {
-				if (this.$refs.csvView) {
+				if (this.$refs.csvView && !this.isCsvFile) {
 					this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
 				}
 				return;
