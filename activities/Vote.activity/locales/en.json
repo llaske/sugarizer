@@ -51,7 +51,7 @@
 	"No": "No",
 	"Confirm": "Confirm",
 	"Cancel": "Cancel",
-	"ExportTo": "Export to {{ format }} complete",
+	"ExportTo": "Export to {{ format }} done",
 	"ExportFileName": "Vote by {{ userName }}",
 	"DefaultPollYesNo": "Do you agree?",
 	"DefaultPollRating": "What is your evaluation?",
