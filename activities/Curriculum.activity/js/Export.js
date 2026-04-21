@@ -149,6 +149,7 @@ var Export = {
 		totalImages: 0,
 		loadedImages: 0,
 		l10n: {
+			stringCategory: '',
 			stringTitle: '',
 			stringDateOfAcquisition: '',
 			stringMediaUploaded: '',
@@ -276,7 +277,7 @@ var Export = {
 			var csvContent = "";
 
 			// Adding headers
-			csvContent += `"${this.l10n.stringTitle}"`;
+			csvContent += `"${this.l10n.stringCategory}","${this.l10n.stringTitle}"`;
 			var levels = this.levels[this.notationLevel];
 			for (var level of levels) {
 				csvContent += `,"${level.text}"`;
@@ -286,29 +287,22 @@ var Export = {
 			csvContent += `\n`;
 
 			for (var cat of this.categories) {
-				// Adding category row
-				csvContent += `"${cat.title}"`;
-				for (var key in levels) {
-					csvContent += `,""`;
-				}
-				csvContent += `\n`;
-
 				for (var skill of cat.skills) {
 					// Adding skill row
-					csvContent += `"${skill.title}"`;
+					csvContent += `"${cat.title}","${skill.title}"`;
 					var skillObj = this.user.skills[cat.id][skill.id];
 					for (var key in levels) {
 						if (key == skillObj.acquired) {
 							csvContent += `,"1"`;
 						} else {
-							csvContent += `,"-"`;
+							csvContent += `,"0"`;
 						}
 					}
 					// Date of aquisition
 					if (skillObj.timestamp) {
-						csvContent += `,"${new Date(skillObj.timestamp).toLocaleDateString()}"`
+						csvContent += `,"${new Date(skillObj.timestamp).toLocaleDateString()}"`;
 					} else {
-						csvContent += `,"-"`;
+						csvContent += `,"0"`;
 					}
 					// Media count
 					var count = 0;
@@ -321,9 +315,9 @@ var Export = {
 			}
 
 			var metadata = {
-				mimetype: 'text/plain',
-				title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.txt',
-				activity: "org.olpcfrance.Curriculum",
+				mimetype: 'text/csv',
+				title: this.$root.$refs.SugarL10n.get('ExportFileName', { templateTitle: this.templateTitle, userName: this.currentenv.user.name }) + '.csv',
+				activity: "org.sugarlabs.ChartActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
 				file_size: 0
@@ -331,7 +325,7 @@ var Export = {
 			var vm = this;
 			this.$root.$refs.SugarJournal.createEntry(csvContent, metadata)
 				.then(() => {
-					vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'CSV'}));
+					vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'CSV' }));
 					console.log('Export to CSV complete');
 					vm.$emit('export-completed');
 				});
@@ -354,7 +348,7 @@ var Export = {
 					var vm = this;
 					this.$root.$refs.SugarJournal.createEntry(inputData, metadata)
 						.then(() => {
-							vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'ODT'}));
+							vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'ODT' }));
 							console.log('Export to ODT complete');
 							vm.$emit('export-completed');
 						});
@@ -541,7 +535,7 @@ var Export = {
 				};
 				vm.$root.$refs.SugarJournal.createEntry(inputData, metadata)
 					.then(() => {
-						vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'DOC'}));
+						vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'DOC' }));
 						console.log('Export to DOC complete');
 						vm.$emit('export-completed');
 					});
@@ -571,7 +565,7 @@ var Export = {
 									};
 									vm.$root.$refs.SugarJournal.createEntry(doc.output('dataurlstring'), metadata)
 										.then(() => {
-											vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo',{format: 'PDF'}));
+											vm.$root.$refs.SugarPopup.log(this.$root.$refs.SugarL10n.get('ExportTo', { format: 'PDF' }));
 											console.log('Export to PDF complete');
 											vm.$emit('export-completed');
 										});
