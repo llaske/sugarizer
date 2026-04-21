@@ -834,9 +834,9 @@ var app = new Vue({
 						for (var i=0; i<that.imageCount/3; i++){
 							image+= `
 							<div>
-							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i)%3]} />
-							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+1)%3]} />
-							<img style="display:inline-block; height:150px; width:150px; margin:auto" src=${that.imagesURL[3*(i) + (i+2)%3]} />
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src="${that.imagesURL[3*(i) + (i)%3]}" />
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src="${that.imagesURL[3*(i) + (i+1)%3]}" />
+							<img style="display:inline-block; height:150px; width:150px; margin:auto" src="${that.imagesURL[3*(i) + (i+2)%3]}" />
 							</div>`;
 						}
 						image+=text;
@@ -845,11 +845,11 @@ var app = new Vue({
 						tempeditor.setContents(that.singleEditorsContent[i]);
 						var text = tempeditor.root.innerHTML;
 						if (i==that.activeImageIndex && that.editor.root.innerHTML.length>11){
-							image+= `<img style="display:block; margin:auto" src=${that.imagesURL[i]} />`
+							image+= `<img style="display:block; margin:auto" src="${that.imagesURL[i]}" />`
 							image+=that.editor.root.innerHTML;
 						} else {
 							if (text.length > 11){
-								image+= `<img style="display:block; margin:auto" src=${that.imagesURL[i]} />`
+								image+= `<img style="display:block; margin:auto" src="${that.imagesURL[i]}" />`
 								image+=text;
 							}
 						}
