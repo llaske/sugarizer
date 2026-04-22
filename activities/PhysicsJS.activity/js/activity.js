@@ -530,11 +530,12 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				}
 				var canvas = document.getElementById("viewport").children[0];
 				var zoom = 1.0 / window.devicePixelRatio;
-				canvas.style.zoom = zoom;
 				var useragent = navigator.userAgent.toLowerCase();
-				if (useragent.indexOf('chrome') == -1) {
-					canvas.style.MozTransform = "scale("+zoom+")";
-					canvas.style.MozTransformOrigin = "0 0";
+				if (useragent.indexOf('firefox') != -1) {
+					canvas.style.transform = "scale("+zoom+")";
+					canvas.style.transformOrigin = "0 0";
+				} else {
+					canvas.style.zoom = zoom;
 				}
 				world.wakeUpAll();
 			}
