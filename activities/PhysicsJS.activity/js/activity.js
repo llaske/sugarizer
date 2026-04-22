@@ -972,12 +972,39 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				);
 			}
 
+			function getCorrectedPos(pos) {
+				var canvas = document.getElementById('viewport').children[0];
+				if (!canvas) return pos;
+				var b = 0, c = 0, a = canvas;
+				if (a.offsetParent) {
+					do { 
+						b += a.offsetLeft; 
+						c += a.offsetTop; 
+					} while (a = a.offsetParent);
+				}
+				var r = canvas.getBoundingClientRect();
+				var scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || 0;
+				var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+				return { 
+					x: (pos.x + b) - (r.left + scrollLeft), 
+					y: (pos.y + c) - (r.top + scrollTop) 
+				};
+			}
+
+			var lastPointerTarget = null;
+			document.addEventListener('mousedown', function(e) { lastPointerTarget = e.target; }, true);
+			document.addEventListener('touchstart', function(e) { lastPointerTarget = e.target; }, true);
+			document.addEventListener('pointerdown', function(e) { lastPointerTarget = e.target; }, true);
+
 			// add some fun interaction
 			var createdBody = null;
 			var createdStart = null;
 			var distance = null;
 			world.on({
 				'interact:poke': function( pos ){
+					var canvas = document.getElementById('viewport').children[0];
+					if (lastPointerTarget !== canvas) return;
+					pos = getCorrectedPos(pos);
 					// Handle pen drawing mode
 					if (currentType == 4) {
 						isDrawing = true;
@@ -987,14 +1014,13 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 
 					// Special high DPI hitbox logic for deleting elements
 					if (currentType == -1) {
-						var dpr = window.devicePixelRatio;
 						var bodies = world.getBodies();
 						var closestBody = null;
 						var minDist = Infinity;
 						for (var i = 0; i < bodies.length; i++) {
 							var b = bodies[i];
 							if (!b.geometry) continue;
-							var size = (b.geometry.radius || Math.max(b.geometry.width || 0, b.geometry.height || 0) / 2 || 40) * dpr;
+							var size = (b.geometry.radius || Math.max(b.geometry.width || 0, b.geometry.height || 0) / 2 || 40);
 							var dx = Math.abs(b.state.pos.x - pos.x);
 							var dy = Math.abs(b.state.pos.y - pos.y);
 							var m = Math.sqrt(dx * dx + dy * dy);
@@ -1021,6 +1047,9 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					}
 				}
 				,'interact:move': function( pos ){
+					var canvas = document.getElementById('viewport').children[0];
+					if (lastPointerTarget !== canvas) return;
+					pos = getCorrectedPos(pos);
 					// Handle pen drawing
 					if (currentType == 4 && isDrawing && pos.y > toolbarHeight) {
 
@@ -1062,6 +1091,8 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					}
 				}
 				,'interact:release': function( pos ){
+					var canvas = document.getElementById('viewport').children[0];
+					if (lastPointerTarget !== canvas) return;
 					// Finish pen drawing
 					if (currentType == 4 && isDrawing) {
 						isDrawing = false;
@@ -1081,6 +1112,8 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					createdBody = null;
 				}
 				,'interact:grab': function ( data ) {
+					var canvas = document.getElementById('viewport').children[0];
+					if (lastPointerTarget !== canvas) return;
 					if (currentType == -1) {
 						world.remove(data.body);
 					}
