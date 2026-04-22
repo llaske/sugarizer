@@ -22,6 +22,8 @@ const app = new Vue({
 		"csv-view": CsvView,
 	},
 	data: {
+		isCsvFile: false,
+		openedFromCsv: false,
 		isLocalized: false,
 		pendingNewInstance: false,
 		currentenv: null,
@@ -136,7 +138,9 @@ const app = new Vue({
 			const { stroke, fill } = this.currentenv.user.colorvalue;
 
 			this.pref.chartColor = { stroke, fill };
-			this.updateActivityTitle(this.currentenv.activityName)
+			let actName = this.currentenv.activityName;
+			if (!actName || actName === "undefined") actName = "Chart Data";
+			this.updateActivityTitle(actName)
 			this.updatePalletes();
 
 			const that = this;
@@ -303,7 +307,14 @@ const app = new Vue({
 			this.LZ = this.SugarJournal.LZString;
 			if (metadata.mimetype === "text/csv") {
 				this.isCsvFile = true;
-				this.csvTitle = metadata.title || (this.currentenv ? this.currentenv.activityName : "Chart Data.csv");
+				this.openedFromCsv = true;
+				
+				let mTitle = metadata.title;
+				let envName = this.currentenv ? this.currentenv.activityName : "";
+				if (mTitle === "undefined") mTitle = "";
+				if (envName === "undefined") envName = "";
+				
+				this.csvTitle = mTitle || envName || "Chart Data.csv";
                 this.updateActivityTitle(this.csvTitle);
 				this.pref.chartType = "csvMode";
 				const json = CSVParser.csvToJson(data);
@@ -315,10 +326,23 @@ const app = new Vue({
 			const parsedData = JSON.parse(this.LZ.decompressFromUTF16(data));
 			const pref = parsedData.pref;
 
+			this.isCsvFile = parsedData.isCsvFile || false;
+			if (parsedData.csvJsonData) {
+				this.jsonData = parsedData.csvJsonData;
+			}
+			
+			if (parsedData.title) {
+				this.updateActivityTitle(parsedData.title);
+			}
+
 			let xKey = pref.labels.x;
 			if (xKey == pref.labels.y) xKey += "__";
 			if (this.$refs.csvView) {
-				this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
+				if (this.isCsvFile) {
+					this.$refs.csvView.updateJsonData(this.jsonData.data, this.jsonData.header);
+				} else {
+					this.$refs.csvView.updateJsonData(parsedData.tabularData, [xKey, pref.labels.y], true);
+				}
 			}
 			this.updatePreference(pref);
 		},
@@ -338,11 +362,40 @@ const app = new Vue({
 			this.createJournalEntry(imgData, metadata, this.SugarL10n.get("exportImage"));
 		},
 		exportAsCsv() {
-			const header = [this.pref.labels.x, this.pref.labels.y];
-			const csvContent = CSVParser.jsonToCsv(this.tabularData, header);
+			let exportData = this.tabularData;
+			let exportHeader = [this.pref.labels.x, this.pref.labels.y];
+			
+			if (this.isCsvFile && this.jsonData && this.jsonData.data && this.jsonData.header) {
+				const xKey = this.pref.labels.x;
+				const yKey = this.pref.labels.y;
+				
+				while (this.jsonData.data.length > this.tabularData.length) {
+					this.jsonData.data.pop();
+				}
+				while (this.jsonData.data.length < this.tabularData.length) {
+					let newObj = {};
+					this.jsonData.header.forEach(h => newObj[h] = "");
+					this.jsonData.data.push(newObj);
+				}
+				
+				this.tabularData.forEach((row, i) => {
+					this.jsonData.data[i][xKey] = row.x;
+					this.jsonData.data[i][yKey] = row.y;
+				});
+				
+				exportData = this.jsonData.data;
+				exportHeader = this.jsonData.header;
+			}
+
+			const csvContent = CSVParser.jsonToCsv(exportData, exportHeader);
+			let safeExportTitle = this.activityTitle;
+			if (!safeExportTitle || safeExportTitle === "undefined") safeExportTitle = "Chart Data";
+			
+			let finalTitle = safeExportTitle.endsWith(".csv") ? safeExportTitle : safeExportTitle + ".csv";
+			
 			const metadata = {
 				mimetype: "text/csv",
-				title: this.activityTitle + ".csv",
+				title: finalTitle,
 				activity: "org.sugarlabs.ChartActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),
@@ -403,7 +456,7 @@ const app = new Vue({
 			this.executeAndSendAction(Action_Types.UPDATE_CHART_TYPE, {
 				chartType: type,
 			});
-			if (type === "csvMode" && this.$refs.csvView) {
+			if (type === "csvMode" && this.$refs.csvView && !this.isCsvFile) {
 				this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
 			}
 		},
@@ -647,10 +700,16 @@ const app = new Vue({
 			const context = {
 				tabularData: this.tabularData,
 				pref: this.pref,
+				isCsvFile: this.isCsvFile || false,
+				csvJsonData: this.jsonData,
+				title: this.activityTitle,
 			};
-			if (this.isCsvFile) {
+			if (this.openedFromCsv) {
+				let safeTitle = this.activityTitle;
+				if (!safeTitle || safeTitle === "undefined") safeTitle = "Chart Data.csv";
+				
 				const metadata = {
-					title: this.activityTitle, 
+					title: safeTitle, 
 					activity: "org.sugarlabs.ChartActivity",
 					timestamp: new Date().getTime()+1000,
 					creation_time: new Date().getTime()+1000,
@@ -692,7 +751,7 @@ const app = new Vue({
 		},
 		"pref.chartType"() {
 			if (this.pref.chartType === "csvMode") {
-				if (this.$refs.csvView) {
+				if (this.$refs.csvView && !this.isCsvFile) {
 					this.$refs.csvView.updateJsonData(this.tabularData, this.csvHeader, true);
 				}
 				return;
