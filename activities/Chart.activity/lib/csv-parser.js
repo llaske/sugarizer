@@ -114,10 +114,12 @@ const CSVParser = {
 		if (!jsonObj.length) return;
 
 		if (!headers) headers = Object.keys(jsonObj[0]);
-		else this._uniquify(headers);
+		else headers = [...headers];
+		
+		this._uniquify(headers);
 
 		let csvContent = headers.join(delimiter) +"\n";
-		let keys = Object.keys(jsonObj[0]);
+		let keys = headers;
 		jsonObj.forEach((obj) => {
 			let row = [];
 			keys.forEach(key => {
