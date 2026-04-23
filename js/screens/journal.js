@@ -608,13 +608,13 @@ const Journal = {
 					disabled: activityDisabled
 				},
 				itemList: [
-					{ icon: { id: "activity-start", iconData: "icons/activity-start.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("RestartActivity"), disabled: activityDisabled },
-					{ icon: { id: "copy-journal", iconData: "icons/copy-journal.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToLocal"), disabled: copyToLocalDisabled },
-					{ icon: { id: "copy-cloud-one", iconData: "icons/copy-cloud-one.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToPrivate"), disabled: copyToPrivateDisabled },
-					{ icon: { id: "copy-cloud-all", iconData: "icons/copy-cloud-all.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToShared"), disabled: copyToSharedDisabled },
-					{ icon: { id: "copy-to-device", iconData: "icons/copy-to-device.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToDevice") },
-					{ icon: { id: "duplicate", iconData: "icons/duplicate.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Duplicate"), disabled: duplicateDisabled },
-					{ icon: { id: "list-remove", iconData: "icons/list-remove.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Erase") },
+					{ icon: { id: "activity-start", iconData: "icons/activity-start.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("RestartActivity"), disabled: activityDisabled},
+					{ icon: { id: "copy-journal", iconData: "icons/copy-journal.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToLocal"), disabled: copyToLocalDisabled},
+					{ icon: { id: "copy-cloud-one", iconData: "icons/copy-cloud-one.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToPrivate"), disabled: copyToPrivateDisabled},
+					{ icon: { id: "copy-cloud-all", iconData: "icons/copy-cloud-all.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToShared"), disabled: copyToSharedDisabled},
+					{ icon: { id: "copy-to-device", iconData: "icons/copy-to-device.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("CopyToDevice")},
+					{ icon: { id: "duplicate", iconData: "icons/duplicate.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Duplicate"), disabled: duplicateDisabled},
+					{ icon: { id: "list-remove", iconData: "icons/list-remove.svg", color: 256, size: this.constant.itemListIconSize, isNative: "true" }, name: this.$t("Erase")},
 				],
 				handlers: {
 					"pop-icon": () => { this.runCurrentActivity(entry); },
