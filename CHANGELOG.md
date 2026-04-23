@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Wrong export format message in Curriculum activity #2146
 - Inconsistent export format message in Vote Activity (shows CSV instead of TXT) #2132
 - CSV import not working in Chart activity #2160
+- Stopwatch Adds “-” When Marking After Reopening #2161
 
 ## [1.9.0] - 2025-03-25
 ### Added
