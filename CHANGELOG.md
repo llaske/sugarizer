@@ -62,6 +62,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Story Activity: Images not displayed and inconsistent text size in .doc export #2155
 - Wrong export format message in Curriculum activity #2146
 - Inconsistent export format message in Vote Activity (shows CSV instead of TXT) #2132
+- Pointer interaction and hitboxes misaligned for PhysicsJS Activity #2140
 
 ## [1.9.0] - 2025-03-25
 ### Added
