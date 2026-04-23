@@ -176,7 +176,8 @@ const Journal = {
 						@mouseover="showPopupTimer($event, entry.objectId, entry.popupData)"
 						@mouseleave="removePopupTimer"
 					></icon>
-					<input class="activity-name" v-model="entry.metadata.title" :class="{ 'nonEditing': !entry.isEditingTitle }" :readonly="!entry.isEditingTitle" @click="titleEditStart(entry)" @blur="titleEditEnd(entry)" />
+					<div v-if="!entry.isEditingTitle" class="activity-name nonEditing" @click="titleEditStart(entry)">{{ entry.metadata.title }}</div>
+					<input v-else ref="titleInput" class="activity-name" v-model="entry.metadata.title" @blur="titleEditEnd(entry)" @keyup.enter="titleEditEnd(entry)" />
 					<div class="assignment-container" v-if=entry.metadata.assignmentId>
 						<icon
 							:id="'assgn-'+idx"
@@ -706,11 +707,11 @@ const Journal = {
 			this.showWarning = false;
 			const operation = this.currentOperation;
 			const selectedEntries = this.processedJournal.filter(e => e.isChecked);
-			
+
 			this.checkboxSelected = 0;
 			selectedEntries.forEach(entry => entry.isChecked = false);
 			this.isOperating = true;
-			
+
 			for (let entry of selectedEntries) {
 				if (operation && operation.action) {
 					await operation.action(entry, true);
@@ -977,7 +978,7 @@ const Journal = {
 				this.filterText ||
 				this.selectedActFilter > 0 ||
 				this.selectedTimeFilter !==
-					this.constant.DateRangeType.ANYTIME ||
+				this.constant.DateRangeType.ANYTIME ||
 				this.selectedSortFilter !== "timestamp"
 			);
 		},
@@ -1136,6 +1137,11 @@ const Journal = {
 		titleEditStart(entry) {
 			this.originalTitle = entry.metadata.title;
 			entry.isEditingTitle = true;
+			this.$nextTick(() => {
+				if (this.$refs.titleInput && this.$refs.titleInput[0]) {
+					this.$refs.titleInput[0].focus();
+				}
+			});
 		},
 		async titleEditEnd(entry) {
 			entry.isEditingTitle = false;
@@ -1195,7 +1201,7 @@ const Journal = {
 				// Scrolled to top
 				const topElement =
 					this.$refs[
-						this.processedJournal[this.visibleStartIndex]?.objectId
+					this.processedJournal[this.visibleStartIndex]?.objectId
 					]?.[1];
 				this.visibleStartIndex = Math.max(
 					this.visibleStartIndex - pageJournalSize,
