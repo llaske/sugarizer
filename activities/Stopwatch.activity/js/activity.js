@@ -62,7 +62,7 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial", "
             this.tenthsOfSecond = 0;
             this.seconds = 0;
             this.minutes = 0;
-            if(marks) {
+            if(marks && marks.length > 0 && marks[0] !== "") {
                 this.marks = marks;
                 this.updateMarks();
             }
@@ -248,7 +248,8 @@ define(["sugar-web/activity/activity","mustache", "sugar-web/env", "tutorial", "
         for (i = 0; i < stopwatchData.length; i++) { 
             stopwatchDict[i] = {};
             (stopwatchDict[i])["counter"] = stopwatchData[i].getElementsByClassName("counter")[0].innerHTML;
-            (stopwatchDict[i])["marks"] = stopwatchData[i].getElementsByClassName("marks")[0].innerHTML.split(" - ");
+            var marksHTML = stopwatchData[i].getElementsByClassName("marks")[0].innerHTML;
+            (stopwatchDict[i])["marks"] = marksHTML ? marksHTML.split(" - ") : [];
         }
         stopwatchJSON = JSON.stringify(stopwatchDict);
         activity.getDatastoreObject().setDataAsText(stopwatchJSON);
