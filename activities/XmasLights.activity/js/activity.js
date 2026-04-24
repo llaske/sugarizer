@@ -557,6 +557,17 @@ var app = new Vue({
 		// Handle network events
 		onNetworkDataReceived: function(msg) {
 			let vm = this;
+			if (Object.keys(vm.activitiesIcons).length == 0) {
+				vm.initialize().then(function() {
+					vm.transfer(vm,msg);
+				});
+			}
+			else{
+				vm.transfer(vm,msg);
+			}
+		},
+
+		transfer: function(vm,msg){
 			vm.pattern = msg.pattern;
 			vm.colors = msg.colors;
 			vm.size = msg.size;
