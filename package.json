@@ -7,7 +7,7 @@
 	"author": "Lionel Laské <lionel@sugarizer.org>",
 	"description": "The leading learning platform for children",
 	"dependencies": {
-		"electron": ">=22.3.25",
+		"electron": "^41.3.0",
 		"axios": "^1.13.5",
 		"core-js": "^3.8.3",
 		"js-ini": "^1.6.0",
