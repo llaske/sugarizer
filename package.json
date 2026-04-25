@@ -8,7 +8,7 @@
 	"description": "The leading learning platform for children",
 	"dependencies": {
 		"electron": "^41.3.0",
-		"axios": "^1.13.5",
+		"axios": "^1.15.0",
 		"core-js": "^3.8.3",
 		"js-ini": "^1.6.0",
 		"vue": "^3.2.13",
