@@ -716,7 +716,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function setupColorRing() {
             var size = 380, center = size / 2, outerRadius = 190, innerRadius = 140;
-            var colors = ['#F44336', '#FF9800', '#FFEB3B', '#CDDC39', '#4CAF50', '#009688', '#00BCD4', '#2196F3', '#3F51B5', '#673AB7', '#9C27B0', '#E91E63'];
+            var colors = ['#FF0000', '#FF9800', '#FFEB3B', '#CDDC39', '#4CAF50', '#009688', '#00BCD4', '#2196F3', '#3F51B5', '#673AB7', '#9C27B0', '#E91E63'];
 
             elements['ring-svg'].innerHTML = '';
             colors.forEach(function (color, i) {
