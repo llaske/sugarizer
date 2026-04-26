@@ -967,12 +967,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                             msg.content.data.challengeUserRgb = state.challengeUserRgb;
                             msg.content.data.challengeSimilarity = state.challengeSimilarity;
                         }
-                        // Always accept the host's difficulty setting
-                        if (!isHost && msg.content.data.challengeDifficulty) {
-                            state.challengeDifficulty = msg.content.data.challengeDifficulty;
-                        } else if (isHost) {
-                            msg.content.data.challengeDifficulty = state.challengeDifficulty;
-                        }
                     }
 
                     // Update local state with network state safely filtered
