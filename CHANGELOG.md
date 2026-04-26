@@ -66,6 +66,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Stopwatch Adds “-” When Marking After Reopening #2161
 - Pointer interaction and hitboxes misaligned for PhysicsJS Activity #2140
 - Xmas Light Activity multiplayer not working #2169
+- Electron BrowserWindow disables webSecurity, contextIsolation, and enables nodeIntegration — Remote Code Execution risk #2119
 
 ## [1.9.0] - 2025-03-25
 ### Added
