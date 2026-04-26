@@ -125,9 +125,10 @@ function createWindow() {
 		fullscreen: frameless,
 		frame: !frameless,
 		webPreferences: {
-			webSecurity: false,
-			contextIsolation: false,
-			nodeIntegration: true,
+			webSecurity: true,
+			contextIsolation: true,
+			nodeIntegration: false,
+			preload: path.join(__dirname, "preload.js"),
 		},
 		icon: nativeImage.createFromPath("./res/icon/electron/icon-1024.png"),
 	});
@@ -348,4 +349,3 @@ function setupI18next(language) {
 
 // Initialize locales asynchronously
 setupI18next(app.getLocale() || "en");
-// .then(() => {});
