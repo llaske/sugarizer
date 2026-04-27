@@ -225,8 +225,8 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					const size = Math.max(body.geometry.width, body.geometry.height);
 					if (size < 50) return DENSITY_MAP.VERY_LIGHT;
 					else if (size < 70) return DENSITY_MAP.LIGHT;
-					else if (size > 80) return DENSITY_MAP.HEAVY;
 					else if (size >= 100) return DENSITY_MAP.VERY_HEAVY;
+					else if (size > 80) return DENSITY_MAP.HEAVY;
 					else return DENSITY_MAP.MEDIUM;
 				}
 
@@ -237,10 +237,10 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						return DENSITY_MAP.VERY_LIGHT;
 					} else if (polyRadius < 70 && polyRadius >= 50) {
 						return DENSITY_MAP.LIGHT;
-					} else if (polyRadius > 80) {
-						return DENSITY_MAP.HEAVY;
 					} else if (polyRadius >= 100) {
 						return DENSITY_MAP.VERY_HEAVY;
+					} else if (polyRadius > 80) {
+						return DENSITY_MAP.HEAVY;
 					}
 					else{
 						return DENSITY_MAP.MEDIUM;
