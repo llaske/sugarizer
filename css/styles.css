@@ -1076,13 +1076,11 @@ a {
 	display: flex; 
 	align-items: center;
 	gap: 15px;
-	flex: 1;
 }
 .activity-name {
 	font-size: 14px;
 	font-weight: bold;
-	flex: 1;
-	min-width: 0;
+	width: 150px;
 }
 
 .activity-version {
@@ -1437,6 +1435,15 @@ a {
 	margin-inline: auto;
 	padding-left: 10px;
 	padding-right: 40px;
+}
+#journal-listview .activity-name {
+	width: auto;
+	flex: 1;
+	min-width: 0;
+}
+#journal-listview input.activity-name {
+	flex: none;
+	width: 250px;
 }
 #journal-listview .activity-name.nonEditing {
 	border: none;
