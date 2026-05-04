@@ -114,6 +114,13 @@ define(function () {
             wrapperElem.appendChild(containerElem);
 
             updatePosition();
+            // Re-position the palette when the window is resized
+            window.addEventListener('resize', function() {
+                if (!that.isDown()) {
+                    updatePosition();
+                }
+            });
+
         }
 
         this.getPalette = function () {
