@@ -55,9 +55,25 @@ define(["sugar-web/graphics/palette","sugar-web/env","l10n","sugar-web/datastore
 	var speech = null;
 	var sugarSettings = {};
 	var first = true;
+	var enterHeld = false;
+	var enterReplayPending = false;
+
+	function tryReplayHeldEnter() {
+		if (!enterHeld || !enterReplayPending || speech.isPlaying()) {
+			return;
+		}
+
+		enterReplayPending = false;
+		triggerSpeech();
+	}
 
 	function init(){
 		speech = Speech();
+		speech.onDone(function() {
+			window.setTimeout(function() {
+				tryReplayHeldEnter();
+			}, 0);
+		});
 		env.getEnvironment(function(err, environment) {
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
 			if (!environment.user) environment.user = { language: defaultLanguage };
@@ -228,32 +244,56 @@ define(["sugar-web/graphics/palette","sugar-web/env","l10n","sugar-web/datastore
 		}
 	}
 
-	document.getElementById('speakText').onmousedown = function(e){
+	function triggerSpeech() {
+		if (speech.isPlaying()) {
+			return false;
+		}
+
 		var language = document.getElementById('speaklang').innerHTML;
 		var text = document.getElementById('userText').value;
-		speech.playVoice(language, text);
+		var started = speech.playVoice(language, text);
+		if (!started) {
+			return false;
+		}
+
+		moveMouth(text);
 		idleTimer();
+		if (document.getElementById('mode').innerHTML == "3") {
+			addToChat();
+		}
+
+		return true;
+	}
+
+	document.getElementById('speakText').onmousedown = function(e){
+		triggerSpeech();
 	}
 
 	document.getElementById('speakText').onmouseup = function(e){
-		var text = document.getElementById('userText').value;
-		moveMouth(text);
-		if(document.getElementById('mode').innerHTML == "3"){
-			addToChat();
+	}
+
+	document.getElementById('userText').onkeydown = function(e) {
+		var key = e.keyCode || e.which;
+		if (key == 13) {
+			e.preventDefault();
+			enterHeld = true;
+			if (speech.isPlaying()) {
+				enterReplayPending = true;
+				return false;
+			}
+			if (e.repeat && !enterReplayPending) {
+				enterReplayPending = true;
+			}
+			triggerSpeech();
+			return false;
 		}
 	}
 
-	document.getElementById('userText').onkeypress = function(e) {
+	document.getElementById('userText').onkeyup = function(e) {
 		var key = e.keyCode || e.which;
 		if (key == 13) {
-			var language = document.getElementById('speaklang').innerHTML;
-			var text = document.getElementById('userText').value;
-			speech.playVoice(language, text);
-			moveMouth(text);
-			idleTimer();
-			if(document.getElementById('mode').innerHTML == "3"){
-				addToChat();
-			}
+			enterHeld = false;
+			enterReplayPending = false;
 		}
 	}
 
