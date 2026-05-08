@@ -433,17 +433,17 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
             if (this.isCordova()) {
                 this.helper = cordovaHelper;
             } else {
-                this.helper = html5Helper;
-                this.helper.timerStart = document.getElementById("timer-start");
-                this.helper.timerEnd = document.getElementById("timer-end");
-
-                this.loadingStop = document.getElementById("loading-stop");
-                this.loadingStop.addEventListener("click", function () {
-                    if (html5Helper.currentRecording && html5Helper.currentRecording.maxTime) {
-                        html5Helper.currentRecording.time = html5Helper.currentRecording.maxTime;
-                    }
-                });
+                this.helper = html5Helper;  
             }
+            this.helper.timerStart = document.getElementById("timer-start");
+            this.helper.timerEnd = document.getElementById("timer-end");
+
+            this.loadingStop = document.getElementById("loading-stop");
+            this.loadingStop.addEventListener("click", function () {
+                if (t.helper.currentRecording && t.helper.currentRecording.maxTime) {
+                    t.helper.currentRecording.time = t.helper.currentRecording.maxTime;
+                }
+            });
             this.helper.init();
         }
     };
@@ -631,6 +631,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
 
     var cordovaHelper = {
 
+        currentRecording: {},
         cordovaLoaded: false,
         fileSystem: null,
 
@@ -655,15 +656,12 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
         },
 
         recordAudio: function () {
-            var captureSuccess = function (mediaFiles) {
-                var i, path, len;
-                for (i = 0, len = mediaFiles.length; i < len; i += 1) {
-                    path = mediaFiles[i].fullPath;
-                    if (path.indexOf("file:/") == -1) {
-                        path = "file:/" + path;
-                    }
-                    path = path.replace("file:/", "file:///");
-                    window.resolveLocalFileSystemURL(path, function (entry) {
+            const cordovaFileStorage = /(iPhone|iPad|iPod)/.test(navigator.userAgent) ? 
+                cordova.file.documentsDirectory : cordova.file.externalCacheDirectory;
+            var audioPath = cordovaFileStorage + "recorded_audio_" + new Date().getTime() + ".m4a";
+            var media = new Media(audioPath,
+                function onSuccess() {
+                    window.resolveLocalFileSystemURL(audioPath, function (entry) {
                         entry.file(function (file) {
                             var reader = new FileReader();
                             reader.onloadend = function (evt) {
@@ -671,24 +669,56 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                             };
                             reader.readAsDataURL(file);
                         }, function (err) {
-                        })
+                            console.error("Failed to read recorded audio file: " + err.message);
+                            captureHelper.hideLoading();
+                        });
                     }, function (err) {
+                        console.error("Failed to resolve recorded audio file: " + err.message);
+                        captureHelper.hideLoading();
                     });
+                },
+                function onError(error) {
+                    console.error("Failed to record audio: " + error.message);
+                    captureHelper.hideLoading();
                 }
-            };
+            );
 
-            // capture error callback
-            var captureError = function (error) {
-            };
-
-            // start image capture
-			try {
-				navigator.device.capture.captureAudio(captureSuccess, captureError, {
-					limit: 1
-				});
-			} catch(err)
-			{
-			}
+            captureHelper.displayLoading();
+            try {
+                var t = this;
+                document.getElementById("loading-stop").style.display = "block";
+                t.timerStart.style.display = "inline-block";
+                t.timerEnd.style.display = "inline-block";
+                document.getElementById("loading-progress").style.display = "inline-block";
+                var maxTime = 5;
+                t.currentRecording.time = 0;
+                var p = document.getElementById("loading-progress");
+                t.currentRecording.maxTime = maxTime;
+                p.setAttribute("max", maxTime.toString());
+                t.timerEnd.innerHTML = maxTime.toString() + "s";
+                t.timerStart.innerHTML = "0s";
+                media.startRecord();
+                t.currentRecording.interval = setInterval(function () {
+                    t.currentRecording.time++;
+                    p = document.getElementById("loading-progress");
+                    p.value = t.currentRecording.time;
+                    if (t.currentRecording.time <= maxTime) {
+                        t.timerStart.innerHTML = t.currentRecording.time + "s";
+                    }
+                    if (t.currentRecording.time > t.currentRecording.maxTime) {
+                        t.timerStart.innerHTML = "";
+                        t.timerEnd.innerHTML = "";
+                        document.getElementById("loading-progress").value = 0;
+                        clearInterval(t.currentRecording.interval);
+                        media.stopRecord();
+                        captureHelper.hideLoading();
+                    }
+                }, 1000);
+            } catch (err) {
+                t.recording = false;
+                clearInterval(t.currentRecording.interval);
+                captureHelper.hideLoading();
+            }
         },
 
         recordVideo: function () {
