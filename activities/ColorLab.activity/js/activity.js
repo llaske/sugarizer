@@ -467,16 +467,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function updateChallengeDifficultyUI() {
             if (!elements['difficulty-options']) return;
-            
+
             // Update the main button icon: show level-specific icon in challenge mode, full icon otherwise
             if (elements['challenge-difficulty-button']) {
                 if (state.currentMode === 'challenge') {
                     elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-' + state.challengeDifficulty + '.svg)';
                 } else {
-                    elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-hard.svg)';
+                     elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-hard.svg)';
                 }
             }
-            
             var options = elements['difficulty-options'].querySelectorAll('.difficulty-option');
             options.forEach(function (opt) {
                 var level = opt.dataset.difficulty;
@@ -605,7 +604,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function handleFreeSliderInput() {
             state.isInitialState = false;
-            state.redSliderFree = Math.max(0, Math.min(255, parseInt(elements['red-slider'].value) || 0));
+           state.redSliderFree = Math.max(0, Math.min(255, parseInt(elements['red-slider'].value) || 0));
             state.greenSliderFree = Math.max(0, Math.min(255, parseInt(elements['green-slider'].value) || 0));
             state.blueSliderFree = Math.max(0, Math.min(255, parseInt(elements['blue-slider'].value) || 0));
             var hsl = rgbToHsl(state.redSliderFree, state.greenSliderFree, state.blueSliderFree);
@@ -966,7 +965,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                             msg.content.data.challengeUserRgb = state.challengeUserRgb;
                             msg.content.data.challengeSimilarity = state.challengeSimilarity;
                         }
-
                     }
 
                     // Update local state with network state safely filtered
