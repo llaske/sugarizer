@@ -467,15 +467,16 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function updateChallengeDifficultyUI() {
             if (!elements['difficulty-options']) return;
-
+            
             // Update the main button icon: show level-specific icon in challenge mode, full icon otherwise
             if (elements['challenge-difficulty-button']) {
                 if (state.currentMode === 'challenge') {
                     elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-' + state.challengeDifficulty + '.svg)';
                 } else {
-                     elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-hard.svg)';
+                    elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-hard.svg)';
                 }
             }
+            
             var options = elements['difficulty-options'].querySelectorAll('.difficulty-option');
             options.forEach(function (opt) {
                 var level = opt.dataset.difficulty;
@@ -604,9 +605,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
         function handleFreeSliderInput() {
             state.isInitialState = false;
-            state.redSliderFree = parseInt(elements['red-slider'].value);
-            state.greenSliderFree = parseInt(elements['green-slider'].value);
-            state.blueSliderFree = parseInt(elements['blue-slider'].value);
+            state.redSliderFree = Math.max(0, Math.min(255, parseInt(elements['red-slider'].value) || 0));
+            state.greenSliderFree = Math.max(0, Math.min(255, parseInt(elements['green-slider'].value) || 0));
+            state.blueSliderFree = Math.max(0, Math.min(255, parseInt(elements['blue-slider'].value) || 0));
             var hsl = rgbToHsl(state.redSliderFree, state.greenSliderFree, state.blueSliderFree);
             state.mainHue = hsl.h * 360;
             state.mainSaturation = hsl.s;
@@ -616,9 +617,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         }
 
         function handleChallengeSliderInput() {
-            state.challengeUserRgb.r = parseInt(elements['challenge-red-slider'].value);
-            state.challengeUserRgb.g = parseInt(elements['challenge-green-slider'].value);
-            state.challengeUserRgb.b = parseInt(elements['challenge-blue-slider'].value);
+            var step = getChallengeStep(state.challengeDifficulty);
+            state.challengeUserRgb.r = Math.max(0, Math.min(255, Math.round((parseInt(elements['challenge-red-slider'].value) || 0) / step) * step));
+            state.challengeUserRgb.g = Math.max(0, Math.min(255, Math.round((parseInt(elements['challenge-green-slider'].value) || 0) / step) * step));
+            state.challengeUserRgb.b = Math.max(0, Math.min(255, Math.round((parseInt(elements['challenge-blue-slider'].value) || 0) / step) * step));
             checkChallengeMatch();
             updateUI();
             broadcastStateUpdate();
@@ -734,10 +736,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 path.setAttribute('stroke', '#ffffff');
                 path.setAttribute('stroke-width', '2');
                 path.style.cursor = 'pointer';
-                path.style.transition = 'opacity 0.2s';
 
-                path.addEventListener('mouseenter', function () { path.style.opacity = '0.8'; });
-                path.addEventListener('mouseleave', function () { path.style.opacity = '1'; });
                 path.addEventListener('click', function (e) {
                     e.stopPropagation();
 
@@ -967,6 +966,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                             msg.content.data.challengeUserRgb = state.challengeUserRgb;
                             msg.content.data.challengeSimilarity = state.challengeSimilarity;
                         }
+
                     }
 
                     // Update local state with network state safely filtered
@@ -1250,8 +1250,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 input.select();
 
                 function saveAndRestore() {
-                    var newVal = parseInt(input.value, 10);
-                    if (isNaN(newVal)) newVal = parseInt(currentVal, 10);
+                    var newVal = Math.floor(parseFloat(input.value) || 0);
                     newVal = Math.max(0, Math.min(255, newVal));
 
                     if (input.parentNode) {
