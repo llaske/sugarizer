@@ -634,10 +634,11 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
         currentRecording: {},
         cordovaLoaded: false,
         fileSystem: null,
+        isOnIOS: /(iPhone|iPad|iPod)/.test(navigator.userAgent),
 
         takePicture: function () {
             var captureSuccess = function (imageData) {
-				var data = "data:image/jpeg;base64," + imageData;
+				var data = cordovaHelper.isOnIOS ? "data:image/jpeg;base64," + imageData : imageData;
 				captureHelper.forgeAndInsertData(data);
 			}
 
@@ -656,7 +657,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
         },
 
         recordAudio: function () {
-            const cordovaFileStorage = /(iPhone|iPad|iPod)/.test(navigator.userAgent) ? 
+            const cordovaFileStorage = this.isOnIOS ? 
                 cordova.file.documentsDirectory : cordova.file.externalCacheDirectory;
             var audioPath = cordovaFileStorage + "recorded_audio_" + new Date().getTime() + ".m4a";
             var media = new Media(audioPath,

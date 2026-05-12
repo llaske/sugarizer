@@ -84,7 +84,7 @@ define(['picoModal','sugar-web/datastore','sugar-web/graphics/icon','mustache','
 	featurePhoto.icon = "lib/sugar-web/graphics/icons/actions/photo.svg";
 	featurePhoto.beforeActivate = function() {
 		var captureSuccess = function (imageData) {
-			var data = "data:image/jpeg;base64," + imageData;
+			var data = /(iPhone|iPad|iPod)/.test(navigator.userAgent) ? "data:image/jpeg;base64," + imageData : imageData;
 			featurePhoto.createJournalEntry(data, function() {
 				modal.close();
 			});
