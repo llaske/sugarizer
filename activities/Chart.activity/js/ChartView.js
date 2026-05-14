@@ -253,11 +253,26 @@ const ChartView = {
 					x: {
 						...this.chartOptions.scales.x,
 						beginAtZero: true,
+						title: {
+							...this.chartOptions.scales.x.title,
+							text: this.pref.labels.y,
+						},
 						grid: {
-							color: (ctx) => (ctx.tick && ctx.tick.value === 0 ? "rgb(50,50,50)" : "rgb(240,240,240)"),
+							color: (ctx) => (
+								ctx.tick && ctx.tick.value === 0
+									? "rgb(50,50,50)"
+									: "rgb(240,240,240)"
+							),
 						},
 					},
-					y: { ...this.chartOptions.scales.y, offset: true },
+					y: {
+						...this.chartOptions.scales.y,
+						offset: true,
+						title: {
+							...this.chartOptions.scales.y.title,
+							text: this.pref.labels.x,
+						},
+					},
 				},
 			};
 		},
