@@ -76,6 +76,7 @@ html {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
+    overflow: auto;
 }
 
 #board-cycle-harmony {
@@ -404,8 +405,7 @@ html {
     align-items: center;
     width: 100%;
     margin-bottom: 25px;
-    margin-top: 15px;
-    /* Anchors it near the top */
+    margin-top: auto;
 }
 
 #color-name {
@@ -508,21 +508,21 @@ html {
     flex-direction: row;
     justify-content: center;
     gap: clamp(5px, 2vw, 40px);
-    margin-inline: auto;
+    margin: 10px auto auto auto;
     padding-bottom: min(15px, 2vmin);
-    margin-top: 10px;
     flex-wrap: nowrap;
 }
 
 #main-workspace {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
     flex: 1;
     /* Consume space */
     min-height: 0;
+    overflow-y: auto;
 }
 
 /* On large monitors, scale up challenge mode bowls */
@@ -848,7 +848,7 @@ body.fullscreen-mode #color-wheel-ring {
     justify-content: center;
     gap: clamp(5px, 2vw, 40px);
     align-items: center;
-    margin: 0 auto 20px auto;
+    margin: 0 auto auto auto;
     padding-bottom: 20px;
     flex-shrink: 0;
     flex-wrap: nowrap;
