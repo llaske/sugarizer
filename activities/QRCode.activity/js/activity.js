@@ -298,6 +298,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore", "sugar-web/env", "l
 		// Handle graph save/world
 		var stopButton = document.getElementById("stop-button");
 		stopButton.addEventListener('click', function (event) {
+			if (isMobile) {
+				QRScanner.destroy(function(status){});
+			}
 			console.log("writing...");
 			var data = { userText: (photoButton.classList.contains('active') ? oldUserText : userText.value), uHistory: history };
 			var jsonData = JSON.stringify(data);
