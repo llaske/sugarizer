@@ -50,6 +50,7 @@ p {
 
 #main-toolbar #mode-button.challenge-icon {
 	background-image: url(../icons/challenge.svg);
+	background-position: center !important;
 }
 
 #main-toolbar #mode-button.harmony-icon {
@@ -62,6 +63,7 @@ p {
 
 #main-toolbar #challenge-button {
 	background-image: url(../icons/challenge.svg);
+	background-position: center !important;
 }
 
 #main-toolbar #reset-toolbar-button {

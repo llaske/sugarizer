@@ -355,6 +355,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                 var invokerIcon = modePalette.getPalette().querySelector('.palette-invoker');
                 if (invokerIcon) {
                     invokerIcon.style.backgroundImage = currentIconUrl;
+                    if (state.currentMode === 'challenge') {
+                        invokerIcon.style.setProperty('background-position', 'center', 'important');
+                    } else {
+                        invokerIcon.style.removeProperty('background-position');
+                    }
                 }
             }
 
@@ -470,10 +475,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
             // Update the main button icon: show level-specific icon in challenge mode, full icon otherwise
             if (elements['challenge-difficulty-button']) {
-                if (state.currentMode === 'challenge') {
-                    elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-' + state.challengeDifficulty + '.svg)';
-                } else {
-                     elements['challenge-difficulty-button'].style.backgroundImage = 'url(icons/difficulty-hard.svg)';
+                 var newBg = (state.currentMode === 'challenge') ? 
+                'url(icons/difficulty-' + state.challengeDifficulty + '.svg)' : 
+                'url(icons/difficulty-hard.svg)';
+                elements['challenge-difficulty-button'].style.backgroundImage = newBg;
+                
+                if (typeof difficultyPalette !== 'undefined' && difficultyPalette.getPalette) {
+                    var diffInvoker = difficultyPalette.getPalette().querySelector('.palette-invoker');
+                    if (diffInvoker) {
+                        diffInvoker.style.backgroundImage = newBg;
+                        // Difficulty icons don't explicitly use center background-position in CSS currently, 
+                        // but setting it is safe.
+                        diffInvoker.style.setProperty('background-position', 'center', 'important');
+                    }
                 }
             }
             var options = elements['difficulty-options'].querySelectorAll('.difficulty-option');
@@ -660,6 +674,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
             // Strict matching is required regardless of difficulty (0.995)
             if (state.challengeSimilarity >= 0.995) {
+                state.challengeSimilarity = 1;
+                state.challengeUserRgb.r = state.challengeTargetRgb.r;
+                state.challengeUserRgb.g = state.challengeTargetRgb.g;
+                state.challengeUserRgb.b = state.challengeTargetRgb.b;
                 triggerWin();
             }
         }
@@ -781,7 +799,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
             // Free Paint
             html += '<button id="mode-free" style="width: 100%; border: none; background: transparent; padding: 5px; cursor: pointer; display: flex; align-items: center; border-radius: 5px;">';
-            html += '<div style="background-image: url(icons/free-paint.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; margin-right: 15px; border: 2px solid transparent;"></div>';
+            html += '<div style="background-image: url(icons/free-paint.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; background-position: center; margin-right: 15px; border: 2px solid transparent;"></div>';
             html += '<span style="color: white; font-size: 14px; font-weight: bold;">' + (l10n.get('FreePaint') || 'Free Paint') + '</span>';
             html += '</button>';
 
@@ -789,7 +807,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
             // Challenge Mode
             html += '<button id="mode-challenge" style="width: 100%; border: none; background: transparent; padding: 5px; cursor: pointer; display: flex; align-items: center; border-radius: 5px;">';
-            html += '<div style="background-image: url(icons/challenge.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; margin-right: 15px; border: 2px solid transparent;"></div>';
+            html += '<div style="background-image: url(icons/challenge.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; background-position: center; margin-right: 15px; border: 2px solid transparent;"></div>';
             html += '<span style="color: white; font-size: 14px; font-weight: bold;">' + (l10n.get('ChallengeMode') || 'Challenge Mode') + '</span>';
             html += '</button>';
 
@@ -797,7 +815,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
 
             // Harmony Mode
             html += '<button id="mode-harmony" style="width: 100%; border: none; background: transparent; padding: 5px; cursor: pointer; display: flex; align-items: center; border-radius: 5px;">';
-            html += '<div style="background-image: url(icons/harmony.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; margin-right: 15px; border: 2px solid transparent;"></div>';
+            html += '<div style="background-image: url(icons/harmony.svg); width: 30px; height: 30px; background-size: contain; background-repeat: no-repeat; background-position: center; margin-right: 15px; border: 2px solid transparent;"></div>';
             html += '<span style="color: white; font-size: 14px; font-weight: bold;">' + (l10n.get('Harmony') || 'Color Harmony') + '</span>';
             html += '</button>';
 
