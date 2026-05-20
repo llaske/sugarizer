@@ -355,15 +355,14 @@ html {
 
 /* Difficulty Options */
 #difficulty-palette {
-    width: max-content !important;
-    min-width: 150px;
+    width: 130px !important;
     z-index: 9999 !important;
 }
 
 #difficulty-options {
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 0;
 }
 
 .difficulty-option {
@@ -380,6 +379,9 @@ html {
     font-size: 14px;
     font-weight: bold;
     min-width: 120px;
+    width: 100%;
+    border-radius: 0;
+    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     text-align: left;
 }

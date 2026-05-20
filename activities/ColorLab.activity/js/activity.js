@@ -845,6 +845,20 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             container.id = 'difficulty-options';
             elements['difficulty-options'] = container;
 
+            var header = document.createElement('h4');
+            header.textContent = l10n.get('Select Level') || 'Select Level';
+            header.style.color = '#ffffff';
+            header.style.textAlign = 'center';
+            header.style.margin = '10px 0 10px 0';
+            header.style.fontFamily = 'Arial, Helvetica, sans-serif';
+            container.appendChild(header);
+
+            var hr = document.createElement('hr');
+            hr.style.margin = '0';
+            hr.style.border = '0';
+            hr.style.borderTop = '1px solid #555';
+            container.appendChild(hr);
+
             var difficulties = ['easy', 'medium', 'hard'];
 
             difficulties.forEach(function (level) {
