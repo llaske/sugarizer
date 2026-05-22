@@ -16,15 +16,22 @@ define([], function() {
     onMouseDown: function(event) {
       PaintApp.modes.Eraser.point = event.point;
       var ctx = PaintApp.elements.canvas.getContext('2d');
+      var worldCanvas = PaintApp.data.worldCanvas;
+      var ctxs = [ctx];
+      if (worldCanvas) {
+        ctxs.push(worldCanvas.getContext('2d'));
+      }
 
       /* We draw a single point on mouse down */
-      ctx.beginPath();
-      ctx.strokeStyle = '#fff';
-      ctx.lineCap = 'round';
-      ctx.lineWidth = PaintApp.data.size;
-      ctx.moveTo(event.point.x + 1, event.point.y + 1);
-      ctx.lineTo(event.point.x, event.point.y);
-      ctx.stroke();
+      ctxs.forEach(function (c) {
+        c.beginPath();
+        c.strokeStyle = '#fff';
+        c.lineCap = 'round';
+        c.lineWidth = PaintApp.data.size;
+        c.moveTo(event.point.x + 1, event.point.y + 1);
+        c.lineTo(event.point.x, event.point.y);
+        c.stroke();
+      });
 
       /* If the activity is shared, we send the point to everyone */
       if (PaintApp.data.isShared) {
@@ -53,15 +60,22 @@ define([], function() {
       }
 
       var ctx = PaintApp.elements.canvas.getContext('2d');
+      var worldCanvas = PaintApp.data.worldCanvas;
+      var ctxs = [ctx];
+      if (worldCanvas) {
+        ctxs.push(worldCanvas.getContext('2d'));
+      }
 
       /* We draw the move between points on mouse drag */
-      ctx.beginPath();
-      ctx.strokeStyle = '#fff';
-      ctx.lineCap = 'round';
-      ctx.lineWidth = PaintApp.data.size;
-      ctx.moveTo(PaintApp.modes.Eraser.point.x, PaintApp.modes.Eraser.point.y);
-      ctx.lineTo(event.point.x, event.point.y);
-      ctx.stroke();
+      ctxs.forEach(function (c) {
+        c.beginPath();
+        c.strokeStyle = '#fff';
+        c.lineCap = 'round';
+        c.lineWidth = PaintApp.data.size;
+        c.moveTo(PaintApp.modes.Eraser.point.x, PaintApp.modes.Eraser.point.y);
+        c.lineTo(event.point.x, event.point.y);
+        c.stroke();
+      });
 
       /* If the activity is shared, we send the move to everyone */
       if (PaintApp.data.isShared) {

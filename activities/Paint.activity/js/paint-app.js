@@ -70,8 +70,8 @@ define([], function() {
           PaintApp.collaboration.sendMessage({
             action: 'toDataURL',
             data: {
-              width: worldCanvas.width/ window.devicePixelRatio,
-              height: worldCanvas.height/ window.devicePixelRatio,
+              width: worldCanvas.width,
+              height: worldCanvas.height,
               src: PaintApp.collaboration.compress(worldCanvas.toDataURL())
             }
           });
@@ -124,8 +124,8 @@ define([], function() {
           PaintApp.collaboration.sendMessage({
             action: 'toDataURL',
             data: {
-              width: worldCanvas.width / window.devicePixelRatio,
-              height:worldCanvas.height / window.devicePixelRatio,
+              width: PaintApp.data.worldCanvas.width,
+              height: PaintApp.data.worldCanvas.height,
               src: PaintApp.collaboration.compress(PaintApp.data.worldCanvas.toDataURL())
             }
           });

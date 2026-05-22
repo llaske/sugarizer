@@ -91,21 +91,29 @@ define([], function() {
         } catch (e) {
           return;
         }
-        var imgData = ctx.getImageData(startX * window.devicePixelRatio, startY * window.devicePixelRatio, width * window.devicePixelRatio, height * window.devicePixelRatio);
-        canvas = document.createElement('canvas');
-        canvas.width = width * window.devicePixelRatio;
-        canvas.height = height * window.devicePixelRatio;
-        canvas.getContext('2d').putImageData(imgData, 0, 0);
+        var imgData;
+        var copyCanvas = document.createElement('canvas');
+        if (PaintApp.data.worldCanvas) {
+          imgData = PaintApp.data.worldCanvas.getContext('2d').getImageData(startX, startY, width, height);
+          copyCanvas.width = width;
+          copyCanvas.height = height;
+        } else {
+          imgData = ctx.getImageData(startX * window.devicePixelRatio, startY * window.devicePixelRatio, width * window.devicePixelRatio, height * window.devicePixelRatio);
+          copyCanvas.width = width * window.devicePixelRatio;
+          copyCanvas.height = height * window.devicePixelRatio;
+        }
+
+        copyCanvas.getContext('2d').putImageData(imgData, 0, 0);
         try {
-          imgData = canvas.toDataURL();
+          imgData = copyCanvas.toDataURL();
         } catch (e) {
           return;
         }
 
         /* We fill the paste mode with the image, width and height and then switch to paste mode */
         PaintApp.modes.Paste.dataImage = {
-          width: width / window.devicePixelRatio,
-          height: height / window.devicePixelRatio,
+          width: width,
+          height: height,
           data: imgData
         };
         PaintApp.elements.pasteButton.click();

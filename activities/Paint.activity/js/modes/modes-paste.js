@@ -63,9 +63,16 @@ define([], function() {
         /* This will prevent bugs for mobile platforms if the user just do a single tap we won't get onMouseDrag and onMouseUp correctly*/
         if (PaintApp.modes.Paste.releasedFinger) {
           ctx = PaintApp.elements.canvas.getContext('2d');
+          var worldCanvas = PaintApp.data.worldCanvas;
+          var ctxs = [ctx];
+          if (worldCanvas) {
+            ctxs.push(worldCanvas.getContext('2d'));
+          }
 
           /* We draw the copied area to the canvas where the user clicked */
-          ctx.drawImage(PaintApp.data.currentElement.element, 5 + PaintApp.data.currentElement.element.getBoundingClientRect().left, PaintApp.data.currentElement.element.getBoundingClientRect().top - 55 + 5);
+          ctxs.forEach(function (c) {
+            c.drawImage(PaintApp.data.currentElement.element, 5 + PaintApp.data.currentElement.element.getBoundingClientRect().left, PaintApp.data.currentElement.element.getBoundingClientRect().top - 55 + 5);
+          });
 
           /* If the activity is shared we send the element to everyone */
           if (PaintApp.data.isShared) {
@@ -106,10 +113,17 @@ define([], function() {
         return;
       }
       var ctx = PaintApp.elements.canvas.getContext('2d');
+      var worldCanvas = PaintApp.data.worldCanvas;
+      var ctxs = [ctx];
+      if (worldCanvas) {
+        ctxs.push(worldCanvas.getContext('2d'));
+      }
 
       /* We draw the copied area to the canvas where the user clicked */
-      ctx.drawImage(PaintApp.data.currentElement.element, PaintApp.data.currentElement.element.getBoundingClientRect().left, PaintApp.data.currentElement.element.getBoundingClientRect().top - 55, PaintApp.data.currentElement.element.getBoundingClientRect().width, PaintApp.data.currentElement.element.getBoundingClientRect().height);
-
+      ctxs.forEach(function (c) {
+        c.drawImage(PaintApp.data.currentElement.element, PaintApp.data.currentElement.element.getBoundingClientRect().left, PaintApp.data.currentElement.element.getBoundingClientRect().top - 55, PaintApp.data.currentElement.element.getBoundingClientRect().width, PaintApp.data.currentElement.element.getBoundingClientRect().height);
+      });
+      
       /* If the activity is shared we send the element to everyone */
       if (PaintApp.data.isShared) {
         var drawImage = {

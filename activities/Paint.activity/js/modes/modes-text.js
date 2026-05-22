@@ -91,10 +91,17 @@ define([], function () {
 
       /* We draw the text inside the canvas */
       var ctx = PaintApp.elements.canvas.getContext('2d');
-      ctx.font = PaintApp.data.currentElement.element.style.fontSize + ' ' + PaintApp.modes.Text.fontFamily;
-      ctx.fillStyle = PaintApp.data.color.fill;
-      ctx.textAlign = 'start';
-      ctx.fillText(txt, 5 + PaintApp.data.currentElement.element.getBoundingClientRect().left, top);
+      var worldCanvas = PaintApp.data.worldCanvas;
+      var ctxs = [ctx];
+      if (worldCanvas) {
+        ctxs.push(worldCanvas.getContext('2d'));
+      }
+      ctxs.forEach(function (c) {
+        c.font = PaintApp.data.currentElement.element.style.fontSize + ' ' + PaintApp.modes.Text.fontFamily;
+        c.fillStyle = PaintApp.data.color.fill;
+        c.textAlign = 'start';
+        c.fillText(txt, 5 + PaintApp.data.currentElement.element.getBoundingClientRect().left, top);
+      });
 
       /* If the activity is shared we send the element to everyone */
       if (PaintApp.data.isShared) {

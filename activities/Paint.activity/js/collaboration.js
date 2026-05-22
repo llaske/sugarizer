@@ -139,30 +139,47 @@ define(["sugar-web/env", "l10n"], function (env, l10n) {
   }
 
   function handlePath(msg) {
-    ctx = PaintApp.elements.canvas.getContext('2d');
-    ctx.beginPath();
-    ctx.strokeStyle = msg.content.data.strokeStyle;
-    ctx.lineCap = msg.content.data.lineCap;
-    ctx.lineWidth = msg.content.data.lineWidth;
-    ctx.moveTo(msg.content.data.from.x, msg.content.data.from.y);
-    ctx.lineTo(msg.content.data.to.x, msg.content.data.to.y);
-    ctx.stroke();
+    var ctx = PaintApp.elements.canvas.getContext('2d');
+    var worldCanvas = PaintApp.data.worldCanvas;
+    var ctxs = [ctx];
+    if (worldCanvas) {
+      ctxs.push(worldCanvas.getContext('2d'));
+    }
+    ctxs.forEach(function (c) {
+      c.beginPath();
+      c.strokeStyle = msg.content.data.strokeStyle;
+      c.lineCap = msg.content.data.lineCap;
+      c.lineWidth = msg.content.data.lineWidth;
+      c.moveTo(msg.content.data.from.x, msg.content.data.from.y);
+      c.lineTo(msg.content.data.to.x, msg.content.data.to.y);
+      c.stroke();
+    });
   }
 
   function handleText(msg) {
-    ctx = PaintApp.elements.canvas.getContext('2d');
-    ctx.font = msg.content.data.font;
-    ctx.fillStyle = msg.content.data.fillStyle;
-    ctx.textAlign = msg.content.data.textAlign;
-    ctx.fillText(msg.content.data.text, msg.content.data.left, msg.content.data.top);
-
+    var ctx = PaintApp.elements.canvas.getContext('2d');
+    var worldCanvas = PaintApp.data.worldCanvas;
+    var ctxs = [ctx];
+    if (worldCanvas) {
+      ctxs.push(worldCanvas.getContext('2d'));
+    }
+    ctxs.forEach(function (c) {
+      c.font = msg.content.data.font;
+      c.fillStyle = msg.content.data.fillStyle;
+      c.textAlign = msg.content.data.textAlign;
+      c.fillText(msg.content.data.text, msg.content.data.left, msg.content.data.top);
+    });
   }
 
   function handleDrawImage(msg) {
-    ctx = PaintApp.elements.canvas.getContext('2d');
+    var ctx = PaintApp.elements.canvas.getContext('2d');
+    var worldCanvas = PaintApp.data.worldCanvas;
     var img = new Image();
     img.onload = function() {
       ctx.drawImage(img, msg.content.data.left, msg.content.data.top, msg.content.data.width, msg.content.data.height);
+      if (worldCanvas) {
+        worldCanvas.getContext('2d').drawImage(img, msg.content.data.left, msg.content.data.top, msg.content.data.width, msg.content.data.height);
+      }
     };
     img.src = msg.content.data.src;
   }
@@ -173,7 +190,8 @@ define(["sugar-web/env", "l10n"], function (env, l10n) {
     if (isFirefox) {
       platform = 'gecko';
     }
-    ctx = PaintApp.elements.canvas.getContext('2d');
+    var ctx = PaintApp.elements.canvas.getContext('2d');
+    var worldCanvas = PaintApp.data.worldCanvas;
     var stampURL = msg.content.data.stampBase.replace('{platform}', platform);
     var url = window.location.href.split('/');
     url.pop();
@@ -186,6 +204,9 @@ define(["sugar-web/env", "l10n"], function (env, l10n) {
         var img = new Image();
         img.onload = function() {
           ctx.drawImage(img, msg.content.data.left, msg.content.data.top, msg.content.data.width, msg.content.data.height);
+          if (worldCanvas) {
+            worldCanvas.getContext('2d').drawImage(img, msg.content.data.left, msg.content.data.top, msg.content.data.width, msg.content.data.height);
+          }
         };
         img.src = 'data:image/svg+xml;base64,' + btoa(stamp);
       }
@@ -196,9 +217,12 @@ define(["sugar-web/env", "l10n"], function (env, l10n) {
   function handleEntranceToDataURL(msg) {
     PaintApp.data.entranceToDataURL = true;
     PaintApp.clearCanvas();
-    img = new Image();
+    var img = new Image();
     img.onload = function() {
       PaintApp.elements.canvas.getContext('2d').drawImage(img, 0, 0, msg.content.data.width, msg.content.data.height);
+      if (PaintApp.data.worldCanvas) {
+        PaintApp.data.worldCanvas.getContext('2d').drawImage(img, 0, 0, msg.content.data.width, msg.content.data.height);
+      }
     };
     img.src = decompress(msg.content.data.src);
 
@@ -206,9 +230,12 @@ define(["sugar-web/env", "l10n"], function (env, l10n) {
 
   function handleToDataURL(msg) {
     PaintApp.clearCanvas();
-    img = new Image();
+    var img = new Image();
     img.onload = function() {
       PaintApp.elements.canvas.getContext('2d').drawImage(img, 0, 0, msg.content.data.width, msg.content.data.height);
+      if (PaintApp.data.worldCanvas) {
+        PaintApp.data.worldCanvas.getContext('2d').drawImage(img, 0, 0, msg.content.data.width, msg.content.data.height);
+      }
     };
     img.src = decompress(msg.content.data.src);
 

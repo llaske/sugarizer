@@ -72,8 +72,8 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
     document.getElementById("stop-button").addEventListener('click', function(event) {
       PaintApp.data.worldCanvas.getContext('2d').drawImage(PaintApp.elements.canvas, 0, 0,PaintApp.prevScreenWidth,PaintApp.prevScreenHeight);
       var data = {
-        width: PaintApp.data.worldCanvas.width / window.devicePixelRatio,
-        height: PaintApp.data.worldCanvas.height / window.devicePixelRatio,
+        width: PaintApp.data.worldCanvas.width,
+        height: PaintApp.data.worldCanvas.height,
         src: PaintApp.collaboration.compress(PaintApp.data.worldCanvas.toDataURL())
       }
       var jsonData = JSON.stringify(data);
