@@ -67,6 +67,7 @@
 		<preference name="AndroidWindowSplashScreenBackgroundColor" value="#FF000000" />
 	</platform>
 	<platform name="ios">
+		<preference name="AllowInlineMediaPlayback" value="true" />
 		<plugin name="cordova-plugin-inappbrowser" spec="6.0.0" />
 		<plugin name="cordova-plugin-camera" spec="8.0.0" />
 		<plugin name="cordova-plugin-file" spec="8.1.3" />
