@@ -1,0 +1,14 @@
+{
+	"ConnectTheDots": "ConnectTheDots",
+	"Network": "Red",
+	"Fullscreen": "Pantalla completa",
+	"Unfullscreen": "Salir de pantalla completa",
+	"Stop": "Detener",
+	"Tutorial": "Tutorial",
+	"TutoPrev": "Atrás",
+	"TutoNext": "Siguiente",
+	"TutoExplainTitle": "Actividad ConnectTheDots",
+	"TutoExplainContent": "¡Bienvenido! Mueve el cursor sobre la cuadrícula de puntos para ver cómo reaccionan.",
+	"TutoNetworkTitle": "Red",
+	"TutoNetworkContent": "Haz clic aquí para compartir tu trabajo en la red."
+}

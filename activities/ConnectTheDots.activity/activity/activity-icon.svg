@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#010101">
+]>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="55"
+   height="55"
+   viewBox="0 0 55 55"
+   version="1.1">
+  <g>
+    <path
+       style="fill:none;stroke:&stroke_color;;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round"
+       d="M 27.5,10 L 10,45 L 45,45 Z" />
+    <circle
+       style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"
+       cx="27.5"
+       cy="10"
+       r="5" />
+    <circle
+       style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"
+       cx="10"
+       cy="45"
+       r="5" />
+    <circle
+       style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"
+       cx="45"
+       cy="45"
+       r="5" />
+  </g>
+</svg>

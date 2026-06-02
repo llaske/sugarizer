@@ -1,0 +1,14 @@
+{
+	"ConnectTheDots": "ConnectTheDots",
+	"Network": "Network",
+	"Fullscreen": "Fullscreen",
+	"Unfullscreen": "Unfullscreen",
+	"Stop": "Stop",
+	"Tutorial": "Tutorial",
+	"TutoPrev": "Prev",
+	"TutoNext": "Next",
+	"TutoExplainTitle": "ConnectTheDots Activity",
+	"TutoExplainContent": "Welcome! Move your cursor over the interactive dot grid to see them react.",
+	"TutoNetworkTitle": "Network",
+	"TutoNetworkContent": "Click here to share your work with other users on the network."
+}
