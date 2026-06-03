@@ -4,7 +4,7 @@
 		xmlns:android   = "http://schemas.android.com/apk/res/android"
 		id        = "org.olpc-france.sugarizer"
 		version   = "2.0.0"
-		android-versionCode = "20003">
+		android-versionCode = "20004">
 	<name>Sugarizer</name>
 
 	<description>
