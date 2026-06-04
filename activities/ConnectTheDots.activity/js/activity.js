@@ -105,23 +105,43 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var mouseY = -1000;
 		var spacing = 50;
 		var baseRadius = 4;
-		var maxRadius = 7;
-		var influenceRadius = 100;
+		var maxRadius = 9;
+		var influenceRadius = 150;
 		var dotColor = '#a0a0a0';
+		var zoom = 1;
+
+		// Fixed internal resolution (like GridPaint)
+		var CANVAS_WIDTH = 1024;
+		var CANVAS_HEIGHT = 748;
+		canvas.width = CANVAS_WIDTH;
+		canvas.height = CANVAS_HEIGHT;
 
 		function resize() {
 			var container = document.getElementById('canvas');
-			canvas.width = container.clientWidth;
-			canvas.height = container.clientHeight;
-			initDots();
+			var isFullscreen = document.getElementById("unfullscreen-button").style.visibility === "visible";
+			var availableHeight = document.body.clientHeight - (isFullscreen ? 0 : 55);
+			var availableWidth = container.clientWidth;
+
+			// Scale to fit the container while preserving aspect ratio
+			var scaleX = availableWidth / CANVAS_WIDTH;
+			var scaleY = availableHeight / CANVAS_HEIGHT;
+			zoom = Math.min(scaleX, scaleY);
+
+			// Set CSS size (scales visually while keeping internal resolution fixed)
+			canvas.style.width = (CANVAS_WIDTH * zoom) + "px";
+			canvas.style.height = (CANVAS_HEIGHT * zoom) + "px";
+
+			// Center the canvas horizontally
+			var leftMargin = (availableWidth - CANVAS_WIDTH * zoom) / 2;
+			canvas.style.marginLeft = leftMargin + "px";
 		}
 
 		function initDots() {
 			dots = [];
-			var cols = Math.floor(canvas.width / spacing) + 2;
-			var rows = Math.floor(canvas.height / spacing) + 2;
-			var offsetX = (canvas.width - (cols - 1) * spacing) / 2;
-			var offsetY = (canvas.height - (rows - 1) * spacing) / 2;
+			var cols = Math.floor(CANVAS_WIDTH / spacing);
+			var rows = Math.floor(CANVAS_HEIGHT / spacing);
+			var offsetX = (CANVAS_WIDTH - (cols - 1) * spacing) / 2;
+			var offsetY = (CANVAS_HEIGHT - (rows - 1) * spacing) / 2;
 
 			for (var i = 0; i < cols; i++) {
 				for (var j = 0; j < rows; j++) {
@@ -146,9 +166,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				var dy = mouseY - dot.y;
 				var dist = Math.sqrt(dx * dx + dy * dy);
 
-				if (dist < influenceRadius) {
-					var t = 1 - (dist / influenceRadius);
-					dot.targetR = dot.baseR + (maxRadius - dot.baseR) * Math.sin(t * Math.PI / 2);
+				// Circular influence area so dots in all directions (including diagonals) react equally
+				var dirInfluence = influenceRadius;
+
+				if (dist < dirInfluence) {
+					var t = 1 - (dist / dirInfluence);
+					// Increase slightly when little far, more rapidly when close
+					t = t * t; 
+					dot.targetR = dot.baseR + (maxRadius - dot.baseR) * t;
 				} else {
 					dot.targetR = dot.baseR;
 				}
@@ -190,14 +215,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		canvas.addEventListener('mousemove', function (e) {
 			var rect = canvas.getBoundingClientRect();
-			mouseX = e.clientX - rect.left;
-			mouseY = e.clientY - rect.top;
+			mouseX = (e.clientX - rect.left) / zoom;
+			mouseY = (e.clientY - rect.top) / zoom;
 		});
 		canvas.addEventListener('touchmove', function (e) {
 			if (e.touches.length > 0) {
 				var rect = canvas.getBoundingClientRect();
-				mouseX = e.touches[0].clientX - rect.left;
-				mouseY = e.touches[0].clientY - rect.top;
+				mouseX = (e.touches[0].clientX - rect.left) / zoom;
+				mouseY = (e.touches[0].clientY - rect.top) / zoom;
 			}
 		});
 		canvas.addEventListener('mouseout', function () {
@@ -219,6 +244,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			document.getElementById("stop-button").title = l10n.get("Stop");
 		});
 
+		initDots();
 		resize();
 		draw();
 	});
