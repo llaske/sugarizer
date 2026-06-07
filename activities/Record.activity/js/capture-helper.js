@@ -635,6 +635,7 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
         cordovaLoaded: false,
         fileSystem: null,
         isOnIOS: /(iPhone|iPad|iPod)/.test(navigator.userAgent),
+        isOnAndroid: /Android/.test(navigator.userAgent),
 
         takePicture: function () {
             var captureSuccess = function (imageData) {
@@ -657,36 +658,105 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
         },
 
         recordAudio: function () {
-            const cordovaFileStorage = this.isOnIOS ? 
-                cordova.file.documentsDirectory : cordova.file.externalCacheDirectory;
-            var audioPath = cordovaFileStorage + "recorded_audio_" + new Date().getTime() + ".m4a";
-            var media = new Media(audioPath,
-                function onSuccess() {
-                    window.resolveLocalFileSystemURL(audioPath, function (entry) {
-                        entry.file(function (file) {
-                            var reader = new FileReader();
-                            reader.onloadend = function (evt) {
-                                captureHelper.forgeAndInsertData(evt.target.result);
-                            };
-                            reader.readAsDataURL(file);
-                        }, function (err) {
-                            console.error("Failed to read recorded audio file: " + err.message);
-                            captureHelper.hideLoading();
-                        });
-                    }, function (err) {
-                        console.error("Failed to resolve recorded audio file: " + err.message);
+            var t = this;
+            if (t.recording) {
+                return;
+            }
+            t.recording = true;
+
+            // On Android, the cordova-plugin-media cannot reliably write to app-private
+            // storage on Android 10+. Use the same HTML5 getUserMedia + RecordRTC path
+            // that the web helper uses — audio stays in memory as a Blob, no file I/O needed.
+            if (t.isOnAndroid) {
+                document.getElementById("loading-stop").style.display = "block";
+                t.timerStart.style.display = "inline-block";
+                t.timerEnd.style.display = "inline-block";
+                document.getElementById("loading-progress").style.display = "inline-block";
+                captureHelper.displayLoading();
+                try {
+                    navigator.mediaDevices.getUserMedia({audio: true}).then(function (mediaStream) {
+                        var rRTC = RecordRTC(mediaStream, {type: 'audio'});
+                        rRTC.startRecording();
+                        var maxTime = 5;
+                        t.currentRecording.time = 0;
+                        var p = document.getElementById("loading-progress");
+                        t.currentRecording.maxTime = maxTime;
+                        p.setAttribute("max", maxTime.toString());
+                        t.timerEnd.innerHTML = maxTime.toString() + "s";
+                        t.timerStart.innerHTML = "0s";
+                        t.currentRecording.interval = setInterval(function () {
+                            t.currentRecording.time++;
+                            p = document.getElementById("loading-progress");
+                            p.value = t.currentRecording.time;
+                            if (t.currentRecording.time <= maxTime) {
+                                t.timerStart.innerHTML = t.currentRecording.time + "s";
+                            }
+                            if (t.currentRecording.time > t.currentRecording.maxTime) {
+                                t.timerStart.innerHTML = "";
+                                t.timerEnd.innerHTML = "";
+                                document.getElementById("loading-progress").value = 0;
+                                clearInterval(t.currentRecording.interval);
+                                rRTC.stopRecording(function () {
+                                    rRTC.getDataURL(function (dataURL) {
+                                        setTimeout(function () {
+                                            captureHelper.forgeAndInsertData(dataURL);
+                                            mediaStream.getTracks().forEach(function (track) { track.stop(); });
+                                            t.recording = false;
+                                            captureHelper.hideLoading();
+                                        }, 500);
+                                    }, false);
+                                });
+                            }
+                        }, 1000);
+                    }).catch(function (error) {
+                        t.recording = false;
+                        console.error("getUserMedia error: " + error);
                         captureHelper.hideLoading();
                     });
+                } catch (e) {
+                    t.recording = false;
+                    captureHelper.hideLoading();
+                }
+                return;
+            }
+
+            // iOS: use cordova-plugin-media which works correctly on iOS.
+            var fileName = "recorded_audio_" + new Date().getTime() + ".m4a";
+            var audioPath = cordova.file.documentsDirectory + fileName;
+
+            var readAudioFile = function () {
+                window.resolveLocalFileSystemURL(audioPath, function (entry) {
+                    entry.file(function (file) {
+                        var reader = new FileReader();
+                        reader.onloadend = function (evt) {
+                            captureHelper.forgeAndInsertData(evt.target.result);
+                            t.recording = false;
+                            captureHelper.hideLoading();
+                        };
+                        reader.readAsDataURL(file);
+                    }, function () {
+                        t.recording = false;
+                        captureHelper.hideLoading();
+                    });
+                }, function () {
+                    t.recording = false;
+                    captureHelper.hideLoading();
+                });
+            };
+
+            var media = new Media(audioPath,
+                function onSuccess() {
+                    readAudioFile();
                 },
                 function onError(error) {
-                    console.error("Failed to record audio: " + error.message);
+                    t.recording = false;
+                    console.error("Failed to record audio: " + (error && error.message ? error.message : "unknown error"));
                     captureHelper.hideLoading();
                 }
             );
 
             captureHelper.displayLoading();
             try {
-                var t = this;
                 document.getElementById("loading-stop").style.display = "block";
                 t.timerStart.style.display = "inline-block";
                 t.timerEnd.style.display = "inline-block";
@@ -712,12 +782,14 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
                         document.getElementById("loading-progress").value = 0;
                         clearInterval(t.currentRecording.interval);
                         media.stopRecord();
-                        captureHelper.hideLoading();
+                        media.release();
+                        setTimeout(readAudioFile, 500);
                     }
                 }, 1000);
             } catch (err) {
                 t.recording = false;
                 clearInterval(t.currentRecording.interval);
+                console.error("Unable to start recording: " + (err && err.message ? err.message : "unknown error"));
                 captureHelper.hideLoading();
             }
         },
