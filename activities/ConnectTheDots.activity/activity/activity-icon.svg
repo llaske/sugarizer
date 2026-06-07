@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
-  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY fill_color "#7f7f7f">
   <!ENTITY stroke_color "#010101">
 ]>
 <svg
@@ -10,23 +10,32 @@
    viewBox="0 0 55 55"
    version="1.1">
   <g>
+    <!-- Link 1 (Top horizontal line) -->
     <path
-       style="fill:none;stroke:&stroke_color;;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round"
-       d="M 27.5,10 L 10,45 L 45,45 Z" />
-    <circle
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"
-       cx="27.5"
-       cy="10"
-       r="5" />
-    <circle
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"
-       cx="10"
-       cy="45"
-       r="5" />
-    <circle
-       style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"
-       cx="45"
-       cy="45"
-       r="5" />
+       style="fill:none;stroke:&stroke_color;;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"
+       d="M 12.5,12.5 L 42.5,12.5" />
+
+    <!-- Link 2 (Diagonal line) -->
+    <path
+       style="fill:none;stroke:&fill_color;;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"
+       d="M 42.5,12.5 L 12.5,42.5" />
+
+    <!-- Link 3 (Bottom horizontal line) -->
+    <path
+       style="fill:none;stroke:&stroke_color;;stroke-width:3;stroke-linecap:round;stroke-linejoin:round"
+       d="M 12.5,42.5 L 42.5,42.5" />
+
+    <!-- The 3x3 Dots (Gray, to match the game board) -->
+    <circle style="fill:#a0a0a0;stroke:none" cx="12.5" cy="12.5" r="3.5" />
+    <circle style="fill:#a0a0a0;stroke:none" cx="27.5" cy="12.5" r="3.5" />
+    <circle style="fill:#a0a0a0;stroke:none" cx="42.5" cy="12.5" r="3.5" />
+    
+    <circle style="fill:#a0a0a0;stroke:none" cx="12.5" cy="27.5" r="3.5" />
+    <circle style="fill:#a0a0a0;stroke:none" cx="27.5" cy="27.5" r="3.5" />
+    <circle style="fill:#a0a0a0;stroke:none" cx="42.5" cy="27.5" r="3.5" />
+    
+    <circle style="fill:#a0a0a0;stroke:none" cx="12.5" cy="42.5" r="3.5" />
+    <circle style="fill:#a0a0a0;stroke:none" cx="27.5" cy="42.5" r="3.5" />
+    <circle style="fill:#a0a0a0;stroke:none" cx="42.5" cy="42.5" r="3.5" />
   </g>
 </svg>
