@@ -267,6 +267,7 @@ const LoginScreen = {
 
 				else if (this.index.currentIndex === 1 && this.details.name.length > 0) { // name
 					// Validate username - check for HTML characters
+					this.details.name = this.details.name.trim();
 					const htmlChars = /[<>&"']/;
 					if (htmlChars.test(this.details.name)) {
 						this.warning.show = true;
