@@ -103,15 +103,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var dots = [];
 		var mouseX = -1000;
 		var mouseY = -1000;
-		var spacing = 50;
+		var spacing = 55;
 		var baseRadius = 4;
 		var maxRadius = 9;
-		var influenceRadius = 150;
+		var influenceRadius = 125;
 		var dotColor = '#a0a0a0';
 		var zoom = 1;
 
 		// Fixed internal resolution (like GridPaint)
-		var CANVAS_WIDTH = 1024;
+		var CANVAS_WIDTH = 900;
 		var CANVAS_HEIGHT = 748;
 		canvas.width = CANVAS_WIDTH;
 		canvas.height = CANVAS_HEIGHT;
@@ -122,24 +122,31 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			var availableHeight = document.body.clientHeight - (isFullscreen ? 0 : 55);
 			var availableWidth = container.clientWidth;
 
-			// Scale to fit the container while preserving aspect ratio
-			var scaleX = availableWidth / CANVAS_WIDTH;
-			var scaleY = availableHeight / CANVAS_HEIGHT;
-			zoom = Math.min(scaleX, scaleY);
+			// Scale to fit available height
+			zoom = availableHeight / CANVAS_HEIGHT;
+			
+			// Get actual device pixel ratio for high-DPI screens
+			var dpr = window.devicePixelRatio || 1;
 
-			// Set CSS size (scales visually while keeping internal resolution fixed)
+			// Update actual physical pixels to be ultra-high-definition
+			canvas.width = (CANVAS_WIDTH * zoom) * dpr;
+			canvas.height = (CANVAS_HEIGHT * zoom) * dpr;
+
+			// Set CSS size (scales visually while keeping the element size correct)
 			canvas.style.width = (CANVAS_WIDTH * zoom) + "px";
 			canvas.style.height = (CANVAS_HEIGHT * zoom) + "px";
+			ctx.scale(zoom * dpr, zoom * dpr);
 
 			// Center the canvas horizontally
 			var leftMargin = (availableWidth - CANVAS_WIDTH * zoom) / 2;
 			canvas.style.marginLeft = leftMargin + "px";
+			canvas.style.marginTop = "0px";
 		}
 
 		function initDots() {
 			dots = [];
-			var cols = Math.floor(CANVAS_WIDTH / spacing);
-			var rows = Math.floor(CANVAS_HEIGHT / spacing);
+			var cols = 15;
+			var rows = 13;
 			var offsetX = (CANVAS_WIDTH - (cols - 1) * spacing) / 2;
 			var offsetY = (CANVAS_HEIGHT - (rows - 1) * spacing) / 2;
 
@@ -158,28 +165,33 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		}
 
 		function draw() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
 			for (var i = 0; i < dots.length; i++) {
 				var dot = dots[i];
 				var dx = mouseX - dot.x;
 				var dy = mouseY - dot.y;
-				var dist = Math.sqrt(dx * dx + dy * dy);
-
-				// Circular influence area so dots in all directions (including diagonals) react equally
-				var dirInfluence = influenceRadius;
+				var dist = Math.max(Math.abs(dx), Math.abs(dy));
+				var angle = Math.atan2(dy, dx);
+				
+				// 8-pointed star without shrinking nearby dots
+				var dirInfluence = influenceRadius * (1.3 + 0.5 * Math.cos(angle * 8));
 
 				if (dist < dirInfluence) {
 					var t = 1 - (dist / dirInfluence);
 					// Increase slightly when little far, more rapidly when close
-					t = t * t; 
+					t = Math.pow(t, 1.5);
 					dot.targetR = dot.baseR + (maxRadius - dot.baseR) * t;
 				} else {
 					dot.targetR = dot.baseR;
 				}
 
 				// Smooth easing
-				dot.r += (dot.targetR - dot.r) * 0.2;
+				if (dot.targetR > dot.r) {
+					dot.r += (dot.targetR - dot.r) * 0.5; // Grow fast
+				} else {
+					dot.r += (dot.targetR - dot.r) * 0.05; // Shrink slow (leaves a trail)
+				}
 
 				ctx.beginPath();
 				ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
