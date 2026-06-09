@@ -634,12 +634,11 @@ define(["activity/recordrtc", "sugar-web/activity/activity", "sugar-web/datastor
         currentRecording: {},
         cordovaLoaded: false,
         fileSystem: null,
-        isOnIOS: /(iPhone|iPad|iPod)/.test(navigator.userAgent),
         isOnAndroid: /Android/.test(navigator.userAgent),
 
         takePicture: function () {
             var captureSuccess = function (imageData) {
-				var data = cordovaHelper.isOnIOS ? "data:image/jpeg;base64," + imageData : imageData;
+				var data = imageData;
 				captureHelper.forgeAndInsertData(data);
 			}
 
