@@ -13,11 +13,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		palette.addEventListener('shared', function () {
 			palette.popDown();
 			console.log("Want to share");
-			presence = activity.getPresenceObject(function (error, network) {
+			activity.getPresenceObject(function (error, network) {
 				if (error) {
 					console.log("Sharing error");
 					return;
 				}
+				presence = network;
 				network.createSharedActivity('org.sugarlabs.ConnectTheDots', function (groupId) {
 					console.log("Activity shared");
 					isHost = true;
@@ -26,6 +27,47 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				network.onSharedActivityUserChanged(onNetworkUserChanged);
 			});
 		});
+		// network & datastore
+		function serializeStrokes() {
+			var serializedStrokes = [];
+			for (var i = 0; i < strokes.length; i++) {
+				var stroke = [];
+				for (var j = 0; j < strokes[i].length; j++) {
+					stroke.push(dots.indexOf(strokes[i][j]));
+				}
+				serializedStrokes.push(stroke);
+			}
+			return serializedStrokes;
+		}
+
+		function deserializeStrokes(serializedStrokes) {
+			if (!serializedStrokes || !Array.isArray(serializedStrokes)) return;
+			strokes = [];
+			for (var i = 0; i < serializedStrokes.length; i++) {
+				var strokeData = serializedStrokes[i];
+				var stroke = [];
+				for (var j = 0; j < strokeData.length; j++) {
+					var dotIndex = strokeData[j];
+					if (dotIndex >= 0 && dotIndex < dots.length) {
+						stroke.push(dots[dotIndex]);
+					}
+				}
+				if (stroke.length > 0) strokes.push(stroke);
+			}
+		}
+
+		function broadcastUpdate() {
+			if (presence) {
+				presence.sendMessage(presence.getSharedInfo().id, {
+					user: presence.getUserInfo(),
+					content: {
+						action: 'update',
+						data: { strokes: serializeStrokes() }
+					}
+				});
+			}
+		}
+
 
 		// Handle incoming data from network
 		var onNetworkDataReceived = function (msg) {
@@ -34,7 +76,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 			switch (msg.content.action) {
 				case 'init':
-					// Received initial grid settings from host
+					deserializeStrokes(msg.content.data.strokes);
+					break;
+				case 'update':
+					deserializeStrokes(msg.content.data.strokes);
 					break;
 			}
 		};
@@ -45,7 +90,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				presence.sendMessage(presence.getSharedInfo().id, {
 					user: presence.getUserInfo(),
 					content: {
-						action: 'init'
+						action: 'init',
+						data: {
+							strokes: serializeStrokes()
+						}
 					}
 				});
 			}
@@ -71,20 +119,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 						console.log("Loaded instance");
 						try {
 							var parsed = JSON.parse(data);
-							if (parsed.strokes && Array.isArray(parsed.strokes)) {
-								strokes = [];
-								for (var i = 0; i < parsed.strokes.length; i++) {
-									var strokeData = parsed.strokes[i];
-									var stroke = [];
-									for (var j = 0; j < strokeData.length; j++) {
-										var dotIndex = strokeData[j];
-										if (dotIndex >= 0 && dotIndex < dots.length) {
-											stroke.push(dots[dotIndex]);
-										}
-									}
-									if (stroke.length > 0) strokes.push(stroke);
-								}
-							}
+							deserializeStrokes(parsed.strokes);
 						} catch (e) {
 							console.log("Error loading instance", e);
 						}
@@ -95,7 +130,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			// Handle shared instances (joining)
 			if (environment.sharedId) {
 				console.log("Shared instance");
-				presence = activity.getPresenceObject(function (error, network) {
+				activity.getPresenceObject(function (error, network) {
+					presence = network;
 					network.onDataReceived(onNetworkDataReceived);
 					network.onSharedActivityUserChanged(onNetworkUserChanged);
 				});
@@ -106,18 +142,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			console.log("writing...");
 
-			var serializedStrokes = [];
-			for (var i = 0; i < strokes.length; i++) {
-				var stroke = [];
-				for (var j = 0; j < strokes[i].length; j++) {
-					stroke.push(dots.indexOf(strokes[i][j]));
-				}
-				serializedStrokes.push(stroke);
-			}
 
 			var jsonData = JSON.stringify({
-				strokes: serializedStrokes
-			});			
+				strokes: serializeStrokes()
+			});
 			activity.getDatastoreObject().setDataAsText(jsonData);
 			activity.getDatastoreObject().save(function (error) {
 				if (error === null) {
@@ -138,13 +166,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var spacing = 55;
 		var baseRadius = 4;
 		var maxRadius = 9;
-		var influenceRadius = 125;
+		var influenceRadius = 92;
 		var dotColor = '#a0a0a0';
 		var zoom = 1;
 		var isDrawMode = true;
 		var isDrawing = false;
 		var strokes = [];
 		var currentStroke = null;
+		var dots = [];
 
 		// Fixed internal resolution (like GridPaint)
 		var CANVAS_WIDTH = 900;
@@ -228,10 +257,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 							}
 						}
 					}
+					broadcastUpdate();
 					return;
 				}
 
 				currentStroke.push(nearestDot);
+				broadcastUpdate();
 			}
 		}
 
@@ -273,6 +304,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				}
 			}
 
+			if (isDrawing && currentStroke) {
+				for (var j = 0; j < currentStroke.length; j++) {
+					completedDots.delete(currentStroke[j]);
+				}
+			}
+
 			// Draw all lines first
 			for (var i = 0; i < strokes.length; i++) {
 				var stroke = strokes[i];
@@ -292,18 +329,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			for (var i = 0; i < dots.length; i++) {
 				var dot = dots[i];
 
-				if (completedDots.has(dot)) {
+				var dx = mouseX - dot.baseX;
+				var dy = mouseY - dot.baseY;
+				var dist = Math.max(Math.abs(dx), Math.abs(dy));
+				var angle = Math.atan2(dy, dx);
+
+				// 8-pointed star without shrinking nearby dots
+				var dirInfluence = influenceRadius * (1.3 + 0.5 * Math.cos(angle * 8));
+				var isInfluenced = dist < dirInfluence;
+
+				if (completedDots.has(dot) && !(isDrawing && isInfluenced)) {
 					dot.targetR = 0;
 				} else {
-					var dx = mouseX - dot.baseX;
-					var dy = mouseY - dot.baseY;
-					var dist = Math.max(Math.abs(dx), Math.abs(dy));
-					var angle = Math.atan2(dy, dx);
-
-					// 8-pointed star without shrinking nearby dots
-					var dirInfluence = influenceRadius * (1.3 + 0.5 * Math.cos(angle * 8));
-
-					if (dist < dirInfluence) {
+					if (isInfluenced) {
 						var t = 1 - (dist / dirInfluence);
 						// Increase slightly when little far, more rapidly when close
 						t = Math.pow(t, 1.5);
@@ -384,7 +422,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 		});
 		canvas.addEventListener('mouseup', function () {
-			isDrawing = false;
+			if (isDrawing) {
+				isDrawing = false;
+				broadcastUpdate();
+			}
+			mouseX = -1000;
+			mouseY = -1000;
+			prevMouseX = -1000;
+			prevMouseY = -1000;
 		});
 		canvas.addEventListener('touchstart', function (e) {
 			isDrawing = true;
@@ -461,14 +506,20 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			mouseY = -1000;
 			prevMouseX = -1000;
 			prevMouseY = -1000;
-			isDrawing = false;
+			if (isDrawing) {
+				isDrawing = false;
+				broadcastUpdate();
+			}
 		});
 		canvas.addEventListener('touchend', function () {
 			mouseX = -1000;
 			mouseY = -1000;
 			prevMouseX = -1000;
 			prevMouseY = -1000;
-			isDrawing = false;
+			if (isDrawing) {
+				isDrawing = false;
+				broadcastUpdate();
+			}
 		});
 
 		// Handle localized event
@@ -486,7 +537,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		resize();
 		// Set default draw mode UI
 		document.getElementById("draw-button").classList.add('active');
-		
+
 		// Start render loop
 		requestAnimationFrame(draw);
 	});
