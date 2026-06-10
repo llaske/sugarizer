@@ -69,6 +69,25 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
 					if (error == null && data != null) {
 						console.log("Loaded instance");
+						try {
+							var parsed = JSON.parse(data);
+							if (parsed.strokes && Array.isArray(parsed.strokes)) {
+								strokes = [];
+								for (var i = 0; i < parsed.strokes.length; i++) {
+									var strokeData = parsed.strokes[i];
+									var stroke = [];
+									for (var j = 0; j < strokeData.length; j++) {
+										var dotIndex = strokeData[j];
+										if (dotIndex >= 0 && dotIndex < dots.length) {
+											stroke.push(dots[dotIndex]);
+										}
+									}
+									if (stroke.length > 0) strokes.push(stroke);
+								}
+							}
+						} catch (e) {
+							console.log("Error loading instance", e);
+						}
 					}
 				});
 			}
@@ -86,7 +105,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		// Save in Journal on Stop
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			console.log("writing...");
-			var jsonData = JSON.stringify({});
+
+			var serializedStrokes = [];
+			for (var i = 0; i < strokes.length; i++) {
+				var stroke = [];
+				for (var j = 0; j < strokes[i].length; j++) {
+					stroke.push(dots.indexOf(strokes[i][j]));
+				}
+				serializedStrokes.push(stroke);
+			}
+
+			var jsonData = JSON.stringify({
+				strokes: serializedStrokes
+			});			
 			activity.getDatastoreObject().setDataAsText(jsonData);
 			activity.getDatastoreObject().save(function (error) {
 				if (error === null) {
@@ -100,15 +131,20 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		// Dot Grid
 		var canvas = document.getElementById('gridCanvas');
 		var ctx = canvas.getContext('2d');
-		var dots = [];
 		var mouseX = -1000;
 		var mouseY = -1000;
+		var prevMouseX = -1000;
+		var prevMouseY = -1000;
 		var spacing = 55;
 		var baseRadius = 4;
 		var maxRadius = 9;
 		var influenceRadius = 125;
 		var dotColor = '#a0a0a0';
 		var zoom = 1;
+		var isDrawMode = true;
+		var isDrawing = false;
+		var strokes = [];
+		var currentStroke = null;
 
 		// Fixed internal resolution (like GridPaint)
 		var CANVAS_WIDTH = 900;
@@ -124,7 +160,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 			// Scale to fit available height
 			zoom = availableHeight / CANVAS_HEIGHT;
-			
+
 			// Get actual device pixel ratio for high-DPI screens
 			var dpr = window.devicePixelRatio || 1;
 
@@ -143,6 +179,62 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			canvas.style.marginTop = "0px";
 		}
 
+		function addPointToStroke(mx, my) {
+			if (!isDrawMode || !currentStroke) return;
+
+			var minDist = Infinity;
+			var nearestDot = null;
+			for (var i = 0; i < dots.length; i++) {
+				var dx = mx - dots[i].baseX;
+				var dy = my - dots[i].baseY;
+				var dist = Math.sqrt(dx * dx + dy * dy);
+				if (dist < minDist) {
+					minDist = dist;
+					nearestDot = dots[i];
+				}
+			}
+
+			// Snap threshold
+			if (nearestDot && minDist < 27.5) {
+				if (currentStroke.length > 0) {
+					var lastPt = currentStroke[currentStroke.length - 1];
+					if (lastPt === nearestDot) {
+						return;
+					}
+
+					var dxGrid = Math.round((nearestDot.baseX - lastPt.baseX) / spacing);
+					var dyGrid = Math.round((nearestDot.baseY - lastPt.baseY) / spacing);
+					var absDx = Math.abs(dxGrid);
+					var absDy = Math.abs(dyGrid);
+
+					// Check if it's a straight or diagonal line
+					if (absDx !== 0 && absDy !== 0 && absDx !== absDy) {
+						return;
+					}
+
+					// Auto-fill any skipped intermediate dots
+					var steps = Math.max(absDx, absDy);
+					for (var i = 1; i <= steps; i++) {
+						var interpX = lastPt.baseX + (dxGrid * spacing) * (i / steps);
+						var interpY = lastPt.baseY + (dyGrid * spacing) * (i / steps);
+
+						for (var j = 0; j < dots.length; j++) {
+							if (Math.abs(interpX - dots[j].baseX) < 1 && Math.abs(interpY - dots[j].baseY) < 1) {
+								var latestDot = currentStroke[currentStroke.length - 1];
+								if (latestDot !== dots[j]) {
+									currentStroke.push(dots[j]);
+								}
+								break;
+							}
+						}
+					}
+					return;
+				}
+
+				currentStroke.push(nearestDot);
+			}
+		}
+
 		function initDots() {
 			dots = [];
 			var cols = 15;
@@ -152,9 +244,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 			for (var i = 0; i < cols; i++) {
 				for (var j = 0; j < rows; j++) {
+					var dotX = offsetX + i * spacing;
+					var dotY = offsetY + j * spacing;
 					dots.push({
-						x: offsetX + i * spacing,
-						y: offsetY + j * spacing,
+						baseX: dotX,
+						baseY: dotY,
+						x: dotX,
+						y: dotY,
 						baseR: baseRadius,
 						r: baseRadius,
 						targetR: baseRadius,
@@ -167,30 +263,69 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		function draw() {
 			ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
+			var completedDots = new Set();
+			for (var i = 0; i < strokes.length; i++) {
+				if (isDrawing && strokes[i] === currentStroke) {
+					continue;
+				}
+				for (var j = 0; j < strokes[i].length; j++) {
+					completedDots.add(strokes[i][j]);
+				}
+			}
+
+			// Draw all lines first
+			for (var i = 0; i < strokes.length; i++) {
+				var stroke = strokes[i];
+				if (stroke.length < 2) continue;
+				ctx.beginPath();
+				ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
+				for (var j = 1; j < stroke.length; j++) {
+					ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
+				}
+				ctx.strokeStyle = '#282828';
+				ctx.lineWidth = 8;
+				ctx.lineCap = 'round';
+				ctx.lineJoin = 'round';
+				ctx.stroke();
+			}
+
 			for (var i = 0; i < dots.length; i++) {
 				var dot = dots[i];
-				var dx = mouseX - dot.x;
-				var dy = mouseY - dot.y;
-				var dist = Math.max(Math.abs(dx), Math.abs(dy));
-				var angle = Math.atan2(dy, dx);
-				
-				// 8-pointed star without shrinking nearby dots
-				var dirInfluence = influenceRadius * (1.3 + 0.5 * Math.cos(angle * 8));
 
-				if (dist < dirInfluence) {
-					var t = 1 - (dist / dirInfluence);
-					// Increase slightly when little far, more rapidly when close
-					t = Math.pow(t, 1.5);
-					dot.targetR = dot.baseR + (maxRadius - dot.baseR) * t;
+				if (completedDots.has(dot)) {
+					dot.targetR = 0;
 				} else {
-					dot.targetR = dot.baseR;
+					var dx = mouseX - dot.baseX;
+					var dy = mouseY - dot.baseY;
+					var dist = Math.max(Math.abs(dx), Math.abs(dy));
+					var angle = Math.atan2(dy, dx);
+
+					// 8-pointed star without shrinking nearby dots
+					var dirInfluence = influenceRadius * (1.3 + 0.5 * Math.cos(angle * 8));
+
+					if (dist < dirInfluence) {
+						var t = 1 - (dist / dirInfluence);
+						// Increase slightly when little far, more rapidly when close
+						t = Math.pow(t, 1.5);
+						dot.targetR = dot.baseR + (maxRadius - dot.baseR) * t;
+					} else {
+						dot.targetR = dot.baseR;
+					}
 				}
 
 				// Smooth easing
 				if (dot.targetR > dot.r) {
 					dot.r += (dot.targetR - dot.r) * 0.5; // Grow fast
 				} else {
-					dot.r += (dot.targetR - dot.r) * 0.05; // Shrink slow (leaves a trail)
+					dot.r += (dot.targetR - dot.r) * 0.02; // Shrink
+				}
+
+				if (completedDots.has(dot) && dot.r <= 0.2) {
+					continue;
+				}
+
+				if (dot.r < 0.1) {
+					continue;
 				}
 
 				ctx.beginPath();
@@ -204,6 +339,16 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		// Handle click on help-button
 		document.getElementById("help-button").addEventListener('click', function (e) {
 			tutorial.start();
+		});
+
+		// Handle draw button
+		document.getElementById("draw-button").addEventListener('click', function () {
+			isDrawMode = !isDrawMode;
+			if (isDrawMode) {
+				this.classList.add("active");
+			} else {
+				this.classList.remove("active");
+			}
 		});
 
 		// Fullscreen
@@ -225,25 +370,105 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		// Mouse/Touch handling
 		window.addEventListener('resize', resize);
 
-		canvas.addEventListener('mousemove', function (e) {
+		canvas.addEventListener('mousedown', function (e) {
+			isDrawing = true;
 			var rect = canvas.getBoundingClientRect();
 			mouseX = (e.clientX - rect.left) / zoom;
 			mouseY = (e.clientY - rect.top) / zoom;
+			prevMouseX = mouseX;
+			prevMouseY = mouseY;
+			if (isDrawMode) {
+				currentStroke = [];
+				strokes.push(currentStroke);
+				addPointToStroke(mouseX, mouseY);
+			}
 		});
-		canvas.addEventListener('touchmove', function (e) {
+		canvas.addEventListener('mouseup', function () {
+			isDrawing = false;
+		});
+		canvas.addEventListener('touchstart', function (e) {
+			isDrawing = true;
 			if (e.touches.length > 0) {
 				var rect = canvas.getBoundingClientRect();
 				mouseX = (e.touches[0].clientX - rect.left) / zoom;
 				mouseY = (e.touches[0].clientY - rect.top) / zoom;
+				prevMouseX = mouseX;
+				prevMouseY = mouseY;
+			}
+			if (isDrawMode) {
+				currentStroke = [];
+				strokes.push(currentStroke);
+				addPointToStroke(mouseX, mouseY);
+			}
+		});
+
+		canvas.addEventListener('mousemove', function (e) {
+			var rect = canvas.getBoundingClientRect();
+			var newMouseX = (e.clientX - rect.left) / zoom;
+			var newMouseY = (e.clientY - rect.top) / zoom;
+
+			if (isDrawing && isDrawMode) {
+				if (prevMouseX !== -1000) {
+					var dx = newMouseX - prevMouseX;
+					var dy = newMouseY - prevMouseY;
+					var dist = Math.sqrt(dx * dx + dy * dy);
+					var steps = Math.ceil(dist / 5);
+					for (var i = 1; i <= steps; i++) {
+						var interpX = prevMouseX + dx * (i / steps);
+						var interpY = prevMouseY + dy * (i / steps);
+						addPointToStroke(interpX, interpY);
+					}
+				} else {
+					addPointToStroke(newMouseX, newMouseY);
+				}
+			}
+
+			mouseX = newMouseX;
+			mouseY = newMouseY;
+			prevMouseX = newMouseX;
+			prevMouseY = newMouseY;
+		});
+		canvas.addEventListener('touchmove', function (e) {
+			if (e.touches.length > 0) {
+				var rect = canvas.getBoundingClientRect();
+				var newMouseX = (e.touches[0].clientX - rect.left) / zoom;
+				var newMouseY = (e.touches[0].clientY - rect.top) / zoom;
+
+				if (isDrawing && isDrawMode) {
+					if (prevMouseX !== -1000) {
+						var dx = newMouseX - prevMouseX;
+						var dy = newMouseY - prevMouseY;
+						var dist = Math.sqrt(dx * dx + dy * dy);
+						var steps = Math.ceil(dist / 5);
+						for (var i = 1; i <= steps; i++) {
+							var interpX = prevMouseX + dx * (i / steps);
+							var interpY = prevMouseY + dy * (i / steps);
+							addPointToStroke(interpX, interpY);
+						}
+					} else {
+						addPointToStroke(newMouseX, newMouseY);
+					}
+				}
+
+				mouseX = newMouseX;
+				mouseY = newMouseY;
+				prevMouseX = newMouseX;
+				prevMouseY = newMouseY;
 			}
 		});
 		canvas.addEventListener('mouseout', function () {
 			mouseX = -1000;
 			mouseY = -1000;
+			prevMouseX = -1000;
+			prevMouseY = -1000;
+			isDrawing = false;
 		});
 		canvas.addEventListener('touchend', function () {
 			mouseX = -1000;
 			mouseY = -1000;
+			prevMouseX = -1000;
+			prevMouseY = -1000;
+			isDrawing = false;
 		});
 
 		// Handle localized event
@@ -254,10 +479,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			document.getElementById("unfullscreen-button").title = l10n.get("Unfullscreen");
 			document.getElementById("help-button").title = l10n.get("Tutorial");
 			document.getElementById("stop-button").title = l10n.get("Stop");
+			document.getElementById("draw-button").title = l10n.get("Draw");
 		});
 
 		initDots();
 		resize();
-		draw();
+		// Set default draw mode UI
+		document.getElementById("draw-button").classList.add('active');
+		
+		// Start render loop
+		requestAnimationFrame(draw);
 	});
 });

@@ -8,6 +8,10 @@
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #draw-button {
+	background-image: url(../icons/tool-pencil.svg);
+}
+
 /* Fullscreen button icon */
 #main-toolbar #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);
