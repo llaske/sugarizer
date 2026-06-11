@@ -389,6 +389,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 		});
 
+		// Handle clear button
+		document.getElementById("clear-button").addEventListener('click', function () {
+			strokes = [];
+			currentStroke = null;
+			broadcastUpdate();
+		});
+
 		// Fullscreen
 		document.getElementById("fullscreen-button").addEventListener('click', function () {
 			document.getElementById("main-toolbar").style.display = "none";
@@ -531,6 +538,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			document.getElementById("help-button").title = l10n.get("Tutorial");
 			document.getElementById("stop-button").title = l10n.get("Stop");
 			document.getElementById("draw-button").title = l10n.get("Draw");
+			document.getElementById("clear-button").title = l10n.get("Clear");
 		});
 
 		initDots();

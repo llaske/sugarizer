@@ -10,5 +10,6 @@
 	"TutoExplainTitle": "Actividad ConnectTheDots",
 	"TutoExplainContent": "¡Bienvenido! Mueve el cursor sobre la cuadrícula de puntos para ver cómo reaccionan.",
 	"TutoNetworkTitle": "Red",
-	"TutoNetworkContent": "Haz clic aquí para compartir tu trabajo en la red."
+	"TutoNetworkContent": "Haz clic aquí para compartir tu trabajo en la red.",
+	"Clear": "Limpiar"
 }

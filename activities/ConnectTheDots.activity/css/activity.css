@@ -12,6 +12,10 @@
 	background-image: url(../icons/tool-pencil.svg);
 }
 
+#main-toolbar #clear-button {
+	background-image: url(../icons/edit-clear.svg);
+}
+
 /* Fullscreen button icon */
 #main-toolbar #fullscreen-button {
 	background-image: url(../icons/view-fullscreen.svg);

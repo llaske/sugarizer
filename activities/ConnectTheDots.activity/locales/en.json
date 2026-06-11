@@ -10,5 +10,6 @@
 	"TutoExplainTitle": "ConnectTheDots Activity",
 	"TutoExplainContent": "Welcome! Move your cursor over the interactive dot grid to see them react.",
 	"TutoNetworkTitle": "Network",
-	"TutoNetworkContent": "Click here to share your work with other users on the network."
+	"TutoNetworkContent": "Click here to share your work with other users on the network.",
+	"Clear": "Clear"
 }
