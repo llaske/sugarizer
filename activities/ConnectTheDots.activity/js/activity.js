@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graphics/presencepalette", "sugar-web/datastore", "tutorial"], function (activity, env, l10n, presencepalette, datastore, tutorial) {
+define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graphics/presencepalette", "sugar-web/datastore", "tutorial", "activity/palettes/color-palette"], function (activity, env, l10n, presencepalette, datastore, tutorial, colorpalette) {
 
 	requirejs(['domReady!'], function (doc) {
 
@@ -27,6 +27,28 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				network.onSharedActivityUserChanged(onNetworkUserChanged);
 			});
 		});
+
+		function darkenColor(colorStr, percent) {
+			var r = 0, g = 0, b = 0;
+			if (colorStr.indexOf('rgb') !== -1) {
+				var parts = colorStr.split("(")[1].split(")")[0].split(",");
+				r = parseInt(parts[0]);
+				g = parseInt(parts[1]);
+				b = parseInt(parts[2]);
+			} else if (colorStr[0] === '#') {
+				var num = parseInt(colorStr.slice(1), 16);
+				r = (num >> 16) & 255;
+				g = (num >> 8) & 255;
+				b = num & 255;
+			} else {
+				return colorStr;
+			}
+			r = Math.floor(r * (1 - percent));
+			g = Math.floor(g * (1 - percent));
+			b = Math.floor(b * (1 - percent));
+			return "rgb(" + r + "," + g + "," + b + ")";
+		}
+
 		// network & datastore
 		function serializeStrokes() {
 			var serializedStrokes = [];
@@ -35,7 +57,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				for (var j = 0; j < strokes[i].length; j++) {
 					stroke.push(dots.indexOf(strokes[i][j]));
 				}
-				serializedStrokes.push(stroke);
+				serializedStrokes.push({ path: stroke, fillColor: strokes[i].fillColor });
 			}
 			return serializedStrokes;
 		}
@@ -45,14 +67,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			strokes = [];
 			for (var i = 0; i < serializedStrokes.length; i++) {
 				var strokeData = serializedStrokes[i];
+				var pathData = Array.isArray(strokeData) ? strokeData : strokeData.path;
+				var fillColor = Array.isArray(strokeData) ? null : strokeData.fillColor;
 				var stroke = [];
-				for (var j = 0; j < strokeData.length; j++) {
-					var dotIndex = strokeData[j];
+				for (var j = 0; j < pathData.length; j++) {
+					var dotIndex = pathData[j];
 					if (dotIndex >= 0 && dotIndex < dots.length) {
 						stroke.push(dots[dotIndex]);
 					}
 				}
-				if (stroke.length > 0) strokes.push(stroke);
+				if (stroke.length > 0) {
+					stroke.fillColor = fillColor;
+					strokes.push(stroke);
+				}
 			}
 		}
 
@@ -156,6 +183,20 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			});
 		});
 
+		// Color palette (Fill Color)
+		var currentFillColor = '#ed2529';
+		var colorsButtonFill = document.getElementById('colors-button-fill');
+		var colorPaletteFill = new colorpalette.ColorPalette(colorsButtonFill, undefined, "fill");
+		var colorInvokerFill = colorPaletteFill.getPalette().querySelector('.palette-invoker');
+		colorPaletteFill.addEventListener('colorChange', function (e) {
+			currentFillColor = e.detail.color;
+			colorsButtonFill.style.backgroundColor = e.detail.color;
+			if (colorInvokerFill) {
+				colorInvokerFill.style.backgroundColor = e.detail.color;
+			}
+		});
+		colorPaletteFill.setColor(0);
+
 		// Dot Grid
 		var canvas = document.getElementById('gridCanvas');
 		var ctx = canvas.getContext('2d');
@@ -208,6 +249,46 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			canvas.style.marginTop = "0px";
 		}
 
+		function findShortestPath(startDot, endDot, allStrokes) {
+			if (startDot === endDot) return [startDot];
+			var adj = new Map();
+			for (var i = 0; i < allStrokes.length; i++) {
+				var s = allStrokes[i];
+				for (var j = 0; j < s.length - 1; j++) {
+					var u = s[j], v = s[j + 1];
+					if (!adj.has(u)) adj.set(u, new Set());
+					if (!adj.has(v)) adj.set(v, new Set());
+					adj.get(u).add(v);
+					adj.get(v).add(u);
+				}
+			}
+
+			var queue = [[startDot]];
+			var visited = new Set([startDot]);
+
+			while (queue.length > 0) {
+				var path = queue.shift();
+				var node = path[path.length - 1];
+
+				var neighbors = adj.get(node);
+				if (!neighbors) continue;
+				for (var neighbor of neighbors) {
+					if (neighbor === endDot) {
+						var finalPath = path.slice();
+						finalPath.push(neighbor);
+						return finalPath;
+					}
+					if (!visited.has(neighbor)) {
+						visited.add(neighbor);
+						var newPath = path.slice();
+						newPath.push(neighbor);
+						queue.push(newPath);
+					}
+				}
+			}
+			return null;
+		}
+
 		function addPointToStroke(mx, my) {
 			if (!isDrawMode || !currentStroke) return;
 
@@ -251,7 +332,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 							if (Math.abs(interpX - dots[j].baseX) < 1 && Math.abs(interpY - dots[j].baseY) < 1) {
 								var latestDot = currentStroke[currentStroke.length - 1];
 								if (latestDot !== dots[j]) {
+									var path = findShortestPath(latestDot, dots[j], strokes);
 									currentStroke.push(dots[j]);
+									if (path && path.length >= 3) {
+										var cycleStroke = path.slice();
+										cycleStroke.push(path[0]);
+										cycleStroke.fillColor = currentStroke.fillColor;
+										strokes.push(cycleStroke);
+									}
 								}
 								break;
 							}
@@ -294,6 +382,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		function draw() {
 			ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].insideClosedStroke = null;
+			}
+
 			var completedDots = new Set();
 			for (var i = 0; i < strokes.length; i++) {
 				if (isDrawing && strokes[i] === currentStroke) {
@@ -319,6 +411,59 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				for (var j = 1; j < stroke.length; j++) {
 					ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
 				}
+
+				var isClosed = (stroke.length > 2 && stroke[0] === stroke[stroke.length - 1]);
+
+				if (isClosed && stroke.fillColor) {
+					for (var d = 0; d < dots.length; d++) {
+						var ptX = dots[d].baseX;
+						var ptY = dots[d].baseY;
+						var isInside = false;
+						for (var k = 0, l = stroke.length - 1; k < stroke.length; l = k++) {
+							var xi = stroke[k].baseX, yi = stroke[k].baseY;
+							var xj = stroke[l].baseX, yj = stroke[l].baseY;
+							var intersect = ((yi > ptY) != (yj > ptY)) && (ptX < (xj - xi) * (ptY - yi) / (yj - yi) + xi);
+							if (intersect) isInside = !isInside;
+						}
+						if (isInside) {
+							dots[d].insideClosedStroke = stroke;
+						}
+					}
+				}
+
+				if (!isClosed) {
+					stroke.fillProgress = 0;
+				} else if (stroke.fillColor) {
+					if (stroke.fillProgress === undefined) stroke.fillProgress = 0;
+
+					if (stroke.fillProgress < 1500) {
+						stroke.fillProgress += 5; // 5 pixels per frame for a slower, smoother fill
+					}
+
+					if (stroke.fillProgress >= 1500) {
+						ctx.fillStyle = stroke.fillColor;
+						ctx.fill();
+					} else if (stroke.fillProgress > 0) {
+						ctx.save();
+						ctx.clip(); // Restrict filling to inside the drawn shape
+
+						var closePt = stroke[stroke.length - 1];
+						ctx.beginPath();
+						ctx.arc(closePt.baseX, closePt.baseY, stroke.fillProgress, 0, Math.PI * 2);
+						ctx.fillStyle = stroke.fillColor;
+						ctx.fill();
+
+						ctx.restore();
+
+						// Recreate path since arc() wiped it out, needed for stroke() below
+						ctx.beginPath();
+						ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
+						for (var j = 1; j < stroke.length; j++) {
+							ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
+						}
+					}
+				}
+
 				ctx.strokeStyle = '#282828';
 				ctx.lineWidth = 8;
 				ctx.lineCap = 'round';
@@ -366,9 +511,40 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					continue;
 				}
 
+				var dotRenderColor = dot.color;
+				var isOnBoundary = false;
+				var boundaryStroke = null;
+
+				if (isDrawing && currentStroke && currentStroke.indexOf(dot) !== -1 && currentStroke.fillColor) {
+					dotRenderColor = currentStroke.fillColor;
+				}
+
+				for (var s = strokes.length - 1; s >= 0; s--) {
+					if (strokes[s].indexOf(dot) !== -1) {
+						isOnBoundary = true;
+						boundaryStroke = strokes[s];
+						break;
+					}
+				}
+
+				if (isOnBoundary && boundaryStroke && boundaryStroke !== currentStroke) {
+					var isClosed = (boundaryStroke.length > 2 && boundaryStroke[0] === boundaryStroke[boundaryStroke.length - 1]);
+					if (isClosed) {
+						var closePt = boundaryStroke[boundaryStroke.length - 1];
+						var distToClosePt = Math.sqrt(Math.pow(dot.baseX - closePt.baseX, 2) + Math.pow(dot.baseY - closePt.baseY, 2));
+						if (boundaryStroke.fillProgress >= distToClosePt) {
+							dotRenderColor = '#282828';
+						}
+					}
+				}
+
+				if (!isOnBoundary && dot.insideClosedStroke && dot.insideClosedStroke.fillColor) {
+					dotRenderColor = darkenColor(dot.insideClosedStroke.fillColor, 0.4);
+				}
+
 				ctx.beginPath();
 				ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
-				ctx.fillStyle = dot.color;
+				ctx.fillStyle = dotRenderColor;
 				ctx.fill();
 			}
 			requestAnimationFrame(draw);
@@ -424,6 +600,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			prevMouseY = mouseY;
 			if (isDrawMode) {
 				currentStroke = [];
+				currentStroke.fillColor = currentFillColor;
 				strokes.push(currentStroke);
 				addPointToStroke(mouseX, mouseY);
 			}
@@ -449,6 +626,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 			if (isDrawMode) {
 				currentStroke = [];
+				currentStroke.fillColor = currentFillColor;
 				strokes.push(currentStroke);
 				addPointToStroke(mouseX, mouseY);
 			}
