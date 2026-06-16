@@ -402,19 +402,55 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				}
 			}
 
-			// Draw all lines first
+			// Calculate z-order hierarchy for nested shapes
 			for (var i = 0; i < strokes.length; i++) {
 				var stroke = strokes[i];
-				if (stroke.length < 2) continue;
-				ctx.beginPath();
-				ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
-				for (var j = 1; j < stroke.length; j++) {
-					ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
+				stroke.originalIndex = i;
+				stroke.level = 0;
+				stroke.isClosed = (stroke.length > 2 && stroke[0] === stroke[stroke.length - 1]);
+				
+				if (stroke.isClosed && stroke.fillColor) {
+					for (var o = 0; o < i; o++) {
+						var olderStroke = strokes[o];
+						if (olderStroke.isClosed && olderStroke.fillColor) {
+							var completelyInsideThis = true;
+							for (var v = 0; v < stroke.length; v++) {
+								var dot = stroke[v];
+								var dotIsInside = false;
+								var ptX = dot.baseX, ptY = dot.baseY;
+								for (var k = 0, l = olderStroke.length - 1; k < olderStroke.length; l = k++) {
+									var xi = olderStroke[k].baseX, yi = olderStroke[k].baseY;
+									var xj = olderStroke[l].baseX, yj = olderStroke[l].baseY;
+									var intersect = ((yi > ptY) != (yj > ptY)) && (ptX < (xj - xi) * (ptY - yi) / (yj - yi) + xi);
+									if (intersect) dotIsInside = !dotIsInside;
+								}
+								if (!dotIsInside && olderStroke.indexOf(dot) === -1) {
+									completelyInsideThis = false;
+									break;
+								}
+							}
+							if (completelyInsideThis) {
+								stroke.level = Math.max(stroke.level, olderStroke.level + 1);
+							}
+						}
+					}
 				}
+			}
 
-				var isClosed = (stroke.length > 2 && stroke[0] === stroke[stroke.length - 1]);
+			// Sort strokes for FILL DRAWING (ascending level, then descending index)
+			var fillOrder = strokes.slice().sort(function(a, b) {
+				if (a.level !== b.level) {
+					return a.level - b.level;
+				}
+				return b.originalIndex - a.originalIndex;
+			});
 
-				if (isClosed && stroke.fillColor) {
+			// DRAW FILLS AND UPDATE DOTS
+			for (var i = 0; i < fillOrder.length; i++) {
+				var stroke = fillOrder[i];
+				if (stroke.length < 2) continue;
+
+				if (stroke.isClosed && stroke.fillColor) {
 					for (var d = 0; d < dots.length; d++) {
 						var ptX = dots[d].baseX;
 						var ptY = dots[d].baseY;
@@ -429,15 +465,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 							dots[d].insideClosedStroke = stroke;
 						}
 					}
-				}
 
-				if (!isClosed) {
-					stroke.fillProgress = 0;
-				} else if (stroke.fillColor) {
 					if (stroke.fillProgress === undefined) stroke.fillProgress = 0;
 
 					if (stroke.fillProgress < 1500) {
-						stroke.fillProgress += 5; // 5 pixels per frame for a slower, smoother fill
+						stroke.fillProgress += 4;
+					}
+
+					ctx.beginPath();
+					ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
+					for (var j = 1; j < stroke.length; j++) {
+						ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
 					}
 
 					if (stroke.fillProgress >= 1500) {
@@ -454,14 +492,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 						ctx.fill();
 
 						ctx.restore();
-
-						// Recreate path since arc() wiped it out, needed for stroke() below
-						ctx.beginPath();
-						ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
-						for (var j = 1; j < stroke.length; j++) {
-							ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
-						}
 					}
+				} else if (!stroke.isClosed) {
+					stroke.fillProgress = 0;
+				}
+			}
+			// DRAW LINES
+			for (var i = 0; i < strokes.length; i++) {
+				var stroke = strokes[i];
+				if (stroke.length < 2) continue;
+				ctx.beginPath();
+				ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
+				for (var j = 1; j < stroke.length; j++) {
+					ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
 				}
 
 				ctx.strokeStyle = '#282828';
