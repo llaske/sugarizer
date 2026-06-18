@@ -12,6 +12,10 @@
 	background-image: url(../icons/tool-pencil.svg);
 }
 
+#main-toolbar #eraser-button {
+	background-image: url(../icons/tool-eraser.svg);
+}
+
 #main-toolbar #clear-button {
 	background-image: url(../icons/edit-clear.svg);
 }

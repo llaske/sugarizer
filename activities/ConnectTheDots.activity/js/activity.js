@@ -211,9 +211,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var dotColor = '#a0a0a0';
 		var zoom = 1;
 		var isDrawMode = true;
+		var isEraseMode = false;
 		var isDrawing = false;
 		var strokes = [];
 		var currentStroke = null;
+		var eraseStroke = null;
+		var shrinkingFills = [];
 		var dots = [];
 
 		// Fixed internal resolution (like GridPaint)
@@ -247,6 +250,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			var leftMargin = (availableWidth - CANVAS_WIDTH * zoom) / 2;
 			canvas.style.marginLeft = leftMargin + "px";
 			canvas.style.marginTop = "0px";
+		}
+
+		function getDistance(x1, y1, x2, y2) {
+			return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+		}
+
+		function drawPath(ctx, points) {
+			ctx.beginPath();
+			ctx.moveTo(points[0].baseX, points[0].baseY);
+			for (var j = 1; j < points.length; j++) {
+				ctx.lineTo(points[j].baseX, points[j].baseY);
+			}
 		}
 
 		function findShortestPath(startDot, endDot, allStrokes) {
@@ -289,15 +304,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			return null;
 		}
 
-		function addPointToStroke(mx, my) {
-			if (!isDrawMode || !currentStroke) return;
+		function addPointToStroke(mx, my, isErase) {
+			var activeStroke = isErase ? eraseStroke : currentStroke;
+			if (!activeStroke) return;
 
 			var minDist = Infinity;
 			var nearestDot = null;
 			for (var i = 0; i < dots.length; i++) {
-				var dx = mx - dots[i].baseX;
-				var dy = my - dots[i].baseY;
-				var dist = Math.sqrt(dx * dx + dy * dy);
+				var dist = getDistance(mx, my, dots[i].baseX, dots[i].baseY);
 				if (dist < minDist) {
 					minDist = dist;
 					nearestDot = dots[i];
@@ -306,8 +320,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 			// Snap threshold
 			if (nearestDot && minDist < 27.5) {
-				if (currentStroke.length > 0) {
-					var lastPt = currentStroke[currentStroke.length - 1];
+				if (activeStroke.length > 0) {
+					var lastPt = activeStroke[activeStroke.length - 1];
 					if (lastPt === nearestDot) {
 						return;
 					}
@@ -330,27 +344,31 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 						for (var j = 0; j < dots.length; j++) {
 							if (Math.abs(interpX - dots[j].baseX) < 1 && Math.abs(interpY - dots[j].baseY) < 1) {
-								var latestDot = currentStroke[currentStroke.length - 1];
+								var latestDot = activeStroke[activeStroke.length - 1];
 								if (latestDot !== dots[j]) {
-									var path = findShortestPath(latestDot, dots[j], strokes);
-									currentStroke.push(dots[j]);
-									if (path && path.length >= 3) {
-										var cycleStroke = path.slice();
-										cycleStroke.push(path[0]);
-										cycleStroke.fillColor = currentStroke.fillColor;
-										strokes.push(cycleStroke);
+									if (!isErase) {
+										var path = findShortestPath(latestDot, dots[j], strokes);
+										activeStroke.push(dots[j]);
+										if (path && path.length >= 3) {
+											var cycleStroke = path.slice();
+											cycleStroke.push(path[0]);
+											cycleStroke.fillColor = activeStroke.fillColor;
+											strokes.push(cycleStroke);
+										}
+									} else {
+										activeStroke.push(dots[j]);
 									}
 								}
 								break;
 							}
 						}
 					}
-					broadcastUpdate();
+					if (!isErase) broadcastUpdate();
 					return;
 				}
 
-				currentStroke.push(nearestDot);
-				broadcastUpdate();
+				activeStroke.push(nearestDot);
+				if (!isErase) broadcastUpdate();
 			}
 		}
 
@@ -409,10 +427,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				stroke.level = 0;
 				stroke.isClosed = (stroke.length > 2 && stroke[0] === stroke[stroke.length - 1]);
 				
-				if (stroke.isClosed && stroke.fillColor) {
+				if ((stroke.isClosed || stroke.fillProgress > 0) && stroke.fillColor) {
 					for (var o = 0; o < i; o++) {
 						var olderStroke = strokes[o];
-						if (olderStroke.isClosed && olderStroke.fillColor) {
+						if ((olderStroke.isClosed || olderStroke.fillProgress > 0) && olderStroke.fillColor) {
 							var completelyInsideThis = true;
 							for (var v = 0; v < stroke.length; v++) {
 								var dot = stroke[v];
@@ -450,7 +468,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				var stroke = fillOrder[i];
 				if (stroke.length < 2) continue;
 
-				if (stroke.isClosed && stroke.fillColor) {
+				if ((stroke.isClosed || stroke.fillProgress > 0) && stroke.fillColor) {
 					for (var d = 0; d < dots.length; d++) {
 						var ptX = dots[d].baseX;
 						var ptY = dots[d].baseY;
@@ -462,52 +480,114 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 							if (intersect) isInside = !isInside;
 						}
 						if (isInside) {
-							dots[d].insideClosedStroke = stroke;
+							var shouldDarken = true;
+							if (!stroke.isClosed) {
+								var closePt = stroke[stroke.length - 1];
+								if (getDistance(ptX, ptY, closePt.baseX, closePt.baseY) > stroke.fillProgress) {
+									shouldDarken = false;
+								}
+							}
+							if (shouldDarken) dots[d].insideClosedStroke = stroke;
 						}
 					}
 
-					if (stroke.fillProgress === undefined) stroke.fillProgress = 0;
+					if (stroke.isClosed) {
+						if (stroke.fillProgress === undefined) stroke.fillProgress = 0;
+						if (stroke.fillProgress < 1500) {
+							stroke.fillProgress += 4;
+						}
 
-					if (stroke.fillProgress < 1500) {
-						stroke.fillProgress += 4;
-					}
+						drawPath(ctx, stroke);
 
-					ctx.beginPath();
-					ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
-					for (var j = 1; j < stroke.length; j++) {
-						ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
-					}
+						if (stroke.fillProgress >= 1500) {
+							ctx.fillStyle = stroke.fillColor;
+							ctx.fill();
+						} else if (stroke.fillProgress > 0) {
+							ctx.save();
+							ctx.clip();
 
-					if (stroke.fillProgress >= 1500) {
-						ctx.fillStyle = stroke.fillColor;
-						ctx.fill();
-					} else if (stroke.fillProgress > 0) {
-						ctx.save();
-						ctx.clip(); // Restrict filling to inside the drawn shape
+							var closePt = stroke[stroke.length - 1];
+							ctx.beginPath();
+							ctx.arc(closePt.baseX, closePt.baseY, stroke.fillProgress, 0, Math.PI * 2);
+							ctx.fillStyle = stroke.fillColor;
+							ctx.fill();
+							ctx.restore();
+						}
+					} else {
+						// Shrinking
+						if (stroke.fillProgress > 0) {
+							var closePt = stroke[stroke.length - 1];
+							if (!stroke.hasSnappedFillProgress) {
+								var maxDist = 0;
+								for (var k = 0; k < stroke.length; k++) {
+									var d = Math.sqrt(Math.pow(stroke[k].baseX - closePt.baseX, 2) + Math.pow(stroke[k].baseY - closePt.baseY, 2));
+									if (d > maxDist) maxDist = d;
+								}
+								stroke.fillProgress = Math.min(stroke.fillProgress, maxDist);
+								stroke.hasSnappedFillProgress = true;
+							}
 
-						var closePt = stroke[stroke.length - 1];
-						ctx.beginPath();
-						ctx.arc(closePt.baseX, closePt.baseY, stroke.fillProgress, 0, Math.PI * 2);
-						ctx.fillStyle = stroke.fillColor;
-						ctx.fill();
+							stroke.fillProgress = Math.max(0, stroke.fillProgress - 4);
 
-						ctx.restore();
+							ctx.save();
+							ctx.beginPath();
+							ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
+							for (var j = 1; j < stroke.length; j++) {
+								ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
+							}
+							ctx.clip(); // Restrict filling to inside the drawn shape
+
+							var closePt = stroke[stroke.length - 1];
+							ctx.beginPath();
+							ctx.arc(closePt.baseX, closePt.baseY, stroke.fillProgress, 0, Math.PI * 2);
+							ctx.fillStyle = stroke.fillColor;
+							ctx.fill();
+
+							ctx.restore();
+						}
 					}
 				} else if (!stroke.isClosed) {
 					stroke.fillProgress = 0;
 				}
 			}
+
+			// DRAW SHRINKING FILLS
+			for (var i = shrinkingFills.length - 1; i >= 0; i--) {
+				var fill = shrinkingFills[i];
+				fill.progress = Math.max(0, fill.progress - 4);
+				
+				if (fill.progress > 0) {
+					ctx.save();
+					drawPath(ctx, fill.points);
+					ctx.clip(); // Restrict filling to ORIGINAL drawn shape
+
+					ctx.beginPath();
+					ctx.arc(fill.closePt.baseX, fill.closePt.baseY, fill.progress, 0, Math.PI * 2);
+					ctx.fillStyle = fill.color;
+					ctx.fill();
+
+					ctx.restore();
+				} else {
+					shrinkingFills.splice(i, 1);
+				}
+			}
+
 			// DRAW LINES
 			for (var i = 0; i < strokes.length; i++) {
 				var stroke = strokes[i];
 				if (stroke.length < 2) continue;
-				ctx.beginPath();
-				ctx.moveTo(stroke[0].baseX, stroke[0].baseY);
-				for (var j = 1; j < stroke.length; j++) {
-					ctx.lineTo(stroke[j].baseX, stroke[j].baseY);
-				}
-
+				drawPath(ctx, stroke);
 				ctx.strokeStyle = '#282828';
+				ctx.lineWidth = 8;
+				ctx.lineCap = 'round';
+				ctx.lineJoin = 'round';
+				ctx.stroke();
+			}
+
+			// DRAW ERASE STROKE
+			if (isEraseMode && isDrawing && eraseStroke && eraseStroke.length > 0) {
+				drawPath(ctx, eraseStroke);
+				ctx.strokeStyle = '#a0a0a0';
 				ctx.lineWidth = 8;
 				ctx.lineCap = 'round';
 				ctx.lineJoin = 'round';
@@ -574,8 +654,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					var isClosed = (boundaryStroke.length > 2 && boundaryStroke[0] === boundaryStroke[boundaryStroke.length - 1]);
 					if (isClosed) {
 						var closePt = boundaryStroke[boundaryStroke.length - 1];
-						var distToClosePt = Math.sqrt(Math.pow(dot.baseX - closePt.baseX, 2) + Math.pow(dot.baseY - closePt.baseY, 2));
-						if (boundaryStroke.fillProgress >= distToClosePt) {
+						if (boundaryStroke.fillProgress >= getDistance(dot.baseX, dot.baseY, closePt.baseX, closePt.baseY)) {
 							dotRenderColor = '#282828';
 						}
 					}
@@ -583,6 +662,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 				if (!isOnBoundary && dot.insideClosedStroke && dot.insideClosedStroke.fillColor) {
 					dotRenderColor = darkenColor(dot.insideClosedStroke.fillColor, 0.4);
+				}
+
+				if (isEraseMode && isDrawing && eraseStroke && eraseStroke.indexOf(dot) !== -1) {
+					dotRenderColor = '#a0a0a0';
 				}
 
 				ctx.beginPath();
@@ -600,13 +683,93 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		// Handle draw button
 		document.getElementById("draw-button").addEventListener('click', function () {
-			isDrawMode = !isDrawMode;
-			if (isDrawMode) {
-				this.classList.add("active");
-			} else {
-				this.classList.remove("active");
-			}
+			if (isDrawMode) return;
+			isDrawMode = true;
+			isEraseMode = false;
+			this.classList.add("active");
+			document.getElementById("eraser-button").classList.remove("active");
 		});
+
+		// Handle eraser button
+		document.getElementById("eraser-button").addEventListener('click', function () {
+			if (isEraseMode) return;
+			isEraseMode = true;
+			isDrawMode = false;
+			this.classList.add("active");
+			document.getElementById("draw-button").classList.remove("active");
+		});
+
+		function distToSegment(px, py, vx, vy, wx, wy) {
+			var l2 = (wx - vx) * (wx - vx) + (wy - vy) * (wy - vy);
+			if (l2 === 0) return Math.sqrt((px - vx) * (px - vx) + (py - vy) * (py - vy));
+			var t = ((px - vx) * (wx - vx) + (py - vy) * (wy - vy)) / l2;
+			t = Math.max(0, Math.min(1, t));
+			var projX = vx + t * (wx - vx);
+			var projY = vy + t * (wy - vy);
+			return Math.sqrt((px - projX) * (px - projX) + (py - projY) * (py - projY));
+		}
+
+		function eraseAtPoint(mx, my) {
+			if (!isEraseMode) return;
+			var eraseRadius = 15;
+			var changed = false;
+
+			for (var i = strokes.length - 1; i >= 0; i--) {
+				var stroke = strokes[i];
+				if (stroke.length < 2) continue;
+
+				var hitIndex = -1;
+				for (var j = 0; j < stroke.length - 1; j++) {
+					var p1 = stroke[j];
+					var p2 = stroke[j + 1];
+					var dist = distToSegment(mx, my, p1.baseX, p1.baseY, p2.baseX, p2.baseY);
+					
+					if (dist < eraseRadius && getDistance(mx, my, p1.baseX, p1.baseY) > 15 && getDistance(mx, my, p2.baseX, p2.baseY) > 15) {
+						hitIndex = j;
+						break;
+					}
+				}
+
+				if (hitIndex !== -1) {
+					var wasClosed = stroke.isClosed;
+					var splitStroke1, splitStroke2;
+					
+					if (wasClosed) {
+						var maxDist = 0;
+						var closePt = stroke[stroke.length - 1];
+						for (var k = 0; k < stroke.length; k++) {
+							var d = getDistance(stroke[k].baseX, stroke[k].baseY, closePt.baseX, closePt.baseY);
+							if (d > maxDist) maxDist = d;
+						}
+						
+						shrinkingFills.push({
+							points: stroke.slice(),
+							closePt: closePt,
+							progress: Math.min(stroke.fillProgress, maxDist),
+							color: stroke.fillColor
+						});
+
+						var newStroke = stroke.slice(hitIndex + 1, -1).concat(stroke.slice(0, hitIndex + 1));
+						strokes.splice(i, 1, newStroke);
+					} else {
+						splitStroke1 = stroke.slice(0, hitIndex + 1);
+						splitStroke2 = stroke.slice(hitIndex + 1);
+						
+						var newStrokes = [];
+						if (splitStroke1.length > 1) {
+							newStrokes.push(splitStroke1);
+						}
+						if (splitStroke2.length > 1) {
+							newStrokes.push(splitStroke2);
+						}
+						
+						strokes.splice(i, 1, ...newStrokes);
+					}
+					changed = true;
+				}
+			}
+			return changed;
+		}
 
 		// Handle clear button
 		document.getElementById("clear-button").addEventListener('click', function () {
@@ -634,121 +797,80 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		// Mouse/Touch handling
 		window.addEventListener('resize', resize);
 
-		canvas.addEventListener('mousedown', function (e) {
+		function handleInputStart(x, y) {
 			isDrawing = true;
-			var rect = canvas.getBoundingClientRect();
-			mouseX = (e.clientX - rect.left) / zoom;
-			mouseY = (e.clientY - rect.top) / zoom;
-			prevMouseX = mouseX;
-			prevMouseY = mouseY;
+			prevMouseX = mouseX = x;
+			prevMouseY = mouseY = y;
 			if (isDrawMode) {
 				currentStroke = [];
 				currentStroke.fillColor = currentFillColor;
 				strokes.push(currentStroke);
-				addPointToStroke(mouseX, mouseY);
+				addPointToStroke(x, y, false);
+			} else if (isEraseMode) {
+				eraseStroke = [];
+				addPointToStroke(x, y, true);
 			}
-		});
-		canvas.addEventListener('mouseup', function () {
-			if (isDrawing) {
-				isDrawing = false;
-				broadcastUpdate();
-			}
-			mouseX = -1000;
-			mouseY = -1000;
-			prevMouseX = -1000;
-			prevMouseY = -1000;
-		});
-		canvas.addEventListener('touchstart', function (e) {
-			isDrawing = true;
-			if (e.touches.length > 0) {
-				var rect = canvas.getBoundingClientRect();
-				mouseX = (e.touches[0].clientX - rect.left) / zoom;
-				mouseY = (e.touches[0].clientY - rect.top) / zoom;
-				prevMouseX = mouseX;
-				prevMouseY = mouseY;
-			}
-			if (isDrawMode) {
-				currentStroke = [];
-				currentStroke.fillColor = currentFillColor;
-				strokes.push(currentStroke);
-				addPointToStroke(mouseX, mouseY);
-			}
-		});
+		}
 
-		canvas.addEventListener('mousemove', function (e) {
-			var rect = canvas.getBoundingClientRect();
-			var newMouseX = (e.clientX - rect.left) / zoom;
-			var newMouseY = (e.clientY - rect.top) / zoom;
-
-			if (isDrawing && isDrawMode) {
+		function handleInputMove(x, y) {
+			if (isDrawing && (isDrawMode || isEraseMode)) {
+				var isErase = isEraseMode;
 				if (prevMouseX !== -1000) {
-					var dx = newMouseX - prevMouseX;
-					var dy = newMouseY - prevMouseY;
-					var dist = Math.sqrt(dx * dx + dy * dy);
+					var dx = x - prevMouseX;
+					var dy = y - prevMouseY;
+					var dist = getDistance(x, y, prevMouseX, prevMouseY);
 					var steps = Math.ceil(dist / 5);
 					for (var i = 1; i <= steps; i++) {
-						var interpX = prevMouseX + dx * (i / steps);
-						var interpY = prevMouseY + dy * (i / steps);
-						addPointToStroke(interpX, interpY);
+						addPointToStroke(prevMouseX + dx * (i / steps), prevMouseY + dy * (i / steps), isErase);
 					}
 				} else {
-					addPointToStroke(newMouseX, newMouseY);
+					addPointToStroke(x, y, isErase);
 				}
 			}
+			mouseX = prevMouseX = x;
+			mouseY = prevMouseY = y;
+		}
 
-			mouseX = newMouseX;
-			mouseY = newMouseY;
-			prevMouseX = newMouseX;
-			prevMouseY = newMouseY;
+		function handleInputEnd() {
+			if (isDrawing) {
+				isDrawing = false;
+				if (isEraseMode && eraseStroke) {
+					for (var i = 0; i < eraseStroke.length - 1; i++) {
+						var d1 = eraseStroke[i], d2 = eraseStroke[i + 1];
+						eraseAtPoint((d1.baseX + d2.baseX) / 2, (d1.baseY + d2.baseY) / 2);
+					}
+					eraseStroke = null;
+				}
+				broadcastUpdate();
+			}
+			mouseX = mouseY = prevMouseX = prevMouseY = -1000;
+		}
+
+		canvas.addEventListener('mousedown', function (e) {
+			var rect = canvas.getBoundingClientRect();
+			handleInputStart((e.clientX - rect.left) / zoom, (e.clientY - rect.top) / zoom);
 		});
+		canvas.addEventListener('mousemove', function (e) {
+			var rect = canvas.getBoundingClientRect();
+			handleInputMove((e.clientX - rect.left) / zoom, (e.clientY - rect.top) / zoom);
+		});
+		canvas.addEventListener('mouseup', handleInputEnd);
+		canvas.addEventListener('mouseout', handleInputEnd);
+
+		canvas.addEventListener('touchstart', function (e) {
+			if (e.touches.length > 0) {
+				var rect = canvas.getBoundingClientRect();
+				handleInputStart((e.touches[0].clientX - rect.left) / zoom, (e.touches[0].clientY - rect.top) / zoom);
+			}
+		});
+
 		canvas.addEventListener('touchmove', function (e) {
 			if (e.touches.length > 0) {
 				var rect = canvas.getBoundingClientRect();
-				var newMouseX = (e.touches[0].clientX - rect.left) / zoom;
-				var newMouseY = (e.touches[0].clientY - rect.top) / zoom;
-
-				if (isDrawing && isDrawMode) {
-					if (prevMouseX !== -1000) {
-						var dx = newMouseX - prevMouseX;
-						var dy = newMouseY - prevMouseY;
-						var dist = Math.sqrt(dx * dx + dy * dy);
-						var steps = Math.ceil(dist / 5);
-						for (var i = 1; i <= steps; i++) {
-							var interpX = prevMouseX + dx * (i / steps);
-							var interpY = prevMouseY + dy * (i / steps);
-							addPointToStroke(interpX, interpY);
-						}
-					} else {
-						addPointToStroke(newMouseX, newMouseY);
-					}
-				}
-
-				mouseX = newMouseX;
-				mouseY = newMouseY;
-				prevMouseX = newMouseX;
-				prevMouseY = newMouseY;
+				handleInputMove((e.touches[0].clientX - rect.left) / zoom, (e.touches[0].clientY - rect.top) / zoom);
 			}
 		});
-		canvas.addEventListener('mouseout', function () {
-			mouseX = -1000;
-			mouseY = -1000;
-			prevMouseX = -1000;
-			prevMouseY = -1000;
-			if (isDrawing) {
-				isDrawing = false;
-				broadcastUpdate();
-			}
-		});
-		canvas.addEventListener('touchend', function () {
-			mouseX = -1000;
-			mouseY = -1000;
-			prevMouseX = -1000;
-			prevMouseY = -1000;
-			if (isDrawing) {
-				isDrawing = false;
-				broadcastUpdate();
-			}
-		});
+		canvas.addEventListener('touchend', handleInputEnd);
 
 		// Handle localized event
 		window.addEventListener("localized", function () {
@@ -759,6 +881,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			document.getElementById("help-button").title = l10n.get("Tutorial");
 			document.getElementById("stop-button").title = l10n.get("Stop");
 			document.getElementById("draw-button").title = l10n.get("Draw");
+			document.getElementById("eraser-button").title = l10n.get("Erase");
 			document.getElementById("clear-button").title = l10n.get("Clear");
 		});
 
