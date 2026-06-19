@@ -62,8 +62,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			return serializedStrokes;
 		}
 
-		function deserializeStrokes(serializedStrokes) {
+		function deserializeStrokes(serializedStrokes, instantFill) {
 			if (!serializedStrokes || !Array.isArray(serializedStrokes)) return;
+			var oldStrokes = strokes || [];
 			strokes = [];
 			for (var i = 0; i < serializedStrokes.length; i++) {
 				var strokeData = serializedStrokes[i];
@@ -73,11 +74,40 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				for (var j = 0; j < pathData.length; j++) {
 					var dotIndex = pathData[j];
 					if (dotIndex >= 0 && dotIndex < dots.length) {
-						stroke.push(dots[dotIndex]);
+						var d = dots[dotIndex];
+						stroke.push(d);
+						if (instantFill) {
+							d.r = 0;
+							d.targetR = 0;
+						}
 					}
 				}
 				if (stroke.length > 0) {
 					stroke.fillColor = fillColor;
+					if (instantFill) {
+						stroke.fillProgress = 1500;
+					} else {
+						var oldStroke = null;
+						for (var k = 0; k < oldStrokes.length; k++) {
+							if (oldStrokes[k].length === stroke.length) {
+								var match = true;
+								for (var m = 0; m < stroke.length; m++) {
+									if (oldStrokes[k][m] !== stroke[m]) {
+										match = false;
+										break;
+									}
+								}
+								if (match) {
+									oldStroke = oldStrokes[k];
+									break;
+								}
+							}
+						}
+						if (oldStroke && oldStroke.fillProgress !== undefined) {
+							stroke.fillProgress = oldStroke.fillProgress;
+							stroke.hasSnappedFillProgress = oldStroke.hasSnappedFillProgress;
+						}
+					}
 					strokes.push(stroke);
 				}
 			}
@@ -103,10 +133,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 			switch (msg.content.action) {
 				case 'init':
-					deserializeStrokes(msg.content.data.strokes);
+					deserializeStrokes(msg.content.data.strokes, true);
 					break;
 				case 'update':
-					deserializeStrokes(msg.content.data.strokes);
+					deserializeStrokes(msg.content.data.strokes, false);
 					break;
 			}
 		};
@@ -146,7 +176,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 						console.log("Loaded instance");
 						try {
 							var parsed = JSON.parse(data);
-							deserializeStrokes(parsed.strokes);
+							deserializeStrokes(parsed.strokes, true);
 						} catch (e) {
 							console.log("Error loading instance", e);
 						}
@@ -455,8 +485,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				}
 			}
 
-			// Sort strokes for FILL DRAWING (ascending level, then descending index)
-			var fillOrder = strokes.slice().sort(function(a, b) {
+			// Combine and Sort strokes for FILL DRAWING (ascending level, then descending index)
+			var fillItems = [];
+			for (var i = 0; i < strokes.length; i++) {
+				fillItems.push({ type: 'stroke', data: strokes[i], level: strokes[i].level || 0, originalIndex: strokes[i].originalIndex || 0 });
+			}
+			for (var i = 0; i < shrinkingFills.length; i++) {
+				fillItems.push({ type: 'shrinking', data: shrinkingFills[i], level: shrinkingFills[i].level || 0, originalIndex: shrinkingFills[i].originalIndex || 0 });
+			}
+			fillItems.sort(function(a, b) {
 				if (a.level !== b.level) {
 					return a.level - b.level;
 				}
@@ -464,8 +501,34 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			});
 
 			// DRAW FILLS AND UPDATE DOTS
-			for (var i = 0; i < fillOrder.length; i++) {
-				var stroke = fillOrder[i];
+			for (var i = 0; i < fillItems.length; i++) {
+				var item = fillItems[i];
+				
+				if (item.type === 'shrinking') {
+					var fill = item.data;
+					fill.progress = Math.max(0, fill.progress - 4);
+					
+					if (fill.progress > 0) {
+						ctx.save();
+						drawPath(ctx, fill.points);
+						ctx.clip(); // Restrict filling to ORIGINAL drawn shape
+
+						ctx.beginPath();
+						ctx.arc(fill.closePt.baseX, fill.closePt.baseY, fill.progress, 0, Math.PI * 2);
+						ctx.fillStyle = fill.color;
+						ctx.fill();
+
+						ctx.restore();
+					} else {
+						var idx = shrinkingFills.indexOf(fill);
+						if (idx !== -1) {
+							shrinkingFills.splice(idx, 1);
+						}
+					}
+					continue;
+				}
+
+				var stroke = item.data;
 				if (stroke.length < 2) continue;
 
 				if ((stroke.isClosed || stroke.fillProgress > 0) && stroke.fillColor) {
@@ -548,27 +611,6 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					}
 				} else if (!stroke.isClosed) {
 					stroke.fillProgress = 0;
-				}
-			}
-
-			// DRAW SHRINKING FILLS
-			for (var i = shrinkingFills.length - 1; i >= 0; i--) {
-				var fill = shrinkingFills[i];
-				fill.progress = Math.max(0, fill.progress - 4);
-				
-				if (fill.progress > 0) {
-					ctx.save();
-					drawPath(ctx, fill.points);
-					ctx.clip(); // Restrict filling to ORIGINAL drawn shape
-
-					ctx.beginPath();
-					ctx.arc(fill.closePt.baseX, fill.closePt.baseY, fill.progress, 0, Math.PI * 2);
-					ctx.fillStyle = fill.color;
-					ctx.fill();
-
-					ctx.restore();
-				} else {
-					shrinkingFills.splice(i, 1);
 				}
 			}
 
@@ -746,7 +788,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 							points: stroke.slice(),
 							closePt: closePt,
 							progress: Math.min(stroke.fillProgress, maxDist),
-							color: stroke.fillColor
+							color: stroke.fillColor,
+							level: stroke.level || 0,
+							originalIndex: stroke.originalIndex || 0
 						});
 
 						var newStroke = stroke.slice(hitIndex + 1, -1).concat(stroke.slice(0, hitIndex + 1));
