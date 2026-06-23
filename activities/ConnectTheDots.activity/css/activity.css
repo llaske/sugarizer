@@ -8,6 +8,14 @@
 	background-image: url(../lib/sugar-web/graphics/icons/actions/zoom-home.svg);
 }
 
+#main-toolbar #mode-button.draw-mode {
+	background-image: url(../icons/mode-draw.svg);
+}
+
+#main-toolbar #mode-button.number-mode {
+	background-image: url(../icons/mode-number.svg);
+}
+
 #main-toolbar #draw-button {
 	background-image: url(../icons/tool-pencil.svg);
 }
@@ -89,6 +97,7 @@ html, body {
 #gridCanvas {
 	display: block;
 	background-color: #f0f0f0;
+  opacity: 0;
 }
 
 /* Ensure palettes show above canvas */

@@ -280,6 +280,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			var leftMargin = (availableWidth - CANVAS_WIDTH * zoom) / 2;
 			canvas.style.marginLeft = leftMargin + "px";
 			canvas.style.marginTop = "0px";
+
+			canvas.style.opacity = "1";
 		}
 
 		function getDistance(x1, y1, x2, y2) {
@@ -718,9 +720,45 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			requestAnimationFrame(draw);
 		}
 
-		// Handle click on help-button
+		// Handle help button
 		document.getElementById("help-button").addEventListener('click', function (e) {
 			tutorial.start();
+		});
+		
+
+		// Handle mode button
+		var isNumberMode = false;
+		var savedDrawStrokes = [];
+		var savedDrawShrinkingFills = [];
+		var modeButton = document.getElementById("mode-button");
+		modeButton.addEventListener('click', function () {
+			isNumberMode = !isNumberMode;
+			currentStroke = null;
+			eraseStroke = null;
+			if (isNumberMode) {
+				// Save draw mode state and clear canvas
+				savedDrawStrokes = strokes;
+				savedDrawShrinkingFills = shrinkingFills;
+				strokes = [];
+				shrinkingFills = [];
+				modeButton.classList.remove('draw-mode');
+				modeButton.classList.add('number-mode');
+				document.getElementById("colors-button-fill").style.display = "none";
+				document.getElementById("draw-button").style.display = "none";
+				document.getElementById("eraser-button").style.display = "none";
+				document.getElementById("clear-button").style.display = "none";
+			} else {
+				// Restore draw mode state
+				strokes = savedDrawStrokes;
+				shrinkingFills = savedDrawShrinkingFills;
+				modeButton.classList.remove('number-mode');
+				modeButton.classList.add('draw-mode');
+				document.getElementById("colors-button-fill").style.display = "";
+				document.getElementById("draw-button").style.display = "";
+				document.getElementById("eraser-button").style.display = "";
+				document.getElementById("clear-button").style.display = "";
+			}
+			broadcastUpdate();
 		});
 
 		// Handle draw button
@@ -842,6 +880,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		window.addEventListener('resize', resize);
 
 		function handleInputStart(x, y) {
+			if (isNumberMode) return;
 			isDrawing = true;
 			prevMouseX = mouseX = x;
 			prevMouseY = mouseY = y;
