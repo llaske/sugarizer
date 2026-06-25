@@ -247,6 +247,124 @@ html, body {
 .palette .colors tr:nth-last-child(1) button {
   margin-bottom: 5.5px;
 }
+
 .palette .wrapper {
   max-width: none !important;
+}
+
+/* Library button icon */
+#main-toolbar #library-button {
+  background-image: url(../icons/tool-select-library.svg);
+}
+
+/* Library Overlay */
+#library-overlay {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 55px);
+  background-color: #ededed;
+  z-index: 100;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
+  box-sizing: border-box;
+}
+
+#library-overlay::-webkit-scrollbar {
+  width: 14px;
+}
+#library-overlay::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+#library-overlay::-webkit-scrollbar-thumb {
+  background: #999999;
+  border-radius: 7px;
+}
+#library-overlay::-webkit-scrollbar-thumb:hover {
+  background: #777777;
+}
+
+.library-header-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.library-title {
+  background-color: #f0d9b5;
+  color: #000000;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 8px 60px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  min-width: 250px;
+}
+
+.library-grid-container {
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 22px;
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .library-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.shape-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  padding: 14px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.shape-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.shape-card:active {
+  transform: translateY(0);
+}
+
+.shape-thumb-box {
+  background-color: #f4f4f6;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.shape-thumb-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }

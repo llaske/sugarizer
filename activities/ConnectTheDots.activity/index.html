@@ -23,6 +23,7 @@
 	<button class="toolbutton" id="activity-button" title="ConnectTheDots"></button>
 	<button class="toolbutton" id="network-button" title="Network"></button>
 	<button class="toolbutton draw-mode" id="mode-button" title="Mode"></button>
+	<button class="toolbutton" id="library-button" title="Library" style="display: none;"></button>
 	<button class="toolbutton" id="colors-button-fill" title="Fill Color" style="background-color: #ed2529;"></button>
 	<button class="toolbutton" id="draw-button" title="Draw"></button>
 	<button class="toolbutton" id="eraser-button" title="Erase"></button>
@@ -34,6 +35,14 @@
 </div>
 <div id="canvas">
 	<canvas id="gridCanvas"></canvas>
+</div>
+<div id="library-overlay" style="display: none;">
+	<div class="library-header-bar">
+		<div class="library-title" id="library-title-text">Basic Shapes</div>
+	</div>
+	<div class="library-grid-container">
+		<div class="library-grid" id="library-grid"></div>
+	</div>
 </div>
 <button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 </body>

@@ -1,4 +1,4 @@
-define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graphics/presencepalette", "sugar-web/datastore", "tutorial", "activity/palettes/color-palette"], function (activity, env, l10n, presencepalette, datastore, tutorial, colorpalette) {
+define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graphics/presencepalette", "sugar-web/datastore", "tutorial", "activity/palettes/color-palette", "sugar-web/graphics/menupalette"], function (activity, env, l10n, presencepalette, datastore, tutorial, colorpalette, menupalette) {
 
 	requirejs(['domReady!'], function (doc) {
 
@@ -499,7 +499,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				if (a.level !== b.level) {
 					return a.level - b.level;
 				}
-				return b.originalIndex - a.originalIndex;
+				return a.originalIndex - b.originalIndex;
 			});
 
 			// DRAW FILLS AND UPDATE DOTS
@@ -621,7 +621,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				var stroke = strokes[i];
 				if (stroke.length < 2) continue;
 				drawPath(ctx, stroke);
-				ctx.strokeStyle = '#282828';
+				ctx.strokeStyle = stroke.borderColor || '#282828';
 				ctx.lineWidth = 8;
 				ctx.lineCap = 'round';
 				ctx.lineJoin = 'round';
@@ -717,12 +717,156 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				ctx.fillStyle = dotRenderColor;
 				ctx.fill();
 			}
+
+			// DRAW NUMBER PUZZLE
+			if (isNumberMode && numberPuzzleTargetDots && numberPuzzleTargetDots.length > 0) {
+				var total = numberPuzzleTargetDots.length;
+
+				if (numberPuzzleConnectedCount > 1) {
+					ctx.beginPath();
+					ctx.moveTo(numberPuzzleTargetDots[0].baseX, numberPuzzleTargetDots[0].baseY);
+					var linesToDraw = Math.min(numberPuzzleConnectedCount, total + 1);
+					for (var n = 1; n < linesToDraw; n++) {
+						var idx = (n === total) ? 0 : n;
+						ctx.lineTo(numberPuzzleTargetDots[idx].baseX, numberPuzzleTargetDots[idx].baseY);
+					}
+					ctx.strokeStyle = numberPuzzleShape ? numberPuzzleShape.color : '#000000';
+					ctx.lineWidth = 8;
+					ctx.lineCap = 'round';
+					ctx.lineJoin = 'round';
+					ctx.stroke();
+				}
+
+				ctx.save();
+				for (var k = 0; k < total; k++) {
+					var nd = numberPuzzleTargetDots[k];
+					var isNextTarget = (k === ((numberPuzzleConnectedCount === total) ? 0 : numberPuzzleConnectedCount));
+
+					ctx.beginPath();
+					ctx.arc(nd.baseX, nd.baseY, isNextTarget ? 6.5 : nd.r, 0, Math.PI * 2);
+					ctx.fillStyle = "#000000";
+					ctx.fill();
+
+					ctx.font = "bold 20px Arial";
+					ctx.fillStyle = "#000000";
+					ctx.textAlign = "center";
+					ctx.textBaseline = "bottom";
+					ctx.fillText(k + 1, nd.baseX, nd.baseY - (isNextTarget ? 10 : 8));
+				}
+				ctx.restore();
+			}
 			requestAnimationFrame(draw);
 		}
 
 		// Handle help button
 		document.getElementById("help-button").addEventListener('click', function (e) {
 			tutorial.start();
+		});
+
+
+		// Shape Libraries Data Structure
+		var currentLibraryKey = "basic-shapes";
+		var shapeLibraries = {
+			"basic-shapes": {
+				name: "Basic Shapes",
+				shapes: [
+					{ name: "Square", color: "#ed2529", fill: "rgba(237, 37, 41, 0.2)", points: [{ x: 20, y: 20 }, { x: 80, y: 20 }, { x: 80, y: 80 }, { x: 20, y: 80 }] },
+					{ name: "Rectangle", color: "#e5d110", fill: "rgba(229, 209, 16, 0.2)", points: [{ x: 15, y: 30 }, { x: 85, y: 30 }, { x: 85, y: 70 }, { x: 15, y: 70 }] },
+					{ name: "Triangle", color: "#00cc44", fill: "rgba(0, 204, 68, 0.2)", points: [{ x: 25, y: 20 }, { x: 25, y: 80 }, { x: 80, y: 80 }] },
+					{ name: "Trapezoid", color: "#00dede", fill: "rgba(0, 222, 222, 0.2)", points: [{ x: 30, y: 30 }, { x: 70, y: 30 }, { x: 85, y: 70 }, { x: 15, y: 70 }] },
+					{ name: "Parallelogram", color: "#5577ff", fill: "rgba(85, 119, 255, 0.2)", points: [{ x: 30, y: 30 }, { x: 85, y: 30 }, { x: 70, y: 70 }, { x: 15, y: 70 }] },
+					{ name: "Diamond", color: "#aa44dd", fill: "rgba(170, 68, 221, 0.2)", points: [{ x: 50, y: 15 }, { x: 75, y: 50 }, { x: 50, y: 85 }, { x: 25, y: 50 }] },
+					{ name: "Hexagon", color: "#ea5588", fill: "rgba(234, 85, 136, 0.2)", points: [{ x: 30, y: 20 }, { x: 70, y: 20 }, { x: 85, y: 50 }, { x: 70, y: 80 }, { x: 30, y: 80 }, { x: 15, y: 50 }] },
+					{ name: "Octagon", color: "#e69925", fill: "rgba(230, 153, 37, 0.2)", points: [{ x: 35, y: 18 }, { x: 65, y: 18 }, { x: 82, y: 35 }, { x: 82, y: 65 }, { x: 65, y: 82 }, { x: 35, y: 82 }, { x: 18, y: 65 }, { x: 18, y: 35 }] },
+					{ name: "Plus", color: "#66cc55", fill: "rgba(102, 204, 85, 0.2)", points: [{ x: 38, y: 18 }, { x: 62, y: 18 }, { x: 62, y: 38 }, { x: 82, y: 38 }, { x: 82, y: 62 }, { x: 62, y: 62 }, { x: 62, y: 82 }, { x: 38, y: 82 }, { x: 38, y: 62 }, { x: 18, y: 62 }, { x: 18, y: 38 }, { x: 38, y: 38 }] },
+					{ name: "L-Shape", color: "#00cc88", fill: "rgba(0, 204, 136, 0.2)", points: [{ x: 25, y: 20 }, { x: 55, y: 20 }, { x: 55, y: 50 }, { x: 75, y: 50 }, { x: 75, y: 80 }, { x: 25, y: 80 }] }
+				]
+			},
+			"objects": {
+				name: "Objects",
+				shapes: [
+					{ name: "Star", color: "#ffaa00", fill: "rgba(255, 170, 0, 0.2)", points: [{ x: 50, y: 15 }, { x: 61, y: 38 }, { x: 85, y: 38 }, { x: 66, y: 53 }, { x: 73, y: 77 }, { x: 50, y: 63 }, { x: 27, y: 77 }, { x: 34, y: 53 }, { x: 15, y: 38 }, { x: 39, y: 38 }] },
+					{ name: "House", color: "#e65555", fill: "rgba(230, 85, 85, 0.2)", points: [{ x: 50, y: 20 }, { x: 80, y: 45 }, { x: 70, y: 45 }, { x: 70, y: 80 }, { x: 30, y: 80 }, { x: 30, y: 45 }, { x: 20, y: 45 }] },
+					{ name: "Tree", color: "#22aa55", fill: "rgba(34, 170, 85, 0.2)", points: [{ x: 50, y: 15 }, { x: 75, y: 55 }, { x: 58, y: 55 }, { x: 58, y: 85 }, { x: 42, y: 85 }, { x: 42, y: 55 }, { x: 25, y: 55 }] },
+					{ name: "Heart", color: "#ff3366", fill: "rgba(255, 51, 102, 0.2)", points: [{ x: 50, y: 35 }, { x: 65, y: 20 }, { x: 82, y: 20 }, { x: 85, y: 40 }, { x: 50, y: 80 }, { x: 15, y: 40 }, { x: 18, y: 20 }, { x: 35, y: 20 }] }
+				]
+			}
+		};
+
+		function renderLibraryGrid() {
+			var gridElem = document.getElementById("library-grid");
+			var titleElem = document.getElementById("library-title-text");
+			if (!gridElem || !titleElem) return;
+
+			var lib = shapeLibraries[currentLibraryKey];
+			if (!lib) return;
+
+			titleElem.innerText = lib.name;
+			gridElem.innerHTML = "";
+
+			lib.shapes.forEach(function (shapeObj) {
+				var card = document.createElement("div");
+				card.className = "shape-card";
+
+				var thumbBox = document.createElement("div");
+				thumbBox.className = "shape-thumb-box";
+
+				var thumbCanvas = document.createElement("canvas");
+				thumbCanvas.width = 160;
+				thumbCanvas.height = 160;
+				thumbCanvas.className = "shape-thumb-canvas";
+				thumbBox.appendChild(thumbCanvas);
+				card.appendChild(thumbBox);
+
+				var tctx = thumbCanvas.getContext("2d");
+				tctx.clearRect(0, 0, 160, 160);
+
+				function drawShapePoly(pts, color, fill) {
+					if (!pts || pts.length < 2) return;
+					tctx.beginPath();
+					tctx.moveTo(pts[0].x * 1.6, pts[0].y * 1.6);
+					for (var p = 1; p < pts.length; p++) {
+						tctx.lineTo(pts[p].x * 1.6, pts[p].y * 1.6);
+					}
+					tctx.closePath();
+					if (fill) {
+						tctx.fillStyle = fill;
+						tctx.fill();
+					}
+					tctx.strokeStyle = color;
+					tctx.lineWidth = 4;
+					tctx.lineCap = "round";
+					tctx.lineJoin = "round";
+					tctx.stroke();
+				}
+
+				drawShapePoly(shapeObj.points, shapeObj.color, shapeObj.fill);
+
+				card.addEventListener("click", function () {
+					selectNumberPuzzle(shapeObj);
+				});
+
+				gridElem.appendChild(card);
+			});
+		}
+
+		var libraryButton = document.getElementById("library-button");
+		var libraryMenuData = [
+			{ label: "Basic Shapes", id: "basic-shapes", icon: false },
+			{ label: "Objects", id: "objects", icon: false }
+		];
+		var libraryPalette = new menupalette.MenuPalette(libraryButton, undefined, libraryMenuData);
+		libraryPalette.addEventListener('selectItem', function (e) {
+			var btn = e.detail.target;
+			while (btn && btn.tagName !== 'BUTTON') {
+				btn = btn.parentElement;
+			}
+			if (btn && btn.id) {
+				currentLibraryKey = btn.id;
+				var overlay = document.getElementById("library-overlay");
+				if (overlay) overlay.style.display = "flex";
+				renderLibraryGrid();
+			}
 		});
 		
 
@@ -747,6 +891,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				document.getElementById("draw-button").style.display = "none";
 				document.getElementById("eraser-button").style.display = "none";
 				document.getElementById("clear-button").style.display = "none";
+				document.getElementById("library-button").style.display = "";
+				var overlay = document.getElementById("library-overlay");
+				if (overlay) overlay.style.display = "flex";
+				renderLibraryGrid();
 			} else {
 				// Restore draw mode state
 				strokes = savedDrawStrokes;
@@ -757,6 +905,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				document.getElementById("draw-button").style.display = "";
 				document.getElementById("eraser-button").style.display = "";
 				document.getElementById("clear-button").style.display = "";
+				document.getElementById("library-button").style.display = "none";
+				var overlay = document.getElementById("library-overlay");
+				if (overlay) overlay.style.display = "none";
+				numberPuzzleTargetDots = null;
 			}
 			broadcastUpdate();
 		});
@@ -848,6 +1000,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 						strokes.splice(i, 1, ...newStrokes);
 					}
 					changed = true;
+					break; // Stop loop so underlying overlapping shapes keep their shared edge intact!
 				}
 			}
 			return changed;
@@ -856,6 +1009,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		// Handle clear button
 		document.getElementById("clear-button").addEventListener('click', function () {
 			strokes = [];
+			shrinkingFills = [];
 			currentStroke = null;
 			broadcastUpdate();
 		});
@@ -878,9 +1032,72 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		// Mouse/Touch handling
 		window.addEventListener('resize', resize);
+		var rawErasePath = null;
+
+		var numberPuzzleTargetDots = null;
+		var numberPuzzleConnectedCount = 0;
+		var numberPuzzleShape = null;
+		var isNumberPuzzleConnecting = false;
+
+		function selectNumberPuzzle(shapeObj) {
+			var overlay = document.getElementById("library-overlay");
+			if (overlay) overlay.style.display = "none";
+
+			strokes = [];
+			shrinkingFills = [];
+
+			numberPuzzleShape = shapeObj;
+			numberPuzzleTargetDots = [];
+			numberPuzzleConnectedCount = 0;
+
+			var cols = 15;
+			var rows = 13;
+			shapeObj.points.forEach(function (pt) {
+				var targetCol = Math.round(3 + (pt.x / 100) * 8);
+				var targetRow = Math.round(2 + (pt.y / 100) * 8);
+				targetCol = Math.max(0, Math.min(cols - 1, targetCol));
+				targetRow = Math.max(0, Math.min(rows - 1, targetRow));
+
+				var dotIndex = targetCol * rows + targetRow;
+				if (dots[dotIndex] && numberPuzzleTargetDots.indexOf(dots[dotIndex]) === -1) {
+					numberPuzzleTargetDots.push(dots[dotIndex]);
+				}
+			});
+			broadcastUpdate();
+		}
+
+		function tryConnectNumberDot(mx, my) {
+			if (!numberPuzzleTargetDots) return;
+			var total = numberPuzzleTargetDots.length;
+			if (total === 0 || numberPuzzleConnectedCount > total) return;
+
+			var targetIdx = (numberPuzzleConnectedCount === total) ? 0 : numberPuzzleConnectedCount;
+			var nextDot = numberPuzzleTargetDots[targetIdx];
+
+			if (getDistance(mx, my, nextDot.baseX, nextDot.baseY) < 40) {
+				numberPuzzleConnectedCount++;
+				if (numberPuzzleConnectedCount > total) {
+					var winStroke = numberPuzzleTargetDots.slice();
+					winStroke.push(numberPuzzleTargetDots[0]);
+					winStroke.fillColor = numberPuzzleShape.color;
+					winStroke.borderColor = '#282828';
+					winStroke.isClosed = true;
+					winStroke.fillProgress = 0;
+					strokes.push(winStroke);
+					numberPuzzleTargetDots = null;
+				}
+				broadcastUpdate();
+			}
+		}
 
 		function handleInputStart(x, y) {
-			if (isNumberMode) return;
+			if (isNumberMode) {
+				if (numberPuzzleTargetDots) {
+					isNumberPuzzleConnecting = true;
+					tryConnectNumberDot(x, y);
+				}
+				return;
+			}
 			isDrawing = true;
 			prevMouseX = mouseX = x;
 			prevMouseY = mouseY = y;
@@ -891,11 +1108,18 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				addPointToStroke(x, y, false);
 			} else if (isEraseMode) {
 				eraseStroke = [];
+				rawErasePath = [{ x: x, y: y }];
 				addPointToStroke(x, y, true);
 			}
 		}
 
 		function handleInputMove(x, y) {
+			if (isNumberMode) {
+				if (isNumberPuzzleConnecting && numberPuzzleTargetDots) {
+					tryConnectNumberDot(x, y);
+				}
+				return;
+			}
 			if (isDrawing && (isDrawMode || isEraseMode)) {
 				var isErase = isEraseMode;
 				if (prevMouseX !== -1000) {
@@ -904,10 +1128,14 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					var dist = getDistance(x, y, prevMouseX, prevMouseY);
 					var steps = Math.ceil(dist / 5);
 					for (var i = 1; i <= steps; i++) {
-						addPointToStroke(prevMouseX + dx * (i / steps), prevMouseY + dy * (i / steps), isErase);
+						var curX = prevMouseX + dx * (i / steps);
+						var curY = prevMouseY + dy * (i / steps);
+						addPointToStroke(curX, curY, isErase);
+						if (isErase && rawErasePath) rawErasePath.push({ x: curX, y: curY });
 					}
 				} else {
 					addPointToStroke(x, y, isErase);
+					if (isErase && rawErasePath) rawErasePath.push({ x: x, y: y });
 				}
 			}
 			mouseX = prevMouseX = x;
@@ -915,14 +1143,23 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		}
 
 		function handleInputEnd() {
+			isNumberPuzzleConnecting = false;
 			if (isDrawing) {
 				isDrawing = false;
-				if (isEraseMode && eraseStroke) {
-					for (var i = 0; i < eraseStroke.length - 1; i++) {
-						var d1 = eraseStroke[i], d2 = eraseStroke[i + 1];
-						eraseAtPoint((d1.baseX + d2.baseX) / 2, (d1.baseY + d2.baseY) / 2);
+				if (isEraseMode) {
+					if (eraseStroke) {
+						for (var i = 0; i < eraseStroke.length - 1; i++) {
+							var d1 = eraseStroke[i], d2 = eraseStroke[i + 1];
+							eraseAtPoint((d1.baseX + d2.baseX) / 2, (d1.baseY + d2.baseY) / 2);
+						}
+					}
+					if (rawErasePath) {
+						for (var p = 0; p < rawErasePath.length; p++) {
+							eraseAtPoint(rawErasePath[p].x, rawErasePath[p].y);
+						}
 					}
 					eraseStroke = null;
+					rawErasePath = null;
 				}
 				broadcastUpdate();
 			}
