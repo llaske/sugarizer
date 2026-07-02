@@ -22,11 +22,11 @@
 <div id="main-toolbar" class="toolbar">
 	<button class="toolbutton" id="activity-button" title="ConnectTheDots"></button>
 	<button class="toolbutton" id="network-button" title="Network"></button>
-	<button class="toolbutton draw-mode" id="mode-button" title="Mode"></button>
+	<button class="toolbutton" id="mode-button" title="Mode"></button>
 	<button class="toolbutton" id="library-button" title="Library" style="display: none;"></button>
 	<button class="toolbutton" id="colors-button-fill" title="Fill Color" style="background-color: #ed2529;"></button>
 	<button class="toolbutton" id="draw-button" title="Draw"></button>
-	<button class="toolbutton" id="eraser-button" title="Erase"></button>
+	<button class="toolbutton" id="erase-button" title="Erase"></button>
 	<button class="toolbutton" id="clear-button" title="Clear"></button>
 
 	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
@@ -34,14 +34,10 @@
 	<button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
 </div>
 <div id="canvas">
-	<canvas id="gridCanvas"></canvas>
-</div>
-<div id="library-overlay" style="display: none;">
-	<div class="library-header-bar">
-		<div class="library-title" id="library-title-text">Basic Shapes</div>
-	</div>
-	<div class="library-grid-container">
-		<div class="library-grid" id="library-grid"></div>
+	<canvas id="gridCanvas" width="900" height="748"></canvas>
+	<div id="library-gallery" style="display: none;">
+		<div id="gallery-header">Basic Shapes</div>
+		<div id="gallery-grid"></div>
 	</div>
 </div>
 <button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
