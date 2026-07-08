@@ -20,6 +20,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var prevMouseX = -1000;
 		var prevMouseY = -1000;
 		var dots = [];
+		var buddyStroke = '#005fe4';
+		var buddyFill = '#ff2b34';
 
 		function initDots() {
 			dots = [];

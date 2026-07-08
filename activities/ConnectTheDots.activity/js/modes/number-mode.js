@@ -9,23 +9,54 @@ define([], function () {
 	var currMouseX = -1000;
 	var currMouseY = -1000;
 	var l10nRef = null;
+	var buddyStrokeColor = '#005fe4';
+	var buddyFillColor = '#ff2b34';
+
+	function triggerConfetti() {
+		if (typeof confetti === 'function') {
+			confetti({
+				particleCount: 150,
+				spread: 100,
+				origin: { x: 0.5, y: 0.85 }
+			});
+		}
+	}
+
+	function darkenColor(colorStr, percent) {
+		var r = 0, g = 0, b = 0;
+		if (colorStr.indexOf('rgb') !== -1) {
+			var parts = colorStr.split("(")[1].split(")")[0].split(",");
+			r = parseInt(parts[0]); g = parseInt(parts[1]); b = parseInt(parts[2]);
+		} else if (colorStr[0] === '#') {
+			var num = parseInt(colorStr.slice(1), 16);
+			r = (num >> 16) & 255;
+			g = (num >> 8) & 255;
+			b = num & 255;
+		} else {
+			return colorStr;
+		}
+		r = Math.floor(r * (1 - percent));
+		g = Math.floor(g * (1 - percent));
+		b = Math.floor(b * (1 - percent));
+		return "rgb(" + r + "," + g + "," + b + ")";
+	}
 
 	var libraries = {
 		'basic-shapes': [
-			{ name: 'Square', points: [[3,2], [11,2], [11,10], [3,10]], closed: true, strokeColor: '#cc0000', fillColor: '#ffcccc' },
-			{ name: 'Rectangle', points: [[2,3], [12,3], [12,9], [2,9]], closed: true, strokeColor: '#cccc00', fillColor: '#ffffcc' },
-			{ name: 'Right Triangle', points: [[3,2], [3,10], [11,10]], closed: true, strokeColor: '#00cc00', fillColor: '#ccffcc' },
-			{ name: 'Trapezoid', points: [[4,3], [10,3], [12,9], [2,9]], closed: true, strokeColor: '#00cccc', fillColor: '#ccffff' },
-			{ name: 'Parallelogram', points: [[4,3], [12,3], [10,9], [2,9]], closed: true, strokeColor: '#0000cc', fillColor: '#ccccff' },
-			{ name: 'Diamond', points: [[7,1], [12,6], [7,11], [2,6]], closed: true, strokeColor: '#800080', fillColor: '#f2e6ff' },
-			{ name: 'Hexagon', points: [[4,2], [10,2], [13,6], [10,10], [4,10], [1,6]], closed: true, strokeColor: '#cc0066', fillColor: '#ffcce6' },
-			{ name: 'Octagon', points: [[5,1], [9,1], [12,4], [12,8], [9,11], [5,11], [2,8], [2,4]], closed: true, strokeColor: '#cc6600', fillColor: '#ffe6cc' },
-			{ name: 'L-Shape', points: [[4,2], [7,2], [7,7], [11,7], [11,10], [4,10]], closed: true, strokeColor: '#009966', fillColor: '#ccffe6' }
+			{ name: 'Square', points: [[3,2], [11,2], [11,10], [3,10]], closed: true },
+			{ name: 'Rectangle', points: [[2,3], [12,3], [12,9], [2,9]], closed: true },
+			{ name: 'Right Triangle', points: [[3,2], [3,10], [11,10]], closed: true },
+			{ name: 'Trapezoid', points: [[4,3], [10,3], [12,9], [2,9]], closed: true },
+			{ name: 'Parallelogram', points: [[4,3], [12,3], [10,9], [2,9]], closed: true },
+			{ name: 'Diamond', points: [[7,1], [12,6], [7,11], [2,6]], closed: true },
+			{ name: 'Hexagon', points: [[4,2], [10,2], [13,6], [10,10], [4,10], [1,6]], closed: true },
+			{ name: 'Octagon', points: [[5,1], [9,1], [12,4], [12,8], [9,11], [5,11], [2,8], [2,4]], closed: true },
+			{ name: 'L-Shape', points: [[4,2], [7,2], [7,7], [11,7], [11,10], [4,10]], closed: true }
 		],
 		'objects': [
-			{ name: 'Star', points: [[7,1], [8,5], [12,5], [9,7], [10,11], [7,9], [4,11], [5,7], [2,5], [6,5]], closed: true, strokeColor: '#e6b800', fillColor: '#fff2b3' },
-			{ name: 'Fish', points: [[2,6], [6,2], [10,5], [13,2], [13,10], [10,7], [6,10]], closed: true, strokeColor: '#008080', fillColor: '#b3ffff' },
-			{ name: 'Crown', points: [[3,9], [2,4], [5,6], [7,2], [9,6], [12,4], [11,9]], closed: true, strokeColor: '#d9b300', fillColor: '#ffffe0' }
+			{ name: 'Star', points: [[7,1], [8,5], [12,5], [9,7], [10,11], [7,9], [4,11], [5,7], [2,5], [6,5]], closed: true },
+			{ name: 'Fish', points: [[2,6], [6,2], [10,5], [13,2], [13,10], [10,7], [6,10]], closed: true },
+			{ name: 'Crown', points: [[3,9], [2,4], [5,6], [7,2], [9,6], [12,4], [11,9]], closed: true }
 		]
 	};
 
@@ -49,7 +80,7 @@ define([], function () {
 			if (dot) {
 				var dx = mouseX - dot.x;
 				var dy = mouseY - dot.y;
-				if (Math.sqrt(dx * dx + dy * dy) < 30) {
+				if (Math.sqrt(dx * dx + dy * dy) < 45) {
 					return i;
 				}
 			}
@@ -57,44 +88,48 @@ define([], function () {
 		return -1;
 	}
 
+	function getDotsOnSegment(dot1, dot2) {
+		var lineDots = [];
+		if (!dot1 || !dot2) return lineDots;
+		var dx = dot2.x - dot1.x;
+		var dy = dot2.y - dot1.y;
+		var len = Math.sqrt(dx * dx + dy * dy);
+		if (len === 0) return [dot1];
+		for (var i = 0; i < dots.length; i++) {
+			var d = dots[i];
+			var dist1 = Math.sqrt(Math.pow(d.x - dot1.x, 2) + Math.pow(d.y - dot1.y, 2));
+			var dist2 = Math.sqrt(Math.pow(d.x - dot2.x, 2) + Math.pow(d.y - dot2.y, 2));
+			if (Math.abs(dist1 + dist2 - len) < 1.0) {
+				lineDots.push(d);
+			}
+		}
+		return lineDots;
+	}
+
 	function tryConnectPoint(ptIdx) {
 		if (!currentDrawing || isFinished) return;
 		var totalPts = currentDrawing.points.length;
-
 		if (currentStep === 0) {
 			if (ptIdx === 0) {
 				currentStep = 1;
 				broadcastUpdate();
 			}
-		} else if (currentStep < totalPts) {
-			if (ptIdx === currentStep) {
-				var prevPt = currentDrawing.points[currentStep - 1];
-				var currPt = currentDrawing.points[currentStep];
-				var dot1 = getDotByIndex(prevPt[0], prevPt[1]);
-				var dot2 = getDotByIndex(currPt[0], currPt[1]);
-				if (dot1 && dot2) {
-					userStrokes.push({ from: dot1, to: dot2 });
-				}
-				currentStep++;
-				if (currentStep === totalPts) {
-					if (!currentDrawing.closed) {
-						isFinished = true;
-					}
-				}
-				broadcastUpdate();
+			return;
+		}
+		var targetIdx = (currentStep === totalPts && currentDrawing.closed) ? 0 : (currentStep < totalPts ? currentStep : -1);
+		if (ptIdx !== -1 && ptIdx === targetIdx) {
+			var dot1 = getDotByIndex(currentDrawing.points[currentStep - 1][0], currentDrawing.points[currentStep - 1][1]);
+			var dot2 = getDotByIndex(currentDrawing.points[targetIdx][0], currentDrawing.points[targetIdx][1]);
+			if (dot1 && dot2) {
+				userStrokes.push({ from: dot1, to: dot2, dots: getDotsOnSegment(dot1, dot2) });
 			}
-		} else if (currentStep === totalPts && currentDrawing.closed) {
-			if (ptIdx === 0) {
-				var prevPt = currentDrawing.points[totalPts - 1];
-				var currPt = currentDrawing.points[0];
-				var dot1 = getDotByIndex(prevPt[0], prevPt[1]);
-				var dot2 = getDotByIndex(currPt[0], currPt[1]);
-				if (dot1 && dot2) {
-					userStrokes.push({ from: dot1, to: dot2 });
-				}
+			if (currentStep < totalPts) currentStep++;
+			if ((currentStep === totalPts && !currentDrawing.closed) || targetIdx === 0) {
 				isFinished = true;
-				broadcastUpdate();
+				currentDrawing.fillProgress = 0;
+				currentDrawing.closePt = dot2 || dot1 || getDotByIndex(currentDrawing.points[0][0], currentDrawing.points[0][1]);
 			}
+			broadcastUpdate();
 		}
 	}
 
@@ -109,6 +144,9 @@ define([], function () {
 			var header = document.getElementById('gallery-header');
 			var grid = document.getElementById('gallery-grid');
 			if (!gallery || !header || !grid) return;
+			gallery.style.backgroundColor = buddyStrokeColor;
+			header.style.backgroundColor = buddyFillColor;
+			header.style.color = "#ffffff";
 
 			var titleMap = {
 				'basic-shapes': (l10nRef && l10nRef.get('BasicShapes')) || 'Basic Shapes',
@@ -133,25 +171,23 @@ define([], function () {
 					if (pt[1] > maxRow) maxRow = pt[1];
 				});
 
-				var vBoxX = minCol - 1;
-				var vBoxY = minRow - 1;
-				var vBoxW = (maxCol - minCol) + 2;
-				var vBoxH = (maxRow - minRow) + 2;
+				var vBoxW = (maxCol - minCol) + 2, vBoxH = (maxRow - minRow) + 2;
 
 				var svgNS = "http://www.w3.org/2000/svg";
 				var svg = document.createElementNS(svgNS, "svg");
-				svg.setAttribute("viewBox", vBoxX + " " + vBoxY + " " + vBoxW + " " + vBoxH);
-				svg.style.width = "100px";
-				svg.style.height = "100px";
+				svg.setAttribute("viewBox", (minCol - 1) + " " + (minRow - 1) + " " + vBoxW + " " + vBoxH);
+				svg.style.width = svg.style.height = "100px";
 
-				var ptsStr = drawing.points.map(function (pt) { return pt[0] + "," + pt[1]; }).join(" ");
 				var shapeEl = document.createElementNS(svgNS, drawing.closed ? "polygon" : "polyline");
-				shapeEl.setAttribute("points", ptsStr);
-				shapeEl.setAttribute("fill", drawing.closed ? (drawing.fillColor || "#ffcccc") : "none");
-				shapeEl.setAttribute("stroke", drawing.strokeColor || "#cc0000");
-				shapeEl.setAttribute("stroke-width", Math.max(vBoxW, vBoxH) * 0.06);
-				shapeEl.setAttribute("stroke-linecap", "round");
-				shapeEl.setAttribute("stroke-linejoin", "round");
+				var attrs = {
+					points: drawing.points.map(function (pt) { return pt[0] + "," + pt[1]; }).join(" "),
+					fill: drawing.closed ? (buddyFillColor || drawing.fillColor || "#ffcccc") : "none",
+					stroke: buddyStrokeColor || drawing.strokeColor || "#cc0000",
+					"stroke-width": Math.max(vBoxW, vBoxH) * 0.06,
+					"stroke-linecap": "round",
+					"stroke-linejoin": "round"
+				};
+				for (var k in attrs) shapeEl.setAttribute(k, attrs[k]);
 				svg.appendChild(shapeEl);
 
 				inner.appendChild(svg);
@@ -168,10 +204,15 @@ define([], function () {
 			gallery.style.display = '';
 		},
 		selectDrawing: function (drawing) {
-			currentDrawing = drawing;
+			currentDrawing = JSON.parse(JSON.stringify(drawing));
+			if (buddyStrokeColor) currentDrawing.strokeColor = buddyStrokeColor;
+			if (buddyFillColor) currentDrawing.fillColor = buddyFillColor;
 			currentStep = 0;
 			userStrokes = [];
 			isFinished = false;
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].insideClosedFigure = null;
+			}
 			broadcastUpdate();
 		},
 		onMouseDown: function (mouseX, mouseY) {
@@ -200,22 +241,77 @@ define([], function () {
 		drawBehindDots: function (ctx) {
 			if (!ctx || !currentDrawing) return;
 
-			if (isFinished && currentDrawing.points.length > 0) {
-				ctx.save();
-				ctx.beginPath();
-				for (var i = 0; i < currentDrawing.points.length; i++) {
-					var pt = currentDrawing.points[i];
+			function tracePolygonPath(context, drawing) {
+				context.beginPath();
+				for (var i = 0; i < drawing.points.length; i++) {
+					var pt = drawing.points[i];
 					var dot = getDotByIndex(pt[0], pt[1]);
 					if (dot) {
-						if (i === 0) ctx.moveTo(dot.x, dot.y);
-						else ctx.lineTo(dot.x, dot.y);
+						if (i === 0) context.moveTo(dot.x, dot.y);
+						else context.lineTo(dot.x, dot.y);
+					}
+				}
+				if (drawing.closed) context.closePath();
+			}
+
+			if (isFinished && currentDrawing.points.length > 0) {
+				for (var d = 0; d < dots.length; d++) {
+					var ptX = dots[d].x, ptY = dots[d].y, isInside = false;
+					var figPts = [];
+					for (var k = 0; k < currentDrawing.points.length; k++) {
+						var pDot = getDotByIndex(currentDrawing.points[k][0], currentDrawing.points[k][1]);
+						if (pDot) figPts.push(pDot);
+					}
+					for (var k = 0, l = figPts.length - 1; k < figPts.length; l = k++) {
+						var xi = figPts[k].x, yi = figPts[k].y, xj = figPts[l].x, yj = figPts[l].y;
+						if (((yi > ptY) != (yj > ptY)) && (ptX < (xj - xi) * (ptY - yi) / (yj - yi) + xi)) isInside = !isInside;
+					}
+					dots[d].insideClosedFigure = isInside ? currentDrawing : null;
+				}
+
+				if (currentDrawing.fillProgress === undefined) currentDrawing.fillProgress = 0;
+				if (currentDrawing.maxDist === undefined) {
+					var maxD = 0, cPt = currentDrawing.closePt || getDotByIndex(currentDrawing.points[0][0], currentDrawing.points[0][1]);
+					for (var i = 0; i < currentDrawing.points.length; i++) {
+						var pt = currentDrawing.points[i];
+						var dot = getDotByIndex(pt[0], pt[1]);
+						if (dot && cPt) {
+							var dist = Math.sqrt(Math.pow(dot.x - cPt.x, 2) + Math.pow(dot.y - cPt.y, 2));
+							if (dist > maxD) maxD = dist;
+						}
+					}
+					currentDrawing.maxDist = maxD || 300;
+				}
+
+				var targetD = currentDrawing.maxDist + 5;
+				if (currentDrawing.fillProgress < 1500) {
+					currentDrawing.fillProgress += Math.max(1.5, Math.min(7, targetD / 60));
+					if (currentDrawing.fillProgress >= targetD) {
+						currentDrawing.fillProgress = 1500;
+						triggerConfetti();
 					}
 				}
 				if (currentDrawing.closed) {
-					ctx.closePath();
-					ctx.fillStyle = currentDrawing.fillColor || '#ffcccc';
-					ctx.fill();
+					ctx.save();
+					tracePolygonPath(ctx, currentDrawing);
+					if (currentDrawing.fillProgress >= 1500) {
+						ctx.fillStyle = currentDrawing.fillColor || '#ffcccc';
+						ctx.fill();
+					} else {
+						ctx.clip();
+						var closePt = currentDrawing.closePt || getDotByIndex(currentDrawing.points[0][0], currentDrawing.points[0][1]);
+						if (closePt && currentDrawing.fillProgress > 0) {
+							ctx.beginPath();
+							ctx.arc(closePt.x, closePt.y, currentDrawing.fillProgress, 0, Math.PI * 2);
+							ctx.fillStyle = currentDrawing.fillColor || '#ffcccc';
+							ctx.fill();
+						}
+					}
+					ctx.restore();
 				}
+
+				ctx.save();
+				tracePolygonPath(ctx, currentDrawing);
 				ctx.strokeStyle = currentDrawing.strokeColor || '#cc0000';
 				ctx.lineWidth = 6;
 				ctx.lineCap = 'round';
@@ -223,39 +319,32 @@ define([], function () {
 				ctx.stroke();
 				ctx.restore();
 			} else {
+				ctx.save();
+				ctx.strokeStyle = currentDrawing.strokeColor || '#cc0000';
+				ctx.lineWidth = 6;
+				ctx.lineCap = 'round';
+				ctx.lineJoin = 'round';
 				if (userStrokes.length > 0) {
-					ctx.save();
-					ctx.strokeStyle = currentDrawing.strokeColor || '#cc0000';
-					ctx.lineWidth = 6;
-					ctx.lineCap = 'round';
-					ctx.lineJoin = 'round';
 					ctx.beginPath();
 					for (var j = 0; j < userStrokes.length; j++) {
-						var seg = userStrokes[j];
-						ctx.moveTo(seg.from.x, seg.from.y);
-						ctx.lineTo(seg.to.x, seg.to.y);
+						ctx.moveTo(userStrokes[j].from.x, userStrokes[j].from.y);
+						ctx.lineTo(userStrokes[j].to.x, userStrokes[j].to.y);
 					}
 					ctx.stroke();
-					ctx.restore();
 				}
-				if (isDrawing && currentStep > 0 && currMouseX !== -1000 && !isFinished) {
+				if (isDrawing && currentStep > 0 && currMouseX !== -1000) {
 					var lastPtIdx = currentStep - 1;
 					if (lastPtIdx >= 0 && lastPtIdx < currentDrawing.points.length) {
-						var pt = currentDrawing.points[lastPtIdx];
-						var lastDot = getDotByIndex(pt[0], pt[1]);
+						var lastDot = getDotByIndex(currentDrawing.points[lastPtIdx][0], currentDrawing.points[lastPtIdx][1]);
 						if (lastDot) {
-							ctx.save();
-							ctx.strokeStyle = currentDrawing.strokeColor || '#cc0000';
-							ctx.lineWidth = 6;
-							ctx.lineCap = 'round';
 							ctx.beginPath();
 							ctx.moveTo(lastDot.x, lastDot.y);
 							ctx.lineTo(currMouseX, currMouseY);
 							ctx.stroke();
-							ctx.restore();
 						}
 					}
 				}
+				ctx.restore();
 			}
 		},
 		drawFrontDots: function (ctx) {
@@ -267,9 +356,9 @@ define([], function () {
 				if (dot) {
 					ctx.save();
 					var isActive = (k === currentStep || (currentStep === currentDrawing.points.length && currentDrawing.closed && k === 0));
-					var dotRadius = isActive ? 8 : 4;
-					var fontSize = isActive ? 16 : 14;
-					var offsetY = isActive ? 18 : 15;
+					var dotRadius = isActive ? 10 : 6;
+					var fontSize = isActive ? 34 : 26;
+					var offsetY = isActive ? 34 : 26;
 
 					ctx.beginPath();
 					ctx.arc(dot.x, dot.y, dotRadius, 0, Math.PI * 2);
@@ -292,21 +381,51 @@ define([], function () {
 			return isDrawing;
 		},
 		getDotColor: function (dot) {
-			if (!currentDrawing || isFinished) return null;
-			for (var i = 0; i < currentDrawing.points.length; i++) {
-				var pt = currentDrawing.points[i];
-				var targetDot = getDotByIndex(pt[0], pt[1]);
-				if (targetDot === dot) {
-					return '#000000';
-				}
+			if (!currentDrawing) return null;
+			var isDrawn = (currentStep >= 1 && dot === getDotByIndex(currentDrawing.points[0][0], currentDrawing.points[0][1]));
+			for (var j = 0; !isDrawn && j < userStrokes.length; j++) {
+				var seg = userStrokes[j];
+				if (seg.from === dot || seg.to === dot || (seg.dots && seg.dots.indexOf(dot) !== -1)) isDrawn = true;
+			}
+			var isTarget = false;
+			for (var i = 0; !isDrawn && !isTarget && i < currentDrawing.points.length; i++) {
+				if (getDotByIndex(currentDrawing.points[i][0], currentDrawing.points[i][1]) === dot) isTarget = true;
+			}
+
+			if (!isFinished) {
+				if (isDrawn) return currentDrawing.strokeColor || '#cc0000';
+				if (isTarget) return '#000000';
+				return null;
+			}
+
+			var closePt = currentDrawing.closePt || getDotByIndex(currentDrawing.points[0][0], currentDrawing.points[0][1]);
+			var distToClosePt = closePt ? Math.sqrt(Math.pow(dot.x - closePt.x, 2) + Math.pow(dot.y - closePt.y, 2)) : 0;
+			var progress = currentDrawing.fillProgress !== undefined ? currentDrawing.fillProgress : 1500;
+
+			if (isDrawn || isTarget) {
+				return 'transparent';
+			}
+			if (dot.insideClosedFigure && dot.insideClosedFigure === currentDrawing && currentDrawing.fillColor) {
+				if (progress >= distToClosePt) return darkenColor(currentDrawing.fillColor, 0.4);
 			}
 			return null;
+		},
+		setBuddyColors: function (stroke, fill) {
+			if (stroke) buddyStrokeColor = stroke;
+			if (fill) buddyFillColor = fill;
+			if (currentDrawing) {
+				if (stroke) currentDrawing.strokeColor = stroke;
+				if (fill) currentDrawing.fillColor = fill;
+			}
 		},
 		clear: function () {
 			currentDrawing = null;
 			currentStep = 0;
 			userStrokes = [];
 			isFinished = false;
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].insideClosedFigure = null;
+			}
 			var gallery = document.getElementById('library-gallery');
 			if (gallery) gallery.style.display = 'none';
 		},
@@ -323,6 +442,8 @@ define([], function () {
 		deserialize: function (data) {
 			if (data && data.currentDrawing) {
 				currentDrawing = data.currentDrawing;
+				if (buddyStrokeColor) currentDrawing.strokeColor = buddyStrokeColor;
+				if (buddyFillColor) currentDrawing.fillColor = buddyFillColor;
 				currentStep = data.currentStep || 0;
 				isFinished = !!data.isFinished;
 			}
