@@ -392,13 +392,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			if (currentMode && typeof currentMode.stopDrawing === 'function') {
 				currentMode.stopDrawing();
 			}
-			if (currentMode && typeof currentMode.clear === 'function') {
-				currentMode.clear();
-			}
 			currentMode = newMode;
-			if (currentMode && typeof currentMode.clear === 'function') {
-				currentMode.clear();
-			}
+			
 			modeButton.style.backgroundImage = "url('icons/" + iconName + ".svg')";
 			if (modeInvoker) {
 				modeInvoker.style.backgroundImage = "url('icons/" + iconName + ".svg')";
