@@ -35,6 +35,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					var dotX = offsetX + i * spacing;
 					var dotY = offsetY + j * spacing;
 					dots.push({
+						col: i,
+						row: j,
 						baseX: dotX,
 						baseY: dotY,
 						x: dotX,
@@ -312,6 +314,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var currentenv;
 		env.getEnvironment(function (err, environment) {
 			currentenv = environment;
+			if (environment && environment.user && environment.user.colorvalue) {
+				buddyStroke = environment.user.colorvalue.stroke || buddyStroke;
+				buddyFill = environment.user.colorvalue.fill || buddyFill;
+				if (numberMode && typeof numberMode.setBuddyColors === 'function') {
+					numberMode.setBuddyColors(buddyStroke, buddyFill);
+				}
+			}
 
 			// Set current language
 			var defaultLanguage = (typeof chrome != 'undefined' && chrome.app && chrome.app.runtime) ? chrome.i18n.getUILanguage() : navigator.language;
@@ -393,7 +402,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				currentMode.stopDrawing();
 			}
 			currentMode = newMode;
-			
+
 			modeButton.style.backgroundImage = "url('icons/" + iconName + ".svg')";
 			if (modeInvoker) {
 				modeInvoker.style.backgroundImage = "url('icons/" + iconName + ".svg')";
@@ -406,6 +415,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				document.getElementById('erase-button').style.display = 'none';
 				document.getElementById('clear-button').style.display = 'none';
 				document.getElementById('library-button').style.display = '';
+				var vBtn = document.getElementById('view-button');
+				if (vBtn) vBtn.style.display = '';
+				var cBtn = document.getElementById('create-category-button');
+				if (cBtn) cBtn.style.display = (numberMode.getView && numberMode.getView() === 'setting') ? '' : 'none';
 				numberMode.showGallery('basic-shapes', l10n);
 			} else {
 				document.getElementById('colors-button-fill').style.display = '';
@@ -413,6 +426,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				document.getElementById('erase-button').style.display = '';
 				document.getElementById('clear-button').style.display = '';
 				document.getElementById('library-button').style.display = 'none';
+				var vBtn = document.getElementById('view-button');
+				if (vBtn) vBtn.style.display = 'none';
+				var cBtn = document.getElementById('create-category-button');
+				if (cBtn) cBtn.style.display = 'none';
 				if (libraryPalette) libraryPalette.popDown();
 				var gallery = document.getElementById('library-gallery');
 				if (gallery) gallery.style.display = 'none';
@@ -458,6 +475,21 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				numberMode.showGallery('basic-shapes', l10n);
 			}
 		});
+
+		var viewButton = document.getElementById('view-button');
+		var createCategoryButton = document.getElementById('create-category-button');
+		if (viewButton) {
+			viewButton.addEventListener('click', function () {
+				if (currentMode === numberMode && typeof numberMode.toggleView === 'function') {
+					numberMode.toggleView();
+				}
+			});
+		}
+		if (createCategoryButton) {
+			createCategoryButton.addEventListener('click', function (e) {
+				e.stopPropagation();
+			});
+		}
 
 		// Color palette (Fill Color)
 		var currentFillColor = '#ed2529';
@@ -537,14 +569,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			document.getElementById("network-button").title = l10n.get("Network");
 			document.getElementById("mode-button").title = l10n.get("Mode") || "Mode";
 			document.getElementById("library-button").title = l10n.get("Library") || "Library";
+			if (document.getElementById("view-button")) {
+				var isSettingMode = (typeof numberMode !== 'undefined' && numberMode.getView && numberMode.getView() === 'setting');
+				document.getElementById("view-button").title = isSettingMode ? (l10n.get("Play") || "Play") : (l10n.get("View") || "View");
+			}
+			if (document.getElementById("create-category-button")) document.getElementById("create-category-button").title = l10n.get("NewCategory") || "New Category";
 			var modeDrawElem = document.getElementById("mode-draw");
 			if (modeDrawElem) modeDrawElem.innerHTML = '<span></span>' + (l10n.get("DrawMode") || "Draw Mode");
 			var modeNumElem = document.getElementById("mode-number");
 			if (modeNumElem) modeNumElem.innerHTML = '<span></span>' + (l10n.get("NumberMode") || "Number Mode");
 			var libBasicElem = document.getElementById("lib-basic-shapes");
-			if (libBasicElem) libBasicElem.innerHTML = '<span></span>' + (l10n.get("BasicShapes") || "Basic Shapes");
+			if (libBasicElem) libBasicElem.innerHTML = l10n.get("BasicShapes") || "Basic Shapes";
 			var libObjElem = document.getElementById("lib-objects");
-			if (libObjElem) libObjElem.innerHTML = '<span></span>' + (l10n.get("Objects") || "Objects");
+			if (libObjElem) libObjElem.innerHTML = l10n.get("Objects") || "Objects";
 			document.getElementById("fullscreen-button").title = l10n.get("Fullscreen");
 			document.getElementById("unfullscreen-button").title = l10n.get("Unfullscreen");
 			document.getElementById("help-button").title = l10n.get("Tutorial");
@@ -560,8 +597,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		requestAnimationFrame(renderLoop);
 		drawMode.init(dots, broadcastUpdate, currentFillColor);
 		numberMode.init(dots, broadcastUpdate, currentFillColor);
+		if (typeof numberMode.setBuddyColors === 'function') {
+			numberMode.setBuddyColors(buddyStroke, buddyFill);
+		}
 		if (currentMode && typeof currentMode.setTool === 'function') {
 			currentMode.setTool('draw');
+		}
+		modeButton.style.backgroundImage = "url('icons/mode-draw.svg')";
+		if (modeInvoker) {
+			modeInvoker.style.backgroundImage = "url('icons/mode-draw.svg')";
 		}
 		document.getElementById("draw-button").classList.add('active');
 		document.getElementById("erase-button").classList.remove('active');

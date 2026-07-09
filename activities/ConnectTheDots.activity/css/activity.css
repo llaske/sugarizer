@@ -9,25 +9,23 @@
 }
 
 #main-toolbar #mode-button {
-	background-image: url(../icons/mode-draw.svg);
-}
-
-.palette .menu button.icon {
-  background-repeat: no-repeat;
-  background-position: 6px center;
-  background-size: 24px;
-}
-
-button#mode-draw.icon {
   background-image: url(../icons/mode-draw.svg);
-}
-
-button#mode-number.icon {
-  background-image: url(../icons/mode-number.svg);
 }
 
 #main-toolbar #library-button {
   background-image: url(../icons/tool-select-library.svg);
+}
+
+#main-toolbar #view-button {
+  background-image: url(../icons/tool-settings.svg);
+}
+
+#main-toolbar #view-button.setting-mode {
+  background-image: url(../icons/tool-play.svg);
+}
+
+#main-toolbar #create-category-button {
+  background-image: url(../icons/add.svg);
 }
 
 #canvas {
@@ -81,23 +79,28 @@ button#mode-number.icon {
 
 #gallery-grid {
   display: grid;
-  grid-template-columns: repeat(5, 160px);
+  grid-template-columns: repeat(5, minmax(210px, 250px));
   justify-content: center;
-  gap: 20px;
-  padding: 10px 40px;
+  gap: 25px;
+  padding: 15px 40px;
 }
 
 .gallery-card {
-  width: 160px;
-  height: 160px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 210px;
+  max-height: 250px;
   background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: transform 0.1s, box-shadow 0.1s;
+  padding: 8px 0;
+  box-sizing: border-box;
 }
 
 .gallery-card:hover {
@@ -105,11 +108,74 @@ button#mode-number.icon {
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
+.gallery-card-info-bar {
+  width: 100%;
+  height: 38px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 12px;
+  gap: 10px;
+  box-sizing: border-box;
+  margin-bottom: 2px;
+}
+
+.gallery-card-info-bar button {
+  background-color: transparent;
+  width: 37px;
+  height: 37px;
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.gallery-card-info-bar .edit-btn {
+  background-image: url(../icons/tool-edit.svg);
+}
+
+.gallery-card-info-bar .delete-btn {
+  background-image: url(../icons/minus.svg);
+}
+
+.gallery-footer {
+  position: fixed;
+  right: 45px;
+  bottom: 30px;
+  z-index: 100;
+  margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn-add-figure {
+  background-image: url(../icons/add-figure.svg);
+  background-size: 55%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fbe3c3;
+  border: none;
+  border-radius: 18px;
+  width: 125px;
+  height: 85px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-add-figure:hover {
+  transform: scale(1.06);
+  background-size: 62%;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
 .gallery-card-inner {
-  width: 120px;
-  height: 120px;
-  background: #f0f0f0;
-  border-radius: 4px;
+  width: 100%;
+  flex: 1;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -349,4 +415,84 @@ html, body {
 
 .palette .wrapper {
   max-width: none !important;
+}
+
+/* Mode Dropdown Menu enlarged styling */
+.palette ul.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.palette ul.menu li {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+button#mode-draw,
+button#mode-number,
+button#lib-basic-shapes,
+button#lib-objects,
+.palette .menu button#mode-draw.icon,
+.palette .menu button#mode-number.icon,
+.palette .menu button#lib-basic-shapes.icon,
+.palette .menu button#lib-objects.icon {
+  all: unset !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-size: 24px !important;
+  width: calc(100% - 40px) !important;
+  cursor: pointer !important;
+  box-sizing: content-box !important;
+  background-image: none !important;
+}
+
+button#mode-draw:hover,
+button#mode-number:hover,
+button#lib-basic-shapes:hover,
+button#lib-objects:hover,
+.palette .menu button#mode-draw.icon:hover,
+.palette .menu button#mode-number.icon:hover,
+.palette .menu button#lib-basic-shapes.icon:hover,
+.palette .menu button#lib-objects.icon:hover {
+  background-color: #808080 !important;
+}
+
+button#mode-draw span,
+button#mode-number span,
+.palette .menu button#mode-draw.icon span,
+.palette .menu button#mode-number.icon span {
+  position: static !important;
+  display: inline-block !important;
+  width: 40px !important;
+  height: 40px !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  margin: 0 !important;
+  top: auto !important;
+  left: auto !important;
+}
+
+button#mode-draw span,
+.palette .menu button#mode-draw.icon span {
+  background-image: url(../icons/mode-draw.svg) !important;
+}
+
+button#mode-number span,
+.palette .menu button#mode-number.icon span {
+  background-image: url(../icons/mode-number.svg) !important;
+}
+
+button#lib-basic-shapes span,
+button#lib-objects span,
+.palette .menu button#lib-basic-shapes.icon span,
+.palette .menu button#lib-objects.icon span {
+  display: none !important;
 }
