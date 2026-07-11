@@ -401,6 +401,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			if (currentMode && typeof currentMode.stopDrawing === 'function') {
 				currentMode.stopDrawing();
 			}
+			if (currentMode && typeof currentMode.stopCreatingFigure === 'function') {
+				currentMode.stopCreatingFigure();
+			}
 			currentMode = newMode;
 
 			modeButton.style.backgroundImage = "url('icons/" + iconName + ".svg')";
@@ -433,6 +436,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				if (libraryPalette) libraryPalette.popDown();
 				var gallery = document.getElementById('library-gallery');
 				if (gallery) gallery.style.display = 'none';
+				var playBackBtn = document.getElementById('play-figure-back-button');
+				if (playBackBtn) playBackBtn.style.display = 'none';
 				if (newMode && typeof newMode.setTool === 'function') {
 					newMode.setTool('draw');
 				}

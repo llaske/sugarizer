@@ -496,3 +496,35 @@ button#lib-objects span,
 .palette .menu button#lib-objects.icon span {
   display: none !important;
 }
+
+.editor-goback,
+.editor-goback:hover,
+.editor-goback:active,
+.editor-goback:focus {
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.editor-goback {
+  position: absolute;
+  display: inline-block;
+  vertical-align: top;
+  height: 50px;
+  top: 10px;
+  left: 20px;
+  width: 50px;
+  cursor: pointer;
+  z-index: 10;
+  background-image: url(../icons/go-back-sel.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: transform 0.15s ease-in-out;
+}
+
+.editor-goback:hover {
+  background-image: url(../icons/go-back.svg);
+  transform: scale(1.15);
+}

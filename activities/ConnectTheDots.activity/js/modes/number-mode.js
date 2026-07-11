@@ -144,6 +144,21 @@ define([], function () {
 		getView: function () {
 			return view;
 		},
+		backToGallery: function () {
+			currentDrawing = null;
+			currentStep = 0;
+			userStrokes = [];
+			isFinished = false;
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].insideClosedFigure = null;
+			}
+			var playBackBtn = document.getElementById('play-figure-back-button');
+			if (playBackBtn) playBackBtn.style.display = 'none';
+
+			NumberMode.showGallery(currentCategoryKey, l10nRef);
+			broadcastUpdate();
+		},
+
 		setView: function (newView) {
 			view = newView;
 			var viewBtn = document.getElementById('view-button');
@@ -171,6 +186,17 @@ define([], function () {
 				var gallery = document.getElementById('library-gallery');
 				if (!gallery || gallery.style.display === 'none') {
 					NumberMode.showGallery(currentCategoryKey, l10nRef);
+			} else if (view === 'play' && currentDrawing && !isCreatingFigure) {
+				var playBackBtn = document.getElementById('play-figure-back-button');
+				if (playBackBtn) {
+					playBackBtn.style.display = '';
+					playBackBtn.onclick = function () {
+						NumberMode.backToGallery();
+					};
+				}
+			} else if (view === 'setting') {
+				var playBackBtn = document.getElementById('play-figure-back-button');
+				if (playBackBtn) playBackBtn.style.display = 'none';
 				}
 			} else {
 				NumberMode.setView('play');
@@ -217,6 +243,10 @@ define([], function () {
 			var header = document.getElementById('gallery-header');
 			var grid = document.getElementById('gallery-grid');
 			if (!gallery || !header || !grid) return;
+
+			var playBackBtn = document.getElementById('play-figure-back-button');
+			if (playBackBtn) playBackBtn.style.display = 'none';
+
 			gallery.style.backgroundColor = buddyStrokeColor;
 			header.style.backgroundColor = buddyFillColor;
 			header.style.color = "#ffffff";
@@ -330,12 +360,20 @@ define([], function () {
 			for (var i = 0; i < dots.length; i++) {
 				dots[i].insideClosedFigure = null;
 			}
+			var playBackBtn = document.getElementById('play-figure-back-button');
+			if (playBackBtn) {
+				playBackBtn.style.display = '';
+				playBackBtn.onclick = function () {
+					NumberMode.backToGallery();
+				};
+			}
 			broadcastUpdate();
 		},
 		onMouseDown: function (mouseX, mouseY) {
 			isDrawing = true;
 			currMouseX = mouseX;
-			currMouseY = mouseY;			if (isCreatingFigure) {
+			currMouseY = mouseY;
+			if (isCreatingFigure) {
 				for (var i = 0; i < dots.length; i++) {
 					var dot = dots[i];
 					var dx = mouseX - dot.x;
@@ -565,12 +603,16 @@ define([], function () {
 			for (var i = 0; i < dots.length; i++) {
 				dots[i].insideClosedFigure = null;
 			}
+			var playBackBtn = document.getElementById('play-figure-back-button');
+			if (playBackBtn) playBackBtn.style.display = 'none';
 			var gallery = document.getElementById('library-gallery');
 			if (gallery) gallery.style.display = 'none';
 			NumberMode.setView('play');
 		},
 		startCreatingFigure: function () {
 			isCreatingFigure = true;
+			var playBackBtn = document.getElementById('play-figure-back-button');
+			if (playBackBtn) playBackBtn.style.display = 'none';
 			currentDrawing = {
 				name: 'New Figure',
 				points: [],
@@ -619,8 +661,10 @@ define([], function () {
 			isCreatingFigure = false;
 			var backBtn = document.getElementById('create-figure-back-button');
 			var minusBtn = document.getElementById('create-figure-minus-button');
+			var playBackBtn = document.getElementById('play-figure-back-button');
 			if (backBtn) backBtn.style.display = 'none';
 			if (minusBtn) minusBtn.style.display = 'none';
+			if (playBackBtn) playBackBtn.style.display = 'none';
 
 			var elMode = document.getElementById('mode-button'); if (elMode) elMode.style.display = '';
 			var elNet = document.getElementById('network-button'); if (elNet) elNet.style.display = '';
