@@ -14,6 +14,7 @@ define([], function () {
 	var view = 'play';
 	var currentCategoryKey = 'basic-shapes';
 	var isCreatingFigure = false;
+	var activeDrawingIndex = -1;
 
 	function triggerConfetti() {
 		if (typeof confetti === 'function') {
@@ -83,7 +84,7 @@ define([], function () {
 			if (dot) {
 				var dx = mouseX - dot.x;
 				var dy = mouseY - dot.y;
-				if (Math.sqrt(dx * dx + dy * dy) < 45) {
+				if (Math.sqrt(dx * dx + dy * dy) < 22.5) {
 					return i;
 				}
 			}
@@ -102,7 +103,8 @@ define([], function () {
 			var d = dots[i];
 			var dist1 = Math.sqrt(Math.pow(d.x - dot1.x, 2) + Math.pow(d.y - dot1.y, 2));
 			var dist2 = Math.sqrt(Math.pow(d.x - dot2.x, 2) + Math.pow(d.y - dot2.y, 2));
-			if (Math.abs(dist1 + dist2 - len) < 1.0) {
+			var crossProduct = Math.abs((d.x - dot1.x) * dy - (d.y - dot1.y) * dx);
+			if (crossProduct < 0.01 && Math.abs(dist1 + dist2 - len) < 0.01) {
 				lineDots.push(d);
 			}
 		}
@@ -178,14 +180,6 @@ define([], function () {
 			var gallery = document.getElementById('library-gallery');
 			if (gallery && gallery.style.display !== 'none') {
 				NumberMode.showGallery(currentCategoryKey, l10nRef);
-			}
-		},
-		toggleView: function () {
-			if (view === 'play') {
-				NumberMode.setView('setting');
-				var gallery = document.getElementById('library-gallery');
-				if (!gallery || gallery.style.display === 'none') {
-					NumberMode.showGallery(currentCategoryKey, l10nRef);
 			} else if (view === 'play' && currentDrawing && !isCreatingFigure) {
 				var playBackBtn = document.getElementById('play-figure-back-button');
 				if (playBackBtn) {
@@ -196,9 +190,24 @@ define([], function () {
 				}
 			} else if (view === 'setting') {
 				var playBackBtn = document.getElementById('play-figure-back-button');
-				if (playBackBtn) playBackBtn.style.display = 'none';
+				if (playBackBtn) playBackBtn.style.display = 'none';}
+			},
+		toggleView: function () {
+			if (view === 'play') {
+				var gallery = document.getElementById('library-gallery');
+				if (currentDrawing && !isCreatingFigure && gallery && gallery.style.display === 'none') {
+					NumberMode.startEditingFigure(activeDrawingIndex, currentDrawing);
+					return;
+				}
+				NumberMode.setView('setting');
+				if (!gallery || gallery.style.display === 'none') {
+					NumberMode.showGallery(currentCategoryKey, l10nRef);
 				}
 			} else {
+				if (isCreatingFigure) {
+					NumberMode.stopCreatingFigure();
+					return;
+				}
 				NumberMode.setView('play');
 			}
 		},
@@ -271,6 +280,7 @@ define([], function () {
 					editBtn.title = (l10nRef && l10nRef.get('Edit')) || 'Edit';
 					editBtn.addEventListener('click', function (e) {
 						e.stopPropagation();
+						NumberMode.startEditingFigure(index, drawing);
 					});
 					var deleteBtn = document.createElement('button');
 					deleteBtn.className = 'delete-btn';
@@ -300,7 +310,9 @@ define([], function () {
 				var svgNS = "http://www.w3.org/2000/svg";
 				var svg = document.createElementNS(svgNS, "svg");
 				svg.setAttribute("viewBox", (minCol - 1) + " " + (minRow - 1) + " " + vBoxW + " " + vBoxH);
-				svg.style.width = svg.style.height = "165px";
+				svg.style.width = "82%";
+				svg.style.height = "82%";
+				svg.style.maxHeight = "205px";
 
 				var shapeEl = document.createElementNS(svgNS, drawing.closed ? "polygon" : "polyline");
 				var attrs = {
@@ -320,7 +332,7 @@ define([], function () {
 				card.addEventListener('click', function () {
 					if (view === 'setting') return;
 					gallery.style.display = 'none';
-					NumberMode.selectDrawing(drawing);
+					NumberMode.selectDrawing(drawing, index);
 				});
 
 				grid.appendChild(card);
@@ -350,7 +362,8 @@ define([], function () {
 
 			gallery.style.display = '';
 		},
-		selectDrawing: function (drawing) {
+		selectDrawing: function (drawing, index) {
+			activeDrawingIndex = (index !== undefined) ? index : -1;
 			currentDrawing = JSON.parse(JSON.stringify(drawing));
 			if (buddyStrokeColor) currentDrawing.strokeColor = buddyStrokeColor;
 			if (buddyFillColor) currentDrawing.fillColor = buddyFillColor;
@@ -378,7 +391,7 @@ define([], function () {
 					var dot = dots[i];
 					var dx = mouseX - dot.x;
 					var dy = mouseY - dot.y;
-					if (Math.sqrt(dx * dx + dy * dy) < 45) {
+					if (Math.sqrt(dx * dx + dy * dy) < 22.5) {
 						NumberMode.addCreationDot(dot);
 						break;
 					}
@@ -610,6 +623,7 @@ define([], function () {
 			NumberMode.setView('play');
 		},
 		startCreatingFigure: function () {
+			activeDrawingIndex = -1;
 			isCreatingFigure = true;
 			var playBackBtn = document.getElementById('play-figure-back-button');
 			if (playBackBtn) playBackBtn.style.display = 'none';
@@ -629,11 +643,13 @@ define([], function () {
 			var gallery = document.getElementById('library-gallery');
 			if (gallery) gallery.style.display = 'none';
 
-			var idsToHide = ['mode-button', 'network-button', 'library-button', 'view-button', 'create-category-button', 'colors-button-fill', 'draw-button', 'erase-button', 'clear-button', 'fullscreen-button', 'help-button'];
+			var idsToHide = ['mode-button', 'network-button', 'library-button', 'view-button', 'create-category-button', 'colors-button-fill', 'draw-button', 'erase-button', 'clear-button'];
 			for (var i = 0; i < idsToHide.length; i++) {
 				var el = document.getElementById(idsToHide[i]);
 				if (el) el.style.display = 'none';
 			}
+			var elFull = document.getElementById('fullscreen-button'); if (elFull) elFull.style.display = '';
+			var elHelp = document.getElementById('help-button'); if (elHelp) elHelp.style.display = '';
 
 			var backBtn = document.getElementById('create-figure-back-button');
 			var minusBtn = document.getElementById('create-figure-minus-button');
@@ -645,7 +661,14 @@ define([], function () {
 						if (l10nRef && l10nRef.get('Figure')) {
 							defaultName = l10nRef.get('Figure') + ' ' + ((libraries[currentCategoryKey] ? libraries[currentCategoryKey].length : 0) + 1);
 						}
-						NumberMode.addFigure(currentCategoryKey, defaultName, currentDrawing.points, currentDrawing.closed);
+						if (activeDrawingIndex >= 0 && libraries[currentCategoryKey] && libraries[currentCategoryKey][activeDrawingIndex]) {
+							libraries[currentCategoryKey][activeDrawingIndex].name = defaultName;
+							libraries[currentCategoryKey][activeDrawingIndex].points = currentDrawing.points;
+							libraries[currentCategoryKey][activeDrawingIndex].closed = currentDrawing.closed;
+							broadcastUpdate();
+						} else {
+							NumberMode.addFigure(currentCategoryKey, defaultName, currentDrawing.points, currentDrawing.closed);
+						}
 					}
 					NumberMode.stopCreatingFigure();
 				};
@@ -657,8 +680,81 @@ define([], function () {
 				};
 			}
 		},
+		startEditingFigure: function (index, drawing) {
+			if (!drawing) return;
+			activeDrawingIndex = (index !== undefined && index !== null) ? index : -1;
+			isCreatingFigure = true;
+			var playBackBtn = document.getElementById('play-figure-back-button');
+			if (playBackBtn) playBackBtn.style.display = 'none';
+
+			currentDrawing = JSON.parse(JSON.stringify(drawing));
+			if (buddyStrokeColor) currentDrawing.strokeColor = buddyStrokeColor;
+			if (buddyFillColor) currentDrawing.fillColor = buddyFillColor;
+
+			userStrokes = [];
+			var pts = currentDrawing.points || [];
+			for (var j = 1; j < pts.length; j++) {
+				var prevDot = getDotByIndex(pts[j - 1][0], pts[j - 1][1]);
+				var currDot = getDotByIndex(pts[j][0], pts[j][1]);
+				if (prevDot && currDot) {
+					userStrokes.push({ from: prevDot, to: currDot, dots: getDotsOnSegment(prevDot, currDot) });
+				}
+			}
+			if (currentDrawing.closed && pts.length >= 3) {
+				var lastDot = getDotByIndex(pts[pts.length - 1][0], pts[pts.length - 1][1]);
+				var firstDot = getDotByIndex(pts[0][0], pts[0][1]);
+				if (lastDot && firstDot) {
+					userStrokes.push({ from: lastDot, to: firstDot, dots: getDotsOnSegment(lastDot, firstDot) });
+					currentDrawing.closePt = firstDot;
+				}
+			}
+
+			currentStep = pts.length;
+			isFinished = false;
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].insideClosedFigure = null;
+			}
+			var gallery = document.getElementById('library-gallery');
+			if (gallery) gallery.style.display = 'none';
+
+			var idsToHide = ['mode-button', 'network-button', 'library-button', 'view-button', 'create-category-button', 'colors-button-fill', 'draw-button', 'erase-button', 'clear-button'];
+			for (var i = 0; i < idsToHide.length; i++) {
+				var el = document.getElementById(idsToHide[i]);
+				if (el) el.style.display = 'none';
+			}
+			var elFull = document.getElementById('fullscreen-button'); if (elFull) elFull.style.display = '';
+			var elHelp = document.getElementById('help-button'); if (elHelp) elHelp.style.display = '';
+
+			var backBtn = document.getElementById('create-figure-back-button');
+			var minusBtn = document.getElementById('create-figure-minus-button');
+			if (backBtn) {
+				backBtn.style.display = '';
+				backBtn.onclick = function () {
+					if (currentDrawing && currentDrawing.points && currentDrawing.points.length >= 2) {
+						var defaultName = currentDrawing.name || ('Figure ' + ((libraries[currentCategoryKey] ? libraries[currentCategoryKey].length : 0) + 1));
+						if (activeDrawingIndex >= 0 && libraries[currentCategoryKey] && libraries[currentCategoryKey][activeDrawingIndex]) {
+							libraries[currentCategoryKey][activeDrawingIndex].name = defaultName;
+							libraries[currentCategoryKey][activeDrawingIndex].points = currentDrawing.points;
+							libraries[currentCategoryKey][activeDrawingIndex].closed = currentDrawing.closed;
+							broadcastUpdate();
+						} else {
+							NumberMode.addFigure(currentCategoryKey, defaultName, currentDrawing.points, currentDrawing.closed);
+						}
+					}
+					NumberMode.stopCreatingFigure();
+				};
+			}
+			if (minusBtn) {
+				minusBtn.style.display = '';
+				minusBtn.onclick = function () {
+					NumberMode.removeRecentCreationDot();
+				};
+			}
+			broadcastUpdate();
+		},
 		stopCreatingFigure: function () {
 			isCreatingFigure = false;
+			activeDrawingIndex = -1;
 			var backBtn = document.getElementById('create-figure-back-button');
 			var minusBtn = document.getElementById('create-figure-minus-button');
 			var playBackBtn = document.getElementById('play-figure-back-button');
@@ -675,7 +771,7 @@ define([], function () {
 
 			NumberMode.setView('setting');
 			var gallery = document.getElementById('library-gallery');
-			if (gallery && gallery.style.display !== 'none') {
+			if (gallery) {
 				NumberMode.showGallery(currentCategoryKey, l10nRef);
 			}
 		},

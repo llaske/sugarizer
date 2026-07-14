@@ -79,17 +79,19 @@
 
 #gallery-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(210px, 250px));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   justify-content: center;
-  gap: 25px;
-  padding: 15px 40px;
+  gap: 26px;
+  padding: 18px 40px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1520px;
+  margin: 0 auto;
 }
 
 .gallery-card {
   width: 100%;
   aspect-ratio: 1 / 1;
-  min-height: 210px;
-  max-height: 250px;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -527,4 +529,37 @@ button#lib-objects span,
 .editor-goback:hover {
   background-image: url(../icons/go-back.svg);
   transform: scale(1.15);
+}
+
+@media (max-width: 900px) {
+  #gallery-header {
+    width: 80%;
+    font-size: 22px;
+  }
+  #gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+    gap: 18px;
+    padding: 15px 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  #gallery-header {
+    width: 92%;
+    font-size: 20px;
+    margin: 12px auto;
+  }
+  #gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding: 10px 14px;
+  }
+  .gallery-footer {
+    right: 20px;
+    bottom: 20px;
+  }
+  .btn-add-figure {
+    width: 100px;
+    height: 70px;
+  }
 }
