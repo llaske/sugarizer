@@ -409,6 +409,17 @@ define([], function () {
 			currMouseX = mouseX;
 			currMouseY = mouseY;
 			if (isCreatingFigure) {
+				if (!isFinished) {
+					for (var i = 0; i < dots.length; i++) {
+						var dot = dots[i];
+						var dx = mouseX - dot.x;
+						var dy = mouseY - dot.y;
+						if (Math.sqrt(dx * dx + dy * dy) < 22.5) {
+							NumberMode.addCreationDot(dot);
+							break;
+						}
+					}
+				}
 				return;
 			}
 			var ptIdx = findHoveredPointIndex(mouseX, mouseY);
@@ -517,7 +528,7 @@ define([], function () {
 					}
 					ctx.stroke();
 				}
-				if (isDrawing && currentStep > 0 && currMouseX !== -1000 && !isCreatingFigure) {
+				if (isDrawing && currentStep > 0 && currMouseX !== -1000 && (!isCreatingFigure || !isFinished)) {
 					var lastPtIdx = currentStep - 1;
 					if (lastPtIdx >= 0 && lastPtIdx < currentDrawing.points.length) {
 						var lastDot = getDotByIndex(currentDrawing.points[lastPtIdx][0], currentDrawing.points[lastPtIdx][1]);
@@ -710,9 +721,9 @@ define([], function () {
 			}
 
 			currentStep = pts.length;
-			isFinished = false;
-			for (var i = 0; i < dots.length; i++) {
-				dots[i].insideClosedFigure = null;
+			isFinished = !!currentDrawing.closed;
+			if (currentDrawing.closed) {
+				currentDrawing.fillProgress = 1500;
 			}
 			var gallery = document.getElementById('library-gallery');
 			if (gallery) gallery.style.display = 'none';
@@ -788,6 +799,14 @@ define([], function () {
 			}
 			var lastPt = pts[pts.length - 1];
 			if (lastPt[0] === col && lastPt[1] === row) return;
+			for (var k = 0; k < pts.length; k++) {
+				if (pts[k][0] === col && pts[k][1] === row) {
+					if (k === 0 && pts.length >= 3) {
+						break;
+					}
+					return;
+				}
+			}
 
 			var firstPt = pts[0];
 			if (pts.length >= 3 && firstPt[0] === col && firstPt[1] === row) {
@@ -816,6 +835,12 @@ define([], function () {
 			if (currentDrawing.closed) {
 				currentDrawing.closed = false;
 				isFinished = false;
+				if (userStrokes.length > 0) userStrokes.pop();
+				for (var i = 0; i < dots.length; i++) {
+					dots[i].insideClosedFigure = null;
+				}
+				broadcastUpdate();
+				return;
 			}
 			if (userStrokes.length > 0) userStrokes.pop();
 			if (currentDrawing.points.length > 0) currentDrawing.points.pop();
