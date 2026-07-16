@@ -10,10 +10,11 @@
 <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
 	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
 <link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/CategoryForm.css">
 <link rel="stylesheet" href="css/introjs.css">
-<script src="lib/confetti.browser.min.js"></script>
 <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 <script src="lib/intro.js"></script>
+<script src="lib/confetti.browser.min.js"></script>
 <script>if (window.module) module = window.module;</script>
 <script data-main="js/loader" src="lib/require.js"></script>
 <script type="text/javascript" src="../../cordova.js"></script>
@@ -45,6 +46,39 @@
 		<div id="gallery-header">Basic Shapes</div>
 		<div id="gallery-grid"></div>
 	</div>
+<div id="category-form-screen" style="display: none;">
+			<div class="category-form-header">
+				<div class="category-form-bar">
+					<div class="category-form-bar-block">
+						<div id="category-form-title">New Category</div>
+					</div>
+				</div>
+			</div>
+			<div class="category-form-main">
+				<div class="category-form-panel-primary">
+					<form id="category-form" onsubmit="return false;">
+						<div>
+							<label for="title" id="category-form-label">Title</label>
+							<input type="text" name="title" id="category-title-input" required autocomplete="off">
+						</div>
+						<div class="buttons-row">
+							<button type="submit" id="category-confirm-btn" disabled>
+								<img src="icons/dialog-ok.svg">
+								<span id="category-confirm-span">Confirm</span>
+							</button>
+							<button type="button" id="category-cancel-btn">
+								<img src="icons/dialog-cancel.svg">
+								<span id="category-cancel-span">Cancel</span>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="category-form-footer">
+				<div class="pagination"></div>
+				<div class="footer-actions"></div>
+			</div>
+		</div>
 </div>
 <button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
 </body>

@@ -64,6 +64,8 @@ define([], function () {
 		]
 	};
 
+	var categoryNames = {};
+
 	function broadcastUpdate() {
 		if (typeof broadcastCallback === 'function') {
 			broadcastCallback();
@@ -230,18 +232,221 @@ define([], function () {
 				NumberMode.showGallery(categoryKey, l10nRef);
 			}
 		},
-		addCategory: function (catName, l10n) {
+		getAllCategories: function (l10n) {
+			var titleMap = {
+				'basic-shapes': (l10n && l10n.get('BasicShapes')) || (l10nRef && l10nRef.get('BasicShapes')) || 'Basic Shapes',
+				'objects': (l10n && l10n.get('Objects')) || (l10nRef && l10nRef.get('Objects')) || 'Objects'
+			};
+			var list = [];
+			for (var key in libraries) {
+				if (libraries.hasOwnProperty(key)) {
+					list.push({
+						key: key,
+						name: titleMap[key] || categoryNames[key] || key
+					});
+				}
+			}
+			return list;
+		},
+		updateLibraryMenu: function (libraryPalette, l10n) {
+			if (!libraryPalette || typeof NumberMode.getAllCategories !== 'function') return;
+			var cats = NumberMode.getAllCategories(l10n);
+			var seen = {};
+			var uniqueCats = [];
+			for (var i = 0; i < cats.length; i++) {
+				var k = cats[i].key;
+				if (!seen[k] && !seen[cats[i].name.toLowerCase()]) {
+					seen[k] = true;
+					seen[cats[i].name.toLowerCase()] = true;
+					uniqueCats.push(cats[i]);
+				}
+			}
+			var menuData = uniqueCats.map(function (c) {
+				return { id: "lib-" + c.key, label: c.name };
+			});
+			var menuElem = document.createElement('ul');
+			menuElem.className = "menu";
+			var htmlStr = '';
+			for (var j = 0; j < menuData.length; j++) {
+				htmlStr += '<li><button id="' + menuData[j].id + '">' + menuData[j].label + '</button></li>';
+			}
+			menuElem.innerHTML = htmlStr;
+			if (typeof libraryPalette.setContent === 'function') {
+				libraryPalette.setContent([menuElem]);
+			} else {
+				var containerElem = libraryPalette.getPalette().querySelector('.container');
+				if (containerElem) {
+					containerElem.innerHTML = '';
+					containerElem.appendChild(menuElem);
+				}
+			}
+			var buttons = menuElem.querySelectorAll('button');
+			for (var b = 0; b < buttons.length; b++) {
+				buttons[b].addEventListener('click', function (e) {
+					var target = e.target;
+					while (target && target.tagName !== 'BUTTON' && target.parentElement) {
+						target = target.parentElement;
+					}
+					var selectedId = target ? target.id : '';
+					if (selectedId === 'lib-basic-shapes') {
+						NumberMode.showGallery('basic-shapes', l10n);
+					} else if (selectedId === 'lib-objects') {
+						NumberMode.showGallery('objects', l10n);
+					} else if (selectedId && selectedId.indexOf('lib-') === 0) {
+						var catKey = selectedId.substring(4);
+						NumberMode.showGallery(catKey, l10n);
+					}
+					libraryPalette.popDown();
+				});
+			}
+		},
+		showCategoryForm: function (l10n) {
+			if (l10n) l10nRef = l10n;
+			var gallery = document.getElementById('library-gallery');
+			if (gallery) gallery.style.display = 'none';
+			var gridCanvas = document.getElementById('gridCanvas');
+			if (gridCanvas) gridCanvas.style.display = 'none';
+
+			var idsToHide = ['mode-button', 'library-button', 'view-button', 'create-category-button', 'create-figure-minus-button', 'colors-button-fill', 'draw-button', 'erase-button', 'clear-button'];
+			for (var i = 0; i < idsToHide.length; i++) {
+				var btn = document.getElementById(idsToHide[i]);
+				if (btn) btn.style.display = 'none';
+			}
+			var actBtn = document.getElementById('activity-button');
+			if (actBtn) actBtn.style.display = '';
+			var netBtn = document.getElementById('network-button');
+			if (netBtn) netBtn.style.display = '';
+			var playBackBtn = document.getElementById('play-figure-back-button');
+			if (playBackBtn) playBackBtn.style.display = 'none';
+			var createBackBtn = document.getElementById('create-figure-back-button');
+			if (createBackBtn) createBackBtn.style.display = 'none';
+
+			var formScreen = document.getElementById('category-form-screen');
+			if (!formScreen) return;
+			formScreen.style.backgroundColor = buddyStrokeColor || '#005fe4';
+			var barBlock = formScreen.querySelector('.category-form-bar-block');
+			if (barBlock) barBlock.style.backgroundColor = buddyFillColor || '#ff2b34';
+
+			var titleEl = document.getElementById('category-form-title');
+			var newTitleString = (l10nRef && l10nRef.get("NewTitle")) || "New Category";
+			if (titleEl) titleEl.textContent = newTitleString;
+			var labelEl = document.getElementById('category-form-label');
+			if (labelEl) labelEl.textContent = (l10nRef && l10nRef.get("Title")) || "Title";
+			var confirmSpan = document.getElementById('category-confirm-span');
+			if (confirmSpan) confirmSpan.textContent = (l10nRef && l10nRef.get("Confirm")) || "Confirm";
+			var cancelSpan = document.getElementById('category-cancel-span');
+			if (cancelSpan) cancelSpan.textContent = (l10nRef && l10nRef.get("Cancel")) || "Cancel";
+
+			var inputEl = document.getElementById('category-title-input');
+			var confirmBtn = document.getElementById('category-confirm-btn');
+			var cancelBtn = document.getElementById('category-cancel-btn');
+
+			if (inputEl && confirmBtn) {
+				inputEl.value = newTitleString;
+				confirmBtn.disabled = true;
+
+				var validateInput = function () {
+					var val = inputEl.value;
+					if (!val || val === newTitleString || val.trim() === '') {
+						confirmBtn.disabled = true;
+						return;
+					}
+					var exists = false;
+					var allCats = NumberMode.getAllCategories(l10nRef);
+					for (var j = 0; j < allCats.length; j++) {
+						if (allCats[j].name === val || allCats[j].key === val.toLowerCase().replace(/[^a-z0-9]/g, '-')) {
+							exists = true;
+							break;
+						}
+					}
+					confirmBtn.disabled = exists;
+				};
+
+				inputEl.oninput = validateInput;
+				inputEl.onkeyup = validateInput;
+				inputEl.onpropertychange = validateInput;
+
+				confirmBtn.onclick = function (e) {
+					if (e) e.stopPropagation();
+					if (confirmBtn.disabled) return;
+					var catName = inputEl.value.trim();
+					if (!catName) return;
+					NumberMode.confirmAddCategory(catName, l10nRef);
+				};
+
+				var formEl = document.getElementById('category-form');
+				if (formEl) {
+					formEl.onsubmit = function (e) {
+						if (e) e.preventDefault();
+						if (!confirmBtn.disabled) {
+							confirmBtn.onclick();
+						}
+						return false;
+					};
+				}
+			}
+
+			if (cancelBtn) {
+				cancelBtn.onclick = function (e) {
+					if (e) e.stopPropagation();
+					NumberMode.hideCategoryForm();
+				};
+			}
+
+			formScreen.style.display = 'flex';
+		},
+		hideCategoryForm: function () {
+			var formScreen = document.getElementById('category-form-screen');
+			if (formScreen) formScreen.style.display = 'none';
+
+			NumberMode.showGallery(currentCategoryKey, l10nRef);
+
+			var createCatBtn = document.getElementById('create-category-button');
+			if (createCatBtn && view === 'setting') createCatBtn.style.display = '';
+			var viewBtn = document.getElementById('view-button');
+			if (viewBtn) viewBtn.style.display = '';
+			var libBtn = document.getElementById('library-button');
+			if (libBtn) libBtn.style.display = '';
+			var actBtn = document.getElementById('activity-button');
+			if (actBtn) actBtn.style.display = '';
+			var modeBtn = document.getElementById('mode-button');
+			if (modeBtn) modeBtn.style.display = '';
+			var netBtn = document.getElementById('network-button');
+			if (netBtn) netBtn.style.display = '';
+		},
+		confirmAddCategory: function (catName, l10n) {
+			if (l10n) l10nRef = l10n;
 			var key = catName.toLowerCase().replace(/[^a-z0-9]/g, '-');
 			if (!key) key = 'cat-' + Date.now();
-			if (!libraries[key]) {
-				libraries[key] = [
-					{ name: 'Shape 1', points: [[4, 4], [9, 4], [9, 9], [4, 9]], closed: true }
-				];
+			var origKey = key;
+			var count = 1;
+			while (libraries[key]) {
+				key = origKey + '-' + count;
+				count++;
 			}
+			categoryNames[key] = catName;
+			libraries[key] = [];
+			currentCategoryKey = key;
+
+			var formScreen = document.getElementById('category-form-screen');
+			if (formScreen) formScreen.style.display = 'none';
+
+			NumberMode.showGallery(key, l10nRef);
+
+			var createCatBtn = document.getElementById('create-category-button');
+			if (createCatBtn && view === 'setting') createCatBtn.style.display = '';
+			var viewBtn = document.getElementById('view-button');
+			if (viewBtn) viewBtn.style.display = '';
+			var libBtn = document.getElementById('library-button');
+			if (libBtn) libBtn.style.display = '';
+			var actBtn = document.getElementById('activity-button');
+			if (actBtn) actBtn.style.display = '';
+			var modeBtn = document.getElementById('mode-button');
+			if (modeBtn) modeBtn.style.display = '';
+			var netBtn = document.getElementById('network-button');
+			if (netBtn) netBtn.style.display = '';
+
 			broadcastUpdate();
-			if (l10n) {
-				NumberMode.showGallery(key, l10n);
-			}
 		},
 		showGallery: function (categoryKey, l10n) {
 			if (l10n) l10nRef = l10n;
@@ -252,6 +457,9 @@ define([], function () {
 			var header = document.getElementById('gallery-header');
 			var grid = document.getElementById('gallery-grid');
 			if (!gallery || !header || !grid) return;
+			var gridCanvas = document.getElementById('gridCanvas');
+			if (gridCanvas) gridCanvas.style.display = 'none';
+
 
 			var playBackBtn = document.getElementById('play-figure-back-button');
 			if (playBackBtn) playBackBtn.style.display = 'none';
@@ -264,10 +472,12 @@ define([], function () {
 				'basic-shapes': (l10nRef && l10nRef.get('BasicShapes')) || 'Basic Shapes',
 				'objects': (l10nRef && l10nRef.get('Objects')) || 'Objects'
 			};
-			header.textContent = titleMap[categoryKey] || 'Basic Shapes';
+			header.textContent = titleMap[categoryKey] || categoryNames[categoryKey] || categoryKey || 'Basic Shapes';
 			grid.innerHTML = '';
 
-			var items = libraries[categoryKey] || libraries['basic-shapes'];
+			var items = libraries[categoryKey];
+			if (!items && libraries['basic-shapes']) items = libraries['basic-shapes'];
+			if (!items) items = [];
 			items.forEach(function (drawing, index) {
 				var card = document.createElement('div');
 				card.className = 'gallery-card';
@@ -364,6 +574,8 @@ define([], function () {
 		},
 		selectDrawing: function (drawing, index) {
 			activeDrawingIndex = (index !== undefined) ? index : -1;
+			var gridCanvas = document.getElementById('gridCanvas');
+			if (gridCanvas) gridCanvas.style.display = '';
 			currentDrawing = JSON.parse(JSON.stringify(drawing));
 			if (buddyStrokeColor) currentDrawing.strokeColor = buddyStrokeColor;
 			if (buddyFillColor) currentDrawing.fillColor = buddyFillColor;
@@ -654,6 +866,9 @@ define([], function () {
 			var gallery = document.getElementById('library-gallery');
 			if (gallery) gallery.style.display = 'none';
 
+			var gridCanvas = document.getElementById('gridCanvas');
+			if (gridCanvas) gridCanvas.style.display = '';
+
 			var idsToHide = ['mode-button', 'network-button', 'library-button', 'view-button', 'create-category-button', 'colors-button-fill', 'draw-button', 'erase-button', 'clear-button'];
 			for (var i = 0; i < idsToHide.length; i++) {
 				var el = document.getElementById(idsToHide[i]);
@@ -725,8 +940,15 @@ define([], function () {
 			if (currentDrawing.closed) {
 				currentDrawing.fillProgress = 1500;
 			}
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].insideClosedFigure = null;
+			}
+
 			var gallery = document.getElementById('library-gallery');
 			if (gallery) gallery.style.display = 'none';
+
+			var gridCanvas = document.getElementById('gridCanvas');
+			if (gridCanvas) gridCanvas.style.display = '';
 
 			var idsToHide = ['mode-button', 'network-button', 'library-button', 'view-button', 'create-category-button', 'colors-button-fill', 'draw-button', 'erase-button', 'clear-button'];
 			for (var i = 0; i < idsToHide.length; i++) {
@@ -861,13 +1083,17 @@ define([], function () {
 				currentDrawing: currentDrawing,
 				currentStep: currentStep,
 				isFinished: isFinished,
-				libraries: libraries
+				libraries: libraries,
+				categoryNames: categoryNames
 			};
 		},
 		deserialize: function (data) {
 			
 			if (data && data.libraries) {
 				libraries = data.libraries;
+			}
+			if (data && data.categoryNames) {
+				categoryNames = data.categoryNames;
 			}
 			if (data && data.currentDrawing) {
 				currentDrawing = data.currentDrawing;

@@ -12,5 +12,18 @@
 	"TutoNetworkTitle": "Network",
 	"TutoNetworkContent": "Click here to share your work with other users on the network.",
 	"Erase": "Erase",
-	"Clear": "Clear"
+	"Clear": "Clear",
+	"Mode": "Mode",
+	"DrawMode": "Draw Mode",
+	"NumberMode": "Number Mode",
+	"Library": "Library",
+	"BasicShapes": "Basic Shapes",
+	"Objects": "Objects",
+	"Numbers": "Numbers",
+	"Alphabets": "Alphabets",
+	"NewCategory": "Create new category",
+	"NewTitle": "New Category",
+	"Confirm": "Confirm",
+	"Cancel": "Cancel",
+	"Title": "Title"
 }

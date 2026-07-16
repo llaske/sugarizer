@@ -12,5 +12,18 @@
 	"TutoNetworkTitle": "Red",
 	"TutoNetworkContent": "Haz clic aquí para compartir tu trabajo en la red.",
 	"Erase": "Borrar",
-	"Clear": "Limpiar"
+	"Clear": "Limpiar",
+	"Mode": "Modo",
+	"DrawMode": "Modo dibujo",
+	"NumberMode": "Modo número",
+	"Library": "Biblioteca",
+	"BasicShapes": "Formas básicas",
+	"Objects": "Objetos",
+	"Numbers": "Números",
+	"Alphabets": "Alfabetos",
+	"NewCategory": "Crear una nueva categoría",
+	"NewTitle": "Nueva categoría",
+	"Confirm": "Confirmar",
+	"Cancel": "Cancelar",
+	"Title": "Título"
 }

@@ -261,6 +261,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		});
 
 		function broadcastUpdate() {
+			if (typeof updateLibraryMenu === 'function') {
+				updateLibraryMenu();
+			}
 			if (presence && currentMode && typeof currentMode.serialize === 'function') {
 				presence.sendMessage(presence.getSharedInfo().id, {
 					user: presence.getUserInfo(),
@@ -280,12 +283,22 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			switch (msg.content.action) {
 				case 'init':
 					if (currentMode && typeof currentMode.deserialize === 'function') {
-						currentMode.deserialize(msg.content.data.strokes, msg.content.data.figures);
+						if (currentMode === numberMode) {
+							currentMode.deserialize(msg.content.data);
+							if (typeof updateLibraryMenu === 'function') updateLibraryMenu();
+						} else {
+							currentMode.deserialize(msg.content.data.strokes, msg.content.data.figures);
+						}
 					}
 					break;
 				case 'update':
 					if (currentMode && typeof currentMode.deserialize === 'function') {
-						currentMode.deserialize(msg.content.data.strokes, msg.content.data.figures, true);
+						if (currentMode === numberMode) {
+							currentMode.deserialize(msg.content.data);
+							if (typeof updateLibraryMenu === 'function') updateLibraryMenu();
+						} else {
+							currentMode.deserialize(msg.content.data.strokes, msg.content.data.figures, true);
+						}
 					}
 					break;
 				case 'clear':
@@ -389,12 +402,23 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var modePalette = new menupalette.MenuPalette(modeButton, undefined, menuData);
 		var modeInvoker = modePalette.getPalette().querySelector('.palette-invoker');
 
-		var libraryMenuData = [
-			{ id: "lib-basic-shapes", label: l10n.get("BasicShapes") || "Basic Shapes" },
-			{ id: "lib-objects", label: l10n.get("Objects") || "Objects" }
-		];
 		var libraryButton = document.getElementById('library-button');
-		var libraryPalette = new menupalette.MenuPalette(libraryButton, undefined, libraryMenuData);
+		var libraryPalette = new menupalette.MenuPalette(libraryButton, undefined, []);
+
+		document.addEventListener('click', function (event) {
+			if (libraryPalette && !libraryPalette.isDown()) {
+				var pEl = libraryPalette.getPalette();
+				if (pEl && !pEl.contains(event.target) && libraryButton && !libraryButton.contains(event.target)) {
+					libraryPalette.popDown();
+				}
+			}
+		}, true);
+
+		function updateLibraryMenu() {
+			if (numberMode && typeof numberMode.updateLibraryMenu === 'function') {
+				numberMode.updateLibraryMenu(libraryPalette, l10n);
+			}
+		}
 
 		function switchMode(newMode, iconName) {
 			if (currentMode === newMode) return;
@@ -422,6 +446,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				if (vBtn) vBtn.style.display = '';
 				var cBtn = document.getElementById('create-category-button');
 				if (cBtn) cBtn.style.display = (numberMode.getView && numberMode.getView() === 'setting') ? '' : 'none';
+				updateLibraryMenu();
 				numberMode.showGallery('basic-shapes', l10n);
 			} else {
 				document.getElementById('colors-button-fill').style.display = '';
@@ -436,6 +461,10 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				if (libraryPalette) libraryPalette.popDown();
 				var gallery = document.getElementById('library-gallery');
 				if (gallery) gallery.style.display = 'none';
+				var formScreen = document.getElementById('category-form-screen');
+				if (formScreen) formScreen.style.display = 'none';
+				var gridCanvas = document.getElementById('gridCanvas');
+				if (gridCanvas) gridCanvas.style.display = '';
 				var playBackBtn = document.getElementById('play-figure-back-button');
 				if (playBackBtn) playBackBtn.style.display = 'none';
 				if (newMode && typeof newMode.setTool === 'function') {
@@ -461,23 +490,13 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 		});
 
-		libraryPalette.addEventListener('selectItem', function (e) {
-			var targetButton = e.detail.target;
-			while (targetButton && targetButton.tagName !== 'BUTTON' && targetButton.parentElement) {
-				targetButton = targetButton.parentElement;
-			}
-			var selectedId = targetButton ? targetButton.id : '';
-			if (selectedId === 'lib-basic-shapes') {
-				numberMode.showGallery('basic-shapes', l10n);
-			} else if (selectedId === 'lib-objects') {
-				numberMode.showGallery('objects', l10n);
-			}
-		});
+		updateLibraryMenu();
 
 		libraryButton.addEventListener('click', function () {
 			var gallery = document.getElementById('library-gallery');
 			if (gallery && gallery.style.display === 'none' && currentMode === numberMode) {
-				numberMode.showGallery('basic-shapes', l10n);
+				numberMode.showGallery(undefined, l10n);
+				if (libraryPalette) libraryPalette.popDown();
 			}
 		});
 
@@ -493,6 +512,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		if (createCategoryButton) {
 			createCategoryButton.addEventListener('click', function (e) {
 				e.stopPropagation();
+				if (currentMode === numberMode && typeof numberMode.showCategoryForm === 'function') {
+					numberMode.showCategoryForm(l10n);
+				}
 			});
 		}
 
