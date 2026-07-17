@@ -269,6 +269,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					user: presence.getUserInfo(),
 					content: {
 						action: 'update',
+						mode: currentMode === numberMode ? 'number' : 'draw',
 						data: currentMode.serialize()
 					}
 				});
@@ -279,6 +280,12 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var onNetworkDataReceived = function (msg) {
 			if (presence.getUserInfo().networkId === msg.user.networkId) {
 				return;
+			}
+			var targetMode = (msg.content.mode === 'number') ? numberMode : ((msg.content.mode === 'draw') ? drawMode : currentMode);
+			if (targetMode !== currentMode && targetMode === numberMode) {
+				switchMode(numberMode, 'mode-number', true);
+			} else if (targetMode !== currentMode && targetMode === drawMode) {
+				switchMode(drawMode, 'mode-draw', true);
 			}
 			switch (msg.content.action) {
 				case 'init':
@@ -303,7 +310,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					break;
 				case 'clear':
 					if (currentMode && typeof currentMode.clear === 'function') {
-						currentMode.clear();
+						if (currentMode === numberMode) {
+							currentMode.clear(true);
+						} else {
+							currentMode.clear();
+						}
 					}
 					break;
 			}
@@ -316,6 +327,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					user: presence.getUserInfo(),
 					content: {
 						action: 'init',
+						mode: currentMode === numberMode ? 'number' : 'draw',
 						data: currentMode.serialize()
 					}
 				});
@@ -420,7 +432,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 		}
 
-		function switchMode(newMode, iconName) {
+		function switchMode(newMode, iconName, skipBroadcast) {
 			if (currentMode === newMode) return;
 			if (currentMode && typeof currentMode.stopDrawing === 'function') {
 				currentMode.stopDrawing();
@@ -447,7 +459,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				var cBtn = document.getElementById('create-category-button');
 				if (cBtn) cBtn.style.display = (numberMode.getView && numberMode.getView() === 'setting') ? '' : 'none';
 				updateLibraryMenu();
-				numberMode.showGallery('basic-shapes', l10n);
+				numberMode.showGallery('basic-shapes', l10n, skipBroadcast);
 			} else {
 				document.getElementById('colors-button-fill').style.display = '';
 				document.getElementById('draw-button').style.display = '';
@@ -474,7 +486,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				document.getElementById('erase-button').classList.remove('active');
 			}
 
-			broadcastUpdate();
+			if (!skipBroadcast) {
+				broadcastUpdate();
+			}
 		}
 
 		modePalette.addEventListener('selectItem', function (e) {
@@ -567,7 +581,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				presence.sendMessage(presence.getSharedInfo().id, {
 					user: presence.getUserInfo(),
 					content: {
-						action: 'clear'
+						action: 'clear',
+						mode: currentMode === numberMode ? 'number' : 'draw'
 					}
 				});
 			}

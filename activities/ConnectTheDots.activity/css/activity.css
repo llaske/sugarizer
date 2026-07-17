@@ -111,16 +111,24 @@
 }
 
 .gallery-card-info-bar {
-  width: 100%;
+  width: 95%;
   height: 38px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding-right: 12px;
-  gap: 10px;
+  padding: 0 6px;
+  gap: 6px;
   box-sizing: border-box;
-  margin-bottom: 2px;
+  margin-top: 4px;
+}
+
+.gallery-card-info-bar .btn-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 .gallery-card-info-bar button {
@@ -181,6 +189,48 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.gallery-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333333;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  text-align: center;
+  width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-card-info-bar .gallery-title {
+  flex: 1;
+  width: auto;
+  margin: 0;
+  padding-right: 4px;
+  justify-content: flex-start;
+}
+
+.gallery-title-input {
+  font-weight: bold;
+  font-size: 15px;
+  color: #333333;
+  text-align: center;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 3px 6px;
+  width: 85%;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.gallery-card-info-bar .gallery-title-input {
+  width: 100%;
+  text-align: left;
 }
 
 #main-toolbar #draw-button {
@@ -435,12 +485,11 @@ html, body {
 
 button#mode-draw,
 button#mode-number,
-button#lib-basic-shapes,
-button#lib-objects,
+button[id^="lib-"],
 .palette .menu button#mode-draw.icon,
 .palette .menu button#mode-number.icon,
-.palette .menu button#lib-basic-shapes.icon,
-.palette .menu button#lib-objects.icon {
+.palette .menu button[id^="lib-"].icon,
+.palette .menu li button[id^="lib-"] {
   all: unset !important;
   color: white !important;
   padding: 10px 20px !important;
@@ -457,12 +506,11 @@ button#lib-objects,
 
 button#mode-draw:hover,
 button#mode-number:hover,
-button#lib-basic-shapes:hover,
-button#lib-objects:hover,
+button[id^="lib-"]:hover,
 .palette .menu button#mode-draw.icon:hover,
 .palette .menu button#mode-number.icon:hover,
-.palette .menu button#lib-basic-shapes.icon:hover,
-.palette .menu button#lib-objects.icon:hover {
+.palette .menu button[id^="lib-"].icon:hover,
+.palette .menu li button[id^="lib-"]:hover {
   background-color: #808080 !important;
 }
 
@@ -492,10 +540,9 @@ button#mode-number span,
   background-image: url(../icons/mode-number.svg) !important;
 }
 
-button#lib-basic-shapes span,
-button#lib-objects span,
-.palette .menu button#lib-basic-shapes.icon span,
-.palette .menu button#lib-objects.icon span {
+button[id^="lib-"] span,
+.palette .menu button[id^="lib-"].icon span,
+.palette .menu li button[id^="lib-"] span {
   display: none !important;
 }
 
