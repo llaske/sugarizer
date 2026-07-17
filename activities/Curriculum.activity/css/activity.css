@@ -199,7 +199,7 @@ p {
 	background-repeat: no-repeat;
 }
 #export-formats #csv-export {
-	background-image: url(../icons/export-txt.svg);
+	background-image: url(../icons/export-csv.svg);
 }
 #export-formats #pdf-export {
 	background-image: url(../icons/export-pdf.svg);

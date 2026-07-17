@@ -1,43 +1,98 @@
 {
-  "name": "Sugarizer",
-  "version": "1.9.0",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder -mw"
-  },
-  "repository": "https://github.com/llaske/sugarizer",
-  "author": "Lionel Laské <lionel@sugarizer.org>",
-  "description": "The leading learning platform for children",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "electron": ">=22.3.25",
-    "semver": ">=7.5.2",
-    "ini": "~1.3.6",
-    "axios": "^0.27.2",
-    "i18next": "~20.3.1",
-    "requirejs": "~2.3.5",
-    "normalize-url": "~4.5.1",
-    "hosted-git-info": "~2.8.9",
-    "tmp": "~0.1.0"
-  },
-  "devDependencies": {
-    "grunt": "~1.6.0",
-    "terser": "~5.16.0",
-    "grunt-terser": "~2.0.0"
-  },
-  "build": {
-    "appId": "org.olpc-france.sugarizer",
-    "copyright": "Copyright © 2013-2024, Lionel Laské, Sugar Labs Inc. and Contributors",
-    "productName": "Sugarizer",
-    "electronVersion": "22.3.1",
-    "mac": {
-      "category": "public.app-category.education"
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ]
-    }
-  }
+	"license": "Apache-2.0",
+	"name": "Sugarizer",
+	"version": "2.0.0",
+	"main": "main.js",
+	"repository": "https://github.com/llaske/sugarizer",
+	"author": "Lionel Laské <lionel@sugarizer.org>",
+	"description": "The leading learning platform for children",
+	"dependencies": {
+		"electron": "^41.3.0",
+		"axios": "^1.15.0",
+		"core-js": "^3.8.3",
+		"js-ini": "^1.6.0",
+		"vue": "^3.2.13",
+		"vue-axios": "^3.4.1",
+		"tmp": "~0.1.0"
+	},
+	"scripts": {
+		"start": "electron .",
+		"dist": "electron-builder -mw",
+		"test:unit": "vue-cli-service test:unit",
+		"test:coverage": "vue-cli-service test:unit --coverage",
+		"lint": "vue-cli-service lint",
+		"docs": "rm -rf docs && jsdoc --verbose -d docs -c .jsdoc.js"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.12.16",
+		"@babel/eslint-parser": "^7.12.16",
+		"@vue/cli-plugin-babel": "~5.0.0",
+		"@vue/cli-plugin-eslint": "~5.0.0",
+		"@vue/cli-plugin-unit-jest": "~5.0.0",
+		"@vue/cli-service": "^5.0.8",
+		"@vue/compiler-sfc": "^3.2.0",
+		"@vue/test-utils": "^2.0.0-0",
+		"@vue/vue3-jest": "^27.0.0-alpha.1",
+		"babel-jest": "^27.0.6",
+		"canvas": "^2.10.1",
+		"eslint": "^7.32.0",
+		"eslint-plugin-vue": "^8.0.3",
+		"jest": "^27.0.5",
+		"jsdoc": "^4.0.3",
+		"jsdoc-vuejs": "^4.0.0",
+		"grunt": "~1.6.0",
+		"terser": "~5.16.0",
+		"grunt-terser": "~2.0.0"
+	},
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"extends": [
+			"plugin:vue/vue3-essential",
+			"eslint:recommended"
+		],
+		"parserOptions": {
+			"parser": "@babel/eslint-parser"
+		},
+		"rules": {},
+		"overrides": [
+			{
+				"files": [
+					"**/__tests__/*.{j,t}s?(x)",
+					"**/tests/unit/**/*.spec.{j,t}s?(x)"
+				],
+				"env": {
+					"jest": true
+				}
+			}
+		]
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead",
+		"not ie 11"
+	],
+	"jest": {
+		"testEnvironment": "jsdom",
+		"testEnvironmentOptions": {
+			"resources": "usable"
+		}
+	},
+	"build": {
+		"appId": "org.olpc-france.sugarizer",
+		"copyright": "Copyright © 2013-2026, Lionel Laské, Sugar Labs Inc. and Contributors",
+		"productName": "Sugarizer",
+		"electronVersion": "41.3.0",
+		"mac": {
+		  "category": "public.app-category.education"
+		},
+		"win": {
+		  "target": [
+			"nsis"
+		  ]
+		}
+	}
 }

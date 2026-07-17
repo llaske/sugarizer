@@ -456,7 +456,7 @@
 	"TutoSettingsButtonTitle": "Bouton Paramétrage",
 	"TutoSettingsButtonContent": "Ce bouton ouvre le mode Paramétrage. Ici vous pouvez réorganiser, ajouter, modifier ou supprimer des catégories et compétences",
 	"TutoExportButtonTitle": "Menu Export",
-	"TutoExportButtonContent": "Ce menu vous permet de générer un rapport d'acquisition des compétences au format TXT, PDF, DOC ou ODT",
+	"TutoExportButtonContent": "Ce menu vous permet de générer un rapport d'acquisition des compétences au format CSV, PDF, DOC ou ODT",
 	"TutoNetworkButtonTitle": "Bouton Réseau",
 	"TutoNetworkButtonContent": "Ce bouton vous permet de partager vos compétences sur le réseau. Cela permet aux autres utilisateurs sur le même réseau de les visualiser",
 	"TutoSkillCardTitle": "Compétence",

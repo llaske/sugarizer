@@ -4,6 +4,69 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-07-17
+### Added
+- Human Body activity
+- Stickman activity
+- Add "Global Time" feature to Clock activity with timezone selection #1825
+- Add Water mode in Physics activity #1863
+- Add pen tool for freehand drawing in Physics activity
+
+### Changed
+- Rewrite of Sugarizer Core using Vue.js
+- Allow de-coloring a country in Color My World #1890
+- Ability to resize images in Fototoon #1551
+
+### Fixed
+- Bug in Jappy activity editor during initial rendering #1738
+- Country flag doesn't display in ColorMyWorld on Windows #1757
+- Add Country Flags to Interactive Mode in ColorMyWorld Activity #1771
+- On Safari and iOS only the tutorial first step popup is displayed #1790
+- Incorrect Total Dice Value Subtraction After Shaking #1774
+- CSV View data not updated in chart activity without saving #1809
+- Undo button for Gears activity #838
+- Replace Enyo by vue.js #257
+- UUID v4 generation bug: incorrect bitwise operation forces variant to 8 #1840
+- Variable Shadowing - Overwrites Module Object #1846
+- Use of '=' instead of '==' in if else statement in Physics game activity.js #1870
+- Camera remains active when toggling off in QRCode activity (Web/Desktop) #1911
+- Delete key deleted wrong character in Calculator #1935
+- Fototoon don't handle window resize #559
+- Bug in Flip Activity when resize an ended game #1956
+- Inconsistent degree trigonometric evaluation in Calculate activity #1964
+- Eraser tool sends incorrect coordinates in shared sessions #2022
+- Saved Chess game fails to restore difficulty setting #2040
+- Globes not displayed when exporting a single image in fototoon #2020
+- Snake spawning too close to the frog in the FoodChain Activity #2023
+- Paint Activity: Copy tool only works when dragging top-left to bottom-right #2049
+- Fototoon "Clean All" leaves image data in storage while clearing the UI #2051
+- Snakes clipping when having nowhere to go in FoodChain activity #2050
+- Player icon disappears on window resize in Maze activity #2056
+- Tangram Activity: Missing break statement in evaluation.js causes case 5 to always return 0 #2057
+- Fullscreen Reset Bug in FractionBounce Causes Ball Selection Loss & Bounce Glitch #2060
+- MindMath: Non-English Users Get Unfair Hint Penalty When No Hint Available #2070
+- TankOp: Enemy Tanks Move 2 Positions Per Turn Instead of 1 #2078
+- In Fraction activity user changes are not saved for ball and background #2068
+- Curriculum Activity: blank white screen due to TypeError when entering achievements page #2073
+- PhysicsJS newton/gravity settings are not saved after leaving #2072
+- Chess Activity: AI crashes due to undefined variables (missing 'this' and 'flags') #2062
+- In Flip activity grid size not saved & robot fails to complete the game after reopen #2083
+- Duplicate 'width' property in actionButtons across Tangram activity #2090
+- In Chart Activity X and Y axis field in config window seem too close to the bottom #2103
+- Undefined titles and logging occurs without pressing Record in Measure Activity #2097
+- Write activity .txt export squashes text and loses paragraph spacing #2125
+- Lack of Visual Demonstration in Chess Tutorial #2126
+- Chess activity move history scrollbar bug #2145
+- Speak activity settings not saving properly #2139
+- Story Activity: Images not displayed and inconsistent text size in .doc export #2155
+- Wrong export format message in Curriculum activity #2146
+- Inconsistent export format message in Vote Activity (shows CSV instead of TXT) #2132
+- CSV import not working in Chart activity #2160
+- Stopwatch Adds “-” When Marking After Reopening #2161
+- Pointer interaction and hitboxes misaligned for PhysicsJS Activity #2140
+- Xmas Light Activity multiplayer not working #2169
+- Electron BrowserWindow disables webSecurity, contextIsolation, and enables nodeIntegration — Remote Code Execution risk #2119
+
 ## [1.9.0] - 2025-03-25
 ### Added
 - 3D Volume activity

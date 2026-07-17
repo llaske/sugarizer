@@ -197,6 +197,7 @@ enyo.kind({
 				width: FoodChain.sprites.snake.dx, height: FoodChain.sprites.snake.dy, index: 0, sound: "audio/snake"
 			});
 			snake.alive = false;
+			snake.spawnedOnce = false;
 			this.snakes.push(snake);
 		}
 
@@ -481,7 +482,15 @@ enyo.kind({
 			if (!currentsnake.alive) {
 
 				// Compute trajectory free of rock & snakes interval
-				var spritesToAvoid = enyo.cloneArray(this.rocks).concat(this.snakes);
+				if (!currentsnake.spawnedOnce) {
+					// If spawnedOnce is false it's the first time we decide where to spawn this specific snake
+					// So we should avoid the frog since it would be at the spawn
+					var spritesToAvoid = enyo.cloneArray(this.rocks).concat(this.snakes).concat(this.frog);
+				}
+				else {
+					var spritesToAvoid = enyo.cloneArray(this.rocks).concat(this.snakes);
+				}
+
 				var freeInterval = [];
 				for (var x = 100 ; x < FoodChain.playArea.width-300 ; x = x + 50) {
 					// Compute is this interval is free
@@ -490,7 +499,7 @@ enyo.kind({
 						// Test each sprite
 						var s = spritesToAvoid[j];
 						if (s == currentsnake) continue;
-						if ((x > s.getX() && x-currentsnake.width/2 < s.getX()+s.width/2) || (x < s.getX() && x+currentsnake.width/2 > s.getX()-s.width/2)) {
+						if ((x >= s.getX() && x-currentsnake.width/2 <= s.getX()+s.width/2) || (x <= s.getX() && x+currentsnake.width/2 >= s.getX()-s.width/2)) {
 							free = false;
 						}
 					}
@@ -498,6 +507,11 @@ enyo.kind({
 					// No, add to busyList
 					if (free)
 					freeInterval.push(x);
+				}
+				
+				// If there is nowhere to spawn, skip this spawn attempt for now
+				if (freeInterval.length === 0) {
+					continue;
 				}
 
 				// Compute the snake position
@@ -510,6 +524,7 @@ enyo.kind({
 				currentsnake.setY(y);
 				currentsnake.setHeading(h);
 				currentsnake.alive = true;
+				currentsnake.spawnedOnce = true;
 				currentsnake.playSound();
 				var dy = (currentsnake.getHeading() == 90) ? -6 : 6;
 				currentsnake.animate(this.ctx, [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7], 0, dy, enyo.bind(this, "snakeCollisionEngine"));
@@ -560,6 +575,12 @@ enyo.kind({
 			fly.unDraw(this.ctx);
 			return false;
 		}
+
+		// Since testFlyDead will be called on each frame of the fly animation
+		// the frog gets oftern redrawn making sure that no fly can 
+		// puncture a hole in the frog png
+		this.frog.draw(this.ctx);
+
 		return true;
 	},
 

@@ -113,7 +113,20 @@ enyo.kind({
 		this.itemChanged();
 	},
 
+	configureInlinePlayback: function() {
+		var node = this.$.video.hasNode();
+		if (!node || !(/iPhone|iPad|iPod/.test(navigator.platform))) {
+			return;
+		}
+		// iOS Safari/WKWebView requires explicit inline flags to avoid native fullscreen playback.
+		node.setAttribute("playsinline", "playsinline");
+		node.setAttribute("webkit-playsinline", "webkit-playsinline");
+		node.playsInline = true;
+		node.webkitPlaysInline = true;
+	},
+
 	rendered: function() {
+		this.configureInlinePlayback();
 		if (this.item != null) {
 			this.$.favoritebutton.applyStyle("background-image", "url(icons/"+(!this.item.isFavorite?"not":"")+"favorite.svg)");
 			if (!this.init) {
@@ -131,6 +144,7 @@ enyo.kind({
 			this.$.title.setContent(this.item.title);
 			this.$.video.setSrc(this.item.videoURL());
 			this.render();
+			this.configureInlinePlayback();
 		}
 	},
 

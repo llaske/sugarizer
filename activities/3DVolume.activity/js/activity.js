@@ -926,7 +926,10 @@ define([
 					if (diceArray[i][0] == intersectedObject) {
 						if (diceArray[i][3]) {
 							// If the volume being removed is a numbered volume then get the number on top of the volume and remove it from the score.
-							let score;
+							let score = 0; //initialize score to 0
+							if(diceArray[i][1].sleepState != 0){
+								//checks the sleep status of the volume
+							
 							switch (diceArray[i][2]) {
 								case "cube":
 									score = getCubeScore(
@@ -971,7 +974,7 @@ define([
 									);
 									break;
 								default:
-									continue;
+									continue; //skip unknown types
 							}
 
 							scoresObject.presentScore =
@@ -994,6 +997,7 @@ define([
 							scoresObject.lastRoll = scoresArray.join(" + ");
 							updateElements();
 							num--;
+							}
 						}
 						world.removeBody(diceArray[i][1]);
 						scene.remove(diceArray[i][0]);

@@ -153,9 +153,12 @@ const ChartView = {
 			app.classList.remove("fullscreen");
 			this.chart.resize();
 
+			let safeTitle = this.activityTitle;
+			if (safeTitle.endsWith(".csv")) safeTitle = safeTitle.slice(0, -4);
+			
 			const metadata = {
 				mimetype: mimetype,
-				title: this.activityTitle,
+				title: safeTitle,
 				activity: "org.olpcfrance.MediaViewerActivity",
 				timestamp: new Date().getTime(),
 				creation_time: new Date().getTime(),

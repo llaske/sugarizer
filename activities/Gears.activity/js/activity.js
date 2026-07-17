@@ -25,12 +25,191 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
 
         gearSketch = new window.gearsketch.GearSketch(false);
 
+        // Initialize undo/redo functionality
+        initHistory();
+
+        // History Manager
+        var MAX_HISTORY = 50;
+        var undoStack = [];
+        var redoStack = [];
+        var transactionActive = false;
+        var snapshotCapturedThisTx = false;
+        var mutationHappenedThisTx = false;
+
+        function serializeBoard() {
+            try {
+                return JSON.stringify(gearSketch.board);
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function deserializeBoard(str) {
+            try {
+                return window.gearsketch.model.Board.fromObject(JSON.parse(str));
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function updateUndoRedoButtons() {
+            var undoBtn = document.getElementById('undo-button');
+            var redoBtn = document.getElementById('redo-button');
+            if (undoBtn) undoBtn.disabled = undoStack.length === 0;
+            if (redoBtn) redoBtn.disabled = redoStack.length === 0;
+        }
+
+        function beginTransaction() {
+            transactionActive = true;
+            snapshotCapturedThisTx = false;
+            mutationHappenedThisTx = false;
+        }
+
+        function endTransaction() {
+            if (transactionActive && snapshotCapturedThisTx && !mutationHappenedThisTx && undoStack.length > 0) {
+                undoStack.pop();
+            }
+            transactionActive = false;
+            snapshotCapturedThisTx = false;
+            mutationHappenedThisTx = false;
+            updateUndoRedoButtons();
+        }
+
+        function ensurePrechangeSnapshot() {
+            if (transactionActive && !snapshotCapturedThisTx) {
+                var snap = serializeBoard();
+                if (snap) {
+                    redoStack = [];
+                    undoStack.push(snap);
+                    if (undoStack.length > MAX_HISTORY) undoStack.shift();
+                    snapshotCapturedThisTx = true;
+                    updateUndoRedoButtons();
+                }
+            }
+        }
+
+        function applyState(serialized) {
+            var newBoard = deserializeBoard(serialized);
+            if (!newBoard) return;
+            gearSketch.board = newBoard;
+            installBoardHooks();
+            gearSketch.selectedGear = null;
+            gearSketch.goalLocationGear = null;
+        }
+
+        function undo() {
+            if (undoStack.length === 0) return;
+            var current = serializeBoard();
+            var prev = undoStack.pop();
+            if (current) redoStack.push(current);
+            applyState(prev);
+            updateUndoRedoButtons();
+        }
+
+        function redo() {
+            if (redoStack.length === 0) return;
+            var current = serializeBoard();
+            var next = redoStack.pop();
+            if (current) undoStack.push(current);
+            applyState(next);
+            updateUndoRedoButtons();
+        }
+
+        function installBoardHooks() {
+            var board = gearSketch.board;
+
+            if (!board.__historyWrapped) {
+                var originalPlaceGear = board.placeGear.bind(board);
+                board.placeGear = function(gear, location) {
+                    ensurePrechangeSnapshot();
+                    var result = originalPlaceGear(gear, location);
+                    if (result) { mutationHappenedThisTx = true; }
+                    return result;
+                };
+
+                var originalAddGear = board.addGear.bind(board);
+                board.addGear = function(gear) {
+                    ensurePrechangeSnapshot();
+                    var result = originalAddGear(gear);
+                    if (result) { mutationHappenedThisTx = true; }
+                    return result;
+                };
+
+                var originalRemoveGear = board.removeGear.bind(board);
+                board.removeGear = function(gear) {
+                    ensurePrechangeSnapshot();
+                    mutationHappenedThisTx = true;
+                    return originalRemoveGear(gear);
+                };
+
+                var originalAddChain = board.addChain.bind(board);
+                board.addChain = function(chain) {
+                    ensurePrechangeSnapshot();
+                    var result = originalAddChain(chain);
+                    if (result) { mutationHappenedThisTx = true; }
+                    return result;
+                };
+
+                var originalRemoveChain = board.removeChain.bind(board);
+                board.removeChain = function(chain) {
+                    ensurePrechangeSnapshot();
+                    mutationHappenedThisTx = true;
+                    return originalRemoveChain(chain);
+                };
+
+                var originalClear = board.clear.bind(board);
+                board.clear = function() {
+                    ensurePrechangeSnapshot();
+                    mutationHappenedThisTx = true;
+                    return originalClear();
+                };
+
+                board.__historyWrapped = true;
+            }
+        }
+
+        function installInteractionHooks() {
+            if (gearSketch.__interactionWrapped) { return; }
+            gearSketch.__interactionWrapped = true;
+            var originalHandlePenDown = gearSketch.handlePenDown.bind(gearSketch);
+            gearSketch.handlePenDown = function(x, y) {
+                if (!this.getButtonAt(x, y)) {
+                    beginTransaction();
+                    if (this.selectedButton === 'momentumButton') {
+                        ensurePrechangeSnapshot();
+                    }
+                }
+                return originalHandlePenDown(x, y);
+            };
+
+            var originalHandlePenUp = gearSketch.handlePenUp.bind(gearSketch);
+            gearSketch.handlePenUp = function() {
+                var wasMomentumGesture = (this.selectedButton === 'momentumButton') && (this.selectedGear != null);
+                var r = originalHandlePenUp();
+                if (wasMomentumGesture) { mutationHappenedThisTx = true; }
+                endTransaction();
+                return r;
+            };
+        }
+
+        function initHistory() {
+            undoStack = [];
+            redoStack = [];
+            transactionActive = false;
+            snapshotCapturedThisTx = false;
+            mutationHappenedThisTx = false;
+            installBoardHooks();
+            installInteractionHooks();
+            updateUndoRedoButtons();
+        }
+
         // Read from the datastore
         var datastoreObject = activity.getDatastoreObject();
         function onLoaded(error, metadata, jsonData) {
             if (error === null) {
                 gearSketch.board = window.gearsketch.model.Board.
                     fromObject(JSON.parse(jsonData));
+                installBoardHooks();
                 console.log("read done.");
             }
             else {
@@ -113,7 +292,39 @@ define(["sugar-web/activity/activity","sugar-web/graphics/radiobuttonsgroup","ge
                 return;
             }
             UISwitch('pause', 'play');
+            beginTransaction();
             gearSketch.board.clear();
+            endTransaction();
+        });
+
+        // Undo/Redo buttons
+        var undoButton = document.getElementById('undo-button');
+        if (undoButton) {
+            undoButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                undo();
+            });
+        }
+        var redoButton = document.getElementById('redo-button');
+        if (redoButton) {
+            redoButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                redo();
+            });
+        }
+
+        // Keyboard shortcuts: Cmd/Ctrl+Z (undo), Cmd/Ctrl+Y (redo)
+        window.addEventListener('keydown', function(e) {
+            var mod = e.metaKey || e.ctrlKey;
+            if (!mod) return;
+            var key = e.key ? e.key.toLowerCase() : '';
+            if (key === 'z' && !e.shiftKey) {
+                e.preventDefault();
+                undo();
+            } else if (key === 'y' && !e.shiftKey) {
+                e.preventDefault();
+                redo();
+            }
         });
 
         // Help button.

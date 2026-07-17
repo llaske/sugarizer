@@ -185,11 +185,25 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
         };
 
 
-
         var onWindowResize = function () {
             updateMazeSize();
             updateSprites();
-            drawMaze();
+
+            switch (levelStatus) {
+                case 'playing':
+                    drawMaze();
+                    break;
+                case 'starting':
+                    drawMaze();
+                    drawLevelStarting();
+                    break;
+                case 'transition':
+                    drawMaze();
+                    drawLevelComplete();
+                    break;
+                default:
+                    drawMaze();
+            }
         };
         window.addEventListener('resize', onWindowResize);
 
@@ -337,9 +351,10 @@ define(["sugar-web/activity/activity","tween","rAF","activity/directions","sugar
             drawPlayerFace(ctx, maze.startPoint.x, maze.startPoint.y, startPlayerColor);
             drawCell(ctx, maze.goalPoint.x, maze.goalPoint.y, goalColor);
 
+            // FIX: Use player.x and player.y instead of loop variable x, y
             for (control in players) {
                 var player = players[control];
-                drawSprite(ctx, x, y, player.sprite);
+                drawSprite(ctx, player.x, player.y, player.sprite);
             };
 
         };

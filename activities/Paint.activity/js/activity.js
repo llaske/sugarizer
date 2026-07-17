@@ -30,6 +30,11 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
 
   PaintApp.collaboration = p20;
 
+  /* Setup localization update listener */
+  window.addEventListener('localized', function() {
+    l10n.updateDocument();
+  }, false);
+
   requirejs(['domReady!', 'sugar-web/datastore', 'paper-core', 'mustache', 'lzstring', 'humane'], function(doc, datastore, _paper, mustache, lzstring, humane) {
 
     /* Fetching and storing libraries */

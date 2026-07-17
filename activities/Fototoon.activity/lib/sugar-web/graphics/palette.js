@@ -114,6 +114,7 @@ define(function () {
             wrapperElem.appendChild(containerElem);
 
             updatePosition();
+
         }
 
         this.getPalette = function () {

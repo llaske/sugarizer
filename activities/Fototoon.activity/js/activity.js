@@ -41,6 +41,69 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         mainCanvas.width = mainCanvas.height * 4 / 3;
         mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
 
+        var resizeTimeout;
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            // Calculate new dimensions
+            var newHeight = window.innerHeight - sugarCellSize - 5;
+            var newWidth = newHeight * 4 / 3;
+
+            // Round to prevent sub-pixel scaling issues with canvas
+            newWidth = Math.floor(newWidth);
+            newHeight = Math.floor(newHeight);
+
+            // Check if text editing is in progress to avoid layout glitches with virtual keyboard on tablets
+            var isEditing = document.activeElement && (document.activeElement.tagName.toLowerCase() === 'textarea' || document.activeElement.tagName.toLowerCase() === 'input');
+            
+            if (isEditing) {
+                // Visually scale the canvas via CSS to respond to window resize immediately
+                mainCanvas.style.width = newWidth + "px";
+                mainCanvas.style.height = newHeight + "px";
+                mainCanvas.style.left = ((window.innerWidth - newWidth) / 2) + "px";
+
+                // Defer the destructive CreateJS redrawing until the user finishes editing
+                if (!document.activeElement._hasResizeBlurListener) {
+                    document.activeElement._hasResizeBlurListener = true;
+                    document.activeElement.addEventListener('blur', function onBlur() {
+                        this._hasResizeBlurListener = false;
+                        this.removeEventListener('blur', onBlur);
+                        window.dispatchEvent(new Event('resize'));
+                    });
+                }
+                return;
+            }
+
+            if (resizeTimeout) {
+                clearTimeout(resizeTimeout);
+            }
+
+            // Calculate new dimensions
+            var newHeight = window.innerHeight - sugarCellSize - 5;
+            var newWidth = newHeight * 4 / 3;
+
+            // Round to prevent sub-pixel scaling issues with canvas
+            newWidth = Math.floor(newWidth);
+            newHeight = Math.floor(newHeight);
+
+
+            // Center the canvas
+            mainCanvas.style.left = ((window.innerWidth - newWidth) / 2) + "px";
+                        
+            // To prevent severe lag during rapid resizing, we scale the canvas via CSS immediately
+            mainCanvas.style.width = newWidth + "px";
+            mainCanvas.style.height = newHeight + "px";
+
+
+            resizeTimeout = setTimeout(function() {
+                // Remove the CSS width/height so the actual canvas dimensions take over
+                mainCanvas.style.width = "";
+                mainCanvas.style.height = "";
+                // Call the resize method which preserves state
+                toonModel.resize(newWidth, newHeight);
+            }, 300);
+        });
+
+
         var previousButton = document.getElementById("previous-button");
 		previousButton.title = _("Previous");
         previousButton.addEventListener('click', function (e) {
@@ -151,8 +214,11 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
 
             // clone the data to remove the images
             var dataWithoutImages = {}
-            dataWithoutImages['version'] = toonModel.getData()['version'];
-            dataWithoutImages['boxs'] = toonModel.getData()['boxs'];
+            var modelData = toonModel.getData();
+            dataWithoutImages['version'] = modelData['version'];
+            dataWithoutImages['boxs'] = modelData['boxs'];
+            dataWithoutImages['canvas_width'] = modelData['canvas_width'];
+            dataWithoutImages['canvas_height'] = modelData['canvas_height'];
 
             dataImages = {};
             for(var key in toonModel.getData()['images']) {
@@ -204,7 +270,8 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
             };
             toonModel.showWait();
             if (editMode) {
-                toonModel.initPreviews();
+                // Wait for all previews to be generated before showing sort view
+                toonModel.initPreviews(function(){;
                 // resize the canvas
                 sortCanvas.width = window.innerWidth - sugarCellSize * 2;
                 var boxWidth = sortCanvas.width / toonModel.getData()['boxs'].length;
@@ -212,14 +279,17 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                 sortCanvas.style.left = ((window.innerWidth - sortCanvas.width) / 2) + "px";
                 sortCanvas.style.top = ((window.innerHeight - sortCanvas.height) / 2) + "px";
                 toonModel.initSort(sortCanvas);
+                toonModel.hideWait();
+                    // switch editMode
+                    editMode = !editMode;
+                });
             } else {
                 toonModel.finishSort();
                 toonModel.init();
+                toonModel.hideWait();
+                // switch editMode
+                editMode = ! editMode;
             };
-            toonModel.hideWait();
-            // switch editMode
-            editMode = ! editMode;
-
         });
 
         var cleanAllButton = document.getElementById("clean-all-button");
@@ -256,8 +326,9 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
                     modal.modalElem().addEventListener("click", function(evt) {
                         if (evt.target && evt.target.matches(".continue")) {
                             toonModel._data['boxs'].splice(1, toonModel._data['boxs'].length-1);
-                            toonModel._data['boxs'][0]['globes'] = [];
+                            toonModel._data['boxs'][0]= {'globes': [] };
                             toonModel._data['previews'] = [];
+                            toonModel.cleanupImages();
                             toonModel.init();
                             modal.close();
                         } else if (evt.target && evt.target.matches(".cancel-changes")) {

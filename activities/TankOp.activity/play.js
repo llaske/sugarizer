@@ -496,7 +496,6 @@ enyo.kind({
 			that.heading = util.random(4);
 			next = util.nextPositionOnHeading(that);
 		}
-		next = util.nextPositionOnHeading(that);
 		that.x = next.x;
 		that.y = next.y;
 	}
