@@ -26,6 +26,8 @@ const ListView = {
 									isNative="true"
 									v-on:mouseover="showPopupTimer($event)"
 									v-on:mouseleave="removePopupTimer($event)"
+									v-on:touchstart="showPopupTouchTimer($event)"
+									v-on:touchend="removePopupTouchTimer($event)"
 									@click="launchActivity(activity)"
 									style="padding: 2px;"
 								></icon>
@@ -253,6 +255,31 @@ const ListView = {
 				};
 			});
 			this.popupData = popupData;
+		},
+
+		showPopupTouchTimer(e) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			if (e.touches && e.touches.length > 0) {
+				const touch = e.touches[0];
+				this.showPopupTimer({
+					target: e.target,
+					clientX: touch.clientX,
+					clientY: touch.clientY
+				});
+			}
+		},
+
+		removePopupTouchTimer(e) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			const touch = e.changedTouches && e.changedTouches.length > 0 ? e.changedTouches[0] : null;
+			this.removePopupTimer({
+				clientX: touch ? touch.clientX : 0,
+				clientY: touch ? touch.clientY : 0
+			});
 		},
 
 		async showPopupTimer(e) {

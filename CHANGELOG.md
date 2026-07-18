@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [2.0.0] - 2026-07-17
 ### Added
 - Human Body activity
 - Stickman activity
@@ -34,7 +34,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fototoon don't handle window resize #559
 - Bug in Flip Activity when resize an ended game #1956
 - Inconsistent degree trigonometric evaluation in Calculate activity #1964
-- Paint canvas does not resize when window size changes #1944
 - Eraser tool sends incorrect coordinates in shared sessions #2022
 - Saved Chess game fails to restore difficulty setting #2040
 - Globes not displayed when exporting a single image in fototoon #2020

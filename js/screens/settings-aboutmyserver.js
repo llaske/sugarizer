@@ -137,7 +137,7 @@ const AboutMyServer = {
 				return;
 			}
 			const server = await sugarizer.modules.server.getServerInformation(sugarizer.modules.user.getServerURL());		
-			this.details.serverAddress = sugarizer.modules.server.getServer();
+			this.details.serverAddress = sugarizer.modules.user.getServerURL();
 			this.details.serverName = server.name;
 			this.details.Description = server.description;
 		},
