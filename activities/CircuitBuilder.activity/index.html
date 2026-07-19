@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Circuit Builder Activity</title>
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+  <link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+    href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+  <link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+    href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+  <link rel="stylesheet" href="css/activity.css">
+  <script data-main="js/loader" src="lib/require.js?v=2"></script>
+  <script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+  <!-- Main toolbar -->
+  <div id="main-toolbar" class="toolbar">
+    <button class="toolbutton" id="activity-button" title="Circuit Builder"></button>
+    <div class="seprator-line"></div>
+    <button class="toolbutton" id="add-battery-button" title="Add Battery"></button>
+    <button class="toolbutton" id="add-bulb-button" title="Add Bulb"></button>
+    <button class="toolbutton" id="add-switch-button" title="Add Switch"></button>
+    <div class="seprator-line"></div>
+    <button class="toolbutton" id="delete-button" title="Delete"></button>
+    <button class="toolbutton" id="clear-button" title="Clear All"></button>
+    <div class="seprator-line"></div>
+    <button class="toolbutton" id="preset-circuits-button" title="Preset Circuits"></button>
+    <button class="toolbutton" id="show-labels-button" title="Show V & I Labels"></button>
+    <button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+    <button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+    <button class="toolbutton pull-right" id="help-button" title="Help"></button>
+  </div>
+
+  <!-- Canvas area -->
+  <div id="canvas">
+    <canvas id="circuit-canvas"></canvas>
+  </div>
+
+  <button class="toolbutton pull-right" id="unfullscreen-button" title="Unfullscreen"></button>
+</body>
+
+</html>
