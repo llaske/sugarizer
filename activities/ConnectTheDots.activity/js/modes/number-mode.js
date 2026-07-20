@@ -248,7 +248,7 @@ define([], function () {
 				if (libraries.hasOwnProperty(key)) {
 					list.push({
 						key: key,
-						name: titleMap[key] || categoryNames[key] || key
+						name: categoryNames[key] || titleMap[key] || key
 					});
 				}
 			}
@@ -306,7 +306,7 @@ define([], function () {
 				});
 			}
 		},
-		showCategoryForm: function (l10n) {
+		showCategoryForm: function (l10n, editingKey, editingCurrentName) {
 			if (l10n) l10nRef = l10n;
 			var gallery = document.getElementById('library-gallery');
 			if (gallery) gallery.style.display = 'none';
@@ -333,9 +333,10 @@ define([], function () {
 			var barBlock = formScreen.querySelector('.category-form-bar-block');
 			if (barBlock) barBlock.style.backgroundColor = buddyFillColor || '#ff2b34';
 
+			var isEditing = !!editingKey;
 			var titleEl = document.getElementById('category-form-title');
 			var newTitleString = (l10nRef && l10nRef.get("NewTitle")) || "New Category";
-			if (titleEl) titleEl.textContent = newTitleString;
+			if (titleEl) titleEl.textContent = isEditing ? (editingCurrentName || editingKey) : newTitleString;
 			var labelEl = document.getElementById('category-form-label');
 			if (labelEl) labelEl.textContent = (l10nRef && l10nRef.get("Title")) || "Title";
 			var confirmSpan = document.getElementById('category-confirm-span');
@@ -348,12 +349,28 @@ define([], function () {
 			var cancelBtn = document.getElementById('category-cancel-btn');
 
 			if (inputEl && confirmBtn) {
-				inputEl.value = newTitleString;
+				// pre-fill for edit, placeholder for new
+				inputEl.value = isEditing ? (editingCurrentName || editingKey) : newTitleString;
 				confirmBtn.disabled = true;
 
 				var validateInput = function () {
 					var val = inputEl.value;
-					if (!val || val === newTitleString || val.trim() === '') {
+					if (!val || val.trim() === '') {
+						confirmBtn.disabled = true;
+						return;
+					}
+					// editing: enable only if name changed
+					if (isEditing) {
+						var originalName = editingCurrentName || editingKey;
+						if (val === originalName) {
+							confirmBtn.disabled = true;
+							return;
+						}
+						confirmBtn.disabled = false;
+						return;
+					}
+					// new: reject placeholder or duplicate
+					if (val === newTitleString) {
 						confirmBtn.disabled = true;
 						return;
 					}
@@ -377,7 +394,11 @@ define([], function () {
 					if (confirmBtn.disabled) return;
 					var catName = inputEl.value.trim();
 					if (!catName) return;
-					NumberMode.confirmAddCategory(catName, l10nRef);
+					if (isEditing) {
+						NumberMode.confirmRenameCategory(editingKey, catName, l10nRef);
+					} else {
+						NumberMode.confirmAddCategory(catName, l10nRef);
+					}
 				};
 
 				var formEl = document.getElementById('category-form');
@@ -454,6 +475,50 @@ define([], function () {
 
 			broadcastUpdate();
 		},
+		confirmRenameCategory: function (oldKey, newName, l10n) {
+			if (l10n) l10nRef = l10n;
+			// update display name
+			categoryNames[oldKey] = newName;
+			if (currentCategoryKey === oldKey) {
+				currentCategoryKey = oldKey;
+			}
+
+			var formScreen = document.getElementById('category-form-screen');
+			if (formScreen) formScreen.style.display = 'none';
+
+			NumberMode.showGallery(oldKey, l10nRef, true);
+
+			var createCatBtn = document.getElementById('create-category-button');
+			if (createCatBtn && view === 'setting') createCatBtn.style.display = '';
+			var viewBtn = document.getElementById('view-button');
+			if (viewBtn) viewBtn.style.display = '';
+			var libBtn = document.getElementById('library-button');
+			if (libBtn) libBtn.style.display = '';
+			var actBtn = document.getElementById('activity-button');
+			if (actBtn) actBtn.style.display = '';
+			var modeBtn = document.getElementById('mode-button');
+			if (modeBtn) modeBtn.style.display = '';
+			var netBtn = document.getElementById('network-button');
+			if (netBtn) netBtn.style.display = '';
+
+			broadcastUpdate();
+		},
+		deleteCategory: function (categoryKey) {
+			var allKeys = Object.keys(libraries);
+			if (allKeys.length <= 1) return; // keep at least one
+			if (!libraries[categoryKey]) return;
+
+			delete libraries[categoryKey];
+			if (categoryNames[categoryKey]) delete categoryNames[categoryKey];
+
+			// switch to next available
+			var remainingKeys = Object.keys(libraries);
+			var nextKey = remainingKeys[0] || 'basic-shapes';
+			currentCategoryKey = nextKey;
+
+			NumberMode.showGallery(nextKey, l10nRef);
+			broadcastUpdate();
+		},
 		showGallery: function (categoryKey, l10n, skipBroadcast) {
 			if (l10n) l10nRef = l10n;
 			if (categoryKey) currentCategoryKey = categoryKey;
@@ -478,7 +543,48 @@ define([], function () {
 				'basic-shapes': (l10nRef && l10nRef.get('BasicShapes')) || 'Basic Shapes',
 				'objects': (l10nRef && l10nRef.get('Objects')) || 'Objects'
 			};
-			header.textContent = titleMap[categoryKey] || categoryNames[categoryKey] || categoryKey || 'Basic Shapes';
+			// custom name takes priority over default
+			var categoryDisplayName = categoryNames[categoryKey] || titleMap[categoryKey] || categoryKey || 'Basic Shapes';
+
+			// rebuild header (add edit/delete in setting mode)
+			header.innerHTML = '';
+			header.style.display = 'flex';
+			header.style.alignItems = 'center';
+			header.style.justifyContent = 'center';
+			header.style.gap = '10px';
+
+			var titleSpan = document.createElement('span');
+			titleSpan.className = 'gallery-header-title';
+			titleSpan.textContent = categoryDisplayName;
+			header.appendChild(titleSpan);
+
+			if (view === 'setting') {
+				var allCategoryKeys = Object.keys(libraries);
+
+				// edit category name
+				var editCatBtn = document.createElement('button');
+				editCatBtn.className = 'gallery-header-edit-btn';
+				editCatBtn.title = (l10nRef && l10nRef.get('Edit')) || 'Edit';
+				editCatBtn.addEventListener('click', function (e) {
+					e.stopPropagation();
+					var currentName = titleSpan.textContent || categoryDisplayName;
+					NumberMode.showCategoryForm(l10nRef, categoryKey, currentName);
+				});
+				header.appendChild(editCatBtn);
+
+				var deleteCatBtn = document.createElement('button');
+				deleteCatBtn.className = 'gallery-header-delete-btn';
+				deleteCatBtn.title = (l10nRef && l10nRef.get('Delete')) || 'Delete';
+				deleteCatBtn.disabled = (allCategoryKeys.length <= 1);
+				deleteCatBtn.addEventListener('click', function (e) {
+					e.stopPropagation();
+					if (allCategoryKeys.length > 1) {
+						NumberMode.deleteCategory(categoryKey);
+					}
+				});
+				header.appendChild(deleteCatBtn);
+			}
+
 			grid.innerHTML = '';
 
 			var items = libraries[categoryKey];

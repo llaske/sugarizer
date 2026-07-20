@@ -77,6 +77,44 @@
   color: #000;
 }
 
+.gallery-header-title {
+  flex: 1;
+  text-align: center;
+}
+
+.gallery-header-edit-btn,
+.gallery-header-delete-btn {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border-radius: 6px;
+  transition: background-color 0.15s;
+}
+
+.gallery-header-edit-btn {
+  background-image: url(../icons/tool-edit.svg);
+}
+
+.gallery-header-delete-btn {
+  background-image: url(../icons/minus.svg);
+}
+
+.gallery-header-edit-btn:hover,
+.gallery-header-delete-btn:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.gallery-header-delete-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 #gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
