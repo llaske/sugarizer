@@ -38,9 +38,35 @@ define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
 						return;
 					}
 
-					if (!clickedFeature) {
-						clickedFeature = target_feature;
+					clickedFeature = target_feature;
+
+					if (!me.tooltipDisplay || me.tooltipDisplay != name) {
+						me.tooltipDisplay = name;
+						humane.timeout = 1000;
+						humane.log(
+							"<img src='./flags/" + (flag[name.replace(/ /g, '_')] || 'world') + ".svg' " +
+							"style='width:auto;height:1.4em;vertical-align:middle;margin-right:8px;'>" +
+							l10n.get(name.replace(/ /g, '_')).replace(/_/g, ' ')
+						);
+						setTimeout(function() { me.tooltipDisplay = null; }, 1000);
 					}
+
+					FOUND = true;
+					return true;
+
+					if (!me.tooltipDisplay || me.tooltipDisplay != name) {
+						me.tooltipDisplay = name;
+						humane.timeout = 1000;
+						humane.log(
+							"<img src='./flags/" + (flag[name.replace(/ /g, '_')] || 'world') + ".svg' " +
+							"style='width:auto;height:1.4em;vertical-align:middle;margin-right:8px;'>" +
+							l10n.get(name.replace(/ /g, '_')).replace(/_/g, ' ')
+						);
+						setTimeout(function() { me.tooltipDisplay = null; }, 1000);
+					}
+
+					FOUND = true;
+					return true;
 
 					if (!me.tooltipDisplay || me.tooltipDisplay != name) {
 						me.tooltipDisplay = name;
