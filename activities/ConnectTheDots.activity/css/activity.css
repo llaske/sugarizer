@@ -117,7 +117,7 @@
 
 #gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   justify-content: center;
   gap: 26px;
   padding: 18px 40px;
@@ -622,7 +622,7 @@ button[id^="lib-"] span,
     font-size: 22px;
   }
   #gallery-grid {
-    grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
     gap: 18px;
     padding: 15px 22px;
   }
