@@ -361,8 +361,36 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 						console.log("Loaded instance");
 						try {
 							var parsed = JSON.parse(data);
-							if (currentMode && typeof currentMode.deserialize === 'function') {
-								currentMode.deserialize(parsed.strokes, parsed.figures);
+							if (parsed.drawData !== undefined || parsed.numberData !== undefined) {
+								if (drawMode && typeof drawMode.deserialize === 'function' && parsed.drawData) {
+									drawMode.deserialize(parsed.drawData.strokes, parsed.drawData.figures);
+								}
+								if (numberMode && typeof numberMode.deserialize === 'function' && parsed.numberData) {
+									numberMode.deserialize(parsed.numberData);
+									if (typeof updateLibraryMenu === 'function') updateLibraryMenu();
+								}
+								if (parsed.mode === 'number') {
+									currentMode = null;
+									switchMode(numberMode, 'mode-number', true);
+								} else {
+									currentMode = null;
+									switchMode(drawMode, 'mode-draw', true);
+								}
+							} else {
+								if (parsed.libraries) {
+									if (numberMode && typeof numberMode.deserialize === 'function') {
+										numberMode.deserialize(parsed);
+										if (typeof updateLibraryMenu === 'function') updateLibraryMenu();
+									}
+									currentMode = null;
+									switchMode(numberMode, 'mode-number', true);
+								} else {
+									if (drawMode && typeof drawMode.deserialize === 'function') {
+										drawMode.deserialize(parsed.strokes, parsed.figures);
+									}
+									currentMode = null;
+									switchMode(drawMode, 'mode-draw', true);
+								}
 							}
 						} catch (e) {
 							console.log("Error loading instance", e);
@@ -386,7 +414,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		document.getElementById("stop-button").addEventListener('click', function (event) {
 			console.log("writing...");
 
-			var jsonData = (currentMode && typeof currentMode.serialize === 'function') ? JSON.stringify(currentMode.serialize()) : "{}";
+			var dataToSave = {
+				mode: currentMode === numberMode ? 'number' : 'draw'
+			};
+			if (drawMode && typeof drawMode.serialize === 'function') {
+				dataToSave.drawData = drawMode.serialize();
+			}
+			if (numberMode && typeof numberMode.serialize === 'function') {
+				dataToSave.numberData = numberMode.serialize();
+			}
+			var jsonData = JSON.stringify(dataToSave);
+			
 			activity.getDatastoreObject().setDataAsText(jsonData);
 			activity.getDatastoreObject().save(function (error) {
 				if (error === null) {
@@ -459,7 +497,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				var cBtn = document.getElementById('create-category-button');
 				if (cBtn) cBtn.style.display = (numberMode.getView && numberMode.getView() === 'setting') ? '' : 'none';
 				updateLibraryMenu();
-				numberMode.showGallery('basic-shapes', l10n, skipBroadcast);
+				numberMode.showGallery(undefined, l10n, skipBroadcast);
 			} else {
 				document.getElementById('colors-button-fill').style.display = '';
 				document.getElementById('draw-button').style.display = '';
