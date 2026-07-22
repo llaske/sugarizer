@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Fix axis label swapping across chart types in shared mode #2185
+- Speak.activity crashes or breaks when Enter is held after typing text #2182
 
 ## [2.0.0] - 2026-07-17
 ### Added
