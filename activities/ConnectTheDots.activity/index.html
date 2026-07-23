@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<title>ConnectTheDots Activity</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover"/>
+<link rel="stylesheet" media="not screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-96dpi.css">
+<link rel="stylesheet" media="screen and (device-width: 1200px) and (device-height: 900px)"
+	href="lib/sugar-web/graphics/css/sugar-200dpi.css">
+<link rel="stylesheet" href="css/activity.css">
+<link rel="stylesheet" href="css/CategoryForm.css">
+<link rel="stylesheet" href="css/introjs.css">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="lib/intro.js"></script>
+<script src="lib/confetti.browser.min.js"></script>
+<script>if (window.module) module = window.module;</script>
+<script data-main="js/loader" src="lib/require.js"></script>
+<script type="text/javascript" src="../../cordova.js"></script>
+</head>
+
+<body>
+<div id="main-toolbar" class="toolbar">
+	<button class="toolbutton" id="activity-button" title="ConnectTheDots"></button>
+	<button class="toolbutton" id="network-button" title="Network"></button>
+	<button class="toolbutton" id="mode-button" title="Mode"></button>
+	<button class="toolbutton" id="library-button" title="Library" style="display: none;"></button>
+	<button class="toolbutton" id="view-button" title="View" style="display: none;"></button>
+	<button class="toolbutton" id="create-category-button" title="New Category" style="display: none;"></button>
+	<button class="toolbutton" id="create-figure-minus-button" title="Remove Dot" style="display: none; background-image: url('icons/tool-remove-dot.svg');"></button>
+	<button class="toolbutton" id="colors-button-fill" title="Fill Color" style="background-color: #ed2529;"></button>
+	<button class="toolbutton" id="draw-button" title="Draw"></button>
+	<button class="toolbutton" id="erase-button" title="Erase"></button>
+	<button class="toolbutton" id="clear-button" title="Clear"></button>
+
+	<button class="toolbutton pull-right" id="stop-button" title="Stop"></button>
+	<button class="toolbutton pull-right" id="fullscreen-button" title="Fullscreen"></button>
+	<button class="toolbutton pull-right" id="help-button" title="Tutorial"></button>
+</div>
+<div id="canvas">
+	<button id="create-figure-back-button" class="editor-goback" title="Back" style="display: none;"></button>
+	<button id="play-figure-back-button" class="editor-goback" title="Back" style="display: none;"></button>
+	<canvas id="gridCanvas" width="900" height="748"></canvas>
+	<div id="library-gallery" style="display: none;">
+		<div id="gallery-header">Basic Shapes</div>
+		<div id="gallery-grid"></div>
+	</div>
+<div id="category-form-screen" style="display: none;">
+			<div class="category-form-header">
+				<div class="category-form-bar">
+					<div class="category-form-bar-block">
+						<div id="category-form-title">New Category</div>
+					</div>
+				</div>
+			</div>
+			<div class="category-form-main">
+				<div class="category-form-panel-primary">
+					<form id="category-form" onsubmit="return false;">
+						<div>
+							<label for="title" id="category-form-label">Title</label>
+							<input type="text" name="title" id="category-title-input" required autocomplete="off">
+						</div>
+						<div class="buttons-row">
+							<button type="submit" id="category-confirm-btn" disabled>
+								<img src="icons/dialog-ok.svg">
+								<span id="category-confirm-span">Confirm</span>
+							</button>
+							<button type="button" id="category-cancel-btn">
+								<img src="icons/dialog-cancel.svg">
+								<span id="category-cancel-span">Cancel</span>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="category-form-footer">
+				<div class="pagination"></div>
+				<div class="footer-actions"></div>
+			</div>
+		</div>
+</div>
+<button class="toolbutton" id="unfullscreen-button" title="Unfullscreen"></button>
+</body>
+
+</html>
