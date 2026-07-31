@@ -1,0 +1,9 @@
+{
+  "volo": {
+    "baseUrl": "lib",
+    "dependencies": {
+      "mustache": "github:janl/mustache.js/0.7.2",
+      "text": "github:requirejs/text"
+    }
+  }
+}

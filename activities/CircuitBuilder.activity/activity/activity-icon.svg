@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#010101">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="55" height="55" viewBox="0 0 55 55">
+  <!-- Battery body -->
+  <rect x="8" y="18" width="14" height="24" rx="2" ry="2"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Battery top terminal -->
+  <rect x="12" y="14" width="6" height="4" rx="1" ry="1"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:1.5"/>
+  <!-- Plus sign on battery -->
+  <line x1="15" y1="22" x2="15" y2="28" style="stroke:&stroke_color;;stroke-width:1.5"/>
+  <line x1="12" y1="25" x2="18" y2="25" style="stroke:&stroke_color;;stroke-width:1.5"/>
+  <!-- Wire from battery top to bulb -->
+  <path d="M 15 14 L 15 8 L 42 8 L 42 18" style="fill:none;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Wire from battery bottom to bulb -->
+  <path d="M 15 42 L 15 48 L 42 48 L 42 38" style="fill:none;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Light bulb -->
+  <circle cx="42" cy="28" r="8" style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Filament in bulb -->
+  <path d="M 39 31 L 42 25 L 45 31" style="fill:none;stroke:&stroke_color;;stroke-width:1.5"/>
+  <!-- Bulb base -->
+  <rect x="39" y="36" width="6" height="3" rx="1" ry="1"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:1.2"/>
+  <!-- Rays around bulb (glow) -->
+  <line x1="42" y1="17" x2="42" y2="14" style="stroke:&stroke_color;;stroke-width:1"/>
+  <line x1="49" y1="21" x2="52" y2="19" style="stroke:&stroke_color;;stroke-width:1"/>
+  <line x1="51" y1="28" x2="54" y2="28" style="stroke:&stroke_color;;stroke-width:1"/>
+  <line x1="49" y1="35" x2="52" y2="37" style="stroke:&stroke_color;;stroke-width:1"/>
+</svg>

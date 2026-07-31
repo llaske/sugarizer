@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#010101">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+  <!-- Switch base plate -->
+  <rect x="8" y="22" width="39" height="11" rx="3" ry="3"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Left terminal -->
+  <circle cx="14" cy="27.5" r="4"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Right terminal -->
+  <circle cx="41" cy="27.5" r="4"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Lever (open position) -->
+  <line x1="14" y1="27.5" x2="36" y2="16"
+    style="stroke:&stroke_color;;stroke-width:3;stroke-linecap:round"/>
+  <!-- Lever knob -->
+  <circle cx="36" cy="16" r="2.5"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:1.5"/>
+</svg>

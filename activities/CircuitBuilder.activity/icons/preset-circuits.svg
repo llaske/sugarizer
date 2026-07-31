@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+  <!-- Circuit loop -->
+  <rect x="12" y="10" width="31" height="35" rx="4" ry="4"
+    style="fill:none;stroke:#FFFFFF;stroke-width:2.5;stroke-linejoin:round"/>
+  <!-- Battery symbol at top -->
+  <line x1="24" y1="10" x2="24" y2="5" style="stroke:#FFFFFF;stroke-width:2;stroke-linecap:round"/>
+  <line x1="31" y1="10" x2="31" y2="7" style="stroke:#FFFFFF;stroke-width:2;stroke-linecap:round"/>
+  <line x1="21" y1="5" x2="27" y2="5" style="stroke:#FFFFFF;stroke-width:2.5;stroke-linecap:round"/>
+  <line x1="28.5" y1="7" x2="33.5" y2="7" style="stroke:#FFFFFF;stroke-width:2.5;stroke-linecap:round"/>
+  <!-- Bulb symbol at bottom -->
+  <circle cx="27.5" cy="38" r="5" style="fill:none;stroke:#FFFFFF;stroke-width:2"/>
+  <path d="M 25.5 40 L 27.5 36 L 29.5 40" style="fill:none;stroke:#FFFFFF;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"/>
+</svg>
