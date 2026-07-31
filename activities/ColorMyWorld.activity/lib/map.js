@@ -57,7 +57,7 @@ define(["activity/ol","print","util","colormyworld","humane","flag","l10n"],
 					return false;
 
 				}, {
-					hitTolerance: 4
+					hitTolerance: 0
 				});
 
 				if (clickedFeature) {
