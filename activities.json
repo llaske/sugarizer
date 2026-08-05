@@ -59,5 +59,6 @@
 	{"id": "org.sugarlabs.Implode", "name": "Implode", "version": 1, "directory": "activities/Implode.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.Measure", "name": "Measure", "version": 1, "directory": "activities/Measure.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
 	{"id": "org.sugarlabs.ChartActivity", "name": "Chart", "version": 1, "directory": "activities/Chart.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
-	{"id": "org.sugarlabs.Stickman", "name": "Stickman", "version": 1, "directory": "activities/Stickman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null}
+	{"id": "org.sugarlabs.Stickman", "name": "Stickman", "version": 1, "directory": "activities/Stickman.activity", "icon": "activity/activity-icon.svg", "favorite": true, "activityId": null},
+	{"id": "org.sugarlabs.ColorLab","name": "ColorLab","version": 1,"directory": "activities/ColorLab.activity","icon": "activity/activity-icon.svg","favorite": true,"activityId": null}
 ]

@@ -1,0 +1,1121 @@
+/* Sugar OS Design Language Basics */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+    /* Standard web font, similar to Sugar OS default */
+    background-color: #000000;
+    overflow: hidden;
+    user-select: none;
+    /* Prevent selection for app-like feel */
+}
+
+/* Toolbar */
+#main-toolbar {
+    height: 55px;
+    background-color: #282828;
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+.toolbar-item {
+    width: 47px;
+    height: 47px;
+    display: block;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 4px 2px;
+    float: left;
+}
+
+.toolbar-item.pull-right {
+    float: right;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+/* Main Canvas */
+#canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 55px);
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Force everything to strictly scale down to screen layout without scrolling */
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.mode-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Top #main-workspace rule removed to avoid flex-direction conflicts */
+
+/* Harmony Mode Layout */
+#harmony-workspace {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+#board-cycle-harmony {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 50;
+    /* Above everything */
+}
+
+/* Elevate the entire parent if the button is being highlighted by tutorial */
+#board-cycle-harmony:has(.introjs-showElement) {
+    z-index: 9999999 !important;
+}
+
+/* Harmony Wheel Section */
+#harmony-wheel-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+    min-width: 0;
+    /* Prevent flex box blowout */
+}
+
+#harmony-wheel-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#harmony-name-display {
+    font-size: min(32px, 5vmin);
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+#harmony-wheel {
+    position: relative;
+    width: min(450px, 60vmin);
+    height: min(450px, 60vmin);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightnessGradient {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(rgb(0, 0, 0), rgb(102, 153, 122), rgb(240, 245, 242));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightnessInterstitial {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 50%;
+    transform: rotate(279deg);
+    /* Static rotation from snippet, likely dynamic later */
+    pointer-events: none;
+    /* Let clicks pass */
+}
+
+#lightnessTrack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+#lightnessThumb {
+    position: absolute;
+    z-index: 10;
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    cursor: grab;
+    left: 50%;
+    top: 0;
+    /* Top center of the rotated track */
+    transform: translate(-50%, -50%);
+}
+
+.color-wheel {
+    position: absolute;
+    z-index: 10;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* User's Exact Radial Gradient Stack */
+    background:
+        radial-gradient(circle at 50% 0px, red, rgba(242, 13, 13, 0.8) 10%, rgba(230, 26, 26, 0.6) 20%, rgba(204, 51, 51, 0.4) 30%, rgba(166, 89, 89, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 85.3553% 14.6447%, rgb(255, 191, 0), rgba(242, 185, 13, 0.8) 10%, rgba(230, 179, 26, 0.6) 20%, rgba(204, 166, 51, 0.4) 30%, rgba(166, 147, 89, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 100% 50%, rgb(128, 255, 0), rgba(128, 242, 13, 0.8) 10%, rgba(128, 230, 26, 0.6) 20%, rgba(128, 204, 51, 0.4) 30%, rgba(128, 166, 89, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 85.3553% 85.3553%, rgb(0, 255, 64), rgba(13, 242, 70, 0.8) 10%, rgba(26, 230, 77, 0.6) 20%, rgba(51, 204, 89, 0.4) 30%, rgba(89, 166, 108, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 50% 100%, rgb(0, 255, 255), rgba(13, 242, 242, 0.8) 10%, rgba(26, 230, 230, 0.6) 20%, rgba(51, 204, 204, 0.4) 30%, rgba(89, 166, 166, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 14.6447% 85.3553%, rgb(0, 64, 255), rgba(13, 70, 242, 0.8) 10%, rgba(26, 77, 230, 0.6) 20%, rgba(51, 89, 204, 0.4) 30%, rgba(89, 108, 166, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 0px 50%, rgb(127, 0, 255), rgba(128, 13, 242, 0.8) 10%, rgba(128, 26, 230, 0.6) 20%, rgba(128, 51, 204, 0.4) 30%, rgba(128, 89, 166, 0.2) 40%, rgba(128, 128, 128, 0) 50%),
+        radial-gradient(circle at 14.6447% 14.6447%, rgb(255, 0, 191), rgba(242, 13, 185, 0.8) 10%, rgba(230, 26, 179, 0.6) 20%, rgba(204, 51, 166, 0.4) 30%, rgba(166, 89, 147, 0.2) 40%, rgba(128, 128, 128, 0) 50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.harmony-marker {
+    position: absolute;
+    width: max(16px, 3.5vmin);
+    /* Fluid size to respond to short viewports */
+    height: max(16px, 3.5vmin);
+    border-radius: 50%;
+    border: max(2px, 0.5vmin) solid #ffffff;
+    /* Thicker border */
+    /* background-color dynamically set by JS */
+    z-index: 10;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    /* Allow clicks to pass through to wheel */
+}
+
+/* Example positions for a split-complementary harmony */
+/* Main color at top (Red) */
+.main-marker {
+    width: max(16px, 3.5vmin);
+    height: max(16px, 3.5vmin);
+    border: max(2px, 0.5vmin) solid #ffffff;
+    /* Transform handled by JS */
+}
+
+/* Split complementary */
+
+
+#harmony-swatches {
+    /* Large vertical blocks touching together */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    z-index: 100;
+    flex: 1;
+    /* take up vertical space */
+    min-width: 35%;
+    /* roughly 1/3 of the screen width */
+    height: 100%;
+}
+
+.harmony-swatch {
+    flex: 1;
+    /* Ensure they stretch vertically */
+    width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: none;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(20px, 4vmin, 32px);
+    /* Larger text */
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+#harmony-palette {
+    width: max-content !important;
+    min-width: 320px;
+    z-index: 9999 !important;
+}
+
+#harmony-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0;
+    padding: 5px;
+}
+
+.harmony-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+    background-color: transparent;
+    border-right: 1px solid #555;
+    border-bottom: 1px solid #555;
+    border-left: none;
+    border-top: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    gap: 6px;
+    min-width: 80px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Remove bottom border for bottom row elements (4, 5, 6) */
+.harmony-option:nth-child(n+4) {
+    border-bottom: none;
+}
+
+/* Remove right border for rightmost column elements (3, 6) */
+.harmony-option:nth-child(3n) {
+    border-right: none;
+}
+
+.harmony-option:hover {
+    background-color: #555 !important;
+}
+
+.harmony-option * {
+    pointer-events: none;
+}
+
+.harmony-icon {
+    width: 45px;
+    height: 45px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    display: block;
+}
+
+/* Board Inline Harmony Icon */
+.board-switch-icon {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background-color: #282828;
+}
+
+.board-switch-icon:hover {
+    background-color: #383838 !important;
+}
+
+/* Fix for intro.js highlighting this element, ensure button itself stands out */
+.introjs-showElement.board-switch-icon {
+    background-color: #000000 !important;
+    border-color: #ffffff !important;
+    z-index: 9999999 !important;
+    position: relative !important;
+    transform: none !important; /* Strictly no scaling */
+}
+
+[data-harmony="complementary"] .harmony-icon { background-image: url(../icons/harmony-complementary.svg); }
+[data-harmony="split-complementary"] .harmony-icon { background-image: url(../icons/harmony-split-complementary.svg); }
+[data-harmony="analogous"] .harmony-icon { background-image: url(../icons/harmony-analogous.svg); }
+[data-harmony="triadic"] .harmony-icon { background-image: url(../icons/harmony-triadic.svg); }
+[data-harmony="tetradic"] .harmony-icon { background-image: url(../icons/harmony-tetradic.svg); }
+[data-harmony="square"] .harmony-icon { background-image: url(../icons/harmony-square.svg); }
+
+/* Difficulty Options */
+#difficulty-palette {
+    width: 130px !important;
+    z-index: 9999 !important;
+}
+
+#difficulty-options {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.difficulty-option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #555;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 120px;
+    width: 100%;
+    border-radius: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+
+.difficulty-option:last-child {
+    border-bottom: none;
+}
+
+.difficulty-option:hover,
+.difficulty-option.active {
+    background-color: #555 !important;
+}
+
+.difficulty-option * {
+    pointer-events: none;
+}
+
+
+/* Bowl Section */
+#bowl-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: auto;
+}
+
+#color-name {
+    font-size: min(32px, 5vmin);
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+    /* Added small margin so it doesn't touch exactly */
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+    z-index: 5;
+}
+
+#bowl-center-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min(800px, 60vmin);
+    height: min(800px, 60vmin);
+    max-width: 900px;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+#mixing-bowl {
+    width: min(650px, 45vmin);
+    /* Slightly smaller to fit ring */
+    height: min(650px, 45vmin);
+    border-radius: 50%;
+    background-color: #ffffff;
+    /* Color Wheel Border Effect */
+    border: 10px solid transparent;
+    box-shadow: 0 0 0 10px #333333,
+        /* Dark inner rim */
+        0 0 0 20px #000000;
+    /* Spacing */
+    position: relative;
+    z-index: 2;
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.1s ease, box-shadow 0.3s ease, border-width 0.3s ease;
+}
+
+/* Color Wheel Ring - Flower Style */
+/* Color Wheel Ring */
+#color-wheel-ring {
+    position: absolute;
+    width: min(800px, 60vmin);
+    /* 650px bowl + padding */
+    height: min(800px, 60vmin);
+    border-radius: 50%;
+    /* Segmented gradient */
+    background: conic-gradient(#F44336 0deg 30deg,
+            #FF9800 30deg 60deg,
+            #FFEB3B 60deg 90deg,
+            #CDDC39 90deg 120deg,
+            #4CAF50 120deg 150deg,
+            #009688 150deg 180deg,
+            #00BCD4 180deg 210deg,
+            #2196F3 210deg 240deg,
+            #3F51B5 240deg 270deg,
+            #673AB7 270deg 300deg,
+            #9C27B0 300deg 330deg,
+            #E91E63 330deg 360deg);
+    z-index: 1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    /* Center it behind the bowl */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Hide inner white border if not needed or style it */
+
+#reset-button {
+    position: absolute;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background-color: #333333;
+    background-size: 34px 34px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+}
+
+#reset-button:active {
+    transform: scale(0.95);
+}
+
+#sliders-grid {
+    width: 95%;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(5px, 2vw, 40px);
+    margin: 10px auto auto auto;
+    padding-bottom: min(15px, 2vmin);
+    flex-wrap: nowrap;
+}
+
+#main-workspace {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+    /* Consume space */
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/* On large monitors, scale up challenge mode bowls */
+@media (min-height: 800px) {
+
+    /* Dramatically scale up challenge mode bowls on large heights */
+    #challenge-mode .bowl-container {
+        width: min(650px, 55vmin);
+        height: min(650px, 55vmin);
+    }
+
+    #challenge-mode .bowl {
+        width: min(600px, 50vmin);
+        height: min(600px, 50vmin);
+    }
+
+    #challenge-mode #divider-line {
+        height: min(650px, 55vmin);
+    }
+}
+
+/* Left and Right panels removed since we converted to flex column */
+
+/* Custom Range Sliders */
+.slider-group {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    gap: clamp(2px, 1vw, 15px);
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    margin: 0;
+    background: transparent;
+    height: 40px;
+    /* Larger touch area */
+    display: flex;
+    align-items: center;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+/* Slider Track */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 0px;
+}
+
+/* Slider Thumb (Handle) */
+input[type=range]::-webkit-slider-thumb {
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -12px;
+    border: 3px solid #000000;
+    background: #ffffff;
+    box-shadow: none;
+}
+
+/* Track Colors */
+#red-slider::-webkit-slider-runnable-track,
+#challenge-red-slider::-webkit-slider-runnable-track {
+    background: #ff0000;
+}
+
+#green-slider::-webkit-slider-runnable-track,
+#challenge-green-slider::-webkit-slider-runnable-track {
+    background: #00ff00;
+}
+
+#blue-slider::-webkit-slider-runnable-track,
+#challenge-blue-slider::-webkit-slider-runnable-track {
+    background: #0000ff;
+}
+
+/* Value Text Colors */
+#red-val,
+#challenge-red-val {
+    color: #F44336;
+    font-weight: bold;
+}
+
+#green-val,
+#challenge-green-val {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+#blue-val,
+#challenge-blue-val {
+    color: #2196F3;
+    font-weight: bold;
+}
+
+/* Input edit for sliders */
+.slider-edit-input::-webkit-outer-spin-button,
+.slider-edit-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.slider-edit-input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Adjustment Buttons */
+.adjust-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    /* Prevent shrinking */
+    min-height: 44px;
+    /* Prevent shrinking */
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 38px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 12px;
+    padding: 0;
+    line-height: 1;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.adjust-button.minus {
+    padding-bottom: 6px;
+}
+
+/* Fullscreen Mode */
+body.fullscreen-mode #main-toolbar {
+    display: none !important;
+}
+
+body.fullscreen-mode #canvas {
+    height: 100% !important;
+    padding: 10px !important;
+    padding-top: 55px !important;
+    box-sizing: border-box !important;
+    /* Critical to prevent height overflow with padding */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 1000;
+}
+
+body.fullscreen-mode #harmony-wheel,
+body.fullscreen-mode #color-wheel-ring {
+    max-width: 80vh !important;
+    max-height: 80vh !important;
+    /* Cap height to leave margin for buttons */
+}
+
+
+
+
+/* Sugarizer Scrollbar */
+::-webkit-scrollbar {
+    width: 11px;
+    background-color: #808080;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 2px solid #dddddd;
+    border-radius: 11px;
+}
+
+/* Arrow Indicator */
+.arrow-indicator {
+    width: 40px !important;
+    height: 9px !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    bottom: 2px;
+}
+
+.arrow-active {
+    background-image: url('../icons/arrow-up.svg') !important;
+}
+
+/* Palette Z-Index Fix */
+.palette {
+    z-index: 2000 !important;
+}
+
+/* --- CHALLENGE MODE CSS --- */
+/* Bowl Container acting as anchor */
+.bowl-container {
+    position: relative;
+    width: min(500px, 45vmin);
+    height: min(500px, 45vmin);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+/* Circular Progress Bar */
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+    pointer-events: none;
+    /* Let clicks pass through to bowl if needed */
+}
+
+.progress-ring__circle {
+    stroke: #FFD700;
+    /* Gold */
+    stroke-dasharray: 1194;
+    /* 2 * PI * 190 ≈ 1193.8 */
+    stroke-dashoffset: 1194;
+    transition: stroke-dashoffset 0.35s;
+    transform-origin: 50% 50%;
+}
+
+#bowls-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: max(60px, 10vh);
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.slider-val {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bowl-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    justify-content: center;
+}
+
+.bowl-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+}
+
+.challenge-color-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.bowl {
+    width: min(450px, 40vmin);
+    height: min(450px, 40vmin);
+    border: 5px solid #ffffff;
+    border-radius: 50%;
+    /* Full circle */
+    background-color: #CCCCCC;
+    /* Default gray */
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.1s ease, border-width 0.3s ease;
+}
+
+#divider-line {
+    width: 2px;
+    height: min(500px, 45vmin);
+    /* Taller to match new bowl size */
+    background-color: #FFFFFF;
+    border-radius: 1px;
+    transition: height 0.3s ease;
+}
+
+#target-wrapper {
+    opacity: 1;
+}
+
+#arrow-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Controls Area */
+#controls-area {
+    width: 95%;
+    max-width: 1300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(5px, 2vw, 40px);
+    align-items: center;
+    margin: 0 auto auto auto;
+    padding-bottom: 20px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+}
+
+
+/* Toolbar active mode */
+.active-mode {
+    background-color: #555555;
+    border-radius: 8px;
+}
+
+/* --- RESPONSIVE LAYOUT --- */
+@media (max-width: 900px),
+(max-height: 700px) {
+
+    /* Main Layouts */
+    #canvas {
+        padding: 10px;
+    }
+
+    /* Free Paint */
+    #bowl-center-wrapper {
+        width: 50vmin !important;
+        height: 50vmin !important;
+    }
+
+    #mixing-bowl {
+        width: 35vmin !important;
+        height: 35vmin !important;
+        border-width: 5px !important;
+        box-shadow: 0 0 0 5px #333333, 0 0 0 10px #000000 !important;
+    }
+
+    #color-wheel-ring {
+        width: 50vmin !important;
+        height: 50vmin !important;
+    }
+
+    #color-name {
+        font-size: min(24px, 5vmin) !important;
+        margin-bottom: min(15px, 2vh) !important;
+    }
+
+    #sliders-grid {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        gap: 5px !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+
+    /* Harmony Mode */
+    #harmony-workspace {
+        flex-direction: row !important;
+        padding-left: 0 !important;
+    }
+
+    #board-cycle-harmony {
+        position: absolute !important;
+        top: 15px !important;
+        left: 15px !important;
+        align-self: flex-start !important;
+        margin-top: 0;
+        z-index: 50;
+    }
+
+    /* Shrink the cycle button for small screens */
+    .board-switch-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .board-harmony-icon {
+        transform: scale(1) !important;
+    }
+
+    #harmony-wheel-container {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+        padding: 5px !important;
+        flex: 1 !important;
+    }
+
+    #harmony-wheel,
+    #lightnessGradient {
+        width: 60vmin !important;
+        height: 60vmin !important;
+    }
+
+    .color-wheel {
+        width: 50vmin !important;
+        height: 50vmin !important;
+    }
+
+    #harmony-name-display {
+        font-size: min(24px, 5vmin) !important;
+        margin-bottom: min(10px, 2vmin) !important;
+    }
+
+    #harmony-swatches {
+        position: relative !important;
+        flex-direction: column !important;
+        /* Stack vertically on the right */
+        left: auto !important;
+        top: auto !important;
+        margin-left: 0 !important;
+        transform: none !important;
+        justify-content: center !important;
+        gap: 0 !important;
+        flex: 0 0 auto !important;
+        width: 25% !important;
+        /* Take up 25% of screen width */
+        min-width: 80px !important;
+        height: 100% !important;
+    }
+
+    .harmony-swatch {
+        width: 100% !important;
+        flex: 1 !important;
+        font-size: min(14px, 4vmin) !important;
+    }
+
+    #bowls-area {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: auto !important;
+    }
+
+    .bowl-container {
+        width: 45vmin !important;
+        height: 45vmin !important;
+    }
+
+    .bowl {
+        width: 40vmin !important;
+        height: 40vmin !important;
+        border-width: 3px !important;
+    }
+
+    .bowl-label {
+        font-size: 1rem !important;
+    }
+
+    #divider-line {
+        width: 2px !important;
+        height: 45vmin !important;
+    }
+
+
+
+    .adjust-button {
+        width: 25px !important;
+        height: 25px !important;
+        min-width: 25px !important;
+        min-height: 25px !important;
+        font-size: 16px !important;
+        flex-shrink: 0 !important;
+    }
+
+    input[type=range] {
+        flex: 1 1 0 !important;
+        min-width: 10px !important;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        width: 20px !important;
+        height: 20px !important;
+        margin-top: -5px !important;
+    }
+
+    .slider-val {
+        font-size: 0.8rem !important;
+        min-width: 25px !important;
+        text-align: right !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* --- LANDSCAPE MODE FOR PHONES --- */
+@media (max-height: 700px) and (orientation: landscape) {
+
+    /* Keep UI scaled tight so sliders stay at the bottom horizontally */
+
+    #color-name {
+        font-size: min(18px, 4vh) !important;
+        margin-bottom: min(8px, 1.5vh) !important;
+    }
+
+    #bowl-center-wrapper {
+        width: 45vh !important;
+        /* Force to height constraints */
+        height: 45vh !important;
+    }
+
+    #mixing-bowl {
+        width: 30vh !important;
+        height: 30vh !important;
+        border-width: 3px !important;
+        box-shadow: 0 0 0 3px #333, 0 0 0 6px #000 !important;
+    }
+
+    #color-wheel-ring {
+        width: 45vh !important;
+        height: 45vh !important;
+    }
+
+    /* Challenge Mode Shrinks */
+    .bowl-container {
+        width: 35vh !important;
+        height: 35vh !important;
+    }
+
+    .bowl {
+        width: 30vh !important;
+        height: 30vh !important;
+    }
+
+    #divider-line {
+        height: 35vh !important;
+    }
+
+    /* Harmony Mode Shrinks */
+    #harmony-wheel,
+    #lightnessGradient {
+        width: 45vh !important;
+        height: 45vh !important;
+    }
+
+    .color-wheel {
+        width: 35vh !important;
+        height: 35vh !important;
+    }
+
+    #harmony-name-display {
+        font-size: min(18px, 4vh) !important;
+        margin-bottom: min(8px, 1.5vh) !important;
+    }
+
+    #divider-line {
+        height: 40vmin !important;
+    }
+
+    input[type=range] {
+        height: 30px !important;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        width: 24px !important;
+        height: 24px !important;
+        margin-top: -6px !important;
+    }
+
+    .adjust-button {
+        width: 30px !important;
+        height: 30px !important;
+        min-width: 30px !important;
+        min-height: 30px !important;
+        font-size: 18px !important;
+    }
+}
