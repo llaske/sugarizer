@@ -24,6 +24,7 @@
   align-items: center;
   padding-top: 20px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .leaderboard-main {
@@ -167,22 +168,28 @@
   width: 90%;
   max-width: 1000px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 80px;
   overflow-y: auto;
+  overflow-x: hidden;
   gap: 15px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .completed-figure-card {
-  width: 250px;
-  height: 350px;
+  width: 220px;
+  height: 260px;
+  min-width: 0;
+  min-height: 0;
   background-color: white;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   transition: transform 0.2s;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .completed-figure-card:hover {
@@ -220,10 +227,19 @@
 
 .completed-figure-card .card-thumbnail {
   flex: 1;
+  min-height: 0;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+.completed-figure-card .card-thumbnail svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto !important;
+  height: auto !important;
 }
 
 

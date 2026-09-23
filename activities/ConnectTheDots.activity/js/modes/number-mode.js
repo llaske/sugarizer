@@ -179,7 +179,11 @@ define(["activity/palettes/timerPalette", "sugar-web/graphics/icon"], function (
 			if (!challengeActive) return;
 			challengeIndex++;
 			if (libraries[challengeCategory] && challengeIndex >= libraries[challengeCategory].length) {
-				challengeCategory = (challengeCategory === 'basic-shapes') ? 'objects' : 'basic-shapes';
+				// Cycle to the next available category
+				var allCatKeys = Object.keys(libraries);
+				var currentCatIdx = allCatKeys.indexOf(challengeCategory);
+				var nextCatIdx = (currentCatIdx + 1) % allCatKeys.length;
+				challengeCategory = allCatKeys[nextCatIdx];
 				challengeIndex = 0;
 			}
 			if (libraries[challengeCategory] && libraries[challengeCategory].length > 0) {
