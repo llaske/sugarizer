@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="75px" height="75px" viewBox="0 0 75 75">
+<g fill="none" stroke="&fill_color;" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Circle -->
+    <circle cx="25" cy="25" r="10" />
+    <!-- Square -->
+    <rect x="40" y="15" width="20" height="20" rx="2" />
+    <!-- Triangle -->
+    <path d="M 25,45 L 35,63 L 15,63 Z" />
+    <!-- Diamond -->
+    <path d="M 50,44 L 60,54 L 50,64 L 40,54 Z" />
+</g>
+</svg>
