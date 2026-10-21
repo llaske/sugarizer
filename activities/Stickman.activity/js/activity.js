@@ -4265,6 +4265,45 @@ define([
 			}
 		}
 
+		function computeLetterbox(srcWidth, srcHeight, dstWidth, dstHeight) {
+			const srcAspect = srcWidth / srcHeight;
+			const dstAspect = dstWidth / dstHeight;
+			let drawWidth, drawHeight, offsetX, offsetY;
+			if (srcAspect > dstAspect) {
+				drawWidth = dstWidth;
+				drawHeight = dstWidth / srcAspect;
+				offsetX = 0;
+				offsetY = (dstHeight - drawHeight) / 2;
+			} else {
+				drawHeight = dstHeight;
+				drawWidth = dstHeight * srcAspect;
+				offsetX = (dstWidth - drawWidth) / 2;
+				offsetY = 0;
+			}
+			return { drawWidth, drawHeight, offsetX, offsetY };
+		}
+
+		function seekVideoToTime(video, time) {
+			return new Promise((resolve) => {
+				if (Math.abs(video.currentTime - time) < 0.05) {
+					resolve();
+					return;
+				}
+				let settled = false;
+				const finish = () => {
+					if (settled) {
+						return;
+					}
+					settled = true;
+					video.removeEventListener('seeked', finish);
+					resolve();
+				};
+				video.addEventListener('seeked', finish);
+				video.currentTime = time;
+				setTimeout(finish, 300);
+			});
+		}
+
 		// Extract frames from video and convert to stickman poses
 		async function extractFramesFromVideo(video, progressCallback = null) {
 			const frames = [];
@@ -4287,7 +4326,8 @@ define([
 			const centerX = 200;
 			const centerY = 200;
 
-			video.currentTime = 0;
+			video.pause();
+			await seekVideoToTime(video, 0);
 
 			let lastPoseKeypoints = null;
 			let frameIndex = 0;
@@ -4301,53 +4341,13 @@ define([
 						progressCallback(progress);
 					}
 
-					video.currentTime = time;
-
-					// Wait for video to seek to the correct time
-					await new Promise((resolve, reject) => {
-						let attempts = 0;
-						const maxAttempts = 50;
-
-						const checkTime = () => {
-							attempts++;
-							if (Math.abs(video.currentTime - time) < 0.05) {
-								resolve();
-							} else if (attempts >= maxAttempts) {
-								resolve();
-							} else {
-								requestAnimationFrame(checkTime);
-							}
-						};
-						checkTime();
-					});
-
-					// Force a small delay to ensure frame is rendered
-					await new Promise(resolve => setTimeout(resolve, 10));
+					await seekVideoToTime(video, time);
 
 					// Draw current frame to canvas
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-					// Calculate aspect ratio to maintain video proportions
-					const videoAspect = video.videoWidth / video.videoHeight;
-					const canvasAspect = canvas.width / canvas.height;
-
-					let drawWidth, drawHeight, offsetX, offsetY;
-					if (videoAspect > canvasAspect) {
-						drawWidth = canvas.width;
-						drawHeight = canvas.width / videoAspect;
-						offsetX = 0;
-						offsetY = (canvas.height - drawHeight) / 2;
-					} else {
-						drawWidth = canvas.height * videoAspect;
-						drawHeight = canvas.height;
-						offsetX = (canvas.width - drawWidth) / 2;
-						offsetY = 0;
-					}
-
-					ctx.drawImage(video, offsetX, offsetY, drawWidth, drawHeight);
-
-					// Store the video frame as ImageData for preview
-					const videoFrameData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+					const box = computeLetterbox(video.videoWidth, video.videoHeight, canvas.width, canvas.height);
+					ctx.drawImage(video, box.offsetX, box.offsetY, box.drawWidth, box.drawHeight);
 
 					// Use pose estimation with optimized parameters based on the model
 					const estimationParams = {
@@ -4401,10 +4401,8 @@ define([
 						if (!isDuplicatePose) {
 							const stickmanJoints = convertPoseToStickman(currentPose, centerX, centerY);
 							if (stickmanJoints) {
-								// Store both the video frame and the stickman data
 								frames.push({
 									joints: stickmanJoints,
-									videoFrame: videoFrameData,
 									pose: currentPose,
 									timestamp: time
 								});
@@ -4421,14 +4419,6 @@ define([
 				}
 
 				frameIndex++;
-
-				// Add periodic cleanup for mobile devices to prevent memory issues
-				if (platform.isMobile && frameIndex % 20 === 0) {
-					// Force garbage collection hint (if available)
-					if (window.gc) {
-						window.gc();
-					}
-				}
 			}
 
 			// Final progress update
@@ -4647,15 +4637,26 @@ define([
 			let isProcessing = true;
 			let processedFrames = null;
 			let currentFrame = 0;
-			let animationId = null;
+			let stopPreview = null;
+
+			const closeImportDialog = () => {
+				if (stopPreview) {
+					stopPreview();
+					stopPreview = null;
+				}
+				if (video.parentNode) {
+					document.body.removeChild(video);
+				}
+				URL.revokeObjectURL(video.src);
+				if (modalOverlay.parentNode) {
+					document.body.removeChild(modalOverlay);
+				}
+			};
 
 			// Cancel button functionality
 			cancelButton.addEventListener('click', () => {
-				if (animationId) clearTimeout(animationId);
 				isProcessing = false;
-				document.body.removeChild(video);
-				URL.revokeObjectURL(video.src);
-				document.body.removeChild(modalOverlay);
+				closeImportDialog();
 			});
 
 			// Start processing when video is loaded
@@ -4678,7 +4679,7 @@ define([
 						isProcessing = false;
 
 						// Switch right side to show stickman preview and replace left side with pose detection
-						await showStickmanPreview(rightSection, frameCounterContainer, frameCounter, frames, leftSection, videoDisplay);
+						stopPreview = await showStickmanPreview(rightSection, frameCounterContainer, frameCounter, frames, leftSection, video);
 
 						// Enable insert button
 						insertButton.disabled = false;
@@ -4698,46 +4699,32 @@ define([
 
 						// Insert button functionality
 						insertButton.addEventListener('click', () => {
-							if (animationId) clearTimeout(animationId);
-							document.body.removeChild(video);
-							URL.revokeObjectURL(video.src);
-							document.body.removeChild(modalOverlay);
-
-							// Extract just the joints for the animation
 							const jointFrames = frames.map(frame => frame.joints);
+							closeImportDialog();
 							addVideoAnimationToCanvas(jointFrames);
 						});
 
 					} else {
 						// No frames detected
-						document.body.removeChild(video);
-						URL.revokeObjectURL(video.src);
-						document.body.removeChild(modalOverlay);
+						closeImportDialog();
 						humane.log(l10n.get("NoFramesDetected") || "No pose detected in video");
 					}
 				} catch (error) {
-					document.body.removeChild(video);
-					URL.revokeObjectURL(video.src);
-					document.body.removeChild(modalOverlay);
+					closeImportDialog();
 					console.error("Error processing video:", error);
 					humane.log(l10n.get("VideoProcessingError") || "Error processing video file");
 				}
 			});
 
 			video.addEventListener('error', () => {
-				document.body.removeChild(video);
-				URL.revokeObjectURL(video.src);
-				document.body.removeChild(modalOverlay);
+				closeImportDialog();
 				humane.log(l10n.get("VideoLoadError") || "Error loading video file");
 			});
 
 			// Close modal when clicking overlay (only if processing is complete)
 			modalOverlay.addEventListener('click', (e) => {
 				if (e.target === modalOverlay && !isProcessing) {
-					if (animationId) clearTimeout(animationId);
-					document.body.removeChild(video);
-					URL.revokeObjectURL(video.src);
-					document.body.removeChild(modalOverlay);
+					closeImportDialog();
 				}
 			});
 		}
@@ -4906,12 +4893,16 @@ define([
 		}
 
 		// Show stickman preview in the right section after processing
-		async function showStickmanPreview(rightSection, frameCounterContainer, frameCounter, frames, leftSection, videoDisplay) {
+		async function showStickmanPreview(rightSection, frameCounterContainer, frameCounter, frames, leftSection, sourceVideo) {
 			// Clear spinner content
 			rightSection.innerHTML = '';
 
+			sourceVideo.pause();
+			sourceVideo.loop = false;
+			sourceVideo.autoplay = false;
+
 			// Replace the original video with Video + Pose Detection
-			if (leftSection && videoDisplay) {
+			if (leftSection) {
 				// Clear the left section
 				leftSection.innerHTML = '';
 
@@ -4967,55 +4958,54 @@ define([
 			const videoPoseCtx = leftSection ? leftSection.querySelector('canvas')?.getContext('2d') : null;
 			const stickmanCtx = stickmanCanvas.getContext('2d');
 			let currentPreviewFrame = 0;
+			let previewStopped = false;
+			let previewTimer = null;
+			const modelSize = posenetConfig.inputResolution;
 
-			// Draw frame function
-			function drawPreviewFrame(frameIndex) {
-				if (frameIndex >= frames.length) return;
+			async function drawPreviewFrame(frameIndex) {
+				if (previewStopped || frameIndex >= frames.length) {
+					return;
+				}
 
 				const frameData = frames[frameIndex];
-				const { joints, videoFrame, pose } = frameData;
+				const { joints, pose, timestamp } = frameData;
 
-				// Clear canvases
+				await seekVideoToTime(sourceVideo, timestamp);
+				if (previewStopped) {
+					return;
+				}
+
 				if (videoPoseCtx) {
 					const canvas = videoPoseCtx.canvas;
 					videoPoseCtx.clearRect(0, 0, canvas.width, canvas.height);
-				}
-				stickmanCtx.clearRect(0, 0, stickmanCanvas.width, stickmanCanvas.height);
 
-				// Draw original video frame with pose keypoints (in left section)
-				if (videoPoseCtx && videoFrame && pose) {
-					const canvas = videoPoseCtx.canvas;
-					const tempCanvas = document.createElement('canvas');
-					tempCanvas.width = videoFrame.width;
-					tempCanvas.height = videoFrame.height;
-					const tempCtx = tempCanvas.getContext('2d');
-					tempCtx.putImageData(videoFrame, 0, 0);
+					const scale = Math.min(canvas.width / modelSize, canvas.height / modelSize);
+					const fittedWidth = modelSize * scale;
+					const fittedHeight = modelSize * scale;
+					const offsetX = (canvas.width - fittedWidth) / 2;
+					const offsetY = (canvas.height - fittedHeight) / 2;
+					const box = computeLetterbox(sourceVideo.videoWidth, sourceVideo.videoHeight, modelSize, modelSize);
 
-					// Scale video to fit canvas
-					const scaleX = canvas.width / videoFrame.width;
-					const scaleY = canvas.height / videoFrame.height;
-					const scale = Math.min(scaleX, scaleY);
+					videoPoseCtx.drawImage(
+						sourceVideo,
+						offsetX + box.offsetX * scale,
+						offsetY + box.offsetY * scale,
+						box.drawWidth * scale,
+						box.drawHeight * scale
+					);
 
-					const drawWidth = videoFrame.width * scale;
-					const drawHeight = videoFrame.height * scale;
-					const offsetX = (canvas.width - drawWidth) / 2;
-					const offsetY = (canvas.height - drawHeight) / 2;
-
-					videoPoseCtx.drawImage(tempCanvas, offsetX, offsetY, drawWidth, drawHeight);
-
-					// Draw pose keypoints on video
-					videoPoseCtx.save();
-					videoPoseCtx.translate(offsetX, offsetY);
-					videoPoseCtx.scale(scale, scale);
-					drawPoseKeypoints(videoPoseCtx, pose, 1, 1);
-					videoPoseCtx.restore();
+					if (pose) {
+						videoPoseCtx.save();
+						videoPoseCtx.translate(offsetX, offsetY);
+						videoPoseCtx.scale(scale, scale);
+						drawPoseKeypoints(videoPoseCtx, pose, 1, 1);
+						videoPoseCtx.restore();
+					}
 				}
 
-				// Draw stickman (in right section)
 				stickmanCtx.fillStyle = '#ffffff';
 				stickmanCtx.fillRect(0, 0, stickmanCanvas.width, stickmanCanvas.height);
 
-				// Center the stickman in the canvas
 				const stickmanOffsetX = stickmanCanvas.width / 2;
 				const stickmanOffsetY = stickmanCanvas.height / 2;
 
@@ -5025,31 +5015,36 @@ define([
 					name: joint.name
 				}));
 
-				// Draw stickman
 				drawStickmanPreview(stickmanCtx, centeredJoints);
 
-				// Update frame counter
 				const frameNumberElement = document.getElementById('frame-number');
 				if (frameNumberElement) {
 					frameNumberElement.textContent = frameIndex + 1;
 				}
 			}
 
-			// Animation loop for auto-play
-			function animate() {
-				drawPreviewFrame(currentPreviewFrame);
-				currentPreviewFrame = (currentPreviewFrame + 1) % frames.length;
-
-				return setTimeout(() => {
-					requestAnimationFrame(animate);
-				}, 200); // 5 FPS preview
+			async function playPreview() {
+				while (!previewStopped && frames.length > 0) {
+					await drawPreviewFrame(currentPreviewFrame);
+					if (previewStopped) {
+						break;
+					}
+					currentPreviewFrame = (currentPreviewFrame + 1) % frames.length;
+					await new Promise((resolve) => {
+						previewTimer = setTimeout(resolve, 200);
+					});
+				}
 			}
 
-			// Start with first frame
-			drawPreviewFrame(0);
+			playPreview();
 
-			// Start auto-play animation
-			return animate();
+			return function stopPreview() {
+				previewStopped = true;
+				if (previewTimer) {
+					clearTimeout(previewTimer);
+					previewTimer = null;
+				}
+			};
 		}
 
 		// Add the video animation frames to canvas as a new stickman
