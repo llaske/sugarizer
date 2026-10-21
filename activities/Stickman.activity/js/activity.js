@@ -1101,6 +1101,8 @@ define([
 					return;
 				}
 
+				const currentUser = presence.getUserInfo();
+
 				const message = {
 					user: currentUser,
 					action: 'stickman_movement',
