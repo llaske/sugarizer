@@ -374,6 +374,7 @@
 	"TutoActivity3DVolumeactivity": "Explorez le monde des volumes avec ce simulateur interactif ! Ajoutez et retirez des volumes de différentes formes et couleurs, transformez-les en dés, faites pivoter, zoomez, et secouez le plateau. Et partagez le plaisir et l'apprentissage en temps réel avec des amis !",
 	"TutoActivityHumanBodyactivity": "Explorez le corps humain en 3D avec des couches interactives. Changez de vue, coloriez les organes et jouez à un quiz amusant avec vos amis en mode Docteur.",
 	"TutoActivityStickmanactivity": "Animez une silhouette articulée en la faisant tourner, danser ou sauter. Laissez libre cours à votre imagination et partagez vos animations avec vos amis !",
+	"TutoActivityColorLabactivity": "L'activité ColorLab vous permet de mélanger les couleurs, de tester vos compétences en correspondance de couleurs et d'explorer les harmonies de couleurs.",
 	"FilterAssignment": "Filtrer Devoirs",
 	"SecondsSubmitted": "Rendu à l'instant",
 	"Submitted": "Rendu il y a {{time}}",
