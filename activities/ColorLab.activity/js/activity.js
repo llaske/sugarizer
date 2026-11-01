@@ -402,7 +402,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
         function updateFreePaintUI() {
             // Mixing Bowl
             var bowlColor = '#ffffff';
-            var bowlName = 'White';
+            var bowlName = l10n.get('White') || 'White';
 
             if (!state.isInitialState) {
                 var rgbFree = { r: state.redSliderFree, g: state.greenSliderFree, b: state.blueSliderFree };
@@ -846,7 +846,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
             elements['difficulty-options'] = container;
 
             var header = document.createElement('h4');
-            header.textContent = l10n.get('Select Level') || 'Select Level';
+            header.textContent = l10n.get('SelectLevel') || 'Select Level';
             header.style.color = '#ffffff';
             header.style.textAlign = 'center';
             header.style.margin = '10px 0 10px 0';
@@ -1015,7 +1015,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "sugar-web/graphics/pale
                         // Fallback for older clients that just send a string
                         winnerName = typeof winnerObj === 'string' ? winnerObj : "Someone";
                     }
-                    humane.log(html + winnerName + " " + (l10n.get('JustCompleted') || "just completed!"));
+                    humane.log(html + (l10n.get('JustCompleted', { winner: winnerName }) || winnerName + " just completed!"));
                     break;
             }
         }
