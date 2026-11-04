@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+  <!ENTITY fill_color "#FFFFFF">
+  <!ENTITY stroke_color "#010101">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" viewBox="0 0 55 55">
+  <!-- Trash can body -->
+  <path d="M 16 20 L 18 46 L 37 46 L 39 20 Z"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2;stroke-linejoin:round"/>
+  <!-- Lid -->
+  <rect x="12" y="15" width="31" height="5" rx="1.5" ry="1.5"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:2"/>
+  <!-- Handle -->
+  <rect x="22" y="10" width="11" height="5" rx="2" ry="2"
+    style="fill:&fill_color;;stroke:&stroke_color;;stroke-width:1.5"/>
+  <!-- Vertical lines -->
+  <line x1="23" y1="25" x2="23" y2="41" style="stroke:&stroke_color;;stroke-width:1.5"/>
+  <line x1="27.5" y1="25" x2="27.5" y2="41" style="stroke:&stroke_color;;stroke-width:1.5"/>
+  <line x1="32" y1="25" x2="32" y2="41" style="stroke:&stroke_color;;stroke-width:1.5"/>
+</svg>

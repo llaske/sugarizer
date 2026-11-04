@@ -157,6 +157,8 @@ define([], function() {
 					data.server = server;
 					sugarizer.modules.settings.setUser(data);
 					resolve(data);
+				}).catch((err) => {
+					reject(err);
 				});
 			}, (error) => {
 				reject(error);
