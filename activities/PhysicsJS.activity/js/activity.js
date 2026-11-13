@@ -435,11 +435,13 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					world.add(newton);
 					appleButton.classList.add('active');
 					gravityButton.disabled = true;
+					world.wakeUpAll();
 				} else {
 					world.remove(newton);
 					world.add(gravity);
 					appleButton.classList.remove('active');
 					gravityButton.disabled = false;
+					world.wakeUpAll();
 				}
 			}, true);
 			
@@ -456,12 +458,14 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					gravityButton.disabled = false;
 					WATER.updateBoundary();
         			document.getElementById('viewport').classList.add('water-mode');
+					world.wakeUpAll();
     			} else {
 					world.remove(waterBehavior);
 					WATER.enabled = false;
         			waterButton.classList.remove('active');
 					gravityButton.disabled = false;
         			document.getElementById('viewport').classList.remove('water-mode');
+					world.wakeUpAll();
     			}
 			}, true);
 
@@ -855,6 +859,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						WATER.updateBoundary();
 						waterButton.classList.add('active');
 						gravityButton.disabled = false;
+						world.wakeUpAll();
 					} else if (!data.watermode && data.newtonMode){
 						newtonMode = true
 						world.remove(gravity);
@@ -866,6 +871,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 						world.add(newton);
 						appleButton.classList.add('active');
 						gravityButton.disabled = true;
+						world.wakeUpAll();
 					}
 					
 					data.gravityMode = data.gravityMode == undefined ? 0 : data.gravityMode
