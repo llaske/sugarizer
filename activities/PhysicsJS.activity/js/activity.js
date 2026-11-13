@@ -976,6 +976,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 			function getCorrectedPos(pos) {
 				var canvas = document.getElementById('viewport').children[0];
 				if (!canvas) return pos;
+				var dpr = window.devicePixelRatio;
 				var b = 0, c = 0, a = canvas;
 				if (a.offsetParent) {
 					do { 
@@ -988,7 +989,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 				var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
 				return { 
 					x: (pos.x + b) - (r.left + scrollLeft), 
-					y: (pos.y + c) - (r.top + scrollTop) 
+					y: (pos.y + c) - (r.top + scrollTop) + (0 - (currentType == 4 &&dpr > 1 ? 55: 0))
 				};
 			}
 

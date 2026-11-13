@@ -26,6 +26,8 @@ const HomeScreen = {
 											v-on:click="runActivity(activity)"
 											v-on:mouseover="showPopupTimer($event, activity.id)"
 											v-on:mouseout="removePopupTimer($event)"
+											v-on:touchstart="showPopupTouchTimer($event, activity.id)"
+											v-on:touchend="removePopupTouchTimer($event)"
 										/>
 									</div>
 								</div>
@@ -42,6 +44,8 @@ const HomeScreen = {
 									:y="canvasCenter.y - constant.sizeOwner/2"
 									v-on:mouseover="showPopupTimer($event, 'buddy')"
 									v-on:mouseout="removePopupTimer($event)"
+									v-on:touchstart="showPopupTouchTimer($event, 'buddy')"
+									v-on:touchend="removePopupTouchTimer($event)"
 								></icon>
 							</transition>
 							<transition name="bounce" appear>
@@ -305,6 +309,24 @@ const HomeScreen = {
 				popupData[activity.id] = popup;
 			});
 			this.popupData = popupData;
+		},
+
+		showPopupTouchTimer(e, id) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			if (e.touches && e.touches.length > 0) {
+				const touch = e.touches[0];
+				this.showPopupTimer({ clientX: touch.clientX, clientY: touch.clientY }, id);
+			}
+		},
+
+		removePopupTouchTimer(e) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			const touch = e.changedTouches && e.changedTouches.length > 0 ? e.changedTouches[0] : null;
+			this.removePopupTimer({ clientX: touch ? touch.clientX : 0, clientY: touch ? touch.clientY : 0 });
 		},
 
 		showPopupTimer(e, id) {

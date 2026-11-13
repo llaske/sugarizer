@@ -44,19 +44,4 @@
   </div>
   <canvas id="paint-canvas" style="width:100%; "></canvas>
 </body>
-<script type="text/javascript">
-	requirejs.config({
-		baseUrl: "js",
-		paths: {
-			activity: "../js"
-		}
-	});
-	var l10n = null;
-	requirejs(["../lib/l10n"], function (il10n) {
-		l10n = il10n;
-	});
-	window.addEventListener('localized', function() {
-		l10n.updateDocument();
-	}, false);
-</script>
 </html>

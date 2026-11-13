@@ -20,6 +20,8 @@ const Neighborhood = {
 					class="network-icon user-icon"
 					@mouseover="showPopupTimer($event, 'u-'+entity.networkId, entity.popupData)"
 					@mouseleave="removePopupTimer"
+					@touchstart="showPopupTouchTimer($event, 'u-'+entity.networkId, entity.popupData)"
+					@touchend="removePopupTouchTimer($event)"
 				></icon>
 			</transition-group>
 			<div v-for="(activity, _) in activitiesWithUsers" :key="activity.id">
@@ -36,6 +38,8 @@ const Neighborhood = {
 					@click="joinActivity(activity.activityInfo, activity.id)"
 					@mouseover="showPopupTimer($event, activity.id, activity.popupData)"
 					@mouseleave="removePopupTimer"
+					@touchstart="showPopupTouchTimer($event, activity.id, activity.popupData)"
+					@touchend="removePopupTouchTimer($event)"
 				></icon>
 				<transition-group name="bounce" appear>
 					<icon
@@ -51,6 +55,8 @@ const Neighborhood = {
 						class="network-icon user-icon"
 						@mouseover="showPopupTimer($event, user.networkId, user.popupData)"
 						@mouseleave="removePopupTimer"
+						@touchstart="showPopupTouchTimer($event, user.networkId, user.popupData)"
+						@touchend="removePopupTouchTimer($event)"
 					></icon>
 				</transition-group>
 			</div>
@@ -166,6 +172,15 @@ const Neighborhood = {
 				data
 			);
 		},
+		showPopupTouchTimer(e, iconRef, data) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			if (e.touches && e.touches.length > 0) {
+				const touch = e.touches[0];
+				this.showPopupTimer({ clientX: touch.clientX, clientY: touch.clientY }, iconRef, data);
+			}
+		},
 		showPopup(e, iconRef, popupData) {
 			if (this.$refs.popup.isShown) this.removePopup(e); //remove before updating iconRef
 
@@ -188,6 +203,13 @@ const Neighborhood = {
 				this.constant.timerPopupDuration,
 				e
 			);
+		},
+		removePopupTouchTimer(e) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			const touch = e.changedTouches && e.changedTouches.length > 0 ? e.changedTouches[0] : null;
+			this.removePopupTimer({ clientX: touch ? touch.clientX : 0, clientY: touch ? touch.clientY : 0 });
 		},
 		removePopup(e) {
 			const popupIcon = this.$refs[this.popupIconRef]?.[0];

@@ -2,6 +2,8 @@ var Speech = (function() {
 
 	var answerFinal = "";
 	var playing = "";
+	var isPlaying = false;
+	var onDone = null;
 
 	function init(settings){
 		//No Initialization as of now.
@@ -88,27 +90,38 @@ var Speech = (function() {
 	}
 
 	function playVoice(language, text) {
-      playing = text;
+		if (isPlaying) {
+			return false;
+		}
 
-			//Adds option when text is spoken
-			var addUserInput = document.createElement("OPTION");
-			addUserInput.setAttribute("value", playing);
-			addUserInput.text = playing;
-			document.getElementById("combo-box").appendChild(addUserInput);
-			document.getElementById("combo-box").value= playing;
+		if (!text || !text.trim()) {
+			return false;
+		}
 
-			speakArray.push(playing); // Adds recent talks to speakArray
+		isPlaying = true;
+		playing = text;
 
-      if(document.getElementById('mode').innerHTML=="2"){
-	    //After the voice is loaded, playSound callback is called
-	    getBotReply(text);
-	    setTimeout(function(){
-			loadVoice(language, playSound);
-		}, 4000);
-  	  }
-  	  else{
+		// Adds option when text is spoken
+		var addUserInput = document.createElement("OPTION");
+		addUserInput.setAttribute("value", playing);
+		addUserInput.text = playing;
+		document.getElementById("combo-box").appendChild(addUserInput);
+		document.getElementById("combo-box").value = playing;
+
+		speakArray.push(playing); // Adds recent talks to speakArray
+
+		if (document.getElementById('mode').innerHTML == "2") {
+			// After the voice is loaded, playSound callback is called
+			getBotReply(text);
+			setTimeout(function() {
 				loadVoice(language, playSound);
-  	  }
+			}, 4000);
+		}
+		else {
+			loadVoice(language, playSound);
+		}
+
+		return true;
     }
 
 
@@ -123,6 +136,10 @@ var Speech = (function() {
 
 		function soundComplete(){
 			document.getElementById('speaking').innerHTML = "0";
+			isPlaying = false;
+			if (onDone) {
+				onDone();
+			}
 		}
 
 		if (!/iPad|iPhone/.test(navigator.userAgent)) {
@@ -133,14 +150,28 @@ var Speech = (function() {
 			var sound = new Audio(myDataUrl);
 			sound.addEventListener("ended", function(){
 				document.getElementById('speaking').innerHTML = "0";
+				isPlaying = false;
+				if (onDone) {
+					onDone();
+				}
 			});
 			sound.play();
 		}
     }
 
+	function getIsPlaying() {
+		return isPlaying;
+	}
+
+	function setOnDone(callback) {
+		onDone = callback;
+	}
+
 	return {
         init: init,
-		playVoice: playVoice
+		playVoice: playVoice,
+		isPlaying: getIsPlaying,
+		onDone: setOnDone
     };
 
 });

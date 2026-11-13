@@ -30,6 +30,11 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
 
   PaintApp.collaboration = p20;
 
+  /* Setup localization update listener */
+  window.addEventListener('localized', function() {
+    l10n.updateDocument();
+  }, false);
+
   requirejs(['domReady!', 'sugar-web/datastore', 'paper-core', 'mustache', 'lzstring', 'humane'], function(doc, datastore, _paper, mustache, lzstring, humane) {
 
     /* Fetching and storing libraries */
@@ -55,7 +60,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
     // Export as PNG image
     document.getElementById("save-image-button").addEventListener('click', function () {
       var mimetype = 'image/png';
-      var inputData =PaintApp.data.worldCanvas.toDataURL(mimetype, 1);
+      var inputData = document.getElementById("paint-canvas").toDataURL(mimetype, 1);
       var metadata = {
         mimetype: mimetype,
         title: l10n.get("PaintBy", { name: currentenv.user.name }),
@@ -66,18 +71,19 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
       };
       datastore.create(metadata, function () {
         humane.log(l10n.get('PaintImageSaved'))
+        console.log("export done.")
       }, inputData);
     });
 
     document.getElementById("stop-button").addEventListener('click', function(event) {
-      PaintApp.data.worldCanvas.getContext('2d').drawImage(PaintApp.elements.canvas, 0, 0,PaintApp.prevScreenWidth,PaintApp.prevScreenHeight);
       var data = {
-        width: PaintApp.data.worldCanvas.width / window.devicePixelRatio,
-        height: PaintApp.data.worldCanvas.height / window.devicePixelRatio,
-        src: PaintApp.collaboration.compress(PaintApp.data.worldCanvas.toDataURL())
+        width: PaintApp.elements.canvas.width / window.devicePixelRatio,
+        height: PaintApp.elements.canvas.height / window.devicePixelRatio,
+        src: PaintApp.collaboration.compress(PaintApp.elements.canvas.toDataURL())
       }
+
       var jsonData = JSON.stringify(data);
-      
+
       activity.getDatastoreObject().setDataAsText(jsonData);
       activity.getDatastoreObject().save(function(error) {});
     });
@@ -93,17 +99,12 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env","activit
           return;
         }
         var data = JSON.parse(jsonData);
-        PaintApp.data.worldCanvas.width=data.width
-        PaintApp.data.worldCanvas.height=data.height
-        PaintApp.data.worldCanvas.style.width = data.width+"px";
-        PaintApp.data.worldCanvas.style.height = data.height+"px";
         PaintApp.clearCanvas();
         img = new Image();
         img.onload = function() {
-          PaintApp.data.worldCanvas.getContext('2d').drawImage(img, 0, 0, data.width, data.height);
-          PaintApp.elements.canvas.getContext('2d').drawImage(PaintApp.data.worldCanvas,0,0,window.innerWidth,window.innerHeight-55,0,0,window.innerWidth,window.innerHeight-55);
+          PaintApp.elements.canvas.getContext('2d').drawImage(img, 0, 0, data.width, data.height);
           PaintApp.saveCanvas();
-        };    
+        };
         img.src = PaintApp.collaboration.decompress(data.src);
         //DISPLAY
       });

@@ -64,6 +64,9 @@ define([
 		let previousMesh = null;
 		let tourTimer = null;
 
+		const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+
 		let failedAttempts = 0;
 		const REMINDER_AFTER_ATTEMPTS = 3; // Show reminder after 3 failed attempts
 
@@ -1947,6 +1950,15 @@ define([
 
 		renderer.shadowMap.enabled = true;
 		renderer.setSize(window.innerWidth, window.innerHeight);
+		
+		// Ensure the renderer canvas supports touch events on iOS
+		if (isIOS) {
+			renderer.domElement.style.touchAction = 'none';
+			renderer.domElement.style.webkitUserSelect = 'none';
+			renderer.domElement.style.userSelect = 'none';
+			renderer.domElement.style.webkitTouchCallout = 'none';
+		}
+		
 		const canvas = document.getElementById("canvas");
 		canvas.appendChild(renderer.domElement);
 		const scene = new THREE.Scene();
@@ -2150,7 +2162,7 @@ define([
 			if (!currentModel) return;
 
 			const object = currentModel.getObjectByName(objectName);
-			if (!object) return;
+			if (!object || !object.isMesh || !object.material) return;
 
 			// Store original material
 			if (!object.userData.originalMaterial) {
@@ -2175,7 +2187,7 @@ define([
 
 			// Apply color
 			if (color !== "#ffffff" && color !== "#000000") {
-				object.material = new THREE.MeshStandardMaterial({
+				const newMaterial = new THREE.MeshStandardMaterial({
 					color: new THREE.Color(color),
 					side: THREE.DoubleSide,
 					transparent: false,
@@ -2183,6 +2195,8 @@ define([
 					depthTest: true,
 					depthWrite: true
 				});
+				newMaterial.needsUpdate = true;
+				object.material = newMaterial;
 			} else {
 				object.material = object.userData.originalMaterial.clone();
 			}
@@ -2191,6 +2205,12 @@ define([
 
 		// handle the click event for painting
 		function handlePaintMode(object) {
+			// Safety check: ensure object is a mesh with material
+			if (!object || !object.isMesh || !object.material) {
+				console.warn("Click detected but object is not a valid mesh:", object);
+				return;
+			}
+
 			if (!object.userData.originalMaterial) {
 				object.userData.originalMaterial = object.material.clone();
 			}
@@ -2224,7 +2244,7 @@ define([
 			}
 
 			if (isDefaultColor) {
-				object.material = new THREE.MeshStandardMaterial({
+				const newMaterial = new THREE.MeshStandardMaterial({
 					color: new THREE.Color(fillColor),
 					side: THREE.DoubleSide,
 					transparent: false,
@@ -2232,6 +2252,8 @@ define([
 					depthTest: true,
 					depthWrite: true
 				});
+				newMaterial.needsUpdate = true;
+				object.material = newMaterial;
 			} else {
 				object.material = object.userData.originalMaterial.clone();
 			}
@@ -2270,6 +2292,12 @@ define([
 		// handle the click event for doctor mode checks if the clicked object is the correct body part
 
 		function handleDoctorMode(object) {
+			// Safety check: ensure object is a mesh with material
+			if (!object || !object.isMesh || !object.material) {
+				console.warn("Doctor mode clicked but object is not a valid mesh:", object);
+				return;
+			}
+
 			// Store original material if not already stored
 			if (!object.userData.originalMaterial) {
 				object.userData.originalMaterial = object.material.clone();
@@ -2287,7 +2315,7 @@ define([
 					failedAttempts = 0;
 
 					// Correct answer - color green temporarily
-					object.material = new THREE.MeshStandardMaterial({
+					const greenMaterial = new THREE.MeshStandardMaterial({
 						color: new THREE.Color("#00ff00"), // Green
 						side: THREE.DoubleSide,
 						transparent: false,
@@ -2295,6 +2323,8 @@ define([
 						depthTest: true,
 						depthWrite: true
 					});
+					greenMaterial.needsUpdate = true;
+					object.material = greenMaterial;
 
 					// Restore original color after 1 second
 					setTimeout(() => {
@@ -2347,7 +2377,7 @@ define([
 					}
 
 					// Wrong answer - color red temporarily
-					object.material = new THREE.MeshStandardMaterial({
+					const redMaterial = new THREE.MeshStandardMaterial({
 						color: new THREE.Color("#ff0000"), // Red
 						side: THREE.DoubleSide,
 						transparent: false,
@@ -2355,6 +2385,8 @@ define([
 						depthTest: true,
 						depthWrite: true
 					});
+					redMaterial.needsUpdate = true;
+					object.material = redMaterial;
 
 					// Restore original color after 1 second
 					setTimeout(() => {
@@ -2370,7 +2402,7 @@ define([
 					failedAttempts = 0;
 
 					// Correct answer - color green temporarily
-					object.material = new THREE.MeshStandardMaterial({
+					const singleGreenMaterial = new THREE.MeshStandardMaterial({
 						color: new THREE.Color("#00ff00"), // Green
 						side: THREE.DoubleSide,
 						transparent: false,
@@ -2378,6 +2410,8 @@ define([
 						depthTest: true,
 						depthWrite: true
 					});
+					singleGreenMaterial.needsUpdate = true;
+					object.material = singleGreenMaterial;
 
 					// Restore original color after 1 second
 					setTimeout(() => {
@@ -2407,15 +2441,16 @@ define([
 					}
 
 					// Wrong answer - color red temporarily
-					object.material = new THREE.MeshStandardMaterial({
-						color: new THREE.Color("#ff0000"), // Pure red
-						side: THREE.DoubleSide,
-						transparent: false,
-						opacity: 1.0,
-						depthTest: true,
-						depthWrite: true
-					});
-
+				const singleRedMaterial = new THREE.MeshStandardMaterial({
+					color: new THREE.Color("#ff0000"), // Pure red
+					side: THREE.DoubleSide,
+					transparent: false,
+					opacity: 1.0,
+					depthTest: true,
+					depthWrite: true
+				});
+				singleRedMaterial.needsUpdate = true;
+				object.material = singleRedMaterial;
 					// Restore original color after 1 second
 					setTimeout(() => {
 						restoreMeshColor(object);
@@ -2425,14 +2460,14 @@ define([
 		}
 
 		function restoreMeshColor(mesh) {
-			if (!mesh.userData.currentColor) return;
+			if (!mesh || !mesh.userData.currentColor) return;
 			
 			// Check if this part has been painted
 			const paintedPart = partsColored.find(([name]) => name === mesh.name);
 			
 			if (paintedPart) {
 				const paintedColor = paintedPart[1];
-				mesh.material = new THREE.MeshStandardMaterial({
+				const restoredMaterial = new THREE.MeshStandardMaterial({
 					color: new THREE.Color(paintedColor),
 					side: THREE.DoubleSide,
 					transparent: false,
@@ -2440,6 +2475,8 @@ define([
 					depthTest: true,
 					depthWrite: true
 				});
+				restoredMaterial.needsUpdate = true;
+				mesh.material = restoredMaterial;
 			} else {
 				// Restore original material 
 				if (mesh.userData.originalMaterial) {
@@ -2451,9 +2488,18 @@ define([
 		}
 
 		function onMouseClick(event) {
+			handleCanvasClick(event.clientX, event.clientY);
+		}
+
+		function handleCanvasClick(clientX, clientY) {
 			const rect = renderer.domElement.getBoundingClientRect();
-			const x = event.clientX - rect.left;
-			const y = event.clientY - rect.top;
+			const x = clientX - rect.left;
+			const y = clientY - rect.top;
+
+			// Check if click is within the canvas
+			if (x < 0 || x > rect.width || y < 0 || y > rect.height) {
+				return;
+			}
 
 			// Convert to normalized device coordinates
 			mouse.x = (x / rect.width) * 2 - 1;
@@ -2519,6 +2565,27 @@ define([
 		}
 
 		window.addEventListener("click", onMouseClick, false);
+
+		// Only is on iOS
+		if (isIOS) {
+			// Add touch event support for iOS
+			window.addEventListener("touchstart", function(event) {
+				// Only handle single touch
+				if (event.touches.length === 1) {
+					const touch = event.touches[0];
+					handleCanvasClick(touch.clientX, touch.clientY);
+					event.preventDefault();
+				}
+			}, false);
+
+			// Add pointer event support as a fallback (handles both touch and mouse)
+			renderer.domElement.addEventListener("pointerdown", function(event) {
+				// Only handle primary pointer (touch or left mouse button)
+				if (event.isPrimary) {
+					handleCanvasClick(event.clientX, event.clientY);
+				}
+			}, false);
+		}
 
 		document.getElementById("fullscreen-button").addEventListener('click', function () {
 			document.body.classList.add('fullscreen-mode');

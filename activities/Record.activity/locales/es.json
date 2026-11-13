@@ -8,7 +8,7 @@
   "TutoPhotoTitle": "Foto",
   "TutoPhotoContent": "Haz clic aquí para sacar una foto. Después de hacer clic, tendrás 3 segundos antes de que se saque la foto. ¡Sonríe!",
   "TutoVideoTitle": "Vídeo",
-  "TutoVideoContent": "Haz clic aquí para empezar a grabar un vídeo. La captura de vídeo comenzará inmediatamente y durará 5 segundos",
+  "TutoVideoContent": "Haz clic aquí para empezar a grabar un vídeo. La captura de vídeo comenzará inmediatamente y durará 15 segundos",
   "TutoAudioTitle": "Sonido",
   "TutoAudioContent": "Haz clic aquí para comenzar a grabar sonido usando tu micrófono. La captura de sonido comenzará inmediatamente y durará 5 segundos"
 }

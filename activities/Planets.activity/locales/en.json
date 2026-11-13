@@ -19,6 +19,7 @@
 	"NumberOfMoons": "Number of Moons:",
 	"PlanetRadius": "Planet Radius:",
 	"SunDistance": "Distance from the Sun:",
+	"PlanetImageSaved": "{{planet}} image saved to journal",
 	"TutoExplainTitle": "Planets Activity",
 	"TutoExplainContent": "Welcome to Planets Activity! It provides a 3D model of planets for you to explore",
 	"TutoPlanetImage": "Planet Images",

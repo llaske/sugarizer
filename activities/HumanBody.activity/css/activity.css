@@ -71,6 +71,9 @@ body {
 
 #canvas {
     overflow: hidden;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .color-palette {
