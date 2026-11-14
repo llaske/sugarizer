@@ -41,12 +41,13 @@ define(["lib/i18next.min.js", "lib/i18next-vue.js"], function (
 					);
 				})
 				.catch((error) => {
-					if (error.response.status == 404) {
+					// On file:// (Electron/Cordova) a missing file gives no response
+					if (!error.response || error.response.status == 404) {
 						if (!triedFallback) {
 							console.error("Cannnot load language", language);
 							language = "en";
 							triedFallback = true;
-							init();
+							init().then(resolve);
 						} else {
 							console.error(
 								"Failed to load any language, including the fallback 'english'"
