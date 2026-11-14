@@ -441,6 +441,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					appleButton.classList.remove('active');
 					gravityButton.disabled = false;
 				}
+				world.wakeUpAll(); // resting bodies are asleep and ignore the force change otherwise
 			}, true);
 			
 			waterButton.addEventListener('click', function () {
@@ -463,6 +464,7 @@ define(["sugar-web/activity/activity","tutorial","l10n","sugar-web/env"], functi
 					gravityButton.disabled = false;
         			document.getElementById('viewport').classList.remove('water-mode');
     			}
+				world.wakeUpAll(); // floating bodies fall asleep at the waterline; wake them so they fall
 			}, true);
 
 			function accelerationChanged(accelerationEvent) {

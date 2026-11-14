@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix axis label swapping across chart types in shared mode #2185
 - Speak.activity crashes or breaks when Enter is held after typing text #2182
 - Blank window on unsupported locales #2202
+- Physics: Small shapes continue floating after disabling Water Mode #2200
 
 ## [2.0.0] - 2026-07-17
 ### Added
