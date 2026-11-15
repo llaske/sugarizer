@@ -15,6 +15,9 @@ function Editor(stage,xocol,doc,colors,activity,env,datastore,forcereload){
 	this.height = stage.canvas.height;
 	this.env = env;
 	this.ds = datastore;
+	this.currentFill = colors.fill;
+	this.currentStroke = colors.stroke;
+	this.currentColNumber = null;
 
 	this.hexToRgb = function(hex) {
 	    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -144,6 +147,7 @@ function Editor(stage,xocol,doc,colors,activity,env,datastore,forcereload){
 
 	this.init = function(){
 		if (forcereload==true){
+			this.ds.localStorage.setValue('xo_editor_temp_color', null);
 			this.init_getsettings(false,[]);
 		} else {
 			activity.getDatastoreObject().getMetadata(this.init_canaccessdatastore.bind(this));
@@ -180,8 +184,40 @@ function Editor(stage,xocol,doc,colors,activity,env,datastore,forcereload){
 		this.calczones();
 
 		var cnum = settings;
-		var xo = new XOMan(colors.fill,colors.stroke,this,cnum.color);
+		if (!forcereload && this.currentColNumber === null) {
+			var temp = this.ds.localStorage.getValue('xo_editor_temp_color');
+			if (temp) {
+				this.currentFill = temp.fill;
+				this.currentStroke = temp.stroke;
+				this.currentColNumber = temp.num;
+			} else if (cnum) {
+				this.currentFill = (cnum.colorvalue && cnum.colorvalue.fill) ? cnum.colorvalue.fill : colors.fill;
+				this.currentStroke = (cnum.colorvalue && cnum.colorvalue.stroke) ? cnum.colorvalue.stroke : colors.stroke;
+				this.currentColNumber = cnum.color;
+			}
+		}
+
+		var xo = new XOMan(this.currentFill,this.currentStroke,this,this.currentColNumber);
 		xo.init();
+
+		var self = this;
+		var oldUpdateSVG = xo.updateSVG;
+		xo.updateSVG = function(icol, ocol, number) {
+			self.currentFill = icol;
+			self.currentStroke = ocol;
+			self.currentColNumber = number;
+
+			// Store in temporary session key to handle re-initialization (fullscreen/resize)
+			// without overriding the global sugar_settings until 'Save' is clicked.
+			self.ds.localStorage.setValue('xo_editor_temp_color', {
+				fill: icol,
+				stroke: ocol,
+				num: number
+			});
+
+			oldUpdateSVG.call(this, icol, ocol, number);
+		}
+
 		this.xo = xo;
 
 		if (isdata==false) {
