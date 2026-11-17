@@ -175,5 +175,8 @@
 	"eliminated": "eliminated",
 	"hasBeenIntercepted": "has been intercepted",
 	"eliminatedEachOther": "eliminated each other",
-	"wonTheGame": "won the game!"
+	"itsTie": "It's a Tie!",
+	"and": "and",
+	"wonTheGame": "won the game!",
+	"MaxPlayersReached": "Maximum player count has been reached (8 players max)"
 }

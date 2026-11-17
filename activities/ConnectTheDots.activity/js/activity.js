@@ -6,6 +6,22 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var currentMode = drawMode;
 		var canvas = document.getElementById('gridCanvas');
 		var ctx = canvas ? canvas.getContext('2d') : null;
+		var modeButton = document.getElementById('mode-button');
+		var libraryButton = document.getElementById('library-button');
+		var colorsButtonFill = document.getElementById('colors-button-fill');
+		var drawButton = document.getElementById('draw-button');
+		var eraseButton = document.getElementById('erase-button');
+		var clearButton = document.getElementById('clear-button');
+		var restartButton = document.getElementById('restart-button');
+		var robotButton = document.getElementById('robot-button');
+		var speedButton = document.getElementById('speed-button');
+		var playButton = document.getElementById('play-button');
+		var saveImageButton = document.getElementById('save-image-button');
+		var libraryGallery = document.getElementById('library-gallery');
+		var categoryFormScreen = document.getElementById('category-form-screen');
+		var playFigureBackButton = document.getElementById('play-figure-back-button');
+		var isRobotOn = true;
+		var isGameStarted = false;
 		var CANVAS_WIDTH = 900;
 		var CANVAS_HEIGHT = 748;
 		var spacing = 55;
@@ -22,58 +38,16 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		var buddyStroke = '#005fe4';
 		var buddyFill = '#ff2b34';
 		var hasReceivedInit = false;
-		var mySharedSpawnIndex = 0;
-
-		var recentNotifications = {};
-		var formatAndLogNotification = function(event, subjectName, subjectColor, objectName) {
-			var getL10n = function(key, fallback) {
-				var val = l10n.get(key);
-				return (val && val !== key && val !== "") ? val : fallback;
-			};
-			var myName = currentenv ? currentenv.user.name : "Player";
-			var youStr = getL10n("You", "You");
-			var sName = (subjectName === myName) ? youStr : subjectName;
-			var msg = "";
-			
-			var oName = "";
-			if (objectName) {
-				oName = (objectName === myName) ? youStr : objectName;
-			}
-
-			if (event === 'hitWall') msg = sName + " " + getL10n("hitTheWall", "hit the wall");
-			else if (event === 'win') msg = sName + " " + getL10n("fillMoreThan50", "fill more than 50% of the board");
-			else if (event === 'eliminated') msg = sName + " " + getL10n("eliminated", "eliminated") + " " + oName;
-			else if (event === 'intercepted') msg = sName + " " + getL10n("hasBeenIntercepted", "has been intercepted");
-			else if (event === 'eliminatedEachOther') msg = sName + " and " + oName + " " + getL10n("eliminatedEachOther", "eliminated each other");
-			else if (event === 'gameWon') msg = sName + " " + getL10n("wonTheGame", "won the game");
-
-			var now = Date.now();
-			if (recentNotifications[msg] && now - recentNotifications[msg] < 1500) {
-				return;
-			}
-			recentNotifications[msg] = now;
-			
-			// cleanup old entries
-			for (var key in recentNotifications) {
-				if (now - recentNotifications[key] > 2000) {
-					delete recentNotifications[key];
-				}
-			}
-
-			icon.load({
-				uri: "icons/owner-icon.svg",
-				fillColor: subjectColor.fill,
-				strokeColor: subjectColor.stroke
-			}, function(url) {
-				var iconHtml = "<br><img style='height:30px;vertical-align:middle;margin-top:5px;' src='" + url + "'>";
-				humane.log(msg + iconHtml);
-			});
-		};
-
-		function getMySpawnIndex() {
-			if (!presence) return 0;
-			return mySharedSpawnIndex;
-		}
+		var joinExclusionTriggered = false;
+		var pendingPreInitNotifications = [];
+		var initRequestTimer = null;
+		var initRequestQuickTimer = null;
+		var initRequestAttempts = 0;
+		var clientInitToken = Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+		var backgroundTickTimer = null;
+		var backgroundTickWorker = null;
+		var backgroundTickBlobUrl = null;
+		var lastRenderLoopAt = 0;
 
 		function initDots() {
 			dots = [];
@@ -136,8 +110,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		if (canvas) {
 			window.addEventListener('resize', resize);
-			var endTouch = function (e) {
-				if (e && e.target === canvas && e.cancelable) e.preventDefault();
+			var resetPointer = function () {
 				if (currentMode && typeof currentMode.onMouseUp === 'function') currentMode.onMouseUp();
 				mouseX = -1000;
 				mouseY = -1000;
@@ -145,50 +118,24 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				prevMouseY = -1000;
 			};
 
-			window.addEventListener('mouseup', function () {
-				if (currentMode && typeof currentMode.onMouseUp === 'function') currentMode.onMouseUp();
-				mouseX = -1000;
-				mouseY = -1000;
-				prevMouseX = -1000;
-				prevMouseY = -1000;
-			});
-			window.addEventListener('touchend', endTouch, { passive: false });
-			window.addEventListener('touchcancel', endTouch, { passive: false });
-
-			canvas.addEventListener('mousedown', function (e) {
+			var endTouch = function (e) {
+				if (e && e.target === canvas && e.cancelable) e.preventDefault();
+				resetPointer();
+			};
+			var handlePointerDown = function (clientX, clientY) {
 				var rect = canvas.getBoundingClientRect();
-				mouseX = (e.clientX - rect.left) / zoom;
-				mouseY = (e.clientY - rect.top) / zoom;
+				mouseX = (clientX - rect.left) / zoom;
+				mouseY = (clientY - rect.top) / zoom;
 				prevMouseX = mouseX;
 				prevMouseY = mouseY;
 				if (currentMode && typeof currentMode.onMouseDown === 'function') {
 					currentMode.onMouseDown(mouseX, mouseY);
 				}
-			});
-			canvas.addEventListener('mouseup', function () {
-				if (currentMode && typeof currentMode.onMouseUp === 'function') currentMode.onMouseUp();
-				mouseX = -1000;
-				mouseY = -1000;
-				prevMouseX = -1000;
-				prevMouseY = -1000;
-			});
-			canvas.addEventListener('touchstart', function (e) {
-				if (e && e.cancelable) e.preventDefault();
-				if (e.touches.length > 0) {
-					var rect = canvas.getBoundingClientRect();
-					mouseX = (e.touches[0].clientX - rect.left) / zoom;
-					mouseY = (e.touches[0].clientY - rect.top) / zoom;
-					prevMouseX = mouseX;
-					prevMouseY = mouseY;
-					if (currentMode && typeof currentMode.onMouseDown === 'function') {
-						currentMode.onMouseDown(mouseX, mouseY);
-					}
-				}
-			}, { passive: false });
-			canvas.addEventListener('mousemove', function (e) {
+			};
+			var handlePointerMove = function (clientX, clientY) {
 				var rect = canvas.getBoundingClientRect();
-				var newMouseX = (e.clientX - rect.left) / zoom;
-				var newMouseY = (e.clientY - rect.top) / zoom;
+				var newMouseX = (clientX - rect.left) / zoom;
+				var newMouseY = (clientY - rect.top) / zoom;
 				if (currentMode && typeof currentMode.onMouseMove === 'function') {
 					currentMode.onMouseMove(newMouseX, newMouseY, prevMouseX, prevMouseY);
 				}
@@ -196,38 +143,71 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				mouseY = newMouseY;
 				prevMouseX = newMouseX;
 				prevMouseY = newMouseY;
+			};
+
+			window.addEventListener('mouseup', resetPointer);
+			window.addEventListener('touchend', endTouch, { passive: false });
+			window.addEventListener('touchcancel', endTouch, { passive: false });
+
+			canvas.addEventListener('mousedown', function (e) {
+				if (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+				handlePointerDown(e.clientX, e.clientY);
 			});
-			canvas.addEventListener('touchmove', function (e) {
+			canvas.addEventListener('touchstart', function (e) {
+				if (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
 				if (e && e.cancelable) e.preventDefault();
 				if (e.touches.length > 0) {
-					var rect = canvas.getBoundingClientRect();
-					var newMouseX = (e.touches[0].clientX - rect.left) / zoom;
-					var newMouseY = (e.touches[0].clientY - rect.top) / zoom;
-					if (currentMode && typeof currentMode.onMouseMove === 'function') {
-						currentMode.onMouseMove(newMouseX, newMouseY, prevMouseX, prevMouseY);
-					}
-					mouseX = newMouseX;
-					mouseY = newMouseY;
-					prevMouseX = newMouseX;
-					prevMouseY = newMouseY;
+					handlePointerDown(e.touches[0].clientX, e.touches[0].clientY);
+				}
+			}, { passive: false });
+			canvas.addEventListener('mousemove', function (e) {
+				if (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+				handlePointerMove(e.clientX, e.clientY);
+			});
+			canvas.addEventListener('touchmove', function (e) {
+				if (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+				if (e && e.cancelable) e.preventDefault();
+				if (e.touches.length > 0) {
+					handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
 				}
 			}, { passive: false });
 			canvas.addEventListener('mouseout', function () {
-				if (currentMode && typeof currentMode.onMouseUp === 'function') currentMode.onMouseUp();
-				mouseX = -1000;
-				mouseY = -1000;
-				prevMouseX = -1000;
-				prevMouseY = -1000;
+				if (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+				resetPointer();
 			});
 		}
-		var lastTime = Date.now();
+
+		var nowMs = function () {
+			return (typeof performance !== 'undefined' && typeof performance.now === 'function')
+				? performance.now()
+				: Date.now();
+		};
+		var lastTime = nowMs();
+		lastRenderLoopAt = lastTime;
 		function renderLoop() {
-			var now = Date.now();
-			var delta = now - lastTime;
+			var now = nowMs();
+			lastRenderLoopAt = now;
+			var delta = Math.max(0, now - lastTime);
 			lastTime = now;
 			
 			if (!ctx) return;
 			ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+			var isWaitingOrExcluded = (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) ||
+				joinExclusionTriggered ||
+				(presence && !isHost && !hasReceivedInit);
+
+			if (isWaitingOrExcluded) {
+				for (var i = 0; i < dots.length; i++) {
+					var dot = dots[i];
+					ctx.beginPath();
+					ctx.arc(dot.x, dot.y, dot.baseR, 0, Math.PI * 2);
+					ctx.fillStyle = dot.color || '#a0a0a0';
+					ctx.fill();
+				}
+				requestAnimationFrame(renderLoop);
+				return;
+			}
 
 			if (currentMode && typeof currentMode.drawBehindDots === 'function') {
 				currentMode.drawBehindDots(ctx, delta);
@@ -313,8 +293,128 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		// Link presence palette to network button
 		var presence = null;
+		var myUserInfo = null;
+		function getMyUserInfo() {
+			if ((!myUserInfo || !myUserInfo.networkId) && presence && typeof presence.getUserInfo === 'function') {
+				myUserInfo = presence.getUserInfo();
+			}
+			return myUserInfo;
+		}
 		var isHost = false;
+		var hostNetworkId = null;
 		var palette = new presencepalette.PresencePalette(document.getElementById("network-button"), undefined);
+
+		function stopBackgroundTickLoop() {
+			if (backgroundTickWorker) {
+				try {
+					backgroundTickWorker.terminate();
+				} catch (ignore) {}
+				backgroundTickWorker = null;
+			}
+			if (backgroundTickBlobUrl && typeof URL !== 'undefined' && typeof URL.revokeObjectURL === 'function') {
+				try {
+					URL.revokeObjectURL(backgroundTickBlobUrl);
+				} catch (ignore) {}
+				backgroundTickBlobUrl = null;
+			}
+			if (backgroundTickTimer) {
+				clearInterval(backgroundTickTimer);
+				backgroundTickTimer = null;
+			}
+		}
+
+		function runBackgroundTick(forceTick) {
+			if (!presence || joinExclusionTriggered) {
+				stopBackgroundTickLoop();
+				return;
+			}
+			if (currentMode !== gameMode || typeof gameMode.tickBackground !== 'function') {
+				return;
+			}
+			var nowBg = nowMs();
+			var isHidden = !!(typeof document !== 'undefined' && document.hidden);
+			var rafStalled = (nowBg - lastRenderLoopAt) >= 85;
+			if (!forceTick && !isHidden && !rafStalled) {
+				return;
+			}
+			var deltaBg = Math.max(0, nowBg - lastTime);
+			if (deltaBg <= 0) return;
+			lastTime = nowBg;
+			gameMode.tickBackground(deltaBg);
+		}
+
+		function startFallbackInterval(intervalMs) {
+			if (backgroundTickTimer) return;
+			backgroundTickTimer = setInterval(function () {
+				runBackgroundTick(false);
+			}, intervalMs);
+		}
+
+		function syncBackgroundTickLoop() {
+			var shouldRun = !!(presence && !joinExclusionTriggered);
+			if (!shouldRun) {
+				stopBackgroundTickLoop();
+				return;
+			}
+			if (typeof document !== 'undefined' && document.hidden) {
+				runBackgroundTick(true);
+			}
+			if (backgroundTickWorker || backgroundTickTimer) return;
+			var intervalMs = 50;
+			// Use an inline Web Worker heartbeat so hidden or unfocused windows keep ticking at 20Hz instead of 1Hz throttling
+			var canUseWorker = (typeof Worker === 'function' && typeof Blob === 'function' && typeof URL !== 'undefined' && typeof URL.createObjectURL === 'function');
+			if (canUseWorker) {
+				try {
+					var workerSrc = "setInterval(function(){ postMessage('tick'); }, " + intervalMs + ");";
+					var blob = new Blob([workerSrc], { type: 'application/javascript' });
+					backgroundTickBlobUrl = URL.createObjectURL(blob);
+					backgroundTickWorker = new Worker(backgroundTickBlobUrl);
+					backgroundTickWorker.onmessage = function () {
+						runBackgroundTick(false);
+					};
+					backgroundTickWorker.onerror = function () {
+						stopBackgroundTickLoop();
+						startFallbackInterval(intervalMs);
+					};
+					return;
+				} catch (ignore) {
+					stopBackgroundTickLoop();
+				}
+			}
+			startFallbackInterval(intervalMs);
+		}
+
+		if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+			document.addEventListener('visibilitychange', syncBackgroundTickLoop);
+		}
+
+		function stopInitRequestLoop() {
+			if (initRequestQuickTimer) {
+				clearTimeout(initRequestQuickTimer);
+				initRequestQuickTimer = null;
+			}
+			if (initRequestTimer) {
+				clearInterval(initRequestTimer);
+				initRequestTimer = null;
+			}
+		}
+
+		function sendInitRequest() {
+			if (isHost || hasReceivedInit || joinExclusionTriggered || !presence || typeof presence.sendMessage !== 'function') {
+				stopInitRequestLoop();
+				return;
+			}
+			var groupId = getSharedGroupId();
+			var me = getMyUserInfo();
+			if (!groupId || !me || !me.networkId) return;
+			presence.sendMessage(groupId, {
+				user: me,
+				content: {
+					action: 'request-init',
+					initToken: clientInitToken
+				}
+			});
+		}
 
 		// Handle sharing
 		palette.addEventListener('shared', function () {
@@ -326,17 +426,25 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					return;
 				}
 				presence = network;
+				myUserInfo = presence.getUserInfo();
 				network.createSharedActivity('org.sugarlabs.ConnectTheDots', function (groupId) {
 					console.log("Activity shared");
 					isHost = true;
+					isGameStarted = false;
+					roomOtherUsers = {};
+					pendingPreInitNotifications = [];
 					if (typeof numberMode.initNetwork === 'function') numberMode.initNetwork(presence, isHost, activity);
+					if (typeof gameMode.initNetwork === 'function') gameMode.initNetwork(presence, isHost, activity, humane, l10n, icon);
+					syncBackgroundTickLoop();
 					setSharedToolbar();
 					if (currentMode === numberMode && typeof numberMode.startChallenge === 'function') {
 						numberMode.startChallenge(120, false); // Auto-start 2 minute challenge
 					}
+
 					// Reset the board
 					if (currentMode === gameMode && typeof gameMode.previewGame === 'function') {
 						gameMode.previewGame(false, 0, false);
+						onGameModeOpponentCountChanged(0);
 					}
 				});
 				network.onDataReceived(onNetworkDataReceived);
@@ -345,83 +453,199 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		});
 
 		function setSharedToolbar() {
-			document.getElementById('mode-button').style.display = 'none';
-			document.getElementById('robot-button').style.display = 'none';
-			if (!isHost) {
-				document.getElementById('speed-button').style.display = 'none';
+			if (modeButton) modeButton.style.display = 'none';
+			if (robotButton) robotButton.style.display = 'none';
+			if (gameMode && typeof gameMode.setSharedSession === 'function') {
+				gameMode.setSharedSession(true);
+			}
+			if (!isHost && speedButton) {
+				speedButton.style.display = 'none';
 			}
 		}
 
+		function getSharedGroupId() {
+			if (presence && typeof presence.getSharedInfo === 'function') {
+				var info = presence.getSharedInfo();
+				if (info && info.id) return info.id;
+			}
+			if (currentenv && currentenv.sharedId) {
+				return currentenv.sharedId;
+			}
+			return null;
+		}
+
+		function sendRawPresenceMessage(content) {
+			if (!presence || typeof presence.sendMessage !== 'function') return;
+			var groupId = getSharedGroupId();
+			if (!groupId) return;
+			presence.sendMessage(groupId, {
+				user: getMyUserInfo(),
+				content: content
+			});
+		}
+
+		function sendPresenceMessage(content) {
+			if (joinExclusionTriggered) return;
+			if (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+			if (presence && !isHost && !hasReceivedInit) return;
+			sendRawPresenceMessage(content);
+		}
+
 		function broadcastUpdate() {
+			if (joinExclusionTriggered) return;
+			if (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+			if (presence && !isHost && !hasReceivedInit) return;
 			var isChallengeActive = false;
 			if (currentMode === numberMode && typeof numberMode.getSharedState === 'function') {
 				isChallengeActive = numberMode.getSharedState().challengeActive;
 			}
 			if (isChallengeActive) return; // Do not broadcast drawing updates during challenge
-			
-			if (typeof updateLibraryMenu === 'function') {
+
+			if (currentMode === numberMode && typeof updateLibraryMenu === 'function') {
 				updateLibraryMenu();
 			}
-			if (presence && currentMode && typeof currentMode.serialize === 'function') {
-				presence.sendMessage(presence.getSharedInfo().id, {
-					user: presence.getUserInfo(),
-					content: {
+			if (presence && currentMode) {
+				var payloadData = null;
+				if (currentMode === gameMode && typeof gameMode.serializeNetworkUpdate === 'function') {
+					payloadData = gameMode.serializeNetworkUpdate();
+				} else if (typeof currentMode.serialize === 'function') {
+					payloadData = currentMode.serialize();
+				}
+				if (payloadData !== null) {
+					sendPresenceMessage({
 						action: 'update',
 						mode: currentMode === numberMode ? 'number' : (currentMode === gameMode ? 'game' : 'draw'),
-						data: currentMode.serialize()
-					}
-				});
+						data: payloadData
+					});
+				}
 			}
+		}
+
+		function canAcceptHostGameControl(msg) {
+			if (joinExclusionTriggered || (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded())) return false;
+			if (presence && (isHost || !hasReceivedInit)) return false;
+			if (presence && hostNetworkId && (!msg.user || msg.user.networkId !== hostNetworkId)) return false;
+			return true;
 		}
 
 		// Handle incoming data from network
 		var onNetworkDataReceived = function (msg) {
-			if (presence.getUserInfo().networkId === msg.user.networkId) {
+			if (!msg || !msg.content) return;
+			if (joinExclusionTriggered || (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded())) {
 				return;
 			}
-			var targetMode = (msg.content.mode === 'number') ? numberMode : ((msg.content.mode === 'game') ? gameMode : ((msg.content.mode === 'draw') ? drawMode : currentMode));
-			if (targetMode !== currentMode && targetMode === numberMode) {
-				switchMode(numberMode, 'mode-number', true);
-			} else if (targetMode !== currentMode && targetMode === gameMode) {
-				switchMode(gameMode, 'mode-game', true);
-			} else if (targetMode !== currentMode && targetMode === drawMode) {
-				switchMode(drawMode, 'mode-draw', true);
+			var myUser = getMyUserInfo();
+			var myNetId = myUser ? myUser.networkId : (currentenv && currentenv.user ? currentenv.user.networkId : null);
+			if (myNetId && msg.user && myNetId === msg.user.networkId) {
+				return;
 			}
+
+			if (msg.content.action === 'request-init') {
+				if (isHost && msg.user && msg.user.networkId) {
+					roomOtherUsers[msg.user.networkId] = true;
+					handleHostUserAdmitOrResend(msg.user, true, msg.content.initToken);
+				}
+				return;
+			}
+
+			var isInitialInitAdmission = false;
+			// If joining non-host has not received admission init yet
+			if (!isHost && !hasReceivedInit) {
+				if (msg.user && msg.user.networkId && msg.user.networkId !== myNetId) {
+					roomOtherUsers[msg.user.networkId] = true;
+					if (Object.keys(roomOtherUsers).length >= 8) {
+						triggerJoinExclusion();
+						return;
+					}
+				}
+				if (msg.content && msg.content.totalUsers !== undefined && msg.content.totalUsers > 8) {
+					triggerJoinExclusion();
+					return;
+				}
+				// The only message an unadmitted client can proceed with is targeted init
+				if (msg.content && msg.content.action === 'init') {
+					if (msg.content.targetNetworkId && (!myNetId || msg.content.targetNetworkId !== myNetId)) {
+						// Init targeted at someone else (or our networkId isn't ready yet)
+						return;
+					}
+					if (msg.content.spawnIndex !== undefined && msg.content.spawnIndex >= 8) {
+						triggerJoinExclusion();
+						return;
+					}
+					// Admit client before switchMode so switchMode is not aborted by !hasReceivedInit
+					hasReceivedInit = true;
+					isInitialInitAdmission = true;
+					stopInitRequestLoop();
+					if (typeof gameMode.syncSharedMetadata === 'function') {
+						gameMode.syncSharedMetadata(msg.content, myNetId, true);
+					}
+				} else {
+					// Preserve pending deaths (notifications or final isDead updates) during admission init
+					if (msg.content && msg.content.action === 'notification') {
+						pendingPreInitNotifications.push({ content: msg.content });
+					} else if (msg.content && msg.content.action === 'update' && msg.content.data && msg.content.data.isDead && msg.user && msg.user.networkId) {
+						pendingPreInitNotifications.push({
+							content: {
+								event: 'eliminatedSync',
+								subjectId: msg.user.networkId,
+								roundId: msg.content.data.roundId
+							}
+						});
+					}
+					// Drop all other non init packets (update, start game, restart game, update spawns)
+					// Unadmitted clients must NEVER deserialize opponents or switch modes!
+					return;
+				}
+			}
+			if (!isHost && msg.user && msg.user.networkId &&
+				(msg.content.action === 'init' ||
+				 (!hostNetworkId && (msg.content.action === 'update-spawns' ||
+				 msg.content.action === 'start-game' || msg.content.action === 'restart-game')))) {
+				hostNetworkId = msg.user.networkId;
+			}
+			var previousMode = currentMode;
+			var canSwitchFromRemote = !isHost && (!hostNetworkId || (msg.user && msg.user.networkId === hostNetworkId));
+			var targetMode = (msg.content.mode === 'number') ? numberMode : ((msg.content.mode === 'game') ? gameMode : ((msg.content.mode === 'draw') ? drawMode : currentMode));
+			if (canSwitchFromRemote) {
+				if (targetMode !== currentMode && targetMode === numberMode) {
+					switchMode(numberMode, 'mode-number', true);
+				} else if (targetMode !== currentMode && targetMode === gameMode) {
+					switchMode(gameMode, 'mode-game', true);
+				} else if (targetMode !== currentMode && targetMode === drawMode) {
+					switchMode(drawMode, 'mode-draw', true);
+				}
+			}
+			var switchedIntoGame = (previousMode !== gameMode && currentMode === gameMode);
 			switch (msg.content.action) {
 				case 'init':
-					if (hasReceivedInit) break;
-					if (msg.content.targetNetworkId && msg.content.targetNetworkId !== presence.getUserInfo().networkId) break;
-					hasReceivedInit = true;
-					if (msg.content.spawnIndex !== undefined) {
-						mySharedSpawnIndex = msg.content.spawnIndex;
-					}
-					if (msg.content.gameSpeed !== undefined && currentMode === gameMode && typeof gameMode.setSpeed === 'function') {
-						gameMode.setSpeed(msg.content.gameSpeed);
-					}
-					if (msg.content.totalUsers !== undefined && typeof gameMode.setTotalPlayers === 'function') {
-						gameMode.setTotalPlayers(msg.content.totalUsers);
-					}
-					if (presence && presence.getSharedInfo && typeof gameMode.setTotalPlayers === 'function') {
-						var sharedInfo = presence.getSharedInfo();
-						if (sharedInfo && sharedInfo.id) {
-							presence.listSharedActivityUsers(sharedInfo.id, function(users) {
-								gameMode.setTotalPlayers(users.length);
-							});
-						}
-					}
+					if (isHost || !isInitialInitAdmission) break;
 					if (currentMode && typeof currentMode.deserialize === 'function') {
 						if (currentMode === numberMode) {
 							currentMode.deserialize(msg.content.data, true);
 							if (typeof currentMode.updateLibraryMenu === 'function') currentMode.updateLibraryMenu();
 						} else if (currentMode === gameMode) {
-							if (typeof gameMode.previewGame === 'function') {
-								gameMode.previewGame(false, mySharedSpawnIndex, true);
+							if (typeof gameMode.applyHostInit === 'function' && gameMode.applyHostInit(msg.content, msg.user, myNetId, switchedIntoGame)) {
+								isGameStarted = true;
+								if (playButton) playButton.style.display = 'none';
 							}
-							currentMode.deserialize(msg.content.data, true, msg.user.networkId, msg.user.name);
-						} else {
+							if (pendingPreInitNotifications.length > 0 && typeof gameMode.handleNotificationMessage === 'function') {
+								var activeRound = (typeof gameMode.getRoundId === 'function') ? gameMode.getRoundId() : 1;
+								var queued = pendingPreInitNotifications.splice(0, pendingPreInitNotifications.length);
+								for (var nq = 0; nq < queued.length; nq++) {
+									var nc = queued[nq] && queued[nq].content;
+									if (nc && (nc.roundId === undefined || nc.roundId === activeRound)) {
+										gameMode.handleNotificationMessage(nc, myNetId, currentMode === gameMode);
+									}
+								}
+							}
+							if (typeof broadcastUpdate === 'function') {
+								broadcastUpdate();
+							}
+						} else if (msg.content.data) {
 							currentMode.deserialize(msg.content.data.strokes, msg.content.data.figures);
 						}
 					}
+					pendingPreInitNotifications = [];
 					if (msg.content.challengeActive) {
 						if (currentMode === numberMode && typeof currentMode.startChallenge === 'function') {
 							currentMode.startChallenge(msg.content.challengeDuration !== undefined ? msg.content.challengeDuration : 120, true);
@@ -430,13 +654,15 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					}
 					break;
 				case 'update':
+					if (joinExclusionTriggered || (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded())) break;
+					if (presence && !isHost && !hasReceivedInit) break;
 					if (currentMode && typeof currentMode.deserialize === 'function') {
 						if (currentMode === numberMode) {
 							currentMode.deserialize(msg.content.data);
 							if (typeof currentMode.updateLibraryMenu === 'function') currentMode.updateLibraryMenu();
 						} else if (currentMode === gameMode) {
 							currentMode.deserialize(msg.content.data, false, msg.user.networkId, msg.user.name);
-						} else {
+						} else if (msg.content.data) {
 							currentMode.deserialize(msg.content.data.strokes, msg.content.data.figures, true);
 						}
 					}
@@ -451,60 +677,32 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					}
 					break;
 				case 'notification':
-					if (msg.content.event === 'headToHeadClaim') {
-						var myId = presence.getUserInfo().networkId;
-						if (msg.content.objectId === myId || msg.content.subjectId === myId) {
-							var oppId = (msg.content.objectId === myId) ? msg.content.subjectId : msg.content.objectId;
-							if (currentMode === gameMode && typeof gameMode.checkHeadToHeadAgreement === 'function') {
-								if (gameMode.checkHeadToHeadAgreement(oppId)) {
-									// Send the elimination notification
-									presence.sendMessage(presence.getSharedInfo().id, {
-										user: presence.getUserInfo(),
-										content: {
-											action: 'notification',
-											event: 'eliminatedEachOther',
-											subjectName: msg.content.subjectName,
-											subjectColor: msg.content.subjectColor,
-											objectName: msg.content.objectName,
-											subjectId: msg.content.subjectId,
-											objectId: msg.content.objectId
-										}
-									});
-								}
-							}
-						}
-					break;
-					}
-					formatAndLogNotification(msg.content.event, msg.content.subjectName, msg.content.subjectColor, msg.content.objectName);
-					if (msg.content.event === 'eliminated' || msg.content.event === 'eliminatedEachOther') {
-						var myId = presence.getUserInfo().networkId;
-						if (msg.content.objectId === myId || (msg.content.event === 'eliminatedEachOther' && msg.content.subjectId === myId)) {
-							if (currentMode === gameMode && typeof gameMode.killPlayer === 'function') {
-								gameMode.killPlayer();
-							}
-						}
-					} else if (msg.content.event === 'gameWon' || msg.content.event === 'win') {
-						if (currentMode === gameMode && typeof gameMode.endGame === 'function') {
-							gameMode.endGame();
-						}
+					if (typeof gameMode.handleNotificationMessage === 'function') {
+						gameMode.handleNotificationMessage(msg.content, myNetId, currentMode === gameMode);
 					}
 					break;
 				case 'start-game':
-					if (currentMode === gameMode && typeof gameMode.startGame === 'function') {
-						isGameStarted = true;
-						var rb = document.getElementById('robot-button');
-						if (rb) {
-							rb.disabled = true;
-							rb.style.opacity = 0.5;
-						}
-						document.getElementById('play-button').style.display = 'none';
-						document.getElementById('restart-button').style.display = isHost ? '' : 'none';
-						gameMode.startGame(false, getMySpawnIndex());
+					if (!canAcceptHostGameControl(msg)) break;
+					if (typeof gameMode.applyStartGame === 'function' && !gameMode.applyStartGame(msg, myUser, myNetId, currentMode === gameMode)) break;
+					isGameStarted = true;
+					if (robotButton) {
+						robotButton.disabled = true;
+						robotButton.style.opacity = 0.5;
+					}
+					if (playButton) playButton.style.display = 'none';
+					if (restartButton) restartButton.style.display = isHost ? '' : 'none';
+					if (currentMode === gameMode && typeof broadcastUpdate === 'function') {
+						broadcastUpdate();
 					}
 					break;
 				case 'restart-game':
-					if (currentMode === gameMode && typeof gameMode.restart === 'function') {
-						gameMode.restart(false, getMySpawnIndex());
+					if (!canAcceptHostGameControl(msg)) break;
+					if (typeof gameMode.applyRestartGame === 'function' && !gameMode.applyRestartGame(msg, myUser, myNetId, currentMode === gameMode)) break;
+					isGameStarted = true;
+					if (playButton) playButton.style.display = 'none';
+					if (restartButton) restartButton.style.display = isHost ? '' : 'none';
+					if (currentMode === gameMode && typeof broadcastUpdate === 'function') {
+						broadcastUpdate();
 					}
 					break;
 				case 'stop-shared-game':
@@ -517,78 +715,173 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 					}
 					break;
 				case 'update-spawns':
-					if (typeof gameMode.setTotalPlayers === 'function') {
-						gameMode.setTotalPlayers(msg.content.totalUsers);
-						if (currentMode === gameMode && typeof gameMode.previewGame === 'function') {
-							if (!isGameStarted) {
-								gameMode.previewGame(false, mySharedSpawnIndex, true);
-							}
-						}
+					if (!canAcceptHostGameControl(msg)) break;
+					if (typeof gameMode.syncSharedMetadata === 'function' && !gameMode.syncSharedMetadata(msg.content, myNetId, false)) break;
+					if (typeof gameMode.handleNetworkMessage === 'function') {
+						gameMode.handleNetworkMessage(msg, myUser);
 					}
 					break;
 				case 'update-speed':
-					if (currentMode === gameMode && typeof gameMode.setSpeed === 'function') {
-						gameMode.setSpeed(msg.content.speed);
+					if (!canAcceptHostGameControl(msg)) break;
+					if (currentMode === gameMode && typeof gameMode.handleNetworkMessage === 'function') {
+						gameMode.handleNetworkMessage(msg, myUser);
 					}
 					break;
 			}
 		};
-		var nextSpawnIndex = 1;
+
+		var roomOtherUsers = {};
+
+		function handleHostUserAdmitOrResend(targetUser, isFromRequestInit, initToken) {
+			if (!isHost || !targetUser || !targetUser.networkId || !currentMode || typeof currentMode.serialize !== 'function') return;
+
+			if (currentMode === gameMode) {
+				var admitRes = (typeof gameMode.admitGameModeUser === 'function') ? gameMode.admitGameModeUser(targetUser, isFromRequestInit, initToken) : null;
+				if (!admitRes) return;
+				sendPresenceMessage(admitRes.initMessage);
+				if (admitRes.updateSpawnsMessage) {
+					sendPresenceMessage(admitRes.updateSpawnsMessage);
+				}
+			} else {
+				var nonGameInfo = (typeof gameMode.admitNonGameModeUser === 'function') ?
+					gameMode.admitNonGameModeUser(targetUser) : { slot: 1, totalUsers: 2, roundId: 1 };
+				var nonGameContent = {
+					action: 'init',
+					mode: currentMode === numberMode ? 'number' : 'draw',
+					data: currentMode === numberMode ? currentMode.serialize(true) : currentMode.serialize(),
+					spawnIndex: nonGameInfo.slot,
+					totalUsers: nonGameInfo.totalUsers,
+					roundId: nonGameInfo.roundId,
+					targetNetworkId: targetUser.networkId
+				};
+				if (currentMode === numberMode && typeof currentMode.getSharedState === 'function') {
+					var state = currentMode.getSharedState();
+					nonGameContent.challengeActive = state.challengeActive;
+					nonGameContent.challengeRemaining = state.challengeRemaining;
+					nonGameContent.challengeDuration = state.challengeDuration;
+					nonGameContent.challengeScores = state.challengeScores;
+					nonGameContent.currentChallengeScore = state.currentChallengeScore;
+				}
+				sendPresenceMessage(nonGameContent);
+
+				if (!isFromRequestInit) {
+					sendPresenceMessage({
+						action: 'update-spawns',
+						mode: currentMode === numberMode ? 'number' : 'draw',
+						roundId: nonGameInfo.roundId,
+						totalUsers: nonGameInfo.totalUsers
+					});
+				}
+			}
+		}
+		function triggerJoinExclusion() {
+			if (joinExclusionTriggered || isHost || hasReceivedInit) return;
+			joinExclusionTriggered = true;
+			pendingPreInitNotifications = [];
+			stopInitRequestLoop();
+			stopBackgroundTickLoop();
+			if (typeof gameMode.setExcluded === 'function') {
+				gameMode.setExcluded(true);
+			}
+			if (canvas) {
+				canvas.style.pointerEvents = 'none';
+			}
+			mouseX = -1000;
+			mouseY = -1000;
+			prevMouseX = -1000;
+			prevMouseY = -1000;
+
+			if (playButton) {
+				playButton.style.display = 'none';
+				playButton.disabled = true;
+			}
+			if (restartButton) {
+				restartButton.style.display = 'none';
+				restartButton.disabled = true;
+			}
+			if (robotButton) {
+				robotButton.style.display = 'none';
+				robotButton.disabled = true;
+			}
+			if (speedButton) {
+				speedButton.style.display = 'none';
+			}
+
+			// Sever network and presence connection completely
+			if (presence) {
+				var p = presence;
+				presence = null;
+				try {
+					var groupId = getSharedGroupId();
+					if (groupId && typeof p.leaveSharedActivity === 'function') {
+						p.leaveSharedActivity(groupId);
+					}
+					if (typeof p.leaveNetwork === 'function') {
+						p.leaveNetwork();
+					}
+				} catch (e) {
+					console.log("Error disconnecting excluded presence", e);
+				}
+			}
+
+			if (gameMode && typeof gameMode.showMaxPlayersNotification === 'function') {
+				gameMode.showMaxPlayersNotification(null, getMyUserInfo() ? getMyUserInfo().colorvalue : null, 5000);
+			}
+			setTimeout(function () {
+				var stopButton = document.getElementById("stop-button");
+				if (stopButton) stopButton.click();
+				else if (activity && typeof activity.close === 'function') activity.close();
+			}, 5000);
+		}
 
 		// Handle user join/leave
 		var onNetworkUserChanged = function (msg) {
-			if (msg.move === 1 && currentMode && typeof currentMode.serialize === 'function') {
-				if (isHost) {
-					var joinerSpawnIndex = nextSpawnIndex++;
-					if (typeof gameMode.setTotalPlayers === 'function') {
-						gameMode.setTotalPlayers(nextSpawnIndex);
-					}
-					if (currentMode === gameMode && typeof gameMode.previewGame === 'function') {
-						if (!isGameStarted) {
-							gameMode.previewGame(false, mySharedSpawnIndex, true);
-						}
-					}
-					var content = {
-						action: 'init',
-						mode: currentMode === numberMode ? 'number' : (currentMode === gameMode ? 'game' : 'draw'),
-						data: currentMode === numberMode ? currentMode.serialize(true) : currentMode.serialize(),
-						spawnIndex: joinerSpawnIndex,
-						totalUsers: nextSpawnIndex,
-						gameSpeed: currentMode === gameMode && typeof gameMode.getSpeed === 'function' ? gameMode.getSpeed() : undefined,
-						targetNetworkId: msg.user.networkId
-					};
-					if (currentMode === numberMode && typeof currentMode.getSharedState === 'function') {
-						var state = currentMode.getSharedState();
-						content.challengeActive = state.challengeActive;
-						content.challengeRemaining = state.challengeRemaining;
-						content.challengeDuration = state.challengeDuration;
-						content.challengeScores = state.challengeScores;
-						content.currentChallengeScore = state.currentChallengeScore;
-					}
-					presence.sendMessage(presence.getSharedInfo().id, {
-						user: presence.getUserInfo(),
-						content: content
-					});
-					
-					// Broadcast new players to all existing players
-					presence.sendMessage(presence.getSharedInfo().id, {
-						user: presence.getUserInfo(),
-						content: {
-							action: 'update-spawns',
-							totalUsers: nextSpawnIndex
-						}
-					});
-				}
-				// All existing players broadcast their state to the new joiner
-				if (hasReceivedInit || isHost) {
-					if (currentMode === gameMode && typeof broadcastUpdate === 'function') {
-						broadcastUpdate();
+			if (!msg || !msg.user) return;
+			if (joinExclusionTriggered || (currentMode === gameMode && typeof gameMode.isExcluded === 'function' && gameMode.isExcluded())) {
+				return;
+			}
+			var myUser = getMyUserInfo();
+			var myNetId = myUser ? myUser.networkId : null;
+			if (msg.user.networkId) {
+				if (msg.user.networkId !== myNetId) {
+					if (msg.move === 1) {
+						roomOtherUsers[msg.user.networkId] = true;
+					} else if (msg.move === -1) {
+						delete roomOtherUsers[msg.user.networkId];
 					}
 				}
 			}
+			if (!isHost && !hasReceivedInit && Object.keys(roomOtherUsers).length >= 8) {
+				triggerJoinExclusion();
+				return;
+			}
+			if (msg.move === 1 && msg.user && msg.user.networkId && typeof gameMode.markPlayerJoined === 'function') {
+				gameMode.markPlayerJoined(msg.user.networkId);
+			}
+			if (msg.move === 1 && currentMode && typeof currentMode.serialize === 'function') {
+				if (isHost && msg.user.networkId && msg.user.networkId !== myNetId) {
+					handleHostUserAdmitOrResend(msg.user, false);
+				}
+			}
 			if (msg.move === -1) {
-				if (currentMode === gameMode && typeof gameMode.removeOpponent === 'function') {
-					gameMode.removeOpponent(msg.user.networkId);
+				if (typeof gameMode.handleUserLeave === 'function') {
+					gameMode.handleUserLeave(msg.user);
+				}
+				if (isHost) {
+					if (currentMode === gameMode) {
+						sendPresenceMessage(gameMode.buildRosterContent('update-spawns'));
+					} else {
+						var totalRemaining = (typeof gameMode.getRoomTotalUsers === 'function') ? gameMode.getRoomTotalUsers() : 1;
+						if (typeof gameMode.setTotalPlayers === 'function') {
+							gameMode.setTotalPlayers(Math.min(8, totalRemaining));
+						}
+						sendPresenceMessage({
+							action: 'update-spawns',
+							mode: currentMode === numberMode ? 'number' : 'draw',
+							roundId: (typeof gameMode.getRoundId === 'function') ? gameMode.getRoundId() : 1,
+							totalUsers: totalRemaining
+						});
+					}
 				}
 			}
 			console.log("User " + msg.user.name + " " + (msg.move == 1 ? "join" : "leave"));
@@ -627,6 +920,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				console.log("New instance");
 			} else {
 				activity.getDatastoreObject().loadAsText(function (error, metadata, data) {
+					if (presence || isHost || hasReceivedInit || (environment && environment.sharedId)) {
+						return;
+					}
 					if (error == null && data != null) {
 						console.log("Loaded instance");
 						try {
@@ -674,16 +970,64 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				console.log("Shared instance");
 				activity.getPresenceObject(function (error, network) {
 					presence = network;
+					myUserInfo = presence.getUserInfo();
 					if (typeof numberMode.initNetwork === 'function') numberMode.initNetwork(presence, isHost, activity);
+					if (typeof gameMode.initNetwork === 'function') gameMode.initNetwork(presence, isHost, activity, humane, l10n, icon);
 					network.onDataReceived(onNetworkDataReceived);
 					network.onSharedActivityUserChanged(onNetworkUserChanged);
+					syncBackgroundTickLoop();
 					setSharedToolbar();
+					stopInitRequestLoop();
+					sendInitRequest();
+					initRequestAttempts = 0;
+					initRequestQuickTimer = setTimeout(function () {
+						initRequestQuickTimer = null;
+						sendInitRequest();
+					}, 250);
+					initRequestTimer = setInterval(function () {
+						initRequestAttempts++;
+						if (initRequestAttempts >= 45 || hasReceivedInit || joinExclusionTriggered || isHost || !presence) {
+							stopInitRequestLoop();
+							return;
+						}
+						sendInitRequest();
+					}, 400);
+
+					var checkUsersAndExclude = function (users) {
+						if (!isHost && !hasReceivedInit && Array.isArray(users)) {
+							if (users.length > 8) {
+								triggerJoinExclusion();
+							} else if (users.length === 8) {
+								var myId = getMyUserInfo() ? getMyUserInfo().networkId : null;
+								if (myId && !users.some(function (u) { return u && u.networkId === myId; })) {
+									triggerJoinExclusion();
+								}
+							}
+						}
+					};
+
+					var sharedInfo = (presence && typeof presence.getSharedInfo === 'function') ? presence.getSharedInfo() : null;
+					if (sharedInfo && Array.isArray(sharedInfo.users)) {
+						checkUsersAndExclude(sharedInfo.users);
+					}
+					if (presence && !joinExclusionTriggered && typeof presence.listSharedActivityUsers === 'function') {
+						presence.listSharedActivityUsers(environment.sharedId, function (users) {
+							checkUsersAndExclude(users);
+						});
+					}
+					setTimeout(function () {
+						if (!isHost && !hasReceivedInit && Object.keys(roomOtherUsers).length >= 8) {
+							triggerJoinExclusion();
+						}
+					}, 1000);
 				});
 			}
 		});
 
 		// Save in Journal on Stop
 		document.getElementById("stop-button").addEventListener('click', function (event) {
+			stopInitRequestLoop();
+			stopBackgroundTickLoop();
 			console.log("writing...");
 
 			var dataToSave = {
@@ -725,11 +1069,9 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				label: l10n.get("GameMode") || "Game Mode"
 			}
 		];
-		var modeButton = document.getElementById('mode-button');
 		var modePalette = new menupalette.MenuPalette(modeButton, undefined, menuData);
 		var modeInvoker = modePalette.getPalette().querySelector('.palette-invoker');
 
-		var libraryButton = document.getElementById('library-button');
 		var libraryPalette = new menupalette.MenuPalette(libraryButton, undefined, []);
 
 		document.addEventListener('click', function (event) {
@@ -749,6 +1091,8 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		function switchMode(newMode, iconName, skipBroadcast) {
 			if (currentMode === newMode) return;
+			if (joinExclusionTriggered || (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded())) return;
+			if (presence && !isHost && !hasReceivedInit) return;
 			if (currentMode && typeof currentMode.stopDrawing === 'function') {
 				currentMode.stopDrawing();
 			}
@@ -766,90 +1110,111 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			}
 
 			if (newMode === numberMode) {
-				document.getElementById('colors-button-fill').style.display = 'none';
+				if (colorsButtonFill) colorsButtonFill.style.display = 'none';
 				if (colorPaletteFill) colorPaletteFill.popDown();
-				document.getElementById('draw-button').style.display = 'none';
-				document.getElementById('erase-button').style.display = 'none';
-				document.getElementById('clear-button').style.display = 'none';
-				document.getElementById('restart-button').style.display = 'none';
-				document.getElementById('robot-button').style.display = 'none';
-				document.getElementById('speed-button').style.display = 'none';
-				document.getElementById('play-button').style.display = 'none';
-				document.getElementById('save-image-button').style.display = 'none';
+				if (drawButton) drawButton.style.display = 'none';
+				if (eraseButton) eraseButton.style.display = 'none';
+				if (clearButton) clearButton.style.display = 'none';
+				if (restartButton) restartButton.style.display = 'none';
+				if (robotButton) robotButton.style.display = 'none';
+				if (speedButton) speedButton.style.display = 'none';
+				if (playButton) playButton.style.display = 'none';
+				if (saveImageButton) saveImageButton.style.display = 'none';
 				
 				if (typeof newMode.activate === 'function') newMode.activate();
 			
 				updateLibraryMenu();
 				numberMode.showGallery(undefined, l10n, skipBroadcast);
 			} else if (newMode === gameMode) {
-				document.getElementById('colors-button-fill').style.display = 'none';
+				if (colorsButtonFill) colorsButtonFill.style.display = 'none';
 				if (colorPaletteFill) colorPaletteFill.popDown();
-				document.getElementById('draw-button').style.display = 'none';
-				document.getElementById('erase-button').style.display = 'none';
-				document.getElementById('clear-button').style.display = 'none';
-				document.getElementById('restart-button').style.display = 'none';
-				document.getElementById('save-image-button').style.display = 'none';
-				var rb = document.getElementById('robot-button');
-				rb.style.display = 'none';
-				document.getElementById('speed-button').style.display = (((currentenv && currentenv.sharedId) || presence) && !isHost) ? 'none' : '';
-				if (!presence) {
-					rb.style.display = '';
-					rb.disabled = false;
-					rb.style.opacity = 1;
+				if (drawButton) drawButton.style.display = 'none';
+				if (eraseButton) eraseButton.style.display = 'none';
+				if (clearButton) clearButton.style.display = 'none';
+				if (restartButton) restartButton.style.display = 'none';
+				if (saveImageButton) saveImageButton.style.display = 'none';
+				if (robotButton) {
+					robotButton.style.display = 'none';
+					if (!presence) {
+						robotButton.style.display = '';
+						robotButton.disabled = false;
+						robotButton.style.opacity = 1;
+					}
+				}
+				if (speedButton) {
+					speedButton.style.display = (((currentenv && currentenv.sharedId) || presence) && !isHost) ? 'none' : '';
 				}
 
-				var pb = document.getElementById('play-button');
-				pb.style.display = (presence && !isHost) ? 'none' : '';
-
-				var canPlay = presence ? false : isRobotOn;
-				if (canPlay) {
-					pb.disabled = false;
-					pb.style.opacity = 1;
-				} else {
-					pb.disabled = true;
-					pb.style.opacity = 0.5;
+				if (playButton) {
+					if (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) {
+						playButton.style.display = 'none';
+						playButton.disabled = true;
+					} else {
+						playButton.style.display = (presence && !isHost) ? 'none' : '';
+						var canPlay = presence ? false : isRobotOn;
+						if (canPlay) {
+							playButton.disabled = false;
+							playButton.style.opacity = 1;
+						} else {
+							playButton.disabled = true;
+							playButton.style.opacity = 0.5;
+						}
+					}
 				}
 				
 				isGameStarted = false;
-				if (typeof newMode.previewGame === 'function') newMode.previewGame(presence ? false : isRobotOn, getMySpawnIndex());
+				var willSyncHostUsers = !!(isHost && presence && typeof gameMode.hasRoomUsers === 'function' && gameMode.hasRoomUsers());
+				if (typeof newMode.previewGame === 'function') {
+					if (!presence || isHost || hasReceivedInit) {
+						newMode.previewGame(presence ? false : isRobotOn, gameMode.getMySpawnIndex(), !!presence, !!(skipBroadcast || willSyncHostUsers));
+					}
+				}
+				if (willSyncHostUsers) {
+					gameMode.syncRoomUsersToGameMode();
+					if (typeof newMode.refreshLobbySpawn === 'function') {
+						newMode.refreshLobbySpawn(false, gameMode.getMySpawnIndex());
+					}
+					if (typeof onGameModeOpponentCountChanged === 'function' && typeof gameMode.getOpponentCount === 'function') {
+						onGameModeOpponentCountChanged(gameMode.getOpponentCount());
+					}
+					if (!skipBroadcast) {
+						sendPresenceMessage(gameMode.buildRosterContent('update-spawns'));
+					}
+				}
 				
 				if (libraryPalette) libraryPalette.popDown();
-				var gallery = document.getElementById('library-gallery');
-				if (gallery) gallery.style.display = 'none';
-				var formScreen = document.getElementById('category-form-screen');
-				if (formScreen) formScreen.style.display = 'none';
-				var gridCanvas = document.getElementById('gridCanvas');
-				if (gridCanvas) gridCanvas.style.display = '';
-				var playBackBtn = document.getElementById('play-figure-back-button');
-				if (playBackBtn) playBackBtn.style.display = 'none';
+				if (libraryGallery) libraryGallery.style.display = 'none';
+				if (categoryFormScreen) categoryFormScreen.style.display = 'none';
+				if (canvas) canvas.style.display = '';
+				if (playFigureBackButton) playFigureBackButton.style.display = 'none';
 
 			} else {
-				document.getElementById('colors-button-fill').style.display = '';
-				document.getElementById('draw-button').style.display = '';
-				document.getElementById('erase-button').style.display = '';
-				document.getElementById('clear-button').style.display = '';
-				document.getElementById('restart-button').style.display = 'none';
-				document.getElementById('robot-button').style.display = 'none';
-				document.getElementById('speed-button').style.display = 'none';
-				document.getElementById('play-button').style.display = 'none';
-				document.getElementById('save-image-button').style.display = '';
+				if (colorsButtonFill) colorsButtonFill.style.display = '';
+				if (drawButton) {
+					drawButton.style.display = '';
+					drawButton.classList.add('active');
+				}
+				if (eraseButton) {
+					eraseButton.style.display = '';
+					eraseButton.classList.remove('active');
+				}
+				if (clearButton) clearButton.style.display = '';
+				if (restartButton) restartButton.style.display = 'none';
+				if (robotButton) robotButton.style.display = 'none';
+				if (speedButton) speedButton.style.display = 'none';
+				if (playButton) playButton.style.display = 'none';
+				if (saveImageButton) saveImageButton.style.display = '';
 				
 				if (numberMode && typeof numberMode.deactivate === 'function') numberMode.deactivate();
 				
 				if (libraryPalette) libraryPalette.popDown();
-				var gallery = document.getElementById('library-gallery');
-				if (gallery) gallery.style.display = 'none';
-				var formScreen = document.getElementById('category-form-screen');
-				if (formScreen) formScreen.style.display = 'none';
-				var gridCanvas = document.getElementById('gridCanvas');
-				if (gridCanvas) gridCanvas.style.display = '';
-				var playBackBtn = document.getElementById('play-figure-back-button');
-				if (playBackBtn) playBackBtn.style.display = 'none';
+				if (libraryGallery) libraryGallery.style.display = 'none';
+				if (categoryFormScreen) categoryFormScreen.style.display = 'none';
+				if (canvas) canvas.style.display = '';
+				if (playFigureBackButton) playFigureBackButton.style.display = 'none';
 				if (newMode && typeof newMode.setTool === 'function') {
 					newMode.setTool('draw');
 				}
-				document.getElementById('draw-button').classList.add('active');
-				document.getElementById('erase-button').classList.remove('active');
 			}
 
 			if (!skipBroadcast) {
@@ -906,12 +1271,11 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		// Color palette (Fill Color)
 		var currentFillColor = '#ed2529';
-		var colorsButtonFill = document.getElementById('colors-button-fill');
 		var colorPaletteFill = new colorpalette.ColorPalette(colorsButtonFill, undefined, "fill");
 		var colorInvokerFill = colorPaletteFill.getPalette().querySelector('.palette-invoker');
 		colorPaletteFill.addEventListener('colorChange', function (e) {
 			currentFillColor = e.detail.color;
-			colorsButtonFill.style.backgroundColor = e.detail.color;
+			if (colorsButtonFill) colorsButtonFill.style.backgroundColor = e.detail.color;
 			if (colorInvokerFill) {
 				colorInvokerFill.style.backgroundColor = e.detail.color;
 			}
@@ -921,135 +1285,113 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		});
 		colorPaletteFill.setColor(0);
 		// Speed palette for Game Mode
-		var speedButton = document.getElementById('speed-button');
 		var speedPal = new speedPalette.SpeedPalette(speedButton, undefined);
-		var lastSpeedSend = 0;
-		speedButton.addEventListener('speedChanged', function (e) {
-			if (currentMode === gameMode && typeof gameMode.setSpeed === 'function') {
-				gameMode.setSpeed(e.detail.speed);
-				if (isHost && presence && presence.getSharedInfo()) {
-					var now = Date.now();
-					if (now - lastSpeedSend > 150) {
-						presence.sendMessage(presence.getSharedInfo().id, {
-							user: presence.getUserInfo(),
-							content: {
-								action: 'update-speed',
-								speed: e.detail.speed
-							}
-						});
-						lastSpeedSend = now;
-					}
-					if (window.speedSyncTimer) clearTimeout(window.speedSyncTimer);
-					window.speedSyncTimer = setTimeout(function () {
-						presence.sendMessage(presence.getSharedInfo().id, {
-							user: presence.getUserInfo(),
-							content: {
-								action: 'update-speed',
-								speed: e.detail.speed
-							}
-						});
-						lastSpeedSend = Date.now();
-					}, 200);
+		if (speedButton) {
+			speedButton.addEventListener('speedChanged', function (e) {
+				if (currentMode === gameMode && typeof gameMode.onLocalSpeedChange === 'function') {
+					gameMode.onLocalSpeedChange(e.detail.speed);
 				}
-			}
-		});
+			});
+		}
 
 		// Handle click on help-button
-		document.getElementById("help-button").addEventListener('click', function (e) {
-			tutorial.start();
-		});
+		var helpButton = document.getElementById("help-button");
+		if (helpButton) {
+			helpButton.addEventListener('click', function (e) {
+				tutorial.start();
+			});
+		}
 
 		// Handle draw button
-		document.getElementById("draw-button").addEventListener('click', function () {
-			if (currentMode && typeof currentMode.setTool === 'function') {
-				currentMode.setTool('draw');
-			}
-			this.classList.add("active");
-			document.getElementById("erase-button").classList.remove("active");
-		});
+		if (drawButton) {
+			drawButton.addEventListener('click', function () {
+				if (currentMode && typeof currentMode.setTool === 'function') {
+					currentMode.setTool('draw');
+				}
+				this.classList.add("active");
+				if (eraseButton) eraseButton.classList.remove("active");
+			});
+		}
 
 		// Handle erase button
-		document.getElementById("erase-button").addEventListener('click', function () {
-			if (currentMode && typeof currentMode.setTool === 'function') {
-				currentMode.setTool('erase');
-			}
-			this.classList.add("active");
-			document.getElementById("draw-button").classList.remove("active");
-		});
+		if (eraseButton) {
+			eraseButton.addEventListener('click', function () {
+				if (currentMode && typeof currentMode.setTool === 'function') {
+					currentMode.setTool('erase');
+				}
+				this.classList.add("active");
+				if (drawButton) drawButton.classList.remove("active");
+			});
+		}
 
 		// Handle restart button
-		document.getElementById("restart-button").addEventListener('click', function () {
-			if (currentMode && typeof currentMode.restart === 'function') {
-				if (currentMode === gameMode) {
-					currentMode.restart(presence ? false : isRobotOn, getMySpawnIndex());
+		if (restartButton) {
+			restartButton.addEventListener('click', function () {
+				if (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+				if (presence && currentMode === gameMode) {
+					if (!isHost) return;
+					gameMode.syncRoomUsersToGameMode();
+					var startTime = Date.now();
+					gameMode.incrementRoundId();
+					currentMode.restart(false, gameMode.getMySpawnIndex());
+					isGameStarted = true;
+					sendPresenceMessage(gameMode.buildRosterContent('restart-game', { startTime: startTime }));
+					broadcastUpdate();
 				} else {
-					currentMode.restart();
-				}
-			}
-			if (presence && currentMode === gameMode) {
-				presence.sendMessage(presence.getSharedInfo().id, {
-					user: presence.getUserInfo(),
-					content: {
-						action: 'restart-game',
-						mode: 'game'
+					if (currentMode === gameMode && typeof currentMode.restart === 'function') {
+						currentMode.restart(isRobotOn, gameMode.getMySpawnIndex());
 					}
-				});
-				broadcastUpdate();
-			}
-		});
+				}
+			});
+		}
 
 		// Handle clear button
-		document.getElementById("clear-button").addEventListener('click', function () {
-			if (currentMode && typeof currentMode.clear === 'function') {
-				currentMode.clear();
-			}
-			if (presence) {
-				presence.sendMessage(presence.getSharedInfo().id, {
-					user: presence.getUserInfo(),
-					content: {
-						action: 'clear',
-						mode: currentMode === numberMode ? 'number' : 'draw'
-					}
+		if (clearButton) {
+			clearButton.addEventListener('click', function () {
+				if (currentMode && typeof currentMode.clear === 'function') {
+					currentMode.clear();
+				}
+				sendRawPresenceMessage({
+					action: 'clear',
+					mode: currentMode === numberMode ? 'number' : 'draw'
 				});
-			}
-			broadcastUpdate();
-		});
+				broadcastUpdate();
+			});
+		}
 
 		// Handle Add to Journal
-		document.getElementById("save-image-button").addEventListener('click', function () {
-			var mimetype = 'image/png';
+		if (saveImageButton) {
+			saveImageButton.addEventListener('click', function () {
+				var mimetype = 'image/png';
 
-			// Render without dots
-			if (currentMode === drawMode) {
-				ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-				if (typeof currentMode.drawBehindDots === 'function') {
-					currentMode.drawBehindDots(ctx);
+				// Render without dots
+				if (currentMode === drawMode) {
+					ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+					if (typeof currentMode.drawBehindDots === 'function') {
+						currentMode.drawBehindDots(ctx);
+					}
 				}
-			}
 
-			var inputData = canvas.toDataURL(mimetype, 1);
+				var inputData = canvas.toDataURL(mimetype, 1);
+				// Clear so the next renderLoop frame restores the full view with dots
 
-			if (currentMode === drawMode) {
-				ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-			}
+				if (currentMode === drawMode) {
+					ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+				}
 
-			var metadata = {
-				mimetype: mimetype,
-				title: "ConnectTheDots",
-				activity: "org.olpcfrance.MediaViewerActivity",
-				timestamp: new Date().getTime(),
-				creation_time: new Date().getTime(),
-				file_size: 0
-			};
-			datastore.create(metadata, function () {
-				humane.log(l10n.get("ImageSavedToJournal"));
-			}, inputData);
-		});
-
-		var isRobotOn = true;
-		var isGameStarted = false;
-		var robotButton = document.getElementById('robot-button');
-		var playButton = document.getElementById('play-button');
+				var metadata = {
+					mimetype: mimetype,
+					title: "ConnectTheDots",
+					activity: "org.olpcfrance.MediaViewerActivity",
+					timestamp: new Date().getTime(),
+					creation_time: new Date().getTime(),
+					file_size: 0
+				};
+				datastore.create(metadata, function () {
+					humane.log(l10n.get("ImageSavedToJournal"));
+				}, inputData);
+			});
+		}
 
 		var robotMenuData = [
 			{ icon: false, id: "robot-level-1", label: l10n.get("Level1") || "Level 1" },
@@ -1110,13 +1452,17 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 				}
 				if (currentMode === gameMode) {
 					if (typeof gameMode.previewGame === 'function') {
-						gameMode.previewGame(presence ? false : isRobotOn, getMySpawnIndex());
+						gameMode.previewGame(presence ? false : isRobotOn, gameMode.getMySpawnIndex());
 					}
 				}
 			}
 		});
 
 		playButton.addEventListener('click', function () {
+			if (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) return;
+			if (isHost && presence && currentMode === gameMode) {
+				gameMode.syncRoomUsersToGameMode();
+			}
 			var opponentCount = 0;
 			if (currentMode === gameMode && typeof gameMode.getOpponentCount === 'function') {
 				opponentCount = gameMode.getOpponentCount();
@@ -1128,21 +1474,19 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 			robotButton.disabled = true;
 			robotButton.style.opacity = 0.5;
 
-			if (currentMode && typeof currentMode.startGame === 'function') {
-				currentMode.startGame(presence ? false : isRobotOn, getMySpawnIndex());
-			}
 			playButton.style.display = 'none';
-			document.getElementById('restart-button').style.display = (presence && !isHost) ? 'none' : '';
+			if (restartButton) restartButton.style.display = (presence && !isHost) ? 'none' : '';
 
 			if (presence) {
-				presence.sendMessage(presence.getSharedInfo().id, {
-					user: presence.getUserInfo(),
-					content: {
-						action: 'start-game',
-						mode: 'game'
-					}
-				});
+				if (currentMode && typeof currentMode.startGame === 'function') {
+					currentMode.startGame(false, gameMode.getMySpawnIndex());
+				}
+				sendPresenceMessage(gameMode.buildRosterContent('start-game'));
 				broadcastUpdate();
+			} else {
+				if (currentMode && typeof currentMode.startGame === 'function') {
+					currentMode.startGame(isRobotOn, gameMode.getMySpawnIndex());
+				}
 			}
 		});
 
@@ -1229,54 +1573,45 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 
 		function onGameModeOpponentCountChanged(count) {
 			if (currentMode !== gameMode || isGameStarted) return;
-			if (presence) {
-				var pb = document.getElementById('play-button');
+			if (typeof gameMode.isExcluded === 'function' && gameMode.isExcluded()) {
+				if (playButton) {
+					playButton.style.display = 'none';
+					playButton.disabled = true;
+				}
+				return;
+			}
+			if (presence && playButton) {
 				if (count > 0 && isHost) {
-					pb.disabled = false;
-					pb.style.opacity = 1;
+					playButton.disabled = false;
+					playButton.style.opacity = 1;
 				} else {
-					pb.disabled = true;
-					pb.style.opacity = 0.5;
+					playButton.disabled = true;
+					playButton.style.opacity = 0.5;
 				}
 			}
 		}
-		gameMode.init(dots, broadcastUpdate, spacing, onGameModeOpponentCountChanged, function(event, subjectName, subjectColor, objectName, isSubLocal, isObjLocal, subjectId, objectId) {
-			formatAndLogNotification(event, subjectName, subjectColor, objectName);
-			if (presence) {
-				var myId = presence.getUserInfo().networkId;
-				presence.sendMessage(presence.getSharedInfo().id, {
-					user: presence.getUserInfo(),
-					content: {
-						action: 'notification',
-						event: event,
-						subjectName: subjectName,
-						subjectColor: subjectColor,
-						objectName: objectName,
-						subjectId: isSubLocal ? myId : subjectId,
-						objectId: isObjLocal ? myId : objectId
-					}
-				});
-			}
+		gameMode.init(dots, broadcastUpdate, spacing, onGameModeOpponentCountChanged, function (event) {
 
 			// Handle single-player game over
-			if (!presence && (event === 'win' || event === 'gameWon' || event === 'eliminated' || event === 'hitWall' || event === 'intercepted')) {
+			if (!presence && (event === 'win' || event === 'gameWon' || event === 'eliminated' || event === 'hitWall' || event === 'intercepted' || event === 'tie' || event === 'eliminatedEachOther')) {
 				isGameStarted = false;
 				if (robotButton) {
 					robotButton.disabled = false;
 					robotButton.style.opacity = 1;
 				}
-				var pb = document.getElementById('play-button');
-				var rb = document.getElementById('restart-button');
-				if (pb) {
-					pb.style.display = 'none';
+				if (playButton) {
+					playButton.style.display = 'none'; // Keep play button hidden, use restart to play again
 				}
-				if (rb) {
-					rb.style.display = '';
-					rb.disabled = false;
-					rb.style.opacity = 1;
+				if (restartButton) {
+					restartButton.style.display = ''; // Keep restart button visible
+					restartButton.disabled = false;
+					restartButton.style.opacity = 1;
 				}
 			}
 		});
+		if (typeof gameMode.setMessageSender === 'function') {
+			gameMode.setMessageSender(sendRawPresenceMessage);
+		}
 		if (typeof numberMode.setBuddyColors === 'function') {
 			numberMode.setBuddyColors(buddyStroke, buddyFill);
 		}
@@ -1287,7 +1622,7 @@ define(["sugar-web/activity/activity", "sugar-web/env", "l10n", "sugar-web/graph
 		if (modeInvoker) {
 			modeInvoker.style.backgroundImage = "url('icons/mode-draw.svg')";
 		}
-		document.getElementById("draw-button").classList.add('active');
-		document.getElementById("erase-button").classList.remove('active');
+		if (drawButton) drawButton.classList.add('active');
+		if (eraseButton) eraseButton.classList.remove('active');
 	});
 });

@@ -175,5 +175,8 @@
 	"eliminated": "eliminó a",
 	"hasBeenIntercepted": "ha sido interceptado",
 	"eliminatedEachOther": "se eliminaron entre sí",
-	"wonTheGame": "ha ganado el juego!"
+	"itsTie": "¡Es un empate!",
+	"and": "y",
+	"wonTheGame": "ha ganado el juego!",
+	"MaxPlayersReached": "Se ha alcanzado el número máximo de jugadores (8 jugadores máx.)"
 }
