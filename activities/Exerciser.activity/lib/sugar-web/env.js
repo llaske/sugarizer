@@ -29,7 +29,7 @@ define(function () {
 					callback(null, window.top.sugar.environment);
 				});
 			} else {
-				window.top.sugar.environment.user = localStorage.sugar_settings ? JSON.parse(localStorage.sugar_settings) : {};
+				window.top.sugar.environment.user = JSON.parse(localStorage.sugar_settings);
 				setTimeout(function () {
 					callback(null, window.top.sugar.environment);
 				}, 0);
@@ -83,7 +83,7 @@ define(function () {
     };
 
     env.isSugarizer = function() {
-        // DEPRECATED: This method was there to detect execution outside Sugarizer - aka on Sugar
+		// HACK: Automatic deduction that in Sugarizer
         return true;
     };
 

@@ -83,9 +83,9 @@
 	},
 	"build": {
 		"appId": "org.olpc-france.sugarizer",
-		"copyright": "Copyright © 2013-2024, Lionel Laské, Sugar Labs Inc. and Contributors",
+		"copyright": "Copyright © 2013-2026, Lionel Laské, Sugar Labs Inc. and Contributors",
 		"productName": "Sugarizer",
-		"electronVersion": "22.3.1",
+		"electronVersion": "41.3.0",
 		"mac": {
 		  "category": "public.app-category.education"
 		},

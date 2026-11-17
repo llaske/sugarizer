@@ -175,6 +175,8 @@ const Journal = {
 						@click="runCurrentActivity(entry)"
 						@mouseover="showPopupTimer($event, entry.objectId, entry.popupData)"
 						@mouseleave="removePopupTimer"
+						@touchstart="showPopupTouchTimer($event, entry.objectId, entry.popupData)"
+						@touchend="removePopupTouchTimer($event)"
 					></icon>
 					<div v-if="!entry.isEditingTitle" class="activity-name nonEditing" @click="titleEditStart(entry)">{{ entry.metadata.title }}</div>
 					<input v-else ref="titleInput" class="activity-name" v-model="entry.metadata.title" @blur="titleEditEnd(entry)" @keyup.enter="titleEditEnd(entry)" />
@@ -198,6 +200,8 @@ const Journal = {
 								isNative="true"
 								@mouseover="showPopupTimer($event, 'assgn-inst-'+idx, entry.assignmentData.popup)"
 								@mouseleave="removePopupTimer"
+								@touchstart="showPopupTouchTimer($event, 'assgn-inst-'+idx, entry.assignmentData.popup)"
+								@touchend="removePopupTouchTimer($event)"
 							/>
 						</div>
 						<div style="width: 40px">
@@ -1050,6 +1054,15 @@ const Journal = {
 				data
 			);
 		},
+		showPopupTouchTimer(e, iconRef, data) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			if (e.touches && e.touches.length > 0) {
+				const touch = e.touches[0];
+				this.showPopupTimer({ clientX: touch.clientX, clientY: touch.clientY }, iconRef, data);
+			}
+		},
 		showPopup(e, iconRef, popupData) {
 			if (this.$refs.popup.isShown && this.popupIconRef !== iconRef)
 				this.removePopup(e); //remove before updating iconRef
@@ -1070,6 +1083,13 @@ const Journal = {
 				this.constant.timerPopupDuration,
 				e
 			);
+		},
+		removePopupTouchTimer(e) {
+			if (!(sugarizer.constant.platform.ios || sugarizer.constant.platform.androidChrome)) {
+				return;
+			}
+			const touch = e.changedTouches && e.changedTouches.length > 0 ? e.changedTouches[0] : null;
+			this.removePopupTimer({ clientX: touch ? touch.clientX : 0, clientY: touch ? touch.clientY : 0 });
 		},
 		removePopup(e) {
 			const popupIcon = this.$refs[this.popupIconRef]?.[0];

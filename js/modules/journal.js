@@ -272,12 +272,11 @@ define(["sugar-web/datastore"], function(datastore) {
 			}
 			sugarizer.modules.server.getJournal(sugarizer.modules.user.getPrivateJournal(), request, sugarizer.modules.user.getServerURL()).then((remoteJournal) => {
 					syncEntries(localJournal, remoteJournal.entries, function(local, remote, error) {
-						if (error) {
-							reject(error);
-						} else {
-							journal.load();
-							resolve(local, remote);
+						if (error > 0) {
+							console.log("WARNING: Journal sync completed with " + error + " error(s)");
 						}
+						journal.load();
+						resolve(local, remote);
 						emitSynchronization("end", local, remote);
 					});
 				},

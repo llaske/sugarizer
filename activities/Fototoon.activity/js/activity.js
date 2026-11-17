@@ -41,6 +41,7 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
         mainCanvas.width = mainCanvas.height * 4 / 3;
         mainCanvas.style.left = ((window.innerWidth - mainCanvas.width) / 2) + "px";
 
+        var resizeTimeout;
         // Handle window resize
         window.addEventListener('resize', function () {
             // Calculate new dimensions
@@ -51,11 +52,55 @@ define(["sugar-web/activity/activity","sugar-web/datastore","sugar-web/env","tex
             newWidth = Math.floor(newWidth);
             newHeight = Math.floor(newHeight);
 
+            // Check if text editing is in progress to avoid layout glitches with virtual keyboard on tablets
+            var isEditing = document.activeElement && (document.activeElement.tagName.toLowerCase() === 'textarea' || document.activeElement.tagName.toLowerCase() === 'input');
+            
+            if (isEditing) {
+                // Visually scale the canvas via CSS to respond to window resize immediately
+                mainCanvas.style.width = newWidth + "px";
+                mainCanvas.style.height = newHeight + "px";
+                mainCanvas.style.left = ((window.innerWidth - newWidth) / 2) + "px";
+
+                // Defer the destructive CreateJS redrawing until the user finishes editing
+                if (!document.activeElement._hasResizeBlurListener) {
+                    document.activeElement._hasResizeBlurListener = true;
+                    document.activeElement.addEventListener('blur', function onBlur() {
+                        this._hasResizeBlurListener = false;
+                        this.removeEventListener('blur', onBlur);
+                        window.dispatchEvent(new Event('resize'));
+                    });
+                }
+                return;
+            }
+
+            if (resizeTimeout) {
+                clearTimeout(resizeTimeout);
+            }
+
+            // Calculate new dimensions
+            var newHeight = window.innerHeight - sugarCellSize - 5;
+            var newWidth = newHeight * 4 / 3;
+
+            // Round to prevent sub-pixel scaling issues with canvas
+            newWidth = Math.floor(newWidth);
+            newHeight = Math.floor(newHeight);
+
+
             // Center the canvas
             mainCanvas.style.left = ((window.innerWidth - newWidth) / 2) + "px";
+                        
+            // To prevent severe lag during rapid resizing, we scale the canvas via CSS immediately
+            mainCanvas.style.width = newWidth + "px";
+            mainCanvas.style.height = newHeight + "px";
 
-            // Call the resize method which preserves state
-            toonModel.resize(newWidth, newHeight);
+
+            resizeTimeout = setTimeout(function() {
+                // Remove the CSS width/height so the actual canvas dimensions take over
+                mainCanvas.style.width = "";
+                mainCanvas.style.height = "";
+                // Call the resize method which preserves state
+                toonModel.resize(newWidth, newHeight);
+            }, 300);
         });
 
 

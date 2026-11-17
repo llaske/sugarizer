@@ -19,6 +19,7 @@
 	"NumberOfMoons": "Nombre de lunes:",
 	"PlanetRadius": "Rayon de la planète:",
 	"SunDistance": "Distance du soleil:",
+	"PlanetImageSaved": "Image de {{planet}} enregistrée dans le journal",
 	"TutoExplainTitle": "Activité Planets",
 	"TutoExplainContent": "Bienvenue dans l'activité Planets. Cette activité vous permet d'explorer les planètes en 3D",
 	"TutoPlanetImage": "Images de la planète",

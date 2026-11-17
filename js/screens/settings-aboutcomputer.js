@@ -65,7 +65,7 @@ const AboutComputer = {
 						<div class="computer-line" ></div>							
 						<div class="computer-line" ></div>
 						<div class="computer-copyright" >{{$t('Copyright')}}</div>
-						<div class="computer-contributor" >© 2013-2023 Lionel Laské, Sugar Labs Inc and&nbsp;</div>
+						<div class="computer-contributor" >© 2013-2026 Lionel Laské, Sugar Labs Inc and&nbsp;</div>
 						<div class="computer-contributor-link" @click="onContributorsLinkClick">contributors</div>
 						<div class="computer-licence" >{{$t('LicenseTerms')}}</div>
 						<div class="computer-licence" >{{$t('LicenseTermsPlus')}}</div>

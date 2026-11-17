@@ -8,7 +8,7 @@
   "TutoPhotoTitle": "Photo",
   "TutoPhotoContent": "Click here to start taking a photo. The photo will be taken in 3 seconds. Smile!",
   "TutoVideoTitle": "Video",
-  "TutoVideoContent": "Click here to start taking a video. The capture will start immediately and for up to 5 seconds",
+  "TutoVideoContent": "Click here to start taking a video. The capture will start immediately and for up to 15 seconds",
   "TutoAudioTitle": "Audio",
   "TutoAudioContent": "Click here to start recording the sound from your microphone. The capture will start immediately and for up to 5 seconds"
 }
