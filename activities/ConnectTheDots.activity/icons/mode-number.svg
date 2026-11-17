@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY stroke_color "#010101">
+	<!ENTITY fill_color "#FFFFFF">
+]>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="55px" height="55px" viewBox="0 0 55 55">
+<g fill="&fill_color;" stroke="&fill_color;" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Solid line from 1 to 2 -->
+    <path fill="none" stroke-width="3.5" d="M 14.5,40.5 L 27.5,17.98" />
+    
+    <!-- Lines with gap (dashed) from 2 to 3 and 3 to 1 (informing need to fill) -->
+    <path fill="none" stroke-width="3" stroke-dasharray="4,4" d="M 27.5,17.98 L 40.5,40.5" />
+    <path fill="none" stroke-width="3" stroke-dasharray="4,4" d="M 40.5,40.5 L 14.5,40.5" />
+    
+    <!-- Constellation Dots (forming a mathematically perfect equilateral triangle) -->
+    <circle cx="14.5" cy="40.5" r="4.5" stroke="none" />
+    <circle cx="27.5" cy="17.98" r="4.5" stroke="none" />
+    <circle cx="40.5" cy="40.5" r="4.5" stroke="none" />
+    
+    <!-- Large Bold Readable Numbers (positioned safely inside 0..55 viewBox) -->
+    <text x="7.5" y="45" font-size="14" font-family="Arial, sans-serif" font-weight="bold" fill="&fill_color;" stroke="none" text-anchor="end">1</text>
+    <text x="27.5" y="12.5" font-size="14" font-family="Arial, sans-serif" font-weight="bold" fill="&fill_color;" stroke="none" text-anchor="middle">2</text>
+    <text x="47.5" y="45" font-size="14" font-family="Arial, sans-serif" font-weight="bold" fill="&fill_color;" stroke="none" text-anchor="start">3</text>
+</g>
+</svg>

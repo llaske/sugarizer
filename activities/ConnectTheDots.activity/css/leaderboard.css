@@ -1,0 +1,245 @@
+#leaderboard-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+#end-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.leaderboard-main {
+  width: 90%;
+  height: 90%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding-top: 50px;
+}
+
+.btn-see-leaderboard {
+  position: absolute;
+  bottom: 20px;
+  right: 140px;
+  width: 100px;
+  height: 100px;
+  background-image: url(../icons/leaderboard.svg);
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  background-color: #f0a30a;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.1s;
+}
+
+.btn-restart-challenge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  background-image: url(../icons/restart-black.svg);
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  background-color: #f0a30a;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  transition: transform 0.1s;
+}
+
+.btn-see-leaderboard:hover, .btn-restart-challenge:hover {
+  transform: scale(1.05);
+}
+
+
+.leaderboard-main-header {
+  width: 90%;
+  height: 50px;
+  background-color: #808080;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  align-items: center;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.leaderboard-main-body {
+  width: 90%;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  padding-bottom: 20px;
+}
+
+.leaderboard-panel-container {
+  width: 100%;
+  height: 180px;
+  border: 4px solid #808080;
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.leaderboard-item {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.leaderboard-item-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.end-top-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 20px;
+}
+
+.end-total-box {
+  width: 45%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  color: black;
+  background-color: #f0a30a;
+}
+
+.completed-figures-grid {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 90%;
+  max-width: 1000px;
+  margin-top: 20px;
+  margin-bottom: 80px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.completed-figure-card {
+  width: 220px;
+  height: 260px;
+  min-width: 0;
+  min-height: 0;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.completed-figure-card:hover {
+  transform: scale(1.02);
+}
+
+.completed-figure-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.completed-figure-card .card-time {
+  display: flex;
+  align-items: center;
+}
+
+.completed-figure-card .card-clock-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url(../icons/clock.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 8px;
+}
+
+.completed-figure-card .card-score {
+  text-align: right;
+}
+
+.completed-figure-card .card-thumbnail {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.completed-figure-card .card-thumbnail svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto !important;
+  height: auto !important;
+}
+
+
