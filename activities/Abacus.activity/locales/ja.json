@@ -1,0 +1,17 @@
+{
+	"TutoPrev": "戻る",
+	"TutoNext": "次へ",
+	"TutoEnd": "完了",
+	"TutoExplainTitle": "Abacus アクティビティ",
+	"TutoExplainContent": "Abacus アクティビティへようこそ。Abacus では、古代ローマや中国で生まれたいろいろな機械式の数え方を使って、数の表し方を学べます。",
+	"TutoAbacusTitle": "そろばんの選択",
+	"TutoAbacusContent": "ここをクリックすると、使うそろばんの種類を選べます。小数を扱えるもの、分数を扱えるもの、2進数を扱えるものがあり、自分だけのそろばんを作ることもできます。",
+	"TutoCustomTitle": "カスタム",
+	"TutoCustomContent": "ここをクリックすると、オリジナルのそろばんを作れます。棒の数、段の数、基数を自分で決められます。",
+	"TutoCopyTitle": "コピー",
+	"TutoCopyContent": "ここをクリックすると、今の値をクリップボードにコピーできます。",
+	"TutoClearTitle": "クリア",
+	"TutoClearContent": "ここをクリックすると、そろばんの値を0に戻せます。",
+	"TutoCanvasTitle": "そろばん",
+	"TutoCanvasContent": "ここがそろばんです。玉をクリックするか、真ん中の方へドラッグすると、数を表せます。"
+}
