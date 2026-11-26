@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Speak.activity crashes or breaks when Enter is held after typing text #2182
 - Blank window on unsupported locales #2202
 - Physics: Small shapes continue floating after disabling Water Mode #2200
+- Bug in Human Body when clicking more than once #2208
 
 ## [2.0.0] - 2026-07-17
 ### Added
