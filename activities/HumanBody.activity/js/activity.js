@@ -68,6 +68,7 @@ define([
 
 
 		let failedAttempts = 0;
+		let nextQuestionTimer = null;
 		const REMINDER_AFTER_ATTEMPTS = 3; // Show reminder after 3 failed attempts
 
 		// Body parts data for different models
@@ -579,6 +580,8 @@ define([
 				modelPaintData[currentModelName] = [...partsColored];
 			}
 
+			cancelNextQuestion();
+
 			// Stop any ongoing tour before switching models
 			if (isTourActive && tourTimer) {
 				clearTimeout(tourTimer);
@@ -834,7 +837,8 @@ define([
 						}
 
 						// Move to next question after a delay
-						setTimeout(() => {
+						nextQuestionTimer = setTimeout(() => {
+							nextQuestionTimer = null;
 							presenceIndex++;
 							startDoctorModePresence();
 						}, 2000);
@@ -1541,6 +1545,7 @@ define([
 		}
 
 		function startDoctorMode() {
+			cancelNextQuestion();
 			shownParts = []; // Reset shown parts
 			currentBodyPartIndex = getRandomUnshownPartIndex();
 			presenceIndex = currentBodyPartIndex;
@@ -1560,6 +1565,7 @@ define([
 		}
 
 		function startDoctorModePresence() {
+			cancelNextQuestion();
 			failedAttempts = 0;
 
 			// Check if all parts have been shown
@@ -1598,7 +1604,13 @@ define([
 		}
 		
 
+		function cancelNextQuestion() {
+			clearTimeout(nextQuestionTimer);
+			nextQuestionTimer = null;
+		}
+
 		function stopDoctorMode() {
+			cancelNextQuestion();
 			if (modal) {
 				document.body.removeChild(modal);
 				modal = null;
@@ -2292,6 +2304,8 @@ define([
 		// handle the click event for doctor mode checks if the clicked object is the correct body part
 
 		function handleDoctorMode(object) {
+			if (nextQuestionTimer) return;
+
 			// Safety check: ensure object is a mesh with material
 			if (!object || !object.isMesh || !object.material) {
 				console.warn("Doctor mode clicked but object is not a valid mesh:", object);
@@ -2349,7 +2363,8 @@ define([
 
 						// Move to next question
 						presenceIndex++;
-						setTimeout(() => {
+						nextQuestionTimer = setTimeout(() => {
+							nextQuestionTimer = null;
 							startDoctorModePresence();
 						}, 2000);
 					} else {
@@ -2422,7 +2437,8 @@ define([
 					showModal(l10n.get("Correct"));
 
 					// After delay, get next random part
-					setTimeout(() => {
+					nextQuestionTimer = setTimeout(() => {
+						nextQuestionTimer = null;
 						// Get next random part index
 						currentBodyPartIndex = getRandomUnshownPartIndex();
 						shownParts.push(currentBodyPartIndex);
