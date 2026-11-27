@@ -41,8 +41,24 @@ var EbookReader = {
 			var options = this.computeScreenSize();
 			document.getElementById("left").style.height = options.height + "px";
 			document.getElementById("right").style.height = options.height + "px";
+			this.fixLocalBaseUrl(book);
 			this.rendition = book.renderTo("area", options);
 			this.rendition.display(location);
+		},
+
+		// Firefox returns "null" as origin for local files, so epub.js sets the
+		// base URL of each page to "null/..." and links in the book can't be found
+		fixLocalBaseUrl: function(book) {
+			if (book.localBaseUrlFixed) {
+				return;
+			}
+			book.localBaseUrlFixed = true;
+			book.spine.hooks.content.register(function(doc) {
+				var base = doc.querySelector("base");
+				if (base && base.getAttribute("href").indexOf("null/") == 0) {
+					base.setAttribute("href", "file://" + base.getAttribute("href").substring(4));
+				}
+			});
 		},
 
 		nextPage: function() {
