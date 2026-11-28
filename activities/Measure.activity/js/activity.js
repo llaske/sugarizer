@@ -1022,7 +1022,7 @@ var app = new Vue({
 		},
 		getSessionDate: function(){
 			var d = new Date()
-			var completeDate = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+			var completeDate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 			var completeTime = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
 			return completeDate + ' ' + completeTime;
 		},
