@@ -93,7 +93,7 @@ function main(Progress, Stopwatch, l10n, color, datastore) {
     });
     datastore.save(function (err) {
       if (err) {
-        console.errror(err);
+        console.error(err);
       }
     });
   }
